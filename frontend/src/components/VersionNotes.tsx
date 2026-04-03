@@ -9,6 +9,41 @@ export default function VersionNotes({ onBack }: { onBack: () => void }) {
 
         <div className="space-y-6 text-sm">
           <section>
+            <h2 className="text-amber-400 text-lg font-bold mb-1">v0.91 &mdash; April 3, 2026</h2>
+            <p className="text-gray-400 mb-3">Major systems expansion &mdash; script engine, world systems, and player features.</p>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Script Engine</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>80+ script variables for conditions (stats, resources, room info, time, weather, flags)</li>
+                  <li>IFSAY blocks &mdash; NPCs and objects respond to what you say</li>
+                  <li>AFFECT for multi-room script effects</li>
+                  <li>Environmental damage, random events, forced positioning</li>
+                  <li>Full string substitution: pronouns, item names, newlines, converted numbers</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">World Systems</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>In-game clock and calendar with day/night cycle</li>
+                  <li>Monsters spawn in rooms and appear in descriptions</li>
+                  <li>Weather system with 15 states shown in outdoor rooms</li>
+                  <li>Dark rooms require light sources to see</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">New Commands</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Drink, light/extinguish, flip, latch/unlatch</li>
+                  <li>Banking (deposit/withdraw in bank rooms)</li>
+                  <li>Skill training with 36 named skills</li>
+                  <li>150+ spells registered across 5 schools (casting coming soon)</li>
+                  <li>Mining, foraging, and crafting commands (stubs for now)</li>
+                </ul>
+              </div>
+            </div>
+
             <h2 className="text-amber-400 text-lg font-bold mb-1">v0.9 &mdash; April 3, 2026</h2>
             <p className="text-gray-400 mb-3">First public release of Legends of Future Past, resurrected from the original 1990s script files.</p>
 

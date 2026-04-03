@@ -1,5 +1,61 @@
 # Changelog
 
+## v0.91 — 2026-04-03
+
+### Script Engine Expansion
+- **80+ variables** supported in IFVAR conditions: player stats (STR/AGI/CON/QUI/WIL/PER/EMP), resources (BODYPOINTS/MANAPOINTS/PSIPOINTS/FATPOINTS), state (DEAD/FLYING/KNEELING/HIDDEN), organization (ORG/ORGRANK/ALIGN), room info (RNUM/OUTDOOR/TERRAIN/PLRSINROOM/MONINROOM), time (TIM/DAY/NIGHT/DATE/MONTH/YEAR), weather (WEA), exits (EXITN/EXITS/etc.), flags (FLAG1-4), skills (SKILL0-35)
+- **IFSAY** script blocks now execute on player speech (enables NPC dialogue and quest triggers)
+- **IFCARRY** condition checks if player carries a specific item
+- **IFNOITEM** condition (negation of IFITEM)
+- **IFTOUCH** block execution for touch-type verbs
+- **AFFECT** action switches script context to another room for multi-room effects
+- **RANDOM** action for random number generation in scripts
+- **DAMAGEPLR** action for environmental damage (traps, falls)
+- **STRCVT** action with %0-%9 string substitution in ECHO text
+- **POSITION** action forces player position from scripts
+- **String substitution** expanded: %s (he/she), %i (him/her), %h (his/her), %p (group name), %m (monster), %c (newline), %0-%9 (STRCVT)
+
+### World Systems
+- **In-game clock and calendar**: 343-day year, 12 months, day/night cycle (1 real minute = 1 game hour)
+- **Monster spawning**: Monsters populate rooms from MonsterList data, displayed in room descriptions
+- **Weather system**: 15 weather states per region, shown in outdoor room descriptions
+- **Room lighting**: Dark rooms require light sources; DAY_LIGHT rooms dark at night
+
+### New Commands
+- **DRINK/SIP**: Consume liquid/food items
+- **LIGHT/EXTINGUISH**: Light and douse LIGHTABLE items for dark room navigation
+- **FLIP**: Toggle FLIPPED/UNFLIPPED state on FLIPABLE items
+- **LATCH/UNLATCH**: Toggle latched state; latched items can't be opened
+- **DEPOSIT/WITHDRAW**: Banking in BANK rooms
+- **TRAIN**: Skill training in rooms with TRAINING definitions (36 skills)
+- **MINE**: Mining in MINEA/B/C rooms (stub)
+- **FORAGE**: Foraging in wilderness terrain (stub)
+- **CAST**: Spell casting with 150+ registered spells across 5 schools (stub behavior)
+- **CRAFT/FORGE/SMELT/WEAVE/DYE/BREW/ANALYZE**: Crafting stubs
+
+### Spell Registry
+- 150+ spells registered across 5 schools: Conjuration (100-144), Enchantment (200-250), Necromancy (301-356), General Magic (400-415), Druidic (500-538)
+- CAST command recognizes all spells by name prefix
+
+### Monster System
+- Expanded MonsterDef with 20+ new fields: alignment, magic resistance, mana, spell use, poison/disease, skin items, text overrides, guard, stealable, eternal, discorporate
+- All monster fields parsed from scripts
+- Passive monster spawning in rooms
+
+### Player Systems
+- Organization/Guild fields (ORG, ORGRANK)
+- Alignment tracking
+- Build points
+- Banking (BankGold/Silver/Copper)
+- Known spells registry
+- Transient flags (FLAG1-4, reset on room entry)
+- 36 named skills with training system
+
+### Training System
+- TRAINING room definitions parsed from scripts
+- TRAIN command with skill listing, level caps, and gold cost
+- Cost formula: (current_level+1)^2 * 10 copper per level
+
 ## v0.9 — 2026-04-03
 
 ### Game Engine

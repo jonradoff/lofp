@@ -94,16 +94,34 @@ type Player struct {
 	Wielded   *InventoryItem  `bson:"wielded,omitempty" json:"wielded,omitempty"`
 	Worn      []InventoryItem `bson:"worn" json:"worn"`
 
-	// Currency (in copper)
+	// Currency (carried)
 	Gold   int `bson:"gold" json:"gold"`
 	Silver int `bson:"silver" json:"silver"`
 	Copper int `bson:"copper" json:"copper"`
 
+	// Currency (banked)
+	BankGold   int `bson:"bankGold,omitempty" json:"bankGold,omitempty"`
+	BankSilver int `bson:"bankSilver,omitempty" json:"bankSilver,omitempty"`
+	BankCopper int `bson:"bankCopper,omitempty" json:"bankCopper,omitempty"`
+
+	// Organization / Guild
+	Organization int `bson:"organization,omitempty" json:"organization,omitempty"` // ORG
+	OrgRank      int `bson:"orgRank,omitempty" json:"orgRank,omitempty"`           // ORGRANK
+	Alignment    int `bson:"alignment,omitempty" json:"alignment,omitempty"`       // ALIGN
+	BuildPoints  int `bson:"buildPoints,omitempty" json:"buildPoints,omitempty"`
+
 	// Skills
-	Skills map[int]int `bson:"skills" json:"skills"` // skill# -> level
+	Skills      map[int]int  `bson:"skills" json:"skills"`           // skill# -> level
+	KnownSpells map[int]bool `bson:"knownSpells,omitempty" json:"knownSpells,omitempty"` // spell# -> known
 
 	// Internal variables (INTNUM0-99, flags, etc.)
 	IntNums map[int]int `bson:"intNums" json:"intNums"`
+
+	// Transient flags (reset on room entry)
+	Flag1 int `bson:"-" json:"-"`
+	Flag2 int `bson:"-" json:"-"`
+	Flag3 int `bson:"-" json:"-"`
+	Flag4 int `bson:"-" json:"-"`
 
 	// Game state
 	BriefMode    bool   `bson:"briefMode" json:"briefMode"`

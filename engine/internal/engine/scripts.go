@@ -2,6 +2,7 @@ package engine
 
 import (
 	"fmt"
+	"math/rand"
 	"strconv"
 	"strings"
 
@@ -19,6 +20,9 @@ type ScriptContext struct {
 	Blocked  bool     // CLEARVERB: block the triggering action
 	MoveTo   int      // MOVE: destination room (0 = no move)
 
+	StrVars  map[int]string // %0-%9 from STRCVT
+	OrigRoom *gameworld.Room // saved room for AFFECT
+
 	// Item interaction context (set when running IFPREVERB/IFVERB on a room item)
 	ItemRef *gameworld.RoomItem // the room item being interacted with
 	ItemDef *gameworld.ItemDef  // its archetype definition
@@ -34,6 +38,26 @@ func (e *GameEngine) RunEntryScripts(player *Player, room *gameworld.Room) *Scri
 	for _, block := range room.Scripts {
 		if block.Type == "IFENTRY" {
 			sc.execBlock(block)
+		}
+	}
+	return sc
+}
+
+// RunSayScripts executes IFSAY blocks when a player says something.
+func (e *GameEngine) RunSayScripts(player *Player, room *gameworld.Room, text string) *ScriptContext {
+	sc := &ScriptContext{
+		Player: player,
+		Room:   room,
+		Engine: e,
+	}
+	textUpper := strings.ToUpper(text)
+	for _, block := range room.Scripts {
+		if block.Type == "IFSAY" && len(block.Args) >= 1 {
+			// IFSAY args use underscores for spaces
+			pattern := strings.ToUpper(strings.ReplaceAll(block.Args[0], "_", " "))
+			if textUpper == pattern || strings.Contains(textUpper, pattern) {
+				sc.execBlock(block)
+			}
 		}
 	}
 	return sc
@@ -120,6 +144,24 @@ func (sc *ScriptContext) execBlock(block gameworld.ScriptBlock) {
 		if sc.evalIfItem(block.Args) {
 			sc.execChildren(block)
 		}
+
+	case "IFNOITEM":
+		if !sc.evalIfItem(block.Args) {
+			sc.execChildren(block)
+		}
+
+	case "IFSAY":
+		// Condition already matched by caller
+		sc.execChildren(block)
+
+	case "IFTOUCH":
+		// Condition already matched by caller (touch-type verb)
+		sc.execChildren(block)
+
+	case "IFCARRY":
+		if sc.evalIfCarry(block.Args) {
+			sc.execChildren(block)
+		}
 	}
 }
 
@@ -153,7 +195,15 @@ func (sc *ScriptContext) execAction(action gameworld.ScriptAction) {
 	case "PLREVENT", "CONTPLREVENT":
 		// Timing/event delay — not yet implemented; ignore silently
 	case "AFFECT":
-		// Room synchronization — not yet implemented; ignore silently
+		sc.doAffect(action.Args)
+	case "RANDOM":
+		sc.doRandom(action.Args)
+	case "DAMAGEPLR":
+		sc.doDamagePlr(action.Args)
+	case "STRCVT":
+		sc.doStrCvt(action.Args)
+	case "POSITION":
+		sc.doPosition(action.Args)
 	case "ADD":
 		sc.doAdd(action.Args)
 	case "SUB":
@@ -501,17 +551,154 @@ func (sc *ScriptContext) getVar(name string) int {
 		}
 		return sc.Player.Skills[idx]
 	}
+	// EXIT variables
+	if strings.HasPrefix(name, "EXIT") {
+		dir := name[4:] // e.g., EXITN -> N, EXITS -> S
+		if sc.Room != nil {
+			if dest, ok := sc.Room.Exits[dir]; ok {
+				return dest
+			}
+		}
+		return 0
+	}
+	// FLAG variables
+	if strings.HasPrefix(name, "FLAG") {
+		idx, err := strconv.Atoi(name[4:])
+		if err != nil {
+			return 0
+		}
+		switch idx {
+		case 1: return sc.Player.Flag1
+		case 2: return sc.Player.Flag2
+		case 3: return sc.Player.Flag3
+		case 4: return sc.Player.Flag4
+		}
+		return 0
+	}
+
 	switch name {
+	// Player level/race
 	case "LEV":
 		return sc.Player.Level
 	case "RAC":
 		return sc.Player.Race
 	case "MISTFORM":
-		// Ephemeral race (8) has innate mist form; otherwise check IntNum flag
-		if sc.Player.Race == 8 {
-			return 1
+		if sc.Player.Race == 8 { return 1 }
+		return 0
+	// Player stats
+	case "STR", "STRT":
+		return sc.Player.Strength
+	case "AGI", "AGIT":
+		return sc.Player.Agility
+	case "CON", "CONT":
+		return sc.Player.Constitution
+	case "QUI", "QUIT":
+		return sc.Player.Quickness
+	case "WIL", "WILT":
+		return sc.Player.Willpower
+	case "PER", "PERT":
+		return sc.Player.Perception
+	case "EMP", "EMPT":
+		return sc.Player.Empathy
+	// Player resources
+	case "BODYPOINTS":
+		return sc.Player.BodyPoints
+	case "MAXBODY":
+		return sc.Player.MaxBodyPoints
+	case "FATPOINTS":
+		return sc.Player.Fatigue
+	case "MAXFAT":
+		return sc.Player.MaxFatigue
+	case "MANAPOINTS":
+		return sc.Player.Mana
+	case "MAXMANA":
+		return sc.Player.MaxMana
+	case "PSIPOINTS":
+		return sc.Player.Psi
+	case "MAXPSI":
+		return sc.Player.MaxPsi
+	// Player state
+	case "DEAD":
+		if sc.Player.Dead { return 1 }
+		return 0
+	case "FLYING":
+		if sc.Player.Position == 4 { return 1 }
+		return 0
+	case "KNEELING":
+		if sc.Player.Position == 3 { return 1 }
+		return 0
+	case "LAYING":
+		if sc.Player.Position == 2 { return 1 }
+		return 0
+	case "SITTING":
+		if sc.Player.Position == 1 { return 1 }
+		return 0
+	case "STANDING":
+		if sc.Player.Position == 0 { return 1 }
+		return 0
+	case "HIDDEN":
+		if sc.Player.Hidden { return 1 }
+		return 0
+	// Organization
+	case "ORG":
+		return sc.Player.Organization
+	case "ORGRANK":
+		return sc.Player.OrgRank
+	case "ALIGN":
+		return sc.Player.Alignment
+	case "POINTS":
+		return sc.Player.BuildPoints
+	// Wielded
+	case "WIELDED":
+		if sc.Player.Wielded != nil { return 1 }
+		return 0
+	case "ARCHNUM":
+		if sc.Player.Wielded != nil { return sc.Player.Wielded.Archetype }
+		return 0
+	// Room info
+	case "RNUM":
+		return sc.Player.RoomNumber
+	case "OUTDOOR":
+		if sc.Room != nil && isOutdoorTerrain(sc.Room.Terrain) { return 1 }
+		return 0
+	case "PLRSINROOM":
+		if sc.Engine.sessions != nil {
+			count := 0
+			for _, p := range sc.Engine.sessions.OnlinePlayers() {
+				if p.RoomNumber == sc.Player.RoomNumber { count++ }
+			}
+			return count
+		}
+		return 1
+	case "MONINROOM":
+		if sc.Engine.monsterMgr != nil {
+			return len(sc.Engine.monsterMgr.MonstersInRoom(sc.Player.RoomNumber))
 		}
 		return 0
+	// Time
+	case "TIM":
+		return GameHour()
+	case "DAY":
+		if IsDay() { return 1 }
+		return 0
+	case "NIGHT":
+		if IsNight() { return 1 }
+		return 0
+	case "DATE":
+		return GameDay()
+	case "MONTH":
+		return GameMonth()
+	case "YEAR":
+		return GameYear()
+	// Weather
+	case "WEA":
+		if sc.Engine.RegionWeather != nil {
+			return sc.Engine.RegionWeather[0] // default region
+		}
+		return 0
+	// Gender
+	case "GEN", "GENT":
+		return sc.Player.Gender
 	}
 	return 0
 }
@@ -546,13 +733,38 @@ func (sc *ScriptContext) setVar(name string, val int) {
 		case 5:
 			sc.ItemRef.Val5 = val
 		}
-		// Sync full item snapshot to other machines
 		itemCopy := *sc.ItemRef
 		sc.Engine.notifyRoomChange(RoomChange{
 			RoomNumber: sc.Room.Number, Type: "item_update",
 			ItemRef: sc.ItemRef.Ref, Item: &itemCopy,
 		})
 		return
+	}
+	if strings.HasPrefix(name, "FLAG") {
+		idx, _ := strconv.Atoi(name[4:])
+		switch idx {
+		case 1: sc.Player.Flag1 = val
+		case 2: sc.Player.Flag2 = val
+		case 3: sc.Player.Flag3 = val
+		case 4: sc.Player.Flag4 = val
+		}
+		return
+	}
+	switch name {
+	case "ORG":
+		sc.Player.Organization = val
+	case "ORGRANK":
+		sc.Player.OrgRank = val
+	case "ALIGN":
+		sc.Player.Alignment = val
+	case "BODYPOINTS":
+		sc.Player.BodyPoints = val
+	case "MANAPOINTS":
+		sc.Player.Mana = val
+	case "PSIPOINTS":
+		sc.Player.Psi = val
+	case "FATPOINTS":
+		sc.Player.Fatigue = val
 	}
 }
 
@@ -572,25 +784,156 @@ func (sc *ScriptContext) resolveNumericArg(arg string) int {
 }
 
 // expandScriptText replaces script placeholders in text.
+// evalIfCarry checks if player carries an item with matching archetype (and optional adj).
+func (sc *ScriptContext) evalIfCarry(args []string) bool {
+	if len(args) < 1 {
+		return false
+	}
+	archetype, err := strconv.Atoi(args[0])
+	if err != nil {
+		return false
+	}
+	adj := -1
+	if len(args) >= 2 {
+		adj, _ = strconv.Atoi(args[1])
+	}
+	for _, ii := range sc.Player.Inventory {
+		if ii.Archetype == archetype {
+			if adj < 0 || ii.Adj1 == adj {
+				return true
+			}
+		}
+	}
+	return false
+}
+
+// doAffect switches script context to a different room.
+func (sc *ScriptContext) doAffect(args []string) {
+	if len(args) == 0 {
+		return
+	}
+	roomNum := sc.resolveNumericArg(args[0])
+	if roomNum > 0 {
+		if room := sc.Engine.rooms[roomNum]; room != nil {
+			if sc.OrigRoom == nil {
+				sc.OrigRoom = sc.Room
+			}
+			sc.Room = room
+		}
+	}
+}
+
+// doRandom sets a variable to a random value.
+func (sc *ScriptContext) doRandom(args []string) {
+	if len(args) < 2 {
+		return
+	}
+	varName := strings.ToUpper(args[0])
+	max, err := strconv.Atoi(args[1])
+	if err != nil || max <= 0 {
+		return
+	}
+	sc.setVar(varName, rand.Intn(max))
+}
+
+// doDamagePlr applies damage to the player.
+func (sc *ScriptContext) doDamagePlr(args []string) {
+	if len(args) < 2 {
+		return
+	}
+	// DAMAGEPLR BODYONLY <amount> <text...>
+	// or DAMAGEPLR <amount> <text...>
+	idx := 0
+	if strings.ToUpper(args[0]) == "BODYONLY" {
+		idx = 1
+	}
+	if idx >= len(args) {
+		return
+	}
+	amount, err := strconv.Atoi(args[idx])
+	if err != nil {
+		return
+	}
+	sc.Player.BodyPoints -= amount
+	if sc.Player.BodyPoints < 0 {
+		sc.Player.BodyPoints = 0
+	}
+	if idx+1 < len(args) {
+		text := strings.Join(args[idx+1:], " ")
+		sc.Messages = append(sc.Messages, sc.expandScriptText(text))
+	}
+}
+
+// doStrCvt converts a variable to a string for %0-%9 substitution.
+func (sc *ScriptContext) doStrCvt(args []string) {
+	if len(args) < 2 {
+		return
+	}
+	digit, err := strconv.Atoi(args[0])
+	if err != nil || digit < 0 || digit > 9 {
+		return
+	}
+	varName := strings.ToUpper(args[1])
+	val := sc.getVar(varName)
+	if sc.StrVars == nil {
+		sc.StrVars = make(map[int]string)
+	}
+	sc.StrVars[digit] = strconv.Itoa(val)
+}
+
+// doPosition forces the player into a position.
+func (sc *ScriptContext) doPosition(args []string) {
+	if len(args) == 0 {
+		return
+	}
+	switch strings.ToUpper(args[0]) {
+	case "STAND":
+		sc.Player.Position = 0
+	case "SIT":
+		sc.Player.Position = 1
+	case "LAY":
+		sc.Player.Position = 2
+	case "KNEEL":
+		sc.Player.Position = 3
+	}
+}
+
 func (sc *ScriptContext) expandScriptText(text string) string {
+	// Player name
 	text = strings.ReplaceAll(text, "%N", sc.Player.FirstName)
 	text = strings.ReplaceAll(text, "%n", sc.Player.FirstName)
+	// Group name (just player name for now)
+	text = strings.ReplaceAll(text, "%p", sc.Player.FirstName)
+	text = strings.ReplaceAll(text, "%P", sc.Player.FirstName)
+	// Item name
 	if sc.ItemRef != nil && sc.ItemDef != nil {
-		itemName := "it"
-		if name, ok := sc.Engine.nouns[sc.ItemDef.NameID]; ok {
-			itemName = name
-		}
+		itemName := sc.Engine.formatItemName(sc.ItemDef, sc.ItemRef.Adj1, sc.ItemRef.Adj2, sc.ItemRef.Adj3)
 		text = strings.ReplaceAll(text, "%a", itemName)
 	}
-	// Gender-based pronouns
+	// Monster name (empty for now)
+	text = strings.ReplaceAll(text, "%m", "")
+	// Newline
+	text = strings.ReplaceAll(text, "%c", "\n")
+	// Gender-based pronouns (canonical from manual)
 	if sc.Player.Gender == 0 {
 		text = strings.ReplaceAll(text, "%h", "his")
-		text = strings.ReplaceAll(text, "%e", "he")
-		text = strings.ReplaceAll(text, "%o", "him")
+		text = strings.ReplaceAll(text, "%s", "he")
+		text = strings.ReplaceAll(text, "%i", "him")
 	} else {
 		text = strings.ReplaceAll(text, "%h", "her")
-		text = strings.ReplaceAll(text, "%e", "she")
-		text = strings.ReplaceAll(text, "%o", "her")
+		text = strings.ReplaceAll(text, "%s", "she")
+		text = strings.ReplaceAll(text, "%i", "her")
+	}
+	// Legacy aliases
+	text = strings.ReplaceAll(text, "%e", func() string { if sc.Player.Gender == 0 { return "he" }; return "she" }())
+	text = strings.ReplaceAll(text, "%o", func() string { if sc.Player.Gender == 0 { return "him" }; return "her" }())
+	// STRCVT %0-%9
+	if sc.StrVars != nil {
+		for i := 0; i <= 9; i++ {
+			if v, ok := sc.StrVars[i]; ok {
+				text = strings.ReplaceAll(text, fmt.Sprintf("%%%d", i), v)
+			}
+		}
 	}
 	return text
 }

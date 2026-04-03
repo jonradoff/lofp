@@ -64,6 +64,9 @@ type GameEngine struct {
 	startRoom       int
 	sessions        SessionProvider
 	onRoomChange    RoomChangeCallback
+	monsterMgr      *monsterManager
+	RegionWeather   map[int]int // region -> weather state
+	monsterLists    []gameworld.MonsterList
 }
 
 // SetSessionProvider sets the session provider (called by API layer after init).
@@ -151,6 +154,15 @@ func NewGameEngine(db *mongo.Database, parsed *gameworld.ParsedData) *GameEngine
 	for i := range parsed.Monsters {
 		e.monsters[parsed.Monsters[i].Number] = &parsed.Monsters[i]
 	}
+
+	// Initialize monster manager and spawn initial monsters
+	e.monsterMgr = newMonsterManager()
+	e.monsterLists = parsed.MonsterLists
+	e.monsterMgr.SpawnInitialMonsters(parsed.MonsterLists, e.monsters)
+
+	// Initialize weather (all regions sunny)
+	e.RegionWeather = make(map[int]int)
+
 	return e
 }
 
@@ -222,10 +234,25 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 		if player.SpeechAdverb != "" {
 			adverb = player.SpeechAdverb + " "
 		}
-		return &CommandResult{
+		result := &CommandResult{
 			Messages:      []string{fmt.Sprintf("You %s%s, \"%s\"", adverb, verb, msg)},
 			RoomBroadcast: []string{fmt.Sprintf("%s %s%s, \"%s\"", player.FirstName, adverb, thirdVerb, msg)},
 		}
+		// Run IFSAY scripts
+		room := e.rooms[player.RoomNumber]
+		if room != nil {
+			sc := e.RunSayScripts(player, room, msg)
+			if len(sc.Messages) > 0 {
+				result.Messages = append(result.Messages, sc.Messages...)
+			}
+			if len(sc.RoomMsgs) > 0 {
+				result.RoomBroadcast = append(result.RoomBroadcast, sc.RoomMsgs...)
+			}
+			if len(sc.GMMsgs) > 0 {
+				result.GMBroadcast = append(result.GMBroadcast, sc.GMMsgs...)
+			}
+		}
+		return result
 	}
 
 	parts := strings.Fields(strings.ToUpper(input))
@@ -435,12 +462,38 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 		return e.doRead(player, args)
 	case "PULL", "PUSH", "TURN", "RUB", "TAP", "TOUCH", "SEARCH", "DIG", "RECALL":
 		return e.doItemInteraction(ctx, player, verb, args)
-	case "CAST", "CONCENTRATE":
-		return &CommandResult{Messages: []string{"Magic and special powers are not implemented yet, coming soon."}}
+	case "CAST":
+		return e.doCast(player, args)
+	case "CONCENTRATE":
+		return &CommandResult{Messages: []string{"You concentrate deeply... [Psionics coming soon.]"}}
 	case "BUY":
 		return e.doBuy(ctx, player, args)
 	case "SELL":
 		return e.doSell(ctx, player, args)
+	case "DRINK", "SIP":
+		return e.doDrink(ctx, player, args)
+	case "LIGHT":
+		return e.doLight(ctx, player, args, true)
+	case "EXTINGUISH", "DOUSE":
+		return e.doLight(ctx, player, args, false)
+	case "FLIP":
+		return e.doFlip(ctx, player, args)
+	case "LATCH":
+		return e.doLatch(player, args, true)
+	case "UNLATCH":
+		return e.doLatch(player, args, false)
+	case "DEPOSIT":
+		return e.doDeposit(ctx, player, args)
+	case "WITHDRAW":
+		return e.doWithdraw(ctx, player, args)
+	case "TRAIN":
+		return e.doTrain(ctx, player, args)
+	case "MINE":
+		return e.doMine(player)
+	case "FORAGE":
+		return e.doForage(player)
+	case "CRAFT", "FORGE", "SMELT", "WEAVE", "DYE", "BREW", "ANALYZE":
+		return &CommandResult{Messages: []string{fmt.Sprintf("[%s system coming soon.]", strings.Title(strings.ToLower(verb)))}}
 	case "ASSIST":
 		room := e.rooms[player.RoomNumber]
 		roomName := "unknown"
@@ -471,6 +524,11 @@ var allVerbs = []string{
 	"QUIT", "HELP", "ADVICE", "ASSIST", "ACT", "EMOTE", "RECITE", "READ", "CLIMB",
 	"PULL", "PUSH", "TURN", "RUB", "TAP", "TOUCH", "SEARCH", "DIG", "RECALL",
 	"CAST", "CONCENTRATE", "BUY", "SELL",
+	"DRINK", "SIP", "LIGHT", "EXTINGUISH", "DOUSE",
+	"FLIP", "LATCH", "UNLATCH",
+	"DEPOSIT", "WITHDRAW", "TRAIN",
+	"MINE", "FORAGE",
+	"CRAFT", "FORGE", "SMELT", "WEAVE", "DYE", "BREW", "ANALYZE",
 	"SNIFF", "SMELL", "LISTEN",
 	// Communication
 	"WHISPER", "YELL", "SPEECH", "THINK", "CONTACT",
@@ -721,6 +779,13 @@ func (e *GameEngine) doLook(player *Player) *CommandResult {
 			pList = strings.Join(playersHere[:len(playersHere)-1], ", ") + " and " + playersHere[len(playersHere)-1]
 		}
 		msgs = append(msgs, "You see "+pList+".")
+	}
+	// Show monsters in the room
+	monsterLines := e.MonsterLookLines(player.RoomNumber)
+	msgs = append(msgs, monsterLines...)
+	// Show weather for outdoor rooms
+	if weatherLine := e.GetRoomWeather(player.RoomNumber); weatherLine != "" {
+		msgs = append(msgs, weatherLine)
 	}
 	if len(exits) > 0 {
 		msgs = append(msgs, "Obvious exits: "+strings.Join(exits, ", ")+".")
@@ -1461,6 +1526,9 @@ func (e *GameEngine) doOpen(player *Player, args []string) *CommandResult {
 			if ri.State == "LOCKED" {
 				return &CommandResult{Messages: []string{"It's locked."}}
 			}
+			if ri.State == "LATCHED" {
+				return &CommandResult{Messages: []string{"It's latched shut."}}
+			}
 			room.Items[i].State = "OPEN"
 			e.notifyRoomChange(RoomChange{RoomNumber: player.RoomNumber, Type: "item_state", ItemRef: ri.Ref, NewState: "OPEN"})
 			fullName := e.formatItemName(itemDef, ri.Adj1, ri.Adj2, ri.Adj3)
@@ -1775,6 +1843,238 @@ func formatPrice(copper int) string {
 		parts = append(parts, fmt.Sprintf("%d copper", cop))
 	}
 	return joinList(parts)
+}
+
+func (e *GameEngine) doDrink(ctx context.Context, player *Player, args []string) *CommandResult {
+	if len(args) == 0 {
+		return &CommandResult{Messages: []string{"Drink what?"}}
+	}
+	target := strings.ToLower(strings.Join(args, " "))
+	for i, ii := range player.Inventory {
+		itemDef := e.items[ii.Archetype]
+		if itemDef == nil { continue }
+		if itemDef.Type != "LIQUID" && itemDef.Type != "LIQCONTAINER" && itemDef.Type != "FOOD" { continue }
+		name := e.getItemNounName(itemDef)
+		if !matchesTarget(name, target, e.getAdjName(ii.Adj1)) { continue }
+		displayName := e.formatItemName(itemDef, ii.Adj1, ii.Adj2, ii.Adj3)
+		if itemDef.Type == "FOOD" {
+			// EAT logic
+			player.Inventory = append(player.Inventory[:i], player.Inventory[i+1:]...)
+			e.SavePlayer(ctx, player)
+			return &CommandResult{Messages: []string{fmt.Sprintf("You eat %s.", displayName)}}
+		}
+		// Drink/sip
+		return &CommandResult{Messages: []string{fmt.Sprintf("You take a drink from %s.", displayName)}}
+	}
+	return &CommandResult{Messages: []string{"You don't have that."}}
+}
+
+func (e *GameEngine) doLight(ctx context.Context, player *Player, args []string, lightOn bool) *CommandResult {
+	if len(args) == 0 {
+		if lightOn { return &CommandResult{Messages: []string{"Light what?"}} }
+		return &CommandResult{Messages: []string{"Extinguish what?"}}
+	}
+	target := strings.ToLower(strings.Join(args, " "))
+	for i, ii := range player.Inventory {
+		itemDef := e.items[ii.Archetype]
+		if itemDef == nil { continue }
+		if !containsFlag(itemDef.Flags, "LIGHTABLE") { continue }
+		name := e.getItemNounName(itemDef)
+		if !matchesTarget(name, target, e.getAdjName(ii.Adj1)) { continue }
+		displayName := e.formatItemName(itemDef, ii.Adj1, ii.Adj2, ii.Adj3)
+		if lightOn {
+			player.Inventory[i].State = "LIT"
+			e.SavePlayer(ctx, player)
+			return &CommandResult{Messages: []string{fmt.Sprintf("You light %s.", displayName)}}
+		}
+		player.Inventory[i].State = "UNLIT"
+		e.SavePlayer(ctx, player)
+		return &CommandResult{Messages: []string{fmt.Sprintf("You extinguish %s.", displayName)}}
+	}
+	return &CommandResult{Messages: []string{"You don't have anything to light."}}
+}
+
+func (e *GameEngine) doFlip(ctx context.Context, player *Player, args []string) *CommandResult {
+	if len(args) == 0 { return &CommandResult{Messages: []string{"Flip what?"}} }
+	target := strings.ToLower(strings.Join(args, " "))
+	room := e.rooms[player.RoomNumber]
+	if room == nil { return &CommandResult{Messages: []string{"You can't do that here."}} }
+	for i, ri := range room.Items {
+		itemDef := e.items[ri.Archetype]
+		if itemDef == nil { continue }
+		if !containsFlag(itemDef.Flags, "FLIPABLE") { continue }
+		name := e.getItemNounName(itemDef)
+		if !matchesTarget(name, target, e.getAdjName(ri.Adj1)) { continue }
+		displayName := e.formatItemName(itemDef, ri.Adj1, ri.Adj2, ri.Adj3)
+		if ri.State == "FLIPPED" {
+			room.Items[i].State = "UNFLIPPED"
+			e.notifyRoomChange(RoomChange{RoomNumber: player.RoomNumber, Type: "item_state", ItemRef: ri.Ref, NewState: "UNFLIPPED"})
+		} else {
+			room.Items[i].State = "FLIPPED"
+			e.notifyRoomChange(RoomChange{RoomNumber: player.RoomNumber, Type: "item_state", ItemRef: ri.Ref, NewState: "FLIPPED"})
+		}
+		// Run IFPREVERB FLIP scripts
+		sc := e.RunPreverbScripts(player, room, "FLIP", &room.Items[i], itemDef)
+		result := &CommandResult{Messages: []string{fmt.Sprintf("You flip %s.", displayName)}}
+		result.Messages = append(result.Messages, sc.Messages...)
+		result.RoomBroadcast = append(result.RoomBroadcast, sc.RoomMsgs...)
+		return result
+	}
+	return &CommandResult{Messages: []string{"You don't see anything to flip here."}}
+}
+
+func (e *GameEngine) doLatch(player *Player, args []string, latch bool) *CommandResult {
+	if len(args) == 0 {
+		if latch { return &CommandResult{Messages: []string{"Latch what?"}} }
+		return &CommandResult{Messages: []string{"Unlatch what?"}}
+	}
+	target := strings.ToLower(strings.Join(args, " "))
+	room := e.rooms[player.RoomNumber]
+	if room == nil { return &CommandResult{Messages: []string{"You can't do that here."}} }
+	for i, ri := range room.Items {
+		itemDef := e.items[ri.Archetype]
+		if itemDef == nil { continue }
+		if !containsFlag(itemDef.Flags, "LATCHABLE") { continue }
+		name := e.getItemNounName(itemDef)
+		if !matchesTarget(name, target, e.getAdjName(ri.Adj1)) { continue }
+		displayName := e.formatItemName(itemDef, ri.Adj1, ri.Adj2, ri.Adj3)
+		if latch {
+			room.Items[i].State = "LATCHED"
+			e.notifyRoomChange(RoomChange{RoomNumber: player.RoomNumber, Type: "item_state", ItemRef: ri.Ref, NewState: "LATCHED"})
+			return &CommandResult{Messages: []string{fmt.Sprintf("You latch %s.", displayName)}}
+		}
+		room.Items[i].State = "UNLATCHED"
+		e.notifyRoomChange(RoomChange{RoomNumber: player.RoomNumber, Type: "item_state", ItemRef: ri.Ref, NewState: "UNLATCHED"})
+		return &CommandResult{Messages: []string{fmt.Sprintf("You unlatch %s.", displayName)}}
+	}
+	return &CommandResult{Messages: []string{"You don't see anything to latch here."}}
+}
+
+func (e *GameEngine) doDeposit(ctx context.Context, player *Player, args []string) *CommandResult {
+	room := e.rooms[player.RoomNumber]
+	if room == nil || !containsModifier(room.Modifiers, "BANK") {
+		return &CommandResult{Messages: []string{"There is no bank here."}}
+	}
+	if len(args) == 0 { return &CommandResult{Messages: []string{"Deposit how much?"}} }
+	amount := 0
+	fmt.Sscanf(args[0], "%d", &amount)
+	if amount <= 0 { return &CommandResult{Messages: []string{"Invalid amount."}} }
+	totalCopper := player.Gold*100 + player.Silver*10 + player.Copper
+	if totalCopper < amount {
+		return &CommandResult{Messages: []string{"You don't have that much money."}}
+	}
+	// Deduct from carried
+	remaining := amount
+	if player.Copper >= remaining { player.Copper -= remaining; remaining = 0 } else { remaining -= player.Copper; player.Copper = 0 }
+	if remaining > 0 { sn := (remaining+9)/10; if player.Silver >= sn { player.Silver -= sn; player.Copper += sn*10-remaining; remaining = 0 } else { remaining -= player.Silver*10; player.Silver = 0 } }
+	if remaining > 0 { gn := (remaining+99)/100; player.Gold -= gn; player.Copper += gn*100-remaining }
+	player.BankCopper += amount
+	e.SavePlayer(ctx, player)
+	return &CommandResult{Messages: []string{fmt.Sprintf("You deposit %s.", formatPrice(amount))}}
+}
+
+func (e *GameEngine) doWithdraw(ctx context.Context, player *Player, args []string) *CommandResult {
+	room := e.rooms[player.RoomNumber]
+	if room == nil || !containsModifier(room.Modifiers, "BANK") {
+		return &CommandResult{Messages: []string{"There is no bank here."}}
+	}
+	if len(args) == 0 { return &CommandResult{Messages: []string{"Withdraw how much?"}} }
+	amount := 0
+	fmt.Sscanf(args[0], "%d", &amount)
+	if amount <= 0 { return &CommandResult{Messages: []string{"Invalid amount."}} }
+	totalBank := player.BankGold*100 + player.BankSilver*10 + player.BankCopper
+	if totalBank < amount {
+		return &CommandResult{Messages: []string{"You don't have that much in the bank."}}
+	}
+	remaining := amount
+	if player.BankCopper >= remaining { player.BankCopper -= remaining; remaining = 0 } else { remaining -= player.BankCopper; player.BankCopper = 0 }
+	if remaining > 0 { sn := (remaining+9)/10; if player.BankSilver >= sn { player.BankSilver -= sn; player.BankCopper += sn*10-remaining; remaining = 0 } else { remaining -= player.BankSilver*10; player.BankSilver = 0 } }
+	if remaining > 0 { gn := (remaining+99)/100; player.BankGold -= gn; player.BankCopper += gn*100-remaining }
+	player.Copper += amount
+	e.SavePlayer(ctx, player)
+	return &CommandResult{Messages: []string{fmt.Sprintf("You withdraw %s.", formatPrice(amount))}}
+}
+
+func containsModifier(mods []string, mod string) bool {
+	for _, m := range mods { if m == mod { return true } }
+	return false
+}
+
+// SkillNames maps skill IDs to names.
+var SkillNames = map[int]string{
+	0: "Jeweler", 1: "Two Weapons", 2: "Backstab", 3: "Missile Weapons",
+	4: "Natural Weapons", 5: "Climbing", 6: "Dodging & Parrying", 7: "Conjuration",
+	8: "Weaponsmithing", 9: "Crushing Weapons", 10: "Combat Maneuvering",
+	11: "Endurance", 12: "Trap & Poison Lore", 13: "Edged Weapons",
+	14: "Enchantment", 15: "Dyeing/Weaving", 16: "Drakin Weapons",
+	17: "Druidic Magic", 18: "Wood Lore", 19: "Thrown Weapons",
+	20: "Healing", 21: "Legerdemain", 22: "Lockpicking", 23: "Spellcraft",
+	24: "Martial Arts", 25: "Polearms", 26: "Psionics",
+	27: "Mind over Mind", 28: "Mind over Matter", 29: "Transcendence",
+	30: "Necromancy", 31: "Alchemy", 32: "Sagecraft", 33: "Stealth",
+	34: "Disguise", 35: "Mining",
+}
+
+func (e *GameEngine) doTrain(ctx context.Context, player *Player, args []string) *CommandResult {
+	room := e.rooms[player.RoomNumber]
+	if room == nil || len(room.TrainingSkills) == 0 {
+		return &CommandResult{Messages: []string{"There is no training available here."}}
+	}
+	if len(args) == 0 {
+		// List available training
+		var msgs []string
+		msgs = append(msgs, "Training available here:")
+		for _, ts := range room.TrainingSkills {
+			name := SkillNames[ts.SkillID]
+			if name == "" { name = fmt.Sprintf("Skill #%d", ts.SkillID) }
+			currentLvl := 0
+			if player.Skills != nil { currentLvl = player.Skills[ts.SkillID] }
+			msgs = append(msgs, fmt.Sprintf("  %s (current: %d, max: %d)", name, currentLvl, ts.MaxLevel))
+		}
+		return &CommandResult{Messages: msgs}
+	}
+	target := strings.ToLower(strings.Join(args, " "))
+	for _, ts := range room.TrainingSkills {
+		name := SkillNames[ts.SkillID]
+		if !strings.HasPrefix(strings.ToLower(name), target) { continue }
+		if player.Skills == nil { player.Skills = make(map[int]int) }
+		currentLvl := player.Skills[ts.SkillID]
+		if currentLvl >= ts.MaxLevel {
+			return &CommandResult{Messages: []string{fmt.Sprintf("You have already reached the maximum level of %s training available here.", name)}}
+		}
+		cost := (currentLvl + 1) * (currentLvl + 1) * 10 // copper
+		totalCopper := player.Gold*100 + player.Silver*10 + player.Copper
+		if totalCopper < cost {
+			return &CommandResult{Messages: []string{fmt.Sprintf("Training in %s costs %s. You can't afford it.", name, formatPrice(cost))}}
+		}
+		// Deduct cost
+		remaining := cost
+		if player.Copper >= remaining { player.Copper -= remaining; remaining = 0 } else { remaining -= player.Copper; player.Copper = 0 }
+		if remaining > 0 { sn := (remaining+9)/10; if player.Silver >= sn { player.Silver -= sn; player.Copper += sn*10-remaining; remaining = 0 } else { remaining -= player.Silver*10; player.Silver = 0 } }
+		if remaining > 0 { gn := (remaining+99)/100; player.Gold -= gn; player.Copper += gn*100-remaining }
+		player.Skills[ts.SkillID] = currentLvl + 1
+		e.SavePlayer(ctx, player)
+		return &CommandResult{Messages: []string{fmt.Sprintf("You train in %s. You are now level %d.", name, currentLvl+1)}}
+	}
+	return &CommandResult{Messages: []string{"That skill is not available for training here."}}
+}
+
+func (e *GameEngine) doMine(player *Player) *CommandResult {
+	room := e.rooms[player.RoomNumber]
+	if room == nil { return &CommandResult{Messages: []string{"You can't mine here."}} }
+	hasMine := containsModifier(room.Modifiers, "MINEA") || containsModifier(room.Modifiers, "MINEB") || containsModifier(room.Modifiers, "MINEC")
+	if !hasMine { return &CommandResult{Messages: []string{"There is nothing to mine here."}} }
+	return &CommandResult{Messages: []string{"You swing your pick at the rock face... [Mining system coming soon.]"}}
+}
+
+func (e *GameEngine) doForage(player *Player) *CommandResult {
+	room := e.rooms[player.RoomNumber]
+	if room == nil { return &CommandResult{Messages: []string{"You can't forage here."}} }
+	switch room.Terrain {
+	case "FOREST", "MOUNTAIN", "PLAIN", "SWAMP", "JUNGLE":
+		return &CommandResult{Messages: []string{"You search the area for useful materials... [Foraging system coming soon.]"}}
+	}
+	return &CommandResult{Messages: []string{"There is nothing to forage here."}}
 }
 
 func (e *GameEngine) doRead(player *Player, args []string) *CommandResult {

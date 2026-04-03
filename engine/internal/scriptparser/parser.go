@@ -305,6 +305,14 @@ func (p *fileParser) parseRoom(fields []string) {
 					Archetype: archetype, Adj: adj, Price: price,
 				})
 			}
+		case "TRAINING":
+			if len(fields) >= 3 {
+				skillID, _ := strconv.Atoi(fields[1])
+				maxLevel, _ := strconv.Atoi(fields[2])
+				room.TrainingSkills = append(room.TrainingSkills, gameworld.TrainingDef{
+					SkillID: skillID, MaxLevel: maxLevel,
+				})
+			}
 		case "MONSTER_GROUP":
 			if len(fields) >= 2 {
 				room.MonsterGroup, _ = strconv.Atoi(fields[1])
@@ -535,6 +543,49 @@ func (p *fileParser) parseMonster(fields []string) {
 		case "GENDER":
 			if len(fields) >= 2 {
 				mon.Gender, _ = strconv.Atoi(fields[1])
+			}
+		case "ALIGNMENT":
+			if len(fields) >= 2 { mon.Alignment, _ = strconv.Atoi(fields[1]) }
+		case "RESIST":
+			if len(fields) >= 2 { mon.MagicResist, _ = strconv.Atoi(fields[1]) }
+		case "MANA":
+			if len(fields) >= 2 { mon.Mana, _ = strconv.Atoi(fields[1]) }
+		case "SPELLUSE":
+			if len(fields) >= 2 { mon.SpellUse, _ = strconv.Atoi(fields[1]) }
+		case "SPELLSKILL":
+			if len(fields) >= 2 { mon.SpellSkill, _ = strconv.Atoi(fields[1]) }
+		case "CASTLEVEL":
+			if len(fields) >= 2 { mon.CastLevel, _ = strconv.Atoi(fields[1]) }
+		case "HIDESKILL":
+			if len(fields) >= 2 { mon.HideSkill, _ = strconv.Atoi(fields[1]) }
+		case "GUARD":
+			if len(fields) >= 2 { mon.GuardItem, _ = strconv.Atoi(fields[1]) }
+		case "STEALABLE":
+			mon.Stealable = true
+		case "ETERNAL":
+			mon.Eternal = true
+		case "DISCORPORATE":
+			mon.Discorporate = true
+		case "POISON":
+			if len(fields) >= 3 {
+				mon.PoisonChance, _ = strconv.Atoi(fields[1])
+				mon.PoisonLevel, _ = strconv.Atoi(fields[2])
+			}
+		case "DISEASE":
+			if len(fields) >= 3 {
+				mon.DiseaseChance, _ = strconv.Atoi(fields[1])
+				mon.DiseaseLevel, _ = strconv.Atoi(fields[2])
+			}
+		case "SKINADJ":
+			if len(fields) >= 2 { mon.SkinAdj, _ = strconv.Atoi(fields[1]) }
+		case "SKINITEM":
+			if len(fields) >= 2 { mon.SkinItem, _ = strconv.Atoi(fields[1]) }
+		case "TEXA", "TEXB", "TEXC", "TEXD", "TEXE", "TEXF", "TEXG", "TEXH",
+			"TEXI", "TEXL", "TEXM", "TEXQ", "TEXR", "TEXTS", "TEXS", "TEXV", "TEXZ",
+			"TEX1", "TEX2", "TEX3", "TEX4":
+			if len(fields) >= 2 {
+				if mon.TextOverrides == nil { mon.TextOverrides = make(map[string]string) }
+				mon.TextOverrides[cmd] = strings.Join(fields[1:], " ")
 			}
 		case "*DESCRIPTION_START":
 			mon.Description = p.readDescription()

@@ -12,6 +12,7 @@ type Room struct {
 	Lighting         string            `bson:"lighting" json:"lighting"`
 	MonsterGroup     int               `bson:"monsterGroup" json:"monsterGroup"`
 	StoreItems       []StoreItem       `bson:"storeItems,omitempty" json:"storeItems,omitempty"`
+	TrainingSkills   []TrainingDef     `bson:"trainingSkills,omitempty" json:"trainingSkills,omitempty"`
 	Modifiers        []string          `bson:"modifiers" json:"modifiers"` // FORGE, LOOM, MINEA, etc.
 	Scripts          []ScriptBlock     `bson:"scripts" json:"scripts"`     // conditional blocks
 	SourceFile       string            `bson:"sourceFile" json:"sourceFile"`
@@ -40,6 +41,12 @@ type StoreItem struct {
 	Archetype int `bson:"archetype" json:"archetype"` // item INUMBER
 	Adj       int `bson:"adj,omitempty" json:"adj,omitempty"` // adjective (-1 = none)
 	Price     int `bson:"price" json:"price"` // cost in copper
+}
+
+// TrainingDef represents a trainable skill in a room.
+type TrainingDef struct {
+	SkillID  int `bson:"skillId" json:"skillId"`
+	MaxLevel int `bson:"maxLevel" json:"maxLevel"`
 }
 
 // ItemDef is an item archetype definition from INUMBER blocks.
@@ -79,9 +86,27 @@ type MonsterDef struct {
 	Armor       int      `bson:"armor" json:"armor"`
 	Race        int      `bson:"race" json:"race"`
 	Gender      int      `bson:"gender" json:"gender"`
-	Unique      bool     `bson:"unique" json:"unique"`
-	Scripts     []ScriptBlock `bson:"scripts,omitempty" json:"scripts,omitempty"`
-	SourceFile  string   `bson:"sourceFile" json:"sourceFile"`
+	Unique        bool              `bson:"unique" json:"unique"`
+	Stealable     bool              `bson:"stealable,omitempty" json:"stealable,omitempty"`
+	Eternal       bool              `bson:"eternal,omitempty" json:"eternal,omitempty"`
+	Discorporate  bool              `bson:"discorporate,omitempty" json:"discorporate,omitempty"`
+	Alignment     int               `bson:"alignment,omitempty" json:"alignment,omitempty"`
+	MagicResist   int               `bson:"magicResist,omitempty" json:"magicResist,omitempty"`
+	HideSkill     int               `bson:"hideSkill,omitempty" json:"hideSkill,omitempty"`
+	GuardItem     int               `bson:"guardItem,omitempty" json:"guardItem,omitempty"`
+	Mana          int               `bson:"mana,omitempty" json:"mana,omitempty"`
+	SpellUse      int               `bson:"spellUse,omitempty" json:"spellUse,omitempty"`
+	SpellSkill    int               `bson:"spellSkill,omitempty" json:"spellSkill,omitempty"`
+	CastLevel     int               `bson:"castLevel,omitempty" json:"castLevel,omitempty"`
+	PoisonChance  int               `bson:"poisonChance,omitempty" json:"poisonChance,omitempty"`
+	PoisonLevel   int               `bson:"poisonLevel,omitempty" json:"poisonLevel,omitempty"`
+	DiseaseChance int               `bson:"diseaseChance,omitempty" json:"diseaseChance,omitempty"`
+	DiseaseLevel  int               `bson:"diseaseLevel,omitempty" json:"diseaseLevel,omitempty"`
+	SkinAdj       int               `bson:"skinAdj,omitempty" json:"skinAdj,omitempty"`
+	SkinItem      int               `bson:"skinItem,omitempty" json:"skinItem,omitempty"`
+	TextOverrides map[string]string `bson:"textOverrides,omitempty" json:"textOverrides,omitempty"`
+	Scripts       []ScriptBlock     `bson:"scripts,omitempty" json:"scripts,omitempty"`
+	SourceFile    string            `bson:"sourceFile" json:"sourceFile"`
 }
 
 // ScriptBlock represents a conditional block (IFVERB...ENDIF, etc.)
