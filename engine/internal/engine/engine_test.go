@@ -6,10 +6,31 @@ import (
 	"testing"
 	"time"
 
+	"github.com/jonradoff/lofp/internal/gameworld"
+	"github.com/jonradoff/lofp/internal/scriptparser"
 	"go.mongodb.org/mongo-driver/v2/bson"
 	"go.mongodb.org/mongo-driver/v2/mongo"
 	"go.mongodb.org/mongo-driver/v2/mongo/options"
 )
+
+func loadTestParsed(t *testing.T) *gameworld.ParsedData {
+	t.Helper()
+	cfgPath := "../../../original/scripts/LEGENDS.CFG"
+	if _, err := os.Stat(cfgPath); err != nil {
+		cfgPath = "../../original/scripts/LEGENDS.CFG"
+	}
+	result, err := scriptparser.ParseConfig(cfgPath)
+	if err != nil {
+		t.Fatalf("Failed to parse scripts: %v", err)
+	}
+	return &gameworld.ParsedData{
+		Rooms: result.Rooms, Items: result.Items, Monsters: result.Monsters,
+		Nouns: result.Nouns, Adjectives: result.Adjectives, MonsterAdjs: result.MonsterAdjs,
+		Variables: result.Variables, Regions: result.Regions, MonsterLists: result.MonsterLists,
+		CEvents: result.CEvents, MoneyDefs: result.MoneyDefs, ForageDefs: result.ForageDefs,
+		MineDefs: result.MineDefs, StartRoom: result.StartRoom, BumpRoom: result.BumpRoom,
+	}
+}
 
 func connectTestDB(t *testing.T) *mongo.Database {
 	t.Helper()
@@ -109,5 +130,57 @@ func TestLoadPlayerTaliesin(t *testing.T) {
 		for _, p := range accountPlayers {
 			t.Logf("  %s %s (level %d)", p.FirstName, p.LastName, p.Level)
 		}
+	}
+}
+
+func TestRoom225Stairway(t *testing.T) {
+	db := connectTestDB(t)
+	ctx := context.Background()
+
+	// Load parsed game data
+	parsed := loadTestParsed(t)
+	ge := NewGameEngine(db, parsed)
+
+	// Check room 225 items
+	room := ge.rooms[225]
+	if room == nil {
+		t.Fatal("Room 225 not found")
+	}
+	t.Logf("Room 225: %s", room.Name)
+	t.Logf("  Items: %d", len(room.Items))
+	for i, ri := range room.Items {
+		def := ge.items[ri.Archetype]
+		if def == nil {
+			t.Logf("  Item %d: arch=%d (nil def)", i, ri.Archetype)
+			continue
+		}
+		noun := ge.nouns[def.NameID]
+		t.Logf("  Item %d: arch=%d noun=%q type=%q val2=%d hidden=%v isPortal=%v",
+			i, ri.Archetype, noun, def.Type, ri.Val2, containsFlag(def.Flags, "HIDDEN"), isPortal(def.Type))
+	}
+
+	// Check if "stair" matches item 81
+	for _, ri := range room.Items {
+		def := ge.items[ri.Archetype]
+		if def == nil { continue }
+		noun := ge.nouns[def.NameID]
+		if matchesTarget(noun, "stair", "") {
+			t.Logf("  MATCH: 'stair' matches noun=%q arch=%d type=%q val2=%d", noun, ri.Archetype, def.Type, ri.Val2)
+		}
+	}
+
+	// Simulate a player going to stairway
+	player := &Player{
+		FirstName: "Test", LastName: "Player",
+		RoomNumber: 225, Race: 1, Gender: 0,
+		Skills: make(map[int]int), IntNums: make(map[int]int),
+		BodyPoints: 50, MaxBodyPoints: 50,
+	}
+	result := ge.ProcessCommand(ctx, player, "go stair")
+	t.Logf("GO STAIR result: %v", result.Messages)
+	t.Logf("  Player room after: %d", player.RoomNumber)
+
+	if player.RoomNumber != 298 {
+		t.Errorf("Expected player in room 298 after GO STAIR, got %d", player.RoomNumber)
 	}
 }
