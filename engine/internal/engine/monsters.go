@@ -28,12 +28,14 @@ type monsterManager struct {
 	mu             sync.RWMutex
 	instances      []MonsterInstance
 	nextID         int
-	monstersByRoom map[int][]int // roomNumber -> slice of instance indices
+	monstersByRoom map[int][]int    // roomNumber -> slice of instance indices
+	roomLastPlayer map[int]time.Time // roomNumber -> last time a player was present
 }
 
 func newMonsterManager() *monsterManager {
 	return &monsterManager{
 		monstersByRoom: make(map[int][]int),
+		roomLastPlayer: make(map[int]time.Time),
 	}
 }
 
@@ -49,7 +51,12 @@ func (e *GameEngine) spawnForRoom(roomNum int) {
 		return
 	}
 
-	// Build index of MLIST entries by room (cached on engine)
+	// Track player presence for unload timer
+	e.monsterMgr.mu.Lock()
+	e.monsterMgr.roomLastPlayer[roomNum] = time.Now()
+	e.monsterMgr.mu.Unlock()
+
+	// Check MLIST entries for this room
 	for _, ml := range e.monsterLists {
 		if ml.Room != roomNum {
 			continue
@@ -267,6 +274,10 @@ func (e *GameEngine) StartMonsterLoop() {
 			if tick%10 == 0 {
 				e.respawnNearPlayers()
 			}
+			// Unload distant monsters every ~2 minutes
+			if tick%40 == 0 {
+				e.unloadDistantMonsters()
+			}
 		}
 	}()
 }
@@ -278,14 +289,83 @@ func (e *GameEngine) respawnNearPlayers() {
 	}
 	// Get all rooms with online players
 	roomSet := make(map[int]bool)
+	now := time.Now()
 	for _, p := range e.sessions.OnlinePlayers() {
 		if !p.Dead && !p.GMInvis {
 			roomSet[p.RoomNumber] = true
 		}
 	}
-	// Spawn for each occupied room
+	// Track player presence and spawn
+	e.monsterMgr.mu.Lock()
+	for roomNum := range roomSet {
+		e.monsterMgr.roomLastPlayer[roomNum] = now
+	}
+	e.monsterMgr.mu.Unlock()
+
 	for roomNum := range roomSet {
 		e.spawnForRoom(roomNum)
+	}
+}
+
+// unloadDistantMonsters removes alive monsters from rooms where no player
+// has been for over 3 minutes. ETERNAL monsters are never unloaded.
+func (e *GameEngine) unloadDistantMonsters() {
+	if e.monsterMgr == nil || e.sessions == nil {
+		return
+	}
+
+	// Build set of rooms with players
+	playerRooms := make(map[int]bool)
+	for _, p := range e.sessions.OnlinePlayers() {
+		if !p.Dead {
+			playerRooms[p.RoomNumber] = true
+		}
+	}
+
+	e.monsterMgr.mu.Lock()
+	defer e.monsterMgr.mu.Unlock()
+
+	now := time.Now()
+	unloaded := 0
+
+	for i := range e.monsterMgr.instances {
+		inst := &e.monsterMgr.instances[i]
+		if !inst.Alive {
+			continue
+		}
+
+		// Don't unload if players are in the room
+		if playerRooms[inst.RoomNumber] {
+			continue
+		}
+
+		// Don't unload ETERNAL monsters
+		def := e.monsters[inst.DefNumber]
+		if def != nil && def.Eternal {
+			continue
+		}
+
+		// Don't unload if room had a player recently (within 3 minutes)
+		if lastSeen, ok := e.monsterMgr.roomLastPlayer[inst.RoomNumber]; ok {
+			if now.Sub(lastSeen) < 3*time.Minute {
+				continue
+			}
+		}
+
+		// Unload: mark as dead and remove from room tracking
+		inst.Alive = false
+		roomIndices := e.monsterMgr.monstersByRoom[inst.RoomNumber]
+		for j, idx := range roomIndices {
+			if idx == i {
+				e.monsterMgr.monstersByRoom[inst.RoomNumber] = append(roomIndices[:j], roomIndices[j+1:]...)
+				break
+			}
+		}
+		unloaded++
+	}
+
+	if unloaded > 0 {
+		e.Events.Publish("monster", fmt.Sprintf("Unloaded %d distant monsters", unloaded))
 	}
 }
 
