@@ -1318,6 +1318,11 @@ func (e *GameEngine) doLook(player *Player) *CommandResult {
 
 	// List visible items
 	for _, ri := range room.Items {
+		// Coin piles
+		if ri.State == "MONEY" {
+			result.Items = append(result.Items, "some coins")
+			continue
+		}
 		itemDef := e.items[ri.Archetype]
 		if itemDef == nil {
 			continue
@@ -1994,6 +1999,24 @@ func (e *GameEngine) doGet(ctx context.Context, player *Player, args []string) *
 	}
 
 	for i, ri := range room.Items {
+		// Handle coin piles (State == "MONEY", may have Archetype 0)
+		if ri.State == "MONEY" && (target == "coins" || target == "money" || target == "coin" || target == "gold" || target == "silver" || target == "copper") {
+			coins := ri.Val1
+			if coins <= 0 { coins = 1 }
+			room.Items = append(room.Items[:i], room.Items[i+1:]...)
+			e.notifyRoomChange(RoomChange{RoomNumber: player.RoomNumber, Type: "item_remove", ItemRef: ri.Ref})
+			player.Copper += coins
+			player.Silver += player.Copper / 10
+			player.Copper = player.Copper % 10
+			player.Gold += player.Silver / 10
+			player.Silver = player.Silver % 10
+			e.SavePlayer(ctx, player)
+			return &CommandResult{
+				Messages:      []string{fmt.Sprintf("You pick up %d coins.", coins)},
+				RoomBroadcast: []string{fmt.Sprintf("%s picks up some coins.", player.FirstName)},
+			}
+		}
+
 		itemDef := e.items[ri.Archetype]
 		if itemDef == nil {
 			continue
@@ -2009,7 +2032,7 @@ func (e *GameEngine) doGet(ctx context.Context, player *Player, args []string) *
 			if skip > 0 { skip--; continue }
 
 			// MONEY items auto-convert to currency
-			if itemDef.Type == "MONEY" {
+			if itemDef.Type == "MONEY" || ri.State == "MONEY" {
 				coins := ri.Val1
 				if coins <= 0 { coins = 1 }
 				room.Items = append(room.Items[:i], room.Items[i+1:]...)

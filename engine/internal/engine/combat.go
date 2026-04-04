@@ -1102,6 +1102,14 @@ func (e *GameEngine) handleMonsterDeath(killer *Player, inst *MonsterInstance, d
 		}
 	}
 
+	// Generate treasure drops based on monster's TREASURE level
+	if def.Treasure > 0 && !def.Discorporate {
+		treasureMsgs := e.generateTreasure(killer.RoomNumber, def.Treasure)
+		if len(treasureMsgs) > 0 && e.localRoomBroadcast != nil {
+			e.localRoomBroadcast(killer.RoomNumber, treasureMsgs)
+		}
+	}
+
 	// Recalculate build points and check for level-up
 	oldLevel := killer.Level
 	oldBP := killer.BuildPoints
