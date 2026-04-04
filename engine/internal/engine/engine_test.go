@@ -184,3 +184,40 @@ func TestRoom225Stairway(t *testing.T) {
 		t.Errorf("Expected player in room 298 after GO STAIR, got %d", player.RoomNumber)
 	}
 }
+
+func TestRoom592Exists(t *testing.T) {
+	parsed := loadTestParsed(t)
+	
+	// Check if room 592 is in parsed results
+	found := false
+	for _, r := range parsed.Rooms {
+		if r.Number == 592 {
+			found = true
+			t.Logf("Room 592 found: %s (source: %s)", r.Name, r.SourceFile)
+			t.Logf("  Exits: %v", r.Exits)
+			t.Logf("  Items: %d", len(r.Items))
+			for i, item := range r.Items {
+				t.Logf("  Item %d: arch=%d val2=%d", i, item.Archetype, item.Val2)
+			}
+			break
+		}
+	}
+	if !found {
+		t.Error("Room 592 NOT FOUND in parsed data!")
+		
+		// Check which rooms ARE parsed from AMILOR.SCR
+		for _, r := range parsed.Rooms {
+			if r.SourceFile == "AMILOR.SCR" {
+				t.Logf("  AMILOR.SCR has room %d: %s", r.Number, r.Name)
+			}
+		}
+	}
+	
+	// Also check total room count and if 591 exists
+	t.Logf("Total rooms: %d", len(parsed.Rooms))
+	for _, r := range parsed.Rooms {
+		if r.Number == 591 {
+			t.Logf("Room 591 found: %s (source: %s)", r.Name, r.SourceFile)
+		}
+	}
+}
