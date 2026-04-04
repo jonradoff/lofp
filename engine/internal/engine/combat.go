@@ -1060,6 +1060,34 @@ func (e *GameEngine) handleMonsterDeath(killer *Player, inst *MonsterInstance, d
 	e.Events.Publish("combat", fmt.Sprintf("%s killed %s (monster %d) for %d XP in room %d",
 		killer.FirstName, def.Name, def.Number, xp, killer.RoomNumber))
 
+	// Drop monster's weapon into the room as loot
+	if len(def.Weapons) > 0 && !def.Discorporate {
+		room := e.rooms[killer.RoomNumber]
+		if room != nil {
+			// Pick a random weapon from the monster's weapon list
+			wep := def.Weapons[rand.Intn(len(def.Weapons))]
+			wepDef := e.items[wep.Archetype]
+			if wepDef != nil {
+				// Add weapon to room items
+				ref := len(room.Items) // next available ref
+				ri := gameworld.RoomItem{
+					Ref:       ref,
+					Archetype: wep.Archetype,
+					Adj1:      wep.Adj,
+				}
+				// Apply weapon plus as Val2 (magic bonus)
+				if def.WeaponPlus > 0 {
+					ri.Val2 = def.WeaponPlus
+				}
+				room.Items = append(room.Items, ri)
+				wepName := e.formatItemName(wepDef, wep.Adj, 0, 0)
+				if e.localRoomBroadcast != nil {
+					e.localRoomBroadcast(killer.RoomNumber, []string{fmt.Sprintf("A %s clatters to the ground.", wepName)})
+				}
+			}
+		}
+	}
+
 	// Recalculate build points and check for level-up
 	oldLevel := killer.Level
 	oldBP := killer.BuildPoints
