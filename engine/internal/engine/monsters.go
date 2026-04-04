@@ -12,13 +12,15 @@ import (
 
 // MonsterInstance represents a spawned monster in the world.
 type MonsterInstance struct {
-	ID         int    `json:"id"`
-	DefNumber  int    `json:"defNumber"`
-	RoomNumber int    `json:"roomNumber"`
-	Alive      bool   `json:"alive"`
-	Sedated    bool   `json:"sedated"` // sedated monsters don't act
-	CurrentHP  int    `json:"currentHP"`
-	Target     string `json:"-"` // player first name being attacked (empty = not in combat)
+	ID         int       `json:"id"`
+	DefNumber  int       `json:"defNumber"`
+	RoomNumber int       `json:"roomNumber"`
+	Alive      bool      `json:"alive"`
+	Sedated    bool      `json:"sedated"`
+	CurrentHP  int       `json:"currentHP"`
+	Target     string    `json:"-"`
+	Searched   bool      `json:"-"` // already searched for loot
+	DeathTime  time.Time `json:"-"` // when it died (for corpse decay)
 }
 
 // monsterManager handles monster spawning and tracking.
@@ -222,8 +224,38 @@ func (e *GameEngine) StartMonsterLoop() {
 		for range ticker.C {
 			tick++
 			e.monsterTick(tick)
+			// Corpse decay: remove dead monsters after 60 seconds
+			if tick%20 == 0 { // every ~60 seconds
+				e.cleanupCorpses()
+			}
 		}
 	}()
+}
+
+// cleanupCorpses removes dead monster instances that have been dead for > 60 seconds.
+func (e *GameEngine) cleanupCorpses() {
+	if e.monsterMgr == nil {
+		return
+	}
+	e.monsterMgr.mu.Lock()
+	defer e.monsterMgr.mu.Unlock()
+
+	now := time.Now()
+	for i := range e.monsterMgr.instances {
+		inst := &e.monsterMgr.instances[i]
+		if !inst.Alive && !inst.DeathTime.IsZero() && now.Sub(inst.DeathTime) > 60*time.Second {
+			// Remove from room index
+			roomIndices := e.monsterMgr.monstersByRoom[inst.RoomNumber]
+			for j, idx := range roomIndices {
+				if idx == i {
+					e.monsterMgr.monstersByRoom[inst.RoomNumber] = append(roomIndices[:j], roomIndices[j+1:]...)
+					break
+				}
+			}
+			// Mark death time as zero so we don't process again
+			inst.DeathTime = time.Time{}
+		}
+	}
 }
 
 func (e *GameEngine) monsterTick(tick int) {

@@ -243,6 +243,11 @@ func expandEmote(template string, actor *Player, targetName string) string {
 
 // processEmote handles emote commands using the emote table.
 func (e *GameEngine) processEmote(player *Player, verb string, args []string) *CommandResult {
+	// Emotes always reveal you
+	if player.Hidden {
+		player.Hidden = false
+	}
+
 	// Check race-specific emotes first
 	raceKey := fmt.Sprintf("%d:%s", player.Race, verb)
 	if raceEntry, ok := raceEmotes[raceKey]; ok {

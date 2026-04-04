@@ -109,10 +109,12 @@ func (e *GameEngine) processGMCommand(ctx context.Context, player *Player, verb 
 		return e.gmYank(ctx, player, args)
 	case "@WHISPER":
 		return e.gmWhisper(args, rawInput)
-	case "@EDPLAYER":
+	case "@EDPLAYER", "@EDPL":
 		return e.gmEdPlayer(ctx, args)
-	case "@EDS":
+	case "@EDS", "@EDSK":
 		return e.gmEds(ctx, args)
+	case "@LSK":
+		return e.gmLsk()
 	case "@GRANTSP":
 		return e.gmGrantSp(ctx, args)
 	case "@PSI":
@@ -531,6 +533,20 @@ func (e *GameEngine) gmSpawn(player *Player, args []string) *CommandResult {
 		Messages:      []string{fmt.Sprintf("Spawned %s (active) in room %d.", name, player.RoomNumber)},
 		RoomBroadcast: []string{genText},
 	}
+}
+
+func (e *GameEngine) gmLsk() *CommandResult {
+	var msgs []string
+	msgs = append(msgs, "=== Skills and Build Point Costs ===")
+	// Build point costs: generally skill level * 2 for combat skills, varies by type
+	for id := 0; id <= 35; id++ {
+		name := SkillNames[id]
+		if name == "" {
+			continue
+		}
+		msgs = append(msgs, fmt.Sprintf("  %2d: %s", id, name))
+	}
+	return &CommandResult{Messages: msgs}
 }
 
 func (e *GameEngine) gmMList() *CommandResult {
@@ -1093,7 +1109,7 @@ var allGMVerbs = []string{
 	"@GENMON", "@SPAWN", "@ACTIVATE", "@SEDATE", "@ZAP",
 	"@FIND", "@LIST", "@EXAMINE", "@GLOSSARY", "@PEEK", "@SET", "@RND",
 	"@OPEN", "@CLOSE", "@LOCK", "@UNLOCK",
-	"@GOPLR", "@YANK", "@WHISPER", "@EDPLAYER", "@EDS", "@GRANTSP", "@PSI",
+	"@GOPLR", "@YANK", "@WHISPER", "@EDPLAYER", "@EDPL", "@EDS", "@EDSK", "@LSK", "@GRANTSP", "@PSI", "@MLIST",
 	"@ECHOPLR", "@EXCLUDE", "@SPEECH", "@LINE1", "@LINE2", "@LINE3",
 	"@ENTRY", "@EXIT", "@SUGGEST", "@MSG", "@SAVE", "@RESTORE", "@REGISTER",
 	"@ASSIST?", "@OLDCOMP", "@EDITEM", "@EDN", "@GET", "@LOOK",

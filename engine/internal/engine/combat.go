@@ -35,8 +35,10 @@ type CombatTarget struct {
 }
 
 // ---- XP per build point table (from GM Manual) ----
-// Index = level, value = XP needed per build point at that level.
+// Index = level, value = XP needed per ONE build point at that level.
 // Total build points at a level = 20 + (10 * level).
+// Build points are earned incrementally as XP accumulates.
+// Level increases when total build points reach 20 + 10*(level+1).
 
 var xpPerBP = []int{
 	0,     // level 0 (unused)
@@ -52,20 +54,80 @@ var xpPerBP = []int{
 	99600, 101200, 102800, 104400, 106000, 107600, 109200, 110800, 112400, 114000, // 91-100
 }
 
-// xpForLevel returns total XP needed to reach the given level.
-func xpForLevel(level int) int {
-	total := 0
-	for lvl := 1; lvl <= level; lvl++ {
-		rate := 0
-		if lvl < len(xpPerBP) {
-			rate = xpPerBP[lvl]
-		} else {
-			// Formula for level 101+: roughly 114000 + (level-100)*1600
-			rate = 114000 + (lvl-100)*1600
-		}
-		total += rate * 10 // 10 build points per level
+// getXPPerBP returns the XP cost per build point at a given level.
+func getXPPerBP(level int) int {
+	if level <= 0 {
+		return 100
 	}
-	return total
+	if level < len(xpPerBP) {
+		return xpPerBP[level]
+	}
+	// Formula for level 136+: 170000 + (level-135)*1600
+	return 170000 + (level-135)*1600
+}
+
+// buildPointsForLevel returns total build points at a given level.
+func buildPointsForLevel(level int) int {
+	return 20 + 10*level
+}
+
+// recalcBuildPoints recalculates a player's build points and level from their XP.
+// Build points are earned incrementally: each BP costs XP/BP at the player's current level.
+func recalcBuildPoints(player *Player) (leveledUp bool) {
+	// Calculate total BP earned from total XP
+	xpRemaining := player.Experience
+	bp := 20 // starting build points
+	lvl := 1
+
+	for {
+		rate := getXPPerBP(lvl)
+		targetBP := buildPointsForLevel(lvl + 1) // BP needed for next level
+		bpToNextLevel := targetBP - bp
+		xpForNextLevel := bpToNextLevel * rate
+
+		if xpRemaining >= xpForNextLevel {
+			xpRemaining -= xpForNextLevel
+			bp = targetBP
+			lvl++
+		} else {
+			// Partial progress within current level
+			if rate > 0 {
+				bp += xpRemaining / rate
+			}
+			break
+		}
+
+		if lvl > 200 { // safety cap
+			break
+		}
+	}
+
+	oldLevel := player.Level
+	player.BuildPoints = bp
+	player.Level = lvl
+
+	return player.Level > oldLevel
+}
+
+// xpForNextBP returns the XP cost for the player's next build point.
+func xpForNextBP(player *Player) int {
+	return getXPPerBP(player.Level)
+}
+
+// xpProgressInLevel returns (xp earned in current level, xp needed for next level).
+func xpProgressInLevel(player *Player) (earned int, needed int) {
+	// Sum XP consumed by all levels before current
+	xpConsumed := 0
+	for lvl := 1; lvl < player.Level; lvl++ {
+		bpInLevel := 10 // 10 BP per level
+		xpConsumed += bpInLevel * getXPPerBP(lvl)
+	}
+	earned = player.Experience - xpConsumed
+	if earned < 0 {
+		earned = 0
+	}
+	needed = 10 * getXPPerBP(player.Level)
+	return
 }
 
 // ---- Weather combat modifiers (from GM Manual) ----
@@ -882,6 +944,7 @@ func (e *GameEngine) damageMonster(monsterID int, dmg int) bool {
 			if e.monsterMgr.instances[i].CurrentHP <= 0 {
 				e.monsterMgr.instances[i].Alive = false
 				e.monsterMgr.instances[i].CurrentHP = 0
+				e.monsterMgr.instances[i].DeathTime = time.Now()
 				return true
 			}
 			return false
@@ -907,40 +970,45 @@ func (e *GameEngine) handleMonsterDeath(killer *Player, inst *MonsterInstance, d
 	}
 	killer.Experience += xp
 
-	// Tell the player their XP gain
-	if e.sendToPlayer != nil {
-		e.sendToPlayer(killer.FirstName, []string{fmt.Sprintf("[+%d experience]", xp)})
-	}
-
-	// Alignment shift: killing evil monsters makes you more good, and vice versa
+	// Alignment shift
 	if def.Alignment < 0 {
-		killer.Alignment += 1 // killed evil → more good
+		killer.Alignment += 1
 	} else if def.Alignment > 0 {
-		killer.Alignment -= 1 // killed good → more evil
+		killer.Alignment -= 1
 	}
 
 	e.Events.Publish("combat", fmt.Sprintf("%s killed %s (monster %d) for %d XP in room %d",
 		killer.FirstName, def.Name, def.Number, xp, killer.RoomNumber))
 
-	// Level up check using real XP table
-	nextXP := xpForLevel(killer.Level + 1)
-	if killer.Experience >= nextXP {
-		killer.Level++
+	// Recalculate build points and check for level-up
+	oldLevel := killer.Level
+	oldBP := killer.BuildPoints
+	leveledUp := recalcBuildPoints(killer)
+	newBP := killer.BuildPoints
+
+	// Tell the player
+	var xpMsgs []string
+	xpMsgs = append(xpMsgs, fmt.Sprintf("[+%d experience]", xp))
+	if newBP > oldBP {
+		xpMsgs = append(xpMsgs, fmt.Sprintf("[+%d build points! Total: %d]", newBP-oldBP, newBP))
+	}
+
+	if leveledUp {
 		killer.MaxBodyPoints += killer.Constitution / 10
 		killer.BodyPoints = killer.MaxBodyPoints
 		killer.MaxFatigue += killer.Constitution / 15
 		killer.Fatigue = killer.MaxFatigue
-		killer.BuildPoints = 20 + 10*killer.Level
+		xpMsgs = append(xpMsgs, fmt.Sprintf("Congratulations! You have advanced to level %d!", killer.Level))
 		if e.roomBroadcast != nil {
 			e.roomBroadcast(killer.RoomNumber, []string{
 				fmt.Sprintf("%s has advanced to level %d!", killer.FirstName, killer.Level),
 			})
 		}
-		if e.sendToPlayer != nil {
-			e.sendToPlayer(killer.FirstName, []string{
-				fmt.Sprintf("Congratulations! You have advanced to level %d! (+%d max BP, %d build points)", killer.Level, killer.Constitution/10, killer.BuildPoints),
-			})
-		}
+		_ = oldLevel
+	}
+
+	if e.sendToPlayer != nil {
+		e.sendToPlayer(killer.FirstName, xpMsgs)
 	}
 }
 
@@ -1062,6 +1130,18 @@ func (e *GameEngine) doSearchMonster(ctx context.Context, player *Player, args [
 		if !strings.HasPrefix(name, target) && !strings.HasPrefix(noun, target) {
 			continue
 		}
+
+		// Check if already searched — mark via monsterMgr
+		e.monsterMgr.mu.Lock()
+		idx := e.monsterMgr.indexOfID(inst.ID)
+		if idx >= 0 && e.monsterMgr.instances[idx].Searched {
+			e.monsterMgr.mu.Unlock()
+			return &CommandResult{Messages: []string{fmt.Sprintf("You have already searched the %s.", def.Name)}}
+		}
+		if idx >= 0 {
+			e.monsterMgr.instances[idx].Searched = true
+		}
+		e.monsterMgr.mu.Unlock()
 
 		displayName := FormatMonsterName(def, e.monAdjs)
 		var msgs []string

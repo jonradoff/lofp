@@ -628,20 +628,19 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 		}
 		return &CommandResult{Messages: []string{"Count what?"}}
 	case "EXPERIENCE", "EXP":
-		nextXP := xpForLevel(player.Level + 1)
-		currentXP := player.Experience
-		prevXP := xpForLevel(player.Level)
+		// Recalc to make sure BP is current
+		recalcBuildPoints(player)
+		earned, needed := xpProgressInLevel(player)
 		progress := 0
-		if nextXP > prevXP {
-			progress = (currentXP - prevXP) * 100 / (nextXP - prevXP)
+		if needed > 0 {
+			progress = earned * 100 / needed
 		}
-		if progress < 0 { progress = 0 }
-		if progress > 100 { progress = 100 }
 		return &CommandResult{Messages: []string{
 			fmt.Sprintf("Level: %d", player.Level),
-			fmt.Sprintf("Experience: %d", currentXP),
-			fmt.Sprintf("Next level: %d XP (%d%% progress)", nextXP, progress),
-			fmt.Sprintf("Build Points: %d", player.BuildPoints),
+			fmt.Sprintf("Experience: %d", player.Experience),
+			fmt.Sprintf("Build Points: %d / %d (for level %d)", player.BuildPoints, buildPointsForLevel(player.Level), player.Level),
+			fmt.Sprintf("Next level at %d build points (%d%% progress)", buildPointsForLevel(player.Level+1), progress),
+			fmt.Sprintf("XP per build point: %d", getXPPerBP(player.Level)),
 		}}
 	case "INFO":
 		return e.doInfo(player)
@@ -928,7 +927,7 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 	case "SELFTRAIN":
 		return &CommandResult{Messages: []string{"[Self-training coming soon.]"}} // TODO: train self at +1 cost
 	case "UNLEARN":
-		return &CommandResult{Messages: []string{"[Unlearning coming soon.]"}} // TODO: unlearn skill, recoup build points minus one
+		return e.doUnlearn(ctx, player, args)
 	case "ANOINT":
 		return &CommandResult{Messages: []string{"[Poison application coming soon.]"}} // TODO: coat weapon with poison
 	case "TRAP":
@@ -1153,6 +1152,10 @@ func resolveVerb(input string) string {
 }
 
 func (e *GameEngine) doMove(ctx context.Context, player *Player, dir string) *CommandResult {
+	// Normal movement always reveals (use SNEAK to stay hidden)
+	if player.Hidden {
+		player.Hidden = false
+	}
 	if player.Position != 0 {
 		posNames := map[int]string{1: "sitting", 2: "laying down", 3: "kneeling"}
 		posName := posNames[player.Position]
@@ -3113,6 +3116,31 @@ func (e *GameEngine) doTrain(ctx context.Context, player *Player, args []string)
 	return &CommandResult{Messages: []string{"That skill is not available for training here."}}
 }
 
+func (e *GameEngine) doUnlearn(ctx context.Context, player *Player, args []string) *CommandResult {
+	if len(args) == 0 {
+		return &CommandResult{Messages: []string{"Unlearn what skill?"}}
+	}
+	target := strings.ToLower(strings.Join(args, " "))
+	for id, name := range SkillNames {
+		if !strings.HasPrefix(strings.ToLower(name), target) {
+			continue
+		}
+		currentLvl := player.Skills[id]
+		if currentLvl <= 0 {
+			return &CommandResult{Messages: []string{fmt.Sprintf("You don't have any ranks in %s.", name)}}
+		}
+		// Unlearn one rank, get back build points minus one
+		bpBack := max(0, currentLvl-1) // return BP spent minus 1
+		player.Skills[id] = currentLvl - 1
+		player.BuildPoints += bpBack
+		e.SavePlayer(ctx, player)
+		return &CommandResult{Messages: []string{
+			fmt.Sprintf("You unlearn a rank of %s. (now rank %d, +%d build points, total BP: %d)", name, currentLvl-1, bpBack, player.BuildPoints),
+		}}
+	}
+	return &CommandResult{Messages: []string{"You don't know that skill."}}
+}
+
 func (e *GameEngine) doMine(player *Player) *CommandResult {
 	room := e.rooms[player.RoomNumber]
 	if room == nil { return &CommandResult{Messages: []string{"You can't mine here."}} }
@@ -3471,6 +3499,7 @@ func (e *GameEngine) CreateNewPlayer(ctx context.Context, firstName, lastName st
 		Race:          race,
 		Gender:        gender,
 		Level:         1,
+		BuildPoints:   30, // 30 starting build points for initial skills
 		Strength:      str,
 		Agility:       agi,
 		Quickness:     qui,
