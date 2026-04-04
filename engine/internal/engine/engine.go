@@ -789,7 +789,7 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 	case "WITHDRAW":
 		return e.doWithdraw(ctx, player, args)
 	case "TRAIN":
-		return e.doTrain(ctx, player, args)
+		return e.doTrainWithBP(ctx, player, args)
 	case "MINE":
 		return e.doMineReal(ctx, player)
 	case "FORAGE":
@@ -986,7 +986,7 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 	case "UNLEARN":
 		return e.doUnlearn(ctx, player, args)
 	case "ANOINT":
-		return &CommandResult{Messages: []string{"[Poison application coming soon.]"}} // TODO: coat weapon with poison
+		return e.doAnoint(ctx, player, args)
 	case "TRAP":
 		return &CommandResult{Messages: []string{"[Trap setting coming soon.]"}} // TODO: place trap on container
 	case "SURVEY":
@@ -1044,7 +1044,7 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 	case "LEAVE", "DISBAND":
 		return &CommandResult{Messages: []string{"[Group system coming soon.]"}} // TODO: leave group
 	case "TEND":
-		return &CommandResult{Messages: []string{"[Healing coming soon.]"}} // TODO: use Healing skill on target
+		return e.doTend(ctx, player, args)
 	case "BREAK":
 		return &CommandResult{Messages: []string{"[Object destruction coming soon.]"}} // TODO: destroy item with another item
 	case "ASSIST":
@@ -3185,49 +3185,7 @@ var SkillNames = map[int]string{
 	34: "Disguise", 35: "Mining",
 }
 
-func (e *GameEngine) doTrain(ctx context.Context, player *Player, args []string) *CommandResult {
-	room := e.rooms[player.RoomNumber]
-	if room == nil || len(room.TrainingSkills) == 0 {
-		return &CommandResult{Messages: []string{"There is no training available here."}}
-	}
-	if len(args) == 0 {
-		// List available training
-		var msgs []string
-		msgs = append(msgs, "Training available here:")
-		for _, ts := range room.TrainingSkills {
-			name := SkillNames[ts.SkillID]
-			if name == "" { name = fmt.Sprintf("Skill #%d", ts.SkillID) }
-			currentLvl := 0
-			if player.Skills != nil { currentLvl = player.Skills[ts.SkillID] }
-			msgs = append(msgs, fmt.Sprintf("  %s (current: %d, max: %d)", name, currentLvl, ts.MaxLevel))
-		}
-		return &CommandResult{Messages: msgs}
-	}
-	target := strings.ToLower(strings.Join(args, " "))
-	for _, ts := range room.TrainingSkills {
-		name := SkillNames[ts.SkillID]
-		if !strings.HasPrefix(strings.ToLower(name), target) { continue }
-		if player.Skills == nil { player.Skills = make(map[int]int) }
-		currentLvl := player.Skills[ts.SkillID]
-		if currentLvl >= ts.MaxLevel {
-			return &CommandResult{Messages: []string{fmt.Sprintf("You have already reached the maximum level of %s training available here.", name)}}
-		}
-		cost := (currentLvl + 1) * (currentLvl + 1) * 10 // copper
-		totalCopper := player.Gold*100 + player.Silver*10 + player.Copper
-		if totalCopper < cost {
-			return &CommandResult{Messages: []string{fmt.Sprintf("Training in %s costs %s. You can't afford it.", name, formatPrice(cost))}}
-		}
-		// Deduct cost
-		remaining := cost
-		if player.Copper >= remaining { player.Copper -= remaining; remaining = 0 } else { remaining -= player.Copper; player.Copper = 0 }
-		if remaining > 0 { sn := (remaining+9)/10; if player.Silver >= sn { player.Silver -= sn; player.Copper += sn*10-remaining; remaining = 0 } else { remaining -= player.Silver*10; player.Silver = 0 } }
-		if remaining > 0 { gn := (remaining+99)/100; player.Gold -= gn; player.Copper += gn*100-remaining }
-		player.Skills[ts.SkillID] = currentLvl + 1
-		e.SavePlayer(ctx, player)
-		return &CommandResult{Messages: []string{fmt.Sprintf("You train in %s. You are now level %d.", name, currentLvl+1)}}
-	}
-	return &CommandResult{Messages: []string{"That skill is not available for training here."}}
-}
+// doTrain replaced by doTrainWithBP in skills.go
 
 func (e *GameEngine) doUnlearn(ctx context.Context, player *Player, args []string) *CommandResult {
 	if len(args) == 0 {

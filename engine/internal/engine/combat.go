@@ -250,7 +250,10 @@ func playerAttackRating(player *Player, weaponDef *gameworld.ItemDef) int {
 	rating += player.Level * 3
 	if weaponDef != nil {
 		skillID := weaponSkillForType(weaponDef.Type)
-		rating += player.Skills[skillID] * 4
+		rating += player.Skills[skillID] * 5 // +5 per weapon skill rank (from skills.txt)
+	} else {
+		// Unarmed: martial arts skill
+		rating += player.Skills[24] * 5 // Martial Arts +5 per rank
 	}
 	if weaponDef != nil && (weaponDef.Type == "BOW_WEAPON" || weaponDef.Type == "THROWN_WEAPON") {
 		rating += player.Agility / 5
@@ -281,8 +284,12 @@ func playerAttackRating(player *Player, weaponDef *gameworld.ItemDef) int {
 func playerDefenseRating(player *Player) int {
 	rating := 25
 	rating += player.Level * 3
-	rating += player.Skills[6] * 4
+	rating += player.Skills[6] * 5 // Dodge & Parry: +5 per rank
 	rating += player.Agility / 5
+	// Martial Arts defense bonus: +2 per rank if unarmed
+	if player.Wielded == nil {
+		rating += player.Skills[24] * 2
+	}
 	switch player.Stance {
 	case StanceOffensive:
 		rating -= 15
@@ -482,9 +489,13 @@ func applyImmunity(dmg int, immunityLevel int) int {
 // ---- MAGICWEAPON check ----
 // Some monsters require magic weapons: 1=any magic, 2=bonus>=10, 3=bonus>=21
 
-func checkMagicWeapon(wielded *InventoryItem, weaponDef *gameworld.ItemDef, monDef *gameworld.MonsterDef) bool {
+func checkMagicWeapon(player *Player, wielded *InventoryItem, weaponDef *gameworld.ItemDef, monDef *gameworld.MonsterDef) bool {
 	if monDef.MagicWeapon <= 0 {
 		return true // no requirement
+	}
+	// Martial Arts 10+ can hit magic-required monsters (level 1 only)
+	if wielded == nil && player.Skills[24] >= 10 && monDef.MagicWeapon <= 1 {
+		return true
 	}
 	if wielded == nil || weaponDef == nil {
 		return false // unarmed can't hit magic-required monsters
@@ -622,7 +633,7 @@ func (e *GameEngine) doAttackMonster(ctx context.Context, player *Player, target
 	}
 
 	// Check MAGICWEAPON requirement
-	if !checkMagicWeapon(player.Wielded, weaponDef, def) {
+	if !checkMagicWeapon(player, player.Wielded, weaponDef, def) {
 		texI := def.TextOverrides["TEXI"]
 		if texI == "" {
 			texI = fmt.Sprintf("Your weapon is not powerful enough to affect %s%s.", article, name)
@@ -793,13 +804,16 @@ func (e *GameEngine) doAttackMonster(ctx context.Context, player *Player, target
 
 	result.Messages = msgs
 
-	// Roundtime
+	// Roundtime: base 5, reduced by quickness and Combat Maneuvering
 	rtSeconds := 5
 	if player.Quickness > 80 {
 		rtSeconds = 3
 	} else if player.Quickness > 50 {
 		rtSeconds = 4
 	}
+	// Combat Maneuvering: -1 sec per rank (from skills.txt)
+	combatManeuver := player.Skills[10]
+	rtSeconds -= combatManeuver
 	if player.Stance == StanceBerserk {
 		rtSeconds--
 	}
@@ -863,6 +877,13 @@ func (e *GameEngine) monsterAttackPlayer(inst *MonsterInstance, def *gameworld.M
 
 	// Special attack
 	if specDmg, specType := monsterSpecialDamage(def); specDmg > 0 {
+		// Combat Maneuvering: 2% per rank chance to dodge special attack (max 95%)
+		combatManeuver := player.Skills[10]
+		dodgeChance := combatManeuver * 2
+		if dodgeChance > 95 { dodgeChance = 95 }
+		if dodgeChance > 0 && rand.Intn(100) < dodgeChance {
+			playerMsgs = append(playerMsgs, fmt.Sprintf("%s%s uses a special attack, but you dodge it!", capArt, name))
+		} else {
 		specText := def.TextOverrides["TEXX"]
 		if specText != "" {
 			specText = strings.Replace(specText, "%s", capArt+name, 1)
@@ -873,6 +894,14 @@ func (e *GameEngine) monsterAttackPlayer(inst *MonsterInstance, def *gameworld.M
 
 		armorPct := playerArmorPercent(player, e.items)
 		specDmg = applyArmor(specDmg, armorPct)
+
+		// Endurance: 1% elemental damage reduction per rank (max 50%)
+		enduranceSkill := player.Skills[11]
+		if enduranceSkill > 0 && (specType == "Heat" || specType == "Cold" || specType == "Electric") {
+			reduction := enduranceSkill
+			if reduction > 50 { reduction = 50 }
+			specDmg = specDmg * (100 - reduction) / 100
+		}
 		_ = specType
 
 		part := randomBodyPart("HUMAN")
@@ -891,6 +920,7 @@ func (e *GameEngine) monsterAttackPlayer(inst *MonsterInstance, def *gameworld.M
 			playerMsgs = append(playerMsgs, deathMsgs...)
 			return playerMsgs, roomMsgs
 		}
+		} // end else (didn't dodge)
 	}
 
 	// Normal attack
