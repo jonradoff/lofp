@@ -2601,6 +2601,15 @@ func (e *GameEngine) doGive(ctx context.Context, player *Player, args []string) 
 	} else {
 		return &CommandResult{Messages: []string{"Give what to whom? (give <item> to <player>)"}}
 	}
+	// Check for money giving: "give 5 gold to Taliesin", "give 10 kragenmark to Taliesin"
+	if amount, currency, ok := parseMoneyAmount(itemName); ok {
+		target := e.findPlayerInRoom(player, targetName)
+		if target == nil {
+			return &CommandResult{Messages: []string{"You don't see that person here."}}
+		}
+		return e.doGiveMoney(ctx, player, target, amount, currency)
+	}
+
 	itemName, ordSkip := parseOrdinal(itemName)
 	skip := ordSkip
 
@@ -2634,6 +2643,121 @@ func (e *GameEngine) doGive(ctx context.Context, player *Player, args []string) 
 		}
 	}
 	return &CommandResult{Messages: []string{"You don't have that."}}
+}
+
+// parseMoneyAmount checks if a string like "5 gold" or "10 kragenmark" is a money amount.
+// Returns (amount, currency_name, true) or (0, "", false).
+func parseMoneyAmount(s string) (int, string, bool) {
+	parts := strings.Fields(s)
+	if len(parts) < 2 {
+		return 0, "", false
+	}
+	amount, err := strconv.Atoi(parts[0])
+	if err != nil || amount <= 0 {
+		return 0, "", false
+	}
+	currency := strings.ToLower(strings.Join(parts[1:], " "))
+	// Recognize all currency types
+	switch currency {
+	case "gold", "crown", "crowns", "gold crown", "gold crowns":
+		return amount, "gold", true
+	case "silver", "shilling", "shillings", "silver shilling", "silver shillings":
+		return amount, "silver", true
+	case "copper", "penny", "pennies", "copper penny", "copper pennies":
+		return amount, "copper", true
+	case "coin", "coins":
+		return amount, "copper", true
+	case "kragenmark", "kragenmarks":
+		return amount, "kragenmark", true
+	case "danir", "danirs":
+		return amount, "danir", true
+	case "shard", "shards":
+		return amount, "shard", true
+	case "darktar", "darktars":
+		return amount, "darktar", true
+	case "dollar", "dollars":
+		return amount, "dollar", true
+	}
+	return 0, "", false
+}
+
+// doGiveMoney transfers currency from one player to another.
+func (e *GameEngine) doGiveMoney(ctx context.Context, giver, receiver *Player, amount int, currency string) *CommandResult {
+	// Check if giver has enough
+	currencyDisplay := ""
+	switch currency {
+	case "gold":
+		if giver.Gold < amount {
+			return &CommandResult{Messages: []string{fmt.Sprintf("You only have %d gold.", giver.Gold)}}
+		}
+		giver.Gold -= amount
+		receiver.Gold += amount
+		currencyDisplay = fmt.Sprintf("%d gold crown", amount)
+		if amount != 1 { currencyDisplay += "s" }
+	case "silver":
+		if giver.Silver < amount {
+			return &CommandResult{Messages: []string{fmt.Sprintf("You only have %d silver.", giver.Silver)}}
+		}
+		giver.Silver -= amount
+		receiver.Silver += amount
+		currencyDisplay = fmt.Sprintf("%d silver shilling", amount)
+		if amount != 1 { currencyDisplay += "s" }
+	case "copper":
+		if giver.Copper < amount {
+			return &CommandResult{Messages: []string{fmt.Sprintf("You only have %d copper.", giver.Copper)}}
+		}
+		giver.Copper -= amount
+		receiver.Copper += amount
+		currencyDisplay = fmt.Sprintf("%d copper penn", amount)
+		if amount == 1 { currencyDisplay += "y" } else { currencyDisplay += "ies" }
+	default:
+		// Regional currencies — these are handled as inventory items with MONEY type
+		// Find the currency item in giver's inventory
+		for i, ii := range giver.Inventory {
+			def := e.items[ii.Archetype]
+			if def == nil || def.Type != "MONEY" {
+				continue
+			}
+			noun := strings.ToLower(e.nouns[def.NameID])
+			if noun == currency || strings.HasPrefix(noun, currency) {
+				coins := ii.Val1
+				if coins < amount {
+					return &CommandResult{Messages: []string{fmt.Sprintf("You only have %d %s.", coins, currency)}}
+				}
+				if coins == amount {
+					// Transfer the whole stack
+					receiver.Inventory = append(receiver.Inventory, ii)
+					giver.Inventory = append(giver.Inventory[:i], giver.Inventory[i+1:]...)
+				} else {
+					// Split the stack
+					giver.Inventory[i].Val1 -= amount
+					newItem := ii
+					newItem.Val1 = amount
+					receiver.Inventory = append(receiver.Inventory, newItem)
+				}
+				currencyDisplay = fmt.Sprintf("%d %s", amount, currency)
+				if amount != 1 { currencyDisplay += "s" }
+				e.SavePlayer(ctx, giver)
+				e.SavePlayer(ctx, receiver)
+				return &CommandResult{
+					Messages:      []string{fmt.Sprintf("You give %s to %s.", currencyDisplay, receiver.FirstName)},
+					RoomBroadcast: []string{fmt.Sprintf("%s gives some coins to %s.", giver.FirstName, receiver.FirstName)},
+					WhisperTarget: receiver.FirstName,
+					WhisperMsg:    fmt.Sprintf("%s gives you %s.", giver.FirstName, currencyDisplay),
+				}
+			}
+		}
+		return &CommandResult{Messages: []string{fmt.Sprintf("You don't have any %s.", currency)}}
+	}
+
+	e.SavePlayer(ctx, giver)
+	e.SavePlayer(ctx, receiver)
+	return &CommandResult{
+		Messages:      []string{fmt.Sprintf("You give %s to %s.", currencyDisplay, receiver.FirstName)},
+		RoomBroadcast: []string{fmt.Sprintf("%s gives some coins to %s.", giver.FirstName, receiver.FirstName)},
+		WhisperTarget: receiver.FirstName,
+		WhisperMsg:    fmt.Sprintf("%s gives you %s.", giver.FirstName, currencyDisplay),
+	}
 }
 
 func (e *GameEngine) doEat(ctx context.Context, player *Player, args []string) *CommandResult {
