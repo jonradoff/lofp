@@ -4,15 +4,17 @@ import CharacterCreate from './components/CharacterCreate'
 import MainMenu from './components/MainMenu'
 import AdminPanel from './components/AdminPanel'
 import VersionNotes from './components/VersionNotes'
+import APIDocs from './components/APIDocs'
 import CaptureModal from './components/CaptureModal'
 import CaptureViewer from './components/CaptureViewer'
 
-type View = 'menu' | 'create' | 'play' | 'admin' | 'version' | 'capture_view'
+type View = 'menu' | 'create' | 'play' | 'admin' | 'version' | 'capture_view' | 'api_docs'
 
 // Check if URL points to a specific view
 function initialViewFromURL(): View {
   const path = window.location.pathname
   if (path === '/version-notes' || path === '/version-notes/') return 'version'
+  if (path === '/api-docs' || path === '/api-docs/') return 'api_docs'
   return 'menu'
 }
 
@@ -56,6 +58,8 @@ function App() {
     setViewRaw(v)
     if (v === 'version') {
       window.history.pushState({}, '', '/version-notes')
+    } else if (v === 'api_docs') {
+      window.history.pushState({}, '', '/api-docs')
     } else if (window.location.pathname !== '/') {
       window.history.pushState({}, '', '/')
     }
@@ -233,6 +237,7 @@ function App() {
           {view === 'play' && character && <Terminal character={character} onQuit={() => setView('menu')} wsRefOut={wsRef} onCaptureStatus={(recording, _id) => { setCaptureRecording(recording) }} />}
           {view === 'admin' && <AdminPanel />}
           {view === 'version' && <VersionNotes onBack={() => setView('menu')} />}
+          {view === 'api_docs' && <APIDocs onBack={() => setView('menu')} />}
           {view === 'capture_view' && <CaptureViewer captureId={viewCaptureId} onBack={() => setView('play')} />}
         </div>
         {showCaptureModal && (

@@ -280,6 +280,10 @@ export default function MainMenu({ onNewCharacter, onSelectCharacter, onVersionN
           <button onClick={onVersionNotes} className="text-gray-600 hover:text-amber-400 text-xs font-mono">
             Version 10.0.3 &mdash; Version Notes
           </button>
+          <span className="text-gray-700 mx-2">|</span>
+          <a href="/api-docs" className="text-gray-600 hover:text-amber-400 text-xs font-mono">
+            API Documentation
+          </a>
         </div>
 
         {/* API Key modal */}
