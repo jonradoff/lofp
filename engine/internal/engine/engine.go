@@ -994,9 +994,47 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 	case "FLEE":
 		return e.doFlee(ctx, player)
 	case "ADVANCE":
-		return &CommandResult{Messages: []string{"You advance."}, RoomBroadcast: []string{fmt.Sprintf("%s advances.", player.FirstName)}}
+		if len(args) == 0 {
+			return &CommandResult{Messages: []string{"Advance on what?"}}
+		}
+		target := strings.Join(args, " ")
+		// Try monster first
+		inst, def := e.findMonsterInRoom(player, target)
+		if inst != nil {
+			name := FormatMonsterName(def, e.monAdjs)
+			article := articleFor(name, def.Unique)
+			player.CombatTarget = &CombatTarget{IsMonster: true, MonsterID: inst.ID}
+			player.Joined = true
+			e.monsterMgr.mu.Lock()
+			for i := range e.monsterMgr.instances {
+				if e.monsterMgr.instances[i].ID == inst.ID && e.monsterMgr.instances[i].Target == "" {
+					e.monsterMgr.instances[i].Target = player.FirstName
+				}
+			}
+			e.monsterMgr.mu.Unlock()
+			return &CommandResult{
+				Messages:      []string{fmt.Sprintf("You advance toward %s%s.", article, name)},
+				RoomBroadcast: []string{fmt.Sprintf("%s advances toward %s%s.", player.FirstName, article, name)},
+			}
+		}
+		// Try player
+		found := e.findPlayerInRoom(player, strings.ToLower(target))
+		if found != nil {
+			return &CommandResult{
+				Messages:      []string{fmt.Sprintf("You advance toward %s.", found.FirstName)},
+				RoomBroadcast: []string{fmt.Sprintf("%s advances toward %s.", player.FirstName, found.FirstName)},
+			}
+		}
+		return &CommandResult{Messages: []string{fmt.Sprintf("You don't see '%s' here.", target)}}
 	case "RETREAT":
-		return e.doFlee(ctx, player) // retreat is same as flee for now
+		if player.CombatTarget == nil && !player.Joined {
+			return &CommandResult{Messages: []string{"You are not engaged with anything."}}
+		}
+		e.disengageCombat(player)
+		return &CommandResult{
+			Messages:      []string{"You retreat."},
+			RoomBroadcast: []string{fmt.Sprintf("%s retreats.", player.FirstName)},
+		}
 	case "GUARD":
 		return &CommandResult{Messages: []string{"[Guard coming soon.]"}}
 	case "BACKSTAB":
