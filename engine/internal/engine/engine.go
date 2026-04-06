@@ -774,7 +774,7 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 		if len(args) == 0 {
 			return &CommandResult{Messages: []string{"Act how?"}}
 		}
-		action := strings.Join(strings.Fields(strings.ToLower(input))[1:], " ")
+		action := extractOriginalArgs(input)
 		actMsg := fmt.Sprintf("(%s %s)", player.FirstName, action)
 		return &CommandResult{Messages: []string{actMsg}, RoomBroadcast: []string{actMsg}}
 	case "EMOTE":
