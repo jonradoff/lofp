@@ -77,10 +77,10 @@ export default function Manual({ onBack }: { onBack: () => void }) {
     <div className="h-full flex flex-col bg-[#0a0a0a]">
       {/* Mobile TOC toggle */}
       <div className="lg:hidden flex items-center justify-between px-4 py-2 border-b border-[#333] bg-[#111]">
-        <button onClick={onBack} className="text-gray-400 hover:text-amber-400 font-mono text-sm">
+        <span className="text-amber-500 font-mono font-bold text-sm">Player Manual</span>
+        <button onClick={onBack} className="px-3 py-1 bg-[#333] hover:bg-[#444] text-gray-300 font-mono text-sm rounded border border-[#555]">
           &times; Close
         </button>
-        <span className="text-amber-500 font-mono font-bold text-sm">Player Manual</span>
         <button
           onClick={() => setTocOpen(!tocOpen)}
           className="text-gray-400 hover:text-amber-400 font-mono text-sm"
@@ -116,13 +116,15 @@ export default function Manual({ onBack }: { onBack: () => void }) {
         {/* Desktop sidebar TOC */}
         <aside className="hidden lg:block w-64 flex-shrink-0 border-r border-[#333] bg-[#111] overflow-y-auto">
           <div className="sticky top-0 bg-[#111] border-b border-[#222] px-4 py-3">
-            <button
-              onClick={onBack}
-              className="text-gray-400 hover:text-amber-400 font-mono text-sm mb-3 block"
-            >
-              &times; Close to Menu
-            </button>
-            <h2 className="text-amber-500 font-mono font-bold text-sm">Player Manual v3.1</h2>
+            <div className="flex items-center justify-between mb-3">
+              <h2 className="text-amber-500 font-mono font-bold text-sm">Player Manual v3.1</h2>
+              <button
+                onClick={onBack}
+                className="px-3 py-1 bg-[#333] hover:bg-[#444] text-gray-300 font-mono text-xs rounded border border-[#555]"
+              >
+                &times; Close
+              </button>
+            </div>
           </div>
           <nav className="px-4 py-3 space-y-0.5">
             {sections.map((s) => (
@@ -1942,9 +1944,9 @@ gaze  glare  scowl  furrow (brow)  sing  recite  pace  comfort`}</pre>
               </p>
               <button
                 onClick={onBack}
-                className="mt-4 text-gray-400 hover:text-amber-400 font-mono text-sm"
+                className="mt-4 px-4 py-2 bg-[#333] hover:bg-[#444] text-gray-300 font-mono text-sm rounded border border-[#555]"
               >
-                &times; Close to Menu
+                &times; Close Manual
               </button>
             </div>
           </div>

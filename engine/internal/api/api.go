@@ -208,7 +208,14 @@ func NewServer(ge *engine.GameEngine, parsed *gameworld.ParsedData, authSvc *aut
 			if sess.Player == nil || sess.Player.RoomNumber != roomNumber {
 				continue
 			}
-			s.sendBroadcast(sess, messages)
+			// BattleBrief suppresses monster ambient text
+			if sess.Player.BattleBrief {
+				continue
+			}
+			filtered := filterBroadcastForPlayer(sess.Player, messages)
+			if len(filtered) > 0 {
+				s.sendBroadcast(sess, filtered)
+			}
 		}
 		s.mu.RUnlock()
 	})
@@ -871,6 +878,40 @@ func (s *Server) sendResult(session *Session, result *engine.CommandResult) {
 	session.Conn.SendResult(result)
 }
 
+// filterBroadcastForPlayer filters broadcast messages based on the player's SET preferences.
+// Returns the filtered list (may be empty).
+func filterBroadcastForPlayer(player *engine.Player, messages []string) []string {
+	if player == nil {
+		return messages
+	}
+	filtered := make([]string, 0, len(messages))
+	for _, msg := range messages {
+		// Global message filters
+		if player.SuppressLogon && strings.Contains(msg, "has just entered the Realms.") {
+			continue
+		}
+		if player.SuppressLogoff && strings.Contains(msg, "has just left the Realms.") {
+			continue
+		}
+		if player.SuppressDisconnect && strings.Contains(msg, "has just disconnected.") {
+			continue
+		}
+		// ActionBrief: filter healing/spell/eat/drink messages from others
+		if player.ActionBrief {
+			if strings.Contains(msg, "looks a little better") ||
+				strings.Contains(msg, "looks much better") ||
+				strings.Contains(msg, "incants a spell") ||
+				strings.Contains(msg, "gestures") ||
+				strings.Contains(msg, " drinks ") ||
+				strings.Contains(msg, " eats ") {
+				continue
+			}
+		}
+		filtered = append(filtered, msg)
+	}
+	return filtered
+}
+
 func (s *Server) sendBroadcast(session *Session, messages []string) {
 	session.Conn.SendBroadcast(messages)
 
@@ -897,7 +938,10 @@ func (s *Server) broadcastToRoom(roomNumber int, excludeName string, messages []
 		if isExcluded(sess.Player.FirstName, allExcludes) {
 			continue
 		}
-		s.sendBroadcast(sess, messages)
+		filtered := filterBroadcastForPlayer(sess.Player, messages)
+		if len(filtered) > 0 {
+			s.sendBroadcast(sess, filtered)
+		}
 	}
 	s.mu.RUnlock()
 
@@ -932,7 +976,10 @@ func (s *Server) broadcastGlobal(excludeName string, messages []string) {
 		if sess.Player == nil || sess.Player.FirstName == excludeName {
 			continue
 		}
-		s.sendBroadcast(sess, messages)
+		filtered := filterBroadcastForPlayer(sess.Player, messages)
+		if len(filtered) > 0 {
+			s.sendBroadcast(sess, filtered)
+		}
 	}
 	s.mu.RUnlock()
 
@@ -973,14 +1020,20 @@ func (s *Server) deliverRemoteEvent(event *hub.Event) {
 			if isExcluded(sess.Player.FirstName, event.ExcludePlayers) {
 				continue
 			}
-			s.sendBroadcast(sess, event.Messages)
+			filtered := filterBroadcastForPlayer(sess.Player, event.Messages)
+			if len(filtered) > 0 {
+				s.sendBroadcast(sess, filtered)
+			}
 		}
 	case "global_broadcast":
 		for _, sess := range s.sessions {
 			if sess.Player == nil || isExcluded(sess.Player.FirstName, event.ExcludePlayers) {
 				continue
 			}
-			s.sendBroadcast(sess, event.Messages)
+			filtered := filterBroadcastForPlayer(sess.Player, event.Messages)
+			if len(filtered) > 0 {
+				s.sendBroadcast(sess, filtered)
+			}
 		}
 	case "send_to_player":
 		if sess, ok := s.sessions[event.TargetPlayer]; ok {

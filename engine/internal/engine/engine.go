@@ -857,7 +857,12 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 			return &CommandResult{Messages: []string{"Act how?"}}
 		}
 		action := extractOriginalArgs(input)
-		actMsg := fmt.Sprintf("(%s %s)", player.FirstName, action)
+		var actMsg string
+		if player.ActBrief {
+			actMsg = fmt.Sprintf("%s %s", player.FirstName, action)
+		} else {
+			actMsg = fmt.Sprintf("(%s %s)", player.FirstName, action)
+		}
 		return &CommandResult{Messages: []string{actMsg}, RoomBroadcast: []string{actMsg}}
 	case "EMOTE":
 		if player.Race != RaceMechanoid {
@@ -1306,9 +1311,11 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 	case "POUR":
 		return &CommandResult{Messages: []string{"[Liquid transfer coming soon.]"}}
 	case "ACTBRIEF":
-		return &CommandResult{Messages: []string{"ACT brief mode toggled."}}
+		return e.doSet(ctx, player, []string{"ACTBRIEF"})
 	case "RPBRIEF":
-		return &CommandResult{Messages: []string{"RP brief mode toggled."}}
+		return e.doSet(ctx, player, []string{"RPBRIEF"})
+	case "SET":
+		return e.doSet(ctx, player, args)
 	case "SNIFF", "SMELL":
 		if len(args) > 0 {
 			return e.doItemInteraction(ctx, player, "SNIFF", args)
@@ -1396,7 +1403,7 @@ var allVerbs = []string{
 	// Additional verbs
 	"ORDER", "UNLIGHT", "IGNITE", "QUAFF", "SHOUT",
 	"LOCK", "UNLOCK", "POUR", "UNEMOTE", "ACTBRIEF", "RPBRIEF",
-	"FLEE", "MODERATE", "HIT", "PSI", "PROJECT", "DEPART", "REVEAL", "UNHIDE", "REPORT",
+	"FLEE", "MODERATE", "HIT", "PSI", "PROJECT", "DEPART", "REVEAL", "UNHIDE", "REPORT", "SET",
 	// Self-emotes
 	"FUME", "SQUINT", "HUM", "SNIFFLE", "SLOUCH", "SNORE", "SNEEZE",
 	"STARE", "PUCKER", "CRACK", "BOUNCE", "STRIKE", "CLUTCH",
@@ -4670,6 +4677,123 @@ func (e *GameEngine) ReassignCharacter(ctx context.Context, firstName, newAccoun
 	}
 	player.AccountID = newAccountID
 	return player, nil
+}
+
+// doSet handles the SET command for toggling player settings.
+func (e *GameEngine) doSet(ctx context.Context, player *Player, args []string) *CommandResult {
+	// Helper to format ON/OFF
+	onOff := func(suppressed bool) string {
+		if suppressed {
+			return "OFF"
+		}
+		return "ON"
+	}
+	onOffBrief := func(enabled bool) string {
+		if enabled {
+			return "ON"
+		}
+		return "OFF"
+	}
+
+	// Handle shortcut verbs: ACTBRIEF toggles ActBrief, RPBRIEF toggles RPBrief
+	if len(args) == 1 {
+		switch args[0] {
+		case "ACTBRIEF":
+			player.ActBrief = !player.ActBrief
+			e.SavePlayer(ctx, player)
+			return &CommandResult{Messages: []string{fmt.Sprintf("Actbrief is now %s.", onOffBrief(player.ActBrief))}}
+		case "RPBRIEF":
+			player.RPBrief = !player.RPBrief
+			e.SavePlayer(ctx, player)
+			return &CommandResult{Messages: []string{fmt.Sprintf("RPbrief is now %s.", onOffBrief(player.RPBrief))}}
+		}
+	}
+
+	// SET with no args: show all settings
+	if len(args) == 0 {
+		briefMode := "OFF"
+		if player.BriefMode {
+			briefMode = "ON"
+		}
+		promptMode := "ON"
+		if !player.PromptMode {
+			promptMode = "OFF"
+		}
+		lines := []string{
+			"Current Settings:",
+			fmt.Sprintf("  Full:                %s", func() string { if player.BriefMode { return "OFF" }; return "ON" }()),
+			fmt.Sprintf("  Brief:               %s", briefMode),
+			fmt.Sprintf("  Prompt:              %s", promptMode),
+			fmt.Sprintf("  Logon messages:      %s", onOff(player.SuppressLogon)),
+			fmt.Sprintf("  Logoff messages:     %s", onOff(player.SuppressLogoff)),
+			fmt.Sprintf("  Disconnect messages: %s", onOff(player.SuppressDisconnect)),
+			fmt.Sprintf("  RPbrief:             %s", onOffBrief(player.RPBrief)),
+			fmt.Sprintf("  Battlebrief:         %s", onOffBrief(player.BattleBrief)),
+			fmt.Sprintf("  Actionbrief:         %s", onOffBrief(player.ActionBrief)),
+			fmt.Sprintf("  Actbrief:            %s", onOffBrief(player.ActBrief)),
+			"",
+			"Type SET <setting> ON/OFF to change a setting.",
+		}
+		return &CommandResult{Messages: lines}
+	}
+
+	if len(args) < 2 {
+		return &CommandResult{Messages: []string{"Usage: SET <setting> ON/OFF"}}
+	}
+
+	setting := args[0]
+	value := args[1]
+
+	var turnOn bool
+	switch value {
+	case "ON":
+		turnOn = true
+	case "OFF":
+		turnOn = false
+	default:
+		return &CommandResult{Messages: []string{"Usage: SET <setting> ON/OFF"}}
+	}
+
+	var msg string
+	switch setting {
+	case "LOGON":
+		player.SuppressLogon = !turnOn
+		msg = fmt.Sprintf("Logon messages are now %s.", value)
+	case "LOGOFF":
+		player.SuppressLogoff = !turnOn
+		msg = fmt.Sprintf("Logoff messages are now %s.", value)
+	case "DISCONNECT":
+		player.SuppressDisconnect = !turnOn
+		msg = fmt.Sprintf("Disconnect messages are now %s.", value)
+	case "RPBRIEF":
+		player.RPBrief = turnOn
+		msg = fmt.Sprintf("RPbrief is now %s.", value)
+	case "BATTLEBRIEF":
+		player.BattleBrief = turnOn
+		msg = fmt.Sprintf("Battlebrief is now %s.", value)
+	case "ACTIONBRIEF":
+		player.ActionBrief = turnOn
+		msg = fmt.Sprintf("Actionbrief is now %s.", value)
+	case "ACTBRIEF":
+		player.ActBrief = turnOn
+		msg = fmt.Sprintf("Actbrief is now %s.", value)
+	case "FULL":
+		player.BriefMode = !turnOn
+		msg = fmt.Sprintf("Full room descriptions are now %s.", value)
+	case "BRIEF":
+		player.BriefMode = turnOn
+		msg = fmt.Sprintf("Brief mode is now %s.", value)
+	case "PROMPT":
+		player.PromptMode = turnOn
+		msg = fmt.Sprintf("Prompt mode is now %s.", value)
+	default:
+		return &CommandResult{Messages: []string{
+			"Unknown setting. Valid settings: FULL, BRIEF, PROMPT, LOGON, LOGOFF, DISCONNECT, RPBRIEF, BATTLEBRIEF, ACTIONBRIEF, ACTBRIEF",
+		}}
+	}
+
+	e.SavePlayer(ctx, player)
+	return &CommandResult{Messages: []string{msg}}
 }
 
 // SavePlayer persists the player state to MongoDB.

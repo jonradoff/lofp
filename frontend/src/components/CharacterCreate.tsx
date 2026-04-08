@@ -53,9 +53,10 @@ const RACES = [
 
 interface Props {
   onCreated: (char: { firstName: string; lastName: string; race: number; gender: number }) => void
+  onOpenManual?: () => void
 }
 
-export default function CharacterCreate({ onCreated }: Props) {
+export default function CharacterCreate({ onCreated, onOpenManual }: Props) {
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [race, setRace] = useState(1)
@@ -84,9 +85,9 @@ export default function CharacterCreate({ onCreated }: Props) {
             <p className="text-gray-400 text-xs font-mono leading-relaxed">
               Legends is a roleplaying game &mdash; please choose a name that fits the fantasy setting.
               Avoid modern names, pop culture references, or joke names.{' '}
-              <a href="/manual#art-of-roleplaying" target="_blank" rel="noopener noreferrer" className="text-amber-500 hover:text-amber-400 underline">
+              <button type="button" onClick={onOpenManual} className="text-amber-500 hover:text-amber-400 underline cursor-pointer">
                 Read more about roleplaying &rarr;
-              </a>
+              </button>
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

@@ -286,7 +286,7 @@ function App() {
               onVersionNotes={() => setView('version')}
             />
           )}
-          {view === 'create' && <CharacterCreate onCreated={handleCharacterCreated} />}
+          {view === 'create' && <CharacterCreate onCreated={handleCharacterCreated} onOpenManual={() => setShowManual(true)} />}
           {view === 'play' && character && <Terminal character={character} onQuit={() => setView('menu')} wsRefOut={wsRef} onCaptureStatus={(recording, _id) => { setCaptureRecording(recording) }} />}
           {view === 'admin' && <AdminPanel />}
           {view === 'version' && <VersionNotes onBack={() => setView('menu')} />}

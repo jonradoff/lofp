@@ -185,6 +185,16 @@ type Player struct {
 	BotGMAllowed  bool   `bson:"botGMAllowed,omitempty" json:"botGMAllowed,omitempty"` // whether bot can use GM commands
 	IsBot         bool   `bson:"-" json:"-"`                                           // transient: connected via API key
 
+	// Settings (persistent toggles via SET command)
+	// All zero-values = default behavior (show everything, no brief modes)
+	SuppressLogon      bool `bson:"suppressLogon,omitempty" json:"-"`
+	SuppressLogoff     bool `bson:"suppressLogoff,omitempty" json:"-"`
+	SuppressDisconnect bool `bson:"suppressDisconnect,omitempty" json:"-"`
+	RPBrief            bool `bson:"rpBrief,omitempty" json:"-"`
+	BattleBrief        bool `bson:"battleBrief,omitempty" json:"-"`
+	ActionBrief        bool `bson:"actionBrief,omitempty" json:"-"`
+	ActBrief           bool `bson:"actBrief,omitempty" json:"-"`
+
 	// Game state
 	BriefMode    bool   `bson:"briefMode" json:"briefMode"`
 	PromptMode   bool   `bson:"promptMode" json:"promptMode"`
