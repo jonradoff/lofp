@@ -4481,6 +4481,37 @@ func (e *GameEngine) LoadPlayer(ctx context.Context, firstName, lastName string)
 	if err != nil {
 		return nil, err
 	}
+
+	// Backfill height/weight for existing characters that have 0
+	if player.Height == 0 || player.Weight == 0 {
+		heightWeightRanges := map[int][4]int{
+			1: {62, 76, 120, 220}, 2: {66, 80, 100, 170}, 3: {48, 58, 130, 200},
+			4: {64, 74, 130, 200}, 5: {62, 74, 150, 230}, 6: {68, 82, 150, 250},
+			7: {60, 74, 150, 250}, 8: {58, 72, 80, 130},
+		}
+		hw := heightWeightRanges[player.Race]
+		if hw == [4]int{} {
+			hw = [4]int{62, 76, 120, 220}
+		}
+		if player.Height == 0 {
+			h := hw[0] + rand.Intn(hw[1]-hw[0]+1)
+			if player.Gender == 1 {
+				h -= 2 + rand.Intn(3)
+			}
+			player.Height = h
+			player.HeightTrue = h
+		}
+		if player.Weight == 0 {
+			w := hw[2] + rand.Intn(hw[3]-hw[2]+1)
+			if player.Gender == 1 {
+				w -= 10 + rand.Intn(20)
+			}
+			player.Weight = w
+			player.WeightTrue = w
+		}
+		e.SavePlayer(ctx, &player)
+	}
+
 	return &player, nil
 }
 
