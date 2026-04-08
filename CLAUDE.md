@@ -127,7 +127,7 @@ The game world is defined in a custom scripting language (documented in `origina
 - **Variables**: Named variables + internal vars (stats, time, flags, item vals)
 - Config file: `original/scripts/LEGENDS.CFG` lists all scripts to load in order
 
-## Current State (v11.2.0)
+## Current State (v11.2.1)
 
 - Script parser loads 2273+ rooms, 1990+ items, 297 monsters with case-insensitive file loading
 - Full combat system: original [ToHit/Roll] format, weapon crits/slayers, fatigue, weapon clash

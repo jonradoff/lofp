@@ -9,6 +9,51 @@ export default function VersionNotes({ onBack }: { onBack: () => void }) {
 
         <div className="space-y-6 text-sm">
           <section>
+            <h2 className="text-amber-400 text-lg font-bold mb-1">v11.2.1 &mdash; April 8, 2026</h2>
+            <p className="text-gray-400 mb-3">Player manual, SET command, weather, monster spawning fix, combat fixes.</p>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Player Manual</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Full original Player Manual (V3.1, 1994) available as in-game reference</li>
+                  <li>Opens as a modal overlay &mdash; read it while playing or creating a character</li>
+                  <li>Sticky table of contents with 29 sections</li>
+                  <li>Accessible from top navigation bar and footer</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">SET Command</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>SET &mdash; view and toggle all display settings</li>
+                  <li>Full/Brief room descriptions, Prompt mode</li>
+                  <li>Filter logon, logoff, disconnect messages</li>
+                  <li>RPbrief, Battlebrief, Actionbrief, Actbrief filters</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">World</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Dynamic weather system with regional transitions</li>
+                  <li>Sunrise and sunset broadcasts to outdoor rooms</li>
+                  <li>PSI command: list disciplines, activate by number, toggle maintained powers</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Fixes</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Critical: Monster spawning fixed (MLIST group IDs were not matching rooms)</li>
+                  <li>Fixed multi-machine desync (scaled to single machine)</li>
+                  <li>Height/weight now set on character creation with race-specific ranges</li>
+                  <li>Existing characters backfilled with height/weight on login</li>
+                  <li>Attack command now strips articles (&ldquo;attack a skeleton&rdquo; works)</li>
+                  <li>Player state saved after monster combat (death, poison persists)</li>
+                  <li>Clearer message when attempting PvP (&ldquo;Player combat is not allowed here&rdquo;)</li>
+                  <li>Monster room listing condensed to single line</li>
+                </ul>
+              </div>
+            </div>
+
             <h2 className="text-amber-400 text-lg font-bold mb-1">v11.2.0 &mdash; April 8, 2026</h2>
             <p className="text-gray-400 mb-3">Authentic gameplay restoration from original 1990s session captures. Major new systems.</p>
 
