@@ -635,6 +635,14 @@ func (e *GameEngine) doAttackMonster(ctx context.Context, player *Player, target
 
 	inst, def := e.findMonsterInRoom(player, target)
 	if inst == nil {
+		// Check if they're trying to attack a player
+		if e.sessions != nil {
+			for _, p := range e.sessions.OnlinePlayers() {
+				if p.RoomNumber == player.RoomNumber && strings.HasPrefix(strings.ToUpper(p.FirstName), strings.ToUpper(target)) {
+					return &CommandResult{Messages: []string{"Player combat is not allowed here."}}
+				}
+			}
+		}
 		return &CommandResult{Messages: []string{fmt.Sprintf("You don't see '%s' here to attack.", target)}}
 	}
 

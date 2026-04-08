@@ -1418,6 +1418,7 @@ var verbAliases = map[string]string{
 	"ORDER": "BUY", "UNLIGHT": "EXTINGUISH", "IGNITE": "LIGHT",
 	"QUAFF": "DRINK", "SHOUT": "YELL", "A": "ATTACK",
 	"PLACE": "PUT", "TRANS": "TRANSFORM",
+	"PSIONICS": "PSI",
 }
 
 // resolveVerb resolves a typed verb to its canonical form.
@@ -4384,6 +4385,32 @@ func (e *GameEngine) CreateNewPlayer(ctx context.Context, firstName, lastName st
 	mana := emp / 2
 	psi := wil / 2
 
+	// Race-based height/weight ranges: [minHeight, maxHeight, minWeight, maxWeight]
+	// Heights in inches, weights in lbs. Based on original GM manual.
+	heightWeightRanges := map[int][4]int{
+		1: {62, 76, 120, 220},  // Human
+		2: {66, 80, 100, 170},  // Aelfen (tall, slender)
+		3: {48, 58, 130, 200},  // Highlander (short, rugged)
+		4: {64, 74, 130, 200},  // Wolfling
+		5: {62, 74, 150, 230},  // Murg (burly)
+		6: {68, 82, 150, 250},  // Drakin (large)
+		7: {60, 74, 150, 250},  // Mechanoid
+		8: {58, 72, 80, 130},   // Ephemeral (wispy)
+	}
+	hw := heightWeightRanges[race]
+	if hw == [4]int{} {
+		hw = [4]int{62, 76, 120, 220} // fallback to human
+	}
+	height := hw[0] + rand.Intn(hw[1]-hw[0]+1)
+	weight := hw[2] + rand.Intn(hw[3]-hw[2]+1)
+	// Females slightly smaller on average
+	if gender == 1 {
+		height -= 2 + rand.Intn(3)
+		weight -= 10 + rand.Intn(20)
+		if height < hw[0]-4 { height = hw[0] - 4 }
+		if weight < hw[2]-20 { weight = hw[2] - 20 }
+	}
+
 	now := time.Now()
 	player := &Player{
 		FirstName:     firstName,
@@ -4407,6 +4434,10 @@ func (e *GameEngine) CreateNewPlayer(ctx context.Context, firstName, lastName st
 		MaxMana:       mana,
 		Psi:           psi,
 		MaxPsi:        psi,
+		Height:        height,
+		HeightTrue:    height,
+		Weight:        weight,
+		WeightTrue:    weight,
 		RoomNumber:    201, // Start at City Gate (tutorial room 3950 requires script execution)
 		Position:      0,
 		Skills:        make(map[int]int),

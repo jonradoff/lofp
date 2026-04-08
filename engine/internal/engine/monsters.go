@@ -80,9 +80,19 @@ func (e *GameEngine) spawnForRoom(roomNum int) {
 	e.monsterMgr.roomLastPlayer[roomNum] = time.Now()
 	e.monsterMgr.mu.Unlock()
 
-	// Check MLIST entries for this room
+	// Look up the room's monster group ID
+	room := e.rooms[roomNum]
+	if room == nil {
+		return
+	}
+	groupID := room.MonsterGroup
+	if groupID == 0 {
+		return
+	}
+
+	// Check MLIST entries matching this room's monster group
 	for _, ml := range e.monsterLists {
-		if ml.Room != roomNum {
+		if ml.Room != groupID {
 			continue
 		}
 		def := e.monsters[ml.MonsterID]

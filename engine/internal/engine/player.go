@@ -111,6 +111,7 @@ type Player struct {
 	CombatTarget  *CombatTarget `bson:"-" json:"-"`          // current combat target
 	DefenseBonus  int           `bson:"-" json:"-"`          // from spells/psi
 	PreparedPsi   int           `bson:"-" json:"-"`          // prepared psi discipline ID
+	ActivePsi     map[int]bool `bson:"-" json:"-"`          // currently maintained psi disciplines
 	BackstabNext  bool          `bson:"-" json:"-"`          // next attack is a backstab
 	TelepathyActive bool      `bson:"telepathyActive,omitempty" json:"telepathyActive,omitempty"`
 	TelepathyExpiry time.Time `bson:"telepathyExpiry,omitempty" json:"telepathyExpiry,omitempty"`

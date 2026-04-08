@@ -96,11 +96,10 @@ func FindPsiByID(id int) *PsiDiscipline {
 	return nil
 }
 
-// doPreparePsi handles PSI <discipline>.
+// doPreparePsi handles PSI [discipline#|name].
+// With no args: lists known disciplines and active maintained powers.
+// With a number or name: activates the discipline. For maintained powers, toggles on/off.
 func (e *GameEngine) doPreparePsi(player *Player, args []string) *CommandResult {
-	if len(args) == 0 {
-		return &CommandResult{Messages: []string{"Prepare what discipline?"}}
-	}
 	if player.Dead {
 		return &CommandResult{Messages: []string{"You can't use psionics while dead."}}
 	}
@@ -110,16 +109,93 @@ func (e *GameEngine) doPreparePsi(player *Player, args []string) *CommandResult 
 		return &CommandResult{Messages: []string{"You have no training in Psionics."}}
 	}
 
-	name := strings.Join(args, " ")
-	disc := FindPsiByName(name)
+	// Initialize ActivePsi map if nil
+	if player.ActivePsi == nil {
+		player.ActivePsi = make(map[int]bool)
+	}
+
+	// No args: list disciplines
+	if len(args) == 0 {
+		return e.listPsiDisciplines(player)
+	}
+
+	// Try to find discipline by number first, then by name
+	input := strings.Join(args, " ")
+	var disc *PsiDiscipline
+	var discNum int
+	if _, err := fmt.Sscanf(args[0], "%d", &discNum); err == nil {
+		disc = FindPsiByID(discNum)
+	}
 	if disc == nil {
-		return &CommandResult{Messages: []string{fmt.Sprintf("You don't know a discipline called '%s'.", name)}}
+		disc = FindPsiByName(input)
+	}
+	if disc == nil {
+		return &CommandResult{Messages: []string{fmt.Sprintf("You don't know a discipline called '%s'.", input)}}
+	}
+
+	// Check if this is a maintained power that's already active — toggle off
+	isMaintained := disc.Effect == "buff" || disc.Effect == "defense"
+	if isMaintained && player.ActivePsi[disc.ID] {
+		delete(player.ActivePsi, disc.ID)
+		// Remove defense bonus if applicable
+		if disc.DefBonus > 0 {
+			player.DefenseBonus -= disc.DefBonus
+		}
+		return &CommandResult{
+			Messages:      []string{fmt.Sprintf("You release your concentration on %s.", disc.Name)},
+			RoomBroadcast: []string{fmt.Sprintf("%s relaxes %s concentration.", player.FirstName, player.Possessive())},
+		}
 	}
 
 	if player.Psi < disc.PsiCost {
 		return &CommandResult{Messages: []string{fmt.Sprintf("Not enough psi points. (%s costs %d, you have %d)", disc.Name, disc.PsiCost, player.Psi)}}
 	}
 
+	// Instantaneous powers that don't need a target activate immediately
+	if isMaintained {
+		player.Psi -= disc.PsiCost
+		player.ActivePsi[disc.ID] = true
+		if disc.DefBonus > 0 {
+			player.DefenseBonus += disc.DefBonus
+		}
+		var msg string
+		switch disc.ID {
+		case 2: // Levitate
+			msg = "You feel yourself becoming lighter."
+		case 7: // Strengthen Steel
+			msg = "You focus your will into your weapon."
+		case 10: // Flight
+			msg = "You rise into the air."
+			player.Position = 4 // flying
+		case 9: // Wall of Force
+			msg = "A shimmering wall of force surrounds you."
+		case 13: // Force Field
+			msg = "A powerful force field envelops you."
+		case 54: // Psychic Screen
+			msg = "A psychic screen forms around your mind."
+		case 57: // Psychic Shield
+			msg = "A psychic shield protects your mind."
+		case 58: // Psychic Barrier
+			msg = "A psychic barrier reinforces your defenses."
+		case 60: // Focus Skill
+			msg = "You sharpen your mental focus."
+		case 63: // Psychic Fortress
+			msg = "An impenetrable psychic fortress surrounds your mind."
+		default:
+			msg = fmt.Sprintf("You activate %s.", disc.Name)
+		}
+		result := &CommandResult{
+			Messages:      []string{msg},
+			RoomBroadcast: []string{fmt.Sprintf("%s concentrates intently.", player.FirstName)},
+		}
+		if disc.RoundSec > 0 {
+			player.RoundTimeExpiry = time.Now().Add(time.Duration(disc.RoundSec) * time.Second)
+			result.Messages = append(result.Messages, fmt.Sprintf(" [Round: %d sec]", disc.RoundSec))
+		}
+		return result
+	}
+
+	// Offensive/utility powers that need a target: prepare for PROJECT
 	player.PreparedPsi = disc.ID
 	if disc.RoundSec > 0 {
 		player.RoundTimeExpiry = time.Now().Add(time.Duration(disc.RoundSec) * time.Second)
@@ -129,6 +205,55 @@ func (e *GameEngine) doPreparePsi(player *Player, args []string) *CommandResult 
 		Messages:      []string{fmt.Sprintf("You focus your mind on %s... (type PROJECT to release, or PROJECT <target>)", disc.Name)},
 		RoomBroadcast: []string{fmt.Sprintf("%s closes %s eyes in concentration.", player.FirstName, player.Possessive())},
 	}
+}
+
+// listPsiDisciplines shows all known disciplines and their active status.
+func (e *GameEngine) listPsiDisciplines(player *Player) *CommandResult {
+	var msgs []string
+	msgs = append(msgs, "Your psionic disciplines:")
+	msgs = append(msgs, "")
+
+	// Determine which disciplines the player knows based on skill levels
+	momLevel := player.Skills[28] // Mind over Matter
+	mooLevel := player.Skills[27] // Mind over Mind
+	psiLevel := player.Skills[26] // base Psionics
+
+	if psiLevel == 0 && !player.IsGM {
+		return &CommandResult{Messages: []string{"You have no training in Psionics."}}
+	}
+
+	msgs = append(msgs, fmt.Sprintf("%-4s %-25s %-6s %-6s %s", "#", "Discipline", "Cost", "School", "Status"))
+	msgs = append(msgs, fmt.Sprintf("%-4s %-25s %-6s %-6s %s", "--", "----------", "----", "------", "------"))
+
+	for _, disc := range psiRegistry {
+		// Check if player has enough skill to know this discipline
+		var skillLevel int
+		if disc.School == "Mind over Matter" {
+			skillLevel = momLevel
+		} else {
+			skillLevel = mooLevel
+		}
+		if skillLevel < disc.Level && !player.IsGM {
+			continue
+		}
+
+		status := ""
+		if player.ActivePsi != nil && player.ActivePsi[disc.ID] {
+			status = "[ACTIVE]"
+		}
+		if player.PreparedPsi == disc.ID {
+			status = "[PREPARED]"
+		}
+
+		schoolAbbr := "MoMat"
+		if disc.School == "Mind over Mind" {
+			schoolAbbr = "MoMnd"
+		}
+
+		msgs = append(msgs, fmt.Sprintf("%-4d %-25s %-6d %-6s %s", disc.ID, disc.Name, disc.PsiCost, schoolAbbr, status))
+	}
+
+	return &CommandResult{Messages: msgs}
 }
 
 // doProjectPsi handles PROJECT [target].
