@@ -12,14 +12,14 @@ import ResetPassword from './components/ResetPassword'
 import AccountModal from './components/AccountModal'
 import Manual from './components/Manual'
 
-type View = 'menu' | 'create' | 'play' | 'admin' | 'version' | 'capture_view' | 'api_docs' | 'verify_email' | 'reset_password' | 'manual'
+type View = 'menu' | 'create' | 'play' | 'admin' | 'version' | 'capture_view' | 'api_docs' | 'verify_email' | 'reset_password'
 
 // Check if URL points to a specific view
 function initialViewFromURL(): View {
   const path = window.location.pathname
   if (path === '/version-notes' || path === '/version-notes/') return 'version'
   if (path === '/api-docs' || path === '/api-docs/') return 'api_docs'
-  if (path === '/manual' || path === '/manual/') return 'manual'
+  // /manual is handled as a modal overlay, not a view
   if (path === '/verify-email' || path === '/verify-email/') return 'verify_email'
   if (path === '/reset-password' || path === '/reset-password/') return 'reset_password'
   return 'menu'
@@ -66,18 +66,13 @@ export function useAuth() {
 
 function App() {
   const [view, setViewRaw] = useState<View>(initialViewFromURL())
-  const [prevView, setPrevView] = useState<View>('menu')
+  const [showManual, setShowManual] = useState(window.location.pathname === '/manual' || window.location.pathname === '/manual/')
   const setView = (v: View) => {
-    if (v === 'manual') {
-      setPrevView(view) // remember where we came from
-    }
     setViewRaw(v)
     if (v === 'version') {
       window.history.pushState({}, '', '/version-notes')
     } else if (v === 'api_docs') {
       window.history.pushState({}, '', '/api-docs')
-    } else if (v === 'manual') {
-      window.history.pushState({}, '', '/manual')
     } else if (v === 'verify_email') {
       // keep URL as-is (has token param)
     } else if (v === 'reset_password') {
@@ -257,8 +252,8 @@ function App() {
               </button>
             )}
             <button
-              onClick={() => setView('manual')}
-              className={`px-3 py-1 text-sm rounded font-mono ${view === 'manual' ? 'bg-amber-700 text-white' : 'text-gray-400 hover:text-white'}`}
+              onClick={() => setShowManual(!showManual)}
+              className={`px-3 py-1 text-sm rounded font-mono ${showManual ? 'bg-amber-700 text-white' : 'text-gray-400 hover:text-white'}`}
             >
               Manual
             </button>
@@ -296,7 +291,6 @@ function App() {
           {view === 'admin' && <AdminPanel />}
           {view === 'version' && <VersionNotes onBack={() => setView('menu')} />}
           {view === 'api_docs' && <APIDocs onBack={() => setView('menu')} />}
-          {view === 'manual' && <Manual onBack={() => setView(prevView)} />}
           {view === 'capture_view' && <CaptureViewer captureId={viewCaptureId} onBack={() => setView('play')} />}
           {view === 'verify_email' && <VerifyEmail onBack={() => setView('menu')} />}
           {view === 'reset_password' && <ResetPassword onBack={() => setView('menu')} />}
@@ -311,6 +305,13 @@ function App() {
         )}
         {showAccountModal && (
           <AccountModal onClose={() => setShowAccountModal(false)} />
+        )}
+        {showManual && (
+          <div className="fixed inset-0 z-50 bg-black/80 flex items-stretch justify-center">
+            <div className="w-full max-w-6xl flex flex-col bg-[#0a0a0a] border-x border-[#333]">
+              <Manual onBack={() => setShowManual(false)} />
+            </div>
+          </div>
         )}
       </div>
     </AuthContext.Provider>

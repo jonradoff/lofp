@@ -78,7 +78,7 @@ export default function Manual({ onBack }: { onBack: () => void }) {
       {/* Mobile TOC toggle */}
       <div className="lg:hidden flex items-center justify-between px-4 py-2 border-b border-[#333] bg-[#111]">
         <button onClick={onBack} className="text-gray-400 hover:text-amber-400 font-mono text-sm">
-          &larr; Back
+          &times; Close
         </button>
         <span className="text-amber-500 font-mono font-bold text-sm">Player Manual</span>
         <button
@@ -120,7 +120,7 @@ export default function Manual({ onBack }: { onBack: () => void }) {
               onClick={onBack}
               className="text-gray-400 hover:text-amber-400 font-mono text-sm mb-3 block"
             >
-              &larr; Back to Menu
+              &times; Close to Menu
             </button>
             <h2 className="text-amber-500 font-mono font-bold text-sm">Player Manual v3.1</h2>
           </div>
@@ -1944,7 +1944,7 @@ gaze  glare  scowl  furrow (brow)  sing  recite  pace  comfort`}</pre>
                 onClick={onBack}
                 className="mt-4 text-gray-400 hover:text-amber-400 font-mono text-sm"
               >
-                &larr; Back to Menu
+                &times; Close to Menu
               </button>
             </div>
           </div>
