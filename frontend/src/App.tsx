@@ -10,14 +10,16 @@ import CaptureViewer from './components/CaptureViewer'
 import VerifyEmail from './components/VerifyEmail'
 import ResetPassword from './components/ResetPassword'
 import AccountModal from './components/AccountModal'
+import Manual from './components/Manual'
 
-type View = 'menu' | 'create' | 'play' | 'admin' | 'version' | 'capture_view' | 'api_docs' | 'verify_email' | 'reset_password'
+type View = 'menu' | 'create' | 'play' | 'admin' | 'version' | 'capture_view' | 'api_docs' | 'verify_email' | 'reset_password' | 'manual'
 
 // Check if URL points to a specific view
 function initialViewFromURL(): View {
   const path = window.location.pathname
   if (path === '/version-notes' || path === '/version-notes/') return 'version'
   if (path === '/api-docs' || path === '/api-docs/') return 'api_docs'
+  if (path === '/manual' || path === '/manual/') return 'manual'
   if (path === '/verify-email' || path === '/verify-email/') return 'verify_email'
   if (path === '/reset-password' || path === '/reset-password/') return 'reset_password'
   return 'menu'
@@ -282,6 +284,7 @@ function App() {
           {view === 'admin' && <AdminPanel />}
           {view === 'version' && <VersionNotes onBack={() => setView('menu')} />}
           {view === 'api_docs' && <APIDocs onBack={() => setView('menu')} />}
+          {view === 'manual' && <Manual onBack={() => setView('menu')} />}
           {view === 'capture_view' && <CaptureViewer captureId={viewCaptureId} onBack={() => setView('play')} />}
           {view === 'verify_email' && <VerifyEmail onBack={() => setView('menu')} />}
           {view === 'reset_password' && <ResetPassword onBack={() => setView('menu')} />}
