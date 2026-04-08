@@ -66,12 +66,18 @@ export function useAuth() {
 
 function App() {
   const [view, setViewRaw] = useState<View>(initialViewFromURL())
+  const [prevView, setPrevView] = useState<View>('menu')
   const setView = (v: View) => {
+    if (v === 'manual') {
+      setPrevView(view) // remember where we came from
+    }
     setViewRaw(v)
     if (v === 'version') {
       window.history.pushState({}, '', '/version-notes')
     } else if (v === 'api_docs') {
       window.history.pushState({}, '', '/api-docs')
+    } else if (v === 'manual') {
+      window.history.pushState({}, '', '/manual')
     } else if (v === 'verify_email') {
       // keep URL as-is (has token param)
     } else if (v === 'reset_password') {
@@ -250,6 +256,12 @@ function App() {
                 {captureRecording ? 'Recording' : 'Capture'}
               </button>
             )}
+            <button
+              onClick={() => setView('manual')}
+              className={`px-3 py-1 text-sm rounded font-mono ${view === 'manual' ? 'bg-amber-700 text-white' : 'text-gray-400 hover:text-white'}`}
+            >
+              Manual
+            </button>
             {user && (
               <div className="flex items-center gap-2 ml-3 pl-3 border-l border-[#444]">
                 <img src={user.account.picture || '/default-avatar.svg'} alt="" className="w-6 h-6 rounded-full" />
@@ -284,7 +296,7 @@ function App() {
           {view === 'admin' && <AdminPanel />}
           {view === 'version' && <VersionNotes onBack={() => setView('menu')} />}
           {view === 'api_docs' && <APIDocs onBack={() => setView('menu')} />}
-          {view === 'manual' && <Manual onBack={() => setView('menu')} />}
+          {view === 'manual' && <Manual onBack={() => setView(prevView)} />}
           {view === 'capture_view' && <CaptureViewer captureId={viewCaptureId} onBack={() => setView('play')} />}
           {view === 'verify_email' && <VerifyEmail onBack={() => setView('menu')} />}
           {view === 'reset_password' && <ResetPassword onBack={() => setView('menu')} />}

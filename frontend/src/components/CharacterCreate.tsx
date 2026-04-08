@@ -80,6 +80,15 @@ export default function CharacterCreate({ onCreated }: Props) {
 
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Name */}
+          <div className="bg-[#0a0a0a] border border-amber-900/50 rounded-lg p-3 mb-2">
+            <p className="text-gray-400 text-xs font-mono leading-relaxed">
+              Legends is a roleplaying game &mdash; please choose a name that fits the fantasy setting.
+              Avoid modern names, pop culture references, or joke names.{' '}
+              <a href="/manual#art-of-roleplaying" target="_blank" rel="noopener noreferrer" className="text-amber-500 hover:text-amber-400 underline">
+                Read more about roleplaying &rarr;
+              </a>
+            </p>
+          </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-gray-400 text-sm font-mono mb-1">First Name</label>
