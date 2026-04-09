@@ -7,7 +7,6 @@ import (
 	"path/filepath"
 	"strconv"
 	"strings"
-	"time"
 
 	"github.com/jonradoff/lofp/internal/gameworld"
 )
@@ -22,7 +21,9 @@ type ParseResult struct {
 	MonsterAdjs []gameworld.MonsterAdjDef
 	Variables   []gameworld.Variable
 	Regions     []gameworld.Region
-	MonsterLists []gameworld.MonsterList
+	MonsterLists         []gameworld.MonsterList
+	SeasonalMonsterLists map[string][]gameworld.MonsterList // "PSCRIPT" -> spring MLISTs, etc.
+	SeasonalRooms        map[string][]gameworld.Room        // seasonal room description overrides
 	CEvents     []gameworld.CEvent
 	MoneyDefs   []gameworld.MoneyDef
 	ForageDefs  []gameworld.ForageDef
@@ -91,25 +92,24 @@ func ParseConfig(configPath string) (*ParseResult, error) {
 				fmt.Printf("Warning: could not parse %s: %v\n", fields[1], err)
 			}
 		case "ASCRIPT", "WSCRIPT", "SSCRIPT", "PSCRIPT":
-			// Load seasonal scripts based on current real-world season.
-			// Spring=Mar-May, Summer=Jun-Aug, Autumn=Sep-Nov, Winter=Dec-Feb
-			month := time.Now().Month()
-			var currentSeason string
-			switch {
-			case month >= 3 && month <= 5:
-				currentSeason = "PSCRIPT" // spring
-			case month >= 6 && month <= 8:
-				currentSeason = "SSCRIPT" // summer
-			case month >= 9 && month <= 11:
-				currentSeason = "ASCRIPT" // autumn
-			default:
-				currentSeason = "WSCRIPT" // winter
-			}
-			if cmd == currentSeason {
-				scriptFile := resolveFileCaseInsensitive(filepath.Join(dir, fields[1]))
-				if err := parseScriptFile(scriptFile, result); err != nil {
-					fmt.Printf("Warning: could not parse seasonal %s: %v\n", fields[1], err)
+			// Parse seasonal scripts into separate per-season collections.
+			// The engine selects the active season at runtime based on game calendar.
+			seasonResult := &ParseResult{}
+			scriptFile := resolveFileCaseInsensitive(filepath.Join(dir, fields[1]))
+			if err := parseScriptFile(scriptFile, seasonResult); err != nil {
+				fmt.Printf("Warning: could not parse seasonal %s: %v\n", fields[1], err)
+			} else {
+				if result.SeasonalMonsterLists == nil {
+					result.SeasonalMonsterLists = make(map[string][]gameworld.MonsterList)
 				}
+				if result.SeasonalRooms == nil {
+					result.SeasonalRooms = make(map[string][]gameworld.Room)
+				}
+				result.SeasonalMonsterLists[cmd] = append(result.SeasonalMonsterLists[cmd], seasonResult.MonsterLists...)
+				result.SeasonalRooms[cmd] = append(result.SeasonalRooms[cmd], seasonResult.Rooms...)
+				// Monsters/items/etc from seasonal scripts go into the main collections
+				result.Monsters = append(result.Monsters, seasonResult.Monsters...)
+				result.Items = append(result.Items, seasonResult.Items...)
 			}
 		}
 	}

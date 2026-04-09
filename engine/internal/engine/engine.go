@@ -125,7 +125,11 @@ type GameEngine struct {
 	sendToPlayer       PlayerMessageFunc
 	monsterMgr      *monsterManager
 	RegionWeather   map[int]int // region -> weather state
-	monsterLists    []gameworld.MonsterList
+	monsterLists         []gameworld.MonsterList         // base + current season MLISTs
+	baseMonsterLists     []gameworld.MonsterList         // always-loaded MLISTs
+	seasonalMonsterLists map[string][]gameworld.MonsterList // per-season MLISTs
+	seasonalRooms        map[string][]gameworld.Room        // per-season room overrides
+	currentSeason        string                             // current active season key
 	cevents         []gameworld.CEvent
 	forageDefs      []gameworld.ForageDef
 	PVals           map[int]int // persistent global values
@@ -257,11 +261,18 @@ func NewGameEngine(db *mongo.Database, parsed *gameworld.ParsedData) *GameEngine
 	// Initialize event bus for admin monitoring
 	e.Events = NewEventBus()
 
-	// Initialize monster manager and spawn initial monsters
+	// Initialize monster manager with season-aware MLIST selection
 	e.monsterMgr = newMonsterManager()
-	e.monsterLists = parsed.MonsterLists
-	count := e.monsterMgr.SpawnInitialMonsters(parsed.MonsterLists, e.monsters)
-	e.Events.Publish("monster", fmt.Sprintf("Spawned %d monsters across the world", count))
+	e.baseMonsterLists = parsed.MonsterLists
+	e.seasonalMonsterLists = parsed.SeasonalMonsterLists
+	e.seasonalRooms = parsed.SeasonalRooms
+	e.currentSeason = GameSeason()
+	e.monsterLists = e.buildActiveMonsterLists()
+	count := e.monsterMgr.SpawnInitialMonsters(e.monsterLists, e.monsters)
+	log.Printf("Season: %s (%s). Base MLISTs: %d, Seasonal: %d, Total: %d",
+		SeasonName(), e.currentSeason, len(e.baseMonsterLists),
+		len(e.seasonalMonsterLists[e.currentSeason]), len(e.monsterLists))
+	e.Events.Publish("monster", fmt.Sprintf("Spawned %d monsters across the world (season: %s)", count, SeasonName()))
 
 	// Initialize weather (all regions sunny)
 	e.RegionWeather = make(map[int]int)
@@ -726,7 +737,18 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 	case "INFO":
 		return e.doInfo(player)
 	case "TIME":
-		return &CommandResult{Messages: []string{"The sun hangs in an uncertain sky. Time flows strangely in the Shattered Realms."}}
+		period := "day"
+		if IsNight() {
+			period = "night"
+		}
+		moonPhases := []string{"new", "waxing crescent", "first quarter", "waxing gibbous", "full", "waning gibbous", "last quarter", "waning crescent"}
+		greatMoon := moonPhases[GameDay()%8]
+		phulcrus := moonPhases[(GameDay()+4)%8]
+		return &CommandResult{Messages: []string{
+			fmt.Sprintf("It is %s %d, %d (Year of the Wyrm).", GameMonthName(), GameDay()%28+1, GameYear()),
+			fmt.Sprintf("It is %s. The season is %s.", period, SeasonName()),
+			fmt.Sprintf("The Great Moon is %s and Phulcrus is %s.", greatMoon, phulcrus),
+		}}
 	case "WHISPER":
 		return e.doWhisper(player, args, input)
 	case "CONTACT":
@@ -1576,6 +1598,41 @@ func (e *GameEngine) EnterRoom(ctx context.Context, player *Player) *CommandResu
 // GetRoom returns the room struct for GMCP/protocol data. Returns nil if not found.
 func (e *GameEngine) GetRoom(roomNumber int) *gameworld.Room {
 	return e.rooms[roomNumber]
+}
+
+// buildActiveMonsterLists combines base MLISTs with the current season's MLISTs.
+func (e *GameEngine) buildActiveMonsterLists() []gameworld.MonsterList {
+	lists := make([]gameworld.MonsterList, len(e.baseMonsterLists))
+	copy(lists, e.baseMonsterLists)
+	if seasonal, ok := e.seasonalMonsterLists[e.currentSeason]; ok {
+		lists = append(lists, seasonal...)
+	}
+	return lists
+}
+
+// CheckSeasonChange checks if the game season has changed and hot-swaps MLISTs.
+func (e *GameEngine) CheckSeasonChange() {
+	newSeason := GameSeason()
+	if newSeason == e.currentSeason {
+		return
+	}
+	oldSeason := e.currentSeason
+	e.currentSeason = newSeason
+	e.monsterLists = e.buildActiveMonsterLists()
+
+	log.Printf("Season changed: %s -> %s. Active MLISTs: %d", oldSeason, newSeason, len(e.monsterLists))
+	e.Events.Publish("time", fmt.Sprintf("The season has changed to %s.", SeasonName()))
+
+	// Broadcast season change to outdoor players
+	seasonMessages := map[string]string{
+		"PSCRIPT": "The chill of winter recedes as spring arrives in the Shattered Realms. New growth appears across the land.",
+		"SSCRIPT": "The warmth of summer settles over the Shattered Realms. The days grow long and hot.",
+		"ASCRIPT": "A cool breeze heralds the arrival of autumn. Leaves begin to turn golden and crimson across the land.",
+		"WSCRIPT": "Winter descends upon the Shattered Realms. A bitter cold wind sweeps across the land.",
+	}
+	if msg, ok := seasonMessages[newSeason]; ok {
+		e.broadcastOutdoor(msg)
+	}
 }
 
 // applyEntryScripts runs IFENTRY scripts and merges results into the command result.

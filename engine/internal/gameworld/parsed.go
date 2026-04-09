@@ -10,7 +10,9 @@ type ParsedData struct {
 	MonsterAdjs  []MonsterAdjDef
 	Variables    []Variable
 	Regions      []Region
-	MonsterLists []MonsterList
+	MonsterLists         []MonsterList
+	SeasonalMonsterLists map[string][]MonsterList // "PSCRIPT"/"SSCRIPT"/"ASCRIPT"/"WSCRIPT" -> seasonal MLISTs
+	SeasonalRooms        map[string][]Room        // seasonal room description overrides
 	CEvents      []CEvent
 	MoneyDefs    []MoneyDef
 	ForageDefs   []ForageDef

@@ -37,6 +37,38 @@ func GameYear() int { return GameMinutes()/(24*343) + 1028 }
 func IsNight() bool { h := GameHour(); return h < 5 || h > 19 }
 func IsDay() bool   { return !IsNight() }
 
+// GameSeason returns the current season script key based on game month.
+// Months 1-3 = Spring (PSCRIPT), 4-6 = Summer (SSCRIPT),
+// 7-9 = Autumn (ASCRIPT), 10-12 = Winter (WSCRIPT).
+func GameSeason() string {
+	m := GameMonth()
+	switch {
+	case m >= 1 && m <= 3:
+		return "PSCRIPT"
+	case m >= 4 && m <= 6:
+		return "SSCRIPT"
+	case m >= 7 && m <= 9:
+		return "ASCRIPT"
+	default:
+		return "WSCRIPT"
+	}
+}
+
+// SeasonName returns a human-readable season name.
+func SeasonName() string {
+	switch GameSeason() {
+	case "PSCRIPT":
+		return "Spring"
+	case "SSCRIPT":
+		return "Summer"
+	case "ASCRIPT":
+		return "Autumn"
+	case "WSCRIPT":
+		return "Winter"
+	}
+	return "Spring"
+}
+
 func GameMonthName() string {
 	m := GameMonth()
 	if m >= 1 && m < len(MonthNames) {
@@ -60,6 +92,9 @@ func (e *GameEngine) StartTimeCycle() {
 			}
 			hour := GameHour()
 			night := IsNight()
+			// Check for season changes
+			e.CheckSeasonChange()
+
 			if hour != lastHour {
 				period := "day"
 				if night { period = "night" }
