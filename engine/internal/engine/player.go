@@ -186,7 +186,7 @@ type Player struct {
 	IsBot         bool   `bson:"-" json:"-"`                                           // transient: connected via API key
 
 	// Settings (persistent toggles via SET command)
-	// All zero-values = default behavior (show everything, no brief modes)
+	// Note: SuppressLogon/Logoff default to true for new characters (set in CreateNewPlayer).
 	SuppressLogon      bool `bson:"suppressLogon,omitempty" json:"-"`
 	SuppressLogoff     bool `bson:"suppressLogoff,omitempty" json:"-"`
 	SuppressDisconnect bool `bson:"suppressDisconnect,omitempty" json:"-"`

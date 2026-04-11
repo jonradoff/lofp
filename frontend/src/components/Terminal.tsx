@@ -36,6 +36,9 @@ interface Props {
   onCaptureStatus?: (recording: boolean, id: string) => void
 }
 
+// Detect touch/mobile device — used to avoid auto-opening keyboard on load
+const isTouchDevice = () => typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0)
+
 export default function Terminal({ character, onQuit, wsRefOut, onCaptureStatus }: Props) {
   const { user } = useContext(AuthContext)
   const [lines, setLines] = useState<Array<{ text: string; type: 'output' | 'input' | 'system' | 'room' | 'item' | 'error' | 'broadcast' }>>([])
@@ -128,8 +131,23 @@ export default function Terminal({ character, onQuit, wsRefOut, onCaptureStatus 
     scrollRef.current?.scrollTo(0, scrollRef.current.scrollHeight)
   }, [lines])
 
+  // Only auto-focus on non-touch devices — on mobile this would open the keyboard immediately
   useEffect(() => {
-    inputRef.current?.focus()
+    if (!isTouchDevice()) {
+      inputRef.current?.focus()
+    }
+  }, [])
+
+  // Keep input bar visible when mobile keyboard opens by scrolling to bottom
+  useEffect(() => {
+    if (!isTouchDevice() || !window.visualViewport) return
+    const vv = window.visualViewport
+    const onResize = () => {
+      // When keyboard appears, scroll terminal output to bottom
+      scrollRef.current?.scrollTo(0, scrollRef.current.scrollHeight)
+    }
+    vv.addEventListener('resize', onResize)
+    return () => vv.removeEventListener('resize', onResize)
   }, [])
 
   const sendCommand = (cmd: string) => {
@@ -179,28 +197,29 @@ export default function Terminal({ character, onQuit, wsRefOut, onCaptureStatus 
 
   return (
     <div className="flex flex-col h-full" onClick={() => {
-      // Only refocus input if clicking on empty space, not on selectable text
+      // Only refocus input if user clicked empty space (not selecting text) and not on touch device
+      if (isTouchDevice()) return
       const selection = window.getSelection()
       if (!selection || selection.toString().length === 0) {
         inputRef.current?.focus()
       }
     }}>
-      {/* Status bar */}
+      {/* Status bar — wraps on narrow screens */}
       {playerState && (
-        <div className="flex gap-6 px-4 py-1.5 bg-[#111] border-b border-[#333] font-mono text-xs">
-          <span className="text-red-400">BP: {playerState.bodyPoints}/{playerState.maxBodyPoints}</span>
-          <span className="text-yellow-400">FT: {playerState.fatigue}/{playerState.maxFatigue}</span>
-          <span className="text-blue-400">MP: {playerState.mana}/{playerState.maxMana}</span>
-          <span className="text-purple-400">PSI: {playerState.psi}/{playerState.maxPsi}</span>
-          <span className="text-gray-500">{roomName || `Room ${playerState.roomNumber}`}</span>
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-0.5 px-3 py-1.5 bg-[#111] border-b border-[#333] font-mono text-xs min-h-0">
+          <span className="text-red-400">BP <span className="text-gray-300">{playerState.bodyPoints}/{playerState.maxBodyPoints}</span></span>
+          <span className="text-yellow-400">FT <span className="text-gray-300">{playerState.fatigue}/{playerState.maxFatigue}</span></span>
+          <span className="text-blue-400">MP <span className="text-gray-300">{playerState.mana}/{playerState.maxMana}</span></span>
+          <span className="text-purple-400">PSI <span className="text-gray-300">{playerState.psi}/{playerState.maxPsi}</span></span>
+          <span className="text-gray-500 truncate max-w-[140px] sm:max-w-none">{roomName || `Room ${playerState.roomNumber}`}</span>
           <span className={`ml-auto ${connected ? 'text-green-500' : 'text-red-500'}`}>
-            {connected ? 'Connected' : 'Disconnected'}
+            {connected ? '●' : '○'}
           </span>
         </div>
       )}
 
       {/* Terminal output */}
-      <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 font-mono text-sm leading-relaxed select-text cursor-text">
+      <div ref={scrollRef} className="flex-1 overflow-y-auto p-3 sm:p-4 font-mono text-xs sm:text-sm leading-relaxed select-text cursor-text">
         {lines.map((line, i) => (
           <div key={i} className={`${colorMap[line.type]} whitespace-pre-wrap`}>
             {line.text || '\u00A0'}
@@ -208,20 +227,28 @@ export default function Terminal({ character, onQuit, wsRefOut, onCaptureStatus 
         ))}
       </div>
 
-      {/* Input */}
-      <div className="flex items-center px-4 py-2 bg-[#111] border-t border-[#333]">
+      {/* Input bar */}
+      <div className="flex items-center px-3 py-2 sm:px-4 bg-[#111] border-t border-[#333]">
         {promptIndicators && <span className="text-red-400 font-mono mr-1">{promptIndicators}</span>}
         <span className="text-amber-400 font-mono mr-2">&gt;</span>
         <input
           ref={inputRef}
           type="text"
+          inputMode="text"
+          enterKeyHint="send"
           value={input}
           onChange={e => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
-          className="flex-1 bg-transparent text-gray-200 font-mono text-sm focus:outline-none"
+          className="flex-1 bg-transparent text-gray-200 font-mono text-sm focus:outline-none min-w-0"
           placeholder="Enter command..."
-          autoFocus
         />
+        {/* Send button — visible only on touch devices */}
+        <button
+          className="sm:hidden ml-2 px-3 py-1 bg-amber-700 text-white font-mono text-sm rounded active:bg-amber-600"
+          onPointerDown={e => { e.preventDefault(); sendCommand(input) }}
+        >
+          ↵
+        </button>
       </div>
     </div>
   )

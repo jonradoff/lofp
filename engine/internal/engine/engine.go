@@ -4576,9 +4576,11 @@ func (e *GameEngine) CreateNewPlayer(ctx context.Context, firstName, lastName st
 		Gold:          5,
 		Silver:        10,
 		Copper:        50,
-		PromptMode:    true,
-		CreatedAt:     now,
-		UpdatedAt:     now,
+		PromptMode:       true,
+		SuppressLogon:    true, // login/logout messages off by default for new characters
+		SuppressLogoff:   true,
+		CreatedAt:        now,
+		UpdatedAt:        now,
 	}
 	if race == RaceEphemeral {
 		player.TelepathyActive = true

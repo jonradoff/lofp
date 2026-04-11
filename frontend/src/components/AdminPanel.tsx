@@ -289,6 +289,7 @@ type AdminTab = 'rooms' | 'players' | 'users' | 'items' | 'monsters' | 'logs' | 
 export default function AdminPanel() {
   const { user } = useAuth()
   const [tab, setTab] = useState<AdminTab>('rooms')
+  const [sidebarOpen, setSidebarOpen] = useState(false)
   const [stats, setStats] = useState<Stats | null>(null)
   // Rooms
   const [rooms, setRooms] = useState<RoomSummary[]>([])
@@ -440,10 +441,12 @@ export default function AdminPanel() {
   )
 
   const selectRoom = (num: number) => {
+    setSidebarOpen(false)
     fetch(`/api/rooms/${num}`, { headers: authHeaders() }).then(r => r.json()).then(setSelectedRoom)
   }
 
   const selectItem = (num: number) => {
+    setSidebarOpen(false)
     setSelectedItem(null)
     fetch(`/api/items/${num}`, { headers: authHeaders() })
       .then(r => { if (!r.ok) throw new Error(r.statusText); return r.json() })
@@ -452,6 +455,7 @@ export default function AdminPanel() {
   }
 
   const selectMonster = (num: number) => {
+    setSidebarOpen(false)
     setSelectedMonster(null)
     fetch(`/api/monsters/${num}`, { headers: authHeaders() })
       .then(r => { if (!r.ok) throw new Error(r.statusText); return r.json() })
@@ -460,6 +464,7 @@ export default function AdminPanel() {
   }
 
   const selectPlayer = (firstName: string) => {
+    setSidebarOpen(false)
     setReassignAccountId('')
     setReassignError('')
     fetch(`/api/admin/characters/${firstName}`, { headers: authHeaders() })
@@ -468,6 +473,7 @@ export default function AdminPanel() {
   }
 
   const selectAccount = (id: string) => {
+    setSidebarOpen(false)
     fetch(`/api/admin/accounts/${id}`, { headers: authHeaders() })
       .then(r => r.json())
       .then(setSelectedAccount)
@@ -601,12 +607,20 @@ export default function AdminPanel() {
   return (
     <div className="flex flex-col h-full font-mono text-sm">
       {/* Tab bar */}
-      <div className="flex gap-1 px-4 py-2 bg-[#111] border-b border-[#333]">
+      <div className="flex gap-1 px-2 sm:px-4 py-2 bg-[#111] border-b border-[#333] overflow-x-auto">
+        {/* Mobile sidebar toggle */}
+        <button
+          className="sm:hidden shrink-0 px-2 py-1 rounded text-xs text-gray-400 hover:text-white border border-[#444] mr-1"
+          onClick={() => setSidebarOpen(o => !o)}
+          title={sidebarOpen ? 'Show detail' : 'Show list'}
+        >
+          {sidebarOpen ? '→' : '☰'}
+        </button>
         {(['rooms', 'items', 'monsters', 'players', 'users', 'logs', 'events'] as AdminTab[]).map(t => (
           <button
             key={t}
-            onClick={() => setTab(t)}
-            className={`px-3 py-1 rounded text-xs capitalize ${tab === t ? 'bg-amber-700 text-white' : 'text-gray-400 hover:text-white'}`}
+            onClick={() => { setTab(t); setSidebarOpen(false) }}
+            className={`px-2 sm:px-3 py-1 rounded text-xs capitalize shrink-0 min-h-[32px] ${tab === t ? 'bg-amber-700 text-white' : 'text-gray-400 hover:text-white'}`}
           >
             {t}
           </button>
@@ -617,7 +631,7 @@ export default function AdminPanel() {
         {/* ===== ROOMS TAB ===== */}
         {tab === 'rooms' && (
           <>
-            <div className="w-80 border-r border-[#333] flex flex-col bg-[#111]">
+            <div className={`${sidebarOpen ? 'flex' : 'hidden'} sm:flex w-full sm:w-80 border-r border-[#333] flex-col bg-[#111]`}>
               {stats && (
                 <div className="p-3 border-b border-[#333] grid grid-cols-3 gap-2">
                   <div className="text-center">
@@ -663,7 +677,7 @@ export default function AdminPanel() {
                 ))}
               </div>
             </div>
-            <div className="flex-1 overflow-y-auto p-6">
+            <div className={`${sidebarOpen ? 'hidden sm:block' : 'block'} flex-1 overflow-y-auto p-4 sm:p-6`}>
               {selectedRoom ? (
                 <div className="space-y-4">
                   <div>
@@ -767,7 +781,7 @@ export default function AdminPanel() {
         {/* ===== ITEMS TAB ===== */}
         {tab === 'items' && (
           <>
-            <div className="w-80 border-r border-[#333] flex flex-col bg-[#111]">
+            <div className={`${sidebarOpen ? 'flex' : 'hidden'} sm:flex w-full sm:w-80 border-r border-[#333] flex-col bg-[#111]`}>
               <div className="p-3 border-b border-[#333] text-center">
                 <div className="text-green-400 text-lg font-bold">{items.length}</div>
                 <div className="text-gray-500 text-xs">Items</div>
@@ -805,7 +819,7 @@ export default function AdminPanel() {
                 )}
               </div>
             </div>
-            <div className="flex-1 overflow-y-auto p-6">
+            <div className={`${sidebarOpen ? 'hidden sm:block' : 'block'} flex-1 overflow-y-auto p-4 sm:p-6`}>
               {selectedItem ? (
                 <div className="space-y-4">
                   <div>
@@ -881,7 +895,7 @@ export default function AdminPanel() {
         {/* ===== MONSTERS TAB ===== */}
         {tab === 'monsters' && (
           <>
-            <div className="w-80 border-r border-[#333] flex flex-col bg-[#111]">
+            <div className={`${sidebarOpen ? 'flex' : 'hidden'} sm:flex w-full sm:w-80 border-r border-[#333] flex-col bg-[#111]`}>
               <div className="p-3 border-b border-[#333] text-center">
                 <div className="text-red-400 text-lg font-bold">{monsters.length}</div>
                 <div className="text-gray-500 text-xs">Monsters</div>
@@ -923,7 +937,7 @@ export default function AdminPanel() {
                 )}
               </div>
             </div>
-            <div className="flex-1 overflow-y-auto p-6">
+            <div className={`${sidebarOpen ? 'hidden sm:block' : 'block'} flex-1 overflow-y-auto p-4 sm:p-6`}>
               {selectedMonster ? (
                 <div className="space-y-4">
                   <div>
@@ -992,7 +1006,7 @@ export default function AdminPanel() {
         {/* ===== PLAYERS TAB ===== */}
         {tab === 'players' && (
           <>
-            <div className="w-80 border-r border-[#333] flex flex-col bg-[#111]">
+            <div className={`${sidebarOpen ? 'flex' : 'hidden'} sm:flex w-full sm:w-80 border-r border-[#333] flex-col bg-[#111]`}>
               <div className="p-3 border-b border-[#333] text-center">
                 <div className="text-amber-400 text-lg font-bold">{players.length}</div>
                 <div className="text-gray-500 text-xs">Characters</div>
@@ -1040,7 +1054,7 @@ export default function AdminPanel() {
                 )}
               </div>
             </div>
-            <div className="flex-1 overflow-y-auto p-6">
+            <div className={`${sidebarOpen ? 'hidden sm:block' : 'block'} flex-1 overflow-y-auto p-4 sm:p-6`}>
               {selectedPlayer ? (
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
@@ -1194,7 +1208,7 @@ export default function AdminPanel() {
         {/* ===== USERS TAB ===== */}
         {tab === 'users' && (
           <>
-            <div className="w-80 border-r border-[#333] flex flex-col bg-[#111]">
+            <div className={`${sidebarOpen ? 'flex' : 'hidden'} sm:flex w-full sm:w-80 border-r border-[#333] flex-col bg-[#111]`}>
               <div className="p-3 border-b border-[#333] text-center">
                 <div className="text-amber-400 text-lg font-bold">{accounts.length}</div>
                 <div className="text-gray-500 text-xs">Users</div>
@@ -1235,7 +1249,7 @@ export default function AdminPanel() {
                 )}
               </div>
             </div>
-            <div className="flex-1 overflow-y-auto p-6">
+            <div className={`${sidebarOpen ? 'hidden sm:block' : 'block'} flex-1 overflow-y-auto p-4 sm:p-6`}>
               {selectedAccount ? (
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">

@@ -208,37 +208,43 @@ function App() {
 
   return (
     <AuthContext.Provider value={{ user, login, loginWithPassword, register, logout }}>
-      <div className="h-screen flex flex-col bg-[#0a0a0a]">
-        <div className="flex items-center justify-between px-4 py-2 bg-[#1a1a2e] border-b border-[#333]">
+      {/* h-dvh accounts for mobile browser chrome (address bar) shrinking the viewport */}
+      <div className="h-dvh flex flex-col bg-[#0a0a0a]">
+        <div className="flex items-center justify-between px-3 sm:px-4 py-2 bg-[#1a1a2e] border-b border-[#333] min-h-0">
           <h1
-            className="text-amber-400 font-bold text-lg tracking-wider font-mono cursor-pointer"
+            className="text-amber-400 font-bold tracking-wider font-mono cursor-pointer shrink-0"
             onClick={() => setView('menu')}
           >
-            LEGENDS OF FUTURE PAST
+            {/* Full title on desktop, short on mobile */}
+            <span className="hidden sm:inline text-lg">LEGENDS OF FUTURE PAST</span>
+            <span className="sm:hidden text-base">LoFP</span>
           </h1>
-          <div className="flex gap-2 items-center">
+          <div className="flex gap-1 sm:gap-2 items-center overflow-hidden">
             {!backendOnline && (
-              <div className="flex items-center gap-1.5 px-3 py-1 text-xs font-mono text-yellow-400">
+              <div className="hidden sm:flex items-center gap-1.5 px-2 py-1 text-xs font-mono text-yellow-400">
                 <div className="w-2 h-2 bg-yellow-500 rounded-full animate-pulse" />
-                Connecting to server...
+                <span className="hidden md:inline">Connecting...</span>
               </div>
+            )}
+            {!backendOnline && (
+              <div className="sm:hidden w-2 h-2 bg-yellow-500 rounded-full animate-pulse" title="Connecting to server..." />
             )}
             <button
               onClick={() => setView('menu')}
-              className={`px-3 py-1 text-sm rounded font-mono ${view === 'menu' ? 'bg-amber-700 text-white' : 'text-gray-400 hover:text-white'}`}
+              className={`px-2 sm:px-3 py-1 text-xs sm:text-sm rounded font-mono min-h-[36px] ${view === 'menu' ? 'bg-amber-700 text-white' : 'text-gray-400 hover:text-white'}`}
             >
               Menu
             </button>
             <button
               onClick={() => character ? setView('play') : null}
-              className={`px-3 py-1 text-sm rounded font-mono ${view === 'play' ? 'bg-amber-700 text-white' : 'text-gray-400 hover:text-white'} ${!character ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+              className={`px-2 sm:px-3 py-1 text-xs sm:text-sm rounded font-mono min-h-[36px] ${view === 'play' ? 'bg-amber-700 text-white' : 'text-gray-400 hover:text-white'} ${!character ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
             >
               Play
             </button>
             {user?.account?.isAdmin && (
               <button
                 onClick={() => setView('admin')}
-                className={`px-3 py-1 text-sm rounded font-mono ${view === 'admin' ? 'bg-amber-700 text-white' : 'text-gray-400 hover:text-white'}`}
+                className={`hidden sm:block px-2 sm:px-3 py-1 text-xs sm:text-sm rounded font-mono min-h-[36px] ${view === 'admin' ? 'bg-amber-700 text-white' : 'text-gray-400 hover:text-white'}`}
               >
                 Admin
               </button>
@@ -246,30 +252,37 @@ function App() {
             {character && view === 'play' && (
               <button
                 onClick={() => setShowCaptureModal(true)}
-                className={`px-3 py-1 text-sm rounded font-mono ${captureRecording ? 'bg-red-700 text-white animate-pulse' : 'text-gray-400 hover:text-white'}`}
+                className={`hidden sm:block px-2 sm:px-3 py-1 text-xs sm:text-sm rounded font-mono min-h-[36px] ${captureRecording ? 'bg-red-700 text-white animate-pulse' : 'text-gray-400 hover:text-white'}`}
               >
-                {captureRecording ? 'Recording' : 'Capture'}
+                {captureRecording ? '● Rec' : 'Capture'}
               </button>
             )}
             <button
               onClick={() => setShowManual(!showManual)}
-              className={`px-3 py-1 text-sm rounded font-mono ${showManual ? 'bg-amber-700 text-white' : 'text-gray-400 hover:text-white'}`}
+              className={`hidden sm:block px-2 sm:px-3 py-1 text-xs sm:text-sm rounded font-mono min-h-[36px] ${showManual ? 'bg-amber-700 text-white' : 'text-gray-400 hover:text-white'}`}
             >
               Manual
             </button>
             {user && (
-              <div className="flex items-center gap-2 ml-3 pl-3 border-l border-[#444]">
-                <img src={user.account.picture || '/default-avatar.svg'} alt="" className="w-6 h-6 rounded-full" />
+              <div className="flex items-center gap-1 sm:gap-2 ml-1 sm:ml-3 pl-1 sm:pl-3 border-l border-[#444]">
+                {/* Avatar is always a tap target for account modal */}
                 <button
                   onClick={() => setShowAccountModal(true)}
-                  className="text-gray-400 hover:text-amber-400 text-xs font-mono underline decoration-dotted cursor-pointer"
+                  className="flex items-center gap-1 sm:gap-2 min-h-[36px] px-1"
+                  title={user.account.name}
                 >
-                  {user.account.name}
-                  {user.account.emailVerified === false && <span className="text-yellow-500 ml-1" title="Email not verified">!</span>}
+                  <img src={user.account.picture || '/default-avatar.svg'} alt="" className="w-6 h-6 rounded-full" />
+                  <span className="hidden sm:inline text-gray-400 hover:text-amber-400 text-xs font-mono underline decoration-dotted">
+                    {user.account.name}
+                    {user.account.emailVerified === false && <span className="text-yellow-500 ml-1" title="Email not verified">!</span>}
+                  </span>
+                  {user.account.emailVerified === false && (
+                    <span className="sm:hidden text-yellow-500 text-xs" title="Email not verified">!</span>
+                  )}
                 </button>
                 <button
                   onClick={logout}
-                  className="text-gray-500 hover:text-gray-300 text-xs font-mono"
+                  className="hidden sm:block text-gray-500 hover:text-gray-300 text-xs font-mono min-h-[36px] px-1"
                 >
                   Logout
                 </button>

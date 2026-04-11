@@ -187,11 +187,11 @@ export default function MainMenu({ onNewCharacter, onSelectCharacter, onVersionN
   }
 
   return (
-    <div className="flex items-start justify-center h-full p-8 overflow-y-auto">
+    <div className="flex items-start justify-center h-full p-4 sm:p-8 overflow-y-auto">
       <div className="max-w-2xl w-full">
-        {/* Title art */}
-        <div className="text-center mb-8">
-          <pre className="text-amber-500 text-xs leading-tight font-mono inline-block text-left">
+        {/* Title art — hidden on small screens, replaced with text title */}
+        <div className="text-center mb-6 sm:mb-8">
+          <pre className="hidden sm:inline-block text-amber-500 text-xs leading-tight font-mono text-left">
 {`    __                              __
    / /  ___  ____  ___  ____  ____/ /____
   / /  / _ \\/ __ \\/ _ \\/ __ \\/ __  / ___/
@@ -212,6 +212,11 @@ export default function MainMenu({ onNewCharacter, onSelectCharacter, onVersionN
  / ____/ /_/ (__  ) /_
 /_/    \\__,_/____/\\__/`}
           </pre>
+          {/* Mobile title */}
+          <div className="sm:hidden">
+            <div className="text-amber-500 font-mono font-bold text-2xl tracking-widest">LEGENDS</div>
+            <div className="text-amber-400 font-mono text-sm tracking-wider">of Future Past</div>
+          </div>
           <p className="text-gray-500 font-mono text-sm mt-4">
             The Shattered Realms of Andor await your return...
           </p>
@@ -402,29 +407,28 @@ export default function MainMenu({ onNewCharacter, onSelectCharacter, onVersionN
                           Level {p.level} {RACE_NAMES[p.race] || 'Unknown'} &middot; BP {p.bodyPoints}/{p.maxBodyPoints} &middot; Room #{p.roomNumber}
                         </div>
                       </div>
-                      <div className="text-right flex items-center gap-3">
-                        <div>
-                          <div className="text-gray-600 font-mono text-xs">
-                            Last played
-                          </div>
-                          <div className="text-gray-500 font-mono text-xs">
-                            {formatDate(p.updatedAt)}
-                          </div>
+                      <div className="flex flex-col sm:flex-row items-end sm:items-center gap-1 sm:gap-3 shrink-0">
+                        <div className="text-right hidden sm:block">
+                          <div className="text-gray-600 font-mono text-xs">Last played</div>
+                          <div className="text-gray-500 font-mono text-xs">{formatDate(p.updatedAt)}</div>
                         </div>
-                        <button
-                          onClick={(ev) => { ev.stopPropagation(); setApiKeyModal(p.firstName); setGeneratedKey(null); setKeyAllowGM(false) }}
-                          className="text-gray-600 hover:text-amber-400 text-sm font-mono transition-colors px-2 py-2 rounded hover:bg-[#222]"
-                          title={p.apiKeyPrefix ? "Manage Bot API Key" : "Generate Bot API Key"}
-                        >
-                          {p.apiKeyPrefix ? '🤖 Bot' : '⚙ Bot'}
-                        </button>
-                        <button
-                          onClick={(ev) => { ev.stopPropagation(); setDeleteConfirm(p.firstName) }}
-                          className="text-gray-600 hover:text-red-400 text-sm font-mono transition-colors px-2 py-2 rounded hover:bg-[#222]"
-                          title="Delete character"
-                        >
-                          ✕ Delete
-                        </button>
+                        <div className="flex gap-1">
+                          <button
+                            onClick={(ev) => { ev.stopPropagation(); setApiKeyModal(p.firstName); setGeneratedKey(null); setKeyAllowGM(false) }}
+                            className="text-gray-600 hover:text-amber-400 text-xs font-mono transition-colors px-2 py-2 min-h-[36px] rounded hover:bg-[#222]"
+                            title={p.apiKeyPrefix ? "Manage Bot API Key" : "Generate Bot API Key"}
+                          >
+                            {p.apiKeyPrefix ? '🤖' : '⚙'}
+                            <span className="hidden sm:inline"> Bot</span>
+                          </button>
+                          <button
+                            onClick={(ev) => { ev.stopPropagation(); setDeleteConfirm(p.firstName) }}
+                            className="text-gray-600 hover:text-red-400 text-xs font-mono transition-colors px-2 py-2 min-h-[36px] rounded hover:bg-[#222]"
+                            title="Delete character"
+                          >
+                            ✕<span className="hidden sm:inline"> Delete</span>
+                          </button>
+                        </div>
                       </div>
                     </button>
                   ))}
@@ -478,8 +482,8 @@ export default function MainMenu({ onNewCharacter, onSelectCharacter, onVersionN
 
         {/* MUD Client info modal */}
         {showMudInfo && (
-          <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50" onClick={() => setShowMudInfo(false)}>
-            <div className="bg-[#1a1a1a] border border-amber-900 rounded-lg p-6 max-w-lg" onClick={e => e.stopPropagation()}>
+          <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4" onClick={() => setShowMudInfo(false)}>
+            <div className="bg-[#1a1a1a] border border-amber-900 rounded-lg p-4 sm:p-6 w-full max-w-lg max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
               <h3 className="text-amber-400 font-mono font-bold text-lg mb-3">Connect with a MUD Client</h3>
               <p className="text-gray-300 font-mono text-sm mb-4">
                 You can play Legends of Future Past using any standard MUD client (Mudlet, TinTin++, etc.) or a terminal.
@@ -509,8 +513,8 @@ export default function MainMenu({ onNewCharacter, onSelectCharacter, onVersionN
 
         {/* API Key modal */}
         {apiKeyModal && (
-          <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
-            <div className="bg-[#1a1a1a] border border-amber-900 rounded-lg p-6 max-w-lg">
+          <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
+            <div className="bg-[#1a1a1a] border border-amber-900 rounded-lg p-4 sm:p-6 w-full max-w-lg max-h-[90vh] overflow-y-auto">
               <h3 className="text-amber-400 font-mono font-bold text-lg mb-3">Bot API Key — {apiKeyModal}</h3>
               {generatedKey ? (
                 <div>
@@ -562,8 +566,8 @@ export default function MainMenu({ onNewCharacter, onSelectCharacter, onVersionN
 
         {/* Delete confirmation modal */}
         {deleteConfirm && (
-          <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
-            <div className="bg-[#1a1a1a] border border-red-900 rounded-lg p-6 max-w-md">
+          <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
+            <div className="bg-[#1a1a1a] border border-red-900 rounded-lg p-4 sm:p-6 w-full max-w-md">
               <h3 className="text-red-400 font-mono font-bold text-lg mb-3">Delete Character</h3>
               <p className="text-gray-300 font-mono text-sm mb-4">
                 Are you sure you want to delete <span className="text-amber-400">{deleteConfirm}</span>?

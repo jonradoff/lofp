@@ -126,7 +126,7 @@ export default function CharacterCreate({ onCreated, onOpenManual }: Props) {
                   key={g.v}
                   type="button"
                   onClick={() => setGender(g.v)}
-                  className={`px-6 py-2 rounded font-mono text-sm transition-colors ${gender === g.v ? 'bg-amber-700 text-white' : 'bg-[#1a1a1a] text-gray-400 border border-[#444] hover:border-amber-600'}`}
+                  className={`px-6 py-2.5 min-h-[44px] rounded font-mono text-sm transition-colors ${gender === g.v ? 'bg-amber-700 text-white' : 'bg-[#1a1a1a] text-gray-400 border border-[#444] hover:border-amber-600'}`}
                 >
                   {g.l}
                 </button>
@@ -143,7 +143,7 @@ export default function CharacterCreate({ onCreated, onOpenManual }: Props) {
                   key={r.id}
                   type="button"
                   onClick={() => { setRace(r.id); setSelectedRace(r) }}
-                  className={`px-2 py-2.5 rounded font-mono text-sm transition-colors ${race === r.id ? 'bg-amber-700 text-white border border-amber-600' : 'bg-[#1a1a1a] text-gray-400 border border-[#444] hover:border-amber-600'}`}
+                  className={`px-2 py-3 min-h-[44px] rounded font-mono text-sm transition-colors ${race === r.id ? 'bg-amber-700 text-white border border-amber-600' : 'bg-[#1a1a1a] text-gray-400 border border-[#444] hover:border-amber-600'}`}
                 >
                   {r.name}
                 </button>
