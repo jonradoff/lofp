@@ -239,7 +239,7 @@ export default function Terminal({ character, onQuit, wsRefOut, onCaptureStatus 
           value={input}
           onChange={e => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
-          className="flex-1 bg-transparent text-gray-200 font-mono text-sm focus:outline-none min-w-0"
+          className="flex-1 bg-transparent text-gray-200 font-mono text-base sm:text-sm focus:outline-none min-w-0"
           placeholder="Enter command..."
         />
         {/* Send button — visible only on touch devices */}
