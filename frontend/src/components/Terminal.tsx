@@ -131,14 +131,15 @@ export default function Terminal({ character, onQuit, wsRefOut, onCaptureStatus 
     scrollRef.current?.scrollTo(0, scrollRef.current.scrollHeight)
     // Re-assert focus after every render that adds lines — Chrome on Windows/Android
     // drops focus when the DOM updates with new output. This runs after the re-render.
-    if (!isTouchDevice()) {
+    // Use viewport width (not touch detection) so touchscreen laptops still get focus.
+    if (window.innerWidth >= 640) {
       inputRef.current?.focus()
     }
   }, [lines])
 
-  // Only auto-focus on non-touch devices — on mobile this would open the keyboard immediately
+  // Auto-focus on mount — skip on small screens to avoid opening virtual keyboard
   useEffect(() => {
-    if (!isTouchDevice()) {
+    if (window.innerWidth >= 640) {
       inputRef.current?.focus()
     }
   }, [])
@@ -204,8 +205,10 @@ export default function Terminal({ character, onQuit, wsRefOut, onCaptureStatus 
 
   return (
     <div className="flex flex-col h-full" onClick={() => {
-      // Only refocus input if user clicked empty space (not selecting text) and not on touch device
-      if (isTouchDevice()) return
+      // Refocus input when clicking empty space (not selecting text).
+      // On small screens (likely phones), skip — tapping would open the virtual keyboard.
+      // Touchscreen laptops have maxTouchPoints > 0 but wide screens, so use width not touch detection.
+      if (window.innerWidth < 640) return
       const selection = window.getSelection()
       if (!selection || selection.toString().length === 0) {
         inputRef.current?.focus()
