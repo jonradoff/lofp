@@ -10,22 +10,33 @@ export default function VersionNotes({ onBack }: { onBack: () => void }) {
         <div className="space-y-6 text-sm">
           <section>
             <h2 className="text-amber-400 text-lg font-bold mb-1">v11.5 &mdash; April 23, 2026</h2>
-            <p className="text-gray-400 mb-3">Feedback pipeline, session reconnect fix, VibeCtl integration.</p>
+            <p className="text-gray-400 mb-3">Feedback pipeline, session visibility fix, email deliverability, input focus fixes.</p>
 
             <div className="space-y-4 mb-8">
               <div>
                 <h3 className="text-green-400 font-bold mb-1">Feedback Pipeline</h3>
                 <ul className="text-gray-300 space-y-1 ml-4 list-disc">
-                  <li>REPORT command now forwards feedback to VibeCtl for triage and issue tracking</li>
+                  <li>REPORT command now forwards player feedback to VibeCtl for triage and issue tracking</li>
                   <li>Reports include player name, room location, and full message text</li>
                   <li>Backfilled 205 existing reports from game logs</li>
                 </ul>
               </div>
               <div>
+                <h3 className="text-green-400 font-bold mb-1">Email Deliverability</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>SPF, DKIM, and DMARC DNS records configured for <code className="text-amber-300">lofp.metavert.io</code></li>
+                  <li>Account verification emails should no longer land in spam folders</li>
+                </ul>
+              </div>
+              <div>
                 <h3 className="text-green-400 font-bold mb-1">Fixes</h3>
                 <ul className="text-gray-300 space-y-1 ml-4 list-disc">
-                  <li>Fixed invisible player bug &mdash; reconnecting no longer creates duplicate sessions that cause players to vanish from WHO list, room occupancy, and action broadcasts</li>
-                  <li>Session cleanup now only runs for the active session, preventing a stale disconnect from unregistering a reconnected player</li>
+                  <li>Fixed invisible player bug &mdash; players could vanish from WHO list, room occupancy, and action broadcasts after reconnecting; caused by duplicate sessions from stale WebSocket connections</li>
+                  <li>Reconnecting now properly replaces the stale session instead of creating a second one</li>
+                  <li>Session cleanup (departure broadcast, presence unregister) only runs for the active session, so a stale disconnect can no longer ghost a reconnected player</li>
+                  <li>Fix applies to all connection types: WebSocket, Telnet, and SSH</li>
+                  <li>Fixed input losing focus after pressing Enter on Windows and Android Chrome</li>
+                  <li>Use viewport width instead of touch detection for mobile focus behavior</li>
                 </ul>
               </div>
             </div>
