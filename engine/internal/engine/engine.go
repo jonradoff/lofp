@@ -138,6 +138,8 @@ type GameEngine struct {
 	namedVarNames   map[string]bool // set of valid named variable names
 	Events          *EventBus
 	Banner          string // active login banner; in-memory so it works even if MongoDB is down
+	lastAssistName  string // last player who used ASSIST (for @answer)
+	lastAssistRoom  int    // room number of last ASSIST
 }
 
 // SetSessionProvider sets the session provider (called by API layer after init).
@@ -657,6 +659,9 @@ type CommandResult struct {
 	// TelepathyMsg: telepathy message to send to telepathy-enabled players.
 	TelepathyMsg    string `json:"-"`
 	TelepathySender string `json:"-"`
+	// CantMsg: thieves' cant — delivered only to players with Stealth/Legerdemain.
+	CantMsg    string `json:"-"`
+	CantSender string `json:"-"`
 	// LogEvent: optional event to log (type, detail).
 	LogEventType string `json:"-"`
 	LogEventDetail string `json:"-"`
@@ -933,15 +938,27 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 	case "CLOSE":
 		return e.doClose(player, args)
 	case "SIT":
+		if player.Position == 1 {
+			return &CommandResult{Messages: []string{"You are already sitting."}}
+		}
 		player.Position = 1
 		return e.doPositionWithScripts(ctx, player, verb, "You sit down.", fmt.Sprintf("%s sits down.", player.FirstName))
 	case "STAND":
+		if player.Position == 0 {
+			return &CommandResult{Messages: []string{"You are already standing."}}
+		}
 		player.Position = 0
 		return e.doPositionWithScripts(ctx, player, verb, "You stand up.", fmt.Sprintf("%s stands up.", player.FirstName))
 	case "KNEEL":
+		if player.Position == 3 {
+			return &CommandResult{Messages: []string{"You are already kneeling."}}
+		}
 		player.Position = 3
 		return e.doPositionWithScripts(ctx, player, verb, "You kneel down.", fmt.Sprintf("%s kneels down.", player.FirstName))
 	case "LAY":
+		if player.Position == 2 {
+			return &CommandResult{Messages: []string{"You are already lying down."}}
+		}
 		player.Position = 2
 		return e.doPositionWithScripts(ctx, player, verb, "You lie down.", fmt.Sprintf("%s lies down.", player.FirstName))
 	case "PRAY":
@@ -1136,7 +1153,7 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 		"LICK", "NIBBLE", "BARK", "CLAW", "CURSE", "DUCK", "HISS",
 		"HULA", "JIG", "MOAN", "MASSAGE", "PINCH",
 		"PURR", "ROAR", "SNARL", "SNUGGLE", "WAG", "WAIT", "WRITE",
-		"YOWL", "APPLAUD", "PEER", "GRUNT", "DIP",
+		"YOWL", "STOMP", "APPLAUD", "PEER", "GRUNT", "DIP",
 		"HANDRAISE", "HANDSHAKE", "HEADSHAKE", "PICK", "GESTURE",
 		// Additional self-emotes
 		"FUME", "SQUINT", "HUM", "SNIFFLE", "SLOUCH", "SNORE", "SNEEZE",
@@ -1613,9 +1630,11 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 		if room != nil {
 			roomName = room.Name
 		}
+		e.lastAssistName = player.FirstName
+		e.lastAssistRoom = player.RoomNumber
 		return &CommandResult{
 			Messages:    []string{"Your request for assistance has been noted. A gamemaster will be with you as soon as possible."},
-			GMBroadcast: []string{fmt.Sprintf("[GM] %s is requesting assistance at %s (room %d).", player.FirstName, roomName, player.RoomNumber)},
+			GMBroadcast: []string{fmt.Sprintf("[GM] %s is requesting assistance at %s (room %d). Use @answer to respond.", player.FirstName, roomName, player.RoomNumber)},
 		}
 	case "REPORT":
 		if len(args) == 0 {
@@ -4793,7 +4812,11 @@ func (e *GameEngine) doMark(ctx context.Context, player *Player, args []string) 
 				if r := e.rooms[roomNum]; r != nil {
 					name = r.Name
 				}
+				if player.IsGM {
 				msgs = append(msgs, fmt.Sprintf("  Mark %d: %s (%d)", i, name, roomNum))
+			} else {
+				msgs = append(msgs, fmt.Sprintf("  Mark %d: %s", i, name))
+			}
 			}
 		}
 		return &CommandResult{Messages: msgs}
@@ -4881,11 +4904,16 @@ func (e *GameEngine) doCant(player *Player, args []string) *CommandResult {
 	if len(args) == 0 {
 		return &CommandResult{Messages: []string{"Cant what?"}}
 	}
-	// TODO: requires Legerdemain skill level 6+ to send and receive
+	// Requires Legerdemain (skill 21) rank 6+ or Stealth (skill 5)
+	if player.Skills[21] < 6 && player.Skills[5] < 1 && !player.IsGM {
+		return &CommandResult{Messages: []string{"You don't know how to speak in cant."}}
+	}
 	text := strings.Join(args, " ")
 	return &CommandResult{
 		Messages:      []string{fmt.Sprintf("You cant, \"%s\"", text)},
 		RoomBroadcast: []string{fmt.Sprintf("%s mutters something under their breath.", player.FirstName)},
+		CantMsg:       text,
+		CantSender:    player.FirstName,
 	}
 }
 
@@ -5917,6 +5945,10 @@ func (e *GameEngine) doSkin(ctx context.Context, player *Player, args []string) 
 			return &CommandResult{Messages: []string{"There is nothing left to skin."}}
 		}
 
+		if inst.Skinned {
+			return &CommandResult{Messages: []string{"This corpse has already been skinned."}}
+		}
+
 		// Check for skin items
 		if len(def.SkinItems) == 0 && def.SkinAdj == 0 {
 			return &CommandResult{Messages: []string{fmt.Sprintf("You can't skin a %s.", def.Name)}}
@@ -5959,6 +5991,7 @@ func (e *GameEngine) doSkin(ctx context.Context, player *Player, args []string) 
 			skinMsgs = append(skinMsgs, fmt.Sprintf("You skin %s %s but find nothing useful.", articleFor(displayName, def.Unique), displayName))
 		}
 
+		inst.Skinned = true
 		e.SavePlayer(ctx, player)
 		return &CommandResult{
 			Messages:      skinMsgs,

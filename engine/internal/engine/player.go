@@ -203,7 +203,8 @@ type Player struct {
 	GMTrace    bool `bson:"-" json:"-"`                                     // @trace: show script debug output
 	GMHat      bool `bson:"gmHat,omitempty" json:"gmHat,omitempty"`        // visible as GM on WHO list
 	GMHidden   bool `bson:"gmHidden,omitempty" json:"gmHidden,omitempty"`  // hidden from WHO list
-	GMInvis    bool `bson:"gmInvis,omitempty" json:"gmInvis,omitempty"`    // invisible to players
+	GMInvis      bool   `bson:"gmInvis,omitempty" json:"gmInvis,omitempty"`    // invisible to players
+	GMEditTarget string `bson:"-" json:"-"` // @edpl target name for subsequent @set commands
 
 	// Player title (e.g., "the Baroness") — shown on LOOK/EXAMINE
 	Title string `bson:"title,omitempty" json:"title,omitempty"`

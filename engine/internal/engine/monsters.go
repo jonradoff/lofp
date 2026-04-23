@@ -18,6 +18,7 @@ type MonsterInstance struct {
 	Alive        bool      `json:"alive"`
 	Sedated      bool      `json:"sedated"`
 	Stunned      bool      `json:"-"` // stunned: skip next combat tick, easier to hit
+	Skinned      bool      `json:"-"` // already skinned
 	DefenseBonus int       `json:"-"` // from active psi defenses
 	CurrentHP  int       `json:"currentHP"`
 	Target     string    `json:"-"`

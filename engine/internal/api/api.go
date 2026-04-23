@@ -932,6 +932,25 @@ func (s *Server) dispatchCommandResult(session *Session, result *engine.CommandR
 		}
 		s.mu.RUnlock()
 	}
+	// Cant broadcast (thieves' cant — only to players with Stealth or Legerdemain 6+)
+	if result.CantMsg != "" {
+		cantLines := []string{
+			fmt.Sprintf("%s cants, \"%s\"", result.CantSender, result.CantMsg),
+		}
+		s.mu.RLock()
+		for _, sess := range s.sessions {
+			if sess.Player == nil || sess.Player.FirstName == result.CantSender {
+				continue
+			}
+			if sess.Player.RoomNumber != session.Player.RoomNumber {
+				continue
+			}
+			if sess.Player.Skills[21] >= 6 || sess.Player.Skills[5] >= 1 || sess.Player.IsGM {
+				s.sendBroadcast(sess, cantLines)
+			}
+		}
+		s.mu.RUnlock()
+	}
 }
 
 func (s *Server) sendResult(session *Session, result *engine.CommandResult) {

@@ -571,6 +571,10 @@ func (p *fileParser) parseItem(fields []string) {
 			"RIFLE", "SCROLL", "SHIELD", "SLASH_WEAPON", "STABTHROWN",
 			"THROWN_WEAPON", "TRAP", "TWOHAND_WEAPON", "ORE":
 			item.Type = cmd
+			// Shields default to WORN_ARMOR if no explicit worn slot
+			if cmd == "SHIELD" && item.WornSlot == "" {
+				item.WornSlot = "WORN_ARMOR"
+			}
 		// Worn slots
 		case "WORN_AROUND", "WORN_BACK", "WORN_BODY", "WORN_DON",
 			"WORN_EAR", "WORN_FEET1", "WORN_FEET2", "WORN_HAIR",

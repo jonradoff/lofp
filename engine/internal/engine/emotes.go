@@ -124,6 +124,7 @@ var emoteTable = map[string]emoteEntry{
 	"WRITE":     {Self: "You write something.", Room: "%N writes something."},
 	"YOWL":      {Self: "You yowl!", Room: "%N yowls!"},
 	"THUMP":     {Self: "You thump the ground.", Room: "%N thumps the ground.", SelfTarget: "You thump %T.", RoomTarget: "%N thumps %T."},
+	"STOMP":     {Self: "You stomp your feet.", Room: "%N stomps %p feet.", SelfTarget: "You stomp towards %T.", RoomTarget: "%N stomps towards %T."},
 	"APPLAUD":   {Self: "You applaud.", Room: "%N applauds.", SelfTarget: "You applaud %T.", RoomTarget: "%N applauds %T."},
 	"PEER":      {Self: "You peer around.", Room: "%N peers around.", SelfTarget: "You peer at %T.", RoomTarget: "%N peers at %T."},
 	"GRUNT":     {Self: "You grunt.", Room: "%N grunts."},

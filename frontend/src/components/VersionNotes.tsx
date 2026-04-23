@@ -9,6 +9,40 @@ export default function VersionNotes({ onBack }: { onBack: () => void }) {
 
         <div className="space-y-6 text-sm">
           <section>
+            <h2 className="text-amber-400 text-lg font-bold mb-1">v11.5.4 &mdash; April 23, 2026</h2>
+            <p className="text-gray-400 mb-3">GM edit target, shields, skinning, position checks, CANT, @answer, STOMP.</p>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">GM Tools</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li><code className="text-amber-300">@edpl &lt;player&gt;</code> now sets an edit target &mdash; subsequent <code className="text-amber-300">@set</code> commands modify that player</li>
+                  <li><code className="text-amber-300">@edpl</code> (no args) clears the edit target</li>
+                  <li><code className="text-amber-300">@answer</code> &mdash; teleports GM to the last player who used ASSIST</li>
+                  <li>@yank offline message clarified</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Fixes</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Shields now have a default worn slot &mdash; WIELD/WEAR shield works correctly</li>
+                  <li>Can no longer skin the same corpse multiple times</li>
+                  <li>Can no longer SIT/STAND/KNEEL/LAY if already in that position</li>
+                  <li>Mark list no longer shows room numbers to non-GM players</li>
+                  <li>THUMP and script-interactive verbs now fire IFVERB scripts with emote fallback</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Features</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>CANT (thieves&rsquo; cant) now requires Stealth or Legerdemain skill &mdash; only skilled players can hear it</li>
+                  <li>STOMP emote added</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
             <h2 className="text-amber-400 text-lg font-bold mb-1">v11.5.3 &mdash; April 23, 2026</h2>
             <p className="text-gray-400 mb-3">Stun, immobilize, healing cooldown, multi-attacker defense, NPC flight restrictions.</p>
 

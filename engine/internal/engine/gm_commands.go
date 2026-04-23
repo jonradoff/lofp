@@ -100,6 +100,8 @@ func (e *GameEngine) processGMCommand(ctx context.Context, player *Player, verb 
 		return e.gmGlossary(args)
 	case "@PEEK":
 		return e.gmPeek(player, args)
+	case "@ANSWER":
+		return e.gmAnswer(ctx, player)
 	case "@SET":
 		return e.gmSet(ctx, player, args)
 	case "@SETP":
@@ -121,7 +123,7 @@ func (e *GameEngine) processGMCommand(ctx context.Context, player *Player, verb 
 	case "@WHISPER":
 		return e.gmWhisper(args, rawInput)
 	case "@EDPLAYER", "@EDPL":
-		return e.gmEdPlayer(ctx, args)
+		return e.gmEdPlayer(ctx, player, args)
 	case "@EDS", "@EDSK":
 		return e.gmEds(ctx, args)
 	case "@LSK":
@@ -1191,6 +1193,25 @@ func (e *GameEngine) gmSet(ctx context.Context, player *Player, args []string) *
 	if len(args) < 2 {
 		return &CommandResult{Messages: []string{"Usage: @set <variable> <value>"}}
 	}
+	// If @edpl set an edit target, redirect @set to that player
+	if player.GMEditTarget != "" {
+		target, err := e.resolvePlayerArg(ctx, []string{player.GMEditTarget})
+		if err != nil {
+			return &CommandResult{Messages: []string{fmt.Sprintf("Edit target %s not found: %v", player.GMEditTarget, err)}}
+		}
+		result := e.gmSetOnPlayer(ctx, target, args)
+		if len(result.Messages) > 0 {
+			result.Messages[0] = fmt.Sprintf("[%s] %s", target.FullName(), result.Messages[0])
+		}
+		return result
+	}
+	return e.gmSetOnPlayer(ctx, player, args)
+}
+
+func (e *GameEngine) gmSetOnPlayer(ctx context.Context, player *Player, args []string) *CommandResult {
+	if len(args) < 2 {
+		return &CommandResult{Messages: []string{"Usage: @set <variable> <value>"}}
+	}
 	varName := strings.ToUpper(args[0])
 	val, err := strconv.Atoi(args[1])
 	if err != nil {
@@ -1342,6 +1363,25 @@ func (e *GameEngine) gmGoPlr(ctx context.Context, player *Player, args []string)
 	return result
 }
 
+func (e *GameEngine) gmAnswer(ctx context.Context, player *Player) *CommandResult {
+	if e.lastAssistName == "" {
+		return &CommandResult{Messages: []string{"No pending assist requests."}}
+	}
+	oldRoom := player.RoomNumber
+	player.RoomNumber = e.lastAssistRoom
+	e.SavePlayer(ctx, player)
+	result := e.doLook(player)
+	result.Messages = append([]string{fmt.Sprintf("Answering %s's assist request. Teleported to room %d.", e.lastAssistName, e.lastAssistRoom)}, result.Messages...)
+	if !player.GMInvis {
+		result.OldRoomMsg = []string{fmt.Sprintf("%s vanishes.", player.FirstName)}
+		result.RoomBroadcast = []string{fmt.Sprintf("%s appears.", player.FirstName)}
+	}
+	result.OldRoom = oldRoom
+	e.lastAssistName = ""
+	e.lastAssistRoom = 0
+	return result
+}
+
 func (e *GameEngine) gmYank(ctx context.Context, player *Player, args []string) *CommandResult {
 	if len(args) < 1 {
 		return &CommandResult{Messages: []string{"Usage: @yank <player name>"}}
@@ -1370,7 +1410,7 @@ func (e *GameEngine) gmYank(ctx context.Context, player *Player, args []string) 
 	}
 	target.RoomNumber = player.RoomNumber
 	e.SavePlayer(ctx, target)
-	return &CommandResult{Messages: []string{fmt.Sprintf("Yanked %s to room %d (offline).", target.FullName(), player.RoomNumber)}}
+	return &CommandResult{Messages: []string{fmt.Sprintf("Yanked %s to room %d. (Player was offline — will see change on next login.)", target.FullName(), player.RoomNumber)}}
 }
 
 func (e *GameEngine) gmWhisper(args []string, rawInput string) *CommandResult {
@@ -1431,11 +1471,17 @@ func (e *GameEngine) gmBanner(player *Player, args []string, rawInput string) *C
 	return &CommandResult{Messages: []string{notice, fmt.Sprintf("Banner set: %s", text)}}
 }
 
-func (e *GameEngine) gmEdPlayer(ctx context.Context, args []string) *CommandResult {
+func (e *GameEngine) gmEdPlayer(ctx context.Context, player *Player, args []string) *CommandResult {
+	if len(args) == 0 {
+		// Clear edit target
+		player.GMEditTarget = ""
+		return &CommandResult{Messages: []string{"Edit target cleared. @set will now modify your own character."}}
+	}
 	target, err := e.resolvePlayerArg(ctx, args)
 	if err != nil {
 		return &CommandResult{Messages: []string{err.Error()}}
 	}
+	player.GMEditTarget = target.FirstName
 	return &CommandResult{Messages: []string{
 		fmt.Sprintf("=== Player Edit: %s ===", target.FullName()),
 		fmt.Sprintf("Race: %d (%s) | Gender: %d (%s) | Level: %d", target.Race, target.RaceName(), target.Gender, genderName(target.Gender), target.Level),
@@ -1449,7 +1495,7 @@ func (e *GameEngine) gmEdPlayer(ctx context.Context, args []string) *CommandResu
 		fmt.Sprintf("Gold:%d Silver:%d Copper:%d", target.Gold, target.Silver, target.Copper),
 		fmt.Sprintf("Room: %d | Position: %d | Dead: %v", target.RoomNumber, target.Position, target.Dead),
 		fmt.Sprintf("Skills: %v", target.Skills),
-		"Use @set <variable> <value> to modify.",
+		fmt.Sprintf("@set will now modify %s. Use @edpl (no args) to clear.", target.FirstName),
 	}}
 }
 
