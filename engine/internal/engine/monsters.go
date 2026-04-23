@@ -17,6 +17,7 @@ type MonsterInstance struct {
 	RoomNumber   int       `json:"roomNumber"`
 	Alive        bool      `json:"alive"`
 	Sedated      bool      `json:"sedated"`
+	Stunned      bool      `json:"-"` // stunned: skip next combat tick, easier to hit
 	DefenseBonus int       `json:"-"` // from active psi defenses
 	CurrentHP  int       `json:"currentHP"`
 	Target     string    `json:"-"`
@@ -528,6 +529,10 @@ func (e *GameEngine) monsterTick(tick int) {
 			var exits []exitInfo
 			for dir, destID := range room.Exits {
 				if destID > 0 {
+					// Non-flying monsters can't use ABOVE exits
+					if strings.EqualFold(dir, "ABOVE") || strings.EqualFold(dir, "UP") {
+						continue
+					}
 					exits = append(exits, exitInfo{dir, destID})
 				}
 			}

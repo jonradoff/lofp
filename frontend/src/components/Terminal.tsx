@@ -247,7 +247,7 @@ export default function Terminal({ character, onQuit, wsRefOut, onCaptureStatus 
           inputMode="text"
           enterKeyHint="send"
           autoCorrect="off"
-          autoCapitalize="off"
+          autoCapitalize="sentences"
           spellCheck={false}
           value={input}
           onChange={e => setInput(e.target.value)}

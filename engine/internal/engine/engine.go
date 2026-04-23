@@ -1136,7 +1136,7 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 		"LICK", "NIBBLE", "BARK", "CLAW", "CURSE", "DUCK", "HISS",
 		"HULA", "JIG", "MOAN", "MASSAGE", "PINCH",
 		"PURR", "ROAR", "SNARL", "SNUGGLE", "WAG", "WAIT", "WRITE",
-		"YOWL", "THUMP", "APPLAUD", "PEER", "GRUNT", "DIP",
+		"YOWL", "APPLAUD", "PEER", "GRUNT", "DIP",
 		"HANDRAISE", "HANDSHAKE", "HEADSHAKE", "PICK", "GESTURE",
 		// Additional self-emotes
 		"FUME", "SQUINT", "HUM", "SNIFFLE", "SLOUCH", "SNORE", "SNEEZE",
@@ -1237,8 +1237,16 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 			}
 		}
 		return &CommandResult{Messages: msgs}
-	case "PULL", "PUSH", "RUB", "TOUCH", "DIG", "USE":
-		return e.doItemInteraction(ctx, player, verb, args)
+	case "PULL", "PUSH", "RUB", "TOUCH", "DIG", "USE", "THUMP":
+		result := e.doItemInteraction(ctx, player, verb, args)
+		// If item interaction found nothing, fall back to emote for verbs that have emote entries
+		if result != nil && len(result.Messages) > 0 && result.Messages[0] != "You don't see that here." {
+			return result
+		}
+		if verb == "THUMP" {
+			return e.processEmote(player, verb, args)
+		}
+		return result
 	case "TURN":
 		if result := e.doTurnPage(ctx, player, args); result != nil {
 			return result
@@ -1779,6 +1787,9 @@ func resolveVerb(input string) string {
 }
 
 func (e *GameEngine) doMove(ctx context.Context, player *Player, dir string) *CommandResult {
+	if player.Immobilized {
+		return &CommandResult{Messages: []string{"You are immobilized and cannot move!"}}
+	}
 	// Normal movement always reveals (use SNEAK to stay hidden)
 	if player.Hidden {
 		player.Hidden = false

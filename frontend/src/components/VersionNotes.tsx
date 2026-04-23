@@ -9,6 +9,49 @@ export default function VersionNotes({ onBack }: { onBack: () => void }) {
 
         <div className="space-y-6 text-sm">
           <section>
+            <h2 className="text-amber-400 text-lg font-bold mb-1">v11.5.3 &mdash; April 23, 2026</h2>
+            <p className="text-gray-400 mb-3">Stun, immobilize, healing cooldown, multi-attacker defense, NPC flight restrictions.</p>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Combat</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Stun now works: stunned monsters skip their next attack and are easier to hit (+20 to-hit)</li>
+                  <li>Multi-attacker defense penalty: -5 per 2 additional monsters attacking you</li>
+                  <li>Polearm fatigue reduced (capped at 3 per swing instead of scaling with weight)</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Psionics</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>PSI Immobilize now implemented &mdash; freezes target in place (monsters and players)</li>
+                  <li>PSI damage disciplines now give a clear message when targeting players</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Skills</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>TEND/HEAL now has a 5-second round timer and cannot be used in combat</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">World</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>NPCs can no longer wander through ABOVE/UP exits into sky rooms</li>
+                  <li>THUMP and similar verbs now trigger room scripts before falling back to emotes</li>
+                  <li>Immobilized players cannot move</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">UI</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Mobile keyboard now auto-capitalizes after periods</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
             <h2 className="text-amber-400 text-lg font-bold mb-1">v11.5.2 &mdash; April 23, 2026</h2>
             <p className="text-gray-400 mb-3">Seasonal rooms, martial arts, healing, whisper, idle timeout, and more fixes.</p>
 

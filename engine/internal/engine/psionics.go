@@ -319,6 +319,13 @@ func (e *GameEngine) doProjectPsi(ctx context.Context, player *Player, args []st
 		result.RoomBroadcast = []string{fmt.Sprintf("%s concentrates and a shimmering barrier appears.", player.FirstName)}
 	case "buff":
 		result = e.projectBuff(player, disc)
+	case "utility":
+		if disc.ID == 14 { // Immobilize
+			result = e.projectImmobilize(player, args)
+		} else {
+			result.Messages = []string{fmt.Sprintf("You project %s.", disc.Name)}
+			result.RoomBroadcast = []string{fmt.Sprintf("%s concentrates intensely.", player.FirstName)}
+		}
 	default:
 		result.Messages = []string{fmt.Sprintf("You project %s.", disc.Name)}
 		result.RoomBroadcast = []string{fmt.Sprintf("%s concentrates intensely.", player.FirstName)}
@@ -330,6 +337,38 @@ func (e *GameEngine) doProjectPsi(ctx context.Context, player *Player, args []st
 	e.SavePlayer(ctx, player)
 
 	return result
+}
+
+func (e *GameEngine) projectImmobilize(player *Player, args []string) *CommandResult {
+	if len(args) == 0 {
+		return &CommandResult{Messages: []string{"Immobilize whom?"}}
+	}
+	targetName := strings.Join(args, " ")
+
+	// Try monster first
+	inst, def := e.findMonsterInRoom(player, targetName)
+	if inst != nil {
+		inst.Sedated = true // use Sedated to prevent movement/wandering
+		name := FormatMonsterName(def, e.monAdjs)
+		return &CommandResult{
+			Messages:      []string{fmt.Sprintf("You project Immobilize at %s! Invisible force bands wrap around it, freezing it in place.", name)},
+			RoomBroadcast: []string{fmt.Sprintf("%s concentrates and %s freezes in place.", player.FirstName, name)},
+		}
+	}
+
+	// Try player
+	found := e.findPlayerInRoom(player, targetName)
+	if found != nil {
+		found.Immobilized = true
+		return &CommandResult{
+			Messages:      []string{fmt.Sprintf("You project Immobilize at %s! Invisible force bands wrap around them.", found.FirstName)},
+			RoomBroadcast: []string{fmt.Sprintf("%s concentrates and %s freezes in place.", player.FirstName, found.FirstName)},
+			TargetName:    found.FirstName,
+			TargetMsg:     []string{"Invisible force bands wrap around you, making it impossible to move!"},
+		}
+	}
+
+	return &CommandResult{Messages: []string{fmt.Sprintf("You don't see %s here.", targetName)}}
 }
 
 func (e *GameEngine) projectDamage(player *Player, disc *PsiDiscipline, args []string) *CommandResult {
@@ -354,6 +393,11 @@ func (e *GameEngine) projectDamage(player *Player, disc *PsiDiscipline, args []s
 
 	inst, def := e.findMonsterInRoom(player, targetName)
 	if inst == nil {
+		// Try player target
+		found := e.findPlayerInRoom(player, targetName)
+		if found != nil {
+			return &CommandResult{Messages: []string{fmt.Sprintf("You can't project %s at %s. Psionic attacks against players are not yet implemented.", disc.Name, found.FirstName)}}
+		}
 		return &CommandResult{Messages: []string{fmt.Sprintf("You don't see '%s' here.", targetName)}}
 	}
 	name := FormatMonsterName(def, e.monAdjs)

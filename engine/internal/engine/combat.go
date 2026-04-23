@@ -649,6 +649,9 @@ func (e *GameEngine) doAttackMonster(ctx context.Context, player *Player, target
 		if e.sessions != nil {
 			for _, p := range e.sessions.OnlinePlayers() {
 				if p.RoomNumber == player.RoomNumber && strings.HasPrefix(strings.ToUpper(p.FirstName), strings.ToUpper(target)) {
+					if player.IsGM {
+						return &CommandResult{Messages: []string{fmt.Sprintf("[GM combat with players is not yet implemented. %s is here.]", p.FirstName)}}
+					}
 					return &CommandResult{Messages: []string{"Player combat is not allowed here."}}
 				}
 			}
@@ -716,7 +719,10 @@ func (e *GameEngine) doAttackMonster(ctx context.Context, player *Player, target
 	if !isRanged {
 		fatCost := 1
 		if weaponDef != nil && weaponDef.Weight > 5 {
-			fatCost = weaponDef.Weight / 5
+			fatCost = weaponDef.Weight / 7 // reduced from /5 to cap heavy weapon fatigue
+			if fatCost > 3 {
+				fatCost = 3
+			}
 		}
 		player.Fatigue -= fatCost
 		if player.Fatigue < 0 {
@@ -743,6 +749,9 @@ func (e *GameEngine) doAttackMonster(ctx context.Context, player *Player, target
 
 	// Resolve to-hit
 	attackRating := playerAttackRating(player, weaponDef) + wMod - fatPenalty
+	if inst.Stunned {
+		attackRating += 20 // bonus for attacking stunned target
+	}
 	monDefense := def.Defense + inst.DefenseBonus
 	toHit := calcToHit(attackRating, monDefense)
 	roll := rand.Intn(100) + 1
@@ -845,6 +854,7 @@ func (e *GameEngine) doAttackMonster(ctx context.Context, player *Player, target
 			if rand.Intn(100) < 30 {
 				msgs = append(msgs, " It is stunned!")
 				wasStunned = true
+				inst.Stunned = true
 			}
 		}
 
@@ -1025,7 +1035,21 @@ func (e *GameEngine) monsterAttackPlayer(inst *MonsterInstance, def *gameworld.M
 
 	// Weather modifier for monsters too
 	wMod := e.weatherMod(inst.RoomNumber)
-	toHit := calcToHit(def.Attack1+wMod, playerDefenseRating(player))
+	defRating := playerDefenseRating(player)
+	// Multi-attacker penalty: -5 per 2 additional attackers beyond the first
+	if e.monsterMgr != nil {
+		attackerCount := 0
+		for i := range e.monsterMgr.instances {
+			mi := &e.monsterMgr.instances[i]
+			if mi.Alive && mi.Target == player.FirstName && mi.RoomNumber == player.RoomNumber {
+				attackerCount++
+			}
+		}
+		if attackerCount > 1 {
+			defRating -= (attackerCount - 1) * 5 / 2
+		}
+	}
+	toHit := calcToHit(def.Attack1+wMod, defRating)
 	roll := rand.Intn(100) + 1
 
 	if roll >= toHit {
@@ -1539,6 +1563,11 @@ func (e *GameEngine) cryForLaw(attacker *Player, target *MonsterInstance, target
 
 func (e *GameEngine) monsterCombatTick(inst *MonsterInstance, def *gameworld.MonsterDef) {
 	if inst.Target == "" || !inst.Alive {
+		return
+	}
+	// Stunned monsters skip their combat tick and recover
+	if inst.Stunned {
+		inst.Stunned = false
 		return
 	}
 

@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"math/rand"
 	"strings"
+	"time"
 )
 
 // SkillCost defines the build point cost for a skill.
@@ -245,6 +246,17 @@ func (e *GameEngine) doTend(ctx context.Context, player *Player, args []string) 
 		return &CommandResult{Messages: []string{"You have no training in Healing."}}
 	}
 
+	// Can't heal during combat
+	if player.CombatTarget != nil {
+		return &CommandResult{Messages: []string{"You can't tend wounds while in combat!"}}
+	}
+
+	// Round timer check
+	if time.Now().Before(player.RoundTimeExpiry) {
+		remaining := time.Until(player.RoundTimeExpiry).Seconds()
+		return &CommandResult{Messages: []string{fmt.Sprintf("You must wait %.0f more seconds.", remaining)}}
+	}
+
 	// Determine target
 	target := player
 	targetName := "yourself"
@@ -281,6 +293,9 @@ func (e *GameEngine) doTend(ctx context.Context, player *Player, args []string) 
 		target.Bleeding = false
 	}
 
+	// 5 second round timer
+	player.RoundTimeExpiry = time.Now().Add(5 * time.Second)
+
 	e.SavePlayer(ctx, player)
 	if target != player {
 		e.SavePlayer(ctx, target)
@@ -288,7 +303,7 @@ func (e *GameEngine) doTend(ctx context.Context, player *Player, args []string) 
 
 	if target == player {
 		return &CommandResult{
-			Messages: []string{fmt.Sprintf("You tend to your wounds, healing %d body points. [BP: %d/%d]", heal, target.BodyPoints, target.MaxBodyPoints)},
+			Messages: []string{fmt.Sprintf("You tend to your wounds, healing %d body points. [Round: 5 sec] [BP: %d/%d]", heal, target.BodyPoints, target.MaxBodyPoints)},
 			RoomBroadcast: []string{fmt.Sprintf("%s tends to %s wounds.", player.FirstName, player.Possessive())},
 			PlayerState: player,
 		}
