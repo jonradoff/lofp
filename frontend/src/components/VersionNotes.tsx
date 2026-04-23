@@ -9,6 +9,29 @@ export default function VersionNotes({ onBack }: { onBack: () => void }) {
 
         <div className="space-y-6 text-sm">
           <section>
+            <h2 className="text-amber-400 text-lg font-bold mb-1">v11.5 &mdash; April 23, 2026</h2>
+            <p className="text-gray-400 mb-3">Feedback pipeline, session reconnect fix, VibeCtl integration.</p>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Feedback Pipeline</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>REPORT command now forwards feedback to VibeCtl for triage and issue tracking</li>
+                  <li>Reports include player name, room location, and full message text</li>
+                  <li>Backfilled 205 existing reports from game logs</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Fixes</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Fixed invisible player bug &mdash; reconnecting no longer creates duplicate sessions that cause players to vanish from WHO list, room occupancy, and action broadcasts</li>
+                  <li>Session cleanup now only runs for the active session, preventing a stale disconnect from unregistering a reconnected player</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
             <h2 className="text-amber-400 text-lg font-bold mb-1">v11.4 &mdash; April 12, 2026</h2>
             <p className="text-gray-400 mb-3">GM Script Editor &mdash; hot-load scripts without server restart.</p>
 
