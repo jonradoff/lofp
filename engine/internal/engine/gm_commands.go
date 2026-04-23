@@ -1306,15 +1306,17 @@ func (e *GameEngine) gmGoPlr(ctx context.Context, player *Player, args []string)
 	e.SavePlayer(ctx, player)
 	result := e.doLook(player)
 	result.Messages = append([]string{fmt.Sprintf("Teleported to %s (room %d).", target.FullName(), target.RoomNumber)}, result.Messages...)
-	if player.ExitEcho != "" {
-		result.OldRoomMsg = []string{player.ExitEcho}
-	} else if !player.GMInvis {
-		result.OldRoomMsg = []string{fmt.Sprintf("%s vanishes.", player.FirstName)}
-	}
-	if player.EntryEcho != "" {
-		result.RoomBroadcast = []string{player.EntryEcho}
-	} else if !player.GMInvis {
-		result.RoomBroadcast = []string{fmt.Sprintf("%s appears.", player.FirstName)}
+	if !player.GMInvis {
+		if player.ExitEcho != "" {
+			result.OldRoomMsg = []string{player.ExitEcho}
+		} else {
+			result.OldRoomMsg = []string{fmt.Sprintf("%s vanishes.", player.FirstName)}
+		}
+		if player.EntryEcho != "" {
+			result.RoomBroadcast = []string{player.EntryEcho}
+		} else {
+			result.RoomBroadcast = []string{fmt.Sprintf("%s appears.", player.FirstName)}
+		}
 	}
 	result.OldRoom = oldRoom
 	return result
@@ -1331,6 +1333,12 @@ func (e *GameEngine) gmYank(ctx context.Context, player *Player, args []string) 
 			if strings.EqualFold(p.FirstName, targetName) {
 				p.RoomNumber = player.RoomNumber
 				e.SavePlayer(ctx, p)
+				// Send yanked player visual feedback
+				if e.sendToPlayer != nil {
+					lookResult := e.doLook(p)
+					msgs := append([]string{"You feel a strange pulling sensation...", ""}, lookResult.Messages...)
+					e.sendToPlayer(p.FirstName, msgs)
+				}
 				return &CommandResult{Messages: []string{fmt.Sprintf("Yanked %s to room %d.", p.FullName(), player.RoomNumber)}}
 			}
 		}

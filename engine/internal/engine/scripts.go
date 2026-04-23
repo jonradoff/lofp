@@ -17,8 +17,9 @@ type ScriptContext struct {
 	Messages []string // ECHO PLAYER messages to send to the player
 	RoomMsgs []string // ECHO ALL / ECHO OTHERS messages for the room
 	GMMsgs   []string // GMMSG messages for gamemasters
-	Blocked  bool     // CLEARVERB: block the triggering action
-	MoveTo   int      // MOVE: destination room (0 = no move)
+	Blocked      bool // CLEARVERB: block the triggering action
+	MoveTo       int  // MOVE: destination room (0 = no move)
+	MoveGroupTo  int  // MOVEGROUP: move all players in room to destination
 
 	StrVars  map[int]string // %0-%9 from STRCVT
 	OrigRoom *gameworld.Room // saved room for AFFECT
@@ -267,6 +268,8 @@ func (sc *ScriptContext) execAction(action gameworld.ScriptAction) {
 		sc.Blocked = true
 	case "MOVE":
 		sc.doMove(action.Args)
+	case "MOVEGROUP":
+		sc.doMoveGroup(action.Args)
 	case "SHOWROOM":
 		sc.doShowRoom(action.Args)
 	case "PLREVENT", "CONTPLREVENT":
@@ -472,6 +475,17 @@ func (sc *ScriptContext) doMove(args []string) {
 	dest := sc.resolveNumericArg(args[0])
 	if dest > 0 {
 		sc.MoveTo = dest
+	}
+}
+
+// doMoveGroup handles MOVEGROUP <room> — moves all players in the room to destination.
+func (sc *ScriptContext) doMoveGroup(args []string) {
+	if len(args) == 0 {
+		return
+	}
+	dest := sc.resolveNumericArg(args[0])
+	if dest > 0 {
+		sc.MoveGroupTo = dest
 	}
 }
 
@@ -1034,6 +1048,11 @@ func (sc *ScriptContext) setVar(name string, val int) {
 		sc.Player.Psi = val
 	case "FATPOINTS":
 		sc.Player.Fatigue = val
+	case "WEALTH":
+		// WEALTH is in copper units — split into gold/silver/copper
+		sc.Player.Gold = val / 100
+		sc.Player.Silver = (val % 100) / 10
+		sc.Player.Copper = val % 10
 	default:
 		// Check named global variables (DANWATER, TECHSWITCH, etc.)
 		if sc.Engine.namedVarNames[name] {

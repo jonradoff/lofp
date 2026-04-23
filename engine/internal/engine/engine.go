@@ -683,6 +683,20 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 		input = input[:maxInputLength]
 	}
 
+	// Clean up stale follow state — if leader is no longer online, clear Following
+	if player.Following != "" && e.sessions != nil {
+		leaderOnline := false
+		for _, p := range e.sessions.OnlinePlayers() {
+			if p.FirstName == player.Following {
+				leaderOnline = true
+				break
+			}
+		}
+		if !leaderOnline {
+			e.removeFromGroup(player)
+		}
+	}
+
 	// Dead players can only DEPART, LOOK, WHO, QUIT, EXP, STATUS, HEALTH
 	if player.Dead {
 		verb := strings.ToUpper(strings.Fields(input)[0])
@@ -799,6 +813,10 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 						sc.execBlock(block)
 					}
 				}
+			}
+			// MOVEGROUP: move all players in this room to destination
+			if sc.MoveGroupTo > 0 {
+				e.moveGroupToRoom(ctx, player.RoomNumber, sc.MoveGroupTo)
 			}
 			if sc.Blocked || sc.MoveTo > 0 {
 				result := &CommandResult{}
@@ -1943,6 +1961,9 @@ func (e *GameEngine) applyEntryScripts(ctx context.Context, player *Player, room
 	if len(sc.GMMsgs) > 0 {
 		result.GMBroadcast = append(result.GMBroadcast, sc.GMMsgs...)
 	}
+	if sc.MoveGroupTo > 0 {
+		e.moveGroupToRoom(ctx, room.Number, sc.MoveGroupTo)
+	}
 	e.SavePlayer(ctx, player)
 
 	// Spawn monsters for this room if needed (demand-based)
@@ -2608,6 +2629,28 @@ func (e *GameEngine) doGoPortal(ctx context.Context, player *Player, room *gamew
 
 	// Run IFENTRY scripts at destination
 	e.applyEntryScripts(ctx, player, dest, result)
+
+	// Group movement: if leader has followers, move them through the portal too
+	if player.IsGroupLeader && len(player.GroupMembers) > 0 && e.sessions != nil {
+		for _, memberName := range player.GroupMembers {
+			for _, p := range e.sessions.OnlinePlayers() {
+				if p.FirstName == memberName && p.RoomNumber == oldRoom && !p.Dead {
+					p.RoomNumber = destNum
+					p.Submitting = false
+					e.disengageCombat(p)
+					e.SavePlayer(ctx, p)
+					if e.sendToPlayer != nil {
+						followLook := e.doLook(p)
+						e.sendToPlayer(p.FirstName, followLook.Messages)
+					}
+					e.applyEntryScripts(ctx, p, dest, &CommandResult{})
+					break
+				}
+			}
+		}
+		result.OldRoomMsg = append(result.OldRoomMsg, fmt.Sprintf("%s's group goes through %s.", player.FirstName, portalName))
+		result.RoomBroadcast = append(result.RoomBroadcast, fmt.Sprintf("%s's group arrives.", player.FirstName))
+	}
 
 	return result
 }
@@ -3597,6 +3640,27 @@ func (e *GameEngine) doHold(player *Player, found *Player) *CommandResult {
 }
 
 // removeFromGroup silently removes a player from their leader's group.
+// moveGroupToRoom moves all online players in srcRoom to destRoom (for MOVEGROUP script command).
+func (e *GameEngine) moveGroupToRoom(ctx context.Context, srcRoom, destRoom int) {
+	dest := e.rooms[destRoom]
+	if dest == nil || e.sessions == nil {
+		return
+	}
+	for _, p := range e.sessions.OnlinePlayers() {
+		if p.RoomNumber == srcRoom && !p.Dead {
+			p.RoomNumber = destRoom
+			p.Submitting = false
+			e.disengageCombat(p)
+			e.SavePlayer(ctx, p)
+			if e.sendToPlayer != nil {
+				lookResult := e.doLook(p)
+				e.sendToPlayer(p.FirstName, lookResult.Messages)
+			}
+			e.applyEntryScripts(ctx, p, dest, &CommandResult{})
+		}
+	}
+}
+
 func (e *GameEngine) removeFromGroup(player *Player) {
 	if player.Following == "" {
 		return

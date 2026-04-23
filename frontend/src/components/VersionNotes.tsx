@@ -9,6 +9,50 @@ export default function VersionNotes({ onBack }: { onBack: () => void }) {
 
         <div className="space-y-6 text-sm">
           <section>
+            <h2 className="text-amber-400 text-lg font-bold mb-1">v11.5.1 &mdash; April 23, 2026</h2>
+            <p className="text-gray-400 mb-3">Second round of player-reported fixes: scripts, groups, combat, GM tools.</p>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Scripts &amp; World</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Scripts can now charge gold &mdash; <code className="text-amber-300">SUB WEALTH</code> / <code className="text-amber-300">SET WEALTH</code> in scripts now works (fixes herb shops, vendors)</li>
+                  <li><code className="text-amber-300">MOVEGROUP</code> script command implemented &mdash; moves all players in a room to a destination</li>
+                  <li>Monsters no longer spawn in sky/ABOVE rooms</li>
+                  <li>Death telepathy &mdash; psionic characters now sense when another player dies</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Group &amp; Follow</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Group members now follow through portals, gates, and doorways</li>
+                  <li>Stale &ldquo;J&rdquo; prompt indicator cleared when leader goes offline</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Combat &amp; Abilities</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>BERSERK stance now available to all races (not just Murg)</li>
+                  <li>Psionic Levitate now grants flight (fixes FLY command for non-Drakin psionics)</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Crafting</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Dyeing now preserves material adjective &mdash; color goes to second adjective slot instead of overwriting the material name</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">GM Tools</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li><code className="text-amber-300">@gop</code> no longer reveals invisible GMs (ExitEcho/EntryEcho suppressed when @invis)</li>
+                  <li><code className="text-amber-300">@yank</code> now shows the yanked player their new location</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
             <h2 className="text-amber-400 text-lg font-bold mb-1">v11.5 &mdash; April 23, 2026</h2>
             <p className="text-gray-400 mb-3">Feedback pipeline, 16 bug fixes from player reports, email deliverability.</p>
 

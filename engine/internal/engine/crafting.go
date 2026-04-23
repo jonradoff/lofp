@@ -876,12 +876,13 @@ func (e *GameEngine) doDye(ctx context.Context, player *Player, args []string) *
 		}
 		name := strings.ToLower(e.getItemNounName(def))
 		if strings.HasPrefix(name, dyeTarget) || strings.Contains(name, dyeTarget) {
-			// Apply dye: PARAMETER1 -> adj1, PARAMETER3 -> adj2
+			// Apply dye: color goes to Adj2, preserving material adjective in Adj1
+			// PARAMETER1 = color adjective, PARAMETER3 = optional texture adjective
 			if def.Parameter1 > 0 {
-				targetItem.Adj1 = def.Parameter1
+				targetItem.Adj2 = def.Parameter1
 			}
 			if def.Parameter3 > 0 {
-				targetItem.Adj2 = def.Parameter3
+				targetItem.Adj3 = def.Parameter3
 			}
 			// Consume the dye
 			player.Inventory = append(player.Inventory[:j], player.Inventory[j+1:]...)

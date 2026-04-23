@@ -90,6 +90,11 @@ func (e *GameEngine) spawnForRoom(roomNum int) {
 		return
 	}
 
+	// Don't spawn monsters in sky/above rooms — only flying players can reach these
+	if room.Terrain == "ABOVE" || room.Terrain == "SKY" {
+		return
+	}
+
 	// Check MLIST entries matching this room's monster group
 	for _, ml := range e.monsterLists {
 		if ml.Room != groupID {

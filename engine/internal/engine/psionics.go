@@ -412,7 +412,8 @@ func (e *GameEngine) projectBuff(player *Player, disc *PsiDiscipline) *CommandRe
 	msg := fmt.Sprintf("You project %s.", disc.Name)
 	switch disc.ID {
 	case 2: // Levitate
-		msg = "You project Levitate. You feel lighter."
+		player.CanFly = true
+		msg = "You project Levitate. You feel lighter and begin to float."
 	case 7: // Strengthen Steel
 		msg = "You project Strengthen Steel. Your weapon gleams with psychic energy. (+15 weapon bonus)"
 	case 10: // Flight

@@ -1115,6 +1115,22 @@ func (e *GameEngine) handlePlayerDeath(player *Player, killerName string) []stri
 
 	e.Events.Publish("combat", fmt.Sprintf("%s was killed by %s in room %d", player.FirstName, killerName, player.RoomNumber))
 
+	// Death telepathy: players with psionic abilities sense the death
+	if e.sessions != nil {
+		deathMsg := fmt.Sprintf("Your thoughts are jarred as you sense the death of %s.", player.FirstName)
+		for _, p := range e.sessions.OnlinePlayers() {
+			if p.FirstName == player.FirstName || p.Dead {
+				continue
+			}
+			// Anyone with Psionics skill or psionic school skills
+			if p.Skills[26] >= 1 || p.Skills[27] >= 1 || p.Skills[28] >= 1 || p.Skills[29] >= 1 {
+				if e.sendToPlayer != nil {
+					e.sendToPlayer(p.FirstName, []string{deathMsg})
+				}
+			}
+		}
+	}
+
 	return []string{
 		fmt.Sprintf(" %s collapses, unconscious.", player.FirstName),
 		fmt.Sprintf(" %s slays %s.", killerName, player.FirstName),
@@ -1354,9 +1370,6 @@ func (e *GameEngine) disengageCombat(player *Player) {
 // ---- Stances ----
 
 func (e *GameEngine) doStance(player *Player, stance int) *CommandResult {
-	if stance == StanceBerserk && player.Race != RaceMurg {
-		return &CommandResult{Messages: []string{"Only Murg can enter a berserk frenzy."}}
-	}
 	player.Stance = stance
 	return &CommandResult{
 		Messages:      []string{fmt.Sprintf("You adopt a %s combat stance.", stanceNames[stance])},
