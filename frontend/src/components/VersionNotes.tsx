@@ -9,6 +9,32 @@ export default function VersionNotes({ onBack }: { onBack: () => void }) {
 
         <div className="space-y-6 text-sm">
           <section>
+            <h2 className="text-amber-400 text-lg font-bold mb-1">v11.5.5 &mdash; April 23, 2026</h2>
+            <p className="text-gray-400 mb-3">PSI teleportation, partial item names, @echoplr fix, emote articles, custom descriptions.</p>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Psionics</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>PSI Teleportation (ID 12) now works &mdash; teleports to your marked location</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Fixes</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li><code className="text-amber-300">@echoplr</code> now works with any capitalization of player name</li>
+                  <li>DROP/GET now match partial item names (e.g., &ldquo;drop tooth&rdquo; matches &ldquo;rat tooth&rdquo;)</li>
+                  <li>Emotes with monsters now include articles (&ldquo;You sniff a lost mutt&rdquo; not &ldquo;You sniff lost mutt&rdquo;)</li>
+                  <li>Custom @line descriptions now replace the auto-generated race/gender line in LOOK</li>
+                  <li>VER command now shows correct version number</li>
+                  <li>Character names must be at least 3 characters (prevents single-letter names)</li>
+                  <li>Chrome desktop: improved input focus retention after command output</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
             <h2 className="text-amber-400 text-lg font-bold mb-1">v11.5.4 &mdash; April 23, 2026</h2>
             <p className="text-gray-400 mb-3">GM edit target, shields, skinning, position checks, CANT, @answer, STOMP.</p>
 

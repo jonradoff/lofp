@@ -321,7 +321,8 @@ func (e *GameEngine) processEmote(player *Player, verb string, args []string) *C
 
 			// Try to resolve as a monster in the room
 			if _, monDef := e.findMonsterInRoom(player, targetName); monDef != nil {
-				displayTarget := FormatMonsterName(monDef, e.monAdjs)
+				monName := FormatMonsterName(monDef, e.monAdjs)
+				displayTarget := articleFor(monName, monDef.Unique) + monName
 				selfMsg := expandEmote(entry.SelfTarget, player, displayTarget)
 				roomMsg := expandEmote(entry.RoomTarget, player, displayTarget)
 				return &CommandResult{Messages: []string{selfMsg}, RoomBroadcast: []string{roomMsg}}

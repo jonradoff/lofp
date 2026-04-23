@@ -134,6 +134,8 @@ export default function Terminal({ character, onQuit, wsRefOut, onCaptureStatus 
     // Use viewport width (not touch detection) so touchscreen laptops still get focus.
     if (window.innerWidth >= 640) {
       inputRef.current?.focus()
+      // Double-tap: Chrome sometimes needs a rAF to keep focus after DOM mutations
+      requestAnimationFrame(() => inputRef.current?.focus())
     }
   }, [lines])
 

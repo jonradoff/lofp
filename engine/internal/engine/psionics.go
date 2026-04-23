@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"math/rand"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -322,6 +323,8 @@ func (e *GameEngine) doProjectPsi(ctx context.Context, player *Player, args []st
 	case "utility":
 		if disc.ID == 14 { // Immobilize
 			result = e.projectImmobilize(player, args)
+		} else if disc.ID == 12 { // Teleportation
+			result = e.projectTeleport(ctx, player, args)
 		} else {
 			result.Messages = []string{fmt.Sprintf("You project %s.", disc.Name)}
 			result.RoomBroadcast = []string{fmt.Sprintf("%s concentrates intensely.", player.FirstName)}
@@ -470,4 +473,40 @@ func (e *GameEngine) projectBuff(player *Player, disc *PsiDiscipline) *CommandRe
 		Messages:      []string{msg},
 		RoomBroadcast: []string{fmt.Sprintf("%s concentrates intensely.", player.FirstName)},
 	}
+}
+
+// projectTeleport teleports the player to a marked location.
+func (e *GameEngine) projectTeleport(ctx context.Context, player *Player, args []string) *CommandResult {
+	if player.Marks == nil || len(player.Marks) == 0 {
+		return &CommandResult{Messages: []string{"You have no marks set. Use MARK <1-5> to mark a location first."}}
+	}
+	markNum := 1
+	if len(args) > 0 {
+		if n, err := strconv.Atoi(args[0]); err == nil && n >= 1 && n <= 5 {
+			markNum = n
+		}
+	}
+	roomNum, ok := player.Marks[markNum]
+	if !ok {
+		return &CommandResult{Messages: []string{fmt.Sprintf("Mark %d is not set.", markNum)}}
+	}
+	room := e.rooms[roomNum]
+	if room == nil {
+		return &CommandResult{Messages: []string{"That mark leads to a room that no longer exists."}}
+	}
+	oldRoom := player.RoomNumber
+	player.RoomNumber = roomNum
+	e.SavePlayer(ctx, player)
+	lookResult := e.doLook(player)
+	result := &CommandResult{
+		Messages:      append([]string{"You project Teleportation! The world blurs around you..."}, lookResult.Messages...),
+		RoomBroadcast: []string{fmt.Sprintf("%s appears in a flash of psionic energy.", player.FirstName)},
+		RoomName:      lookResult.RoomName,
+		RoomDesc:      lookResult.RoomDesc,
+		Exits:         lookResult.Exits,
+		Items:         lookResult.Items,
+	}
+	result.OldRoom = oldRoom
+	result.OldRoomMsg = []string{fmt.Sprintf("%s vanishes in a flash of psionic energy!", player.FirstName)}
+	return result
 }

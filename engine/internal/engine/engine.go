@@ -20,7 +20,7 @@ import (
 	"go.mongodb.org/mongo-driver/v2/mongo/options"
 )
 
-var validNamePattern = regexp.MustCompile(`^[a-zA-Z][a-zA-Z'-]{0,19}$`)
+var validNamePattern = regexp.MustCompile(`^[a-zA-Z][a-zA-Z'-]{2,19}$`) // min 3 chars total
 
 // reservedExactNames are blocked as whole-word matches only.
 // Monster/creature names and game terms — "Pendragon" is fine, "Dragon" is not.
@@ -1368,7 +1368,7 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 		player.PromptMode = false; e.SavePlayer(ctx, player)
 		return &CommandResult{Messages: []string{"Prompt indicators off."}}
 	case "VERSION", "NEWS", "NOTES":
-		return &CommandResult{Messages: []string{"Legends of Future Past v10.0.5"}}
+		return &CommandResult{Messages: []string{"Legends of Future Past v11.5.5"}}
 	case "CREDITS":
 		return &CommandResult{Messages: []string{
 			"",
@@ -2419,17 +2419,19 @@ func (e *GameEngine) examinePlayer(observer *Player, target *Player) *CommandRes
 		msgs = append(msgs, fmt.Sprintf("You look at %s.", target.FullName()))
 	}
 
-	msgs = append(msgs, fmt.Sprintf("%s a %s %s.", pronoun, target.RaceName(), genderName(target.Gender)))
-
-	// Custom description lines
-	if target.DescLine1 != "" {
-		msgs = append(msgs, target.DescLine1)
-	}
-	if target.DescLine2 != "" {
-		msgs = append(msgs, target.DescLine2)
-	}
-	if target.DescLine3 != "" {
-		msgs = append(msgs, target.DescLine3)
+	// Custom @line descriptions override the auto-generated race/gender line
+	if target.DescLine1 != "" || target.DescLine2 != "" || target.DescLine3 != "" {
+		if target.DescLine1 != "" {
+			msgs = append(msgs, target.DescLine1)
+		}
+		if target.DescLine2 != "" {
+			msgs = append(msgs, target.DescLine2)
+		}
+		if target.DescLine3 != "" {
+			msgs = append(msgs, target.DescLine3)
+		}
+	} else {
+		msgs = append(msgs, fmt.Sprintf("%s a %s %s.", pronoun, target.RaceName(), genderName(target.Gender)))
 	}
 
 	heOrShe := "He"
@@ -5659,9 +5661,15 @@ func matchesTarget(nounName, target, adjName string) bool {
 	if a != "" && t == a+" "+n {
 		return true
 	}
-	// Partial match
+	// Partial match (prefix)
 	if strings.HasPrefix(n, t) {
 		return true
+	}
+	// Match last word of noun (e.g., "tooth" matches "rat tooth")
+	if idx := strings.LastIndex(n, " "); idx >= 0 {
+		if strings.HasPrefix(n[idx+1:], t) {
+			return true
+		}
 	}
 	return false
 }

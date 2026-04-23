@@ -1034,10 +1034,19 @@ func (s *Server) broadcastToRoom(roomNumber int, excludeName string, messages []
 }
 
 func (s *Server) sendToPlayer(firstName string, messages []string) {
-	// Try local first
+	// Try local first (case-insensitive lookup)
 	s.mu.RLock()
 	if sess, ok := s.sessions[firstName]; ok {
 		s.sendBroadcast(sess, messages)
+	} else {
+		// Case-insensitive fallback
+		target := strings.ToLower(firstName)
+		for _, sess := range s.sessions {
+			if sess.Player != nil && strings.ToLower(sess.Player.FirstName) == target {
+				s.sendBroadcast(sess, messages)
+				break
+			}
+		}
 	}
 	s.mu.RUnlock()
 
