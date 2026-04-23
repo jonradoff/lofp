@@ -540,7 +540,7 @@ drainDone:
 
 	// Post-negotiation: send protocol-specific init data
 	if t.gmcpEnabled {
-		t.sendGMCP("Core.Hello", map[string]string{"client": "LoFP", "version": "11.0.0"})
+		t.sendGMCP("Core.Hello", map[string]string{"client": "LoFP", "version": "11.5.0"})
 	}
 	if t.msspEnabled {
 		t.sendMSSP()
@@ -1081,21 +1081,27 @@ func (s *Server) handleTelnetConn(rawConn net.Conn, isTLS bool) {
 	// Command loop
 	s.telnetCommandLoop(ctx, session, tc)
 
-	// Cleanup
-	if !session.quitSent {
-		s.broadcastGlobal(player.FirstName,
-			[]string{fmt.Sprintf("** %s has just left the Realms.", player.FirstName)})
-	}
-	s.broadcastToRoom(player.RoomNumber, player.FirstName,
-		[]string{fmt.Sprintf("%s fades from the Realms.", player.FirstName)})
-
-	s.gamelog.Log(gamelog.EventGameExit, player.FullName(), accountID,
-		fmt.Sprintf("telnet from %s", ip), player.RoomNumber, "")
-
-	s.hub.UnregisterPlayer(player.FirstName)
+	// Cleanup — only if WE are still the active session for this character.
+	// A reconnect may have already replaced us; don't nuke the new session.
 	s.mu.Lock()
-	delete(s.sessions, player.FirstName)
+	currentSess, isActive := s.sessions[player.FirstName]
+	isActive = isActive && currentSess == session
+	if isActive {
+		delete(s.sessions, player.FirstName)
+	}
 	s.mu.Unlock()
+
+	if isActive {
+		if !session.quitSent {
+			s.broadcastGlobal(player.FirstName,
+				[]string{fmt.Sprintf("** %s has just left the Realms.", player.FirstName)})
+		}
+		s.broadcastToRoom(player.RoomNumber, player.FirstName,
+			[]string{fmt.Sprintf("%s fades from the Realms.", player.FirstName)})
+		s.gamelog.Log(gamelog.EventGameExit, player.FullName(), accountID,
+			fmt.Sprintf("telnet from %s", ip), player.RoomNumber, "")
+		s.hub.UnregisterPlayer(player.FirstName)
+	}
 
 	tc.writeLine("Farewell from the Shattered Realms.")
 }

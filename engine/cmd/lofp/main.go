@@ -17,6 +17,7 @@ import (
 	"github.com/jonradoff/lofp/internal/config"
 	"github.com/jonradoff/lofp/internal/email"
 	"github.com/jonradoff/lofp/internal/engine"
+	"github.com/jonradoff/lofp/internal/feedback"
 	"github.com/jonradoff/lofp/internal/gamelog"
 	"github.com/jonradoff/lofp/internal/gameworld"
 	"github.com/jonradoff/lofp/internal/hub"
@@ -142,8 +143,14 @@ func main() {
 	// Create capture store
 	cs := capture.NewStore(db)
 
+	// Create feedback client (VibeCtl integration)
+	fb := feedback.New(cfg.Feedback.VibectlURL, cfg.Feedback.VibectlAPIKey)
+	if fb.Enabled() {
+		log.Println("Feedback pipeline enabled (VibeCtl)")
+	}
+
 	// Create API server
-	srv := api.NewServer(ge, parsed, authSvc, emailSvc, gl, h, cs, cfg.Server.FrontendURL)
+	srv := api.NewServer(ge, parsed, authSvc, emailSvc, gl, h, cs, fb, cfg.Server.FrontendURL)
 	ge.LoadBanner()
 	ge.LoadGMScripts()
 	h.Start()

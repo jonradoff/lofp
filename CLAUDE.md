@@ -85,7 +85,7 @@ Reference: https://wiki.mudlet.org/w/Manual:Supported_Protocols
 Telnet server (`engine/internal/api/telnet.go`) implements these protocols:
 
 ### GMCP (option 201)
-- **Core.Hello** — sent on connect: `{"client":"LoFP","version":"11.1.0"}`
+- **Core.Hello** — sent on connect: `{"client":"LoFP","version":"11.5.0"}`
 - **Core.Supports.Set** — handled from client to track subscribed packages
 - **Char.Vitals** — sent after every command: `bp`, `maxbp`, `mana`, `maxmana`, `psi`, `maxpsi`, `fatigue`, `maxfatigue`, `position`, `conditions`
 - **Char.Status** — sent on login: `name`, `fullname`, `race`, `gender`, `level`, `experience`, `gold`, `silver`, `copper`
@@ -127,7 +127,7 @@ The game world is defined in a custom scripting language (documented in `origina
 - **Variables**: Named variables + internal vars (stats, time, flags, item vals)
 - Config file: `original/scripts/LEGENDS.CFG` lists all scripts to load in order
 
-## Current State (v11.2.2)
+## Current State (v11.5)
 
 - Script parser loads 2273+ rooms, 1990+ items, 297 monsters with case-insensitive file loading
 - Full combat system: original [ToHit/Roll] format, weapon crits/slayers, fatigue, weapon clash
@@ -142,6 +142,7 @@ The game world is defined in a custom scripting language (documented in `origina
 - Security: rate limiting, connection caps, chat flood protection, HTML sanitization
 - WebSocket-based real-time multiplayer
 - Admin panel for rooms/items/monsters/players/logs
+- Feedback pipeline: REPORT command forwards to VibeCtl for triage and issue tracking
 - Production: Fly.io (1 machine, ord region) at lofp.metavert.io
   - Single machine to avoid multi-machine state desync (monsters, combat, player visibility)
   - Scale to 2+ machines only after implementing full hub-based monster/combat coordination

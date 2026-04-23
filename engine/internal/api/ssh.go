@@ -383,21 +383,26 @@ func (s *Server) handleSSHSession(channel ssh.Channel, remoteAddr string) {
 	// Command loop
 	s.sshCommandLoop(ctx, session, sc)
 
-	// Cleanup
-	if !session.quitSent {
-		s.broadcastGlobal(player.FirstName,
-			[]string{fmt.Sprintf("** %s has just left the Realms.", player.FirstName)})
-	}
-	s.broadcastToRoom(player.RoomNumber, player.FirstName,
-		[]string{fmt.Sprintf("%s fades from the Realms.", player.FirstName)})
-
-	s.gamelog.Log(gamelog.EventGameExit, player.FullName(), accountID,
-		fmt.Sprintf("ssh from %s", ip), player.RoomNumber, "")
-
-	s.hub.UnregisterPlayer(player.FirstName)
+	// Cleanup — only if WE are still the active session for this character.
 	s.mu.Lock()
-	delete(s.sessions, player.FirstName)
+	currentSess, isActive := s.sessions[player.FirstName]
+	isActive = isActive && currentSess == session
+	if isActive {
+		delete(s.sessions, player.FirstName)
+	}
 	s.mu.Unlock()
+
+	if isActive {
+		if !session.quitSent {
+			s.broadcastGlobal(player.FirstName,
+				[]string{fmt.Sprintf("** %s has just left the Realms.", player.FirstName)})
+		}
+		s.broadcastToRoom(player.RoomNumber, player.FirstName,
+			[]string{fmt.Sprintf("%s fades from the Realms.", player.FirstName)})
+		s.gamelog.Log(gamelog.EventGameExit, player.FullName(), accountID,
+			fmt.Sprintf("ssh from %s", ip), player.RoomNumber, "")
+		s.hub.UnregisterPlayer(player.FirstName)
+	}
 
 	sc.writeLine("Farewell from the Shattered Realms.")
 }

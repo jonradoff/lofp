@@ -19,6 +19,7 @@ import (
 	"github.com/jonradoff/lofp/internal/capture"
 	"github.com/jonradoff/lofp/internal/email"
 	"github.com/jonradoff/lofp/internal/engine"
+	"github.com/jonradoff/lofp/internal/feedback"
 	"github.com/jonradoff/lofp/internal/gamelog"
 	"github.com/jonradoff/lofp/internal/gameworld"
 	"github.com/jonradoff/lofp/internal/hub"
@@ -33,6 +34,7 @@ type Server struct {
 	gamelog     *gamelog.Logger
 	hub         *hub.Hub
 	captures    *capture.Store
+	feedback    *feedback.Client
 	router      *mux.Router
 	upgrader    websocket.Upgrader
 	sessions    map[string]*Session
@@ -145,7 +147,7 @@ func (s *Server) checkRateLimit(ip, endpoint string, maxAttempts int, window tim
 	return true
 }
 
-func NewServer(ge *engine.GameEngine, parsed *gameworld.ParsedData, authSvc *auth.Service, emailSvc *email.Service, gl *gamelog.Logger, h *hub.Hub, cs *capture.Store, frontendURL string) *Server {
+func NewServer(ge *engine.GameEngine, parsed *gameworld.ParsedData, authSvc *auth.Service, emailSvc *email.Service, gl *gamelog.Logger, h *hub.Hub, cs *capture.Store, fb *feedback.Client, frontendURL string) *Server {
 	s := &Server{
 		engine:      ge,
 		parsed:      parsed,
@@ -154,6 +156,7 @@ func NewServer(ge *engine.GameEngine, parsed *gameworld.ParsedData, authSvc *aut
 		gamelog:     gl,
 		hub:         h,
 		captures:    cs,
+		feedback:    fb,
 		sessions:    make(map[string]*Session),
 		frontendURL: frontendURL,
 		connsByIP:   make(map[string]int),
@@ -658,7 +661,12 @@ func (s *Server) handleGameWS(w http.ResponseWriter, r *http.Request) {
 			}
 			session.Player = player
 
+			// Disconnect existing session for this character (e.g. stale WS)
 			s.mu.Lock()
+			if oldSess, ok := s.sessions[player.FirstName]; ok {
+				oldSess.Conn.Close()
+				delete(s.sessions, player.FirstName)
+			}
 			s.sessions[player.FirstName] = session
 			s.mu.Unlock()
 
@@ -792,24 +800,33 @@ func (s *Server) handleGameWS(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	// Cleanup — global departure broadcast (skip if QUIT already sent it)
+	// Cleanup — only if WE are still the active session for this character.
+	// A reconnect may have already replaced us with a new session; in that case
+	// we must not delete the new session, unregister presence, or broadcast departures.
 	if session.Player != nil {
-		s.gamelog.Log(gamelog.EventGameExit, session.Player.FullName(), session.Player.AccountID,
-			fmt.Sprintf("%s (%s)", authName, authEmail), session.Player.RoomNumber, "")
-		if !session.quitSent {
-			s.broadcastGlobal(session.Player.FirstName,
-				[]string{fmt.Sprintf("** %s has just left the Realms.", session.Player.FirstName)})
+		s.mu.Lock()
+		currentSess, isActive := s.sessions[session.Player.FirstName]
+		isActive = isActive && currentSess == session
+		if isActive {
+			delete(s.sessions, session.Player.FirstName)
 		}
-		s.broadcastToRoom(session.Player.RoomNumber, session.Player.FirstName,
-			[]string{fmt.Sprintf("%s fades from the Realms.", session.Player.FirstName)})
+		s.mu.Unlock()
+
+		if isActive {
+			s.gamelog.Log(gamelog.EventGameExit, session.Player.FullName(), session.Player.AccountID,
+				fmt.Sprintf("%s (%s)", authName, authEmail), session.Player.RoomNumber, "")
+			if !session.quitSent {
+				s.broadcastGlobal(session.Player.FirstName,
+					[]string{fmt.Sprintf("** %s has just left the Realms.", session.Player.FirstName)})
+			}
+			s.broadcastToRoom(session.Player.RoomNumber, session.Player.FirstName,
+				[]string{fmt.Sprintf("%s fades from the Realms.", session.Player.FirstName)})
+			s.hub.UnregisterPlayer(session.Player.FirstName)
+		}
 		if session.CaptureID != "" {
 			s.captures.Stop(context.Background(), session.CaptureID)
 			session.CaptureID = ""
 		}
-		s.hub.UnregisterPlayer(session.Player.FirstName)
-		s.mu.Lock()
-		delete(s.sessions, session.Player.FirstName)
-		s.mu.Unlock()
 	}
 	if accountID != "" {
 		s.gamelog.Log(gamelog.EventLogout, authName, accountID, authEmail, 0, "")
@@ -863,6 +880,15 @@ func (s *Server) dispatchCommandResult(session *Session, result *engine.CommandR
 	if result.LogEventType != "" {
 		s.gamelog.Log(gamelog.EventType(result.LogEventType), session.Player.FullName(), "",
 			result.LogEventDetail, session.Player.RoomNumber, "")
+		// Forward REPORT to VibeCtl feedback pipeline
+		if result.LogEventType == "report" && s.feedback != nil {
+			room := s.engine.GetRoom(session.Player.RoomNumber)
+			roomName := ""
+			if room != nil {
+				roomName = room.Name
+			}
+			s.feedback.Submit(session.Player.FullName(), session.Player.RoomNumber, roomName, result.LogEventDetail)
+		}
 	}
 	// Telepathy broadcast
 	if result.TelepathyMsg != "" {
