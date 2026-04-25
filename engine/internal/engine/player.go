@@ -299,13 +299,13 @@ func (p *Player) PromptIndicators() string {
 		codes = append(codes, 'D')
 	}
 	if p.Poisoned {
-		codes = append(codes, 'p')
+		codes = append(codes, 'P')
 	}
 	if p.Following != "" {
 		codes = append(codes, 'J')
 	}
 	if p.Joined {
-		codes = append(codes, 'P')
+		codes = append(codes, 'C') // Combat-joined/pressed
 	}
 	if p.Position == 3 { // kneeling
 		codes = append(codes, 'K')
@@ -316,7 +316,7 @@ func (p *Player) PromptIndicators() string {
 	if p.RoundTime > 0 {
 		codes = append(codes, 'R')
 	}
-	if p.Hidden {
+	if p.Hidden || p.GMInvis {
 		codes = append(codes, 'H')
 	}
 	if p.Unconscious {

@@ -319,8 +319,8 @@ func (e *GameEngine) processEmote(player *Player, verb string, args []string) *C
 				}
 			}
 
-			// Try to resolve as a monster in the room
-			if _, monDef := e.findMonsterInRoom(player, targetName); monDef != nil {
+			// Try to resolve as a monster in the room (including dead)
+			if _, monDef := e.findMonsterInRoomIncludeDead(player, targetName); monDef != nil {
 				monName := FormatMonsterName(monDef, e.monAdjs)
 				displayTarget := articleFor(monName, monDef.Unique) + monName
 				selfMsg := expandEmote(entry.SelfTarget, player, displayTarget)

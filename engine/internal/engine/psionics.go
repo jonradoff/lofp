@@ -44,7 +44,7 @@ func init() {
 		{12, "Teleportation", "Mind over Matter", 18, 15, 5, "utility", 0, 0, "", 0, 0, 0},
 		{13, "Force Field", "Mind over Matter", 20, 20, 5, "defense", 0, 0, "", 75, 0, 0},
 		{14, "Immobilize", "Mind over Matter", 22, 18, 5, "utility", 0, 0, "", 0, 0, 0},
-		{15, "Ethereal Projection", "Mind over Matter", 25, 25, 10, "utility", 0, 0, "", 0, 0, 0},
+		{15, "Ethereal Projection", "Mind over Matter", 25, 25, 10, "buff", 0, 0, "", 0, 0, 0},
 	}
 	moo := []PsiDiscipline{
 		{50, "Telepathy", "Mind over Mind", 1, 2, 5, "utility", 0, 0, "", 0, 0, 0},
@@ -169,10 +169,14 @@ func (e *GameEngine) doPreparePsi(player *Player, args []string) *CommandResult 
 		case 10: // Flight
 			msg = "You rise into the air."
 			player.Position = 4 // flying
+			player.CanFly = true
 		case 9: // Wall of Force
 			msg = "A shimmering wall of force surrounds you."
 		case 13: // Force Field
 			msg = "A powerful force field envelops you."
+		case 15: // Ethereal Projection
+			msg = "Your body becomes translucent as you shift into the ethereal plane."
+			player.Hidden = true
 		case 54: // Psychic Screen
 			msg = "A psychic screen forms around your mind."
 		case 57: // Psychic Shield
@@ -466,6 +470,9 @@ func (e *GameEngine) projectBuff(player *Player, disc *PsiDiscipline) *CommandRe
 	case 10: // Flight
 		player.CanFly = true
 		msg = "You project Flight. You rise into the air!"
+	case 15: // Ethereal Projection
+		player.Hidden = true
+		msg = "You project Ethereal Projection. Your body becomes translucent."
 	case 60: // Focus Skill
 		msg = "You project Focus Skill. Your mind sharpens. (+25 to next skill roll)"
 	}

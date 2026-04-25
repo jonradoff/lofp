@@ -1368,7 +1368,7 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 		player.PromptMode = false; e.SavePlayer(ctx, player)
 		return &CommandResult{Messages: []string{"Prompt indicators off."}}
 	case "VERSION", "NEWS", "NOTES":
-		return &CommandResult{Messages: []string{"Legends of Future Past v11.5.6"}}
+		return &CommandResult{Messages: []string{"Legends of Future Past v11.5.7"}}
 	case "CREDITS":
 		return &CommandResult{Messages: []string{
 			"",
@@ -2359,10 +2359,23 @@ func (e *GameEngine) findPlayerInRoom(self *Player, target string) *Player {
 // findMonsterInRoom finds a monster in the player's room by name prefix.
 // Returns the MonsterInstance and its definition, or nil if not found.
 func (e *GameEngine) findMonsterInRoom(player *Player, target string) (*MonsterInstance, *gameworld.MonsterDef) {
+	return e.findMonsterInRoomEx(player, target, false)
+}
+
+func (e *GameEngine) findMonsterInRoomIncludeDead(player *Player, target string) (*MonsterInstance, *gameworld.MonsterDef) {
+	return e.findMonsterInRoomEx(player, target, true)
+}
+
+func (e *GameEngine) findMonsterInRoomEx(player *Player, target string, includeDead bool) (*MonsterInstance, *gameworld.MonsterDef) {
 	if e.monsterMgr == nil {
 		return nil, nil
 	}
-	monsters := e.monsterMgr.MonstersInRoom(player.RoomNumber)
+	var monsters []MonsterInstance
+	if includeDead {
+		monsters = e.monsterMgr.AllMonstersInRoom(player.RoomNumber)
+	} else {
+		monsters = e.monsterMgr.MonstersInRoom(player.RoomNumber)
+	}
 	target = strings.ToLower(strings.TrimSpace(target))
 	// Strip leading articles so "a skeleton" matches "skeleton"
 	for _, article := range []string{"a ", "an ", "the ", "some "} {

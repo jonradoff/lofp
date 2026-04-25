@@ -1059,10 +1059,12 @@ func (s *Server) handleTelnetConn(rawConn net.Conn, isTLS bool) {
 	tc.sendGMCPVitals(player)
 	tc.mu.Unlock()
 
-	s.broadcastGlobal(player.FirstName,
-		[]string{fmt.Sprintf("** %s has just entered the Realms.", player.FirstName)})
-	s.broadcastToRoom(player.RoomNumber, player.FirstName,
-		[]string{fmt.Sprintf("%s materializes from the mists.", player.FirstName)})
+	if !player.GMInvis && !player.GMHidden {
+		s.broadcastGlobal(player.FirstName,
+			[]string{fmt.Sprintf("** %s has just entered the Realms.", player.FirstName)})
+		s.broadcastToRoom(player.RoomNumber, player.FirstName,
+			[]string{fmt.Sprintf("%s materializes from the mists.", player.FirstName)})
+	}
 
 	tc.writeLine(fmt.Sprintf("\r\nWelcome back, %s the %s!", player.FullName(), player.RaceName()))
 	tc.writeLine("")
@@ -1092,12 +1094,14 @@ func (s *Server) handleTelnetConn(rawConn net.Conn, isTLS bool) {
 	s.mu.Unlock()
 
 	if isActive {
-		if !session.quitSent {
-			s.broadcastGlobal(player.FirstName,
-				[]string{fmt.Sprintf("** %s has just left the Realms.", player.FirstName)})
+		if !player.GMInvis && !player.GMHidden {
+			if !session.quitSent {
+				s.broadcastGlobal(player.FirstName,
+					[]string{fmt.Sprintf("** %s has just left the Realms.", player.FirstName)})
+			}
+			s.broadcastToRoom(player.RoomNumber, player.FirstName,
+				[]string{fmt.Sprintf("%s fades from the Realms.", player.FirstName)})
 		}
-		s.broadcastToRoom(player.RoomNumber, player.FirstName,
-			[]string{fmt.Sprintf("%s fades from the Realms.", player.FirstName)})
 		s.gamelog.Log(gamelog.EventGameExit, player.FullName(), accountID,
 			fmt.Sprintf("telnet from %s", ip), player.RoomNumber, "")
 		s.hub.UnregisterPlayer(player.FirstName)

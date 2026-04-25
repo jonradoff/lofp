@@ -616,9 +616,11 @@ func (s *Server) handleGameWS(w http.ResponseWriter, r *http.Request) {
 				player.IsGM, player.GMHat, player.GMHidden, player.GMInvis, player.Hidden)
 			s.gamelog.Log(gamelog.EventGameEnter, player.FullName(), player.AccountID,
 				"bot login via API key", player.RoomNumber, "")
-			s.broadcastGlobal(player.FirstName,
-				[]string{fmt.Sprintf("** %s has just entered the Realms.", player.FirstName)})
-			s.broadcastToRoom(player.RoomNumber, player.FirstName, []string{fmt.Sprintf("%s arrives.", player.FirstName)})
+			if !player.GMInvis && !player.GMHidden {
+				s.broadcastGlobal(player.FirstName,
+					[]string{fmt.Sprintf("** %s has just entered the Realms.", player.FirstName)})
+				s.broadcastToRoom(player.RoomNumber, player.FirstName, []string{fmt.Sprintf("%s arrives.", player.FirstName)})
+			}
 			result := s.engine.EnterRoom(ctx, player)
 			s.sendResult(session, result)
 			session.Conn.SendTypedMessage("auth_result", map[string]interface{}{
@@ -701,9 +703,11 @@ func (s *Server) handleGameWS(w http.ResponseWriter, r *http.Request) {
 			// Log character entering the game world
 			s.gamelog.Log(gamelog.EventGameEnter, player.FullName(), accountID,
 				fmt.Sprintf("%s (%s)", authName, authEmail), player.RoomNumber, "")
-			s.broadcastGlobal(player.FirstName,
-				[]string{fmt.Sprintf("** %s has just entered the Realms.", player.FirstName)})
-			s.broadcastToRoom(player.RoomNumber, player.FirstName, []string{fmt.Sprintf("%s arrives.", player.FirstName)})
+			if !player.GMInvis && !player.GMHidden {
+				s.broadcastGlobal(player.FirstName,
+					[]string{fmt.Sprintf("** %s has just entered the Realms.", player.FirstName)})
+				s.broadcastToRoom(player.RoomNumber, player.FirstName, []string{fmt.Sprintf("%s arrives.", player.FirstName)})
+			}
 
 			result := s.engine.EnterRoom(ctx, player)
 			s.sendResult(session, result)
@@ -840,12 +844,14 @@ func (s *Server) handleGameWS(w http.ResponseWriter, r *http.Request) {
 		if isActive {
 			s.gamelog.Log(gamelog.EventGameExit, session.Player.FullName(), session.Player.AccountID,
 				fmt.Sprintf("%s (%s)", authName, authEmail), session.Player.RoomNumber, "")
-			if !session.quitSent {
-				s.broadcastGlobal(session.Player.FirstName,
-					[]string{fmt.Sprintf("** %s has just left the Realms.", session.Player.FirstName)})
+			if !session.Player.GMInvis && !session.Player.GMHidden {
+				if !session.quitSent {
+					s.broadcastGlobal(session.Player.FirstName,
+						[]string{fmt.Sprintf("** %s has just left the Realms.", session.Player.FirstName)})
+				}
+				s.broadcastToRoom(session.Player.RoomNumber, session.Player.FirstName,
+					[]string{fmt.Sprintf("%s fades from the Realms.", session.Player.FirstName)})
 			}
-			s.broadcastToRoom(session.Player.RoomNumber, session.Player.FirstName,
-				[]string{fmt.Sprintf("%s fades from the Realms.", session.Player.FirstName)})
 			s.hub.UnregisterPlayer(session.Player.FirstName)
 		}
 		if session.CaptureID != "" {

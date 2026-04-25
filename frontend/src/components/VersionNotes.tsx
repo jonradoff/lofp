@@ -9,6 +9,36 @@ export default function VersionNotes({ onBack }: { onBack: () => void }) {
 
         <div className="space-y-6 text-sm">
           <section>
+            <h2 className="text-amber-400 text-lg font-bold mb-1">v11.5.7 &mdash; April 25, 2026</h2>
+            <p className="text-gray-400 mb-3">PSI Flight fix, GM invisibility, Ethereal Projection, emotes on dead monsters.</p>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Psionics</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>PSI Flight (10) now properly sets CanFly &mdash; flying players can go UP/ASCEND</li>
+                  <li>Ethereal Projection (PSI 15) is now a maintained buff that makes you hidden</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">GM Invisibility</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Invisible/hidden GMs no longer broadcast login/logout messages</li>
+                  <li>Prompt &lsquo;H&rsquo; indicator now shows when GM is invisible (persists across sessions)</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Fixes</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Emotes now work on dead monsters (kick that dead rat!)</li>
+                  <li>Prompt &lsquo;P&rsquo; indicator now uppercase for Poisoned (per original manual)</li>
+                  <li>&lsquo;C&rsquo; indicator used for combat-joined (was conflicting with P for Poisoned)</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
             <h2 className="text-amber-400 text-lg font-bold mb-1">v11.5.6 &mdash; April 23, 2026</h2>
             <p className="text-gray-400 mb-3">Flight movement, PSI persistence, INITIATE, per-IP limit, NPC pacing, ordinals.</p>
 
