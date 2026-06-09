@@ -29,7 +29,7 @@ timeout /t 1 /nobreak >nul
 start "LoFP Backend" /D "%ROOT_DIR%\engine" cmd /c "go run cmd/lofp/main.go"
 
 :: Start frontend in a new window
-start "LoFP Frontend" /D "%ROOT_DIR%\frontend" cmd /c "npx vite --port 4992"
+start "LoFP Frontend" /D "%ROOT_DIR%\frontend" cmd /c "npx vite --port 4992 --host"
 
 echo Backend starting on port 4993
 echo Frontend starting on port 4992

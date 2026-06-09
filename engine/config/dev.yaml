@@ -2,7 +2,7 @@ server:
   port: 4993
   telnet_port: 4000
   ssh_port: 4022
-  frontend_url: "http://localhost:4992"
+  frontend_url: "https://lofp.sanburnlab.com"
 
 mongodb:
   uri: "${MONGODB_URI:mongodb://localhost:27017}"

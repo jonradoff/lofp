@@ -98,7 +98,9 @@ func (e *GameEngine) generateTreasure(roomNum int, treasureLevel int) []string {
 				ref := len(room.Items)
 				item.Ref = ref
 				room.Items = append(room.Items, *item)
-				msgs = append(msgs, "A small locked chest lies among the remains.")
+				lootMsgs := e.populateContainerLoot(roomNum, item.Ref, treasureLevel)
+				msgs = append(msgs, lootMsgs...)
+//				msgs = append(msgs, "A small locked container lies among the remains.")
 			}
 
 		case roll < 75:
@@ -246,10 +248,15 @@ func (e *GameEngine) randomScrollDrop(treasureLevel int) *gameworld.RoomItem {
 	}
 
 	spell := candidates[rand.Intn(len(candidates))]
-	return &gameworld.RoomItem{
+	ri := &gameworld.RoomItem{
 		Archetype: scrollArch,
-		Val3:      spell.ID, // spell stored on scroll
+		Val3:      spell.ID,
 	}
+	adjWord := scrollAdjectiveWords[rand.Intn(len(scrollAdjectiveWords))]
+	if adjID := e.adjByName(adjWord); adjID != 0 {
+		ri.Adj1 = adjID
+	}
+	return ri
 }
 
 // randomChestDrop creates a locked chest (possibly trapped) with coin contents.
@@ -297,6 +304,8 @@ func (e *GameEngine) randomChestDrop(treasureLevel int) *gameworld.RoomItem {
 		}
 		item.Val4 = trapTypes[rand.Intn(len(trapTypes))]
 	}
+
+        FixChestInitialState(item, treasureLevel)
 
 	return item
 }

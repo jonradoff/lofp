@@ -1,0 +1,1114 @@
+package engine
+
+// containers.go — full container system
+//
+// Storage model
+// ─────────────
+// Inventory containers: Contents []InventoryItem on InventoryItem (added to player.go).
+//   Persists to MongoDB automatically because InventoryItem is the bson-serialised type.
+//
+// Room containers (bins, dropped chests, etc.): transient map on GameEngine:
+//   roomContainerContents map[string][]InventoryItem
+//   key = "<roomNumber>:<itemRef>"
+// This is intentionally transient. Room containers are short-lived (monster drops, bins
+// that reset when a room resets). If you need persistence, serialise this map to MongoDB.
+//
+// Container capacity is governed by two ItemDef fields:
+//   Interior  int  — max number of items
+//   Volume    int  — max total volume of all items combined
+// Both come from the script parser via gameworld.ItemDef. If Interior == 0 the container
+// is treated as unlimited-item-count (volume still applies).
+
+import (
+	"context"
+	"fmt"
+	"math/rand"
+	"strings"
+
+	"github.com/jonradoff/lofp/internal/gameworld"
+)
+
+// ── helper: is this item definition a container? ────────────────────────────
+
+func isContainerDef(def *gameworld.ItemDef) bool {
+	return def.Container == "IN" || def.Container == "ON" ||
+		containsFlag(def.Flags, "CONTAINER") || def.Type == "CONTAINER"
+}
+
+// containerKey returns the map key for a room-level container.
+func containerKey(roomNum, itemRef int) string {
+	return fmt.Sprintf("%d:%d", roomNum, itemRef)
+}
+
+// ── GameEngine initialisation ────────────────────────────────────────────────
+
+// initContainerMap must be called from NewGameEngine (add one line there).
+func (e *GameEngine) initContainerMap() {
+	if e.roomContainerContents == nil {
+		e.roomContainerContents = make(map[string][]InventoryItem)
+	}
+}
+
+// roomContainerGet returns the contents slice for a room container (nil if empty/unknown).
+func (e *GameEngine) roomContainerGet(roomNum, itemRef int) []InventoryItem {
+	if e.roomContainerContents == nil {
+		return nil
+	}
+	return e.roomContainerContents[containerKey(roomNum, itemRef)]
+}
+
+// roomContainerSet overwrites the contents for a room container.
+func (e *GameEngine) roomContainerSet(roomNum, itemRef int, contents []InventoryItem) {
+	if e.roomContainerContents == nil {
+		e.roomContainerContents = make(map[string][]InventoryItem)
+	}
+	if len(contents) == 0 {
+		delete(e.roomContainerContents, containerKey(roomNum, itemRef))
+	} else {
+		e.roomContainerContents[containerKey(roomNum, itemRef)] = contents
+	}
+}
+
+// roomContainerDelete removes the entry for a room container (e.g. when it is picked up).
+func (e *GameEngine) roomContainerDelete(roomNum, itemRef int) {
+	if e.roomContainerContents != nil {
+		delete(e.roomContainerContents, containerKey(roomNum, itemRef))
+	}
+}
+
+// ── capacity checking ────────────────────────────────────────────────────────
+
+// containerVolumeUsed sums the Volume field of all items in a contents slice.
+func (e *GameEngine) containerVolumeUsed(contents []InventoryItem) int {
+	total := 0
+	for _, item := range contents {
+		if def := e.items[item.Archetype]; def != nil {
+			total += def.Volume
+		}
+	}
+	return total
+}
+
+// containerCanFit returns ("", true) if item fits, or an error message if not.
+func (e *GameEngine) containerCanFit(containerDef *gameworld.ItemDef, contents []InventoryItem, itemDef *gameworld.ItemDef) (string, bool) {
+	// Interior == 0 means no item-count limit in the scripts
+	if containerDef.Interior > 0 && len(contents) >= containerDef.Interior {
+		return "There isn't enough room in there.", false
+	}
+	if containerDef.Volume > 0 {
+		used := e.containerVolumeUsed(contents)
+		if used+itemDef.Volume > containerDef.Volume {
+			return "That won't fit in there.", false
+		}
+	}
+	return "", true
+}
+
+// ── container name with open/closed tag ─────────────────────────────────────
+
+// formatContainerName returns the item name with "(open)" or "(closed)" appended
+// when the item is a container. Non-containers are returned unchanged.
+func (e *GameEngine) formatContainerName(def *gameworld.ItemDef, adj1, adj2, adj3 int, state string) string {
+	base := e.formatItemName(def, adj1, adj2, adj3)
+	if !isContainerDef(def) {
+		return base
+	}
+	switch strings.ToUpper(state) {
+	case "OPEN":
+		return base + " (open)"
+	case "LOCKED":
+		return base + " (locked)"
+	default:
+		// CLOSED, "", or anything else → show as closed
+		return base + " (closed)"
+	}
+}
+
+// ── OPEN (enhanced) ─────────────────────────────────────────────────────────
+// The existing doOpen in engine.go already handles the basic open logic.
+// We replace lookInContainer with a real implementation and wire container
+// contents into the inventory display / GET command via the new helpers here.
+
+// lookInContainer is called from doLookAt when a player types LOOK IN <container>.
+// This replaces the stub in engine.go.
+func (e *GameEngine) lookInContainer(player *Player, def *gameworld.ItemDef, ii *InventoryItem) *CommandResult {
+	displayName := e.formatContainerName(def, ii.Adj1, ii.Adj2, ii.Adj3, ii.State)
+
+	state := strings.ToUpper(ii.State)
+	if state == "LOCKED" {
+		return &CommandResult{Messages: []string{fmt.Sprintf("%s is locked.", displayName)}}
+	}
+	if state != "OPEN" {
+		return &CommandResult{Messages: []string{fmt.Sprintf("%s is closed.", displayName)}}
+	}
+
+	if len(ii.Contents) == 0 {
+		return &CommandResult{Messages: []string{fmt.Sprintf("You look inside %s. It is empty.", displayName)}}
+	}
+
+	msgs := []string{fmt.Sprintf("Inside %s you see:", displayName)}
+	for _, ci := range ii.Contents {
+		ciDef := e.items[ci.Archetype]
+		if ciDef == nil {
+			continue
+		}
+		msgs = append(msgs, "  "+e.formatItemName(ciDef, ci.Adj1, ci.Adj2, ci.Adj3))
+	}
+	return &CommandResult{Messages: msgs}
+}
+
+// lookInRoomContainer is called when a player types LOOK IN <container> for a room item.
+func (e *GameEngine) lookInRoomContainer(player *Player, def *gameworld.ItemDef, ri *gameworld.RoomItem) *CommandResult {
+	displayName := e.formatContainerName(def, ri.Adj1, ri.Adj2, ri.Adj3, ri.State)
+	state := strings.ToUpper(ri.State)
+	if state == "LOCKED" {
+		return &CommandResult{Messages: []string{fmt.Sprintf("%s is locked.", displayName)}}
+	}
+	if state != "OPEN" {
+		return &CommandResult{Messages: []string{fmt.Sprintf("%s is closed.", displayName)}}
+	}
+
+	// Dynamic contents (dropped loot, items placed at runtime via PUT)
+	contents := e.roomContainerGet(player.RoomNumber, ri.Ref)
+
+	// Script-placed contents (IsPut == true, PutIn == this container's Ref)
+	room := e.rooms[player.RoomNumber]
+	if room != nil {
+		for _, ri2 := range room.Items {
+			if !ri2.IsPut || ri2.PutIn != ri.Ref {
+				continue
+			}
+			iDef := e.items[ri2.Archetype]
+			if iDef == nil {
+				continue
+			}
+			contents = append(contents, InventoryItem{
+				Archetype: ri2.Archetype,
+				Adj1: ri2.Adj1, Adj2: ri2.Adj2, Adj3: ri2.Adj3,
+				Val1: ri2.Val1, Val2: ri2.Val2, Val3: ri2.Val3, Val4: ri2.Val4, Val5: ri2.Val5,
+				State: ri2.State,
+			})
+		}
+	}
+
+	if len(contents) == 0 {
+		return &CommandResult{Messages: []string{fmt.Sprintf("You look inside %s. It is empty.", displayName)}}
+	}
+
+	msgs := []string{fmt.Sprintf("Inside %s you see:", displayName)}
+	for _, ci := range contents {
+		ciDef := e.items[ci.Archetype]
+		if ciDef == nil {
+			continue
+		}
+		msgs = append(msgs, "  "+e.formatItemName(ciDef, ci.Adj1, ci.Adj2, ci.Adj3))
+	}
+	return &CommandResult{Messages: msgs}
+}
+
+// ── PUT command ──────────────────────────────────────────────────────────────
+// "PUT <item> IN <container>"  — places an inventory item into a container.
+// Works for containers in inventory AND containers in the room.
+
+func (e *GameEngine) doPut(ctx context.Context, player *Player, args []string) *CommandResult {
+	if len(args) == 0 {
+		return &CommandResult{Messages: []string{"Put what?"}}
+	}
+
+	// Expect "PUT <item> IN <container>"
+	raw := strings.ToLower(strings.Join(args, " "))
+	inIdx := strings.Index(raw, " in ")
+	if inIdx < 0 {
+		return &CommandResult{Messages: []string{"Put what in what? (usage: PUT <item> IN <container>)"}}
+	}
+	itemTarget := strings.TrimSpace(raw[:inIdx])
+	containerTarget := strings.TrimSpace(raw[inIdx+4:])
+
+	if itemTarget == "" || containerTarget == "" {
+		return &CommandResult{Messages: []string{"Put what in what? (usage: PUT <item> IN <container>)"}}
+	}
+
+	itemTarget, itemSkip := parseOrdinal(itemTarget)
+	containerTarget, _ = parseOrdinal(containerTarget)
+
+	// Find the item to put (must be in inventory, not wielded or worn)
+	itemIdx := -1
+	var srcItem InventoryItem
+	var srcDef *gameworld.ItemDef
+	skip := itemSkip
+	for i, ii := range player.Inventory {
+		def := e.items[ii.Archetype]
+		if def == nil {
+			continue
+		}
+		if matchesTarget(e.getItemNounName(def), itemTarget, e.getAdjName(ii.Adj1)) {
+			if skip > 0 {
+				skip--
+				continue
+			}
+			itemIdx = i
+			srcItem = ii
+			srcDef = def
+			break
+		}
+	}
+	if itemIdx < 0 {
+		return &CommandResult{Messages: []string{"You aren't carrying that."}}
+	}
+
+	itemFullName := e.formatItemName(srcDef, srcItem.Adj1, srcItem.Adj2, srcItem.Adj3)
+
+	// Try inventory containers first
+	for i, ii := range player.Inventory {
+		if i == itemIdx {
+			continue // can't put item into itself
+		}
+		def := e.items[ii.Archetype]
+		if def == nil || !isContainerDef(def) {
+			continue
+		}
+		if !matchesTarget(e.getItemNounName(def), containerTarget, e.getAdjName(ii.Adj1)) {
+			continue
+		}
+		state := strings.ToUpper(ii.State)
+		if state == "LOCKED" {
+			return &CommandResult{Messages: []string{"That container is locked."}}
+		}
+		if state != "OPEN" {
+			return &CommandResult{Messages: []string{"That container is closed."}}
+		}
+		if errMsg, ok := e.containerCanFit(def, ii.Contents, srcDef); !ok {
+		    return &CommandResult{Messages: []string{errMsg}}
+		}
+		// Transfer
+		player.Inventory[i].Contents = append(player.Inventory[i].Contents, srcItem)
+		player.Inventory = append(player.Inventory[:itemIdx], player.Inventory[itemIdx+1:]...)
+		e.SavePlayer(ctx, player)
+		cName := e.formatContainerName(def, ii.Adj1, ii.Adj2, ii.Adj3, ii.State)
+		return &CommandResult{
+			Messages:      []string{fmt.Sprintf("You put %s in %s.", itemFullName, cName)},
+			RoomBroadcast: []string{fmt.Sprintf("%s puts %s in %s.", player.FirstName, itemFullName, cName)},
+		}
+	}
+
+	// Try room containers
+	room := e.rooms[player.RoomNumber]
+	if room != nil {
+		for _, ri := range room.Items {
+			def := e.items[ri.Archetype]
+			if def == nil || !isContainerDef(def) {
+				continue
+			}
+			if !matchesTarget(e.getItemNounName(def), containerTarget, e.getAdjName(ri.Adj1)) {
+				continue
+			}
+			state := strings.ToUpper(ri.State)
+			if state == "LOCKED" {
+				return &CommandResult{Messages: []string{"That container is locked."}}
+			}
+			if state != "OPEN" {
+				return &CommandResult{Messages: []string{"That container is closed."}}
+			}
+			contents := e.roomContainerGet(player.RoomNumber, ri.Ref)
+			if errMsg, ok := e.containerCanFit(def, contents, srcDef); !ok {
+			    return &CommandResult{Messages: []string{errMsg}}
+			}
+			contents = append(contents, srcItem)
+			e.roomContainerSet(player.RoomNumber, ri.Ref, contents)
+			player.Inventory = append(player.Inventory[:itemIdx], player.Inventory[itemIdx+1:]...)
+			e.SavePlayer(ctx, player)
+			cName := e.formatContainerName(def, ri.Adj1, ri.Adj2, ri.Adj3, ri.State)
+			return &CommandResult{
+				Messages:      []string{fmt.Sprintf("You put %s in %s.", itemFullName, cName)},
+				RoomBroadcast: []string{fmt.Sprintf("%s puts %s in %s.", player.FirstName, itemFullName, cName)},
+			}
+		}
+	}
+
+	return &CommandResult{Messages: []string{"You don't see that container here."}}
+}
+
+// ── GET (enhanced) ───────────────────────────────────────────────────────────
+// Extends the existing doGet with:
+//   GET ALL                   — pick up everything from the floor
+//   GET ALL <noun>            — pick up all matching items from floor
+//   GET ALL COIN/MONEY        — pick up all coin piles
+//   GET <item> FROM <container> — take one item from a container
+//   GET ALL FROM <container>  — take all items from a container
+
+func (e *GameEngine) doGetEnhanced(ctx context.Context, player *Player, args []string) *CommandResult {
+	if len(args) == 0 {
+		return &CommandResult{Messages: []string{"Get what?"}}
+	}
+
+	raw := strings.ToLower(strings.Join(args, " "))
+
+	// ── GET ALL FROM <container> ──────────────────────────────────────────
+	if strings.HasPrefix(raw, "all from ") {
+		containerTarget := strings.TrimPrefix(raw, "all from ")
+		containerTarget, _ = parseOrdinal(containerTarget)
+		return e.doGetAllFromContainer(ctx, player, containerTarget)
+	}
+
+	// ── GET <item> FROM <container> ───────────────────────────────────────
+	fromIdx := strings.Index(raw, " from ")
+	if fromIdx > 0 {
+		itemTarget := strings.TrimSpace(raw[:fromIdx])
+		containerTarget := strings.TrimSpace(raw[fromIdx+6:])
+		return e.doGetFromContainer(ctx, player, itemTarget, containerTarget)
+	}
+
+	// ── GET ALL ───────────────────────────────────────────────────────────
+	if raw == "all" {
+		return e.doGetAll(ctx, player, "")
+	}
+
+	// ── GET ALL <noun> ────────────────────────────────────────────────────
+	if strings.HasPrefix(raw, "all ") {
+		noun := strings.TrimPrefix(raw, "all ")
+		return e.doGetAll(ctx, player, noun)
+	}
+
+	// ── standard single-item GET ──────────────────────────────────────────
+	return e.doGet(ctx, player, args)
+}
+
+// doGetAll picks up all matching items (or all items when noun == "") from the room floor.
+func (e *GameEngine) doGetAll(ctx context.Context, player *Player, noun string) *CommandResult {
+	room := e.rooms[player.RoomNumber]
+	if room == nil {
+		return &CommandResult{Messages: []string{"You can't do that here."}}
+	}
+
+	isCoinNoun := noun == "coin" || noun == "coins" || noun == "money" ||
+		noun == "gold" || noun == "silver" || noun == "copper"
+
+	var msgs []string
+	var kept []gameworld.RoomItem
+	gotSomething := false
+
+	for _, ri := range room.Items {
+		// Coin pile — only pick up if no noun given, or noun is a coin word
+		if ri.State == "MONEY" {
+			if noun == "" || isCoinNoun {
+				coins := ri.Val1
+				if coins <= 0 {
+					coins = 1
+				}
+				player.Copper += coins
+				player.Silver += player.Copper / 10
+				player.Copper = player.Copper % 10
+				player.Gold += player.Silver / 10
+				player.Silver = player.Silver % 10
+				msgs = append(msgs, fmt.Sprintf("You pick up %d coins.", coins))
+				e.notifyRoomChange(RoomChange{RoomNumber: player.RoomNumber, Type: "item_remove", ItemRef: ri.Ref})
+				gotSomething = true
+			} else {
+				kept = append(kept, ri)
+			}
+			continue
+		}
+
+		def := e.items[ri.Archetype]
+		if def == nil || def.Weight >= 1000 || isPortal(def.Type) ||
+			containsFlag(def.Flags, "FIXED") || def.Type == "MANUSCRIPT" {
+			kept = append(kept, ri)
+			continue
+		}
+
+		// If a coin noun was specified, skip all non-money items
+		if isCoinNoun {
+			if def.Type != "MONEY" && ri.State != "MONEY" {
+				kept = append(kept, ri)
+				continue
+			}
+		}
+
+		// If a non-coin noun was specified, only pick up matching items
+		if noun != "" && !isCoinNoun {
+			if !matchesTarget(e.getItemNounName(def), noun, e.getAdjName(ri.Adj1)) {
+				kept = append(kept, ri)
+				continue
+			}
+		}
+
+		// MONEY-type item archetype
+		if def.Type == "MONEY" || ri.State == "MONEY" {
+			coins := ri.Val1
+			if coins <= 0 {
+				coins = 1
+			}
+			player.Copper += coins
+			player.Silver += player.Copper / 10
+			player.Copper = player.Copper % 10
+			player.Gold += player.Silver / 10
+			player.Silver = player.Silver % 10
+			msgs = append(msgs, fmt.Sprintf("You pick up %d coins.", coins))
+			e.notifyRoomChange(RoomChange{RoomNumber: player.RoomNumber, Type: "item_remove", ItemRef: ri.Ref})
+			gotSomething = true
+			continue
+		}
+
+		// Normal item
+		newInvItem := InventoryItem{
+			Archetype: ri.Archetype,
+			Adj1: ri.Adj1, Adj2: ri.Adj2, Adj3: ri.Adj3,
+			Val1: ri.Val1, Val2: ri.Val2, Val3: ri.Val3, Val4: ri.Val4, Val5: ri.Val5,
+			State: ri.State,
+		}
+		if isContainerDef(def) {
+			newInvItem.Contents = e.roomContainerGet(player.RoomNumber, ri.Ref)
+			e.roomContainerDelete(player.RoomNumber, ri.Ref)
+		}
+		player.Inventory = append(player.Inventory, newInvItem)
+		fullName := e.formatItemName(def, ri.Adj1, ri.Adj2, ri.Adj3)
+		msgs = append(msgs, fmt.Sprintf("You pick up %s.", fullName))
+		e.notifyRoomChange(RoomChange{RoomNumber: player.RoomNumber, Type: "item_remove", ItemRef: ri.Ref})
+		gotSomething = true
+	}
+
+	room.Items = kept
+
+	if !gotSomething {
+		if noun != "" {
+			return &CommandResult{Messages: []string{fmt.Sprintf("You don't see any %s here.", noun)}}
+		}
+		return &CommandResult{Messages: []string{"There is nothing here to pick up."}}
+	}
+
+	e.SavePlayer(ctx, player)
+	return &CommandResult{
+		Messages:      msgs,
+		RoomBroadcast: []string{fmt.Sprintf("%s picks up several items.", player.FirstName)},
+	}
+}
+
+// doGetFromContainer takes one item from a named container.
+func (e *GameEngine) doGetFromContainer(ctx context.Context, player *Player, itemTarget, containerTarget string) *CommandResult {
+	itemTarget, itemSkip := parseOrdinal(itemTarget)
+	containerTarget, _ = parseOrdinal(containerTarget)
+
+	// ── Inventory containers ──────────────────────────────────────────────
+	for ci, container := range player.Inventory {
+		cDef := e.items[container.Archetype]
+		if cDef == nil || !isContainerDef(cDef) {
+			continue
+		}
+		if !matchesTarget(e.getItemNounName(cDef), containerTarget, e.getAdjName(container.Adj1)) {
+			continue
+		}
+		if strings.ToUpper(container.State) == "LOCKED" {
+			return &CommandResult{Messages: []string{"That container is locked."}}
+		}
+		if strings.ToUpper(container.State) != "OPEN" {
+			return &CommandResult{Messages: []string{"That container is closed."}}
+		}
+		skip := itemSkip
+		for ii, item := range container.Contents {
+			iDef := e.items[item.Archetype]
+			if iDef == nil {
+				continue
+			}
+			if !matchesTarget(e.getItemNounName(iDef), itemTarget, e.getAdjName(item.Adj1)) {
+				continue
+			}
+			if skip > 0 {
+				skip--
+				continue
+			}
+			// Move item from container to top-level inventory
+			player.Inventory[ci].Contents = append(container.Contents[:ii], container.Contents[ii+1:]...)
+			player.Inventory = append(player.Inventory, item)
+			e.SavePlayer(ctx, player)
+			iName := e.formatItemName(iDef, item.Adj1, item.Adj2, item.Adj3)
+			cName := e.formatContainerName(cDef, container.Adj1, container.Adj2, container.Adj3, container.State)
+			return &CommandResult{
+				Messages:      []string{fmt.Sprintf("You take %s from %s.", iName, cName)},
+				RoomBroadcast: []string{fmt.Sprintf("%s takes something from %s.", player.FirstName, cName)},
+			}
+		}
+		return &CommandResult{Messages: []string{"You don't see that in there."}}
+	}
+
+	// ── Room containers ───────────────────────────────────────────────────
+	room := e.rooms[player.RoomNumber]
+	if room != nil {
+		for _, ri := range room.Items {
+			cDef := e.items[ri.Archetype]
+			if cDef == nil || !isContainerDef(cDef) {
+				continue
+			}
+			if !matchesTarget(e.getItemNounName(cDef), containerTarget, e.getAdjName(ri.Adj1)) {
+				continue
+			}
+			if strings.ToUpper(ri.State) == "LOCKED" {
+				return &CommandResult{Messages: []string{"That container is locked."}}
+			}
+			if strings.ToUpper(ri.State) != "OPEN" {
+				return &CommandResult{Messages: []string{"That container is closed."}}
+			}
+			contents := e.roomContainerGet(player.RoomNumber, ri.Ref)
+			skip := itemSkip
+			for ii, item := range contents {
+				iDef := e.items[item.Archetype]
+				if iDef == nil {
+					continue
+				}
+				if !matchesTarget(e.getItemNounName(iDef), itemTarget, e.getAdjName(item.Adj1)) {
+					continue
+				}
+				if skip > 0 {
+					skip--
+					continue
+				}
+				contents = append(contents[:ii], contents[ii+1:]...)
+				e.roomContainerSet(player.RoomNumber, ri.Ref, contents)
+				player.Inventory = append(player.Inventory, item)
+				e.SavePlayer(ctx, player)
+				iName := e.formatItemName(iDef, item.Adj1, item.Adj2, item.Adj3)
+				cName := e.formatContainerName(cDef, ri.Adj1, ri.Adj2, ri.Adj3, ri.State)
+				return &CommandResult{
+					Messages:      []string{fmt.Sprintf("You take %s from %s.", iName, cName)},
+					RoomBroadcast: []string{fmt.Sprintf("%s takes something from %s.", player.FirstName, cName)},
+				}
+			}
+			return &CommandResult{Messages: []string{"You don't see that in there."}}
+		}
+	}
+
+	return &CommandResult{Messages: []string{"You don't see that container here."}}
+}
+
+// doGetAllFromContainer empties a container into the player's inventory.
+func (e *GameEngine) doGetAllFromContainer(ctx context.Context, player *Player, containerTarget string) *CommandResult {
+	// ── Inventory containers ──────────────────────────────────────────────
+	for ci, container := range player.Inventory {
+		cDef := e.items[container.Archetype]
+		if cDef == nil || !isContainerDef(cDef) {
+			continue
+		}
+		if !matchesTarget(e.getItemNounName(cDef), containerTarget, e.getAdjName(container.Adj1)) {
+			continue
+		}
+		if strings.ToUpper(container.State) == "LOCKED" {
+			return &CommandResult{Messages: []string{"That container is locked."}}
+		}
+		if strings.ToUpper(container.State) != "OPEN" {
+			return &CommandResult{Messages: []string{"That container is closed."}}
+		}
+		if len(container.Contents) == 0 {
+			cName := e.formatContainerName(cDef, container.Adj1, container.Adj2, container.Adj3, container.State)
+			return &CommandResult{Messages: []string{fmt.Sprintf("%s is empty.", cName)}}
+		}
+		var msgs []string
+		for _, item := range container.Contents {
+			iDef := e.items[item.Archetype]
+			if iDef == nil {
+				continue
+			}
+			player.Inventory = append(player.Inventory, item)
+			msgs = append(msgs, fmt.Sprintf("You take %s.", e.formatItemName(iDef, item.Adj1, item.Adj2, item.Adj3)))
+		}
+		player.Inventory[ci].Contents = nil
+		e.SavePlayer(ctx, player)
+		cName := e.formatContainerName(cDef, container.Adj1, container.Adj2, container.Adj3, container.State)
+		return &CommandResult{
+			Messages:      msgs,
+			RoomBroadcast: []string{fmt.Sprintf("%s empties %s.", player.FirstName, cName)},
+		}
+	}
+
+	// ── Room containers ───────────────────────────────────────────────────
+	room := e.rooms[player.RoomNumber]
+	if room != nil {
+		for _, ri := range room.Items {
+			cDef := e.items[ri.Archetype]
+			if cDef == nil || !isContainerDef(cDef) {
+				continue
+			}
+			if !matchesTarget(e.getItemNounName(cDef), containerTarget, e.getAdjName(ri.Adj1)) {
+				continue
+			}
+			if strings.ToUpper(ri.State) == "LOCKED" {
+				return &CommandResult{Messages: []string{"That container is locked."}}
+			}
+			if strings.ToUpper(ri.State) != "OPEN" {
+				return &CommandResult{Messages: []string{"That container is closed."}}
+			}
+			contents := e.roomContainerGet(player.RoomNumber, ri.Ref)
+			if len(contents) == 0 {
+				cName := e.formatContainerName(cDef, ri.Adj1, ri.Adj2, ri.Adj3, ri.State)
+				return &CommandResult{Messages: []string{fmt.Sprintf("%s is empty.", cName)}}
+			}
+			var msgs []string
+			for _, item := range contents {
+				iDef := e.items[item.Archetype]
+				if iDef == nil {
+					continue
+				}
+				player.Inventory = append(player.Inventory, item)
+				msgs = append(msgs, fmt.Sprintf("You take %s.", e.formatItemName(iDef, item.Adj1, item.Adj2, item.Adj3)))
+			}
+			e.roomContainerSet(player.RoomNumber, ri.Ref, nil)
+			e.SavePlayer(ctx, player)
+			cName := e.formatContainerName(cDef, ri.Adj1, ri.Adj2, ri.Adj3, ri.State)
+			return &CommandResult{
+				Messages:      msgs,
+				RoomBroadcast: []string{fmt.Sprintf("%s empties %s.", player.FirstName, cName)},
+			}
+		}
+	}
+
+	return &CommandResult{Messages: []string{"You don't see that container here."}}
+}
+
+// ── DUMP command ─────────────────────────────────────────────────────────────
+// DUMP <container> — empties a carriable inventory container onto the floor.
+// Immovable containers (weight >= 1000, e.g. bins) reject the command.
+
+func (e *GameEngine) doDump(ctx context.Context, player *Player, args []string) *CommandResult {
+	if len(args) == 0 {
+		return &CommandResult{Messages: []string{"Dump what?"}}
+	}
+	target := strings.ToLower(strings.Join(args, " "))
+	target, ordSkip := parseOrdinal(target)
+	skip := ordSkip
+
+	room := e.rooms[player.RoomNumber]
+	if room == nil {
+		return &CommandResult{Messages: []string{"You can't do that here."}}
+	}
+
+	for ci, container := range player.Inventory {
+		cDef := e.items[container.Archetype]
+		if cDef == nil || !isContainerDef(cDef) {
+			continue
+		}
+		if !matchesTarget(e.getItemNounName(cDef), target, e.getAdjName(container.Adj1)) {
+			continue
+		}
+		if skip > 0 {
+			skip--
+			continue
+		}
+		if cDef.Weight >= 1000 {
+			return &CommandResult{Messages: []string{"You can't dump that — it's too heavy to move."}}
+		}
+		if len(container.Contents) == 0 {
+			cName := e.formatContainerName(cDef, container.Adj1, container.Adj2, container.Adj3, container.State)
+			return &CommandResult{Messages: []string{fmt.Sprintf("%s is already empty.", cName)}}
+		}
+
+		var msgs []string
+		for _, item := range container.Contents {
+			iDef := e.items[item.Archetype]
+			droppedItem := gameworld.RoomItem{
+				Ref:       len(room.Items),
+				Archetype: item.Archetype,
+				Adj1: item.Adj1, Adj2: item.Adj2, Adj3: item.Adj3,
+				Val1: item.Val1, Val2: item.Val2, Val3: item.Val3, Val4: item.Val4, Val5: item.Val5,
+				State: item.State,
+			}
+			room.Items = append(room.Items, droppedItem)
+			e.notifyRoomChange(RoomChange{RoomNumber: player.RoomNumber, Type: "item_add", Item: &droppedItem})
+			if iDef != nil {
+				msgs = append(msgs, fmt.Sprintf("%s tumbles out.", e.formatItemName(iDef, item.Adj1, item.Adj2, item.Adj3)))
+			}
+		}
+		player.Inventory[ci].Contents = nil
+		e.SavePlayer(ctx, player)
+
+		cName := e.formatContainerName(cDef, container.Adj1, container.Adj2, container.Adj3, container.State)
+		msgs = append([]string{fmt.Sprintf("You dump out %s.", cName)}, msgs...)
+		return &CommandResult{
+			Messages:      msgs,
+			RoomBroadcast: []string{fmt.Sprintf("%s dumps out %s.", player.FirstName, cName)},
+		}
+	}
+
+	return &CommandResult{Messages: []string{"You aren't carrying that."}}
+}
+
+// ── SELL ALL <noun> ──────────────────────────────────────────────────────────
+
+func (e *GameEngine) doSellAll(ctx context.Context, player *Player, noun string) *CommandResult {
+	room := e.rooms[player.RoomNumber]
+	if room == nil {
+		return &CommandResult{Messages: []string{"You can't sell anything here."}}
+	}
+	canBuy := false
+	for _, mod := range room.Modifiers {
+		if strings.HasPrefix(mod, "BUY_") {
+			canBuy = true
+			break
+		}
+	}
+	if !canBuy {
+		return &CommandResult{Messages: []string{"Nobody here is interested in buying anything."}}
+	}
+
+	target, _ := parseOrdinal(noun)
+
+	var kept []InventoryItem
+	totalValue := 0
+	sold := 0
+
+	for _, ii := range player.Inventory {
+		def := e.items[ii.Archetype]
+		if def == nil {
+			kept = append(kept, ii)
+			continue
+		}
+		if !matchesTarget(e.getItemNounName(def), target, e.getAdjName(ii.Adj1)) {
+			kept = append(kept, ii)
+			continue
+		}
+		sellValue := ii.Val1
+		if sellValue <= 0 {
+			sellValue = def.Weight + 1
+		}
+		sellValue = sellValue / 2
+		if sellValue < 1 {
+			sellValue = 1
+		}
+		totalValue += sellValue
+		sold++
+	}
+
+	if sold == 0 {
+		return &CommandResult{Messages: []string{fmt.Sprintf("You don't have any %s to sell.", noun)}}
+	}
+
+	player.Inventory = kept
+	player.Gold += totalValue / 100
+	player.Silver += (totalValue % 100) / 10
+	player.Copper += totalValue % 10
+	e.SavePlayer(ctx, player)
+
+	return &CommandResult{Messages: []string{
+		fmt.Sprintf("You sell %d %s.", sold, noun),
+		fmt.Sprintf("The merchant hands you %s.", formatPrice(totalValue)),
+	}}
+}
+
+// ── Container loot generation ─────────────────────────────────────────────────
+// Called from generateTreasure (treasure.go) when a chest/coffer drops.
+// Populates the room container's contents via roomContainerSet.
+
+// Scroll adjectives used when generating scroll drops.
+var scrollAdjectiveWords = []string{
+	"battered", "ragged", "decaying", "vellum", "crumpled",
+	"ricepaper", "parchment", "decrepit", "tattered", "old",
+	"ancient", "dusty", "moldy", "faint",
+}
+
+// Gem quality adjectives and their value multipliers.
+// The gem's base value comes from ItemDef.Parameter1 (Val1 on the item).
+type gemQuality struct {
+	adjName    string // "" means no adjective (standard gem)
+	multiplier float64
+}
+
+var gemQualities = []gemQuality{
+	{"cracked", 0.25},
+	{"chipped", 0.60},
+	{"", 1.0},   // no adjective = standard
+	{"flawless", 2.0},
+	{"perfect", 4.0},
+}
+
+// populateContainerLoot fills a freshly-dropped chest/coffer with loot.
+// roomNum and itemRef identify where to store the contents.
+// treasureLevel drives quantity and quality.
+func (e *GameEngine) populateContainerLoot(roomNum, itemRef, treasureLevel int) []string {
+	if treasureLevel <= 0 {
+		return nil
+	}
+
+	var contents []InventoryItem
+	var msgs []string
+
+	// ── Coins ──────────────────────────────────────────────────────────
+	coinAmount := treasureLevel*3 + rand.Intn(treasureLevel*2+1)
+	if coinAmount > 0 {
+		// Represent as a MONEY room item inside the container as an InventoryItem.
+		// Val1 = total copper value, State = "MONEY", Archetype = 0 (special money marker).
+		contents = append(contents, InventoryItem{
+			Archetype: 0,
+			Val1:      coinAmount,
+			State:     "MONEY",
+		})
+		gold := coinAmount / 100
+		silver := (coinAmount % 100) / 10
+		copper := coinAmount % 10
+		var parts []string
+		if gold > 0 {
+			parts = append(parts, fmt.Sprintf("%d gold", gold))
+		}
+		if silver > 0 {
+			parts = append(parts, fmt.Sprintf("%d silver", silver))
+		}
+		if copper > 0 {
+			parts = append(parts, fmt.Sprintf("%d copper", copper))
+		}
+		if len(parts) > 0 {
+			msgs = append(msgs, fmt.Sprintf("It contains coins. (%s)", joinParts(parts)))
+		}
+	}
+
+	// ── Scrolls (10–30% chance) ─────────────────────────────────────────
+	scrollChance := 10 + treasureLevel/4
+	if scrollChance > 30 {
+		scrollChance = 30
+	}
+	if rand.Intn(100) < scrollChance {
+		if item := e.randomScrollDropWithAdj(treasureLevel); item != nil {
+			contents = append(contents, inventoryFromRoomItem(item))
+			msgs = append(msgs, "A scroll is tucked inside.")
+		}
+	}
+
+	// ── Gems (15% chance) ───────────────────────────────────────────────
+	if rand.Intn(100) < 15 {
+		if item := e.randomGemDrop(treasureLevel); item != nil {
+			contents = append(contents, inventoryFromRoomItem(item))
+			def := e.items[item.Archetype]
+			if def != nil {
+				msgs = append(msgs, fmt.Sprintf("A %s glints inside.", e.formatItemName(def, item.Adj1, item.Adj2, item.Adj3)))
+			}
+		}
+	}
+
+	// ── Jewelry (8% chance, may have a spell trigger) ───────────────────
+	if rand.Intn(100) < 8 {
+		if item := e.randomJewelryDrop(treasureLevel); item != nil {
+			contents = append(contents, inventoryFromRoomItem(item))
+			def := e.items[item.Archetype]
+			if def != nil {
+				msgs = append(msgs, fmt.Sprintf("%s nestles inside.", e.formatItemName(def, item.Adj1, item.Adj2, item.Adj3)))
+			}
+		}
+	}
+
+	if len(contents) > 0 {
+		e.roomContainerSet(roomNum, itemRef, contents)
+	}
+	return msgs
+}
+
+// inventoryFromRoomItem converts a *gameworld.RoomItem to an InventoryItem.
+func inventoryFromRoomItem(ri *gameworld.RoomItem) InventoryItem {
+	return InventoryItem{
+		Archetype: ri.Archetype,
+		Adj1: ri.Adj1, Adj2: ri.Adj2, Adj3: ri.Adj3,
+		Val1: ri.Val1, Val2: ri.Val2, Val3: ri.Val3, Val4: ri.Val4, Val5: ri.Val5,
+		State: ri.State,
+	}
+}
+
+// randomScrollDropWithAdj creates a scroll item with a random appearance adjective.
+// This replaces/supplements randomScrollDrop in treasure.go for container loot.
+func (e *GameEngine) randomScrollDropWithAdj(treasureLevel int) *gameworld.RoomItem {
+	item := e.randomScrollDrop(treasureLevel)
+	if item == nil {
+		return nil
+	}
+	// Apply a random appearance adjective (stored in Adj1)
+	adjWord := scrollAdjectiveWords[rand.Intn(len(scrollAdjectiveWords))]
+	item.Adj1 = e.adjByName(adjWord) // 0 if not in adjective table — graceful fallback
+	return item
+}
+
+// randomGemDrop selects a random gem item and assigns a quality adjective.
+func (e *GameEngine) randomGemDrop(treasureLevel int) *gameworld.RoomItem {
+	var candidates []int
+	for num, def := range e.items {
+		if def.Type != "MISC" && def.Type != "REAGENT" && def.Type != "GEM" {
+			continue
+		}
+		if def.Weight >= 1000 {
+			continue
+		}
+		// Gems are identified by SUBSTANCE BRITTLE in the script; check via substance field.
+		// As a proxy: look for items with very low weight and volume (weight=1, volume=0).
+		if def.Weight != 1 || def.Volume != 0 {
+			continue
+		}
+		// Must be a REAGENT (gem items have REAGENT flag in ITEM1.SCR)
+		if !containsFlag(def.Flags, "REAGENT") {
+			continue
+		}
+		candidates = append(candidates, num)
+	}
+	if len(candidates) == 0 {
+		return nil
+	}
+
+	chosen := candidates[rand.Intn(len(candidates))]
+
+	// Pick a quality — weighted toward middle values
+	// Weights: cracked=5, chipped=15, standard=50, flawless=20, perfect=10
+	qualityWeights := []int{5, 15, 50, 20, 10}
+	total := 0
+	for _, w := range qualityWeights {
+		total += w
+	}
+	roll := rand.Intn(total)
+	qIdx := 0
+	for i, w := range qualityWeights {
+		roll -= w
+		if roll < 0 {
+			qIdx = i
+			break
+		}
+	}
+	q := gemQualities[qIdx]
+
+	item := &gameworld.RoomItem{
+		Archetype: chosen,
+	}
+	if q.adjName != "" {
+		item.Adj1 = e.adjByName(q.adjName)
+	}
+	// Store quality multiplier as Val2 scaled to integer (100 = 1.0x)
+	item.Val2 = int(q.multiplier * 100)
+
+	return item
+}
+
+// randomJewelryDrop selects a random jewelry item. Optionally assigns a spell trigger.
+// Jewelry with a spell can be activated by CONCENTRATE, RUB, or TOUCH.
+func (e *GameEngine) randomJewelryDrop(treasureLevel int) *gameworld.RoomItem {
+	jewelryNouns := map[string]bool{
+		"ring": true, "amulet": true, "necklace": true, "bracelet": true,
+		"brooch": true, "pendant": true, "anklet": true, "earring": true,
+		"circlet": true, "torque": true,
+	}
+
+	var candidates []int
+	for num, def := range e.items {
+		if def.Weight >= 1000 {
+			continue
+		}
+		noun := strings.ToLower(e.getItemNounName(def))
+		if !jewelryNouns[noun] {
+			continue
+		}
+		candidates = append(candidates, num)
+	}
+	if len(candidates) == 0 {
+		return nil
+	}
+
+	chosen := candidates[rand.Intn(len(candidates))]
+	item := &gameworld.RoomItem{
+		Archetype: chosen,
+	}
+
+	// 40% chance of a spell trigger at treasure level >= 10
+	if treasureLevel >= 10 && rand.Intn(100) < 40 {
+		maxSpellLevel := treasureLevel / 5
+		if maxSpellLevel < 1 {
+			maxSpellLevel = 1
+		}
+		if maxSpellLevel > 15 {
+			maxSpellLevel = 15
+		}
+		var spellCandidates []SpellDef
+		for _, sp := range spellRegistry {
+			if sp.Level <= maxSpellLevel && sp.Effect != "" {
+				spellCandidates = append(spellCandidates, sp)
+			}
+		}
+		if len(spellCandidates) > 0 {
+			sp := spellCandidates[rand.Intn(len(spellCandidates))]
+			item.Val3 = sp.ID // spell ID stored on the item; triggered by CONCENTRATE/RUB/TOUCH
+		}
+	}
+
+	return item
+}
+
+// ── doInventory (enhanced to show container contents) ────────────────────────
+// Call this from the INVENTORY case in ProcessCommand instead of the existing doInventory.
+
+func (e *GameEngine) doInventoryEnhanced(player *Player) *CommandResult {
+	var msgs []string
+	msgs = append(msgs, "You are carrying:")
+	if len(player.Inventory) == 0 && len(player.Worn) == 0 && player.Wielded == nil {
+		msgs = append(msgs, "  Nothing.")
+		return &CommandResult{Messages: msgs}
+	}
+
+	if player.Wielded != nil {
+		itemDef := e.items[player.Wielded.Archetype]
+		if itemDef != nil {
+			name := e.formatItemName(itemDef, player.Wielded.Adj1, player.Wielded.Adj2, player.Wielded.Adj3)
+			msgs = append(msgs, fmt.Sprintf("  %s (wielded)", name))
+		}
+	}
+
+	for _, ii := range player.Worn {
+		itemDef := e.items[ii.Archetype]
+		if itemDef != nil {
+			name := e.formatItemName(itemDef, ii.Adj1, ii.Adj2, ii.Adj3)
+			msgs = append(msgs, fmt.Sprintf("  %s (worn)", name))
+		}
+	}
+
+	// Collect inventory item names, then join multiple per line
+	var itemNames []string
+	for _, ii := range player.Inventory {
+		itemDef := e.items[ii.Archetype]
+		if itemDef == nil {
+			continue
+		}
+		itemNames = append(itemNames, e.formatContainerName(itemDef, ii.Adj1, ii.Adj2, ii.Adj3, ii.State))
+	}
+
+	// Print one item per line
+	for _, ii := range player.Inventory {
+		itemDef := e.items[ii.Archetype]
+		if itemDef == nil {
+			continue
+		}
+		msgs = append(msgs, "  "+e.formatContainerName(itemDef, ii.Adj1, ii.Adj2, ii.Adj3, ii.State))
+	}
+
+	return &CommandResult{Messages: msgs}
+}
+// ── container lock-state fix on pickup ───────────────────────────────────────
+// The reported bug: containers dropped by monsters are always "LOCKED" but become
+// unlocked once picked up. The fix is in generateTreasure / randomChestDrop: the
+// chest's State should only be "LOCKED" when Val1 (lock difficulty) > 0.
+// This helper is called from doGet (engine.go) when picking up a container.
+// It preserves the lock state correctly by NOT resetting it on pickup.
+//
+// The existing doGet code already copies State from RoomItem to InventoryItem, so no
+// change is needed there — the bug was that randomChestDrop always sets State="LOCKED"
+// regardless of whether a lock was actually assigned. Fix is in treasure.go:
+//   Only set State="LOCKED" when lockDiff > 0 (which it always is per current code,
+//   so actually the real fix is: containers with no trap and low treasureLevel
+//   have a chance of being unlocked already).
+//
+// See fixChestLockState below — call this from randomChestDrop.
+
+// FixChestInitialState applies a chance that a dropped chest is already unlocked.
+// treasureLevel < 10: 40% chance unlocked. 10-19: 20%. 20+: always locked.
+func FixChestInitialState(item *gameworld.RoomItem, treasureLevel int) {
+	if item.State != "LOCKED" {
+		return
+	}
+	var unlockChance int
+	switch {
+	case treasureLevel < 10:
+		unlockChance = 40
+	case treasureLevel < 20:
+		unlockChance = 20
+	default:
+		unlockChance = 0
+	}
+	if unlockChance > 0 && rand.Intn(100) < unlockChance {
+		item.State = "CLOSED"
+	}
+}

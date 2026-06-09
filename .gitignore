@@ -7,3 +7,4 @@ frontend/dist/
 frontend/node_modules/
 *.log
 engine/lofp
+"engine/cmd/lofp/lofp.exe" 

@@ -42,6 +42,23 @@ const (
 	GenderFemale = 1
 )
 
+// Container type
+type InventoryItem struct {
+    Archetype int    `bson:"archetype" json:"archetype"`
+    Adj1      int    `bson:"adj1,omitempty" json:"adj1,omitempty"`
+    Adj2      int    `bson:"adj2,omitempty" json:"adj2,omitempty"`
+    Adj3      int    `bson:"adj3,omitempty" json:"adj3,omitempty"`
+    Val1      int    `bson:"val1,omitempty" json:"val1,omitempty"`
+    Val2      int    `bson:"val2,omitempty" json:"val2,omitempty"`
+    Val3      int    `bson:"val3,omitempty" json:"val3,omitempty"`
+    Val4      int    `bson:"val4,omitempty" json:"val4,omitempty"`
+    Val5      int    `bson:"val5,omitempty" json:"val5,omitempty"`
+    State     string `bson:"state,omitempty" json:"state,omitempty"`
+    WornSlot  string `bson:"wornSlot,omitempty" json:"wornSlot,omitempty"`
+    // Container contents — populated when this item is an open container.
+    Contents  []InventoryItem `bson:"contents,omitempty" json:"contents,omitempty"`
+}
+
 // Player represents a player's current state.
 type Player struct {
 	ID         bson.ObjectID     `bson:"_id,omitempty" json:"id"`
@@ -123,9 +140,10 @@ type Player struct {
 	CraftingMetal string `bson:"-" json:"-"` // what material (e.g., "copper")
 	CraftingStep int    `bson:"-" json:"-"` // 0=not crafting, 1=planned, 2=heated, 3=hammered, 4=quenched, 5=buffed, 6=done
 
-	// Teaching: skill being taught to others (transient)
-	Teaching      int `bson:"-" json:"-"` // skill number being taught (0 = not teaching)
+	// Teaching: skill or spell being taught to others (transient)
+	Teaching      int `bson:"-" json:"-"` // skill number being taught (0 = not teaching a skill)
 	TeachingLevel int `bson:"-" json:"-"` // max level to teach up to (teacher's own level)
+	TeachingSpell int `bson:"-" json:"-"` // spell number being taught (0 = not teaching a spell)
 
 	// Guard: who this player is guarding (transient)
 	GuardTarget string `bson:"-" json:"-"`
@@ -213,21 +231,6 @@ type Player struct {
 	CreatedAt time.Time  `bson:"createdAt" json:"createdAt"`
 	UpdatedAt time.Time  `bson:"updatedAt" json:"updatedAt"`
 	DeletedAt *time.Time `bson:"deletedAt,omitempty" json:"deletedAt,omitempty"` // soft-delete timestamp
-}
-
-// InventoryItem is an instance of an item held by a player.
-type InventoryItem struct {
-	Archetype int    `bson:"archetype" json:"archetype"`
-	Adj1      int    `bson:"adj1,omitempty" json:"adj1,omitempty"`
-	Adj2      int    `bson:"adj2,omitempty" json:"adj2,omitempty"`
-	Adj3      int    `bson:"adj3,omitempty" json:"adj3,omitempty"`
-	Val1      int    `bson:"val1,omitempty" json:"val1,omitempty"`
-	Val2      int    `bson:"val2,omitempty" json:"val2,omitempty"`
-	Val3      int    `bson:"val3,omitempty" json:"val3,omitempty"`
-	Val4      int    `bson:"val4,omitempty" json:"val4,omitempty"`
-	Val5      int    `bson:"val5,omitempty" json:"val5,omitempty"`
-	State     string `bson:"state,omitempty" json:"state,omitempty"`
-	WornSlot  string `bson:"wornSlot,omitempty" json:"wornSlot,omitempty"`
 }
 
 // FullName returns the player's display name.

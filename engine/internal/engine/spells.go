@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"math/rand"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -296,6 +297,44 @@ func schoolSkillID(school string) int {
     }
 }
 
+// trainSpellFromTeacher handles learning a spell from a player teacher via TRAIN.
+func (e *GameEngine) trainSpellFromTeacher(ctx context.Context, player *Player, teacher *Player, spell *SpellDef) *CommandResult {
+	if player.KnownSpells[spell.ID] {
+		return &CommandResult{Messages: []string{fmt.Sprintf("You already know %s.", spell.Name)}}
+	}
+
+	requiredSkill := schoolSkillID(spell.School)
+	if requiredSkill < 0 {
+		return &CommandResult{Messages: []string{"You cannot learn spells of that school."}}
+	}
+
+	playerSkillLevel := player.Skills[requiredSkill]
+	if playerSkillLevel < spell.Level {
+		return &CommandResult{Messages: []string{
+			fmt.Sprintf("You need %s rank %d to learn %s (you have rank %d).",
+				SkillNames[requiredSkill], spell.Level, spell.Name, playerSkillLevel),
+		}}
+	}
+
+	if player.KnownSpells == nil {
+		player.KnownSpells = make(map[int]bool)
+	}
+	player.KnownSpells[spell.ID] = true
+	player.RoundTimeExpiry = time.Now().Add(5 * time.Second)
+	e.SavePlayer(ctx, player)
+
+	return &CommandResult{
+		Messages: []string{
+			fmt.Sprintf("You study %s's instruction carefully...", teacher.FirstName),
+			fmt.Sprintf("You learn %s!", spell.Name),
+			"[Round: 5 sec]",
+		},
+		RoomBroadcast: []string{
+			fmt.Sprintf("%s learns %s from %s.", player.FirstName, spell.Name, teacher.FirstName),
+		},
+	}
+}
+
 // doPrepareSpell handles PREPARE/INVOKE <spell>.
 func (e *GameEngine) doPrepareSpell(player *Player, args []string) *CommandResult {
 	if len(args) == 0 {
@@ -306,7 +345,12 @@ func (e *GameEngine) doPrepareSpell(player *Player, args []string) *CommandResul
 	}
 
 	spellName := strings.Join(args, " ")
-	spell := FindSpellByName(spellName)
+	var spell *SpellDef
+	if id, err := strconv.Atoi(spellName); err == nil {
+		spell = FindSpellByID(id)
+	} else {
+		spell = FindSpellByName(spellName)
+	}
 	if spell == nil {
 		return &CommandResult{Messages: []string{"You don't know that spell."}}
 	}

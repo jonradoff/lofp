@@ -102,6 +102,8 @@ func (e *GameEngine) processGMCommand(ctx context.Context, player *Player, verb 
 		return e.gmList()
 	case "@EXAMINE":
 		return e.gmExamine(args)
+	case "@IEXAMINE", "@IEX":
+    		return e.gmIExamine(ctx, player, args)
 	case "@GLOSSARY":
 		return e.gmGlossary(args)
 	case "@PEEK":
@@ -168,10 +170,8 @@ func (e *GameEngine) processGMCommand(ctx context.Context, player *Player, verb 
 		return &CommandResult{Messages: []string{"No pending assist requests."}}
 	case "@OLDCOMP":
 		return &CommandResult{Messages: []string{"Script compilation is not available in this version."}}
-	case "@EDITEM":
-		return &CommandResult{Messages: []string{"Item editor not yet implemented."}}
-	case "@EDN":
-		return &CommandResult{Messages: []string{"Item editor not yet implemented."}}
+	case "@EDITEM", "@EDN":
+		return e.gmEdItem(ctx, player, args, rawInput)
 	case "@GET":
 		return e.gmGet(ctx, player, args)
 	case "@LOOK":
@@ -229,6 +229,8 @@ func (e *GameEngine) gmHelp() *CommandResult {
 		"@heal <name>           - Heal a player to full",
 		"@help                  - This help listing",
 		"@hide / @unhide        - Hide/show on WHO list",
+		"@editem [plr] <item> <field> <val> - Edit an item in inventory",
+		"@iexamine		- Examine an item in inventory",
 		"@invis / @vis          - Become invisible/visible",
 		"@kill <name>           - Kill a player",
 		"@list                  - List all items in game",
@@ -1123,6 +1125,67 @@ func (e *GameEngine) gmExamine(args []string) *CommandResult {
 	return &CommandResult{Messages: msgs}
 }
 
+// gmIExamine shows full internal details of an item in a player's inventory/wielded/worn slots
+func (e *GameEngine) gmIExamine(ctx context.Context, gmPlayer *Player, args []string) *CommandResult {
+	if len(args) == 0 {
+		return &CommandResult{Messages: []string{"Usage: @iexamine [playername] <item>" +
+			"\n   (if no player is given, examines your own inventory)"}}
+	}
+
+	// Resolve target player (first arg = player, or self)
+	target := gmPlayer
+	itemTarget := strings.ToLower(strings.Join(args, " "))
+
+if len(args) >= 2 {
+    if resolved, err := e.resolvePlayerArg(ctx, []string{args[0]}); err == nil {
+        target = resolved
+        itemTarget = strings.ToLower(strings.Join(args[1:], " "))
+    }
+    // else: do nothing → treat all args as item
+}
+
+
+	msgs := []string{
+		fmt.Sprintf("=== Inventory Examine: %s ===", target.FullName()),
+		fmt.Sprintf("Room %d | Total items: %d (inv + wielded + worn)", target.RoomNumber, len(target.Inventory)+len(target.Worn)+1),
+	}
+
+	found := false
+
+	// Wielded
+	if target.Wielded != nil {
+		name := e.formatInventoryItemName(target.Wielded)
+		if itemTarget == "" || strings.Contains(strings.ToLower(name), itemTarget) {
+			msgs = append(msgs, e.formatFullItemDebug(target.Wielded, "WIELDING"))
+			found = true
+		}
+	}
+
+	// Worn items
+	for _, item := range target.Worn {
+		name := e.formatInventoryItemName(&item)
+		if itemTarget == "" || strings.Contains(strings.ToLower(name), itemTarget) {
+			msgs = append(msgs, e.formatFullItemDebug(&item, fmt.Sprintf("WORN (%s)", item.WornSlot)))
+			found = true
+		}
+	}
+
+	// Inventory
+	for i, item := range target.Inventory {
+		name := e.formatInventoryItemName(&item)
+		if itemTarget == "" || strings.Contains(strings.ToLower(name), itemTarget) {
+			msgs = append(msgs, e.formatFullItemDebug(&item, fmt.Sprintf("INV #%d", i)))
+			found = true
+		}
+	}
+
+	if !found {
+		return &CommandResult{Messages: []string{"No matching item found in that player's inventory."}}
+	}
+
+	return &CommandResult{Messages: msgs}
+}
+
 func (e *GameEngine) gmGlossary(args []string) *CommandResult {
 	if len(args) < 1 {
 		return &CommandResult{Messages: []string{"Usage: @glossary <word>"}}
@@ -1709,4 +1772,267 @@ func resolveGMVerb(input string) string {
 		return match
 	}
 	return input
+}
+
+// formatFullItemDebug returns a multi-line debug string for any InventoryItem
+func (e *GameEngine) formatFullItemDebug(item *InventoryItem, location string) string {
+	def := e.items[item.Archetype]
+	baseName := "???"
+	if def != nil {
+		baseName = e.getItemNounName(def)
+	}
+
+	// Resolve adjective names
+	adj1 := "0"
+	if item.Adj1 > 0 {
+		adj1 = fmt.Sprintf("%d (%s)", item.Adj1, e.getAdjName(item.Adj1))
+	}
+	adj2 := "0"
+	if item.Adj2 > 0 {
+		adj2 = fmt.Sprintf("%d (%s)", item.Adj2, e.getAdjName(item.Adj2))
+	}
+	adj3 := "0"
+	if item.Adj3 > 0 {
+		adj3 = fmt.Sprintf("%d (%s)", item.Adj3, e.getAdjName(item.Adj3))
+	}
+
+	state := ""
+	if item.State != "" {
+		state = fmt.Sprintf(" | State=%s", item.State)
+	}
+
+	return fmt.Sprintf("%s: %s (arch=%d)\n"+
+		"  Adj1=%s | Adj2=%s | Adj3=%s\n"+
+		"  Val1=%d Val2=%d Val3=%d Val4=%d Val5=%d%s",
+		location, baseName, item.Archetype,
+		adj1, adj2, adj3,
+		item.Val1, item.Val2, item.Val3, item.Val4, item.Val5,
+		state)
+}
+
+// gmEdItem implements @editem / @edn.
+//
+// Syntax (all tokens after the command verb):
+//
+//   @editem <item> <field> <value>
+//       — edit an item in the GM's own inventory / wielded / worn
+//
+//   @editem <playername> <item> <field> <value>
+//       — edit an item in another player's inventory / wielded / worn
+//
+// <item>  : partial name match (same as @iexamine)
+// <field> : adj1 adj2 adj3 val1 val2 val3 val4 val5 state
+//           archetype  (dangerous but allowed)
+//           flag+<FLAG>  flag-<FLAG>   (add / remove a flag on the archetype def)
+// <value> : integer for numeric fields, string for state / flags
+//
+// Examples:
+//   @editem robe val1 1
+//   @editem robe adj1 47
+//   @editem robe state OPEN
+//   @editem robe flag+DYEABLE
+//   @editem robe flag-DYEABLE
+//   @editem Moryan robe val1 1
+func (e *GameEngine) gmEdItem(ctx context.Context, gmPlayer *Player, args []string, rawInput string) *CommandResult {
+
+	// --- usage guard ---
+	const usage = "Usage: @editem [player] <item> <field> <value>\n" +
+		"  Fields: adj1 adj2 adj3  val1-val5  state  archetype  flag+FLAG / flag-FLAG\n" +
+		"  Example: @editem robe val1 1\n" +
+		"  Example: @editem Moryan robe adj2 47"
+
+	if len(args) < 3 {
+		return &CommandResult{Messages: []string{usage}}
+	}
+
+	// --- resolve optional leading player name (mirrors @iexamine) ---
+	// Default to the GM themselves. If args[0] resolves as a player name,
+	// treat it as the target and shift remaining args left by one.
+	target := gmPlayer
+	remaining := args // [item] [field] [value]
+
+	if len(args) >= 2 {
+		if resolved, err := e.resolvePlayerArg(ctx, []string{args[0]}); err == nil {
+			target = resolved
+			remaining = args[1:]
+		}
+		// else: resolution failed — treat all args as (item field value) on self
+	}
+
+	if len(remaining) < 3 {
+		return &CommandResult{Messages: []string{usage}}
+	}
+
+	// Field and value are always the LAST two tokens.
+	// Everything before them is the (potentially multi-word) item name,
+	// identical to how @iexamine joins all its args as the item name.
+	field := strings.ToLower(remaining[len(remaining)-2])
+	valueStr := remaining[len(remaining)-1]
+	itemTarget := strings.ToLower(strings.Join(remaining[:len(remaining)-2], " "))
+
+	// --- locate the item in the target's slots ---
+	type itemRef struct {
+		item   *InventoryItem
+		label  string
+		inWorn bool   // true → lives in Worn slice (needs index)
+		inInv  bool   // true → lives in Inventory slice
+		wornIdx int
+		invIdx  int
+	}
+
+	var found []itemRef
+
+	if target.Wielded != nil {
+		name := strings.ToLower(e.formatInventoryItemName(target.Wielded))
+		if strings.Contains(name, itemTarget) {
+			found = append(found, itemRef{item: target.Wielded, label: "WIELDING"})
+		}
+	}
+	for i := range target.Worn {
+		name := strings.ToLower(e.formatInventoryItemName(&target.Worn[i]))
+		if strings.Contains(name, itemTarget) {
+			found = append(found, itemRef{
+				item:    &target.Worn[i],
+				label:   fmt.Sprintf("WORN (%s)", target.Worn[i].WornSlot),
+				inWorn:  true,
+				wornIdx: i,
+			})
+		}
+	}
+	for i := range target.Inventory {
+		name := strings.ToLower(e.formatInventoryItemName(&target.Inventory[i]))
+		if strings.Contains(name, itemTarget) {
+			found = append(found, itemRef{
+				item:   &target.Inventory[i],
+				label:  fmt.Sprintf("INV #%d", i),
+				inInv:  true,
+				invIdx: i,
+			})
+		}
+	}
+
+	switch len(found) {
+	case 0:
+		return &CommandResult{Messages: []string{
+			fmt.Sprintf("No item matching '%s' found in %s's inventory.", itemTarget, target.FirstName),
+		}}
+	case 1:
+		// exactly one match — proceed
+	default:
+		msgs := []string{fmt.Sprintf("Multiple items match '%s' — be more specific:", itemTarget)}
+		for _, f := range found {
+			msgs = append(msgs, fmt.Sprintf("  %s: %s (arch=%d)", f.label,
+				e.formatInventoryItemName(f.item), f.item.Archetype))
+		}
+		return &CommandResult{Messages: msgs}
+	}
+
+	ref := found[0]
+	item := ref.item
+
+	// --- apply the edit ---
+	var changeDesc string
+
+	switch {
+	// ---- integer fields ----
+	case field == "adj1", field == "adj2", field == "adj3",
+		field == "val1", field == "val2", field == "val3", field == "val4", field == "val5",
+		field == "archetype":
+
+		v, err := strconv.Atoi(valueStr)
+		if err != nil {
+			return &CommandResult{Messages: []string{fmt.Sprintf("'%s' is not a valid integer.", valueStr)}}
+		}
+		old := 0
+		switch field {
+		case "adj1":
+			old, item.Adj1 = item.Adj1, v
+		case "adj2":
+			old, item.Adj2 = item.Adj2, v
+		case "adj3":
+			old, item.Adj3 = item.Adj3, v
+		case "val1":
+			old, item.Val1 = item.Val1, v
+		case "val2":
+			old, item.Val2 = item.Val2, v
+		case "val3":
+			old, item.Val3 = item.Val3, v
+		case "val4":
+			old, item.Val4 = item.Val4, v
+		case "val5":
+			old, item.Val5 = item.Val5, v
+		case "archetype":
+			old, item.Archetype = item.Archetype, v
+		}
+		changeDesc = fmt.Sprintf("Set %s: %s %d → %d", ref.label, strings.ToUpper(field), old, v)
+
+	// ---- state (string) ----
+	case field == "state":
+		old := item.State
+		item.State = strings.ToUpper(valueStr)
+		changeDesc = fmt.Sprintf("Set %s: STATE %s → %s", ref.label, old, item.State)
+
+	// ---- flag+FLAG / flag-FLAG — modifies the archetype definition ----
+	case strings.HasPrefix(field, "flag+"), strings.HasPrefix(field, "flag-"):
+		add := strings.HasPrefix(field, "flag+")
+		flagName := strings.ToUpper(valueStr)
+		def := e.items[item.Archetype]
+		if def == nil {
+			return &CommandResult{Messages: []string{fmt.Sprintf("No item definition for archetype %d.", item.Archetype)}}
+		}
+		if add {
+			// Add flag if not already present
+			already := false
+			for _, f := range def.Flags {
+				if strings.EqualFold(f, flagName) {
+					already = true
+					break
+				}
+			}
+			if already {
+				return &CommandResult{Messages: []string{fmt.Sprintf("Flag %s already set on arch %d.", flagName, item.Archetype)}}
+			}
+			def.Flags = append(def.Flags, flagName)
+			changeDesc = fmt.Sprintf("Added flag %s to arch %d (%s)", flagName, item.Archetype, e.getItemNounName(def))
+		} else {
+			// Remove flag
+			newFlags := def.Flags[:0]
+			removed := false
+			for _, f := range def.Flags {
+				if strings.EqualFold(f, flagName) {
+					removed = true
+					continue
+				}
+				newFlags = append(newFlags, f)
+			}
+			if !removed {
+				return &CommandResult{Messages: []string{fmt.Sprintf("Flag %s not found on arch %d.", flagName, item.Archetype)}}
+			}
+			def.Flags = newFlags
+			changeDesc = fmt.Sprintf("Removed flag %s from arch %d (%s)", flagName, item.Archetype, e.getItemNounName(def))
+		}
+
+	default:
+		validFields := "adj1 adj2 adj3  val1 val2 val3 val4 val5  state  archetype  flag+FLAG flag-FLAG"
+		return &CommandResult{Messages: []string{
+			fmt.Sprintf("Unknown field '%s'. Valid fields: %s", field, validFields),
+		}}
+	}
+
+	// --- write back to the slice (worn/inv hold by value, not pointer) ---
+	if ref.inWorn {
+		target.Worn[ref.wornIdx] = *item
+	} else if ref.inInv {
+		target.Inventory[ref.invIdx] = *item
+	}
+	// Wielded is already a pointer — no writeback needed.
+
+	e.SavePlayer(ctx, target)
+
+	// Show the updated item debug block so the GM can confirm the change.
+	debugLine := e.formatFullItemDebug(item, ref.label)
+	return &CommandResult{Messages: []string{
+		fmt.Sprintf("[%s] %s", target.FullName(), changeDesc),
+		debugLine,
+	}}
 }

@@ -109,54 +109,110 @@ func checkPrerequisite(player *Player, skillID int) bool {
 
 func (e *GameEngine) doTrainWithBP(ctx context.Context, player *Player, args []string) *CommandResult {
 	room := e.rooms[player.RoomNumber]
-	if room == nil || len(room.TrainingSkills) == 0 {
-		return &CommandResult{Messages: []string{"There is no training available here."}}
+
+	// Collect effective skill offers: room trainers boosted/extended by player teachers.
+	type skillOffer struct {
+		skillID  int
+		maxLevel int
 	}
-	if len(args) == 0 {
-		var msgs []string
-		msgs = append(msgs, "Training available here:")
+	var offers []skillOffer
+	if room != nil {
 		for _, ts := range room.TrainingSkills {
-			name := SkillNames[ts.SkillID]
-			if name == "" {
-				name = fmt.Sprintf("Skill #%d", ts.SkillID)
+			offers = append(offers, skillOffer{ts.SkillID, ts.MaxLevel})
+		}
+	}
+
+	// Find any player teacher in this room.
+	var spellTeacher *Player
+	var taughtSpell *SpellDef
+	if e.sessions != nil {
+		for _, p := range e.sessions.OnlinePlayers() {
+			if p.ID == player.ID || p.RoomNumber != player.RoomNumber {
+				continue
 			}
-			currentLvl := player.Skills[ts.SkillID]
-			bpCost := skillBPCost(ts.SkillID, currentLvl)
-			msgs = append(msgs, fmt.Sprintf("  %s (rank %d/%d, next: %d BP)", name, currentLvl, ts.MaxLevel, bpCost))
+			if p.Teaching > 0 {
+				found := false
+				for i, o := range offers {
+					if o.skillID == p.Teaching {
+						found = true
+						if p.TeachingLevel > offers[i].maxLevel {
+							offers[i].maxLevel = p.TeachingLevel
+						}
+						break
+					}
+				}
+				if !found {
+					offers = append(offers, skillOffer{p.Teaching, p.TeachingLevel})
+				}
+			}
+			if p.TeachingSpell > 0 && spellTeacher == nil {
+				sp := FindSpellByID(p.TeachingSpell)
+				if sp != nil {
+					spellTeacher = p
+					taughtSpell = sp
+				}
+			}
+		}
+	}
+
+	if len(args) == 0 {
+		if len(offers) == 0 && spellTeacher == nil {
+			return &CommandResult{Messages: []string{"There is no training available here."}}
+		}
+		var msgs []string
+		if len(offers) > 0 {
+			msgs = append(msgs, "Training available here:")
+			for _, o := range offers {
+				name := SkillNames[o.skillID]
+				if name == "" {
+					name = fmt.Sprintf("Skill #%d", o.skillID)
+				}
+				currentLvl := player.Skills[o.skillID]
+				bpCost := skillBPCost(o.skillID, currentLvl)
+				msgs = append(msgs, fmt.Sprintf("  %s (rank %d/%d, next: %d BP)", name, currentLvl, o.maxLevel, bpCost))
+			}
+		}
+		if spellTeacher != nil {
+			msgs = append(msgs, fmt.Sprintf("Spell being taught: %s is teaching \"%s\" (Number %d, level %d).",
+				spellTeacher.FirstName, taughtSpell.Name, taughtSpell.ID, taughtSpell.Level))
 		}
 		msgs = append(msgs, fmt.Sprintf("Your build points: %d", player.BuildPoints))
 		return &CommandResult{Messages: msgs}
 	}
 
 	target := strings.ToLower(strings.Join(args, " "))
-	for _, ts := range room.TrainingSkills {
-		name := SkillNames[ts.SkillID]
-		if !strings.HasPrefix(strings.ToLower(name), target) {
+
+	// Check for spell training from player teacher first.
+	if spellTeacher != nil {
+		numStr := fmt.Sprintf("%d", taughtSpell.ID)
+		if target == numStr || strings.HasPrefix(strings.ToLower(taughtSpell.Name), target) {
+			return e.trainSpellFromTeacher(ctx, player, spellTeacher, taughtSpell)
+		}
+	}
+
+	// Skill training.
+	if len(offers) == 0 {
+		return &CommandResult{Messages: []string{"There is no training available here."}}
+	}
+
+	for _, o := range offers {
+		name := SkillNames[o.skillID]
+		numStr := fmt.Sprintf("%d", o.skillID)
+		if !strings.HasPrefix(strings.ToLower(name), target) && target != numStr {
 			continue
 		}
 		if player.Skills == nil {
 			player.Skills = make(map[int]int)
 		}
-		currentLvl := player.Skills[ts.SkillID]
+		currentLvl := player.Skills[o.skillID]
 
-		// Determine effective max level: room trainer or a teacher in the room
-		effectiveMax := ts.MaxLevel
-		if e.sessions != nil {
-			for _, p := range e.sessions.OnlinePlayers() {
-				if p.RoomNumber == player.RoomNumber && p.Teaching == ts.SkillID && p.TeachingLevel > effectiveMax {
-					effectiveMax = p.TeachingLevel
-				}
-			}
+		if currentLvl >= o.maxLevel {
+			return &CommandResult{Messages: []string{fmt.Sprintf("You have reached the maximum %s training available here (%d).", name, o.maxLevel)}}
 		}
 
-		if currentLvl >= effectiveMax {
-			return &CommandResult{Messages: []string{fmt.Sprintf("You have reached the maximum %s training available here (%d).", name, effectiveMax)}}
-		}
-
-		// Check prerequisites
-		if !checkPrerequisite(player, ts.SkillID) {
+		if !checkPrerequisite(player, o.skillID) {
 			prereqNames := ""
-			for _, p := range SkillPrerequisites[ts.SkillID] {
+			for _, p := range SkillPrerequisites[o.skillID] {
 				if prereqNames != "" {
 					prereqNames += ", "
 				}
@@ -165,13 +221,11 @@ func (e *GameEngine) doTrainWithBP(ctx context.Context, player *Player, args []s
 			return &CommandResult{Messages: []string{fmt.Sprintf("You need training in %s before you can learn %s.", prereqNames, name)}}
 		}
 
-		// Check build points
-		bpCost := skillBPCost(ts.SkillID, currentLvl)
+		bpCost := skillBPCost(o.skillID, currentLvl)
 		if player.BuildPoints < bpCost {
 			return &CommandResult{Messages: []string{fmt.Sprintf("Not enough build points. %s costs %d BP (you have %d).", name, bpCost, player.BuildPoints)}}
 		}
 
-		// Gold cost: 5 gold per training level after level 4
 		goldCost := 0
 		if player.Level > 4 {
 			goldCost = 5 * (currentLvl + 1)
@@ -180,15 +234,13 @@ func (e *GameEngine) doTrainWithBP(ctx context.Context, player *Player, args []s
 			return &CommandResult{Messages: []string{fmt.Sprintf("Training costs %d gold crowns. You only have %d.", goldCost, player.Gold)}}
 		}
 
-		// Deduct costs
 		player.BuildPoints -= bpCost
 		if goldCost > 0 {
 			player.Gold -= goldCost
 		}
-		player.Skills[ts.SkillID] = currentLvl + 1
+		player.Skills[o.skillID] = currentLvl + 1
 
-		// Apply Endurance bonus: +4 body points per rank
-		if ts.SkillID == 11 {
+		if o.skillID == 11 { // Endurance: +4 max body points per rank
 			player.MaxBodyPoints += 4
 			player.BodyPoints += 4
 		}
@@ -200,7 +252,7 @@ func (e *GameEngine) doTrainWithBP(ctx context.Context, player *Player, args []s
 			goldMsg = fmt.Sprintf(", %d gold", goldCost)
 		}
 		return &CommandResult{
-			Messages: []string{fmt.Sprintf("You train in %s to rank %d. (-%d BP%s, %d BP remaining)", name, currentLvl+1, bpCost, goldMsg, player.BuildPoints)},
+			Messages:    []string{fmt.Sprintf("You train in %s to rank %d. (-%d BP%s, %d BP remaining)", name, currentLvl+1, bpCost, goldMsg, player.BuildPoints)},
 			PlayerState: player,
 		}
 	}

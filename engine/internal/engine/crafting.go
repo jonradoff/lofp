@@ -449,6 +449,65 @@ func (e *GameEngine) doCraft(ctx context.Context, player *Player, args []string)
 // ---- WORK (Forging Cycle) ----
 
 func (e *GameEngine) doWork(ctx context.Context, player *Player, args []string) *CommandResult {
+	// Item scripts must fire before crafting logic — IFPREVERB WORK on an item (e.g., pelt →
+	// treated pelt) should preempt the forge workflow.
+	if len(args) > 0 {
+		target := strings.ToLower(strings.Join(args, " "))
+		target, _ = parseOrdinal(target)
+		room := e.rooms[player.RoomNumber]
+
+		// Check room items first
+		if room != nil {
+			for i, ri := range room.Items {
+				itemDef := e.items[ri.Archetype]
+				if itemDef == nil {
+					continue
+				}
+				if matchesTarget(e.getItemNounName(itemDef), target, e.getAdjName(ri.Adj1)) {
+					sc := e.RunPreverbScripts(player, room, "WORK", &room.Items[i], itemDef)
+					if sc.Blocked || len(sc.Messages) > 0 || len(sc.RoomMsgs) > 0 {
+						e.SavePlayer(ctx, player)
+						result := &CommandResult{Messages: sc.Messages, RoomBroadcast: sc.RoomMsgs, GMBroadcast: sc.GMMsgs, PlayerState: player}
+						if len(result.Messages) == 0 {
+							result.Messages = []string{"You can't do that."}
+						}
+						return result
+					}
+				}
+			}
+		}
+
+		// Check player items (inventory, worn, wielded)
+		allItems := make([]InventoryItem, 0, len(player.Inventory)+len(player.Worn)+1)
+		allItems = append(allItems, player.Inventory...)
+		allItems = append(allItems, player.Worn...)
+		if player.Wielded != nil {
+			allItems = append(allItems, *player.Wielded)
+		}
+		for _, ii := range allItems {
+			itemDef := e.items[ii.Archetype]
+			if itemDef == nil {
+				continue
+			}
+			if matchesTarget(e.getItemNounName(itemDef), target, e.getAdjName(ii.Adj1)) {
+				tempRI := gameworld.RoomItem{
+					Ref: -1, Archetype: ii.Archetype,
+					Adj1: ii.Adj1, Adj2: ii.Adj2, Adj3: ii.Adj3,
+					Val1: ii.Val1, Val2: ii.Val2, Val3: ii.Val3, Val4: ii.Val4, Val5: ii.Val5,
+				}
+				sc := e.RunPreverbScripts(player, room, "WORK", &tempRI, itemDef)
+				if sc.Blocked || len(sc.Messages) > 0 || len(sc.RoomMsgs) > 0 {
+					e.SavePlayer(ctx, player)
+					result := &CommandResult{Messages: sc.Messages, RoomBroadcast: sc.RoomMsgs, GMBroadcast: sc.GMMsgs, PlayerState: player}
+					if len(result.Messages) == 0 {
+						result.Messages = []string{"You can't do that."}
+					}
+					return result
+				}
+			}
+		}
+	}
+
 	if player.CraftingStep <= 0 {
 		return &CommandResult{Messages: []string{"You aren't crafting anything. Use CRAFT <item> first."}}
 	}

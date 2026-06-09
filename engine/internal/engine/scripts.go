@@ -79,11 +79,24 @@ func (e *GameEngine) RunPreverbScripts(player *Player, room *gameworld.Room, ver
 	refStr := fmt.Sprintf("%d", ri.Ref)
 	verb = strings.ToUpper(verb)
 
-	// Check room-level scripts
-	for _, block := range room.Scripts {
-		if block.Type == "IFPREVERB" && len(block.Args) >= 2 {
-			if strings.ToUpper(block.Args[0]) == verb && block.Args[1] == refStr {
-				sc.execBlock(block)
+	// Check room-level scripts (only for room items; inventory items have Ref=-1)
+	if ri.Ref >= 0 {
+		// Run scripts matching this specific item ref
+		for _, block := range room.Scripts {
+			if block.Type == "IFPREVERB" && len(block.Args) >= 2 {
+				if strings.ToUpper(block.Args[0]) == verb && block.Args[1] == refStr {
+					sc.execBlock(block)
+				}
+			}
+		}
+		// Also run room catch-all scripts (IFPREVERB VERB -1) with this item as context.
+		// These fire for any use of the verb in the room and use ARCHNUM/ITEMADJ internally
+		// to filter which items they act on.
+		for _, block := range room.Scripts {
+			if block.Type == "IFPREVERB" && len(block.Args) >= 2 {
+				if strings.ToUpper(block.Args[0]) == verb && block.Args[1] == "-1" {
+					sc.execBlock(block)
+				}
 			}
 		}
 	}
@@ -134,11 +147,20 @@ func (e *GameEngine) RunVerbScripts(player *Player, room *gameworld.Room, verb s
 	refStr := fmt.Sprintf("%d", ri.Ref)
 	verb = strings.ToUpper(verb)
 
-	// Check room-level IFVERB scripts (e.g., IFVERB PUSH 0 in room definition)
-	if room != nil {
+	// Check room-level IFVERB scripts (only for room items; inventory items have Ref=-1)
+	if room != nil && ri.Ref >= 0 {
+		// Run scripts matching this specific item ref
 		for _, block := range room.Scripts {
 			if block.Type == "IFVERB" && len(block.Args) >= 2 {
 				if strings.ToUpper(block.Args[0]) == verb && block.Args[1] == refStr {
+					sc.execBlock(block)
+				}
+			}
+		}
+		// Also run room catch-all scripts (IFVERB VERB -1) with this item as context
+		for _, block := range room.Scripts {
+			if block.Type == "IFVERB" && len(block.Args) >= 2 {
+				if strings.ToUpper(block.Args[0]) == verb && block.Args[1] == "-1" {
 					sc.execBlock(block)
 				}
 			}
@@ -156,6 +178,23 @@ func (e *GameEngine) RunVerbScripts(player *Player, room *gameworld.Room, verb s
 		}
 	}
 
+	return sc
+}
+
+// RunRoomVerbScripts checks room-level IFVERB and IFPREVERB blocks whose item ref is -1.
+// These are "bare verb" room scripts that fire for any use of the verb in the room,
+// regardless of whether a specific item was targeted. Used when no item target is given,
+// or after item scripts have already run (e.g., LISTEN with no args, bare GAZE).
+func (e *GameEngine) RunRoomVerbScripts(player *Player, room *gameworld.Room, verb string) *ScriptContext {
+	sc := &ScriptContext{Player: player, Room: room, Engine: e}
+	verb = strings.ToUpper(verb)
+	for _, block := range room.Scripts {
+		if (block.Type == "IFVERB" || block.Type == "IFPREVERB") && len(block.Args) >= 2 {
+			if strings.ToUpper(block.Args[0]) == verb && block.Args[1] == "-1" {
+				sc.execBlock(block)
+			}
+		}
+	}
 	return sc
 }
 
@@ -294,6 +333,8 @@ func (sc *ScriptContext) execAction(action gameworld.ScriptAction) {
 		sc.doSub(action.Args)
 	case "SETITEMVAL":
 		sc.doSetItemVal(action.Args)
+	case "SETITEMADJ":
+		sc.doSetItemAdj(action.Args)
 	case "REMOVEITEM":
 		sc.doRemoveItem(action.Args)
 	case "LOCK":
@@ -454,6 +495,19 @@ func (sc *ScriptContext) doNewItem(args []string) {
 
 	if ref == -1 {
 		sc.Player.Inventory = append(sc.Player.Inventory, item)
+	} else if sc.Room != nil {
+		ri := gameworld.RoomItem{
+			Ref:       ref,
+			Archetype: archetype,
+			Adj1: item.Adj1, Adj2: item.Adj2, Adj3: item.Adj3,
+			Val1: item.Val1, Val2: item.Val2, Val3: item.Val3, Val4: item.Val4, Val5: item.Val5,
+		}
+		sc.Room.Items = append(sc.Room.Items, ri)
+		sc.Engine.notifyRoomChange(RoomChange{
+			RoomNumber: sc.Room.Number,
+			Type:       "item_add",
+			Item:       &ri,
+		})
 	}
 }
 
@@ -510,7 +564,48 @@ func (sc *ScriptContext) doSetItemVal(args []string) {
 	// Not yet fully implemented; needs room item mutation
 }
 
-// doRemoveItem handles REMOVEITEM ref — removes item from player or room.
+// doSetItemAdj handles SETITEMADJ ref adjIndex value — sets an adjective on a room item.
+// The value arg can be a variable name (e.g., ITEMADJ1) or a literal integer.
+func (sc *ScriptContext) doSetItemAdj(args []string) {
+	if len(args) < 3 || sc.Room == nil {
+		return
+	}
+	ref, err := strconv.Atoi(args[0])
+	if err != nil {
+		return
+	}
+	adjIdx, err := strconv.Atoi(args[1])
+	if err != nil {
+		return
+	}
+	valArg := strings.ToUpper(args[2])
+	val := sc.getVar(valArg)
+	if val == 0 {
+		val, _ = strconv.Atoi(args[2])
+	}
+	for i := range sc.Room.Items {
+		if sc.Room.Items[i].Ref == ref {
+			switch adjIdx {
+			case 1:
+				sc.Room.Items[i].Adj1 = val
+			case 2:
+				sc.Room.Items[i].Adj2 = val
+			case 3:
+				sc.Room.Items[i].Adj3 = val
+			}
+			itemCopy := sc.Room.Items[i]
+			sc.Engine.notifyRoomChange(RoomChange{
+				RoomNumber: sc.Room.Number,
+				Type:       "item_update",
+				ItemRef:    ref,
+				Item:       &itemCopy,
+			})
+			return
+		}
+	}
+}
+
+// doRemoveItem handles REMOVEITEM ref — removes item from the room or player inventory.
 func (sc *ScriptContext) doRemoveItem(args []string) {
 	if len(args) == 0 {
 		return
@@ -520,11 +615,25 @@ func (sc *ScriptContext) doRemoveItem(args []string) {
 		return
 	}
 	if ref == -1 && sc.ItemRef != nil {
-		// Remove current item from inventory (by archetype match)
+		// If the item is a room item (Ref >= 0), remove it from the room
+		if sc.Room != nil && sc.ItemRef.Ref >= 0 {
+			for i, ri := range sc.Room.Items {
+				if ri.Ref == sc.ItemRef.Ref {
+					sc.Room.Items = append(sc.Room.Items[:i], sc.Room.Items[i+1:]...)
+					sc.Engine.notifyRoomChange(RoomChange{
+						RoomNumber: sc.Room.Number,
+						Type:       "item_remove",
+						ItemRef:    sc.ItemRef.Ref,
+					})
+					return
+				}
+			}
+		}
+		// Otherwise remove from player inventory by archetype match
 		for i, ii := range sc.Player.Inventory {
 			if ii.Archetype == sc.ItemRef.Archetype {
 				sc.Player.Inventory = append(sc.Player.Inventory[:i], sc.Player.Inventory[i+1:]...)
-				break
+				return
 			}
 		}
 	}
@@ -809,6 +918,7 @@ func (sc *ScriptContext) getVar(name string) int {
 		if sc.Player.Wielded != nil { return 1 }
 		return 0
 	case "ARCHNUM":
+		if sc.ItemRef != nil { return sc.ItemRef.Archetype }
 		if sc.Player.Wielded != nil { return sc.Player.Wielded.Archetype }
 		return 0
 	// Room info

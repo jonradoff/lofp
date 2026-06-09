@@ -10,6 +10,15 @@ const RACE_NAMES: Record<number, string> = {
 
 const GOOGLE_ENABLED = !!import.meta.env.VITE_GOOGLE_CLIENT_ID
 
+// Pull environment variables with safe defaults for local development
+const MUD_HOST = import.meta.env.VITE_MUD_HOST || 'localhost'
+const MUD_PORT_PLAIN = import.meta.env.VITE_MUD_PORT_PLAIN || '4000'
+const MUD_PORT_SSL = import.meta.env.VITE_MUD_PORT_SSL || '4001'
+const MUD_PORT_SSH = import.meta.env.VITE_MUD_PORT_SSH || '4022'
+
+const PRIVACY_POLICY_URL = import.meta.env.VITE_PRIVACY_POLICY_URL || '#'
+const TERMS_URL = import.meta.env.VITE_TERMS_URL || '#'
+
 interface SavedPlayer {
   id: string
   firstName: string
@@ -472,16 +481,16 @@ export default function MainMenu({ onNewCharacter, onSelectCharacter, onVersionN
           </button>
           <br className="sm:hidden" />
           <span className="text-gray-700 mx-2 hidden sm:inline">|</span>
-          <a href="https://www.metavert.io/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-amber-400 text-xs font-mono">
+          <a href={PRIVACY_POLICY_URL} target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-amber-400 text-xs font-mono">
             Privacy Policy
           </a>
           <span className="text-gray-700 mx-2">|</span>
-          <a href="https://www.metavert.io/terms-of-service" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-amber-400 text-xs font-mono">
+          <a href={TERMS_URL} target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-amber-400 text-xs font-mono">
             Terms of Service
           </a>
         </div>
 
-        {/* MUD Client info modal */}
+{/* MUD Client info modal */}
         {showMudInfo && (
           <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4" onClick={() => setShowMudInfo(false)}>
             <div className="bg-[#1a1a1a] border border-amber-900 rounded-lg p-4 sm:p-6 w-full max-w-lg max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
@@ -491,13 +500,15 @@ export default function MainMenu({ onNewCharacter, onSelectCharacter, onVersionN
               </p>
               <div className="bg-black border border-[#444] rounded p-4 font-mono text-sm mb-4">
                 <div className="text-gray-400 mb-1">Telnet:</div>
-                <div className="text-green-400 select-all mb-1">telnet lofp.metavert.io 4000</div>
-                <div className="text-gray-500 text-xs mb-3">Unencrypted. Use port 4001 with SSL/TLS for a secure connection.</div>
+                <div className="text-green-400 select-all mb-1">telnet {MUD_HOST} {MUD_PORT_PLAIN}</div>
+                <div className="text-gray-500 text-xs mb-3">Unencrypted. Use port {MUD_PORT_SSL} with SSL/TLS for a secure connection.</div>
+                
                 <div className="text-gray-400 mb-1">SSH:</div>
-                <div className="text-green-400 select-all mb-3">ssh -p 4022 play@lofp.metavert.io</div>
+                <div className="text-green-400 select-all mb-3">ssh -p {MUD_PORT_SSH} play@{MUD_HOST}</div>
+                
                 <div className="text-gray-400 mb-1">Mudlet / other MUD clients:</div>
-                <div className="text-gray-300 text-xs">Server: <span className="text-green-400 select-all">lofp.metavert.io</span></div>
-                <div className="text-gray-300 text-xs">Port: <span className="text-green-400 select-all">4000</span> (plain) or <span className="text-green-400 select-all">4001</span> (SSL/TLS &mdash; check &ldquo;Secure&rdquo; in Mudlet)</div>
+                <div className="text-gray-300 text-xs">Server: <span className="text-green-400 select-all">{MUD_HOST}</span></div>
+                <div className="text-gray-300 text-xs">Port: <span className="text-green-400 select-all">{MUD_PORT_PLAIN}</span> (plain) or <span className="text-green-400 select-all">{MUD_PORT_SSL}</span> (SSL/TLS &mdash; check &ldquo;Secure&rdquo; in Mudlet)</div>
               </div>
               <p className="text-gray-500 font-mono text-xs mb-4">
                 Log in with the same email and password you use on this site. You'll need to set a password in Account Settings if you only use Google login.
