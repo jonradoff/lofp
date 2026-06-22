@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/jonradoff/lofp/internal/gameworld"
 )
@@ -63,10 +64,7 @@ func (e *GameEngine) doLook(player *Player) *CommandResult {
 		if nounName == "anti-item" || nounName == "ucantsee" {
 			continue
 		}
-		name := e.formatItemName(itemDef, ri.Adj1, ri.Adj2, ri.Adj3)
-		if ri.Extend != "" {
-			name += " " + ri.Extend
-		}
+		name := e.formatItemName(itemDef, ri.Adj1, ri.Adj2, ri.Adj3, ri.Extend)
 		result.Items = append(result.Items, name)
 	}
 
@@ -217,7 +215,7 @@ func (e *GameEngine) doLookAt(player *Player, args []string) *CommandResult {
 						if itemDef == nil {
 							continue
 						}
-						itemName := e.formatItemName(itemDef, ri.Adj1, ri.Adj2, ri.Adj3)
+						itemName := e.formatItemName(itemDef, ri.Adj1, ri.Adj2, ri.Adj3, ri.Extend)
 						msgs = append(msgs, fmt.Sprintf("You see %s.", itemName))
 					}
 					// Show monsters
@@ -275,7 +273,7 @@ func (e *GameEngine) doLookAt(player *Player, args []string) *CommandResult {
 			continue
 		}
 		name := e.getItemNounName(itemDef)
-		if matchesTarget(name, remaining, e.getAdjName(ri.Adj1)) {
+		if matchesTarget(name, remaining, e.getAdjName(ri.Adj1), e.getAdjName(ri.Adj2), e.getAdjName(ri.Adj3)) {
 			if skip > 0 { skip--; continue }
 			if prefix == "IN" && isContainer(itemDef) {
 				return e.lookInRoomContainer(player, itemDef, &ri)
@@ -287,24 +285,25 @@ func (e *GameEngine) doLookAt(player *Player, args []string) *CommandResult {
 		}
 	}
 
-	// Search all player items (inventory + worn + wielded)
-	allItems := make([]InventoryItem, 0, len(player.Inventory)+len(player.Worn)+1)
+	// Search all player items (inventory + worn + wielded + off-hand)
+	allItems := make([]InventoryItem, 0, len(player.Inventory)+len(player.Worn)+2)
 	allItems = append(allItems, player.Inventory...)
 	allItems = append(allItems, player.Worn...)
 	if player.Wielded != nil { allItems = append(allItems, *player.Wielded) }
+	if player.OffHand != nil { allItems = append(allItems, *player.OffHand) }
 	for _, ii := range allItems {
 		itemDef := e.items[ii.Archetype]
 		if itemDef == nil {
 			continue
 		}
 		name := e.getItemNounName(itemDef)
-		if matchesTarget(name, remaining, e.getAdjName(ii.Adj1)) || matchesTarget(name, remaining, e.getAdjName(ii.Adj3)) {
+		if matchesTarget(name, remaining, e.getAdjName(ii.Adj1), e.getAdjName(ii.Adj2), e.getAdjName(ii.Adj3)) {
 			if skip > 0 { skip--; continue }
 			if prefix == "IN" && isContainer(itemDef) {
 				return e.lookInContainer(player, itemDef, &ii)
 			}
 			if prefix != "" {
-				displayName := e.formatItemName(itemDef, ii.Adj1, ii.Adj2, ii.Adj3)
+				displayName := e.formatItemName(itemDef, ii.Adj1, ii.Adj2, ii.Adj3, ii.Tail)
 				return &CommandResult{Messages: []string{fmt.Sprintf("You see nothing noteworthy %s %s.", strings.ToLower(prefix), displayName)}}
 			}
 			msgs := []string{fmt.Sprintf("You look at your %s.", name)}
@@ -529,16 +528,15 @@ func (e *GameEngine) examinePlayer(observer *Player, target *Player) *CommandRes
 		msgs = append(msgs, fmt.Sprintf("%s rooted to the spot.", pronoun))
 	}
 
-	// Guard status — check if someone is guarding this target
+	// Guard status — collect all players guarding this target
 	if e.sessions != nil {
 		for _, p := range e.sessions.OnlinePlayers() {
-			if p.GuardTarget == target.FirstName && p.RoomNumber == target.RoomNumber {
+			if p.RoomNumber == target.RoomNumber && containsString(p.GuardTargets, target.FirstName) {
 				if isSelf {
 					msgs = append(msgs, fmt.Sprintf("You are being guarded by %s.", p.FirstName))
 				} else {
 					msgs = append(msgs, fmt.Sprintf("%s is being guarded by %s.", target.PronounCap(), p.FirstName))
 				}
-				break
 			}
 		}
 	}
@@ -546,6 +544,13 @@ func (e *GameEngine) examinePlayer(observer *Player, target *Player) *CommandRes
 	// Active spell/psi effects
 	if target.DefenseBonus > 0 {
 		msgs = append(msgs, fmt.Sprintf("A shimmering magical aura surrounds %s.", isSelfOr(isSelf, "you", heOrSheLC)))
+	}
+	if target.StrengthBuffID > 0 && !target.StrengthBuffExpiry.IsZero() && time.Now().Before(target.StrengthBuffExpiry) {
+		if isSelf {
+			msgs = append(msgs, "You radiate with magical strength.")
+		} else {
+			msgs = append(msgs, fmt.Sprintf("%s radiates with magical strength.", heOrShe))
+		}
 	}
 	if target.CanFly && target.Race != RaceDrakin {
 		msgs = append(msgs, fmt.Sprintf("%s hovering in the air.", pronoun))
@@ -561,7 +566,7 @@ func (e *GameEngine) examinePlayer(observer *Player, target *Player) *CommandRes
 	if target.Wielded != nil {
 		wDef := e.items[target.Wielded.Archetype]
 		if wDef != nil {
-			name := e.formatItemName(wDef, target.Wielded.Adj1, target.Wielded.Adj2, target.Wielded.Adj3)
+			name := e.formatItemName(wDef, target.Wielded.Adj1, target.Wielded.Adj2, target.Wielded.Adj3, target.Wielded.Tail)
 			if isSelf {
 				msgs = append(msgs, fmt.Sprintf("You are wielding %s.", name))
 			} else {
@@ -569,11 +574,54 @@ func (e *GameEngine) examinePlayer(observer *Player, target *Player) *CommandRes
 			}
 		}
 	}
+	if target.OffHand != nil {
+		ohDef := e.items[target.OffHand.Archetype]
+		if ohDef != nil {
+			ohName := e.formatItemName(ohDef, target.OffHand.Adj1, target.OffHand.Adj2, target.OffHand.Adj3, target.OffHand.Tail)
+			if ohDef.Type == "SHIELD" {
+				if isSelf {
+					msgs = append(msgs, fmt.Sprintf("You are carrying %s as a shield.", ohName))
+				} else {
+					msgs = append(msgs, fmt.Sprintf("%s carrying %s as a shield.", pronoun, ohName))
+				}
+			} else {
+				if isSelf {
+					msgs = append(msgs, fmt.Sprintf("You are wielding %s in your off hand.", ohName))
+				} else {
+					msgs = append(msgs, fmt.Sprintf("%s wielding %s in their off hand.", pronoun, ohName))
+				}
+			}
+		}
+	}
+
+	// Build set of worn slots to determine undergarment visibility
+	wornSlots := map[string]bool{}
+	for _, w := range target.Worn {
+		wornSlots[w.WornSlot] = true
+	}
+	// undergarmentHiddenBy maps inner slots to the outer slots that cover them
+	undergarmentHiddenBy := map[string][]string{
+		"WORN_TORSO1": {"WORN_TORSO2", "WORN_TORSO3", "WORN_ARMOR", "WORN_BODY"},
+		"WORN_TRUNK1": {"WORN_TRUNK2"},
+		"WORN_FEET1":  {"WORN_FEET2"},
+	}
 	var wornNames []string
 	for _, worn := range target.Worn {
+		if outerSlots, isUnder := undergarmentHiddenBy[worn.WornSlot]; isUnder {
+			covered := false
+			for _, outer := range outerSlots {
+				if wornSlots[outer] {
+					covered = true
+					break
+				}
+			}
+			if covered {
+				continue
+			}
+		}
 		wDef := e.items[worn.Archetype]
 		if wDef != nil {
-			wornNames = append(wornNames, e.formatItemName(wDef, worn.Adj1, worn.Adj2, worn.Adj3))
+			wornNames = append(wornNames, e.formatItemName(wDef, worn.Adj1, worn.Adj2, worn.Adj3, worn.Tail))
 		}
 	}
 	if len(wornNames) > 0 {
@@ -588,7 +636,7 @@ func (e *GameEngine) examinePlayer(observer *Player, target *Player) *CommandRes
 }
 
 // formatItemNameNoArticle returns item name with adjectives but no article prefix.
-func (e *GameEngine) formatItemNameNoArticle(def *gameworld.ItemDef, adj1, adj2, adj3 int) string {
+func (e *GameEngine) formatItemNameNoArticle(def *gameworld.ItemDef, adj1, adj2, adj3 int, tail ...string) string {
 	var parts []string
 	if adj1 > 0 {
 		if name, ok := e.adjectives[adj1]; ok { parts = append(parts, name) }
@@ -600,10 +648,14 @@ func (e *GameEngine) formatItemNameNoArticle(def *gameworld.ItemDef, adj1, adj2,
 		if name, ok := e.adjectives[adj3]; ok { parts = append(parts, name) }
 	}
 	parts = append(parts, e.getItemNounName(def))
-	return strings.Join(parts, " ")
+	name := strings.Join(parts, " ")
+	if len(tail) > 0 && tail[0] != "" {
+		name += " " + tail[0]
+	}
+	return name
 }
 
-func (e *GameEngine) formatItemName(def *gameworld.ItemDef, adj1, adj2, adj3 int) string {
+func (e *GameEngine) formatItemName(def *gameworld.ItemDef, adj1, adj2, adj3 int, tail ...string) string {
 	var parts []string
 	if adj1 > 0 {
 		if name, ok := e.adjectives[adj1]; ok {
@@ -624,6 +676,9 @@ func (e *GameEngine) formatItemName(def *gameworld.ItemDef, adj1, adj2, adj3 int
 	parts = append(parts, nounName)
 
 	name := strings.Join(parts, " ")
+	if len(tail) > 0 && tail[0] != "" {
+		name += " " + tail[0]
+	}
 	article := strings.ToUpper(def.Article)
 	if article == "" || article == "A" {
 		// Auto-detect "an" for words starting with a vowel sound
@@ -737,10 +792,7 @@ func descriptionToMessages(desc string) []string {
 }
 
 func (e *GameEngine) formatItemLook(def *gameworld.ItemDef, ri *gameworld.RoomItem) []string {
-	name := e.formatItemName(def, ri.Adj1, ri.Adj2, ri.Adj3)
-	if ri.Extend != "" {
-		name += " " + ri.Extend
-	}
+	name := e.formatItemName(def, ri.Adj1, ri.Adj2, ri.Adj3, ri.Extend)
 	msgs := []string{fmt.Sprintf("You examine %s.", name)}
 	if isPortal(def.Type) && ri.Val2 > 0 {
 		msgs = append(msgs, "It appears to lead somewhere.")
@@ -783,8 +835,8 @@ func parseOrdinal(target string) (string, int) {
 }
 
 // matchesTargetOrdinal checks if a target matches, accounting for ordinal prefixes.
-func matchesTargetOrdinal(nounName, cleanTarget, adjName string, skip *int) bool {
-	if !matchesTarget(nounName, cleanTarget, adjName) {
+func matchesTargetOrdinal(nounName, cleanTarget string, skip *int, adjNames ...string) bool {
+	if !matchesTarget(nounName, cleanTarget, adjNames...) {
 		return false
 	}
 	if *skip > 0 {
@@ -794,24 +846,77 @@ func matchesTargetOrdinal(nounName, cleanTarget, adjName string, skip *int) bool
 	return true
 }
 
-func matchesTarget(nounName, target, adjName string) bool {
+// matchesTarget reports whether the player's target string refers to an item with
+// the given noun and optional adjective names. The target may use any non-empty
+// ordered subset of the provided adjectives as a prefix before the noun, e.g.
+// "red panties", "icy broadsword", or "icy elkyri broadsword" all match correctly.
+func matchesTarget(nounName, target string, adjNames ...string) bool {
 	t := strings.ToLower(target)
-	n := strings.ToLower(nounName)
-	a := strings.ToLower(adjName)
+	noun := strings.ToLower(nounName)
 
-	if t == n {
+	// Collect non-empty adjective names in order.
+	var adjs []string
+	for _, a := range adjNames {
+		if la := strings.ToLower(a); la != "" {
+			adjs = append(adjs, la)
+		}
+	}
+
+	// Match noun alone (adjectives optional).
+	if nounMatches(noun, t) {
 		return true
 	}
-	if a != "" && t == a+" "+n {
+
+	// Check each ordered subsequence of adjs prepended to the noun.
+	for mask := 1; mask < (1 << len(adjs)); mask++ {
+		var parts []string
+		for i, a := range adjs {
+			if mask&(1<<i) != 0 {
+				parts = append(parts, a)
+			}
+		}
+		prefix := strings.Join(parts, " ") + " "
+		if strings.HasPrefix(t, prefix) && nounMatches(noun, t[len(prefix):]) {
+			return true
+		}
+	}
+	return false
+}
+
+// nounMatches reports whether target t refers to noun n (exact, prefix, last-word, or plural).
+func nounMatches(noun, t string) bool {
+	if t == noun {
 		return true
 	}
-	// Partial match (prefix)
-	if strings.HasPrefix(n, t) {
+	if strings.HasPrefix(noun, t) {
 		return true
 	}
-	// Match last word of noun (e.g., "tooth" matches "rat tooth")
-	if idx := strings.LastIndex(n, " "); idx >= 0 {
-		if strings.HasPrefix(n[idx+1:], t) {
+	if idx := strings.LastIndex(noun, " "); idx >= 0 {
+		if strings.HasPrefix(noun[idx+1:], t) {
+			return true
+		}
+	}
+	if len(t) > 2 && t[len(t)-1] == 's' {
+		stem := t[:len(t)-1]
+		if stem == noun || strings.HasPrefix(noun, stem) {
+			return true
+		}
+	}
+	return false
+}
+
+func containsString(slice []string, s string) bool {
+	for _, v := range slice {
+		if v == s {
+			return true
+		}
+	}
+	return false
+}
+
+func containsInt(slice []int, n int) bool {
+	for _, v := range slice {
+		if v == n {
 			return true
 		}
 	}

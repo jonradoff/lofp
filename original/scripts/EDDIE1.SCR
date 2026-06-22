@@ -346,6 +346,20 @@ IFVAR CARRIAGEROOM = 261
   AFFECT 3450
   ECHO ALL The driver says, "I know a lot about this town and the goings on, if you need to know anything, just ask me."
   EQUAL CARRIAGEMOVED 1
+  EQUAL CARRIAGEROOM 262
+ ENDIF
+ENDIF
+IFVAR CARRIAGEROOM = 262
+ IFVAR CARRIAGEMOVED = 0
+  AFFECT 262
+  ECHO ALL The steady clip clop of hooves echoes down Grand Avenue as the carriage moves north.
+  REMOVEITEM 8
+  AFFECT 263
+  ECHO ALL A horse-drawn carriage approaches from the south along Grand Avenue.
+  NEWITEM 8 1227 ADJ2=1397
+  AFFECT 3450
+  ECHO ALL The driver tips his hat as the carriage passes the tailor's shop.
+  EQUAL CARRIAGEMOVED 1
   EQUAL CARRIAGEROOM 263
  ENDIF
 ENDIF

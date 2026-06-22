@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"math/rand"
 	"regexp"
+	"sort"
 	"strconv"
 	"strings"
 
@@ -186,6 +187,10 @@ func (e *GameEngine) processGMCommand(ctx context.Context, player *Player, verb 
 			return &CommandResult{Messages: []string{"Script tracing ON. You will see debug output for script execution."}}
 		}
 		return &CommandResult{Messages: []string{"Script tracing OFF."}}
+	case "@INITIATE":
+		return e.gmInitiate(ctx, player, args)
+	case "@RANK":
+		return e.gmRank(ctx, player, args)
 	case "@TITLE":
 		return e.gmTitle(ctx, player, args, rawInput)
 	case "@VERB", "@VERBS":
@@ -228,6 +233,7 @@ func (e *GameEngine) gmHelp() *CommandResult {
 		"@grantsp <name> <sp#>  - Give spell to player",
 		"@heal <name>           - Heal a player to full",
 		"@help                  - This help listing",
+		"@initiate [plr <org#> [remove]] - Init/remove player from org (no args = list orgs)",
 		"@hide / @unhide        - Hide/show on WHO list",
 		"@editem [plr] <item> <field> <val> - Edit an item in inventory",
 		"@iexamine		- Examine an item in inventory",
@@ -246,6 +252,7 @@ func (e *GameEngine) gmHelp() *CommandResult {
 		"@pinv <name>           - View player inventory",
 		"@psi <name> <disc#>    - Give psi discipline to player",
 		"@qstat <name>          - Quick player stat view",
+		"@rank <plr> <org#> <n> - Set player's org rank (must be a member)",
 		"@rdata <room#>         - Show room data",
 		"@rflag                 - Remove Host Hat",
 		"@rnd <#>               - Generate random number 1-#",
@@ -382,7 +389,7 @@ func (e *GameEngine) gmRData(player *Player, args []string) *CommandResult {
 		itemDef := e.items[ri.Archetype]
 		name := "???"
 		if itemDef != nil {
-			name = e.formatItemName(itemDef, ri.Adj1, ri.Adj2, ri.Adj3)
+			name = e.formatItemName(itemDef, ri.Adj1, ri.Adj2, ri.Adj3, ri.Extend)
 		}
 		msgs = append(msgs, fmt.Sprintf("  Ref=%d Arch=%d %s", ri.Ref, ri.Archetype, name))
 	}
@@ -439,7 +446,23 @@ func (e *GameEngine) gmExp(ctx context.Context, player *Player, args []string) *
 		return &CommandResult{Messages: []string{"Invalid point amount."}}
 	}
 	target.Experience += pts
-	recalcBuildPoints(target)
+	leveledUp := recalcBuildPoints(target)
+	if leveledUp {
+		target.MaxBodyPoints += target.Constitution / 10
+		target.BodyPoints = target.MaxBodyPoints
+		target.MaxFatigue += target.Constitution / 15
+		target.Fatigue = target.MaxFatigue
+		target.MaxMana += (target.Willpower + target.Empathy) / 15
+		target.Mana = target.MaxMana
+		target.MaxPsi += target.Willpower / 10
+		target.Psi = target.MaxPsi
+		if e.sendToPlayer != nil {
+			e.sendToPlayer(target.FirstName, []string{fmt.Sprintf("Congratulations! You have advanced to level %d!", target.Level)})
+		}
+		if e.roomBroadcast != nil {
+			e.roomBroadcast(target.RoomNumber, []string{fmt.Sprintf("%s has advanced to level %d!", target.FirstName, target.Level)})
+		}
+	}
 	e.SavePlayer(ctx, target)
 	return &CommandResult{Messages: []string{fmt.Sprintf("Granted %d experience to %s. Total: %d", pts, target.FullName(), target.Experience)}}
 }
@@ -548,7 +571,7 @@ func (e *GameEngine) formatInventoryItemName(item *InventoryItem) string {
 	if def == nil {
 		return fmt.Sprintf("item#%d", item.Archetype)
 	}
-	return e.formatItemName(def, item.Adj1, item.Adj2, item.Adj3)
+	return e.formatItemName(def, item.Adj1, item.Adj2, item.Adj3, item.Tail)
 }
 
 func (e *GameEngine) gmGenMon(player *Player, args []string) *CommandResult {
@@ -865,7 +888,7 @@ func (e *GameEngine) gmVerbs() *CommandResult {
 		"  UNDRESS                   - Remove outermost worn item",
 		"  UNLATCH <item>            - Unlatch a latched item",
 		"  UNLOCK <item> [WITH <key>]- Unlock a locked item",
-		"  UNWIELD                   - Stop wielding weapon",
+		"  UNWIELD [item]            - Stop wielding weapon/shield (or all if no argument)",
 		"  WEAR <item>               - Wear armor/clothing",
 		"  WIELD <item>              - Wield a weapon",
 		"",
@@ -1192,14 +1215,29 @@ func (e *GameEngine) gmGlossary(args []string) *CommandResult {
 	}
 	word := strings.ToLower(args[0])
 	msgs := []string{fmt.Sprintf("=== Glossary: %s ===", word)}
+	var matchedNounIDs []int
 	for id, name := range e.nouns {
 		if strings.ToLower(name) == word {
 			msgs = append(msgs, fmt.Sprintf("  Noun #%d: %s", id, name))
+			matchedNounIDs = append(matchedNounIDs, id)
 		}
 	}
 	for id, name := range e.adjectives {
 		if strings.ToLower(name) == word {
 			msgs = append(msgs, fmt.Sprintf("  Adjective #%d: %s", id, name))
+		}
+	}
+	// Show item archetypes that use this noun so @additem can be used directly.
+	for _, nounID := range matchedNounIDs {
+		var archs []string
+		for num, def := range e.items {
+			if def.NameID == nounID {
+				archs = append(archs, fmt.Sprintf("#%d (%s)", num, def.Type))
+			}
+		}
+		if len(archs) > 0 {
+			sort.Strings(archs)
+			msgs = append(msgs, fmt.Sprintf("  Item archetypes: %s", strings.Join(archs, ", ")))
 		}
 	}
 	if len(msgs) == 1 {
@@ -1333,6 +1371,8 @@ func (e *GameEngine) gmSetOnPlayer(ctx context.Context, player *Player, args []s
 		player.MaxPsi = val
 	case varName == "MAXPSI":
 		player.MaxPsi = val
+	case varName == "GENDER":
+		player.Gender = val
 	case varName == "ROUNDTIME":
 		player.RoundTime = val
 	case varName == "SPELLNUM":
@@ -1341,7 +1381,11 @@ func (e *GameEngine) gmSetOnPlayer(ctx context.Context, player *Player, args []s
 		}
 		player.IntNums[0] = val
 	case varName == "ORG", varName == "ORGANIZATION":
-		player.Organization = val
+		if val == 0 {
+			player.RemoveOrg(player.Organization)
+		} else {
+			player.AddOrg(val, 1)
+		}
 	case strings.HasPrefix(varName, "INTNUM"):
 		numStr := strings.TrimPrefix(varName, "INTNUM")
 		idx, err := strconv.Atoi(numStr)
@@ -1680,6 +1724,140 @@ func (e *GameEngine) gmLookContainer(player *Player, args []string) *CommandResu
 	return &CommandResult{Messages: msgs}
 }
 
+// gmInitiate handles @initiate.
+//
+//	@initiate                          — list all organizations with their numbers
+//	@initiate <player> <org#>          — add player to org (rank 1 if new member)
+//	@initiate <player> <org#> remove   — remove player from org
+func (e *GameEngine) gmInitiate(ctx context.Context, _ *Player, args []string) *CommandResult {
+	if len(args) == 0 {
+		msgs := []string{
+			"=== Organizations ===",
+			"Usage: @initiate <player> <org#> [remove]",
+			"",
+		}
+		type orgEntry struct {
+			num      int
+			name     string
+			joinType string
+		}
+		seen := map[int]bool{}
+		var entries []orgEntry
+		for _, def := range e.orgDefs {
+			entries = append(entries, orgEntry{def.Number, def.Name, def.JoinType})
+			seen[def.Number] = true
+		}
+		for num, name := range knownOrgNames {
+			if !seen[num] {
+				entries = append(entries, orgEntry{num, name, ""})
+			}
+		}
+		for i := 0; i < len(entries)-1; i++ {
+			for j := i + 1; j < len(entries); j++ {
+				if entries[j].num < entries[i].num {
+					entries[i], entries[j] = entries[j], entries[i]
+				}
+			}
+		}
+		for _, oe := range entries {
+			if oe.joinType != "" {
+				msgs = append(msgs, fmt.Sprintf("  %2d  %-30s [%s]", oe.num, oe.name, oe.joinType))
+			} else {
+				msgs = append(msgs, fmt.Sprintf("  %2d  %-30s", oe.num, oe.name))
+			}
+		}
+		return &CommandResult{Messages: msgs}
+	}
+	// Single arg that isn't a number: show the player's org memberships.
+	if len(args) == 1 {
+		if _, err := strconv.Atoi(args[0]); err != nil {
+			target, err2 := e.resolvePlayerArg(ctx, args[:1])
+			if err2 != nil {
+				return &CommandResult{Messages: []string{err2.Error()}}
+			}
+			orgs := target.OrgList()
+			if len(orgs) == 0 {
+				return &CommandResult{Messages: []string{fmt.Sprintf("%s is not a member of any organization.", target.FullName())}}
+			}
+			msgs := []string{fmt.Sprintf("=== Organizations for %s ===", target.FullName()), ""}
+			for _, orgNum := range orgs {
+				name := organizationName(orgNum)
+				if def, ok := e.orgDefs[orgNum]; ok {
+					name = def.Name
+				}
+				msgs = append(msgs, fmt.Sprintf("  %2d  %-30s  rank %d", orgNum, name, target.RankIn(orgNum)))
+			}
+			return &CommandResult{Messages: msgs}
+		}
+	}
+	if len(args) < 2 {
+		return &CommandResult{Messages: []string{"Usage: @initiate <player> <org#> [remove]  (@initiate alone lists orgs)"}}
+	}
+	target, err := e.resolvePlayerArg(ctx, args[:1])
+	if err != nil {
+		return &CommandResult{Messages: []string{err.Error()}}
+	}
+	orgNum, err2 := strconv.Atoi(args[1])
+	if err2 != nil || orgNum <= 0 {
+		return &CommandResult{Messages: []string{"Organization must be a positive number."}}
+	}
+	name := organizationName(orgNum)
+	if def, ok := e.orgDefs[orgNum]; ok {
+		name = def.Name
+	}
+	// Optional third arg: "remove"
+	if len(args) >= 3 && strings.EqualFold(args[2], "remove") {
+		if !target.IsMemberOf(orgNum) {
+			return &CommandResult{Messages: []string{fmt.Sprintf("%s is not a member of the %s.", target.FullName(), name)}}
+		}
+		target.RemoveOrg(orgNum)
+		e.SavePlayer(ctx, target)
+		return &CommandResult{Messages: []string{fmt.Sprintf("%s has been removed from the %s.", target.FullName(), name)}}
+	}
+	// Add to org (rank 1 if not already a member)
+	rank := target.RankIn(orgNum)
+	if rank == 0 {
+		rank = 1
+	}
+	target.AddOrg(orgNum, rank)
+	e.SavePlayer(ctx, target)
+	return &CommandResult{
+		Messages: []string{fmt.Sprintf("%s (org %d, rank %d) has been initiated into the %s.", target.FullName(), orgNum, rank, name)},
+	}
+}
+
+// gmRank handles @rank — GM sets a player's rank in an organization.
+// The player must already be a member. @rank <player> <org#> <rank>
+func (e *GameEngine) gmRank(ctx context.Context, _ *Player, args []string) *CommandResult {
+	if len(args) < 3 {
+		return &CommandResult{Messages: []string{"Usage: @rank <player> <org#> <rank>"}}
+	}
+	target, err := e.resolvePlayerArg(ctx, args[:1])
+	if err != nil {
+		return &CommandResult{Messages: []string{err.Error()}}
+	}
+	orgNum, err2 := strconv.Atoi(args[1])
+	if err2 != nil || orgNum <= 0 {
+		return &CommandResult{Messages: []string{"Organization must be a positive number."}}
+	}
+	rank, err3 := strconv.Atoi(args[2])
+	if err3 != nil || rank < 0 {
+		return &CommandResult{Messages: []string{"Rank must be a non-negative number."}}
+	}
+	name := organizationName(orgNum)
+	if def, ok := e.orgDefs[orgNum]; ok {
+		name = def.Name
+	}
+	if !target.IsMemberOf(orgNum) {
+		return &CommandResult{Messages: []string{fmt.Sprintf("%s is not a member of the %s (org %d).", target.FullName(), name, orgNum)}}
+	}
+	target.AddOrg(orgNum, rank)
+	e.SavePlayer(ctx, target)
+	return &CommandResult{
+		Messages: []string{fmt.Sprintf("%s rank in the %s set to %d.", target.FullName(), name, rank)},
+	}
+}
+
 // resolvePlayerArg resolves a player from the first argument (first name).
 func (e *GameEngine) resolvePlayerArg(ctx context.Context, args []string) (*Player, error) {
 	if len(args) < 1 {
@@ -1800,14 +1978,18 @@ func (e *GameEngine) formatFullItemDebug(item *InventoryItem, location string) s
 	if item.State != "" {
 		state = fmt.Sprintf(" | State=%s", item.State)
 	}
+	tail := ""
+	if item.Tail != "" {
+		tail = fmt.Sprintf("\n  Tail=%q", item.Tail)
+	}
 
 	return fmt.Sprintf("%s: %s (arch=%d)\n"+
 		"  Adj1=%s | Adj2=%s | Adj3=%s\n"+
-		"  Val1=%d Val2=%d Val3=%d Val4=%d Val5=%d%s",
+		"  Val1=%d Val2=%d Val3=%d Val4=%d Val5=%d%s%s",
 		location, baseName, item.Archetype,
 		adj1, adj2, adj3,
 		item.Val1, item.Val2, item.Val3, item.Val4, item.Val5,
-		state)
+		state, tail)
 }
 
 // gmEdItem implements @editem / @edn.
@@ -1837,9 +2019,11 @@ func (e *GameEngine) gmEdItem(ctx context.Context, gmPlayer *Player, args []stri
 
 	// --- usage guard ---
 	const usage = "Usage: @editem [player] <item> <field> <value>\n" +
-		"  Fields: adj1 adj2 adj3  val1-val5  state  archetype  flag+FLAG / flag-FLAG\n" +
+		"  Fields: adj1 adj2 adj3  val1-val5  state  tail  archetype  flag+FLAG / flag-FLAG\n" +
 		"  Example: @editem robe val1 1\n" +
-		"  Example: @editem Moryan robe adj2 47"
+		"  Example: @editem Moryan robe adj2 47\n" +
+		"  Example: @editem gloves tail lined with palest pink silk\n" +
+		"  Example: @editem gloves tail -  (clears the tail)"
 
 	if len(args) < 3 {
 		return &CommandResult{Messages: []string{usage}}
@@ -1869,6 +2053,27 @@ func (e *GameEngine) gmEdItem(ctx context.Context, gmPlayer *Player, args []stri
 	field := strings.ToLower(remaining[len(remaining)-2])
 	valueStr := remaining[len(remaining)-1]
 	itemTarget := strings.ToLower(strings.Join(remaining[:len(remaining)-2], " "))
+
+	// Special handling for "tail": supports multi-word values.
+	// Scan left-to-right for the keyword "tail"; everything after it is the value.
+	// Because args are uppercased by the command parser, we extract the value from
+	// rawInput to preserve original case.
+	// @editem gloves tail lined with palest pink silk → item="gloves", value="lined with palest pink silk"
+	// @editem gloves tail -                           → item="gloves", value="" (clears tail)
+	for i := 1; i < len(remaining); i++ {
+		if strings.ToLower(remaining[i]) == "tail" {
+			itemTarget = strings.ToLower(strings.Join(remaining[:i], " "))
+			field = "tail"
+			// Extract original-case value from rawInput (args are uppercased by the parser)
+			lowerRaw := strings.ToLower(rawInput)
+			if sepIdx := strings.Index(lowerRaw, " tail "); sepIdx >= 0 {
+				valueStr = strings.TrimSpace(rawInput[sepIdx+6:])
+			} else if strings.HasSuffix(strings.TrimSpace(lowerRaw), " tail") {
+				valueStr = ""
+			}
+			break
+		}
+	}
 
 	// --- locate the item in the target's slots ---
 	type itemRef struct {
@@ -1972,6 +2177,16 @@ func (e *GameEngine) gmEdItem(ctx context.Context, gmPlayer *Player, args []stri
 		item.State = strings.ToUpper(valueStr)
 		changeDesc = fmt.Sprintf("Set %s: STATE %s → %s", ref.label, old, item.State)
 
+	// ---- tail (string, multi-word, "-" clears) ----
+	case field == "tail":
+		old := item.Tail
+		if valueStr == "-" {
+			item.Tail = ""
+		} else {
+			item.Tail = valueStr
+		}
+		changeDesc = fmt.Sprintf("Set %s: TAIL %q → %q", ref.label, old, item.Tail)
+
 	// ---- flag+FLAG / flag-FLAG — modifies the archetype definition ----
 	case strings.HasPrefix(field, "flag+"), strings.HasPrefix(field, "flag-"):
 		add := strings.HasPrefix(field, "flag+")
@@ -2013,7 +2228,7 @@ func (e *GameEngine) gmEdItem(ctx context.Context, gmPlayer *Player, args []stri
 		}
 
 	default:
-		validFields := "adj1 adj2 adj3  val1 val2 val3 val4 val5  state  archetype  flag+FLAG flag-FLAG"
+		validFields := "adj1 adj2 adj3  val1 val2 val3 val4 val5  state  tail  archetype  flag+FLAG flag-FLAG"
 		return &CommandResult{Messages: []string{
 			fmt.Sprintf("Unknown field '%s'. Valid fields: %s", field, validFields),
 		}}

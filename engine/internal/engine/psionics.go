@@ -208,8 +208,9 @@ func (e *GameEngine) doPreparePsi(player *Player, args []string) *CommandResult 
 			RoomBroadcast: []string{fmt.Sprintf("%s concentrates intently.", player.FirstName)},
 		}
 		if disc.RoundSec > 0 {
-			player.RoundTimeExpiry = time.Now().Add(time.Duration(disc.RoundSec) * time.Second)
-			result.Messages = append(result.Messages, fmt.Sprintf(" [Round: %d sec]", disc.RoundSec))
+			psiRT := applyRoundTime(player, disc.RoundSec)
+			player.RoundTimeExpiry = time.Now().Add(time.Duration(psiRT) * time.Second)
+			result.Messages = append(result.Messages, fmt.Sprintf(" [Round: %d sec]", psiRT))
 		}
 		return result
 	}
@@ -217,7 +218,8 @@ func (e *GameEngine) doPreparePsi(player *Player, args []string) *CommandResult 
 	// Offensive/utility powers that need a target: prepare for PROJECT
 	player.PreparedPsi = disc.ID
 	if disc.RoundSec > 0 {
-		player.RoundTimeExpiry = time.Now().Add(time.Duration(disc.RoundSec) * time.Second)
+		psiRT2 := applyRoundTime(player, disc.RoundSec)
+		player.RoundTimeExpiry = time.Now().Add(time.Duration(psiRT2) * time.Second)
 	}
 
 	return &CommandResult{
@@ -453,7 +455,7 @@ func (e *GameEngine) projectDamage(player *Player, disc *PsiDiscipline, args []s
 		}
 	}
 
-	killed := e.damageMonster(inst.ID, dmg)
+	killed, _ := e.damageMonster(inst.ID, dmg)
 	if killed {
 		deathText := def.TextOverrides["TEXD"]
 		deathMsg := fmt.Sprintf("A %s collapses, dead!", name)
@@ -551,16 +553,20 @@ func (e *GameEngine) projectManipulateLock(player *Player, args []string) *Comma
 			continue
 		}
 		name := e.getItemNounName(itemDef)
-		if target != "" && !matchesTarget(name, target, e.getAdjName(ri.Adj1)) {
+		if target != "" && !matchesTarget(name, target, e.getAdjName(ri.Adj1), e.getAdjName(ri.Adj2), e.getAdjName(ri.Adj3)) {
 			continue
 		}
 		// Skill check: psi skill + willpower vs lock difficulty
 		psiSkill := player.Skills[26] + player.Skills[28]
-		chance := 40 + psiSkill*3 + player.Willpower/5
+		lockDiff := ri.Val1
+		chance := 40 + psiSkill*3 + player.Willpower/5 - lockDiff
+		if chance < 10 {
+			chance = 10
+		}
 		if player.IsGM {
 			chance = 100
 		}
-		displayName := e.formatItemName(itemDef, ri.Adj1, ri.Adj2, ri.Adj3)
+		displayName := e.formatItemName(itemDef, ri.Adj1, ri.Adj2, ri.Adj3, ri.Extend)
 		if rand.Intn(100) < chance {
 			room.Items[i].State = "CLOSED"
 			e.notifyRoomChange(RoomChange{RoomNumber: player.RoomNumber, Type: "item_state", ItemRef: ri.Ref, NewState: "CLOSED"})

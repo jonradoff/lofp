@@ -245,14 +245,28 @@ func (e *GameEngine) doTrainWithBP(ctx context.Context, player *Player, args []s
 			player.BodyPoints += 4
 		}
 
+		var giftMsg string
+		if player.RoomNumber == 298 && currentLvl == 0 {
+			if school := magicSkillSchool(o.skillID); school != "" {
+				if scroll, spellName := e.guildScrollGift(school); scroll != nil {
+					player.Inventory = append(player.Inventory, *scroll)
+					giftMsg = fmt.Sprintf("\"Congratulations on beginning your studies in %s!\" the guildmaster says, handing you a scroll of %s. \"May it serve you well on your path.\"", name, spellName)
+				}
+			}
+		}
+
 		e.SavePlayer(ctx, player)
 
 		goldMsg := ""
 		if goldCost > 0 {
 			goldMsg = fmt.Sprintf(", %d gold", goldCost)
 		}
+		msgs := []string{fmt.Sprintf("You train in %s to rank %d. (-%d BP%s, %d BP remaining)", name, currentLvl+1, bpCost, goldMsg, player.BuildPoints)}
+		if giftMsg != "" {
+			msgs = append(msgs, giftMsg)
+		}
 		return &CommandResult{
-			Messages:    []string{fmt.Sprintf("You train in %s to rank %d. (-%d BP%s, %d BP remaining)", name, currentLvl+1, bpCost, goldMsg, player.BuildPoints)},
+			Messages:    msgs,
 			PlayerState: player,
 		}
 	}
@@ -288,6 +302,179 @@ func (e *GameEngine) doAnoint(ctx context.Context, player *Player, args []string
 		RoomBroadcast: []string{fmt.Sprintf("%s applies something to %s weapon.", player.FirstName, player.Possessive())},
 		PlayerState: player,
 	}
+}
+
+// ---- PICK (Lockpicking skill) ----
+
+// lockpickBreakChance returns the percentage chance a lockpick breaks on extreme failure,
+// based on the material adjective name.
+func lockpickBreakChance(material string) int {
+	switch strings.ToLower(material) {
+	case "tin", "copper":
+		return 60
+	case "brass", "bronze":
+		return 45
+	case "iron":
+		return 35
+	case "steel":
+		return 25
+	case "truesteel":
+		return 10
+	case "randar", "elkyri":
+		return 5
+	default:
+		return 50
+	}
+}
+
+func (e *GameEngine) doPickLock(ctx context.Context, player *Player, args []string) *CommandResult {
+	lockSkill := player.Skills[22]
+	if lockSkill < 1 {
+		return &CommandResult{Messages: []string{"You have no training in Lockpicking."}}
+	}
+
+	raw := strings.ToLower(strings.Join(args, " "))
+	containerTarget := raw
+
+	// Strip optional "with lockpick" suffix
+	if idx := strings.Index(raw, " with "); idx >= 0 {
+		tool := strings.TrimSpace(raw[idx+6:])
+		if strings.HasPrefix(tool, "lockpick") {
+			containerTarget = strings.TrimSpace(raw[:idx])
+		}
+	}
+
+	// Find a lockpick in inventory, recording its index and material adjective.
+	pickIdx := -1
+	pickMaterial := ""
+	pickName := "lockpick"
+	for i, ii := range player.Inventory {
+		def := e.items[ii.Archetype]
+		if def == nil || def.Type != "LOCKPICK" {
+			continue
+		}
+		pickIdx = i
+		// Material is in Adj1; fall back to Adj2 if Adj1 is non-material (e.g. colour).
+		pickMaterial = strings.ToLower(e.getAdjName(ii.Adj1))
+		if pickMaterial == "" {
+			pickMaterial = strings.ToLower(e.getAdjName(ii.Adj2))
+		}
+		pickName = e.formatItemName(def, ii.Adj1, ii.Adj2, ii.Adj3, ii.Tail)
+		break
+	}
+	if pickIdx < 0 {
+		return &CommandResult{Messages: []string{"You need a lockpick to do that."}}
+	}
+
+	// tryPick returns (success bool, roll int). The roll value lets the caller
+	// assess how badly a failure was (higher roll = worse fumble).
+	tryPick := func(lockDiff int) (bool, int) {
+		chance := 30 + lockSkill*5 + player.Agility/5 - lockDiff
+		if chance < 5 {
+			chance = 5
+		}
+		if player.IsGM {
+			return true, 0
+		}
+		r := rand.Intn(100)
+		return r < chance, r
+	}
+
+	// maybeBreakPick checks for an extreme failure (≈1-in-3 of failures) and if so
+	// rolls against the material's break chance. Returns an extra message if it breaks.
+	maybeBreakPick := func(roll int, chance int) string {
+		// Extreme failure: rolled in the top third of the failure range.
+		failureRange := 100 - chance
+		if failureRange <= 0 {
+			failureRange = 1
+		}
+		if roll < 100-failureRange/3 {
+			return "" // not extreme enough
+		}
+		if rand.Intn(100) < lockpickBreakChance(pickMaterial) {
+			player.Inventory = append(player.Inventory[:pickIdx], player.Inventory[pickIdx+1:]...)
+			return fmt.Sprintf("Your %s snaps with a sharp CRACK!", pickName)
+		}
+		return ""
+	}
+
+	// successMsg builds the success CommandResult.
+	successMsg := func(displayName string) *CommandResult {
+		return &CommandResult{
+			Messages:      []string{fmt.Sprintf("You hear a soft CLICK as you pick the lock on %s.", displayName)},
+			RoomBroadcast: []string{fmt.Sprintf("You hear a soft CLICK as %s picks the lock on %s.", player.FirstName, displayName)},
+		}
+	}
+
+	// failMsg builds the failure CommandResult, appending a break message if the pick snapped.
+	failMsg := func(displayName, breakMsg string) *CommandResult {
+		msgs := []string{fmt.Sprintf("You fiddle with the lock on %s but can't seem to get it open.", displayName)}
+		if breakMsg != "" {
+			msgs = append(msgs, breakMsg)
+		}
+		return &CommandResult{
+			Messages:      msgs,
+			RoomBroadcast: []string{fmt.Sprintf("%s fiddles with a lock on %s.", player.FirstName, displayName)},
+		}
+	}
+
+	// Check room items first.
+	room := e.rooms[player.RoomNumber]
+	if room != nil {
+		for i, ri := range room.Items {
+			def := e.items[ri.Archetype]
+			if def == nil || strings.ToUpper(ri.State) != "LOCKED" {
+				continue
+			}
+			if !matchesTarget(e.getItemNounName(def), containerTarget, e.getAdjName(ri.Adj1), e.getAdjName(ri.Adj2), e.getAdjName(ri.Adj3)) {
+				continue
+			}
+			displayName := e.formatItemName(def, ri.Adj1, ri.Adj2, ri.Adj3, ri.Extend)
+			chance := 30 + lockSkill*5 + player.Agility/5 - ri.Val1
+			if chance < 5 {
+				chance = 5
+			}
+			ok, roll := tryPick(ri.Val1)
+			if ok {
+				room.Items[i].State = "CLOSED"
+				e.notifyRoomChange(RoomChange{RoomNumber: player.RoomNumber, Type: "item_state", ItemRef: ri.Ref, NewState: "CLOSED"})
+				player.Experience += 50 * ri.Val1
+				e.SavePlayer(ctx, player)
+				return successMsg(displayName)
+			}
+			breakMsg := maybeBreakPick(roll, chance)
+			e.SavePlayer(ctx, player)
+			return failMsg(displayName, breakMsg)
+		}
+	}
+
+	// Check inventory items.
+	for i, ii := range player.Inventory {
+		def := e.items[ii.Archetype]
+		if def == nil || strings.ToUpper(ii.State) != "LOCKED" {
+			continue
+		}
+		if !matchesTarget(e.getItemNounName(def), containerTarget, e.getAdjName(ii.Adj1), e.getAdjName(ii.Adj2), e.getAdjName(ii.Adj3)) {
+			continue
+		}
+		displayName := e.formatItemName(def, ii.Adj1, ii.Adj2, ii.Adj3, ii.Tail)
+		chance := 30 + lockSkill*5 + player.Agility/5 - ii.Val1
+		if chance < 5 {
+			chance = 5
+		}
+		ok, roll := tryPick(ii.Val1)
+		if ok {
+			player.Inventory[i].State = "CLOSED"
+			player.Experience += 50 * ii.Val1
+			e.SavePlayer(ctx, player)
+			return successMsg(displayName)
+		}
+		breakMsg := maybeBreakPick(roll, chance)
+		e.SavePlayer(ctx, player)
+		return failMsg(displayName, breakMsg)
+	}
+
+	return &CommandResult{Messages: []string{"You don't see anything locked here."}}
 }
 
 // ---- TEND (Healing skill) ----
@@ -349,7 +536,8 @@ func (e *GameEngine) doTend(ctx context.Context, player *Player, args []string) 
 	}
 
 	// 5 second round timer
-	player.RoundTimeExpiry = time.Now().Add(5 * time.Second)
+	firstAidRT := applyRoundTime(player, 5)
+	player.RoundTimeExpiry = time.Now().Add(time.Duration(firstAidRT) * time.Second)
 
 	e.SavePlayer(ctx, player)
 	if target != player {
@@ -370,4 +558,50 @@ func (e *GameEngine) doTend(ctx context.Context, player *Player, args []string) 
 		TargetName: target.FirstName,
 		TargetMsg: []string{fmt.Sprintf("%s tends to your wounds, healing %d body points. [BP: %d/%d]", player.FirstName, heal, target.BodyPoints, target.MaxBodyPoints)},
 	}
+}
+
+// magicSkillSchool returns the spell school for a magic skill, or "" if not a magic skill.
+func magicSkillSchool(skillID int) string {
+	switch skillID {
+	case 23:
+		return "General"
+	case 7:
+		return "Conjuration"
+	case 14:
+		return "Enchantment"
+	case 17:
+		return "Druidic"
+	case 30:
+		return "Necromancy"
+	}
+	return ""
+}
+
+// guildScrollGift returns a scroll item containing a random level-1 spell from the given school.
+func (e *GameEngine) guildScrollGift(school string) (*InventoryItem, string) {
+	var candidates []SpellDef
+	for _, sp := range spellRegistry {
+		if sp.School == school && sp.Level == 1 {
+			candidates = append(candidates, sp)
+		}
+	}
+	if len(candidates) == 0 {
+		return nil, ""
+	}
+	spell := candidates[rand.Intn(len(candidates))]
+
+	scrollArch := 168
+	if e.items[scrollArch] == nil {
+		return nil, ""
+	}
+
+	item := &InventoryItem{
+		Archetype: scrollArch,
+		Val3:      spell.ID,
+	}
+	adjWord := scrollAdjectiveWords[rand.Intn(len(scrollAdjectiveWords))]
+	if adjID := e.adjByName(adjWord); adjID != 0 {
+		item.Adj1 = adjID
+	}
+	return item, spell.Name
 }

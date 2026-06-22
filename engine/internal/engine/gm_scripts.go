@@ -208,6 +208,10 @@ func (e *GameEngine) ApplyParsedData(parsed *gameworld.ParsedData) ScriptApplySt
 	if len(parsed.CEvents) > 0 {
 		e.cevents = append(e.cevents, parsed.CEvents...)
 	}
+	for i := range parsed.OrgDefs {
+		def := &parsed.OrgDefs[i]
+		e.orgDefs[def.Number] = def
+	}
 
 	if stats.Rooms > 0 || stats.Items > 0 || stats.Monsters > 0 {
 		log.Printf("Hot-loaded script: %d rooms, %d items, %d monsters, %d nouns, %d vars",

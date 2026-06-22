@@ -3,7 +3,9 @@ package engine
 import (
 	"context"
 	"fmt"
+	"math/rand"
 	"sort"
+	"strconv"
 	"strings"
 	"time"
 
@@ -54,18 +56,21 @@ func (e *GameEngine) runVerbScriptsForTarget(ctx context.Context, player *Player
 	target, skip := parseOrdinal(target)
 
 	// Search room items
-	for i, ri := range room.Items {
+	for _, ri := range room.Items {
 		itemDef := e.items[ri.Archetype]
 		if itemDef == nil {
 			continue
 		}
 		name := e.getItemNounName(itemDef)
-		if matchesTarget(name, target, e.getAdjName(ri.Adj1)) {
+		if matchesTarget(name, target, e.getAdjName(ri.Adj1), e.getAdjName(ri.Adj2), e.getAdjName(ri.Adj3)) {
 			if skip > 0 { skip--; continue }
+			// Copy ri so that script side-effects (e.g. REMOVEITEM -1) that modify
+			// room.Items cannot invalidate our pointer mid-loop.
+			riCopy := ri
 			result := &CommandResult{}
-			sc0 := e.RunItemScripts(player, room, &room.Items[i], itemDef)
-			sc1 := e.RunPreverbScripts(player, room, verb, &room.Items[i], itemDef)
-			sc2 := e.RunVerbScripts(player, room, verb, &room.Items[i], itemDef)
+			sc0 := e.RunItemScripts(player, room, &riCopy, itemDef)
+			sc1 := e.RunPreverbScripts(player, room, verb, &riCopy, itemDef)
+			sc2 := e.RunVerbScripts(player, room, verb, &riCopy, itemDef)
 			result.Messages = append(result.Messages, sc0.Messages...)
 			result.Messages = append(result.Messages, sc1.Messages...)
 			result.Messages = append(result.Messages, sc2.Messages...)
@@ -124,7 +129,7 @@ func (e *GameEngine) runVerbScriptsForTarget(ctx context.Context, player *Player
 			continue
 		}
 		name := e.getItemNounName(itemDef)
-		if matchesTarget(name, target, e.getAdjName(ii.Adj1)) || matchesTarget(name, target, e.getAdjName(ii.Adj3)) {
+		if matchesTarget(name, target, e.getAdjName(ii.Adj1), e.getAdjName(ii.Adj2), e.getAdjName(ii.Adj3)) {
 			if skip > 0 { skip--; continue }
 			tempRI := gameworld.RoomItem{Ref: -1, Archetype: ii.Archetype,
 				Adj1: ii.Adj1, Adj2: ii.Adj2, Adj3: ii.Adj3,
@@ -279,9 +284,10 @@ func (e *GameEngine) doContact(player *Player, args []string, rawInput string) *
 	if text == "" {
 		return &CommandResult{Messages: []string{"Contact whom with what message?"}}
 	}
-	player.RoundTimeExpiry = time.Now().Add(2 * time.Second)
+	contactRT := applyRoundTime(player, 2)
+	player.RoundTimeExpiry = time.Now().Add(time.Duration(contactRT) * time.Second)
 	return &CommandResult{
-		Messages:      []string{fmt.Sprintf("You contact %s with your thoughts.", found.FirstName), "[Round: 2 sec]"},
+		Messages:      []string{fmt.Sprintf("You contact %s with your thoughts.", found.FirstName), fmt.Sprintf("[Round: %d sec]", contactRT)},
 		WhisperTarget: found.FirstName,
 		WhisperMsg:    fmt.Sprintf("You feel the touch of %s's mind: \"%s\"", player.FirstName, text),
 	}
@@ -430,6 +436,153 @@ func (e *GameEngine) doDisband(player *Player) *CommandResult {
 	}
 }
 
+// doSplit divides a currency amount evenly among all group members.
+// The player paying deducts their share for each other member; remainder stays with them.
+func (e *GameEngine) doSplit(ctx context.Context, player *Player, args []string) *CommandResult {
+	if len(args) < 2 {
+		return &CommandResult{Messages: []string{"Split how much of what? Usage: split <amount> <gold|silver|copper>"}}
+	}
+	amount, err := strconv.Atoi(args[0])
+	if err != nil || amount <= 0 {
+		return &CommandResult{Messages: []string{"Split how much? Usage: split <amount> <gold|silver|copper>"}}
+	}
+	currency := strings.ToLower(args[1])
+	switch currency {
+	case "crown", "crowns":
+		currency = "gold"
+	case "shilling", "shillings":
+		currency = "silver"
+	case "penny", "pennies":
+		currency = "copper"
+	case "gold", "silver", "copper":
+		// already normalised
+	default:
+		return &CommandResult{Messages: []string{"You can split gold, silver, or copper."}}
+	}
+
+	if !player.IsGroupLeader && player.Following == "" {
+		return &CommandResult{Messages: []string{"You are not in a group."}}
+	}
+
+	// Collect names of the other group members
+	var otherNames []string
+	if player.IsGroupLeader {
+		if len(player.GroupMembers) == 0 {
+			return &CommandResult{Messages: []string{"You don't have any group members to split with."}}
+		}
+		otherNames = player.GroupMembers
+	} else {
+		leaderName := player.Following
+		var leader *Player
+		if e.sessions != nil {
+			for _, p := range e.sessions.OnlinePlayers() {
+				if p.FirstName == leaderName {
+					leader = p
+					break
+				}
+			}
+		}
+		if leader == nil {
+			return &CommandResult{Messages: []string{"Your group leader is not online."}}
+		}
+		// others = leader + all of leader's members, minus the current player
+		otherNames = append([]string{leaderName}, leader.GroupMembers...)
+		for i, n := range otherNames {
+			if n == player.FirstName {
+				otherNames = append(otherNames[:i], otherNames[i+1:]...)
+				break
+			}
+		}
+	}
+
+	// Resolve to online Player pointers
+	var recipients []*Player
+	if e.sessions != nil {
+		for _, name := range otherNames {
+			for _, p := range e.sessions.OnlinePlayers() {
+				if p.FirstName == name {
+					recipients = append(recipients, p)
+					break
+				}
+			}
+		}
+	}
+	if len(recipients) == 0 {
+		return &CommandResult{Messages: []string{"None of your group members are online."}}
+	}
+
+	groupSize := len(recipients) + 1 // others + self
+	share := amount / groupSize
+	if share == 0 {
+		return &CommandResult{Messages: []string{fmt.Sprintf("That's not enough %s to split %d ways.", currency, groupSize)}}
+	}
+	totalToGive := share * len(recipients)
+
+	switch currency {
+	case "gold":
+		if player.Gold < totalToGive {
+			return &CommandResult{Messages: []string{fmt.Sprintf("You don't have enough gold to give %d crowns to each of %d members.", share, len(recipients))}}
+		}
+		player.Gold -= totalToGive
+		for _, r := range recipients {
+			r.Gold += share
+			e.SavePlayer(ctx, r)
+		}
+	case "silver":
+		if player.Silver < totalToGive {
+			return &CommandResult{Messages: []string{fmt.Sprintf("You don't have enough silver to give %d shillings to each of %d members.", share, len(recipients))}}
+		}
+		player.Silver -= totalToGive
+		for _, r := range recipients {
+			r.Silver += share
+			e.SavePlayer(ctx, r)
+		}
+	case "copper":
+		if player.Copper < totalToGive {
+			return &CommandResult{Messages: []string{fmt.Sprintf("You don't have enough copper to give %d pennies to each of %d members.", share, len(recipients))}}
+		}
+		player.Copper -= totalToGive
+		for _, r := range recipients {
+			r.Copper += share
+			e.SavePlayer(ctx, r)
+		}
+	}
+	e.SavePlayer(ctx, player)
+
+	shareDisplay := splitCurrencyDisplay(share, currency)
+	totalDisplay := splitCurrencyDisplay(amount, currency)
+
+	if e.sendToPlayer != nil {
+		for _, r := range recipients {
+			e.sendToPlayer(r.FirstName, []string{fmt.Sprintf("%s splits %s with the group. You receive %s.", player.FirstName, totalDisplay, shareDisplay)})
+		}
+	}
+	return &CommandResult{
+		Messages: []string{fmt.Sprintf("You split %s among your group of %d. Each member receives %s.", totalDisplay, groupSize, shareDisplay)},
+	}
+}
+
+func splitCurrencyDisplay(amount int, currency string) string {
+	switch currency {
+	case "gold":
+		if amount == 1 {
+			return "1 gold crown"
+		}
+		return fmt.Sprintf("%d gold crowns", amount)
+	case "silver":
+		if amount == 1 {
+			return "1 silver shilling"
+		}
+		return fmt.Sprintf("%d silver shillings", amount)
+	case "copper":
+		if amount == 1 {
+			return "1 copper penny"
+		}
+		return fmt.Sprintf("%d copper pennies", amount)
+	}
+	return fmt.Sprintf("%d %s", amount, currency)
+}
+
 func (e *GameEngine) doWho(player *Player) *CommandResult {
 	var names []string
 	if e.sessions != nil {
@@ -475,7 +628,7 @@ func (e *GameEngine) doHelp() *CommandResult {
 		"=== Legends of Future Past - Commands ===",
 		"Movement: N, S, E, W, NE, NW, SE, SW, UP, DOWN, OUT, GO <portal>",
 		"Looking: LOOK, LOOK <item>, LOOK IN/ON/UNDER <item>, EXAMINE <item>",
-		"Items: GET <item>, DROP <item>, INVENTORY, WIELD <weapon>, UNWIELD",
+		"Items: GET <item>, DROP <item>, INVENTORY, WIELD <weapon>, UNWIELD [item]",
 		"Wear: WEAR <item>, REMOVE <item>",
 		"Containers: OPEN <item>, CLOSE <item>, LOOK IN <item>",
 		"           GET <item> FROM <container>, GET ALL FROM <container>",
@@ -570,4 +723,199 @@ func genderName(g int) string {
 	default:
 		return "Unknown"
 	}
+}
+
+// doPay triggers IFPREVERB PAY -1 room scripts (altar payments, magical offerings, etc.).
+func (e *GameEngine) doPay(ctx context.Context, player *Player) *CommandResult {
+	room := e.rooms[player.RoomNumber]
+	if room == nil {
+		return &CommandResult{Messages: []string{"You can't pay here."}}
+	}
+	sc := e.RunRoomVerbScripts(player, room, "PAY")
+	if sc.NeedsSave {
+		e.SavePlayer(ctx, player)
+	}
+	result := &CommandResult{Messages: sc.Messages, RoomBroadcast: sc.RoomMsgs}
+	if sc.MoveTo > 0 {
+		e.applySayMove(ctx, player, sc, result)
+	}
+	if len(result.Messages) == 0 {
+		return &CommandResult{Messages: []string{"You can't pay here."}}
+	}
+	return result
+}
+
+// applySayMove executes a script-driven MOVE from an IFSAY or PAY context,
+// updating player location and appending look/entry results to the command result.
+func (e *GameEngine) applySayMove(ctx context.Context, player *Player, sc *ScriptContext, result *CommandResult) {
+	dest := e.rooms[sc.MoveTo]
+	if dest == nil {
+		return
+	}
+	oldRoom := player.RoomNumber
+	player.RoomNumber = sc.MoveTo
+	e.SavePlayer(ctx, player)
+	lookResult := e.doLook(player)
+	result.Messages = append(result.Messages, lookResult.Messages...)
+	result.RoomName = lookResult.RoomName
+	result.RoomDesc = lookResult.RoomDesc
+	result.Exits = lookResult.Exits
+	result.Items = lookResult.Items
+	result.OldRoom = oldRoom
+	result.OldRoomMsg = []string{fmt.Sprintf("%s leaves.", player.FirstName)}
+	result.RoomBroadcast = append(result.RoomBroadcast, fmt.Sprintf("%s arrives.", player.FirstName))
+	e.applyEntryScripts(ctx, player, dest, result)
+}
+
+// HandlePlayerDisconnect cleans up group state when a player disconnects or logs off.
+// If the player is a group leader, the group is disbanded and all members are notified.
+// If the player is a group member, they are removed from their leader's group.
+func (e *GameEngine) HandlePlayerDisconnect(player *Player) {
+	if player.IsGroupLeader && len(player.GroupMembers) > 0 {
+		if e.sessions != nil {
+			for _, memberName := range player.GroupMembers {
+				for _, p := range e.sessions.OnlinePlayers() {
+					if p.FirstName == memberName {
+						p.Following = ""
+						if e.sendToPlayer != nil {
+							e.sendToPlayer(p.FirstName, []string{fmt.Sprintf("%s has left the Realms. The group is disbanded.", player.FirstName)})
+						}
+						break
+					}
+				}
+			}
+		}
+		player.GroupMembers = nil
+		player.IsGroupLeader = false
+	} else if player.Following != "" {
+		leaderName := player.Following
+		player.Following = ""
+		if e.sessions != nil {
+			for _, p := range e.sessions.OnlinePlayers() {
+				if p.FirstName == leaderName {
+					for i, m := range p.GroupMembers {
+						if m == player.FirstName {
+							p.GroupMembers = append(p.GroupMembers[:i], p.GroupMembers[i+1:]...)
+							break
+						}
+					}
+					if len(p.GroupMembers) == 0 {
+						p.IsGroupLeader = false
+					}
+					if e.sendToPlayer != nil {
+						e.sendToPlayer(p.FirstName, []string{fmt.Sprintf("%s has left the Realms and is no longer in your group.", player.FirstName)})
+					}
+					break
+				}
+			}
+		}
+	}
+}
+
+// checkPortalGuard checks if any online player in the same room is guarding the portal.
+// Returns (blocked, playerMsg, oldRoomMsgs): if blocked the caller should return early;
+// if not blocked and oldRoomMsgs is non-empty, the bypass message should be added to OldRoomMsg.
+func (e *GameEngine) checkPortalGuard(mover *Player, portalArch int) (blocked bool, playerMsgs []string, oldRoomMsgs []string) {
+	if e.sessions == nil {
+		return
+	}
+	for _, g := range e.sessions.OnlinePlayers() {
+		if g.FirstName == mover.FirstName || g.RoomNumber != mover.RoomNumber || g.Dead {
+			continue
+		}
+		if !containsInt(g.GuardPortals, portalArch) {
+			continue
+		}
+
+		cmSkill := mover.Skills[10]
+		agiBonus := (mover.Agility - 50) / 10
+		quickBonus := (mover.Quickness - 50) / 10
+		roll := rand.Intn(100) + cmSkill*5 + agiBonus + quickBonus
+		threshold := 50 + g.Skills[10]*5
+
+		hidden := mover.Hidden || mover.Invisible
+		moverName := mover.FirstName
+		if hidden {
+			moverName = "something"
+		}
+
+		if roll >= threshold {
+			if e.sendToPlayer != nil {
+				e.sendToPlayer(g.FirstName, []string{
+					fmt.Sprintf("%s slipped past your guard! [Roll: %d vs %d]", capitalize(moverName), roll, threshold),
+				})
+			}
+			return false,
+				[]string{fmt.Sprintf("You slip past %s's guard. [Roll: %d vs %d]", g.FirstName, roll, threshold)},
+				[]string{fmt.Sprintf("%s slips past %s's guard!", capitalize(moverName), g.FirstName)}
+		}
+
+		if e.sendToPlayer != nil {
+			e.sendToPlayer(g.FirstName, []string{
+				fmt.Sprintf("You block %s from passing! [Roll: %d vs %d]", moverName, roll, threshold),
+			})
+		}
+		return true,
+			[]string{fmt.Sprintf("%s blocks your path! [Roll: %d vs %d]", g.FirstName, roll, threshold)},
+			[]string{fmt.Sprintf("%s tried to maneuver past %s's guard but was blocked!", capitalize(moverName), g.FirstName)}
+	}
+	return false, nil, nil
+}
+
+// checkItemGuard checks if any online player in the same room is guarding the item archetype.
+// On success (bypass), playerMsgs contains the bypass notification for the mover and roomMsgs
+// the room echo. On failure (blocked), playerMsgs is the block message to the mover and roomMsgs
+// the room echo. Roll info is included in player/guard messages but not room broadcasts.
+func (e *GameEngine) checkItemGuard(mover *Player, itemArch int, itemName string) (blocked bool, playerMsgs []string, roomMsgs []string) {
+	if e.sessions == nil {
+		return
+	}
+	for _, g := range e.sessions.OnlinePlayers() {
+		if g.FirstName == mover.FirstName || g.RoomNumber != mover.RoomNumber || g.Dead {
+			continue
+		}
+		if !containsInt(g.GuardItems, itemArch) {
+			continue
+		}
+
+		cmSkill := mover.Skills[10]
+		agiBonus := (mover.Agility - 50) / 10
+		quickBonus := (mover.Quickness - 50) / 10
+		roll := rand.Intn(100) + cmSkill*5 + agiBonus + quickBonus
+		threshold := 50 + g.Skills[10]*5
+
+		hidden := mover.Hidden || mover.Invisible
+		moverName := mover.FirstName
+		if hidden {
+			moverName = "something"
+		}
+
+		if roll >= threshold {
+			if e.sendToPlayer != nil {
+				e.sendToPlayer(g.FirstName, []string{
+					fmt.Sprintf("%s slipped past your guard and took %s! [Roll: %d vs %d]", capitalize(moverName), itemName, roll, threshold),
+				})
+			}
+			return false,
+				[]string{fmt.Sprintf("You slip past %s's guard. [Roll: %d vs %d]", g.FirstName, roll, threshold)},
+				[]string{fmt.Sprintf("%s slips past %s's guard and takes %s!", capitalize(moverName), g.FirstName, itemName)}
+		}
+
+		if e.sendToPlayer != nil {
+			e.sendToPlayer(g.FirstName, []string{
+				fmt.Sprintf("You stop %s from taking %s! [Roll: %d vs %d]", moverName, itemName, roll, threshold),
+			})
+		}
+		return true,
+			[]string{fmt.Sprintf("%s steps in front of you, preventing you from taking %s. [Roll: %d vs %d]", g.FirstName, itemName, roll, threshold)},
+			[]string{fmt.Sprintf("%s tried to take %s but %s blocked them!", capitalize(moverName), itemName, g.FirstName)}
+	}
+	return false, nil, nil
+}
+
+func capitalize(s string) string {
+	if s == "" {
+		return s
+	}
+	return strings.ToUpper(s[:1]) + s[1:]
 }

@@ -129,9 +129,11 @@ type GameEngine struct {
 	currentSeason        string                             // current active season key
 	cevents         []gameworld.CEvent
 	forageDefs      []gameworld.ForageDef
+	regions         map[int]*gameworld.Region
 	PVals           map[int]int // persistent global values
 	NamedVars       map[string]int // VARIABLE-defined global named variables (DANWATER, etc.)
 	namedVarNames   map[string]bool // set of valid named variable names
+	orgDefs         map[int]*gameworld.OrgDef // org# -> OrgDef
 	Events          *EventBus
 	Banner          string // active login banner; in-memory so it works even if MongoDB is down
 	lastAssistName  string // last player who used ASSIST (for @answer)
@@ -304,6 +306,14 @@ func NewGameEngine(db *mongo.Database, parsed *gameworld.ParsedData) *GameEngine
 	// Load forage definitions
 	e.forageDefs = parsed.ForageDefs
 
+	// Build region lookup map
+	e.regions = make(map[int]*gameworld.Region)
+	for i := range parsed.Regions {
+		reg := &parsed.Regions[i]
+		e.regions[reg.ID] = reg
+	}
+	log.Printf("Loaded %d regions", len(e.regions))
+
 	// Initialize event bus for admin monitoring
 	e.Events = NewEventBus()
 
@@ -338,6 +348,14 @@ func NewGameEngine(db *mongo.Database, parsed *gameworld.ParsedData) *GameEngine
 
 	// Store CEvents
 	e.cevents = parsed.CEvents
+
+	// Load organization definitions
+	e.orgDefs = make(map[int]*gameworld.OrgDef)
+	for i := range parsed.OrgDefs {
+		def := &parsed.OrgDefs[i]
+		e.orgDefs[def.Number] = def
+	}
+	log.Printf("Loaded %d organization definitions", len(e.orgDefs))
 
 	// Initialize PVals
 	e.PVals = make(map[int]int)
@@ -467,6 +485,9 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 				if len(sc.RoomMsgs) > 0 {
 					result.RoomBroadcast = append(result.RoomBroadcast, sc.RoomMsgs...)
 				}
+				if sc.MoveTo > 0 {
+					e.applySayMove(ctx, player, sc, result)
+				}
 			}
 			return result
 		}
@@ -487,6 +508,9 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 			}
 			if len(sc.GMMsgs) > 0 {
 				result.GMBroadcast = append(result.GMBroadcast, sc.GMMsgs...)
+			}
+			if sc.MoveTo > 0 {
+				e.applySayMove(ctx, player, sc, result)
 			}
 		}
 		return result
@@ -653,7 +677,7 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 	case "WIELD":
 		return e.doWield(ctx, player, args)
 	case "UNWIELD":
-		return e.doUnwield(ctx, player)
+		return e.doUnwield(ctx, player, args)
 	case "WEAR":
 		return e.doWear(ctx, player, args)
 	case "REMOVE":
@@ -760,6 +784,8 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 			fmt.Sprintf("It is %s. The season is %s.", period, SeasonName()),
 			fmt.Sprintf("The Great Moon is %s and Phulcrus is %s.", greatMoon, phulcrus),
 		}}
+	case "PAY":
+		return e.doPay(ctx, player)
 	case "WHISPER":
 		return e.doWhisper(player, args, input)
 	case "CONTACT":
@@ -815,7 +841,7 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 			wDef := e.items[player.Wielded.Archetype]
 			if wDef != nil {
 				wieldedNoun := strings.ToLower(e.getItemNounName(wDef))
-				wieldedFullName := e.formatItemName(wDef, player.Wielded.Adj1, player.Wielded.Adj2, player.Wielded.Adj3)
+				wieldedFullName := e.formatItemName(wDef, player.Wielded.Adj1, player.Wielded.Adj2, player.Wielded.Adj3, player.Wielded.Tail)
 				instruments := []string{"harp", "lyre", "violin", "flute", "drum", "horn", "lute"}
 				for _, inst := range instruments {
 					if strings.Contains(wieldedNoun, inst) || strings.Contains(strings.ToLower(wieldedFullName), inst) {
@@ -834,7 +860,7 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 			wDef := e.items[player.Wielded.Archetype]
 			if wDef != nil {
 				wieldedNoun := strings.ToLower(e.getItemNounName(wDef))
-				wieldedFullName := e.formatItemName(wDef, player.Wielded.Adj1, player.Wielded.Adj2, player.Wielded.Adj3)
+				wieldedFullName := e.formatItemName(wDef, player.Wielded.Adj1, player.Wielded.Adj2, player.Wielded.Adj3, player.Wielded.Tail)
 				if strings.Contains(wieldedNoun, "staff") || strings.Contains(strings.ToLower(wieldedFullName), "staff") {
 					room := e.rooms[player.RoomNumber]
 					isDark := room != nil && (room.Terrain == "CAVE" || room.Terrain == "DEEPCAVE" || room.Terrain == "UNDERGROUND")
@@ -857,6 +883,11 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 		}
 		return e.processEmote(player, verb, args)
 	// Roleplay verbs — dispatched via emote table
+	case "PICK":
+		if len(args) > 0 {
+			return e.doPickLock(ctx, player, args)
+		}
+		return e.doEmoteWithScripts(ctx, player, verb, args)
 	case "SMILE", "BOW", "CURTSEY", "CURTSY", "WAVE", "NOD", "LAUGH", "CHUCKLE",
 		"GRIN", "FROWN", "SIGH", "SHRUG", "WINK", "CRY", "DANCE",
 		"HUG", "KISS", "POKE", "TICKLE", "SLAP", "HOWL",
@@ -875,7 +906,7 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 		"HULA", "JIG", "MOAN", "MASSAGE", "PINCH",
 		"PURR", "ROAR", "SNARL", "SNUGGLE", "WAG", "WAIT", "WRITE",
 		"YOWL", "STOMP", "APPLAUD", "PEER", "GRUNT", "DIP",
-		"HANDRAISE", "HANDSHAKE", "HEADSHAKE", "PICK", "GESTURE",
+		"HANDRAISE", "HANDSHAKE", "HEADSHAKE", "GESTURE",
 		// Additional self-emotes
 		"FUME", "SQUINT", "HUM", "SNIFFLE", "SLOUCH", "SNORE", "SNEEZE",
 		"STARE", "PUCKER", "CRACK", "BOUNCE", "STRIKE", "CLUTCH",
@@ -953,8 +984,9 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 			return e.doItemInteraction(ctx, player, verb, args)
 		}
 		// Bare SEARCH: scan the area for hidden players
-		player.RoundTimeExpiry = time.Now().Add(5 * time.Second)
-		msgs := []string{"You search the area.", "[Round: 5 sec]"}
+		searchRT := applyRoundTime(player, 5)
+		player.RoundTimeExpiry = time.Now().Add(time.Duration(searchRT) * time.Second)
+		msgs := []string{"You search the area.", fmt.Sprintf("[Round: %d sec]", searchRT)}
 		perceptionCheck := player.Perception + player.Skills[33]*5 // Stealth skill helps detection
 		var revealed []string
 		if e.sessions != nil {
@@ -974,7 +1006,14 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 				msgs = append(msgs, fmt.Sprintf("You discover %s hiding here!", name))
 			}
 		}
-		return &CommandResult{Messages: msgs}
+		// Run room bare-verb SEARCH scripts (e.g. IFVERB SEARCH -1 to echo hidden items)
+		var roomBroadcast []string
+		if room := e.rooms[player.RoomNumber]; room != nil {
+			sc := e.RunRoomVerbScripts(player, room, "SEARCH")
+			msgs = append(msgs, sc.Messages...)
+			roomBroadcast = sc.RoomMsgs
+		}
+		return &CommandResult{Messages: msgs, RoomBroadcast: roomBroadcast}
 	case "PULL", "PUSH", "RUB", "TOUCH", "DIG", "USE", "THUMP":
 		result := e.doItemInteraction(ctx, player, verb, args)
 		// If item interaction found nothing, fall back to emote for verbs that have emote entries
@@ -996,6 +1035,9 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 		}
 		return e.doItemInteraction(ctx, player, verb, args)
 	case "CONCENTRATE":
+		if len(args) > 0 {
+			return e.doItemInteraction(ctx, player, verb, args)
+		}
 		return &CommandResult{Messages: []string{"You concentrate deeply."}}
 	case "BUY", "ORDER":
 		return e.doBuy(ctx, player, args)
@@ -1253,7 +1295,7 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 	case "DISARM":
 		return e.doDisarm(ctx, player, args)
 	case "STEAL", "FILCH", "ROB":
-		return &CommandResult{Messages: []string{"[Stealing coming soon.]"}} // TODO: pick pockets, requires Legerdemain
+		return e.doSteal(ctx, player, args)
 	case "STALK":
 		return &CommandResult{Messages: []string{"[Stalking coming soon.]"}} // TODO: secretly follow someone
 	case "TEACH":
@@ -1271,7 +1313,7 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 	case "SURVEY":
 		return &CommandResult{Messages: []string{"[Mining survey coming soon.]"}} // TODO: survey area for minerals
 	case "SPLIT":
-		return &CommandResult{Messages: []string{"[Coin splitting coming soon.]"}} // TODO: divide coins among group
+		return e.doSplit(ctx, player, args)
 	// === RACIAL/SPECIAL (TODO: implement) ===
 	case "BLEND":
 		if player.Race != RaceHighlander {
@@ -1292,7 +1334,8 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 		if player.Race != RaceWolfling {
 			return &CommandResult{Messages: []string{"Only wolflings can transform."}}
 		}
-		player.RoundTimeExpiry = time.Now().Add(7 * time.Second)
+		transformRT := applyRoundTime(player, 7)
+		player.RoundTimeExpiry = time.Now().Add(time.Duration(transformRT) * time.Second)
 		if player.WolfForm {
 			// Wolf → human
 			player.WolfForm = false
@@ -1334,9 +1377,9 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 	case "ARREST":
 		return &CommandResult{Messages: []string{"[Arrest coming soon.]"}} // TODO: lawkeeper arrest
 	case "ENROLL":
-		return &CommandResult{Messages: []string{"[Organization enrollment coming soon.]"}} // TODO: join open org
+		return e.doEnroll(ctx, player)
 	case "INITIATE":
-		return e.doInitiate(ctx, player, args)
+		return &CommandResult{Messages: []string{"Only GMs may initiate players into organizations. Ask a GM for assistance."}}
 	case "FOLLOW":
 		return e.doFollow(player, args)
 	case "JOIN":
@@ -1411,7 +1454,7 @@ var allVerbs = []string{
 	"BRIEF", "FULL", "PROMPT", "WHO", "SKILLS", "WEALTH",
 	"QUIT", "HELP", "ADVICE", "ASSIST", "ACT", "EMOTE", "RECITE", "READ", "CLIMB",
 	"PULL", "PUSH", "TURN", "RUB", "TAP", "TOUCH", "SEARCH", "DIG", "RECALL", "USE", "PRAY",
-	"CAST", "CONCENTRATE", "BUY", "SELL",
+	"CAST", "CONCENTRATE", "BUY", "SELL", "PAY",
 	"DRINK", "SIP", "LIGHT", "EXTINGUISH", "DOUSE",
 	"FLIP", "LATCH", "UNLATCH",
 	"DEPOSIT", "WITHDRAW", "TRAIN",

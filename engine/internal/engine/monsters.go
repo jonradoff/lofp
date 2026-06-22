@@ -24,6 +24,18 @@ type MonsterInstance struct {
 	Target     string    `json:"-"`
 	Searched   bool      `json:"-"` // already searched for loot
 	DeathTime  time.Time `json:"-"` // when it died (for corpse decay)
+
+	// Spell status effects
+	Sleeping    bool      `json:"-"` // Slumber spell: no attack, no flee
+	SleepExpiry time.Time `json:"-"`
+	SleepStand  bool      `json:"-"` // woke up but still rising; skip one attack tick
+	Webbed      bool      `json:"-"` // Web spell: no attack, no flee
+	WebExpiry   time.Time `json:"-"`
+	Feared      bool      `json:"-"` // Fear spell: only flees, never attacks
+	FearExpiry  time.Time `json:"-"`
+	Charmed     bool      `json:"-"` // Charm spell: won't attack the caster
+	CharmExpiry time.Time `json:"-"`
+	CharmTarget string    `json:"-"` // player name who charmed it
 }
 
 // monsterManager handles monster spawning and tracking.
@@ -284,6 +296,12 @@ func (e *GameEngine) MonsterLookLines(roomNum int) []string {
 		name := FormatMonsterName(def, e.monAdjs)
 		if !inst.Alive {
 			name += " (dead)"
+		} else if inst.Sleeping {
+			name += " (sleeping)"
+		} else if inst.Webbed {
+			name += " (webbed)"
+		} else if inst.Feared {
+			name += " (cowering)"
 		}
 		article := articleFor(name, def.Unique)
 		names = append(names, article+name)

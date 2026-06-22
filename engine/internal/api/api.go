@@ -607,6 +607,7 @@ func (s *Server) handleGameWS(w http.ResponseWriter, r *http.Request) {
 				}
 				continue
 			}
+			player.RestoreTransientState()
 			session.Player = player
 			s.mu.Lock()
 			s.sessions[player.FirstName] = session
@@ -684,6 +685,7 @@ func (s *Server) handleGameWS(w http.ResponseWriter, r *http.Request) {
 					},
 				})
 			}
+			player.RestoreTransientState()
 			session.Player = player
 
 			// Disconnect existing session for this character (e.g. stale WS)
@@ -757,33 +759,35 @@ func (s *Server) handleGameWS(w http.ResponseWriter, r *http.Request) {
 			session.lastActivity = time.Now()
 			now := time.Now()
 
-			// Rate limit 1: max 4 commands per second (burst)
+			var cmd CommandMsg
+			json.Unmarshal(msg.Data, &cmd)
+			isGive := strings.HasPrefix(strings.ToLower(strings.TrimSpace(cmd.Input)), "give ")
+
+			// Rate limit 1: max 8 commands per second (burst)
 			if now.Sub(session.lastCmdTime) > time.Second {
 				session.cmdCount = 0
 				session.lastCmdTime = now
 			}
 			session.cmdCount++
-			if session.cmdCount > 4 {
+			if !session.Player.IsGM && !isGive && session.cmdCount > 8 {
 				s.sendResult(session, &engine.CommandResult{
 					Messages: []string{"[Slow down! Too many commands.]"},
 				})
 				continue
 			}
-			// Rate limit 2: max 10 commands per 10 seconds (sustained)
+			// Rate limit 2: max 20 commands per 10 seconds (sustained)
 			cutoff := now.Add(-10 * time.Second)
 			var recentCmds []time.Time
 			for _, t := range session.cmdTimes {
 				if t.After(cutoff) { recentCmds = append(recentCmds, t) }
 			}
 			session.cmdTimes = append(recentCmds, now)
-			if len(session.cmdTimes) > 10 {
+			if !session.Player.IsGM && !isGive && len(session.cmdTimes) > 20 {
 				s.sendResult(session, &engine.CommandResult{
 					Messages: []string{"[Slow down! Too many commands.]"},
 				})
 				continue
 			}
-			var cmd CommandMsg
-			json.Unmarshal(msg.Data, &cmd)
 			ctx := context.Background()
 			playerRoom := session.Player.RoomNumber
 			result := s.engine.ProcessCommand(ctx, session.Player, cmd.Input)
@@ -842,6 +846,7 @@ func (s *Server) handleGameWS(w http.ResponseWriter, r *http.Request) {
 		s.mu.Unlock()
 
 		if isActive {
+			s.engine.HandlePlayerDisconnect(session.Player)
 			s.gamelog.Log(gamelog.EventGameExit, session.Player.FullName(), session.Player.AccountID,
 				fmt.Sprintf("%s (%s)", authName, authEmail), session.Player.RoomNumber, "")
 			if !session.Player.GMInvis && !session.Player.GMHidden {

@@ -346,6 +346,7 @@ func (s *Server) handleSSHSession(channel ssh.Channel, remoteAddr string) {
 	}
 	s.mu.Unlock()
 
+	player.RestoreTransientState()
 	session := &Session{
 		Player:       player,
 		Conn:         sc,
@@ -395,6 +396,7 @@ func (s *Server) handleSSHSession(channel ssh.Channel, remoteAddr string) {
 	s.mu.Unlock()
 
 	if isActive {
+		s.engine.HandlePlayerDisconnect(player)
 		if !player.GMInvis && !player.GMHidden {
 			if !session.quitSent {
 				s.broadcastGlobal(player.FirstName,
@@ -742,12 +744,13 @@ func (s *Server) sshCommandLoop(ctx context.Context, session *Session, sc *sshCo
 
 		// Rate limiting (same as telnet)
 		now := time.Now()
+		isGive := strings.HasPrefix(strings.ToLower(strings.TrimSpace(input)), "give ")
 		if now.Sub(session.lastCmdTime) > time.Second {
 			session.cmdCount = 0
 			session.lastCmdTime = now
 		}
 		session.cmdCount++
-		if session.cmdCount > 4 {
+		if !session.Player.IsGM && !isGive && session.cmdCount > 8 {
 			sc.writeLine("[Slow down! Too many commands.]")
 			continue
 		}
@@ -760,7 +763,7 @@ func (s *Server) sshCommandLoop(ctx context.Context, session *Session, sc *sshCo
 			}
 		}
 		session.cmdTimes = append(recentCmds, now)
-		if len(session.cmdTimes) > 10 {
+		if !session.Player.IsGM && !isGive && len(session.cmdTimes) > 20 {
 			sc.writeLine("[Slow down! Too many commands.]")
 			continue
 		}

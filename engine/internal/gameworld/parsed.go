@@ -17,6 +17,7 @@ type ParsedData struct {
 	MoneyDefs    []MoneyDef
 	ForageDefs   []ForageDef
 	MineDefs     []MineDef
+	OrgDefs      []OrgDef
 	StartRoom    int
 	BumpRoom     int
 }

@@ -114,6 +114,50 @@ func (e *GameEngine) regenTick() {
 			changed = true
 		}
 
+		// Check for expired strength buff
+		if p.StrengthBuffID > 0 && !p.StrengthBuffExpiry.IsZero() && time.Now().After(p.StrengthBuffExpiry) {
+			p.Strength -= p.StrengthBuffBonus
+			p.StrengthBuffID = 0
+			p.StrengthBuffBonus = 0
+			p.StrengthBuffExpiry = time.Time{}
+			changed = true
+			if e.sendToPlayer != nil {
+				e.sendToPlayer(p.FirstName, []string{"The magical strength fades. You feel your normal strength return."})
+			}
+		}
+
+		// Check for expired Mystic Armor buff
+		if p.MysticArmorBonus > 0 && !p.MysticArmorExpiry.IsZero() && time.Now().After(p.MysticArmorExpiry) {
+			p.DefenseBonus -= p.MysticArmorBonus
+			if p.DefenseBonus < 0 {
+				p.DefenseBonus = 0
+			}
+			p.MysticArmorBonus = 0
+			p.MysticArmorExpiry = time.Time{}
+			changed = true
+			if e.sendToPlayer != nil {
+				e.sendToPlayer(p.FirstName, []string{"The Mystic Armor fades. The shimmering barrier around you dissipates."})
+			}
+		}
+
+		// Check for expired Haste buff
+		if !p.HasteExpiry.IsZero() && time.Now().After(p.HasteExpiry) {
+			p.HasteExpiry = time.Time{}
+			changed = true
+			if e.sendToPlayer != nil {
+				e.sendToPlayer(p.FirstName, []string{"The magical haste fades. You feel yourself return to normal speed."})
+			}
+		}
+
+		// Check for expired Slow debuff
+		if !p.SlowExpiry.IsZero() && time.Now().After(p.SlowExpiry) {
+			p.SlowExpiry = time.Time{}
+			changed = true
+			if e.sendToPlayer != nil {
+				e.sendToPlayer(p.FirstName, []string{"The magical slowness fades. You feel yourself return to normal speed."})
+			}
+		}
+
 		if changed {
 			e.SavePlayer(context.Background(), p)
 		}

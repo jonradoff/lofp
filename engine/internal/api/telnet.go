@@ -1033,6 +1033,7 @@ func (s *Server) handleTelnetConn(rawConn net.Conn, isTLS bool) {
 	}
 	s.mu.Unlock()
 
+	player.RestoreTransientState()
 	session := &Session{
 		Player:       player,
 		Conn:         tc,
@@ -1094,6 +1095,7 @@ func (s *Server) handleTelnetConn(rawConn net.Conn, isTLS bool) {
 	s.mu.Unlock()
 
 	if isActive {
+		s.engine.HandlePlayerDisconnect(player)
 		if !player.GMInvis && !player.GMHidden {
 			if !session.quitSent {
 				s.broadcastGlobal(player.FirstName,
@@ -1467,12 +1469,13 @@ func (s *Server) telnetCommandLoop(ctx context.Context, session *Session, tc *te
 		session.lastActivity = time.Now()
 
 		now := time.Now()
+		isGive := strings.HasPrefix(strings.ToLower(strings.TrimSpace(input)), "give ")
 		if now.Sub(session.lastCmdTime) > time.Second {
 			session.cmdCount = 0
 			session.lastCmdTime = now
 		}
 		session.cmdCount++
-		if session.cmdCount > 4 {
+		if !session.Player.IsGM && !isGive && session.cmdCount > 8 {
 			tc.writeLine("[Slow down! Too many commands.]")
 			continue
 		}
@@ -1485,7 +1488,7 @@ func (s *Server) telnetCommandLoop(ctx context.Context, session *Session, tc *te
 			}
 		}
 		session.cmdTimes = append(recentCmds, now)
-		if len(session.cmdTimes) > 10 {
+		if !session.Player.IsGM && !isGive && len(session.cmdTimes) > 20 {
 			tc.writeLine("[Slow down! Too many commands.]")
 			continue
 		}

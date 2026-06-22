@@ -50,6 +50,15 @@ type TrainingDef struct {
 	MaxLevel int `bson:"maxLevel" json:"maxLevel"`
 }
 
+// OrgDef represents an organization defined by an ORGDEF directive.
+type OrgDef struct {
+	Number       int    `bson:"number" json:"number"`
+	JoinType     string `bson:"joinType" json:"joinType"`     // "OPEN" or "INVITE"
+	OrgType      string `bson:"orgType" json:"orgType"`       // "GUILD", "TEMPLE", "CULT"
+	TrainingRoom int    `bson:"trainingRoom" json:"trainingRoom"`
+	Name         string `bson:"name" json:"name"`
+}
+
 // ItemDef is an item archetype definition from INUMBER blocks.
 type ItemDef struct {
 	Number      int      `bson:"number" json:"number"`       // INUMBER

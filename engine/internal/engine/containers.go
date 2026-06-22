@@ -108,8 +108,12 @@ func (e *GameEngine) containerCanFit(containerDef *gameworld.ItemDef, contents [
 
 // formatContainerName returns the item name with "(open)" or "(closed)" appended
 // when the item is a container. Non-containers are returned unchanged.
-func (e *GameEngine) formatContainerName(def *gameworld.ItemDef, adj1, adj2, adj3 int, state string) string {
-	base := e.formatItemName(def, adj1, adj2, adj3)
+func (e *GameEngine) formatContainerName(def *gameworld.ItemDef, adj1, adj2, adj3 int, state string, tail ...string) string {
+	t := ""
+	if len(tail) > 0 {
+		t = tail[0]
+	}
+	base := e.formatItemName(def, adj1, adj2, adj3, t)
 	if !isContainerDef(def) {
 		return base
 	}
@@ -132,7 +136,7 @@ func (e *GameEngine) formatContainerName(def *gameworld.ItemDef, adj1, adj2, adj
 // lookInContainer is called from doLookAt when a player types LOOK IN <container>.
 // This replaces the stub in engine.go.
 func (e *GameEngine) lookInContainer(player *Player, def *gameworld.ItemDef, ii *InventoryItem) *CommandResult {
-	displayName := e.formatContainerName(def, ii.Adj1, ii.Adj2, ii.Adj3, ii.State)
+	displayName := e.formatContainerName(def, ii.Adj1, ii.Adj2, ii.Adj3, ii.State, ii.Tail)
 
 	state := strings.ToUpper(ii.State)
 	if state == "LOCKED" {
@@ -148,18 +152,22 @@ func (e *GameEngine) lookInContainer(player *Player, def *gameworld.ItemDef, ii 
 
 	msgs := []string{fmt.Sprintf("Inside %s you see:", displayName)}
 	for _, ci := range ii.Contents {
+		if ci.State == "MONEY" {
+			msgs = append(msgs, "  "+formatCoinStr(ci.Val1))
+			continue
+		}
 		ciDef := e.items[ci.Archetype]
 		if ciDef == nil {
 			continue
 		}
-		msgs = append(msgs, "  "+e.formatItemName(ciDef, ci.Adj1, ci.Adj2, ci.Adj3))
+		msgs = append(msgs, "  "+e.formatItemName(ciDef, ci.Adj1, ci.Adj2, ci.Adj3, ci.Tail))
 	}
 	return &CommandResult{Messages: msgs}
 }
 
 // lookInRoomContainer is called when a player types LOOK IN <container> for a room item.
 func (e *GameEngine) lookInRoomContainer(player *Player, def *gameworld.ItemDef, ri *gameworld.RoomItem) *CommandResult {
-	displayName := e.formatContainerName(def, ri.Adj1, ri.Adj2, ri.Adj3, ri.State)
+	displayName := e.formatContainerName(def, ri.Adj1, ri.Adj2, ri.Adj3, ri.State, ri.Extend)
 	state := strings.ToUpper(ri.State)
 	if state == "LOCKED" {
 		return &CommandResult{Messages: []string{fmt.Sprintf("%s is locked.", displayName)}}
@@ -197,11 +205,15 @@ func (e *GameEngine) lookInRoomContainer(player *Player, def *gameworld.ItemDef,
 
 	msgs := []string{fmt.Sprintf("Inside %s you see:", displayName)}
 	for _, ci := range contents {
+		if ci.State == "MONEY" {
+			msgs = append(msgs, "  "+formatCoinStr(ci.Val1))
+			continue
+		}
 		ciDef := e.items[ci.Archetype]
 		if ciDef == nil {
 			continue
 		}
-		msgs = append(msgs, "  "+e.formatItemName(ciDef, ci.Adj1, ci.Adj2, ci.Adj3))
+		msgs = append(msgs, "  "+e.formatItemName(ciDef, ci.Adj1, ci.Adj2, ci.Adj3, ci.Tail))
 	}
 	return &CommandResult{Messages: msgs}
 }
@@ -241,7 +253,7 @@ func (e *GameEngine) doPut(ctx context.Context, player *Player, args []string) *
 		if def == nil {
 			continue
 		}
-		if matchesTarget(e.getItemNounName(def), itemTarget, e.getAdjName(ii.Adj1)) {
+		if matchesTarget(e.getItemNounName(def), itemTarget, e.getAdjName(ii.Adj1), e.getAdjName(ii.Adj2), e.getAdjName(ii.Adj3)) {
 			if skip > 0 {
 				skip--
 				continue
@@ -256,7 +268,7 @@ func (e *GameEngine) doPut(ctx context.Context, player *Player, args []string) *
 		return &CommandResult{Messages: []string{"You aren't carrying that."}}
 	}
 
-	itemFullName := e.formatItemName(srcDef, srcItem.Adj1, srcItem.Adj2, srcItem.Adj3)
+	itemFullName := e.formatItemName(srcDef, srcItem.Adj1, srcItem.Adj2, srcItem.Adj3, srcItem.Tail)
 
 	// Try inventory containers first
 	for i, ii := range player.Inventory {
@@ -267,7 +279,7 @@ func (e *GameEngine) doPut(ctx context.Context, player *Player, args []string) *
 		if def == nil || !isContainerDef(def) {
 			continue
 		}
-		if !matchesTarget(e.getItemNounName(def), containerTarget, e.getAdjName(ii.Adj1)) {
+		if !matchesTarget(e.getItemNounName(def), containerTarget, e.getAdjName(ii.Adj1), e.getAdjName(ii.Adj2), e.getAdjName(ii.Adj3)) {
 			continue
 		}
 		state := strings.ToUpper(ii.State)
@@ -284,7 +296,7 @@ func (e *GameEngine) doPut(ctx context.Context, player *Player, args []string) *
 		player.Inventory[i].Contents = append(player.Inventory[i].Contents, srcItem)
 		player.Inventory = append(player.Inventory[:itemIdx], player.Inventory[itemIdx+1:]...)
 		e.SavePlayer(ctx, player)
-		cName := e.formatContainerName(def, ii.Adj1, ii.Adj2, ii.Adj3, ii.State)
+		cName := e.formatContainerName(def, ii.Adj1, ii.Adj2, ii.Adj3, ii.State, ii.Tail)
 		return &CommandResult{
 			Messages:      []string{fmt.Sprintf("You put %s in %s.", itemFullName, cName)},
 			RoomBroadcast: []string{fmt.Sprintf("%s puts %s in %s.", player.FirstName, itemFullName, cName)},
@@ -296,10 +308,57 @@ func (e *GameEngine) doPut(ctx context.Context, player *Player, args []string) *
 	if room != nil {
 		for _, ri := range room.Items {
 			def := e.items[ri.Archetype]
-			if def == nil || !isContainerDef(def) {
+			if def == nil {
 				continue
 			}
-			if !matchesTarget(e.getItemNounName(def), containerTarget, e.getAdjName(ri.Adj1)) {
+			if !matchesTarget(e.getItemNounName(def), containerTarget, e.getAdjName(ri.Adj1), e.getAdjName(ri.Adj2), e.getAdjName(ri.Adj3)) {
+				continue
+			}
+
+			// Run IFPREVERB2 PUT scripts (fires when something is placed INTO this item).
+			// ItemRef is set to the source item so ARCHNUM = source archetype and
+			// REMOVEITEM -1 removes it from the player's inventory.
+			refStr := fmt.Sprintf("%d", ri.Ref)
+			sc := &ScriptContext{
+				Player:  player,
+				Room:    room,
+				Engine:  e,
+				ItemRef: &gameworld.RoomItem{Archetype: srcDef.Number, Ref: -1},
+				ItemDef: srcDef,
+			}
+			for _, block := range room.Scripts {
+				if block.Type == "IFPREVERB2" && len(block.Args) >= 2 &&
+					strings.ToUpper(block.Args[0]) == "PUT" && block.Args[1] == refStr {
+					sc.execBlock(block)
+				}
+			}
+			if sc.NeedsSave {
+				e.SavePlayer(ctx, player)
+			}
+			if sc.Blocked || sc.MoveTo > 0 {
+				result := &CommandResult{Messages: sc.Messages, RoomBroadcast: sc.RoomMsgs}
+				if sc.MoveTo > 0 {
+					dest := e.rooms[sc.MoveTo]
+					if dest != nil {
+						oldRoom := player.RoomNumber
+						player.RoomNumber = sc.MoveTo
+						e.SavePlayer(ctx, player)
+						lookResult := e.doLook(player)
+						result.Messages = append(result.Messages, lookResult.Messages...)
+						result.RoomName = lookResult.RoomName
+						result.RoomDesc = lookResult.RoomDesc
+						result.Exits = lookResult.Exits
+						result.Items = lookResult.Items
+						result.OldRoom = oldRoom
+						result.OldRoomMsg = []string{fmt.Sprintf("%s leaves.", player.FirstName)}
+						result.RoomBroadcast = append(result.RoomBroadcast, fmt.Sprintf("%s arrives.", player.FirstName))
+						e.applyEntryScripts(ctx, player, dest, result)
+					}
+				}
+				return result
+			}
+
+			if !isContainerDef(def) {
 				continue
 			}
 			state := strings.ToUpper(ri.State)
@@ -317,7 +376,7 @@ func (e *GameEngine) doPut(ctx context.Context, player *Player, args []string) *
 			e.roomContainerSet(player.RoomNumber, ri.Ref, contents)
 			player.Inventory = append(player.Inventory[:itemIdx], player.Inventory[itemIdx+1:]...)
 			e.SavePlayer(ctx, player)
-			cName := e.formatContainerName(def, ri.Adj1, ri.Adj2, ri.Adj3, ri.State)
+			cName := e.formatContainerName(def, ri.Adj1, ri.Adj2, ri.Adj3, ri.State, ri.Extend)
 			return &CommandResult{
 				Messages:      []string{fmt.Sprintf("You put %s in %s.", itemFullName, cName)},
 				RoomBroadcast: []string{fmt.Sprintf("%s puts %s in %s.", player.FirstName, itemFullName, cName)},
@@ -384,6 +443,7 @@ func (e *GameEngine) doGetAll(ctx context.Context, player *Player, noun string) 
 		noun == "gold" || noun == "silver" || noun == "copper"
 
 	var msgs []string
+	var roomMsgs []string
 	var kept []gameworld.RoomItem
 	gotSomething := false
 
@@ -395,12 +455,8 @@ func (e *GameEngine) doGetAll(ctx context.Context, player *Player, noun string) 
 				if coins <= 0 {
 					coins = 1
 				}
-				player.Copper += coins
-				player.Silver += player.Copper / 10
-				player.Copper = player.Copper % 10
-				player.Gold += player.Silver / 10
-				player.Silver = player.Silver % 10
-				msgs = append(msgs, fmt.Sprintf("You pick up %d coins.", coins))
+				pickupMsg := e.addCoinsToPlayer(player, ri.Archetype, coins)
+				msgs = append(msgs, pickupMsg)
 				e.notifyRoomChange(RoomChange{RoomNumber: player.RoomNumber, Type: "item_remove", ItemRef: ri.Ref})
 				gotSomething = true
 			} else {
@@ -426,7 +482,7 @@ func (e *GameEngine) doGetAll(ctx context.Context, player *Player, noun string) 
 
 		// If a non-coin noun was specified, only pick up matching items
 		if noun != "" && !isCoinNoun {
-			if !matchesTarget(e.getItemNounName(def), noun, e.getAdjName(ri.Adj1)) {
+			if !matchesTarget(e.getItemNounName(def), noun, e.getAdjName(ri.Adj1), e.getAdjName(ri.Adj2), e.getAdjName(ri.Adj3)) {
 				kept = append(kept, ri)
 				continue
 			}
@@ -438,18 +494,26 @@ func (e *GameEngine) doGetAll(ctx context.Context, player *Player, noun string) 
 			if coins <= 0 {
 				coins = 1
 			}
-			player.Copper += coins
-			player.Silver += player.Copper / 10
-			player.Copper = player.Copper % 10
-			player.Gold += player.Silver / 10
-			player.Silver = player.Silver % 10
-			msgs = append(msgs, fmt.Sprintf("You pick up %d coins.", coins))
+			pickupMsg := e.addCoinsToPlayer(player, ri.Archetype, coins)
+			msgs = append(msgs, pickupMsg)
 			e.notifyRoomChange(RoomChange{RoomNumber: player.RoomNumber, Type: "item_remove", ItemRef: ri.Ref})
 			gotSomething = true
 			continue
 		}
 
-		// Normal item
+		// Normal item — check for item guard
+		fullName := e.formatItemName(def, ri.Adj1, ri.Adj2, ri.Adj3, ri.Extend)
+		if guardBlocked, guardPlayerMsgs, guardRoomBroadcasts := e.checkItemGuard(player, ri.Archetype, fullName); guardBlocked {
+			msgs = append(msgs, guardPlayerMsgs...)
+			roomMsgs = append(roomMsgs, guardRoomBroadcasts...)
+			kept = append(kept, ri)
+			continue
+		} else if len(guardRoomBroadcasts) > 0 {
+			// Guard bypassed — show bypass info to mover and echo to room
+			msgs = append(msgs, guardPlayerMsgs...)
+			roomMsgs = append(roomMsgs, guardRoomBroadcasts...)
+		}
+
 		newInvItem := InventoryItem{
 			Archetype: ri.Archetype,
 			Adj1: ri.Adj1, Adj2: ri.Adj2, Adj3: ri.Adj3,
@@ -461,7 +525,6 @@ func (e *GameEngine) doGetAll(ctx context.Context, player *Player, noun string) 
 			e.roomContainerDelete(player.RoomNumber, ri.Ref)
 		}
 		player.Inventory = append(player.Inventory, newInvItem)
-		fullName := e.formatItemName(def, ri.Adj1, ri.Adj2, ri.Adj3)
 		msgs = append(msgs, fmt.Sprintf("You pick up %s.", fullName))
 		e.notifyRoomChange(RoomChange{RoomNumber: player.RoomNumber, Type: "item_remove", ItemRef: ri.Ref})
 		gotSomething = true
@@ -469,17 +532,24 @@ func (e *GameEngine) doGetAll(ctx context.Context, player *Player, noun string) 
 
 	room.Items = kept
 
-	if !gotSomething {
+	if !gotSomething && len(msgs) == 0 {
 		if noun != "" {
 			return &CommandResult{Messages: []string{fmt.Sprintf("You don't see any %s here.", noun)}}
 		}
 		return &CommandResult{Messages: []string{"There is nothing here to pick up."}}
 	}
 
-	e.SavePlayer(ctx, player)
+	if gotSomething {
+		e.SavePlayer(ctx, player)
+	}
+	var finalRoomMsgs []string
+	finalRoomMsgs = append(finalRoomMsgs, roomMsgs...)
+	if gotSomething {
+		finalRoomMsgs = append(finalRoomMsgs, fmt.Sprintf("%s picks up several items.", player.FirstName))
+	}
 	return &CommandResult{
 		Messages:      msgs,
-		RoomBroadcast: []string{fmt.Sprintf("%s picks up several items.", player.FirstName)},
+		RoomBroadcast: finalRoomMsgs,
 	}
 }
 
@@ -494,7 +564,7 @@ func (e *GameEngine) doGetFromContainer(ctx context.Context, player *Player, ite
 		if cDef == nil || !isContainerDef(cDef) {
 			continue
 		}
-		if !matchesTarget(e.getItemNounName(cDef), containerTarget, e.getAdjName(container.Adj1)) {
+		if !matchesTarget(e.getItemNounName(cDef), containerTarget, e.getAdjName(container.Adj1), e.getAdjName(container.Adj2), e.getAdjName(container.Adj3)) {
 			continue
 		}
 		if strings.ToUpper(container.State) == "LOCKED" {
@@ -509,7 +579,7 @@ func (e *GameEngine) doGetFromContainer(ctx context.Context, player *Player, ite
 			if iDef == nil {
 				continue
 			}
-			if !matchesTarget(e.getItemNounName(iDef), itemTarget, e.getAdjName(item.Adj1)) {
+			if !matchesTarget(e.getItemNounName(iDef), itemTarget, e.getAdjName(item.Adj1), e.getAdjName(item.Adj2), e.getAdjName(item.Adj3)) {
 				continue
 			}
 			if skip > 0 {
@@ -520,8 +590,8 @@ func (e *GameEngine) doGetFromContainer(ctx context.Context, player *Player, ite
 			player.Inventory[ci].Contents = append(container.Contents[:ii], container.Contents[ii+1:]...)
 			player.Inventory = append(player.Inventory, item)
 			e.SavePlayer(ctx, player)
-			iName := e.formatItemName(iDef, item.Adj1, item.Adj2, item.Adj3)
-			cName := e.formatContainerName(cDef, container.Adj1, container.Adj2, container.Adj3, container.State)
+			iName := e.formatItemName(iDef, item.Adj1, item.Adj2, item.Adj3, item.Tail)
+			cName := e.formatContainerName(cDef, container.Adj1, container.Adj2, container.Adj3, container.State, container.Tail)
 			return &CommandResult{
 				Messages:      []string{fmt.Sprintf("You take %s from %s.", iName, cName)},
 				RoomBroadcast: []string{fmt.Sprintf("%s takes something from %s.", player.FirstName, cName)},
@@ -538,7 +608,7 @@ func (e *GameEngine) doGetFromContainer(ctx context.Context, player *Player, ite
 			if cDef == nil || !isContainerDef(cDef) {
 				continue
 			}
-			if !matchesTarget(e.getItemNounName(cDef), containerTarget, e.getAdjName(ri.Adj1)) {
+			if !matchesTarget(e.getItemNounName(cDef), containerTarget, e.getAdjName(ri.Adj1), e.getAdjName(ri.Adj2), e.getAdjName(ri.Adj3)) {
 				continue
 			}
 			if strings.ToUpper(ri.State) == "LOCKED" {
@@ -554,7 +624,7 @@ func (e *GameEngine) doGetFromContainer(ctx context.Context, player *Player, ite
 				if iDef == nil {
 					continue
 				}
-				if !matchesTarget(e.getItemNounName(iDef), itemTarget, e.getAdjName(item.Adj1)) {
+				if !matchesTarget(e.getItemNounName(iDef), itemTarget, e.getAdjName(item.Adj1), e.getAdjName(item.Adj2), e.getAdjName(item.Adj3)) {
 					continue
 				}
 				if skip > 0 {
@@ -565,8 +635,8 @@ func (e *GameEngine) doGetFromContainer(ctx context.Context, player *Player, ite
 				e.roomContainerSet(player.RoomNumber, ri.Ref, contents)
 				player.Inventory = append(player.Inventory, item)
 				e.SavePlayer(ctx, player)
-				iName := e.formatItemName(iDef, item.Adj1, item.Adj2, item.Adj3)
-				cName := e.formatContainerName(cDef, ri.Adj1, ri.Adj2, ri.Adj3, ri.State)
+				iName := e.formatItemName(iDef, item.Adj1, item.Adj2, item.Adj3, item.Tail)
+				cName := e.formatContainerName(cDef, ri.Adj1, ri.Adj2, ri.Adj3, ri.State, ri.Extend)
 				return &CommandResult{
 					Messages:      []string{fmt.Sprintf("You take %s from %s.", iName, cName)},
 					RoomBroadcast: []string{fmt.Sprintf("%s takes something from %s.", player.FirstName, cName)},
@@ -587,7 +657,7 @@ func (e *GameEngine) doGetAllFromContainer(ctx context.Context, player *Player, 
 		if cDef == nil || !isContainerDef(cDef) {
 			continue
 		}
-		if !matchesTarget(e.getItemNounName(cDef), containerTarget, e.getAdjName(container.Adj1)) {
+		if !matchesTarget(e.getItemNounName(cDef), containerTarget, e.getAdjName(container.Adj1), e.getAdjName(container.Adj2), e.getAdjName(container.Adj3)) {
 			continue
 		}
 		if strings.ToUpper(container.State) == "LOCKED" {
@@ -597,7 +667,7 @@ func (e *GameEngine) doGetAllFromContainer(ctx context.Context, player *Player, 
 			return &CommandResult{Messages: []string{"That container is closed."}}
 		}
 		if len(container.Contents) == 0 {
-			cName := e.formatContainerName(cDef, container.Adj1, container.Adj2, container.Adj3, container.State)
+			cName := e.formatContainerName(cDef, container.Adj1, container.Adj2, container.Adj3, container.State, container.Tail)
 			return &CommandResult{Messages: []string{fmt.Sprintf("%s is empty.", cName)}}
 		}
 		var msgs []string
@@ -607,11 +677,11 @@ func (e *GameEngine) doGetAllFromContainer(ctx context.Context, player *Player, 
 				continue
 			}
 			player.Inventory = append(player.Inventory, item)
-			msgs = append(msgs, fmt.Sprintf("You take %s.", e.formatItemName(iDef, item.Adj1, item.Adj2, item.Adj3)))
+			msgs = append(msgs, fmt.Sprintf("You take %s.", e.formatItemName(iDef, item.Adj1, item.Adj2, item.Adj3, item.Tail)))
 		}
 		player.Inventory[ci].Contents = nil
 		e.SavePlayer(ctx, player)
-		cName := e.formatContainerName(cDef, container.Adj1, container.Adj2, container.Adj3, container.State)
+		cName := e.formatContainerName(cDef, container.Adj1, container.Adj2, container.Adj3, container.State, container.Tail)
 		return &CommandResult{
 			Messages:      msgs,
 			RoomBroadcast: []string{fmt.Sprintf("%s empties %s.", player.FirstName, cName)},
@@ -626,7 +696,7 @@ func (e *GameEngine) doGetAllFromContainer(ctx context.Context, player *Player, 
 			if cDef == nil || !isContainerDef(cDef) {
 				continue
 			}
-			if !matchesTarget(e.getItemNounName(cDef), containerTarget, e.getAdjName(ri.Adj1)) {
+			if !matchesTarget(e.getItemNounName(cDef), containerTarget, e.getAdjName(ri.Adj1), e.getAdjName(ri.Adj2), e.getAdjName(ri.Adj3)) {
 				continue
 			}
 			if strings.ToUpper(ri.State) == "LOCKED" {
@@ -637,7 +707,7 @@ func (e *GameEngine) doGetAllFromContainer(ctx context.Context, player *Player, 
 			}
 			contents := e.roomContainerGet(player.RoomNumber, ri.Ref)
 			if len(contents) == 0 {
-				cName := e.formatContainerName(cDef, ri.Adj1, ri.Adj2, ri.Adj3, ri.State)
+				cName := e.formatContainerName(cDef, ri.Adj1, ri.Adj2, ri.Adj3, ri.State, ri.Extend)
 				return &CommandResult{Messages: []string{fmt.Sprintf("%s is empty.", cName)}}
 			}
 			var msgs []string
@@ -647,11 +717,11 @@ func (e *GameEngine) doGetAllFromContainer(ctx context.Context, player *Player, 
 					continue
 				}
 				player.Inventory = append(player.Inventory, item)
-				msgs = append(msgs, fmt.Sprintf("You take %s.", e.formatItemName(iDef, item.Adj1, item.Adj2, item.Adj3)))
+				msgs = append(msgs, fmt.Sprintf("You take %s.", e.formatItemName(iDef, item.Adj1, item.Adj2, item.Adj3, item.Tail)))
 			}
 			e.roomContainerSet(player.RoomNumber, ri.Ref, nil)
 			e.SavePlayer(ctx, player)
-			cName := e.formatContainerName(cDef, ri.Adj1, ri.Adj2, ri.Adj3, ri.State)
+			cName := e.formatContainerName(cDef, ri.Adj1, ri.Adj2, ri.Adj3, ri.State, ri.Extend)
 			return &CommandResult{
 				Messages:      msgs,
 				RoomBroadcast: []string{fmt.Sprintf("%s empties %s.", player.FirstName, cName)},
@@ -684,7 +754,7 @@ func (e *GameEngine) doDump(ctx context.Context, player *Player, args []string) 
 		if cDef == nil || !isContainerDef(cDef) {
 			continue
 		}
-		if !matchesTarget(e.getItemNounName(cDef), target, e.getAdjName(container.Adj1)) {
+		if !matchesTarget(e.getItemNounName(cDef), target, e.getAdjName(container.Adj1), e.getAdjName(container.Adj2), e.getAdjName(container.Adj3)) {
 			continue
 		}
 		if skip > 0 {
@@ -695,7 +765,7 @@ func (e *GameEngine) doDump(ctx context.Context, player *Player, args []string) 
 			return &CommandResult{Messages: []string{"You can't dump that — it's too heavy to move."}}
 		}
 		if len(container.Contents) == 0 {
-			cName := e.formatContainerName(cDef, container.Adj1, container.Adj2, container.Adj3, container.State)
+			cName := e.formatContainerName(cDef, container.Adj1, container.Adj2, container.Adj3, container.State, container.Tail)
 			return &CommandResult{Messages: []string{fmt.Sprintf("%s is already empty.", cName)}}
 		}
 
@@ -712,13 +782,13 @@ func (e *GameEngine) doDump(ctx context.Context, player *Player, args []string) 
 			room.Items = append(room.Items, droppedItem)
 			e.notifyRoomChange(RoomChange{RoomNumber: player.RoomNumber, Type: "item_add", Item: &droppedItem})
 			if iDef != nil {
-				msgs = append(msgs, fmt.Sprintf("%s tumbles out.", e.formatItemName(iDef, item.Adj1, item.Adj2, item.Adj3)))
+				msgs = append(msgs, fmt.Sprintf("%s tumbles out.", e.formatItemName(iDef, item.Adj1, item.Adj2, item.Adj3, item.Tail)))
 			}
 		}
 		player.Inventory[ci].Contents = nil
 		e.SavePlayer(ctx, player)
 
-		cName := e.formatContainerName(cDef, container.Adj1, container.Adj2, container.Adj3, container.State)
+		cName := e.formatContainerName(cDef, container.Adj1, container.Adj2, container.Adj3, container.State, container.Tail)
 		msgs = append([]string{fmt.Sprintf("You dump out %s.", cName)}, msgs...)
 		return &CommandResult{
 			Messages:      msgs,
@@ -759,7 +829,7 @@ func (e *GameEngine) doSellAll(ctx context.Context, player *Player, noun string)
 			kept = append(kept, ii)
 			continue
 		}
-		if !matchesTarget(e.getItemNounName(def), target, e.getAdjName(ii.Adj1)) {
+		if !matchesTarget(e.getItemNounName(def), target, e.getAdjName(ii.Adj1), e.getAdjName(ii.Adj2), e.getAdjName(ii.Adj3)) {
 			kept = append(kept, ii)
 			continue
 		}
@@ -791,6 +861,24 @@ func (e *GameEngine) doSellAll(ctx context.Context, player *Player, noun string)
 	}}
 }
 
+// formatCoinStr converts a copper-unit coin value to a readable string.
+func formatCoinStr(val int) string {
+	var parts []string
+	if g := val / 100; g > 0 {
+		parts = append(parts, fmt.Sprintf("%d gold", g))
+	}
+	if s := (val % 100) / 10; s > 0 {
+		parts = append(parts, fmt.Sprintf("%d silver", s))
+	}
+	if c := val % 10; c > 0 {
+		parts = append(parts, fmt.Sprintf("%d copper", c))
+	}
+	if len(parts) == 0 {
+		return "some coins"
+	}
+	return "some coins (" + strings.Join(parts, ", ") + ")"
+}
+
 // ── Container loot generation ─────────────────────────────────────────────────
 // Called from generateTreasure (treasure.go) when a chest/coffer drops.
 // Populates the room container's contents via roomContainerSet.
@@ -802,90 +890,116 @@ var scrollAdjectiveWords = []string{
 	"ancient", "dusty", "moldy", "faint",
 }
 
-// Gem quality adjectives and their value multipliers.
-// The gem's base value comes from ItemDef.Parameter1 (Val1 on the item).
+// gemQuality defines quality tiers for gems.
 type gemQuality struct {
-	adjName    string // "" means no adjective (standard gem)
+	adjName    string
 	multiplier float64
 }
 
 var gemQualities = []gemQuality{
 	{"cracked", 0.25},
 	{"chipped", 0.60},
-	{"", 1.0},   // no adjective = standard
+	{"", 1.0},
 	{"flawless", 2.0},
 	{"perfect", 4.0},
+}
+
+// gemSize defines size tiers for gems.
+type gemSize struct {
+	adjName    string
+	multiplier float64
+}
+
+var gemSizes = []gemSize{
+	{"tiny", 0.50},
+	{"small", 0.75},
+	{"", 1.00},
+	{"large", 1.50},
+	{"huge", 2.00},
+}
+
+// gemQualWeights returns quality selection weights biased by treasure level.
+func gemQualWeights(treasureLevel int) []int {
+	switch {
+	case treasureLevel >= 30:
+		return []int{2, 8, 30, 35, 25}
+	case treasureLevel >= 15:
+		return []int{5, 15, 50, 20, 10}
+	default:
+		return []int{15, 25, 45, 12, 3}
+	}
+}
+
+// gemSizeWeights returns size selection weights biased by treasure level.
+func gemSizeWeights(treasureLevel int) []int {
+	switch {
+	case treasureLevel >= 30:
+		return []int{2, 8, 45, 30, 15}
+	case treasureLevel >= 15:
+		return []int{5, 15, 55, 18, 7}
+	default:
+		return []int{15, 25, 50, 8, 2}
+	}
+}
+
+// weightedPickGem picks an index using weighted random selection.
+func weightedPickGem(weights []int) int {
+	total := 0
+	for _, w := range weights {
+		total += w
+	}
+	if total == 0 {
+		return 0
+	}
+	r := rand.Intn(total)
+	for i, w := range weights {
+		r -= w
+		if r < 0 {
+			return i
+		}
+	}
+	return len(weights) - 1
 }
 
 // populateContainerLoot fills a freshly-dropped chest/coffer with loot.
 // roomNum and itemRef identify where to store the contents.
 // treasureLevel drives quantity and quality.
-func (e *GameEngine) populateContainerLoot(roomNum, itemRef, treasureLevel int) []string {
+// Item count follows a 2d4 bell curve (2–8 total), with coins always occupying one slot.
+func (e *GameEngine) populateContainerLoot(roomNum, itemRef, treasureLevel int) {
 	if treasureLevel <= 0 {
-		return nil
+		return
 	}
 
-	var contents []InventoryItem
-	var msgs []string
+	// 2d4 gives a bell curve of 2–8; one slot is always coins
+	numItems := rand.Intn(4) + 1 + rand.Intn(4) + 1
 
-	// ── Coins ──────────────────────────────────────────────────────────
+	var contents []InventoryItem
+
+	// ── Always: Coins ──────────────────────────────────────────────────
 	coinAmount := treasureLevel*3 + rand.Intn(treasureLevel*2+1)
 	if coinAmount > 0 {
-		// Represent as a MONEY room item inside the container as an InventoryItem.
-		// Val1 = total copper value, State = "MONEY", Archetype = 0 (special money marker).
 		contents = append(contents, InventoryItem{
 			Archetype: 0,
 			Val1:      coinAmount,
 			State:     "MONEY",
 		})
-		gold := coinAmount / 100
-		silver := (coinAmount % 100) / 10
-		copper := coinAmount % 10
-		var parts []string
-		if gold > 0 {
-			parts = append(parts, fmt.Sprintf("%d gold", gold))
-		}
-		if silver > 0 {
-			parts = append(parts, fmt.Sprintf("%d silver", silver))
-		}
-		if copper > 0 {
-			parts = append(parts, fmt.Sprintf("%d copper", copper))
-		}
-		if len(parts) > 0 {
-			msgs = append(msgs, fmt.Sprintf("It contains coins. (%s)", joinParts(parts)))
-		}
 	}
 
-	// ── Scrolls (10–30% chance) ─────────────────────────────────────────
-	scrollChance := 10 + treasureLevel/4
-	if scrollChance > 30 {
-		scrollChance = 30
-	}
-	if rand.Intn(100) < scrollChance {
-		if item := e.randomScrollDropWithAdj(treasureLevel); item != nil {
-			contents = append(contents, inventoryFromRoomItem(item))
-			msgs = append(msgs, "A scroll is tucked inside.")
-		}
-	}
-
-	// ── Gems (15% chance) ───────────────────────────────────────────────
-	if rand.Intn(100) < 15 {
-		if item := e.randomGemDrop(treasureLevel); item != nil {
-			contents = append(contents, inventoryFromRoomItem(item))
-			def := e.items[item.Archetype]
-			if def != nil {
-				msgs = append(msgs, fmt.Sprintf("A %s glints inside.", e.formatItemName(def, item.Adj1, item.Adj2, item.Adj3)))
+	// ── Extra slots: gems, jewelry, or scrolls ──────────────────────────
+	extras := numItems - 1
+	for i := 0; i < extras; i++ {
+		switch rand.Intn(3) {
+		case 0:
+			if item := e.randomGemDrop(treasureLevel); item != nil {
+				contents = append(contents, inventoryFromRoomItem(item))
 			}
-		}
-	}
-
-	// ── Jewelry (8% chance, may have a spell trigger) ───────────────────
-	if rand.Intn(100) < 8 {
-		if item := e.randomJewelryDrop(treasureLevel); item != nil {
-			contents = append(contents, inventoryFromRoomItem(item))
-			def := e.items[item.Archetype]
-			if def != nil {
-				msgs = append(msgs, fmt.Sprintf("%s nestles inside.", e.formatItemName(def, item.Adj1, item.Adj2, item.Adj3)))
+		case 1:
+			if item := e.randomJewelryDrop(treasureLevel); item != nil {
+				contents = append(contents, inventoryFromRoomItem(item))
+			}
+		case 2:
+			if item := e.randomScrollDropWithAdj(treasureLevel); item != nil {
+				contents = append(contents, inventoryFromRoomItem(item))
 			}
 		}
 	}
@@ -893,7 +1007,6 @@ func (e *GameEngine) populateContainerLoot(roomNum, itemRef, treasureLevel int) 
 	if len(contents) > 0 {
 		e.roomContainerSet(roomNum, itemRef, contents)
 	}
-	return msgs
 }
 
 // inventoryFromRoomItem converts a *gameworld.RoomItem to an InventoryItem.
@@ -903,6 +1016,7 @@ func inventoryFromRoomItem(ri *gameworld.RoomItem) InventoryItem {
 		Adj1: ri.Adj1, Adj2: ri.Adj2, Adj3: ri.Adj3,
 		Val1: ri.Val1, Val2: ri.Val2, Val3: ri.Val3, Val4: ri.Val4, Val5: ri.Val5,
 		State: ri.State,
+		Tail:  ri.Extend,
 	}
 }
 
@@ -920,25 +1034,13 @@ func (e *GameEngine) randomScrollDropWithAdj(treasureLevel int) *gameworld.RoomI
 }
 
 // randomGemDrop selects a random gem item and assigns a quality adjective.
+// Gems occupy item numbers 99–123 in the original scripts.
 func (e *GameEngine) randomGemDrop(treasureLevel int) *gameworld.RoomItem {
 	var candidates []int
-	for num, def := range e.items {
-		if def.Type != "MISC" && def.Type != "REAGENT" && def.Type != "GEM" {
-			continue
+	for num := 99; num <= 123; num++ {
+		if e.items[num] != nil {
+			candidates = append(candidates, num)
 		}
-		if def.Weight >= 1000 {
-			continue
-		}
-		// Gems are identified by SUBSTANCE BRITTLE in the script; check via substance field.
-		// As a proxy: look for items with very low weight and volume (weight=1, volume=0).
-		if def.Weight != 1 || def.Volume != 0 {
-			continue
-		}
-		// Must be a REAGENT (gem items have REAGENT flag in ITEM1.SCR)
-		if !containsFlag(def.Flags, "REAGENT") {
-			continue
-		}
-		candidates = append(candidates, num)
 	}
 	if len(candidates) == 0 {
 		return nil
@@ -946,38 +1048,72 @@ func (e *GameEngine) randomGemDrop(treasureLevel int) *gameworld.RoomItem {
 
 	chosen := candidates[rand.Intn(len(candidates))]
 
-	// Pick a quality — weighted toward middle values
-	// Weights: cracked=5, chipped=15, standard=50, flawless=20, perfect=10
-	qualityWeights := []int{5, 15, 50, 20, 10}
-	total := 0
-	for _, w := range qualityWeights {
-		total += w
-	}
-	roll := rand.Intn(total)
-	qIdx := 0
-	for i, w := range qualityWeights {
-		roll -= w
-		if roll < 0 {
-			qIdx = i
-			break
-		}
-	}
-	q := gemQualities[qIdx]
+	// Pick quality and size, both biased by treasure level
+	q := gemQualities[weightedPickGem(gemQualWeights(treasureLevel))]
+	sz := gemSizes[weightedPickGem(gemSizeWeights(treasureLevel))]
 
-	item := &gameworld.RoomItem{
-		Archetype: chosen,
+	item := &gameworld.RoomItem{Archetype: chosen}
+
+	// Adj order: size first (if any), then quality (if any)
+	adjSlot := 0
+	setAdj := func(id int) {
+		switch adjSlot {
+		case 0:
+			item.Adj1 = id
+		case 1:
+			item.Adj2 = id
+		case 2:
+			item.Adj3 = id
+		}
+		adjSlot++
+	}
+	if sz.adjName != "" {
+		setAdj(e.adjByName(sz.adjName))
 	}
 	if q.adjName != "" {
-		item.Adj1 = e.adjByName(q.adjName)
+		setAdj(e.adjByName(q.adjName))
 	}
-	// Store quality multiplier as Val2 scaled to integer (100 = 1.0x)
-	item.Val2 = int(q.multiplier * 100)
+
+	// Combined value multiplier: quality × size
+	item.Val2 = int(q.multiplier * sz.multiplier * 100)
 
 	return item
 }
 
-// randomJewelryDrop selects a random jewelry item. Optionally assigns a spell trigger.
-// Jewelry with a spell can be activated by CONCENTRATE, RUB, or TOUCH.
+// isJewelryBeneficialSpell returns true for spells appropriate for treasure-generated magic jewelry.
+// Only healing, defensive, and self-buff spells are allowed — nothing that targets enemies,
+// no weapon enchantments, and no crowd-control or debuff spells.
+func isJewelryBeneficialSpell(sp SpellDef) bool {
+	// All damage spells excluded
+	if sp.Effect == "damage" {
+		return false
+	}
+	// Explicitly excluded spell IDs
+	excluded := map[int]bool{
+		127: true, // Web
+		135: true, // Storm Blade (weapon enchant)
+		136: true, // Inferno Blade (weapon enchant)
+		137: true, // Winter Blade (weapon enchant)
+		200: true, // Fear
+		201: true, // Charm
+		202: true, // Enchantment I (weapon enchant)
+		203: true, // Enchantment II (weapon enchant)
+		204: true, // Enchantment III (weapon enchant)
+		211: true, // Slow
+		216: true, // Slumber I
+		219: true, // Silence
+		400: true, // Detect Magic (passive/object-targeted)
+		403: true, // Mindlink (communication)
+		406: true, // Dispel Invisibility (targets others)
+		407: true, // Analyze Ore (crafting only)
+		500: true, // Plant Snare
+	}
+	return !excluded[sp.ID]
+}
+
+// randomJewelryDrop selects a random jewelry item and optionally assigns a beneficial spell
+// that the player can trigger by concentrating on it while worn. Magical items have a limited
+// number of charges stored in Val4; Val4 == 0 means the item is not magical.
 func (e *GameEngine) randomJewelryDrop(treasureLevel int) *gameworld.RoomItem {
 	jewelryNouns := map[string]bool{
 		"ring": true, "amulet": true, "necklace": true, "bracelet": true,
@@ -1016,13 +1152,16 @@ func (e *GameEngine) randomJewelryDrop(treasureLevel int) *gameworld.RoomItem {
 		}
 		var spellCandidates []SpellDef
 		for _, sp := range spellRegistry {
-			if sp.Level <= maxSpellLevel && sp.Effect != "" {
+			if sp.Level <= maxSpellLevel && sp.Effect != "" && isJewelryBeneficialSpell(sp) {
 				spellCandidates = append(spellCandidates, sp)
 			}
 		}
 		if len(spellCandidates) > 0 {
 			sp := spellCandidates[rand.Intn(len(spellCandidates))]
 			item.Val3 = sp.ID // spell ID stored on the item; triggered by CONCENTRATE/RUB/TOUCH
+			// Assign limited charges: 3–8 at low levels, up to 15 at high levels
+			baseCharges := 15 + rand.Intn(treasureLevel/2+3)
+			item.Val4 = baseCharges
 		}
 	}
 
@@ -1035,7 +1174,7 @@ func (e *GameEngine) randomJewelryDrop(treasureLevel int) *gameworld.RoomItem {
 func (e *GameEngine) doInventoryEnhanced(player *Player) *CommandResult {
 	var msgs []string
 	msgs = append(msgs, "You are carrying:")
-	if len(player.Inventory) == 0 && len(player.Worn) == 0 && player.Wielded == nil {
+	if len(player.Inventory) == 0 && len(player.Worn) == 0 && player.Wielded == nil && player.OffHand == nil {
 		msgs = append(msgs, "  Nothing.")
 		return &CommandResult{Messages: msgs}
 	}
@@ -1043,15 +1182,26 @@ func (e *GameEngine) doInventoryEnhanced(player *Player) *CommandResult {
 	if player.Wielded != nil {
 		itemDef := e.items[player.Wielded.Archetype]
 		if itemDef != nil {
-			name := e.formatItemName(itemDef, player.Wielded.Adj1, player.Wielded.Adj2, player.Wielded.Adj3)
+			name := e.formatItemName(itemDef, player.Wielded.Adj1, player.Wielded.Adj2, player.Wielded.Adj3, player.Wielded.Tail)
 			msgs = append(msgs, fmt.Sprintf("  %s (wielded)", name))
+		}
+	}
+	if player.OffHand != nil {
+		itemDef := e.items[player.OffHand.Archetype]
+		if itemDef != nil {
+			name := e.formatItemName(itemDef, player.OffHand.Adj1, player.OffHand.Adj2, player.OffHand.Adj3, player.OffHand.Tail)
+			label := "(off-hand weapon)"
+			if itemDef.Type == "SHIELD" {
+				label = "(shield)"
+			}
+			msgs = append(msgs, fmt.Sprintf("  %s %s", name, label))
 		}
 	}
 
 	for _, ii := range player.Worn {
 		itemDef := e.items[ii.Archetype]
 		if itemDef != nil {
-			name := e.formatItemName(itemDef, ii.Adj1, ii.Adj2, ii.Adj3)
+			name := e.formatItemName(itemDef, ii.Adj1, ii.Adj2, ii.Adj3, ii.Tail)
 			msgs = append(msgs, fmt.Sprintf("  %s (worn)", name))
 		}
 	}
@@ -1063,7 +1213,7 @@ func (e *GameEngine) doInventoryEnhanced(player *Player) *CommandResult {
 		if itemDef == nil {
 			continue
 		}
-		itemNames = append(itemNames, e.formatContainerName(itemDef, ii.Adj1, ii.Adj2, ii.Adj3, ii.State))
+		itemNames = append(itemNames, e.formatContainerName(itemDef, ii.Adj1, ii.Adj2, ii.Adj3, ii.State, ii.Tail))
 	}
 
 	// Print one item per line
@@ -1072,7 +1222,7 @@ func (e *GameEngine) doInventoryEnhanced(player *Player) *CommandResult {
 		if itemDef == nil {
 			continue
 		}
-		msgs = append(msgs, "  "+e.formatContainerName(itemDef, ii.Adj1, ii.Adj2, ii.Adj3, ii.State))
+		msgs = append(msgs, "  "+e.formatContainerName(itemDef, ii.Adj1, ii.Adj2, ii.Adj3, ii.State, ii.Tail))
 	}
 
 	return &CommandResult{Messages: msgs}

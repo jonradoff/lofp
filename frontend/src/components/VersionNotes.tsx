@@ -9,6 +9,108 @@ export default function VersionNotes({ onBack }: { onBack: () => void }) {
 
         <div className="space-y-6 text-sm">
           <section>
+            <h2 className="text-amber-400 text-lg font-bold mb-1">v11.5.14 &mdash; June 21, 2026</h2>
+            <p className="text-gray-400 mb-3">Group disconnect handling, GUARD command overhaul, improved guard messages, STATUS build point fix.</p>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Group System</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>When a group leader disconnects or logs off, the entire group is disbanded and all members are notified</li>
+                  <li>When a group member disconnects or logs off, they are removed from the leader&rsquo;s group and the leader is notified</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">GUARD Command Overhaul</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>GUARD now requires Combat Maneuvering skill at level 2 or higher to guard a player</li>
+                  <li>Combat Maneuvering level 3 unlocks portal guard &mdash; anyone trying to pass a guarded gate or doorway must make a skill check</li>
+                  <li>Any Combat Maneuvering level can guard an item on the ground &mdash; others must make a skill check to pick it up</li>
+                  <li>You can now guard multiple targets simultaneously &mdash; GUARD &lt;target&gt; toggles each guard on or off independently</li>
+                  <li>Cannot guard a player who is already themselves on guard duty</li>
+                  <li>Hidden or invisible bypassers are announced as &ldquo;something&rdquo; rather than by name in all guard messages</li>
+                  <li>Skill check formula: roll d100 + CM&times;5 + (AGI&minus;50)/10 + (QUI&minus;50)/10 vs 50 + guard&rsquo;s CM&times;5</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Improved Guard Messages</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Skill roll results now shown on both success and failure: <code className="text-amber-300">[Roll: 73 vs 60]</code></li>
+                  <li>Successful bypass now shows &ldquo;You slip past X&rsquo;s guard&rdquo; before the pickup or movement confirmation</li>
+                  <li>Guard sees their own success/failure with the roll result</li>
+                  <li>Room bystanders see appropriate success/failure echoes for portal and item guard attempts</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Fixes</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>STATUS command now shows correct &ldquo;Build Points to date&rdquo; and &ldquo;Unspent Build Points&rdquo; values &mdash; was previously double-subtracting spent points</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2 className="text-amber-400 text-lg font-bold mb-1">v11.5.13 &mdash; June 20, 2026</h2>
+            <p className="text-gray-400 mb-3">Weapon repair fixes, damaged adjective, oily metal crafting correction.</p>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Combat</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Weapons damaged in a clash now show a &ldquo;damaged&rdquo; adjective &mdash; a damaged longsword appears as &ldquo;a damaged longsword&rdquo;</li>
+                  <li>Successfully repairing a weapon removes the damaged adjective</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Crafting</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Oily and oiled metals no longer produce weapons with icy elemental crit damage &mdash; they were incorrectly inheriting cold-damage properties</li>
+                  <li>Weapons and jewelry crafted from oily or oiled metal now show as iridescent instead</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Fixes</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>REPAIR now matches weapons by adjective &mdash; &ldquo;repair damaged longsword&rdquo; correctly finds the item</li>
+                  <li>REPAIR no longer says &ldquo;doesn&rsquo;t need repair&rdquo; when the weapon isn&rsquo;t in your inventory &mdash; now says &ldquo;you aren&rsquo;t carrying that&rdquo;</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2 className="text-amber-400 text-lg font-bold mb-1">v11.5.12 &mdash; June 19, 2026</h2>
+            <p className="text-gray-400 mb-3">Weapon clash metal bonuses, off-hand inventory fix, crafted weapon sharpness system.</p>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Combat</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Weapon clashes now account for metal type &mdash; harder metals resist damage: steel +25, truesteel +40, elkyri +55, albescent +65, randar +75</li>
+                  <li>Soft metals (copper, silver, gold, tin) provide no clash bonus and are more likely to be damaged or broken</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Crafting</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Crafted weapons now receive a non-magical to-hit bonus (Val1) based on the ore&rsquo;s hidden color quality</li>
+                  <li>Ore color (purple / indigo / blue) determines the sharpness ceiling &mdash; blue is the best currently mineable</li>
+                  <li>Smith&rsquo;s Weaponsmithing skill level shifts the bonus range &mdash; higher skill yields sharper weapons</li>
+                  <li>Weapon completion message now reports blade quality and bonus (e.g., &ldquo;The blade is very sharp. (+7 non-magical bonus)&rdquo;)</li>
+                  <li>ANALYZE ore at Mining 5+ now also reveals the metal&rsquo;s color quality alongside purity</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Fixes</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Off-hand weapon (Two Weapons skill) now appears at the top of the INVENTORY list alongside wielded and worn items, labeled &ldquo;(off-hand weapon)&rdquo;</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
             <h2 className="text-amber-400 text-lg font-bold mb-1">v11.5.11 &mdash; April 29, 2026</h2>
             <p className="text-gray-400 mb-3">Crafting pipeline fix, LOOK IN containers, CRAFT recipe list, manuscript protection.</p>
 

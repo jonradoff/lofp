@@ -28,6 +28,7 @@ type ParseResult struct {
 	MoneyDefs   []gameworld.MoneyDef
 	ForageDefs  []gameworld.ForageDef
 	MineDefs    []gameworld.MineDef
+	OrgDefs     []gameworld.OrgDef
 	StartRoom   int
 	BumpRoom    int
 }
@@ -319,6 +320,11 @@ func (p *fileParser) parse() {
 				})
 			}
 			p.pos++
+		case "ORGDEF":
+			if def, ok := parseOrgDef(fields); ok {
+				p.result.OrgDefs = append(p.result.OrgDefs, def)
+			}
+			p.pos++
 		default:
 			p.pos++
 		}
@@ -348,8 +354,13 @@ func (p *fileParser) parseRoom(fields []string) {
 		fields := strings.Fields(line)
 		cmd := strings.ToUpper(fields[0])
 
-		// A new NUMBER or INUMBER or MNUMBER starts a new block
-		if cmd == "NUMBER" || cmd == "INUMBER" || cmd == "MNUMBER" {
+		// A new NUMBER or INUMBER or MNUMBER starts a new block.
+		// Top-level-only directives (MLIST, FORAGEDEF, MINDEF, MACRO, MONEYDEF)
+		// also end the room — they appear after the last room in some script files
+		// and must be handled by the top-level parse loop, not swallowed here.
+		if cmd == "NUMBER" || cmd == "INUMBER" || cmd == "MNUMBER" ||
+			cmd == "MLIST" || cmd == "FORAGEDEF" || cmd == "MINDEF" ||
+			cmd == "MACRO" || cmd == "MONEYDEF" || cmd == "REGIONDEF" {
 			break
 		}
 
@@ -436,6 +447,10 @@ func (p *fileParser) parseRoom(fields []string) {
 			block := p.parseScriptBlock(fields)
 			room.Scripts = append(room.Scripts, block)
 			continue
+		case "ORGDEF":
+			if def, ok := parseOrgDef(fields); ok {
+				p.result.OrgDefs = append(p.result.OrgDefs, def)
+			}
 		case "VARIABLE":
 			// Room-scoped variable, track it
 			if len(fields) >= 2 {
@@ -511,7 +526,7 @@ func (p *fileParser) parseItem(fields []string) {
 		fields := strings.Fields(line)
 		cmd := strings.ToUpper(fields[0])
 
-		if cmd == "NUMBER" || cmd == "INUMBER" || cmd == "MNUMBER" {
+		if cmd == "NUMBER" || cmd == "INUMBER" || cmd == "MNUMBER" || cmd == "REGIONDEF" {
 			break
 		}
 
@@ -564,17 +579,13 @@ func (p *fileParser) parseItem(fields []string) {
 		case "AMMO", "ARMOR", "BITE_WEAPON", "BOW_WEAPON", "CLAW_WEAPON",
 			"CRUSH_WEAPON", "DRAKIN_CRUSH", "DRAKIN_POLE", "DRAKIN_SLASH",
 			"DRAKIN_THROWN", "FOOD", "HANDGUN", "KEY", "LIQCONTAINER",
-			"LIQUID", "LOCKPICK", "MINETOOL", "MISC", "MONEY",
+			"LIQUID", "LOCKPICK", "MATERIAL", "MINETOOL", "MISC", "MONEY",
 			"POLE_WEAPON", "POLETHROWN", "PORTAL_THROUGH", "PORTAL_CLIMB",
 			"PORTAL_UP", "PORTAL_DOWN", "PORTAL_CLIMBUP", "PORTAL_CLIMBDOWN",
 			"PORTAL_OVER", "PORTAL", "PUNCTURE_WEAPON",
 			"RIFLE", "SCROLL", "SHIELD", "SLASH_WEAPON", "STABTHROWN",
 			"THROWN_WEAPON", "TRAP", "TWOHAND_WEAPON", "ORE":
 			item.Type = cmd
-			// Shields default to WORN_ARMOR if no explicit worn slot
-			if cmd == "SHIELD" && item.WornSlot == "" {
-				item.WornSlot = "WORN_ARMOR"
-			}
 		// Worn slots
 		case "WORN_AROUND", "WORN_BACK", "WORN_BODY", "WORN_DON",
 			"WORN_EAR", "WORN_FEET1", "WORN_FEET2", "WORN_HAIR",
@@ -627,7 +638,7 @@ func (p *fileParser) parseMonster(fields []string) {
 		fields := strings.Fields(line)
 		cmd := strings.ToUpper(fields[0])
 
-		if cmd == "NUMBER" || cmd == "INUMBER" || cmd == "MNUMBER" {
+		if cmd == "NUMBER" || cmd == "INUMBER" || cmd == "MNUMBER" || cmd == "REGIONDEF" {
 			break
 		}
 
@@ -867,7 +878,7 @@ func (p *fileParser) readDescription() string {
 	p.pos++ // skip *DESCRIPTION_START
 	var rawLines []string
 	for p.pos < len(p.lines) {
-		if strings.ToUpper(strings.TrimSpace(p.lines[p.pos])) == "*DESCRIPTION_END" {
+		if strings.HasPrefix(strings.ToUpper(strings.TrimSpace(p.lines[p.pos])), "*DESCRIPTION_END") {
 			p.pos++
 			break
 		}
@@ -1076,5 +1087,29 @@ func (p *fileParser) parseRegion(fields []string) {
 	case "MINE_ADJ":
 		region.MineAdj, _ = strconv.Atoi(val)
 	}
+}
+
+// parseOrgDef parses an ORGDEF directive.
+// Format: ORGDEF <org#> <INVITE|OPEN> <TEMPLE|GUILD|CULT> <room#> <Name>
+func parseOrgDef(fields []string) (gameworld.OrgDef, bool) {
+	if len(fields) < 6 {
+		return gameworld.OrgDef{}, false
+	}
+	num, err := strconv.Atoi(fields[1])
+	if err != nil {
+		return gameworld.OrgDef{}, false
+	}
+	roomNum, err := strconv.Atoi(fields[4])
+	if err != nil {
+		return gameworld.OrgDef{}, false
+	}
+	name := strings.ReplaceAll(fields[5], "_", " ")
+	return gameworld.OrgDef{
+		Number:       num,
+		JoinType:     strings.ToUpper(fields[2]),
+		OrgType:      strings.ToUpper(fields[3]),
+		TrainingRoom: roomNum,
+		Name:         name,
+	}, true
 }
 

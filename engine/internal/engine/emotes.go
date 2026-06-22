@@ -337,8 +337,8 @@ func (e *GameEngine) processEmote(player *Player, verb string, args []string) *C
 						continue
 					}
 					name := e.getItemNounName(itemDef)
-					if matchesTarget(name, targetName, e.getAdjName(ri.Adj1)) {
-						displayTarget := e.formatItemName(itemDef, ri.Adj1, ri.Adj2, ri.Adj3)
+					if matchesTarget(name, targetName, e.getAdjName(ri.Adj1), e.getAdjName(ri.Adj2), e.getAdjName(ri.Adj3)) {
+						displayTarget := e.formatItemName(itemDef, ri.Adj1, ri.Adj2, ri.Adj3, ri.Extend)
 						selfMsg := expandEmote(entry.SelfTarget, player, displayTarget)
 						roomMsg := expandEmote(entry.RoomTarget, player, displayTarget)
 						return &CommandResult{Messages: []string{selfMsg}, RoomBroadcast: []string{roomMsg}}
@@ -359,8 +359,8 @@ func (e *GameEngine) processEmote(player *Player, verb string, args []string) *C
 					continue
 				}
 				name := e.getItemNounName(itemDef)
-				if matchesTarget(name, targetName, e.getAdjName(ii.Adj1)) || matchesTarget(name, targetName, e.getAdjName(ii.Adj3)) {
-					displayTarget := e.formatItemName(itemDef, ii.Adj1, ii.Adj2, ii.Adj3)
+				if matchesTarget(name, targetName, e.getAdjName(ii.Adj1), e.getAdjName(ii.Adj2), e.getAdjName(ii.Adj3)) {
+					displayTarget := e.formatItemName(itemDef, ii.Adj1, ii.Adj2, ii.Adj3, ii.Tail)
 					selfMsg := expandEmote(entry.SelfTarget, player, displayTarget)
 					roomMsg := expandEmote(entry.RoomTarget, player, displayTarget)
 					return &CommandResult{Messages: []string{selfMsg}, RoomBroadcast: []string{roomMsg}}
@@ -414,8 +414,8 @@ func (e *GameEngine) processKiss(player *Player, args []string) *CommandResult {
 						continue
 					}
 					name := e.getItemNounName(itemDef)
-					if matchesTarget(name, targetName, e.getAdjName(ri.Adj1)) {
-						displayTarget := e.formatItemName(itemDef, ri.Adj1, ri.Adj2, ri.Adj3)
+					if matchesTarget(name, targetName, e.getAdjName(ri.Adj1), e.getAdjName(ri.Adj2), e.getAdjName(ri.Adj3)) {
+						displayTarget := e.formatItemName(itemDef, ri.Adj1, ri.Adj2, ri.Adj3, ri.Extend)
 						selfMsg := expandEmote(entry.SelfTarget, player, displayTarget)
 						roomMsg := expandEmote(entry.RoomTarget, player, displayTarget)
 						return &CommandResult{Messages: []string{selfMsg}, RoomBroadcast: []string{roomMsg}}
@@ -503,8 +503,8 @@ func (e *GameEngine) processLick(player *Player, args []string) *CommandResult {
 				continue
 			}
 			name := e.getItemNounName(itemDef)
-			if matchesTarget(name, targetName, e.getAdjName(ri.Adj1)) {
-				displayTarget := e.formatItemName(itemDef, ri.Adj1, ri.Adj2, ri.Adj3)
+			if matchesTarget(name, targetName, e.getAdjName(ri.Adj1), e.getAdjName(ri.Adj2), e.getAdjName(ri.Adj3)) {
+				displayTarget := e.formatItemName(itemDef, ri.Adj1, ri.Adj2, ri.Adj3, ri.Extend)
 				selfMsg := expandEmote(entry.SelfTarget, player, displayTarget)
 				roomMsg := expandEmote(entry.RoomTarget, player, displayTarget)
 				return &CommandResult{Messages: []string{selfMsg}, RoomBroadcast: []string{roomMsg}}

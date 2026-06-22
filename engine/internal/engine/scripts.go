@@ -5,9 +5,22 @@ import (
 	"math/rand"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/jonradoff/lofp/internal/gameworld"
 )
+
+// scriptEventCycleSeconds is the real-time duration of one SETEVENT cycle.
+// SETEVENT N cycles ALWAYS delays N × this many seconds.
+const scriptEventCycleSeconds = 5
+
+// ScriptSegment is a time-delayed group of script actions created by a SETEVENT/CONTEVENT pair.
+type ScriptSegment struct {
+	RelativeSeconds int                      // seconds to wait after previous segment fires
+	Actions         []gameworld.ScriptAction // actions to run when segment fires
+	Children        []gameworld.ScriptBlock  // children to run after actions (if no sub-delay found)
+	RoomNumber      int                      // sc.Room.Number at time of scheduling
+}
 
 // ScriptContext holds state for script execution within a single trigger.
 type ScriptContext struct {
@@ -28,7 +41,21 @@ type ScriptContext struct {
 	ItemRef *gameworld.RoomItem // the room item being interacted with
 	ItemDef *gameworld.ItemDef  // its archetype definition
 
-	DummyVars map[int]int // DUMMY1-5 temporary variables
+	DummyVars      map[int]int // DUMMY1-5 temporary variables
+	lastOrgChecked int         // last org number evaluated in IFVAR ORG, used to resolve ORGRANK
+
+	// Set during RunPreverbScripts so IFPREVERB/IFTOUCH blocks nested inside
+	// IFVAR trees only fire for the triggering verb and item ref.
+	activeVerb string
+	activeRef  string
+
+	KillPlayer        bool // KILL PLAYER: set when script kills the player
+	NeedsSave         bool // set by ROUTINE and similar actions that modify player state
+	routineChargePaid bool // true after first charge decrement this interaction (prevents double-spend across script phases)
+
+	// SETEVENT/CONTEVENT deferred execution
+	pendingEventDelay int             // cycles stored by the last SETEVENT
+	DeferredSegments  []ScriptSegment // segments to run after their respective delays
 }
 
 // RunEntryScripts executes all IFENTRY script blocks for a room.
@@ -53,11 +80,13 @@ func (e *GameEngine) RunSayScripts(player *Player, room *gameworld.Room, text st
 		Room:   room,
 		Engine: e,
 	}
-	textUpper := strings.ToUpper(text)
+	textUpper := strings.ToUpper(strings.TrimRight(text, ".?!"))
 	for _, block := range room.Scripts {
 		if block.Type == "IFSAY" && len(block.Args) >= 1 {
-			// IFSAY args use underscores for spaces
+			// IFSAY args use underscores for spaces; trim trailing punctuation so
+			// "computer, identify" matches the pattern "COMPUTER,_IDENTIFY."
 			pattern := strings.ToUpper(strings.ReplaceAll(block.Args[0], "_", " "))
+			pattern = strings.TrimRight(pattern, ".?!")
 			if textUpper == pattern || strings.Contains(textUpper, pattern) {
 				sc.execBlock(block)
 			}
@@ -69,15 +98,18 @@ func (e *GameEngine) RunSayScripts(player *Player, room *gameworld.Room, text st
 // RunPreverbScripts executes IFPREVERB blocks for a specific verb and item ref.
 // Returns the script context. Check sc.Blocked to see if the action should be cancelled.
 func (e *GameEngine) RunPreverbScripts(player *Player, room *gameworld.Room, verb string, ri *gameworld.RoomItem, def *gameworld.ItemDef) *ScriptContext {
-	sc := &ScriptContext{
-		Player:  player,
-		Room:    room,
-		Engine:  e,
-		ItemRef: ri,
-		ItemDef: def,
-	}
 	refStr := fmt.Sprintf("%d", ri.Ref)
 	verb = strings.ToUpper(verb)
+
+	sc := &ScriptContext{
+		Player:     player,
+		Room:       room,
+		Engine:     e,
+		ItemRef:    ri,
+		ItemDef:    def,
+		activeVerb: verb,
+		activeRef:  refStr,
+	}
 
 	// Check room-level scripts (only for room items; inventory items have Ref=-1)
 	if ri.Ref >= 0 {
@@ -99,17 +131,23 @@ func (e *GameEngine) RunPreverbScripts(player *Player, room *gameworld.Room, ver
 				}
 			}
 		}
+		// Run room-level IFTOUCH blocks; execBlock filters by activeVerb and activeRef.
+		for _, block := range room.Scripts {
+			if block.Type == "IFTOUCH" {
+				sc.execBlock(block)
+			}
+		}
 	}
 
-	// Check item-level scripts (on the archetype definition)
+	// Check item-level scripts (on the archetype definition).
+	// Item scripts may have IFPREVERB blocks nested inside IFVAR trees (e.g., the alley
+	// item checks IFVAR ITEMVAL5 then IFVAR ORG before exposing IFPREVERB GO).
+	// We execute all block types here; execBlock uses activeVerb/activeRef to filter
+	// IFPREVERB/IFTOUCH blocks that don't match the triggering verb.
 	for _, block := range def.Scripts {
-		if block.Type == "IFPREVERB" && len(block.Args) >= 1 {
-			if strings.ToUpper(block.Args[0]) == verb {
-				// Item scripts use -1 as self-reference
-				if len(block.Args) < 2 || block.Args[1] == "-1" {
-					sc.execBlock(block)
-				}
-			}
+		switch block.Type {
+		case "IFPREVERB", "IFVERB", "IFTOUCH", "IFVAR", "IFITEM", "IFNOITEM", "IFCARRY":
+			sc.execBlock(block)
 		}
 	}
 
@@ -210,7 +248,20 @@ func (sc *ScriptContext) execBlock(block gameworld.ScriptBlock) {
 	case "IFENTRY":
 		sc.execChildren(block)
 
-	case "IFPREVERB", "IFVERB":
+	case "IFPREVERB", "IFVERB", "IFPREVERB2", "IFVERB2":
+		// When activeVerb is set (inside RunPreverbScripts), filter by verb and ref
+		// so nested IFPREVERB blocks inside IFVAR trees only fire for the right verb.
+		if sc.activeVerb != "" {
+			if len(block.Args) < 1 || strings.ToUpper(block.Args[0]) != sc.activeVerb {
+				return
+			}
+			if sc.activeRef != "" && len(block.Args) >= 2 {
+				ref := block.Args[1]
+				if ref != "-1" && ref != sc.activeRef {
+					return
+				}
+			}
+		}
 		sc.execChildren(block)
 
 	case "IFVAR":
@@ -243,7 +294,21 @@ func (sc *ScriptContext) execBlock(block gameworld.ScriptBlock) {
 		sc.execChildren(block)
 
 	case "IFTOUCH":
-		// Condition already matched by caller (touch-type verb)
+		// When activeVerb is set, only execute for touch-type verbs.
+		if sc.activeVerb != "" {
+			touchVerbs := map[string]bool{
+				"TOUCH": true, "PAT": true, "FEEL": true, "RUB": true, "PET": true,
+			}
+			if !touchVerbs[sc.activeVerb] {
+				return
+			}
+			if sc.activeRef != "" && len(block.Args) >= 1 {
+				ref := block.Args[0]
+				if ref != "-1" && ref != sc.activeRef {
+					return
+				}
+			}
+		}
 		sc.execChildren(block)
 
 	case "IFCARRY":
@@ -283,13 +348,40 @@ func (sc *ScriptContext) execElse(block gameworld.ScriptBlock) {
 }
 
 // execChildren runs the actions and nested blocks within a script block.
+// If a SETEVENT/CONTEVENT pair is encountered, remaining work is deferred into DeferredSegments.
 func (sc *ScriptContext) execChildren(block gameworld.ScriptBlock) {
-	for _, action := range block.Actions {
+	if !sc.execActionsUntilDelay(block.Actions, block.Children) {
+		for _, child := range block.Children {
+			sc.execBlock(child)
+		}
+	}
+}
+
+// execActionsUntilDelay runs actions one by one until a SETEVENT/CONTEVENT pair is found.
+// When found, the remaining actions and children are saved as a ScriptSegment for deferred
+// execution and the function returns true (callers must not run children immediately).
+// Returns false if all actions ran without encountering a delay.
+func (sc *ScriptContext) execActionsUntilDelay(actions []gameworld.ScriptAction, remainingChildren []gameworld.ScriptBlock) bool {
+	for i, action := range actions {
+		switch action.Command {
+		case "SETEVENT":
+			if len(action.Args) >= 2 {
+				cycles, _ := strconv.Atoi(action.Args[1])
+				sc.pendingEventDelay = cycles
+			}
+			continue
+		case "CONTEVENT":
+			sc.DeferredSegments = append(sc.DeferredSegments, ScriptSegment{
+				RelativeSeconds: sc.pendingEventDelay * scriptEventCycleSeconds,
+				Actions:         actions[i+1:],
+				Children:        remainingChildren,
+				RoomNumber:      sc.Room.Number,
+			})
+			return true
+		}
 		sc.execAction(action)
 	}
-	for _, child := range block.Children {
-		sc.execBlock(child)
-	}
+	return false
 }
 
 // execAction executes a single script action.
@@ -311,8 +403,18 @@ func (sc *ScriptContext) execAction(action gameworld.ScriptAction) {
 		sc.doMoveGroup(action.Args)
 	case "SHOWROOM":
 		sc.doShowRoom(action.Args)
+	case "DISBAND":
+		sc.doDisband()
+	case "SETEVENT":
+		if len(action.Args) >= 2 {
+			cycles, _ := strconv.Atoi(action.Args[1])
+			sc.pendingEventDelay = cycles
+		}
+	case "CONTEVENT":
+		// Deferred execution only works when called via execActionsUntilDelay.
+		// A bare CONTEVENT outside that path is a no-op.
 	case "PLREVENT", "CONTPLREVENT":
-		// Timing/event delay — not yet implemented; ignore silently
+		// Legacy aliases — silently ignored.
 	case "AFFECT":
 		sc.doAffect(action.Args)
 	case "RANDOM":
@@ -354,7 +456,7 @@ func (sc *ScriptContext) execAction(action gameworld.ScriptAction) {
 				sc.Player.RoomNumber = dest
 			}
 		}
-	case "MUL":
+	case "MUL", "MULT":
 		sc.doMul(action.Args)
 	case "DIV":
 		sc.doDiv(action.Args)
@@ -385,6 +487,23 @@ func (sc *ScriptContext) execAction(action gameworld.ScriptAction) {
 		// TODO: set room where defeated players are moved
 	case "CHANNEL":
 		// TODO: set communication channel for room
+	case "KILL":
+		if len(action.Args) >= 1 && strings.ToUpper(action.Args[0]) == "PLAYER" {
+			sc.Player.BodyPoints = 0
+			sc.Player.Dead = true
+			sc.KillPlayer = true
+		}
+	case "ROUTINE":
+		sc.doRoutine(action.Args)
+	case "SPELL":
+		sc.doScriptSpell(action.Args)
+	case "SKILLCHECK":
+		sc.doSkillCheck(action.Args)
+	case "APPEAR":
+		if len(action.Args) >= 1 {
+			text := sc.expandScriptText(strings.Join(action.Args, " "))
+			sc.RoomMsgs = append(sc.RoomMsgs, text)
+		}
 	}
 }
 
@@ -397,54 +516,61 @@ func (sc *ScriptContext) doEcho(args []string) {
 	text := strings.Join(args[1:], " ")
 	text = sc.expandScriptText(text)
 
+	// affectRoom is true when AFFECT has switched sc.Room to a different room than the player.
+	// In that case ECHO ALL / ECHO OTHERS should go directly to that room, not the player.
+	affectRoom := sc.Room != nil && sc.Engine != nil && sc.Player.RoomNumber != sc.Room.Number
+
 	switch target {
 	case "PLAYER":
 		sc.Messages = append(sc.Messages, text)
 	case "ALL":
-		sc.Messages = append(sc.Messages, text)
-		sc.RoomMsgs = append(sc.RoomMsgs, text)
+		if affectRoom {
+			if sc.Engine.roomBroadcast != nil {
+				sc.Engine.roomBroadcast(sc.Room.Number, []string{text})
+			}
+		} else {
+			sc.Messages = append(sc.Messages, text)
+			sc.RoomMsgs = append(sc.RoomMsgs, text)
+		}
 	case "OTHERS":
-		sc.RoomMsgs = append(sc.RoomMsgs, text)
+		if affectRoom {
+			if sc.Engine.roomBroadcast != nil {
+				sc.Engine.roomBroadcast(sc.Room.Number, []string{text})
+			}
+		} else {
+			sc.RoomMsgs = append(sc.RoomMsgs, text)
+		}
+	case "GROUP":
+		// Send to the triggering player; group-only filtering requires
+		// per-player delivery infrastructure not yet wired up.
+		sc.Messages = append(sc.Messages, text)
 	}
 }
 
-// doEqual handles EQUAL INTNUMn value — sets a variable on the player.
+// doEqual handles EQUAL <var> <value-or-var> — sets a variable.
 func (sc *ScriptContext) doEqual(args []string) {
 	if len(args) < 2 {
 		return
 	}
-	varName := strings.ToUpper(args[0])
-	val, err := strconv.Atoi(args[1])
-	if err != nil {
-		return
-	}
-	sc.setVar(varName, val)
+	sc.setVar(strings.ToUpper(args[0]), sc.resolveScriptArg(args[1]))
 }
 
-// doAdd handles ADD INTNUMn value — increments a variable.
+// doAdd handles ADD <var> <value-or-var> — increments a variable.
 func (sc *ScriptContext) doAdd(args []string) {
 	if len(args) < 2 {
 		return
 	}
 	varName := strings.ToUpper(args[0])
-	val, err := strconv.Atoi(args[1])
-	if err != nil {
-		return
-	}
-	sc.setVar(varName, sc.getVar(varName)+val)
+	sc.setVar(varName, sc.getVar(varName)+sc.resolveScriptArg(args[1]))
 }
 
-// doSub handles SUB INTNUMn value — decrements a variable.
+// doSub handles SUB <var> <value-or-var> — decrements a variable.
 func (sc *ScriptContext) doSub(args []string) {
 	if len(args) < 2 {
 		return
 	}
 	varName := strings.ToUpper(args[0])
-	val, err := strconv.Atoi(args[1])
-	if err != nil {
-		return
-	}
-	sc.setVar(varName, sc.getVar(varName)-val)
+	sc.setVar(varName, sc.getVar(varName)-sc.resolveScriptArg(args[1]))
 }
 
 // doNewItem handles NEWITEM ref archetype [ADJ1=n] [ADJ2=n] [VAL1=n] ...
@@ -469,10 +595,7 @@ func (sc *ScriptContext) doNewItem(args []string) {
 			continue
 		}
 		key := strings.ToUpper(parts[0])
-		val, err := strconv.Atoi(parts[1])
-		if err != nil {
-			continue
-		}
+		val := sc.resolveScriptArg(parts[1])
 		switch key {
 		case "ADJ1":
 			item.Adj1 = val
@@ -508,6 +631,16 @@ func (sc *ScriptContext) doNewItem(args []string) {
 			Type:       "item_add",
 			Item:       &ri,
 		})
+	}
+}
+
+// doDisband removes the player from their current group (used in scripted portals like the carriage).
+func (sc *ScriptContext) doDisband() {
+	if sc.Player.IsGroupLeader && len(sc.Player.GroupMembers) > 0 {
+		sc.Player.GroupMembers = nil
+		sc.Player.IsGroupLeader = false
+	} else if sc.Player.Following != "" {
+		sc.Player.Following = ""
 	}
 }
 
@@ -559,9 +692,44 @@ func (sc *ScriptContext) doShowRoom(args []string) {
 	}
 }
 
-// doSetItemVal handles SETITEMVAL ref valIndex value.
+// doSetItemVal handles SETITEMVAL ref valIndex value — sets a Val field on a room item.
 func (sc *ScriptContext) doSetItemVal(args []string) {
-	// Not yet fully implemented; needs room item mutation
+	if len(args) < 3 || sc.Room == nil {
+		return
+	}
+	ref, err := strconv.Atoi(args[0])
+	if err != nil {
+		return
+	}
+	valIdx, err := strconv.Atoi(args[1])
+	if err != nil {
+		return
+	}
+	val := sc.resolveScriptArg(args[2])
+	for i := len(sc.Room.Items) - 1; i >= 0; i-- {
+		if sc.Room.Items[i].Ref == ref {
+			switch valIdx {
+			case 1:
+				sc.Room.Items[i].Val1 = val
+			case 2:
+				sc.Room.Items[i].Val2 = val
+			case 3:
+				sc.Room.Items[i].Val3 = val
+			case 4:
+				sc.Room.Items[i].Val4 = val
+			case 5:
+				sc.Room.Items[i].Val5 = val
+			}
+			itemCopy := sc.Room.Items[i]
+			sc.Engine.notifyRoomChange(RoomChange{
+				RoomNumber: sc.Room.Number,
+				Type:       "item_update",
+				ItemRef:    ref,
+				Item:       &itemCopy,
+			})
+			return
+		}
+	}
 }
 
 // doSetItemAdj handles SETITEMADJ ref adjIndex value — sets an adjective on a room item.
@@ -578,12 +746,10 @@ func (sc *ScriptContext) doSetItemAdj(args []string) {
 	if err != nil {
 		return
 	}
-	valArg := strings.ToUpper(args[2])
-	val := sc.getVar(valArg)
-	if val == 0 {
-		val, _ = strconv.Atoi(args[2])
-	}
-	for i := range sc.Room.Items {
+	val := sc.resolveScriptArg(args[2])
+	// Search from the end so NEWITEM-created items (appended last) take priority
+	// over any pre-existing room items that happen to share the same ref slot.
+	for i := len(sc.Room.Items) - 1; i >= 0; i-- {
 		if sc.Room.Items[i].Ref == ref {
 			switch adjIdx {
 			case 1:
@@ -612,6 +778,21 @@ func (sc *ScriptContext) doRemoveItem(args []string) {
 	}
 	ref, err := strconv.Atoi(args[0])
 	if err != nil {
+		return
+	}
+	if ref >= 0 && sc.Room != nil {
+		// Remove the item with the given ref slot from the current room.
+		for i, ri := range sc.Room.Items {
+			if ri.Ref == ref {
+				sc.Room.Items = append(sc.Room.Items[:i], sc.Room.Items[i+1:]...)
+				sc.Engine.notifyRoomChange(RoomChange{
+					RoomNumber: sc.Room.Number,
+					Type:       "item_remove",
+					ItemRef:    ref,
+				})
+				return
+			}
+		}
 		return
 	}
 	if ref == -1 && sc.ItemRef != nil {
@@ -657,19 +838,29 @@ func (sc *ScriptContext) doItemState(args []string, state string) {
 	}
 }
 
-// evalIfVar evaluates IFVAR conditions like "INTNUM6 = 2" or "ITEMBIT5 = 0".
+// evalIfVar evaluates IFVAR conditions like "INTNUM6 = 2" or "DUMMY3 = FLAG3".
+// The right-hand side may be a literal integer or a variable name.
+// ORG membership checks (= and !) are handled specially to support multiple orgs.
 func (sc *ScriptContext) evalIfVar(args []string) bool {
 	if len(args) < 3 {
 		return false
 	}
 	varName := strings.ToUpper(args[0])
 	op := args[1]
-	expected, err := strconv.Atoi(args[2])
-	if err != nil {
-		return false
+
+	// Special-case ORG equality/inequality: check OrgMemberships rather than a single int.
+	if varName == "ORG" && (op == "=" || op == "!") {
+		orgNum := sc.resolveScriptArg(args[2])
+		sc.lastOrgChecked = orgNum
+		isMember := sc.Player.IsMemberOf(orgNum)
+		if op == "=" {
+			return isMember
+		}
+		return !isMember
 	}
 
 	actual := sc.getVar(varName)
+	expected := sc.resolveScriptArg(args[2])
 
 	switch op {
 	case "=":
@@ -680,21 +871,36 @@ func (sc *ScriptContext) evalIfVar(args []string) bool {
 		return actual > expected
 	case "<":
 		return actual < expected
-	case ">=":
+	case ">=", "=>":
 		return actual >= expected
-	case "<=":
+	case "<=", "=<":
 		return actual <= expected
 	}
 	return false
 }
 
 // evalIfItem evaluates IFITEM conditions like "IFITEM 0 OPEN" or "IFITEM -1 CLOSED".
+// With only a ref arg and no state, it checks existence only.
 func (sc *ScriptContext) evalIfItem(args []string) bool {
-	if len(args) < 2 {
+	if len(args) < 1 {
 		return false
 	}
 	ref, err := strconv.Atoi(args[0])
 	if err != nil {
+		return false
+	}
+	// 1-arg form: existence check only.
+	if len(args) < 2 {
+		if ref == -1 && sc.ItemRef != nil {
+			return true
+		}
+		if sc.Room != nil {
+			for _, ri := range sc.Room.Items {
+				if ri.Ref == ref {
+					return true
+				}
+			}
+		}
 		return false
 	}
 	expectedState := strings.ToUpper(args[1])
@@ -724,6 +930,8 @@ func (sc *ScriptContext) evalIfItem(args []string) bool {
 		return state == "LOCKED"
 	case "UNLOCKED":
 		return state == "UNLOCKED" || state == "OPEN"
+	case "WORN":
+		return state == "WORN"
 	}
 	return false
 }
@@ -906,8 +1114,14 @@ func (sc *ScriptContext) getVar(name string) int {
 		return 0
 	// Organization
 	case "ORG":
+		// Returns primary org for non-equality comparisons (range checks etc.).
+		// Equality/inequality is handled directly in evalIfVar before getVar is called.
 		return sc.Player.Organization
 	case "ORGRANK":
+		// Return rank for the org last evaluated in an IFVAR ORG check.
+		if sc.lastOrgChecked != 0 {
+			return sc.Player.RankIn(sc.lastOrgChecked)
+		}
 		return sc.Player.OrgRank
 	case "ALIGN":
 		return sc.Player.Alignment
@@ -928,17 +1142,21 @@ func (sc *ScriptContext) getVar(name string) int {
 		if sc.Room != nil && isOutdoorTerrain(sc.Room.Terrain) { return 1 }
 		return 0
 	case "PLRSINROOM":
+		roomNum := sc.Player.RoomNumber
+		if sc.Room != nil { roomNum = sc.Room.Number }
 		if sc.Engine.sessions != nil {
 			count := 0
 			for _, p := range sc.Engine.sessions.OnlinePlayers() {
-				if p.RoomNumber == sc.Player.RoomNumber { count++ }
+				if p.RoomNumber == roomNum { count++ }
 			}
 			return count
 		}
 		return 1
 	case "MONINROOM":
+		roomNum := sc.Player.RoomNumber
+		if sc.Room != nil { roomNum = sc.Room.Number }
 		if sc.Engine.monsterMgr != nil {
-			return len(sc.Engine.monsterMgr.MonstersInRoom(sc.Player.RoomNumber))
+			return len(sc.Engine.monsterMgr.MonstersInRoom(roomNum))
 		}
 		return 0
 	// Time
@@ -1098,6 +1316,7 @@ func (sc *ScriptContext) setVar(name string, val int) {
 			sc.Player.IntNums = make(map[int]int)
 		}
 		sc.Player.IntNums[idx] = val
+		sc.NeedsSave = true
 		return
 	}
 	if strings.HasPrefix(name, "ITEMVAL") {
@@ -1116,6 +1335,38 @@ func (sc *ScriptContext) setVar(name string, val int) {
 			sc.ItemRef.Val4 = val
 		case 5:
 			sc.ItemRef.Val5 = val
+		}
+		// For inventory/worn items (Ref=-1), sync the updated vals back to the player's
+		// actual item so that SavePlayer persists them correctly.
+		if sc.ItemRef.Ref == -1 {
+			arch := sc.ItemRef.Archetype
+			syncVals := func(item *InventoryItem) {
+				item.Val1 = sc.ItemRef.Val1
+				item.Val2 = sc.ItemRef.Val2
+				item.Val3 = sc.ItemRef.Val3
+				item.Val4 = sc.ItemRef.Val4
+				item.Val5 = sc.ItemRef.Val5
+			}
+			for i := range sc.Player.Worn {
+				if sc.Player.Worn[i].Archetype == arch {
+					syncVals(&sc.Player.Worn[i])
+					break
+				}
+			}
+			for i := range sc.Player.Inventory {
+				if sc.Player.Inventory[i].Archetype == arch {
+					syncVals(&sc.Player.Inventory[i])
+					break
+				}
+			}
+			if sc.Player.Wielded != nil && sc.Player.Wielded.Archetype == arch {
+				syncVals(sc.Player.Wielded)
+			}
+			if sc.Player.OffHand != nil && sc.Player.OffHand.Archetype == arch {
+				syncVals(sc.Player.OffHand)
+			}
+			sc.NeedsSave = true
+			return
 		}
 		itemCopy := *sc.ItemRef
 		sc.Engine.notifyRoomChange(RoomChange{
@@ -1145,9 +1396,21 @@ func (sc *ScriptContext) setVar(name string, val int) {
 	}
 	switch name {
 	case "ORG":
-		sc.Player.Organization = val
+		if val == 0 && sc.lastOrgChecked != 0 {
+			sc.Player.RemoveOrg(sc.lastOrgChecked)
+		} else if val != 0 {
+			rank := sc.Player.RankIn(val)
+			if rank == 0 {
+				rank = 1
+			}
+			sc.Player.AddOrg(val, rank)
+		}
 	case "ORGRANK":
-		sc.Player.OrgRank = val
+		if sc.lastOrgChecked != 0 {
+			sc.Player.AddOrg(sc.lastOrgChecked, val)
+		} else {
+			sc.Player.OrgRank = val
+		}
 	case "ALIGN":
 		sc.Player.Alignment = val
 	case "BODYPOINTS":
@@ -1158,11 +1421,17 @@ func (sc *ScriptContext) setVar(name string, val int) {
 		sc.Player.Psi = val
 	case "FATPOINTS":
 		sc.Player.Fatigue = val
+	case "ROUNDTIME":
+		sc.Player.RoundTime = val
+		if val > 0 {
+			sc.Player.RoundTimeExpiry = time.Now().Add(time.Duration(val) * time.Second)
+		}
 	case "WEALTH":
 		// WEALTH is in copper units — split into gold/silver/copper
 		sc.Player.Gold = val / 100
 		sc.Player.Silver = (val % 100) / 10
 		sc.Player.Copper = val % 10
+		sc.NeedsSave = true
 	default:
 		// Check named global variables (DANWATER, TECHSWITCH, etc.)
 		if sc.Engine.namedVarNames[name] {
@@ -1180,17 +1449,24 @@ func (sc *ScriptContext) setVar(name string, val int) {
 
 
 // resolveNumericArg resolves a script argument that can be a literal number
-// or a variable reference like ITEMVAL2.
+// or any variable reference (ITEMVAL2, CARRIAGEROOM, DUMMY1, etc.).
 func (sc *ScriptContext) resolveNumericArg(arg string) int {
 	upper := strings.ToUpper(arg)
-	if strings.HasPrefix(upper, "ITEMVAL") {
-		return sc.getVar(upper)
-	}
 	val, err := strconv.Atoi(arg)
 	if err != nil {
-		return 0
+		return sc.getVar(upper)
 	}
 	return val
+}
+
+// resolveScriptArg resolves an argument that may be a literal integer or any
+// named variable (DUMMY1, FLAG2, DANBET, ITEMVAL1, PVAL10, etc.).
+func (sc *ScriptContext) resolveScriptArg(arg string) int {
+	val, err := strconv.Atoi(arg)
+	if err == nil {
+		return val
+	}
+	return sc.getVar(strings.ToUpper(arg))
 }
 
 // expandScriptText replaces script placeholders in text.
@@ -1234,16 +1510,53 @@ func (sc *ScriptContext) doAffect(args []string) {
 }
 
 // doRandom sets a variable to a random value.
+// Syntax: RANDOM <var> <min> <max> [seed]
+// Produces a uniformly random integer in [min, max] inclusive.
 func (sc *ScriptContext) doRandom(args []string) {
-	if len(args) < 2 {
+	if len(args) < 3 {
 		return
 	}
 	varName := strings.ToUpper(args[0])
-	max, err := strconv.Atoi(args[1])
-	if err != nil || max <= 0 {
+	min, err := strconv.Atoi(args[1])
+	if err != nil {
 		return
 	}
-	sc.setVar(varName, rand.Intn(max))
+	max, err := strconv.Atoi(args[2])
+	if err != nil || max < min {
+		return
+	}
+	sc.setVar(varName, min+rand.Intn(max-min+1))
+}
+
+// doSkillCheck performs a skill-based check and stores the result in a variable.
+// Syntax: SKILLCHECK <skillID> <modifier> <resultVar>
+// Stores a positive value on success, negative on failure.
+func (sc *ScriptContext) doSkillCheck(args []string) {
+	if len(args) < 3 {
+		return
+	}
+	skillID, err := strconv.Atoi(args[0])
+	if err != nil {
+		return
+	}
+	modifier, _ := strconv.Atoi(args[1])
+	resultVar := strings.ToUpper(args[2])
+
+	skillLevel := 0
+	if sc.Player.Skills != nil {
+		skillLevel = sc.Player.Skills[skillID]
+	}
+
+	// Base 50% success; each skill rank adds 5%; modifier subtracts from target.
+	// Clamped to [5%, 95%] so there is always some uncertainty.
+	target := 50 + skillLevel*5 - modifier
+	if target > 95 {
+		target = 95
+	} else if target < 5 {
+		target = 5
+	}
+	roll := rand.Intn(100) + 1
+	sc.setVar(resultVar, target-roll) // positive = success (roll under target)
 }
 
 // doDamagePlr applies damage to the player.
@@ -1251,10 +1564,11 @@ func (sc *ScriptContext) doDamagePlr(args []string) {
 	if len(args) < 2 {
 		return
 	}
-	// DAMAGEPLR BODYONLY <amount> <text...>
-	// or DAMAGEPLR <amount> <text...>
+	// DAMAGEPLR [type] <amount> <text...>
+	// type is optional and can be BODYONLY, CRUSH, SLASH, FIRE, etc.
+	// Skip the first arg if it is non-numeric (i.e. a type keyword).
 	idx := 0
-	if strings.ToUpper(args[0]) == "BODYONLY" {
+	if _, err := strconv.Atoi(args[0]); err != nil {
 		idx = 1
 	}
 	if idx >= len(args) {
@@ -1374,10 +1688,7 @@ func (sc *ScriptContext) doMul(args []string) {
 		return
 	}
 	varName := strings.ToUpper(args[0])
-	val, err := strconv.Atoi(args[1])
-	if err != nil {
-		return
-	}
+	val := sc.resolveScriptArg(args[1])
 	sc.setVar(varName, sc.getVar(varName)*val)
 }
 
@@ -1387,8 +1698,8 @@ func (sc *ScriptContext) doDiv(args []string) {
 		return
 	}
 	varName := strings.ToUpper(args[0])
-	val, err := strconv.Atoi(args[1])
-	if err != nil || val == 0 {
+	val := sc.resolveScriptArg(args[1])
+	if val == 0 {
 		return
 	}
 	sc.setVar(varName, sc.getVar(varName)/val)
@@ -1400,8 +1711,8 @@ func (sc *ScriptContext) doMod(args []string) {
 		return
 	}
 	varName := strings.ToUpper(args[0])
-	val, err := strconv.Atoi(args[1])
-	if err != nil || val == 0 {
+	val := sc.resolveScriptArg(args[1])
+	if val == 0 {
 		return
 	}
 	sc.setVar(varName, sc.getVar(varName)%val)
@@ -1497,6 +1808,237 @@ func (sc *ScriptContext) evalIfIn(args []string) bool {
 	return false
 }
 
+// doRoutine executes a built-in item magic routine.
+// ROUTINE 1 reads the spell from Val2; ROUTINE 2 reads from Val3.
+// Val4 tracks remaining charges: positive = N charges left, 0 = unlimited (legacy/scripted),
+// -1 = exhausted. The charge decrement is persisted back to the player's worn/inventory.
+func (sc *ScriptContext) doRoutine(args []string) {
+	if len(args) < 1 || sc.ItemRef == nil {
+		return
+	}
+	routineNum, err := strconv.Atoi(args[0])
+	if err != nil {
+		return
+	}
+
+	var spellID int
+	switch routineNum {
+	case 1:
+		spellID = sc.ItemRef.Val2
+	case 2:
+		spellID = sc.ItemRef.Val3
+	default:
+		return
+	}
+
+	if spellID == 0 {
+		sc.Messages = append(sc.Messages, "The item holds no magical energy.")
+		return
+	}
+
+	spell := FindSpellByID(spellID)
+	if spell == nil {
+		sc.Messages = append(sc.Messages, "The item's magic is beyond your comprehension.")
+		return
+	}
+
+	// Charge check: -1 = exhausted, 0 = unlimited, positive = N charges remaining
+	itemNoun := "item"
+	if sc.ItemDef != nil && sc.Engine != nil {
+		itemNoun = sc.Engine.getItemNounName(sc.ItemDef)
+	}
+	if sc.ItemRef.Val4 < 0 {
+		sc.Messages = append(sc.Messages, fmt.Sprintf("The %s holds no more magical power.", itemNoun))
+		return
+	}
+	if sc.ItemRef.Val4 > 0 && !sc.routineChargePaid {
+		newVal4 := sc.ItemRef.Val4 - 1
+		if newVal4 == 0 {
+			newVal4 = -1 // mark exhausted
+		}
+		sc.ItemRef.Val4 = newVal4
+		sc.routineChargePaid = true
+		// Persist charge change to the actual player worn/inventory item
+		arch := sc.ItemRef.Archetype
+		for i := range sc.Player.Worn {
+			if sc.Player.Worn[i].Archetype == arch && sc.Player.Worn[i].Val3 == spellID {
+				sc.Player.Worn[i].Val4 = newVal4
+				break
+			}
+		}
+		for i := range sc.Player.Inventory {
+			if sc.Player.Inventory[i].Archetype == arch && sc.Player.Inventory[i].Val3 == spellID {
+				sc.Player.Inventory[i].Val4 = newVal4
+				break
+			}
+		}
+		if newVal4 == -1 {
+			sc.Messages = append(sc.Messages, fmt.Sprintf("The %s flickers as its last charge is spent.", itemNoun))
+		} else {
+			charges := newVal4
+			suffix := "s"
+			if charges == 1 {
+				suffix = ""
+			}
+			sc.Messages = append(sc.Messages, fmt.Sprintf("(%d charge%s remaining)", charges, suffix))
+		}
+	}
+	// Val4 == 0: no charge tracking, proceed freely
+
+	sc.applyItemSpellOnPlayer(spell)
+	sc.NeedsSave = true
+}
+
+// doScriptSpell handles SPELL <id> [<chance>] — casts a spell on the player from a script.
+func (sc *ScriptContext) doScriptSpell(args []string) {
+	if len(args) < 1 {
+		return
+	}
+	spellID, err := strconv.Atoi(args[0])
+	if err != nil {
+		return
+	}
+	chance := 100
+	if len(args) >= 2 {
+		if c, err2 := strconv.Atoi(args[1]); err2 == nil {
+			chance = c
+		}
+	}
+	if chance < 100 && rand.Intn(100) >= chance {
+		return
+	}
+	spell := FindSpellByID(spellID)
+	if spell == nil {
+		return
+	}
+	sc.applyItemSpellOnPlayer(spell)
+	sc.NeedsSave = true
+}
+
+// applyItemSpellOnPlayer applies a spell's effect on the player for item-triggered casts.
+// Unlike casting a spell normally, no mana cost or skill check applies — the item does the work.
+func (sc *ScriptContext) applyItemSpellOnPlayer(spell *SpellDef) {
+	player := sc.Player
+	switch spell.Effect {
+	case "heal":
+		healMin, healMax := spell.HealMin, spell.HealMax
+		if healMax <= healMin {
+			healMax = healMin + 1
+		}
+		amount := healMin + rand.Intn(healMax-healMin+1)
+		// Invigoration spells restore fatigue
+		if spell.ID == 334 || spell.ID == 335 {
+			player.Fatigue += amount
+			if player.Fatigue > player.MaxFatigue {
+				player.Fatigue = player.MaxFatigue
+			}
+			sc.Messages = append(sc.Messages, fmt.Sprintf("The item channels %s, invigorating you! [Fatigue: %d/%d]", spell.Name, player.Fatigue, player.MaxFatigue))
+		} else {
+			player.BodyPoints += amount
+			if player.BodyPoints > player.MaxBodyPoints {
+				player.BodyPoints = player.MaxBodyPoints
+			}
+			sc.Messages = append(sc.Messages, fmt.Sprintf("The item channels %s, healing you for %d points. [BP: %d/%d]", spell.Name, amount, player.BodyPoints, player.MaxBodyPoints))
+		}
+		sc.RoomMsgs = append(sc.RoomMsgs, fmt.Sprintf("%s is bathed in healing energy.", player.FirstName))
+
+	case "defense":
+		player.DefenseBonus += spell.DefBonus
+		sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s! (+%d defense)", spell.Name, spell.DefBonus))
+		sc.RoomMsgs = append(sc.RoomMsgs, fmt.Sprintf("A shimmer of protective energy surrounds %s.", player.FirstName))
+
+	case "buff":
+		switch spell.ID {
+		case 102: // Mystic Armor
+			player.DefenseBonus += spell.DefBonus
+			sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s! (+%d defense)", spell.Name, spell.DefBonus))
+			sc.RoomMsgs = append(sc.RoomMsgs, fmt.Sprintf("A shimmering barrier of energy surrounds %s.", player.FirstName))
+		case 207: // Strength I
+			player.Strength += 10
+			sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s! (+10 STR)", spell.Name))
+			sc.RoomMsgs = append(sc.RoomMsgs, fmt.Sprintf("%s glows with newfound strength.", player.FirstName))
+		case 208: // Strength II
+			player.Strength += 20
+			sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s! (+20 STR)", spell.Name))
+			sc.RoomMsgs = append(sc.RoomMsgs, fmt.Sprintf("%s glows with newfound strength.", player.FirstName))
+		case 209: // Strength III
+			player.Strength += 30
+			sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s! (+30 STR)", spell.Name))
+			sc.RoomMsgs = append(sc.RoomMsgs, fmt.Sprintf("%s pulses with extraordinary strength.", player.FirstName))
+		case 210: // Haste
+			player.HasteExpiry = time.Now().Add(20 * time.Minute)
+			sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s. The world slows around you!", spell.Name))
+			sc.RoomMsgs = append(sc.RoomMsgs, fmt.Sprintf("%s moves with incredible speed.", player.FirstName))
+		case 224: // Fly
+			player.CanFly = true
+			sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s. You rise into the air!", spell.Name))
+			sc.RoomMsgs = append(sc.RoomMsgs, fmt.Sprintf("%s rises into the air!", player.FirstName))
+		case 225: // Invisibility
+			player.Invisible = true
+			sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s. You fade from sight.", spell.Name))
+			sc.RoomMsgs = append(sc.RoomMsgs, fmt.Sprintf("%s fades from sight.", player.FirstName))
+		case 347: // Divine Blessing
+			sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s. You feel divinely blessed.", spell.Name))
+			sc.RoomMsgs = append(sc.RoomMsgs, fmt.Sprintf("A warm golden light briefly surrounds %s.", player.FirstName))
+		case 507: // Heat Shield
+			player.DefenseBonus += 10
+			sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s! You feel protected from heat.", spell.Name))
+			sc.RoomMsgs = append(sc.RoomMsgs, fmt.Sprintf("A faint shimmer of heat surrounds %s.", player.FirstName))
+		case 508: // Cold Shield
+			player.DefenseBonus += 10
+			sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s! You feel protected from cold.", spell.Name))
+			sc.RoomMsgs = append(sc.RoomMsgs, fmt.Sprintf("A frosty aura briefly surrounds %s.", player.FirstName))
+		case 512: // True Aim
+			sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s. Your aim feels supernaturally true.", spell.Name))
+			sc.RoomMsgs = append(sc.RoomMsgs, fmt.Sprintf("%s's eyes gleam with unnatural focus.", player.FirstName))
+		case 513: // Agility I
+			player.Agility += 10
+			sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s! (+10 AGI)", spell.Name))
+		case 514: // Agility II
+			player.Agility += 20
+			sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s! (+20 AGI)", spell.Name))
+		case 515: // Agility III
+			player.Agility += 30
+			sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s! (+30 AGI)", spell.Name))
+		case 521: // Camouflage
+			player.Hidden = true
+			sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s. You blend with your surroundings.", spell.Name))
+			sc.RoomMsgs = append(sc.RoomMsgs, fmt.Sprintf("%s seems to blur into the background.", player.FirstName))
+		default:
+			sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s.", spell.Name))
+			sc.RoomMsgs = append(sc.RoomMsgs, fmt.Sprintf("A shimmer of magical energy surrounds %s.", player.FirstName))
+		}
+
+	case "utility":
+		switch spell.ID {
+		case 113: // Light
+			sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s. A soft glow illuminates the area.", spell.Name))
+		case 114: // Mystic Key
+			sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s. You feel it could open any lock.", spell.Name))
+		case 228: // Identify
+			sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s. Magical auras become clear to you.", spell.Name))
+		case 338: // Unstun
+			player.Stunned = false
+			sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s. Your mind clears!", spell.Name))
+		case 401: // Dispel Lesser Magic
+			sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s. Lesser magical effects dissipate.", spell.Name))
+		case 405: // See Hidden
+			sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s. You can sense hidden things nearby.", spell.Name))
+		case 505: // Freedom
+			player.Immobilized = false
+			sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s. You feel free from all restraints!", spell.Name))
+		case 520: // Night Vision
+			sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s. The darkness retreats from your eyes.", spell.Name))
+		default:
+			sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s.", spell.Name))
+			sc.RoomMsgs = append(sc.RoomMsgs, fmt.Sprintf("A shimmer of magical energy surrounds %s.", player.FirstName))
+		}
+
+	default:
+		sc.Messages = append(sc.Messages, fmt.Sprintf("The item channels the power of %s.", spell.Name))
+	}
+}
+
 func (sc *ScriptContext) expandScriptText(text string) string {
 	// Player name
 	text = strings.ReplaceAll(text, "%N", sc.Player.FirstName)
@@ -1506,7 +2048,7 @@ func (sc *ScriptContext) expandScriptText(text string) string {
 	text = strings.ReplaceAll(text, "%P", sc.Player.FirstName)
 	// Item name
 	if sc.ItemRef != nil && sc.ItemDef != nil {
-		itemName := sc.Engine.formatItemName(sc.ItemDef, sc.ItemRef.Adj1, sc.ItemRef.Adj2, sc.ItemRef.Adj3)
+		itemName := sc.Engine.formatItemName(sc.ItemDef, sc.ItemRef.Adj1, sc.ItemRef.Adj2, sc.ItemRef.Adj3, sc.ItemRef.Extend)
 		text = strings.ReplaceAll(text, "%a", itemName)
 	}
 	// Monster name (empty for now)

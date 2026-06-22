@@ -210,6 +210,27 @@ func simplifiedDamageTier(dmg int) string {
 	}
 }
 
+// weaponClashMetalBonus returns the bonus added to weapon strength during a clash
+// based on metal type. Soft/low-value metals grant no bonus; harder alloys and
+// exotic metals grant increasing bonuses up to +75 for randar.
+func weaponClashMetalBonus(metalName string) int {
+	switch strings.ToLower(metalName) {
+	case "steel":
+		return 50
+	case "truesteel":
+		return 80
+	case "elkyri":
+		return 110
+	case "albescent":
+		return 130
+	case "randar":
+		return 150
+	default:
+		// copper, silver, gold, tin, iron, bronze, wood, etc. — no bonus
+		return 0
+	}
+}
+
 // ---- Attack verb by weapon type (from session capture) ----
 
 func attackVerb(weaponDef *gameworld.ItemDef) (selfVerb, thirdVerb, dmgNoun string) {
@@ -315,7 +336,42 @@ func playerAttackRating(player *Player, weaponDef *gameworld.ItemDef) int {
 	case 3:
 		rating -= 10
 	}
+	// Val1 = non-magical to-hit bonus, Val2 = magical enchantment bonus
+	if player.Wielded != nil {
+		rating += player.Wielded.Val1 + player.Wielded.Val2
+	}
 	return rating
+}
+
+// armorEnchantBonus sums Val1 (quality) + Val2 (magic enchantment) from all worn ARMOR items
+// and the equipped shield (if any).
+func armorEnchantBonus(player *Player, items map[int]*gameworld.ItemDef) int {
+	bonus := 0
+	for _, worn := range player.Worn {
+		def := items[worn.Archetype]
+		if def != nil && def.Type == "ARMOR" {
+			bonus += worn.Val1 + worn.Val2
+		}
+	}
+	if player.OffHand != nil {
+		def := items[player.OffHand.Archetype]
+		if def != nil && def.Type == "SHIELD" {
+			bonus += player.OffHand.Val1 + player.OffHand.Val2
+		}
+	}
+	return bonus
+}
+
+// shieldDefenseBonus returns the base defense bonus from a wielded shield's Parameter1.
+func shieldDefenseBonus(player *Player, items map[int]*gameworld.ItemDef) int {
+	if player.OffHand == nil {
+		return 0
+	}
+	def := items[player.OffHand.Archetype]
+	if def == nil || def.Type != "SHIELD" {
+		return 0
+	}
+	return def.Parameter1
 }
 
 func playerDefenseRating(player *Player) int {
@@ -591,7 +647,7 @@ func (e *GameEngine) weaponDisplayName(player *Player, weaponDef *gameworld.Item
 	}
 	// Return name WITHOUT article — caller adds "your" prefix
 	if player.Wielded != nil {
-		return e.formatItemNameNoArticle(weaponDef, player.Wielded.Adj1, player.Wielded.Adj2, player.Wielded.Adj3)
+		return e.formatItemNameNoArticle(weaponDef, player.Wielded.Adj1, player.Wielded.Adj2, player.Wielded.Adj3, player.Wielded.Tail)
 	}
 	return strings.ToLower(e.nouns[weaponDef.NameID])
 }
@@ -719,6 +775,16 @@ func (e *GameEngine) doAttackMonster(ctx context.Context, player *Player, target
 		e.cryForLaw(player, inst, def)
 	}
 
+	// Two-weapon setup: check off-hand weapon for Two Weapons skill
+	var offHandDef *gameworld.ItemDef
+	isTwoWeapon := false
+	if player.OffHand != nil {
+		offHandDef = e.items[player.OffHand.Archetype]
+		if offHandDef != nil && isWeapon(offHandDef.Type) && player.Skills[1] > 0 {
+			isTwoWeapon = true
+		}
+	}
+
 	// Fatigue drain for melee attacks (not ranged)
 	isRanged := weaponDef != nil && (weaponDef.Type == "BOW_WEAPON" || weaponDef.Type == "THROWN_WEAPON")
 	if !isRanged {
@@ -728,6 +794,16 @@ func (e *GameEngine) doAttackMonster(ctx context.Context, player *Player, target
 			if fatCost > 3 {
 				fatCost = 3
 			}
+		}
+		if isTwoWeapon {
+			ohFat := 1
+			if offHandDef.Weight > 5 {
+				ohFat = offHandDef.Weight / 7
+				if ohFat > 3 {
+					ohFat = 3
+				}
+			}
+			fatCost += ohFat
 		}
 		player.Fatigue -= fatCost
 		if player.Fatigue < 0 {
@@ -777,6 +853,9 @@ func (e *GameEngine) doAttackMonster(ctx context.Context, player *Player, target
 	// Weapon clash on roll < 3 (only vs weapon-wielding monsters)
 	if roll < 3 && weaponDef != nil && len(def.Weapons) > 0 {
 		weaponStr := weaponDef.Weight*3 + weaponDef.Parameter1*2
+		if player.Wielded != nil {
+			weaponStr += weaponClashMetalBonus(e.getAdjName(player.Wielded.Adj1))
+		}
 		clashRoll := rand.Intn(100) + rand.Intn(100) + 2
 		msgs = append(msgs, fmt.Sprintf(" [ToHit: %d, Roll: %d] Weapon Clash! [Strength: %d, 2d100 Roll: %d]", toHit, roll, weaponStr, clashRoll))
 		if clashRoll > weaponStr {
@@ -785,11 +864,23 @@ func (e *GameEngine) doAttackMonster(ctx context.Context, player *Player, target
 				player.Wielded = nil
 			} else if player.Wielded != nil {
 				player.Wielded.State = "DAMAGED"
+				const damagedAdj = 83
+				w := player.Wielded
+				if w.Adj1 == 0 {
+					w.Adj1 = damagedAdj
+				} else if w.Adj2 == 0 {
+					w.Adj2 = w.Adj1
+					w.Adj1 = damagedAdj
+				} else if w.Adj3 == 0 {
+					w.Adj3 = w.Adj2
+					w.Adj2 = w.Adj1
+					w.Adj1 = damagedAdj
+				}
 				msgs = append(msgs, fmt.Sprintf(" %s damaged!", strings.Title(strings.ToLower(e.nouns[weaponDef.NameID]))))
 			}
 		}
 		result.Messages = msgs
-		rtSec := 5
+		rtSec := applyRoundTime(player, 5)
 		player.RoundTimeExpiry = time.Now().Add(time.Duration(rtSec) * time.Second)
 		result.Messages = append(result.Messages, fmt.Sprintf("[Round: %d sec]", rtSec))
 		if player.Hidden { player.Hidden = false; result.Messages = append([]string{"You reveal yourself!"}, result.Messages...) }
@@ -861,7 +952,10 @@ func (e *GameEngine) doAttackMonster(ctx context.Context, player *Player, target
 			}
 		}
 
-		killed := e.damageMonster(inst.ID, dmg)
+		killed, woke := e.damageMonster(inst.ID, dmg)
+		if woke {
+			msgs = append(msgs, fmt.Sprintf("The %s wakes up, startled!", name))
+		}
 
 		// Weapon poison
 		if poisonLvl := weaponPoisonLevel(player.Wielded); poisonLvl > 0 && !killed {
@@ -911,6 +1005,58 @@ func (e *GameEngine) doAttackMonster(ctx context.Context, player *Player, target
 
 	result.Messages = msgs
 
+	// Two-weapon second swing (off-hand weapon, Two Weapons skill)
+	if isTwoWeapon && player.CombatTarget != nil {
+		twoWepSkill := player.Skills[1]
+		offHandSkillID := weaponSkillForType(offHandDef.Type)
+		effectiveRank := player.Skills[offHandSkillID]
+		if effectiveRank > twoWepSkill {
+			effectiveRank = twoWepSkill
+		}
+		ohAttack := 50 + player.Level*3 + effectiveRank*5 + player.Strength/5
+		ohAttack += player.OffHand.Val1 + player.OffHand.Val2
+		switch player.Stance {
+		case StanceOffensive:
+			ohAttack += 15
+		case StanceDefensive:
+			ohAttack -= 15
+		case StanceBerserk:
+			ohAttack += 25
+		case StanceWary:
+			ohAttack -= 5
+		}
+		ohAttack += wMod - fatPenalty
+		ohToHit := calcToHit(ohAttack, monDefense)
+		ohRoll := rand.Intn(100) + 1
+		ohSelfVerb, ohThirdVerb, ohDmgNoun := attackVerb(offHandDef)
+		ohWepName := e.formatItemNameNoArticle(offHandDef, player.OffHand.Adj1, player.OffHand.Adj2, player.OffHand.Adj3, player.OffHand.Tail)
+		result.Messages = append(result.Messages, fmt.Sprintf("You %s at %s%s with your %s.", ohSelfVerb, article, name, ohWepName))
+		if ohRoll >= ohToHit {
+			result.Messages = append(result.Messages, fmt.Sprintf(" [ToHit: %d, Roll: %d] Hit!", ohToHit, ohRoll))
+			ohDmg := playerDamage(player, offHandDef)
+			ohDmg = applyArmor(ohDmg, def.Armor)
+			if ohDmg <= 0 {
+				ohDmg = 1
+			}
+			ohPart := randomBodyPart(def.BodyType)
+			result.Messages = append(result.Messages, fmt.Sprintf(" %s %s to %s. [%d Damage]", damageSeverity(ohDmg), ohDmgNoun, ohPart, ohDmg))
+			ohKilled, ohWoke := e.damageMonster(inst.ID, ohDmg)
+			if ohWoke {
+				result.Messages = append(result.Messages, fmt.Sprintf(" The %s wakes up, startled!", name))
+			}
+			if ohKilled {
+				result.Messages = append(result.Messages, " It collapses, dead.")
+				e.handleMonsterDeath(player, inst, def)
+				player.CombatTarget = nil
+				player.Joined = false
+			}
+			result.RoomBroadcast = append(result.RoomBroadcast, fmt.Sprintf("%s %s at %s%s with their off hand. Hit.", player.FirstName, ohThirdVerb, article, name))
+		} else {
+			result.Messages = append(result.Messages, fmt.Sprintf(" [ToHit: %d, Roll: %d] Miss.", ohToHit, ohRoll))
+			result.RoomBroadcast = append(result.RoomBroadcast, fmt.Sprintf("%s %s at %s%s with their off hand. Miss.", player.FirstName, ohThirdVerb, article, name))
+		}
+	}
+
 	// Roundtime: base 5, reduced by quickness and Combat Maneuvering
 	rtSeconds := 5
 	if player.Quickness > 80 {
@@ -927,6 +1073,7 @@ func (e *GameEngine) doAttackMonster(ctx context.Context, player *Player, target
 	if rtSeconds < 2 {
 		rtSeconds = 2
 	}
+	rtSeconds = applyRoundTime(player, rtSeconds)
 	player.RoundTimeExpiry = time.Now().Add(time.Duration(rtSeconds) * time.Second)
 	result.Messages = append(result.Messages, fmt.Sprintf("[Round: %d sec]", rtSeconds))
 
@@ -981,7 +1128,7 @@ func (e *GameEngine) monsterAttackPlayer(inst *MonsterInstance, def *gameworld.M
 	// Guard redirect: if someone is guarding this player, redirect the attack
 	if e.sessions != nil {
 		for _, guard := range e.sessions.OnlinePlayers() {
-			if guard.GuardTarget == player.FirstName && guard.RoomNumber == player.RoomNumber && !guard.Dead {
+			if guard.RoomNumber == player.RoomNumber && !guard.Dead && containsString(guard.GuardTargets, player.FirstName) {
 				guardMsg := fmt.Sprintf("%s steps forward in defense of %s!", guard.FirstName, player.FirstName)
 				roomMsgs = append(roomMsgs, guardMsg)
 				if e.sendToPlayer != nil {
@@ -1054,7 +1201,7 @@ func (e *GameEngine) monsterAttackPlayer(inst *MonsterInstance, def *gameworld.M
 
 	// Weather modifier for monsters too
 	wMod := e.weatherMod(inst.RoomNumber)
-	defRating := playerDefenseRating(player)
+	defRating := playerDefenseRating(player) + armorEnchantBonus(player, e.items) + shieldDefenseBonus(player, e.items)
 	// Multi-attacker penalty: -5 per 2 additional attackers beyond the first
 	if e.monsterMgr != nil {
 		attackerCount := 0
@@ -1219,23 +1366,30 @@ func (e *GameEngine) doDepart(player *Player) *CommandResult {
 	return result
 }
 
-// damageMonster applies damage to a monster instance. Returns true if killed.
-func (e *GameEngine) damageMonster(monsterID int, dmg int) bool {
+// damageMonster applies damage to a monster instance.
+// Returns (killed, woke) where woke is true if the monster was sleeping and woke up.
+func (e *GameEngine) damageMonster(monsterID int, dmg int) (killed bool, woke bool) {
 	e.monsterMgr.mu.Lock()
 	defer e.monsterMgr.mu.Unlock()
 	for i := range e.monsterMgr.instances {
 		if e.monsterMgr.instances[i].ID == monsterID && e.monsterMgr.instances[i].Alive {
+			if e.monsterMgr.instances[i].Sleeping {
+				e.monsterMgr.instances[i].Sleeping = false
+				e.monsterMgr.instances[i].SleepExpiry = time.Time{}
+				e.monsterMgr.instances[i].SleepStand = true
+				woke = true
+			}
 			e.monsterMgr.instances[i].CurrentHP -= dmg
 			if e.monsterMgr.instances[i].CurrentHP <= 0 {
 				e.monsterMgr.instances[i].Alive = false
 				e.monsterMgr.instances[i].CurrentHP = 0
 				e.monsterMgr.instances[i].DeathTime = time.Now()
-				return true
+				return true, woke
 			}
-			return false
+			return false, woke
 		}
 	}
-	return false
+	return false, false
 }
 
 // ---- Monster Death ----
@@ -1457,7 +1611,7 @@ func (e *GameEngine) doSearchMonster(ctx context.Context, player *Player, args [
 			continue
 		}
 
-		// Check if already searched — mark via monsterMgr
+		// Check if already searched — mark via monsterMgr and remove corpse immediately.
 		e.monsterMgr.mu.Lock()
 		idx := e.monsterMgr.indexOfID(inst.ID)
 		if idx >= 0 && e.monsterMgr.instances[idx].Searched {
@@ -1466,6 +1620,16 @@ func (e *GameEngine) doSearchMonster(ctx context.Context, player *Player, args [
 		}
 		if idx >= 0 {
 			e.monsterMgr.instances[idx].Searched = true
+			// Remove the corpse from the room immediately.
+			roomNum := e.monsterMgr.instances[idx].RoomNumber
+			roomIndices := e.monsterMgr.monstersByRoom[roomNum]
+			for j, ridx := range roomIndices {
+				if ridx == idx {
+					e.monsterMgr.monstersByRoom[roomNum] = append(roomIndices[:j], roomIndices[j+1:]...)
+					break
+				}
+			}
+			e.monsterMgr.instances[idx].DeathTime = time.Time{} // prevent cleanupCorpses from processing again
 		}
 		e.monsterMgr.mu.Unlock()
 
@@ -1504,8 +1668,9 @@ func (e *GameEngine) doSearchMonster(ctx context.Context, player *Player, args [
 		}
 
 		// Search roundtime
-		player.RoundTimeExpiry = time.Now().Add(5 * time.Second)
-		msgs = append(msgs, " [Round: 5 sec]")
+		searchRT := applyRoundTime(player, 5)
+		player.RoundTimeExpiry = time.Now().Add(time.Duration(searchRT) * time.Second)
+		msgs = append(msgs, fmt.Sprintf(" [Round: %d sec]", searchRT))
 
 		e.SavePlayer(ctx, player)
 		return &CommandResult{
@@ -1585,12 +1750,68 @@ func (e *GameEngine) cryForLaw(attacker *Player, target *MonsterInstance, target
 // ---- Monster Combat AI ----
 
 func (e *GameEngine) monsterCombatTick(inst *MonsterInstance, def *gameworld.MonsterDef) {
-	if inst.Target == "" || !inst.Alive {
+	if !inst.Alive {
 		return
 	}
+
+	// Expire timed status effects
+	now := time.Now()
+	if inst.Sleeping && now.After(inst.SleepExpiry) {
+		inst.Sleeping = false
+		inst.SleepStand = true
+		if e.localRoomBroadcast != nil {
+			name := FormatMonsterName(def, e.monAdjs)
+			e.localRoomBroadcast(inst.RoomNumber, []string{fmt.Sprintf("The %s stirs and wakes up.", strings.ToLower(name))})
+		}
+	}
+	if inst.Webbed && now.After(inst.WebExpiry) {
+		inst.Webbed = false
+		if e.localRoomBroadcast != nil {
+			name := FormatMonsterName(def, e.monAdjs)
+			e.localRoomBroadcast(inst.RoomNumber, []string{fmt.Sprintf("The %s breaks free of the webs.", strings.ToLower(name))})
+		}
+	}
+	if inst.Feared && now.After(inst.FearExpiry) {
+		inst.Feared = false
+	}
+	if inst.Charmed && now.After(inst.CharmExpiry) {
+		inst.Charmed = false
+		inst.CharmTarget = ""
+	}
+
+	if inst.Target == "" {
+		return
+	}
+
+	// Sleeping: no action at all
+	if inst.Sleeping {
+		return
+	}
+
+	// Waking up: skip one tick to stand, then resume
+	if inst.SleepStand {
+		inst.SleepStand = false
+		if e.localRoomBroadcast != nil {
+			name := FormatMonsterName(def, e.monAdjs)
+			e.localRoomBroadcast(inst.RoomNumber, []string{fmt.Sprintf("The %s stands erect, looking furious!", strings.ToLower(name))})
+		}
+		return
+	}
+
+	// Webbed: cannot attack or flee
+	if inst.Webbed {
+		return
+	}
+
 	// Stunned monsters skip their combat tick and recover
 	if inst.Stunned {
 		inst.Stunned = false
+		return
+	}
+
+	// Charmed: clear target if aimed at the charmer
+	if inst.Charmed && inst.Target == inst.CharmTarget {
+		inst.Target = ""
 		return
 	}
 
@@ -1607,6 +1828,12 @@ func (e *GameEngine) monsterCombatTick(inst *MonsterInstance, def *gameworld.Mon
 
 	if target == nil || target.Hidden || target.Invisible || target.GMInvis {
 		inst.Target = ""
+		return
+	}
+
+	// Feared: skip attack entirely, just flee
+	if inst.Feared {
+		e.monsterFlee(inst, def)
 		return
 	}
 
@@ -1670,7 +1897,9 @@ func (e *GameEngine) monsterFlee(inst *MonsterInstance, def *gameworld.MonsterDe
 	if dirName == "" {
 		dirName = strings.ToLower(chosen.dir)
 	}
-
+	if dirName == "above" {
+		return
+	}
 	fleeText := def.TextOverrides["TEXF"]
 	if fleeText != "" {
 		e.localRoomBroadcast(inst.RoomNumber, []string{fleeText + " " + dirName + "."})

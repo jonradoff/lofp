@@ -44,9 +44,9 @@ func main() {
 	if err != nil {
 		log.Fatalf("Failed to parse scripts: %v", err)
 	}
-	log.Printf("Parsed %d rooms, %d items, %d monsters, %d nouns, %d adjectives in %v",
+	log.Printf("Parsed %d rooms, %d items, %d monsters, %d nouns, %d adjectives, %d regions in %v",
 		len(result.Rooms), len(result.Items), len(result.Monsters),
-		len(result.Nouns), len(result.Adjectives), time.Since(start))
+		len(result.Nouns), len(result.Adjectives), len(result.Regions), time.Since(start))
 
 	// Convert to ParsedData
 	parsed := &gameworld.ParsedData{
@@ -65,6 +65,7 @@ func main() {
 		MoneyDefs:    result.MoneyDefs,
 		ForageDefs:   result.ForageDefs,
 		MineDefs:     result.MineDefs,
+		OrgDefs:      result.OrgDefs,
 		StartRoom:    result.StartRoom,
 		BumpRoom:     result.BumpRoom,
 	}

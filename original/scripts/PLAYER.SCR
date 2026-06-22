@@ -1911,13 +1911,13 @@ ITEM 2 195
 The stone hearth extends several feet away from the fireplace, adding to the area it allows for the drying of boots, jackets and armor. A greatsword is hung above the mantel.
 *DESCRIPTION_END
 IFTOUCH -1
-  IFVAR ITEMVAL1 = 8888
+  IFVAR ITEMVAL1 = 8
     CLEARVERB
     ECHO PLAYER Some mysterious force prevents you.
   ENDIF
 ENDIF
 IFPREVERB LOOK -1
-  IFVAR ITEMVAL1 = 8888
+  IFVAR ITEMVAL1 = 8
     ECHO PLAYER Now only a wall-decoration, this weapon bears the marks of years of use. On the hilt is carved the legend, "The greatest strength lies within our hearts, not in our arms".
   ENDIF
 ENDIF
@@ -1935,7 +1935,7 @@ The couch has seen better days, but the rough treatment it has received seems to
 ;mantle So we can be rid of fireplace 377.
 ITEM 8 381
 ;greatsword placed on mantle(item 8) due to fixing fireplace.
-PUT 8 16 VAL1=8888
+PUT 8 16 VAL1=8
 IFVERB SMELL -1
   ECHO PLAYER Ahhh, that pine-fresh scent!
 ENDIF

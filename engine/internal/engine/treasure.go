@@ -7,6 +7,19 @@ import (
 	"github.com/jonradoff/lofp/internal/gameworld"
 )
 
+// nextRoomItemRef returns a ref value that is not already used by any item in the room.
+// Room scripts use non-sequential refs (e.g., 0, 1, 2, 4), so len(room.Items) can
+// collide with an existing ref. Using maxRef+1 is always safe.
+func nextRoomItemRef(room *gameworld.Room) int {
+	max := -1
+	for _, ri := range room.Items {
+		if ri.Ref > max {
+			max = ri.Ref
+		}
+	}
+	return max + 1
+}
+
 // generateTreasure creates loot items in a room when a monster dies.
 // treasureLevel = monster's TREASURE value (0 = nothing, 1-127 = increasing rewards).
 // Returns messages describing what dropped.
@@ -26,7 +39,7 @@ func (e *GameEngine) generateTreasure(roomNum int, treasureLevel int) []string {
 	coins := copperBase + rand.Intn(copperBase+1)
 	if coins > 0 {
 		// Drop as a money item in the room
-		ref := len(room.Items)
+		ref := nextRoomItemRef(room)
 		room.Items = append(room.Items, gameworld.RoomItem{
 			Ref:       ref,
 			Archetype: 0, // special: money on ground
@@ -65,54 +78,64 @@ func (e *GameEngine) generateTreasure(roomNum int, treasureLevel int) []string {
 		case roll < 20:
 			// Weapon drop
 			if item := e.randomWeaponDrop(treasureLevel); item != nil {
-				ref := len(room.Items)
+				ref := nextRoomItemRef(room)
 				item.Ref = ref
 				room.Items = append(room.Items, *item)
 				def := e.items[item.Archetype]
 				if def != nil {
-					name := e.formatItemName(def, item.Adj1, item.Adj2, item.Adj3)
-					msgs = append(msgs, fmt.Sprintf("A %s lies among the remains.", name))
+					name := e.formatItemName(def, item.Adj1, item.Adj2, item.Adj3, item.Extend)
+					msgs = append(msgs, fmt.Sprintf("You see %s lies among the remains.", name))
 				}
 			}
 
 		case roll < 40:
 			// Scroll drop — spell scroll with learnable spell (available at all levels)
 			if item := e.randomScrollDrop(treasureLevel); item != nil {
-				ref := len(room.Items)
+				ref := nextRoomItemRef(room)
 				item.Ref = ref
 				room.Items = append(room.Items, *item)
-				def := e.items[item.Archetype]
-				if def != nil {
-					spell := FindSpellByID(item.Val3)
-					if spell != nil {
-						msgs = append(msgs, fmt.Sprintf("A scroll of %s lies among the remains.", spell.Name))
-					} else {
-						msgs = append(msgs, "A scroll lies among the remains.")
-					}
-				}
+				msgs = append(msgs, "A scroll lies among the remains.")
 			}
 
 		case roll < 55:
-			// Locked container — for rogues to practice lockpicking (available at all levels)
+			// Locked container
 			if item := e.randomChestDrop(treasureLevel); item != nil {
-				ref := len(room.Items)
+				ref := nextRoomItemRef(room)
 				item.Ref = ref
 				room.Items = append(room.Items, *item)
-				lootMsgs := e.populateContainerLoot(roomNum, item.Ref, treasureLevel)
-				msgs = append(msgs, lootMsgs...)
-//				msgs = append(msgs, "A small locked container lies among the remains.")
+				e.populateContainerLoot(roomNum, item.Ref, treasureLevel)
+				msgs = append(msgs, "A container lies among the remains.")
 			}
 
 		case roll < 75:
 			// Armor drop
 			if item := e.randomArmorDrop(treasureLevel); item != nil {
-				ref := len(room.Items)
+				ref := nextRoomItemRef(room)
 				item.Ref = ref
 				room.Items = append(room.Items, *item)
 				def := e.items[item.Archetype]
 				if def != nil {
-					name := e.formatItemName(def, item.Adj1, item.Adj2, item.Adj3)
+					name := e.formatItemName(def, item.Adj1, item.Adj2, item.Adj3, item.Extend)
 					msgs = append(msgs, fmt.Sprintf("Some %s lies among the remains.", name))
+				}
+			}
+
+		default:
+			// Jewelry drop (remaining 25% of item drops, requires treasure >= 5)
+			if treasureLevel >= 5 {
+				if item := e.randomJewelryDrop(treasureLevel); item != nil {
+					ref := nextRoomItemRef(room)
+					item.Ref = ref
+					room.Items = append(room.Items, *item)
+					def := e.items[item.Archetype]
+					if def != nil {
+						name := e.formatItemName(def, item.Adj1, item.Adj2, item.Adj3, item.Extend)
+						if item.Val3 > 0 {
+							msgs = append(msgs, fmt.Sprintf("A %s glimmers with a faint magical light among the remains.", name))
+						} else {
+							msgs = append(msgs, fmt.Sprintf("A %s lies among the remains.", name))
+						}
+					}
 				}
 			}
 		}

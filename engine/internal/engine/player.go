@@ -54,6 +54,7 @@ type InventoryItem struct {
     Val4      int    `bson:"val4,omitempty" json:"val4,omitempty"`
     Val5      int    `bson:"val5,omitempty" json:"val5,omitempty"`
     State     string `bson:"state,omitempty" json:"state,omitempty"`
+    Tail      string `bson:"tail,omitempty" json:"tail,omitempty"`
     WornSlot  string `bson:"wornSlot,omitempty" json:"wornSlot,omitempty"`
     // Container contents — populated when this item is an open container.
     Contents  []InventoryItem `bson:"contents,omitempty" json:"contents,omitempty"`
@@ -135,18 +136,44 @@ type Player struct {
 	TelepathyExpiry time.Time `bson:"telepathyExpiry,omitempty" json:"telepathyExpiry,omitempty"`
 	Emotional       bool      `bson:"emotional,omitempty" json:"emotional,omitempty"`
 
+	// Temporary strength buff (Strength I/II/III spells)
+	StrengthBuffID     int       `bson:"strengthBuffId,omitempty" json:"strengthBuffId,omitempty"`
+	StrengthBuffExpiry time.Time `bson:"strengthBuffExpiry,omitempty" json:"strengthBuffExpiry,omitempty"`
+	StrengthBuffBonus  int       `bson:"strengthBuffBonus,omitempty" json:"strengthBuffBonus,omitempty"`
+
+	// Temporary Mystic Armor buff (spell 102)
+	MysticArmorExpiry time.Time `bson:"mysticArmorExpiry,omitempty" json:"mysticArmorExpiry,omitempty"`
+	MysticArmorBonus  int       `bson:"mysticArmorBonus,omitempty" json:"mysticArmorBonus,omitempty"`
+
+	// Haste / Slow spell timers (spell 210 / 211)
+	HasteExpiry time.Time `bson:"hasteExpiry,omitempty" json:"hasteExpiry,omitempty"`
+	SlowExpiry  time.Time `bson:"slowExpiry,omitempty" json:"slowExpiry,omitempty"`
+
+	// Spell preparation reagent (transient — which item arch was verified at PREPARE time)
+	PreparedSpellReagentArch int `bson:"-" json:"-"`
+
 	// Crafting state (transient)
-	CraftingItem string `bson:"-" json:"-"` // what they're making (e.g., "greatsword")
+	CraftingItem  string `bson:"-" json:"-"` // what they're making (e.g., "greatsword")
 	CraftingMetal string `bson:"-" json:"-"` // what material (e.g., "copper")
-	CraftingStep int    `bson:"-" json:"-"` // 0=not crafting, 1=planned, 2=heated, 3=hammered, 4=quenched, 5=buffed, 6=done
+	CraftingStep  int    `bson:"-" json:"-"` // 0=not crafting, 1=planned, 2=heated, 3=hammered, 4=quenched, 5=buffed, 6=done
+	CraftingAdj1  int    `bson:"-" json:"-"` // material instance Adj1 (e.g. bronze adjective ID)
+	CraftingAdj2  int    `bson:"-" json:"-"`
+	CraftingAdj3  int    `bson:"-" json:"-"`
+	CraftingVal1  int    `bson:"-" json:"-"`
+	CraftingVal2  int    `bson:"-" json:"-"`
+	CraftingVal3  int    `bson:"-" json:"-"`
+	CraftingVal4  int    `bson:"-" json:"-"`
+	CraftingVal5  int    `bson:"-" json:"-"`
 
 	// Teaching: skill or spell being taught to others (transient)
 	Teaching      int `bson:"-" json:"-"` // skill number being taught (0 = not teaching a skill)
 	TeachingLevel int `bson:"-" json:"-"` // max level to teach up to (teacher's own level)
 	TeachingSpell int `bson:"-" json:"-"` // spell number being taught (0 = not teaching a spell)
 
-	// Guard: who this player is guarding (transient)
-	GuardTarget string `bson:"-" json:"-"`
+	// Guard: who/what this player is guarding (transient, room-specific)
+	GuardTargets []string `bson:"-" json:"-"` // player FirstNames being guarded
+	GuardPortals []int    `bson:"-" json:"-"` // portal item archetypes being guarded (CM level 3+)
+	GuardItems   []int    `bson:"-" json:"-"` // item archetypes on the ground being guarded
 
 	// Group system (transient)
 	Following     string   `bson:"-" json:"-"` // who this player is following
@@ -159,6 +186,7 @@ type Player struct {
 	// Inventory
 	Inventory []InventoryItem `bson:"inventory" json:"inventory"`
 	Wielded   *InventoryItem  `bson:"wielded,omitempty" json:"wielded,omitempty"`
+	OffHand   *InventoryItem  `bson:"offHand,omitempty" json:"offHand,omitempty"` // shield or off-hand weapon (Two Weapons skill)
 	Worn      []InventoryItem `bson:"worn" json:"worn"`
 
 	// Currency (carried)
@@ -171,9 +199,11 @@ type Player struct {
 	BankSilver int `bson:"bankSilver,omitempty" json:"bankSilver,omitempty"`
 	BankCopper int `bson:"bankCopper,omitempty" json:"bankCopper,omitempty"`
 
-	// Organization / Guild
-	Organization int `bson:"organization,omitempty" json:"organization,omitempty"` // ORG
-	OrgRank      int `bson:"orgRank,omitempty" json:"orgRank,omitempty"`           // ORGRANK
+	// Organization / Guild — OrgMemberships is the source of truth (org# → rank).
+	// Organization and OrgRank are kept in sync for legacy MongoDB documents.
+	Organization    int         `bson:"organization,omitempty" json:"organization,omitempty"`
+	OrgRank         int         `bson:"orgRank,omitempty" json:"orgRank,omitempty"`
+	OrgMemberships  map[int]int `bson:"orgMemberships,omitempty" json:"orgMemberships,omitempty"`
 	Alignment    int `bson:"alignment,omitempty" json:"alignment,omitempty"`       // ALIGN
 	Warrant      int `bson:"warrant,omitempty" json:"warrant,omitempty"`           // warrant level 0-9
 	BuildPoints  int `bson:"buildPoints,omitempty" json:"buildPoints,omitempty"`
@@ -348,4 +378,115 @@ func RaceNameByID(race int) string {
 // IsFlying returns true if the player is able to fly (Drakin race or magical effect).
 func (p *Player) IsFlying() bool {
 	return p.Race == RaceDrakin || p.CanFly
+}
+
+// RestoreTransientState re-applies persisted buff effects to in-memory transient fields.
+// Call once after loading a player from the database on login/reconnect.
+// IsMemberOf returns true if the player belongs to the given organization.
+func (p *Player) IsMemberOf(orgNum int) bool {
+	if len(p.OrgMemberships) > 0 {
+		_, ok := p.OrgMemberships[orgNum]
+		return ok
+	}
+	return p.Organization == orgNum && orgNum != 0
+}
+
+// RankIn returns the player's rank in the given organization (0 if not a member).
+func (p *Player) RankIn(orgNum int) int {
+	if len(p.OrgMemberships) > 0 {
+		return p.OrgMemberships[orgNum]
+	}
+	if p.Organization == orgNum {
+		return p.OrgRank
+	}
+	return 0
+}
+
+// AddOrg adds the player to an organization with the given rank.
+// If the player already belongs, the rank is updated.
+// Migrates legacy Organization/OrgRank fields on first call.
+func (p *Player) AddOrg(orgNum, rank int) {
+	if p.OrgMemberships == nil {
+		p.OrgMemberships = make(map[int]int)
+		if p.Organization != 0 {
+			p.OrgMemberships[p.Organization] = p.OrgRank
+		}
+	}
+	p.OrgMemberships[orgNum] = rank
+	// Keep legacy fields pointing at the primary (lowest-numbered) org.
+	p.syncLegacyOrgFields()
+}
+
+// RemoveOrg removes the player from an organization.
+func (p *Player) RemoveOrg(orgNum int) {
+	if p.OrgMemberships == nil {
+		p.OrgMemberships = make(map[int]int)
+		if p.Organization != 0 {
+			p.OrgMemberships[p.Organization] = p.OrgRank
+		}
+	}
+	delete(p.OrgMemberships, orgNum)
+	p.syncLegacyOrgFields()
+}
+
+// OrgList returns all organization numbers the player belongs to, sorted ascending.
+func (p *Player) OrgList() []int {
+	if len(p.OrgMemberships) > 0 {
+		orgs := make([]int, 0, len(p.OrgMemberships))
+		for num := range p.OrgMemberships {
+			orgs = append(orgs, num)
+		}
+		for i := 0; i < len(orgs)-1; i++ {
+			for j := i + 1; j < len(orgs); j++ {
+				if orgs[j] < orgs[i] {
+					orgs[i], orgs[j] = orgs[j], orgs[i]
+				}
+			}
+		}
+		return orgs
+	}
+	if p.Organization != 0 {
+		return []int{p.Organization}
+	}
+	return nil
+}
+
+// syncLegacyOrgFields keeps Organization/OrgRank in sync with OrgMemberships.
+func (p *Player) syncLegacyOrgFields() {
+	if len(p.OrgMemberships) == 0 {
+		p.Organization = 0
+		p.OrgRank = 0
+		return
+	}
+	// Pick lowest org number as the primary for legacy field.
+	primary := 0
+	for num := range p.OrgMemberships {
+		if primary == 0 || num < primary {
+			primary = num
+		}
+	}
+	p.Organization = primary
+	p.OrgRank = p.OrgMemberships[primary]
+}
+
+func (p *Player) RestoreTransientState() {
+	if p.MysticArmorBonus > 0 && !p.MysticArmorExpiry.IsZero() && time.Now().Before(p.MysticArmorExpiry) {
+		p.DefenseBonus += p.MysticArmorBonus
+	} else if p.MysticArmorBonus > 0 {
+		// Buff expired while offline — clear persisted fields (caller should save)
+		p.MysticArmorBonus = 0
+		p.MysticArmorExpiry = time.Time{}
+	}
+}
+
+// applyRoundTime adjusts a base round-time duration (in seconds) for Haste or Slow effects.
+// Haste halves the time (floor division); Slow doubles it. Returns base if neither is active.
+func applyRoundTime(player *Player, seconds int) int {
+	if !player.HasteExpiry.IsZero() && time.Now().Before(player.HasteExpiry) {
+		return seconds / 2
+	}
+	if !player.SlowExpiry.IsZero() && time.Now().Before(player.SlowExpiry) {
+		return seconds * 2
+	}
+	return seconds
 }

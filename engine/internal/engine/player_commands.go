@@ -516,53 +516,64 @@ func (e *GameEngine) doSet(ctx context.Context, player *Player, args []string) *
 	return &CommandResult{Messages: []string{msg}}
 }
 
-// doInitiate handles the INITIATE command — GM sets a player's organization.
-func (e *GameEngine) doInitiate(ctx context.Context, player *Player, args []string) *CommandResult {
-	if !player.IsGM {
-		return &CommandResult{Messages: []string{"Only GMs can initiate players into organizations."}}
-	}
-	if len(args) < 2 {
-		return &CommandResult{Messages: []string{"Usage: INITIATE <player> <org#>"}}
-	}
-	target, err := e.resolvePlayerArg(ctx, args[:1])
-	if err != nil {
-		return &CommandResult{Messages: []string{err.Error()}}
-	}
-	orgNum, err2 := strconv.Atoi(args[1])
-	if err2 != nil || orgNum < 0 {
-		return &CommandResult{Messages: []string{"Organization must be a number (0 to remove, 1-12 to set)."}}
-	}
-	target.Organization = orgNum
-	e.SavePlayer(ctx, target)
-	if orgNum == 0 {
-		return &CommandResult{Messages: []string{fmt.Sprintf("%s has been removed from their organization.", target.FullName())}}
-	}
-	orgName := organizationName(orgNum)
-	return &CommandResult{
-		Messages: []string{fmt.Sprintf("%s has been initiated into the %s (org %d).", target.FullName(), orgName, orgNum)},
-	}
+// knownOrgNames maps organization numbers to their display names.
+var knownOrgNames = map[int]string{
+	1:  "Guild of Shadowmancers",
+	2:  "Order of the Silver Arcana",
+	3:  "Lawkeepers",
+	6:  "Crimson Band",
+	7:  "Technologists Guild",
+	9:  "Temple of Amilor",
+	10: "Church of Shemri",
+	11: "Temple of Rorin",
+	13: "Thieves Guild",
+	14: "Cult of Dahkahn",
+	15: "Foresters Guild",
+	16: "T'Kasta",
+	17: "The Assassins",
+	20: "Order of the Way",
+	21: "The Masquerade",
+	22: "Eliditur Fellowship",
+	23: "Dark Guard",
+	24: "Church of Ordanin",
+	25: "Circle of Yarin",
+	26: "Guild of Bonecutters",
+	27: "Teiwaz Y Perth",
+	40: "Night Shades",
+	50: "Organization 50",
 }
 
 // organizationName returns the display name for an organization number.
 func organizationName(org int) string {
-	names := map[int]string{
-		1:  "Adventurer's Guild",
-		2:  "Order of Paladins",
-		3:  "Mage's Guild",
-		4:  "Thieves' Guild",
-		5:  "Church of Gaea",
-		6:  "Church of Finvarra",
-		7:  "Church of Arawn",
-		8:  "Church of Duach",
-		9:  "Order of Rangers",
-		10: "Order of Druids",
-		11: "Church of Brigit",
-		12: "Order of Bards",
-	}
-	if n, ok := names[org]; ok {
+	if n, ok := knownOrgNames[org]; ok {
 		return n
 	}
-	return ""
+	return fmt.Sprintf("Organization %d", org)
+}
+
+// doEnroll handles the ENROLL command — joins an OPEN organization by standing in its training room.
+func (e *GameEngine) doEnroll(ctx context.Context, player *Player) *CommandResult {
+	room := e.rooms[player.RoomNumber]
+	if room == nil {
+		return &CommandResult{Messages: []string{"You don't seem to be anywhere."}}
+	}
+	// Find an OPEN org whose training room matches the player's current room.
+	var match *gameworld.OrgDef
+	for _, def := range e.orgDefs {
+		if def.JoinType == "OPEN" && def.TrainingRoom == player.RoomNumber {
+			match = def
+			break
+		}
+	}
+	if match == nil {
+		return &CommandResult{Messages: []string{"There is no open organization here to enroll in."}}
+	}
+	if player.IsMemberOf(match.Number) {
+		return &CommandResult{Messages: []string{fmt.Sprintf("You are already a member of the %s.", match.Name)}}
+	}
+	player.AddOrg(match.Number, 1)
+	e.SavePlayer(ctx, player)
+	return &CommandResult{Messages: []string{fmt.Sprintf("You enroll in the %s.", match.Name)}}
 }
 
 // playerBPSpent calculates total build points spent on skills.
@@ -607,11 +618,16 @@ func xpUntilNextBuildPoint(player *Player) int {
 	return 0
 }
 
-// playerLoadWeight calculates total weight of carried items.
+// playerLoadWeight calculates total weight of carried items (inventory + off-hand).
 func playerLoadWeight(player *Player, items map[int]*gameworld.ItemDef) int {
 	total := 0
 	for _, ii := range player.Inventory {
 		if def := items[ii.Archetype]; def != nil {
+			total += def.Weight
+		}
+	}
+	if player.OffHand != nil {
+		if def := items[player.OffHand.Archetype]; def != nil {
 			total += def.Weight
 		}
 	}
@@ -668,29 +684,121 @@ func (e *GameEngine) doRoomRecall(player *Player) *CommandResult {
 	return &CommandResult{Messages: []string{"Nothing comes to mind about this place."}}
 }
 
-// doGuard handles the GUARD command — protect another player.
+// doGuard handles the GUARD command — protect players, portals, or items.
+// Requires Combat Maneuvering (skill 10): level 2+ for players, level 3+ for portals, any level for items.
+// GUARD with no args clears all guard targets.
+// GUARD <target> toggles guarding that target on/off.
 func (e *GameEngine) doGuard(player *Player, args []string) *CommandResult {
+	cmSkill := player.Skills[10]
+
 	if len(args) == 0 {
-		if player.GuardTarget == "" {
-			return &CommandResult{Messages: []string{"You are not guarding anyone."}}
+		hasGuards := len(player.GuardTargets) > 0 || len(player.GuardPortals) > 0 || len(player.GuardItems) > 0
+		if !hasGuards {
+			return &CommandResult{Messages: []string{"You are not guarding anyone or anything."}}
 		}
-		old := player.GuardTarget
-		player.GuardTarget = ""
+		player.GuardTargets = nil
+		player.GuardPortals = nil
+		player.GuardItems = nil
 		return &CommandResult{
-			Messages:      []string{"You stop guarding."},
-			RoomBroadcast: []string{fmt.Sprintf("%s stops guarding %s.", player.FirstName, old)},
+			Messages:      []string{"You relax your guard."},
+			RoomBroadcast: []string{fmt.Sprintf("%s relaxes their guard.", player.FirstName)},
 		}
 	}
+
+	if !player.IsGM && cmSkill < 1 {
+		return &CommandResult{Messages: []string{"You have no training in Combat Maneuvering."}}
+	}
+
 	target := strings.ToLower(strings.Join(args, " "))
+	room := e.rooms[player.RoomNumber]
+
+	// Try player target first
 	found := e.findPlayerInRoom(player, target)
-	if found == nil {
-		return &CommandResult{Messages: []string{"They are not here."}}
+	if found != nil {
+		if !player.IsGM && cmSkill < 2 {
+			return &CommandResult{Messages: []string{"You need Combat Maneuvering rank 2 to guard another player."}}
+		}
+		// Can't guard someone who is themselves on guard duty
+		if len(found.GuardTargets) > 0 || len(found.GuardPortals) > 0 || len(found.GuardItems) > 0 {
+			return &CommandResult{Messages: []string{fmt.Sprintf("%s is on guard duty and cannot be guarded.", found.FirstName)}}
+		}
+		// Toggle: remove if already guarding this player
+		for i, t := range player.GuardTargets {
+			if t == found.FirstName {
+				player.GuardTargets = append(player.GuardTargets[:i], player.GuardTargets[i+1:]...)
+				return &CommandResult{
+					Messages:      []string{fmt.Sprintf("You stop guarding %s.", found.FirstName)},
+					RoomBroadcast: []string{fmt.Sprintf("%s stops guarding %s.", player.FirstName, found.FirstName)},
+				}
+			}
+		}
+		player.GuardTargets = append(player.GuardTargets, found.FirstName)
+		return &CommandResult{
+			Messages:      []string{fmt.Sprintf("You position yourself to guard %s.", found.FirstName)},
+			RoomBroadcast: []string{fmt.Sprintf("%s moves to guard %s.", player.FirstName, found.FirstName)},
+		}
 	}
-	player.GuardTarget = found.FirstName
-	return &CommandResult{
-		Messages:      []string{fmt.Sprintf("You are now guarding %s.", found.FirstName)},
-		RoomBroadcast: []string{fmt.Sprintf("%s is now guarding %s.", player.FirstName, found.FirstName)},
+
+	if room == nil {
+		return &CommandResult{Messages: []string{"You don't see that here."}}
 	}
+
+	// Try items in the room — portal or regular item
+	for _, ri := range room.Items {
+		itemDef := e.items[ri.Archetype]
+		if itemDef == nil {
+			continue
+		}
+		name := e.getItemNounName(itemDef)
+		if !matchesTarget(name, target, e.getAdjName(ri.Adj1), e.getAdjName(ri.Adj2), e.getAdjName(ri.Adj3)) {
+			continue
+		}
+
+		if isPortal(itemDef.Type) {
+			if !player.IsGM && cmSkill < 3 {
+				return &CommandResult{Messages: []string{"You need Combat Maneuvering rank 3 to guard a portal."}}
+			}
+			portalName := e.formatItemName(itemDef, ri.Adj1, ri.Adj2, ri.Adj3, ri.Extend)
+			arch := ri.Archetype
+			for i, a := range player.GuardPortals {
+				if a == arch {
+					player.GuardPortals = append(player.GuardPortals[:i], player.GuardPortals[i+1:]...)
+					return &CommandResult{
+						Messages:      []string{fmt.Sprintf("You step away from %s.", portalName)},
+						RoomBroadcast: []string{fmt.Sprintf("%s stops guarding %s.", player.FirstName, portalName)},
+					}
+				}
+			}
+			player.GuardPortals = append(player.GuardPortals, arch)
+			return &CommandResult{
+				Messages:      []string{fmt.Sprintf("You take a guarding stance before %s.", portalName)},
+				RoomBroadcast: []string{fmt.Sprintf("%s takes a guarding stance before %s.", player.FirstName, portalName)},
+			}
+		}
+
+		// Regular item on the ground
+		if containsFlag(itemDef.Flags, "FIXED") || itemDef.Type == "MANUSCRIPT" || itemDef.Weight >= 1000 {
+			return &CommandResult{Messages: []string{"You can't guard that."}}
+		}
+		itemName := e.formatItemName(itemDef, ri.Adj1, ri.Adj2, ri.Adj3, ri.Extend)
+		arch := ri.Archetype
+		for i, a := range player.GuardItems {
+			if a == arch {
+				player.GuardItems = append(player.GuardItems[:i], player.GuardItems[i+1:]...)
+				return &CommandResult{
+					Messages:      []string{fmt.Sprintf("You stop watching over %s.", itemName)},
+					RoomBroadcast: []string{fmt.Sprintf("%s stops watching over %s.", player.FirstName, itemName)},
+				}
+			}
+		}
+		player.GuardItems = append(player.GuardItems, arch)
+		return &CommandResult{
+			Messages:      []string{fmt.Sprintf("You stand watch over %s.", itemName)},
+			RoomBroadcast: []string{fmt.Sprintf("%s stands watch over %s.", player.FirstName, itemName)},
+		}
+	}
+
+	return &CommandResult{Messages: []string{"You don't see that here."}}
 }
 
 // doChant handles the CHANT command — activate a scroll.
@@ -712,7 +820,7 @@ func (e *GameEngine) doChant(ctx context.Context, player *Player, args []string)
 			continue
 		}
 		name := e.getItemNounName(itemDef)
-		if !matchesTarget(name, target, e.getAdjName(ii.Adj1)) {
+		if !matchesTarget(name, target, e.getAdjName(ii.Adj1), e.getAdjName(ii.Adj2), e.getAdjName(ii.Adj3)) {
 			continue
 		}
 		if skip > 0 {
@@ -730,17 +838,18 @@ func (e *GameEngine) doChant(ctx context.Context, player *Player, args []string)
 			return &CommandResult{Messages: []string{"The scroll's magic is indecipherable."}}
 		}
 
-		fullName := e.formatItemName(itemDef, ii.Adj1, ii.Adj2, ii.Adj3)
+		fullName := e.formatItemName(itemDef, ii.Adj1, ii.Adj2, ii.Adj3, ii.Tail)
 
 		player.Inventory = append(player.Inventory[:i], player.Inventory[i+1:]...)
 		player.PreparedSpell = spellNum
-		player.RoundTimeExpiry = time.Now().Add(3 * time.Second)
+		scrollRT := applyRoundTime(player, 3)
+		player.RoundTimeExpiry = time.Now().Add(time.Duration(scrollRT) * time.Second)
 		e.SavePlayer(ctx, player)
 		return &CommandResult{
 			Messages: []string{
 				fmt.Sprintf("As you chant %s, it crumbles into dust...", fullName),
 				fmt.Sprintf("The power of %s flows into you. The spell is prepared.", spell.Name),
-				"[Round: 3 sec]",
+				fmt.Sprintf("[Round: %d sec]", scrollRT),
 			},
 			RoomBroadcast: []string{
 				fmt.Sprintf("%s chants from %s which crumbles into dust.", player.FirstName, fullName),
@@ -884,9 +993,17 @@ func (e *GameEngine) doSkin(ctx context.Context, player *Player, args []string) 
 			return &CommandResult{Messages: []string{"There is nothing left to skin."}}
 		}
 
-		if inst.Skinned {
+		// Check/mark Skinned on the actual instance (AllMonstersInRoom returns copies).
+		e.monsterMgr.mu.Lock()
+		idx := e.monsterMgr.indexOfID(inst.ID)
+		if idx >= 0 && e.monsterMgr.instances[idx].Skinned {
+			e.monsterMgr.mu.Unlock()
 			return &CommandResult{Messages: []string{"This corpse has already been skinned."}}
 		}
+		if idx >= 0 {
+			e.monsterMgr.instances[idx].Skinned = true
+		}
+		e.monsterMgr.mu.Unlock()
 
 		if len(def.SkinItems) == 0 && def.SkinAdj == 0 {
 			return &CommandResult{Messages: []string{fmt.Sprintf("You can't skin a %s.", def.Name)}}
@@ -927,7 +1044,6 @@ func (e *GameEngine) doSkin(ctx context.Context, player *Player, args []string) 
 			skinMsgs = append(skinMsgs, fmt.Sprintf("You skin %s %s but find nothing useful.", articleFor(displayName, def.Unique), displayName))
 		}
 
-		inst.Skinned = true
 		e.SavePlayer(ctx, player)
 		return &CommandResult{
 			Messages:      skinMsgs,
