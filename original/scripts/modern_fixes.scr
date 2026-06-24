@@ -70,3 +70,13 @@ STOREITEM 27 -1 5100
 STOREITEM 35 -1 700
 STOREITEM 48 -1 1900
 ;
+NUMBER 327
+NAME Test Tunnels, Office
+PARTIAL_DARKNESS
+INDOOR_FLOOR
+CALL 33
+*DESCRIPTION_START
+A very small office, more like a cubicle, is here. A large mound of wood shavings and pulp has been carefully arranged in the center as a kind of odd nest. Sitting in the middle of the nest is a female kobold who is so bloated and immense that she doesn't seem to be able to move. She regards you dully as you enter, but does not say a word.
+*DESCRIPTION_END
+EXIT O 325
+;
