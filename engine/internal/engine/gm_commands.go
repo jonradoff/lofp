@@ -195,6 +195,10 @@ func (e *GameEngine) processGMCommand(ctx context.Context, player *Player, verb 
 		return e.gmTitle(ctx, player, args, rawInput)
 	case "@VERB", "@VERBS":
 		return e.gmVerbs()
+	case "@TRIGCEVENT", "@TCEV":
+		return e.gmTrigCEvent(player, args)
+	case "@MASTERY":
+		return e.gmMastery(ctx, args)
 	default:
 		return &CommandResult{Messages: []string{fmt.Sprintf("Unknown GM command: %s", strings.ToLower(verb))}}
 	}
@@ -243,6 +247,7 @@ func (e *GameEngine) gmHelp() *CommandResult {
 		"@lock <item>           - Lock item silently",
 		"@look <record#>        - Look inside a container",
 		"@lsk                   - List all skills with IDs",
+		"@mastery <plr> [sp [n]]- List/set spell mastery ranks for a player",
 		"@lwho                  - Detailed player list with rooms",
 		"@mlist                 - List all spawned monsters",
 		"@msg                   - Toggle host messages",
@@ -262,6 +267,7 @@ func (e *GameEngine) gmHelp() *CommandResult {
 		"@spawn <monster#>      - Generate monster (active)",
 		"@speech <name> <verb>  - Set speech pattern (e.g. says grimly)",
 		"@title <name> <title>  - Set player title (e.g. the Baroness)",
+		"@trigcevent <id>       - Immediately fire a cyclic event (for testing)",
 		"@unlock <item>         - Unlock item silently",
 		"@whisper <name> <text> - Whisper to player anywhere",
 		"@who                   - List all players with details",
@@ -354,6 +360,47 @@ func (e *GameEngine) gmDelete(ctx context.Context, player *Player, args []string
 	return &CommandResult{Messages: []string{"Item not found in this room."}}
 }
 
+func (e *GameEngine) gmTrigCEvent(player *Player, args []string) *CommandResult {
+	if len(args) == 0 {
+		var ids []string
+		for _, ce := range e.cevents {
+			ids = append(ids, fmt.Sprintf("%d(room %d, every %d cycles)", ce.ID, ce.Room, ce.Cycles))
+		}
+		if len(ids) == 0 {
+			return &CommandResult{Messages: []string{"No cyclic events loaded."}}
+		}
+		msgs := append([]string{fmt.Sprintf("Loaded CEVENTs (%d):", len(ids))}, ids...)
+		return &CommandResult{Messages: msgs}
+	}
+	id, err := strconv.Atoi(args[0])
+	if err != nil {
+		return &CommandResult{Messages: []string{"Usage: @trigcevent <id>"}}
+	}
+	for _, ce := range e.cevents {
+		if ce.ID == id {
+			room := e.rooms[ce.Room]
+			if room == nil {
+				return &CommandResult{Messages: []string{fmt.Sprintf("CEVENT %d: room %d not found.", id, ce.Room)}}
+			}
+			sc := &ScriptContext{Room: room, Engine: e, Player: &Player{}}
+			for _, block := range ce.Scripts {
+				if block.Type == "ACTION" {
+					for _, action := range block.Actions {
+						sc.execAction(action)
+					}
+				} else {
+					sc.execBlock(block)
+				}
+			}
+			if e.roomBroadcast != nil && len(sc.RoomMsgs) > 0 {
+				e.roomBroadcast(ce.Room, sc.RoomMsgs)
+			}
+			return &CommandResult{Messages: []string{fmt.Sprintf("CEVENT %d fired in room %d (%s).", id, ce.Room, room.Name)}}
+		}
+	}
+	return &CommandResult{Messages: []string{fmt.Sprintf("CEVENT %d not found.", id)}}
+}
+
 func (e *GameEngine) gmRData(player *Player, args []string) *CommandResult {
 	num := player.RoomNumber
 	if len(args) >= 1 {
@@ -415,7 +462,9 @@ func (e *GameEngine) gmHeal(ctx context.Context, player *Player, args []string) 
 	target.Bleeding = false
 	target.Stunned = false
 	target.Diseased = false
+	target.DiseaseLevel = 0
 	target.Poisoned = false
+	target.PoisonLevel = 0
 	target.Unconscious = false
 	target.Dead = false
 	e.SavePlayer(ctx, target)
@@ -1642,6 +1691,96 @@ func (e *GameEngine) gmEds(ctx context.Context, args []string) *CommandResult {
 	return &CommandResult{Messages: []string{fmt.Sprintf("Set skill %d to level %d for %s.", skillNum, level, target.FullName())}}
 }
 
+func (e *GameEngine) gmMastery(ctx context.Context, args []string) *CommandResult {
+	if len(args) < 1 {
+		return &CommandResult{Messages: []string{"Usage: @mastery <player> [<spell# or name> <level>]"}}
+	}
+	target, err := e.resolvePlayerArg(ctx, args)
+	if err != nil {
+		return &CommandResult{Messages: []string{err.Error()}}
+	}
+
+	// List mode: @mastery <player>
+	if len(args) < 3 {
+		if len(target.SpellMastery) == 0 {
+			return &CommandResult{Messages: []string{fmt.Sprintf("%s has no spell mastery.", target.FullName())}}
+		}
+		type mastEntry struct {
+			id      int
+			name    string
+			rank    int
+			maxRank int
+		}
+		var entries []mastEntry
+		for spellID, rank := range target.SpellMastery {
+			if rank <= 0 {
+				continue
+			}
+			spell := FindSpellByID(spellID)
+			if spell == nil {
+				entries = append(entries, mastEntry{id: spellID, name: fmt.Sprintf("[unknown #%d]", spellID), rank: rank, maxRank: 0})
+			} else {
+				entries = append(entries, mastEntry{id: spellID, name: spell.Name, rank: rank, maxRank: spell.Level + 1})
+			}
+		}
+		sort.Slice(entries, func(i, j int) bool { return entries[i].id < entries[j].id })
+		msgs := []string{fmt.Sprintf("Spell mastery for %s:", target.FullName())}
+		for _, me := range entries {
+			msgs = append(msgs, fmt.Sprintf("  #%-4d %-35s rank %d / %d", me.id, me.name, me.rank, me.maxRank))
+		}
+		return &CommandResult{Messages: msgs}
+	}
+
+	// Set mode: @mastery <player> <spell# or name> <level>
+	var spell *SpellDef
+	if id, convErr := strconv.Atoi(args[1]); convErr == nil {
+		spell = FindSpellByID(id)
+	} else {
+		spell = FindSpellByName(args[1])
+	}
+	if spell == nil {
+		return &CommandResult{Messages: []string{fmt.Sprintf("Unknown spell: %s", args[1])}}
+	}
+	level, err := strconv.Atoi(args[2])
+	if err != nil || level < 0 {
+		return &CommandResult{Messages: []string{"Level must be a non-negative integer (use 0 to clear mastery)."}}
+	}
+	maxRank := spell.Level + 1
+	if level > maxRank {
+		return &CommandResult{Messages: []string{fmt.Sprintf("Max mastery for %s (level %d spell) is %d.", spell.Name, spell.Level, maxRank)}}
+	}
+	if target.SpellMastery == nil {
+		target.SpellMastery = make(map[int]int)
+	}
+	oldRank := target.SpellMastery[spell.ID]
+
+	// Calculate BP refund when reducing mastery.
+	// Rank 1 cost 8 BP; ranks 2+ cost 4 BP each.
+	var bpRefund int
+	if level < oldRank {
+		ranksRemoved := oldRank - level
+		if level == 0 {
+			bpRefund = 8 + (ranksRemoved-1)*4
+		} else {
+			bpRefund = ranksRemoved * 4
+		}
+		target.BuildPoints += bpRefund
+	}
+
+	if level == 0 {
+		delete(target.SpellMastery, spell.ID)
+	} else {
+		target.SpellMastery[spell.ID] = level
+	}
+	e.SavePlayer(ctx, target)
+
+	msg := fmt.Sprintf("Set %s mastery for %s to rank %d (max %d).", spell.Name, target.FullName(), level, maxRank)
+	if bpRefund > 0 {
+		msg += fmt.Sprintf(" Refunded %d BP (%d BP total).", bpRefund, target.BuildPoints)
+	}
+	return &CommandResult{Messages: []string{msg}}
+}
+
 func (e *GameEngine) gmGrantSp(ctx context.Context, args []string) *CommandResult {
 	if len(args) < 2 {
 		return &CommandResult{Messages: []string{"Usage: @grantsp <name> <spell>"}}
@@ -1926,6 +2065,7 @@ var allGMVerbs = []string{
 	"@ENTRY", "@EXIT", "@SUGGEST", "@MSG", "@SAVE", "@RESTORE", "@REGISTER",
 	"@ASSIST?", "@OLDCOMP", "@EDITEM", "@EDN", "@GET", "@LOOK",
 	"@QUEUE", "@UNQUEUE",
+	"@MASTERY",
 }
 
 // resolveGMVerb resolves a GM command abbreviation to its canonical form.
@@ -1983,13 +2123,17 @@ func (e *GameEngine) formatFullItemDebug(item *InventoryItem, location string) s
 		tail = fmt.Sprintf("\n  Tail=%q", item.Tail)
 	}
 
+	examineDesc := ""
+	if def != nil && def.ExamineDesc != "" {
+		examineDesc = fmt.Sprintf("\n  ExamineDesc=%q", def.ExamineDesc)
+	}
 	return fmt.Sprintf("%s: %s (arch=%d)\n"+
 		"  Adj1=%s | Adj2=%s | Adj3=%s\n"+
-		"  Val1=%d Val2=%d Val3=%d Val4=%d Val5=%d%s%s",
+		"  Val1=%d Val2=%d Val3=%d Val4=%d Val5=%d%s%s%s",
 		location, baseName, item.Archetype,
 		adj1, adj2, adj3,
 		item.Val1, item.Val2, item.Val3, item.Val4, item.Val5,
-		state, tail)
+		state, tail, examineDesc)
 }
 
 // gmEdItem implements @editem / @edn.

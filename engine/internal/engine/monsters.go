@@ -36,6 +36,15 @@ type MonsterInstance struct {
 	Charmed     bool      `json:"-"` // Charm spell: won't attack the caster
 	CharmExpiry time.Time `json:"-"`
 	CharmTarget string    `json:"-"` // player name who charmed it
+
+	// Summoned creature fields (transient)
+	SummonerName    string `json:"-"` // name of the player who summoned this creature
+	IsSummoned      bool   `json:"-"` // true if summoned, not a regular world spawn
+	IsFamiliar      bool   `json:"-"` // true if a familiar (cat/raven/bird/viper) — can WATCH WILL
+	WatchMode       bool   `json:"-"` // familiar is watching a room and forwarding events to summoner
+	FollowTarget    string   `json:"-"` // name of player this creature follows when they move; "" = not following
+	GuardingPlayers []string `json:"-"` // names of players being guarded (for COMMAND GUARD)
+	MonsterTargetID int      `json:"-"` // instance ID of a monster this creature is attacking; 0 = none
 }
 
 // monsterManager handles monster spawning and tracking.
@@ -49,6 +58,7 @@ type monsterManager struct {
 
 func newMonsterManager() *monsterManager {
 	return &monsterManager{
+		nextID:         1, // 0 is the "no instance" sentinel used by SummonedCreatureID
 		monstersByRoom: make(map[int][]int),
 		roomLastPlayer: make(map[int]time.Time),
 	}
@@ -493,16 +503,15 @@ func (e *GameEngine) monsterTick(tick int) {
 			continue
 		}
 
-		// If monster is in combat, process combat instead of wandering/texting
-		if inst.Target != "" {
+		if inst.Target != "" || inst.MonsterTargetID > 0 {
 			e.monsterCombatTick(inst, def)
 			continue
 		}
 
 		name := FormatMonsterName(def, e.monAdjs)
 
-		// Hostile monsters without a target — look for players in room
-		if def.Strategy >= 301 && inst.Target == "" {
+		// Hostile monsters without a target — look for players in room (skip summoned creatures)
+		if def.Strategy >= 301 && inst.Target == "" && !inst.IsSummoned {
 			if e.sessions != nil {
 				for _, p := range e.sessions.OnlinePlayers() {
 					if p.RoomNumber == inst.RoomNumber && !p.Dead && !p.Hidden && !p.GMInvis {
@@ -519,8 +528,8 @@ func (e *GameEngine) monsterTick(tick int) {
 			}
 		}
 
-		// Random text (TEX1-4): ~8% chance per action tick
-		if rand.Intn(100) < 8 {
+		// Random text (TEX1-4): ~8% chance per action tick (skip summoned creatures)
+		if !inst.IsSummoned && rand.Intn(100) < 8 {
 			var texts []string
 			for _, key := range []string{"TEX1", "TEX2", "TEX3", "TEX4"} {
 				if t, ok := def.TextOverrides[key]; ok && t != "" {
@@ -533,8 +542,8 @@ func (e *GameEngine) monsterTick(tick int) {
 			}
 		}
 
-		// Wandering: ~5% chance per action tick for non-hostile, non-combat monsters
-		if def.Strategy < 301 && inst.Target == "" && rand.Intn(100) < 5 {
+		// Wandering: ~5% chance per action tick for non-hostile, non-combat monsters (skip summoned)
+		if def.Strategy < 301 && inst.Target == "" && !inst.IsSummoned && rand.Intn(100) < 5 {
 			room := e.rooms[inst.RoomNumber]
 			if room == nil {
 				continue

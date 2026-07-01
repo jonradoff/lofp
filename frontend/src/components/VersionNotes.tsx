@@ -9,6 +9,270 @@ export default function VersionNotes({ onBack }: { onBack: () => void }) {
 
         <div className="space-y-6 text-sm">
           <section>
+            <h2 className="text-amber-400 text-lg font-bold mb-1">v11.6.4 &mdash; June 30, 2026</h2>
+            <p className="text-gray-400 mb-3">Jewelry, weaving, and wood lore multi-step crafting; ENCRUST and ENGRAVE commands for Jewelers.</p>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Crafting</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Jewelry, dyeing/weaving, and wood lore now use the same multi-step <code className="text-amber-300">CRAFT &rarr; WORK</code> cycle as weaponsmithing &mdash; <code className="text-amber-300">CRAFT &lt;item&gt;</code> begins planning, then <code className="text-amber-300">WORK &lt;material&gt;</code> each step to complete it</li>
+                  <li>Each craft type has its own step flavor: jewelry (shape &rarr; refine &rarr; polish), weaving (mount &rarr; cut &amp; stitch &rarr; hem), wood lore (carve &rarr; sand &rarr; oil)</li>
+                  <li>Material is matched by noun name &mdash; if an item matches the noun but isn&rsquo;t a valid crafting material, you receive a &ldquo;not suitable&rdquo; message instead of a confusing error</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">ENCRUST Command (Jeweler 3)</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li><code className="text-amber-300">ENCRUST &lt;item&gt; WITH &lt;gem&gt;</code> &mdash; set a gem stone into an encrustable item</li>
+                  <li>Item must have the ENCRUSTABLE flag and at least 2 free adjective slots; gem is consumed</li>
+                  <li>Result: gem name and &ldquo;encrusted&rdquo; are applied as adjectives (e.g. a gold ring becomes &ldquo;an emerald encrusted gold ring&rdquo;)</li>
+                  <li>Requires a forge or jeweler&rsquo;s workshop; 30-second round time (15 sec under Haste)</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">ENGRAVE Command (Jeweler 3)</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li><code className="text-amber-300">ENGRAVE &lt;item&gt; WITH &lt;inscription&gt;</code> &mdash; engrave a custom inscription onto an item</li>
+                  <li>Works on any ENCRUSTABLE item or any item made of hard metal</li>
+                  <li>Inscription is set verbatim as the item tail &mdash; <code className="text-amber-300">ENGRAVE mug WITH etched with a howling wolf</code> produces &ldquo;a mug etched with a howling wolf&rdquo;</li>
+                  <li>Requires a forge or jeweler&rsquo;s workshop; 30-second round time (15 sec under Haste)</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2 className="text-amber-400 text-lg font-bold mb-1">v11.6.3 &mdash; June 29, 2026</h2>
+            <p className="text-gray-400 mb-3">Summoning system overhaul: elemental guard combat, immunities, reagent timing, and creature lifetime management.</p>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Summoned Creature Guard</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li><code className="text-amber-300">COMMAND GUARD ME</code> now actually intercepts melee attacks &mdash; monsters targeting you hit the elemental instead</li>
+                  <li>Ranged attacks (bows, guns, thrown weapons) bypass the guard and land on you normally</li>
+                  <li>Guard combat uses the same <code className="text-amber-300">[ToHit: X, Roll: Y] Hit! / Miss!</code> format seen in normal combat</li>
+                  <li>Elementals with <code className="text-amber-300">MAGICWEAPON</code> requirements are immune to non-magical attacks &mdash; the TEXI flavor text is shown on hits that do no damage (e.g. &ldquo;The attack serves only to scatter a little water about.&rdquo;), while misses show a normal miss line</li>
+                  <li>When the elemental is destroyed while guarding, its TEXD death text is shown and the summoner receives a psychic shock stun (2&ndash;5 seconds)</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">COMMAND Improvements</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li><code className="text-amber-300">COMMAND FOLLOW ME</code> is now a toggle &mdash; issuing it again stops the creature from following (&ldquo;The water elemental stops following you.&rdquo;)</li>
+                  <li>All COMMAND actions (FOLLOW, GUARD, ATTACK, BEGONE) now broadcast a confirmation message to the room</li>
+                  <li>Summoned creatures follow their summoner through named portals and GO exits, not just cardinal directions</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Reagent Timing</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Elemental summoning reagents (garnet, opal, aquamarine, tourmaline, diamond) are now consumed at PREPARE time, not on CAST</li>
+                  <li>Message shown on prepare: &ldquo;The [gem] turns to dust as it is consumed by the spell.&rdquo;</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Creature Lifetime</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Summoned creatures are automatically dismissed if the summoner dies or disconnects</li>
+                  <li>Summoned elementals no longer auto-aggro nearby players or wander between rooms</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2 className="text-amber-400 text-lg font-bold mb-1">v11.6.2 &mdash; June 28, 2026</h2>
+            <p className="text-gray-400 mb-3">Physicians&rsquo; Guild healer rooms and full Bank of Fayd banking services.</p>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Healer Rooms</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Rooms tagged as <code className="text-amber-300">HEALER</code> (e.g. Physicians&rsquo; Guild, room 312 in Fayd) now provide medical treatment when you SIT or LAY down</li>
+                  <li>Physicians heal all wounds instantly &mdash; charged 1 copper penny per body point restored</li>
+                  <li>If you have no money at all you are turned away; if you have some but not enough you are charged everything you have and still fully healed</li>
+                  <li>Cure poison: 10 gold crowns &mdash; removes all poison and poison severity</li>
+                  <li>Cure disease: 10 gold crowns &mdash; removes all disease and disease severity</li>
+                  <li>Poison and disease are treated independently before wounds; each checks your current purse after any prior charge</li>
+                  <li>If you are already in perfect health and have no conditions, the physician tells you so</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Banking</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Rooms tagged as <code className="text-amber-300">BANK</code> (e.g. Bank of Fayd, room 355) now offer full banking services</li>
+                  <li><code className="text-amber-300">DEPOSIT &lt;amount&gt;</code> &mdash; deposit copper pennies; suffix with GOLD or SILVER to use those denominations (e.g. <code className="text-amber-300">DEPOSIT 5 GOLD</code>)</li>
+                  <li><code className="text-amber-300">WITHDRAW &lt;amount&gt;</code> &mdash; withdraw from your account, same denomination suffix supported; coins returned as carried currency</li>
+                  <li>No fee to deposit or withdraw money</li>
+                  <li><code className="text-amber-300">DEPOSIT &lt;item name&gt;</code> &mdash; place an item into your safety deposit box for 1 gold crown; item matched by name and adjectives (e.g. <code className="text-amber-300">DEPOSIT steel longsword</code>)</li>
+                  <li><code className="text-amber-300">WITHDRAW &lt;item name&gt;</code> &mdash; retrieve an item from your safety deposit box, no charge</li>
+                  <li>Safety deposit box holds up to 20 items; you must afford the 1 gold fee to deposit an item</li>
+                  <li><code className="text-amber-300">BALANCE</code> &mdash; shows your cash balance and lists all items stored in your safety deposit box (X/20 slots used)</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2 className="text-amber-400 text-lg font-bold mb-1">v11.6.1 &mdash; June 26, 2026</h2>
+            <p className="text-gray-400 mb-3">Spell mastery system, 46 missing spells, poison/disease severity levels, herb fixes, Cure Poison and Cure Disease spells, wave emote.</p>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Spell Mastery</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Spell mastery system implemented &mdash; when your school skill reaches double a spell&rsquo;s level, you achieve first mastery rank; each additional rank requires one more spell level of skill</li>
+                  <li>Each mastery rank reduces mana cost by 2, floored at half the base cost (minimum 1)</li>
+                  <li>SPELLS command now shows a School column and mastery stars: <code className="text-amber-300">(*)</code>, <code className="text-amber-300">(**)</code>, <code className="text-amber-300">(***)</code>, etc.</li>
+                  <li>SPELLS list is sorted by school, then level, then spell ID</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">New Spells</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>46 spells added to the registry across all five schools (Conjuration, Enchantment, Necromancy, General, Druidic) that were present in the original spell list but missing from the engine &mdash; they now appear when learned and are castable</li>
+                  <li>Cure Poison (spell 303, Necromancy level 11) &mdash; removes poison and all poison levels from self or a target in the room</li>
+                  <li>Cure Disease (spell 319, Necromancy level 12) &mdash; removes disease and all disease levels from self or a target in the room</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Poison &amp; Disease Severity</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Poison and disease now have severity levels (1&ndash;5) &mdash; each level deals 1 BP damage per regen tick</li>
+                  <li>Trap severity: minor traps (types 1, 2) = level 1; moderate (types 5, 12) = level 2; major (type 7) = level 3; lethal black needle (type 13) = level 5</li>
+                  <li>Monster hits that poison or disease default to level 1 and never downgrade an existing higher level</li>
+                  <li>Regen tick message shows damage amount and current BP: <code className="text-amber-300">The poison courses through your veins! [-2 BP, 45/80]</code></li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Herbs &amp; Consumables</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Rowik berry now reliably cures poison and clears poison level, even when the item script has no ITEMADJ3 block</li>
+                  <li>Babich root and piece of babich root now correctly heal 5&ndash;15 BP (Body Restoration I)</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Emotes</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>WAVE with no target now emotes &ldquo;You wave.&rdquo; / &ldquo;[Name] waves.&rdquo; instead of returning &ldquo;Wave what?&rdquo;</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2 className="text-amber-400 text-lg font-bold mb-1">v11.5.18 &mdash; June 25, 2026</h2>
+            <p className="text-gray-400 mb-3">Vertical passage movement fix, magical item charge detection, timed defense spells target other players.</p>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Movement &amp; Script Engine</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Fixed infinite wait loop in vertical passages (Devil&rsquo;s Chimney, deep crevices) &mdash; <code className="text-amber-300">EQUAL ROUNDTIME</code> in an <code className="text-amber-300">IFPREVERB</code> block without <code className="text-amber-300">CLEARVERB</code> now applies roundtime as a post-move penalty, not a pre-move block</li>
+                  <li>Roundtime check now happens before room scripts fire on directional movement, matching original engine behavior</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Magical Items &amp; Detect Magic</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Detect Magic (spell 400) now correctly reads charges from Val2 (was incorrectly checking Val4)</li>
+                  <li>Detect Magic now reports remaining charges in its output: e.g. <code className="text-amber-300">glows a soft blue (3 charges remaining)</code></li>
+                  <li>Items with a stored spell but no charges remaining now show &ldquo;a faint magical residue &mdash; completely drained of power&rdquo; instead of glowing</li>
+                  <li>Magical item treasure drops now correctly store charges in Val2 (was Val4)</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Defense Spells</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>All timed defense spells (Globe of Protection, Globe of Protection II, Spectral Shield, and others) can now be cast on yourself or on another player in the room, matching Mystic Armor behavior</li>
+                  <li>Casting on another player shows distinct messages to caster, target, and room</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2 className="text-amber-400 text-lg font-bold mb-1">v11.5.17 &mdash; June 24, 2026</h2>
+            <p className="text-gray-400 mb-3">Flying movement overhaul, script MOVEGROUP fixes, geyser ROOMCOPY, round time display.</p>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Flying &amp; Movement</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>ASCEND and DESCEND now work correctly for players who used the FLY command &mdash; previously only worked for Drakin or players with psionic flight</li>
+                  <li>EXIT ABOVE and EXIT BELOW no longer appear in the exits list &mdash; they are fly-only passages, accessible only via ASCEND/DESCEND</li>
+                  <li>IFPREVERB ASCEND/DESCEND scripts now fire before movement &mdash; rooms can block or redirect ascent/descent with a message</li>
+                  <li>ASCEND/DESCEND abbreviations (e.g. <code className="text-amber-300">asc</code>) now resolve correctly</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Script Engine</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>MOVEGROUP in IFVERB blocks now fires correctly &mdash; was only being checked in IFPREVERB results</li>
+                  <li>PLREVENT and CONTPLREVENT (player-timed events) are now implemented &mdash; enables deferred room entry sequences such as river currents pulling players downstream</li>
+                  <li>ROOMCOPY script command implemented &mdash; copies exits and description from a template room into the current room; powers the geyser system that periodically opens new exits</li>
+                  <li>ECHO OTHGROUP now implemented &mdash; sends a message to room occupants who are not in the player&rsquo;s group</li>
+                  <li>EQUAL ROUNDTIME now shows a <code className="text-amber-300">[Round: X sec]</code> message to the player, matching original engine behavior</li>
+                  <li>MOVEGROUP in CLIMB scripts now fires correctly and shows round time; success and failure echoes no longer both display after a successful group move</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2 className="text-amber-400 text-lg font-bold mb-1">v11.5.16 &mdash; June 23, 2026</h2>
+            <p className="text-gray-400 mb-3">Weaponsmith XP scaling, cyclic world events, smelting round time and XP, gold and silver ore.</p>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Crafting</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Weaponsmith XP now scales correctly: 25 XP per skill level required by the weapon, plus a metal quality bonus (up to +150 for truesteel) and a blade sharpness bonus (up to +100)</li>
+                  <li>Smelting now applies a 5-second round time (2 seconds if Hasted) before the smith can act again</li>
+                  <li>Smelting now awards XP on success: 5 for copper/tin, scaling up to 50 for truesteel and 100 for exotic metals</li>
+                  <li>Gold and silver ore can now be found when mining &mdash; grade A mines yield silver (8%) and gold (4%), grade B mines yield silver (5%) and gold (1%); grade C mines do not produce precious metals</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">World Events</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Fixed a parser bug where all 51 cyclic world events (CEVENT) were silently discarded at server startup &mdash; timed events such as Menelian&rsquo;s wandering cottage now fire correctly</li>
+                  <li>Menelian&rsquo;s cottage cycles through rooms 128, 156, and 944 every ~12.5 minutes, appearing as a door that players can enter</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2 className="text-amber-400 text-lg font-bold mb-1">v11.5.15 &mdash; June 22, 2026</h2>
+            <p className="text-gray-400 mb-3">Herb effects, elevator mechanics, script engine AFFECT fixes.</p>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Herbs &amp; Consumables</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Stat-boosting herbs (yarrow lichen, quillim fruit, malatrin leaf, shay-ahm blossoms, zarus stem, coriam seed, kurkan pollen) now correctly limited to one dose each</li>
+                  <li>Stat boost range corrected to 1&ndash;4 (was 2&ndash;4)</li>
+                  <li>Rowik berry now cures poison</li>
+                  <li>Disease-curing herb now implemented</li>
+                  <li>Thesnia leaf (mindlink) now refreshes on every bite, not just the first</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Script Engine</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>FLIP switch now correctly fires IFVERB scripts after the state change &mdash; fixes power-on scripts in Technologists Hall</li>
+                  <li>Room-level IFTOUCH blocks now execute during IFPREVERB handling &mdash; fixes the Technologists Hall identity scanner</li>
+                  <li>IFSAY pattern matching now strips trailing punctuation &mdash; &ldquo;computer, identify&rdquo; matches whether or not the player adds a period</li>
+                  <li>PLRSINROOM and MONINROOM now count players/monsters in the AFFECTed room rather than always the player&rsquo;s room &mdash; fixes the Technologists Hall elevator auto-return</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
             <h2 className="text-amber-400 text-lg font-bold mb-1">v11.5.14 &mdash; June 21, 2026</h2>
             <p className="text-gray-400 mb-3">Group disconnect handling, GUARD command overhaul, improved guard messages, STATUS build point fix.</p>
 

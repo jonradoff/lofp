@@ -67,6 +67,7 @@ func (e *GameEngine) runVerbScriptsForTarget(ctx context.Context, player *Player
 			// Copy ri so that script side-effects (e.g. REMOVEITEM -1) that modify
 			// room.Items cannot invalidate our pointer mid-loop.
 			riCopy := ri
+			origRoom := player.RoomNumber // capture before scripts may MOVE the player
 			result := &CommandResult{}
 			sc0 := e.RunItemScripts(player, room, &riCopy, itemDef)
 			sc1 := e.RunPreverbScripts(player, room, verb, &riCopy, itemDef)
@@ -87,7 +88,7 @@ func (e *GameEngine) runVerbScriptsForTarget(ctx context.Context, player *Player
 			if moveTo > 0 {
 				dest := e.rooms[moveTo]
 				if dest != nil {
-					oldRoom := player.RoomNumber
+					// doMove may have already updated player.RoomNumber; ensure it's set.
 					player.RoomNumber = moveTo
 					e.SavePlayer(ctx, player)
 					lookResult := e.doLook(player)
@@ -96,7 +97,7 @@ func (e *GameEngine) runVerbScriptsForTarget(ctx context.Context, player *Player
 					result.RoomDesc = lookResult.RoomDesc
 					result.Exits = lookResult.Exits
 					result.Items = lookResult.Items
-					result.OldRoom = oldRoom
+					result.OldRoom = origRoom
 					result.OldRoomMsg = []string{fmt.Sprintf("%s leaves.", player.FirstName)}
 					result.RoomBroadcast = append(result.RoomBroadcast, fmt.Sprintf("%s arrives.", player.FirstName))
 					e.applyEntryScripts(ctx, player, dest, result)
@@ -752,7 +753,12 @@ func (e *GameEngine) applySayMove(ctx context.Context, player *Player, sc *Scrip
 	if dest == nil {
 		return
 	}
-	oldRoom := player.RoomNumber
+	// sc.OrigRoomNum is set by doMove before it updates player.RoomNumber; use it
+	// so OldRoom is correct even when doMove changed player.RoomNumber immediately.
+	origRoom := sc.OrigRoomNum
+	if origRoom == 0 {
+		origRoom = player.RoomNumber
+	}
 	player.RoomNumber = sc.MoveTo
 	e.SavePlayer(ctx, player)
 	lookResult := e.doLook(player)
@@ -761,7 +767,7 @@ func (e *GameEngine) applySayMove(ctx context.Context, player *Player, sc *Scrip
 	result.RoomDesc = lookResult.RoomDesc
 	result.Exits = lookResult.Exits
 	result.Items = lookResult.Items
-	result.OldRoom = oldRoom
+	result.OldRoom = origRoom
 	result.OldRoomMsg = []string{fmt.Sprintf("%s leaves.", player.FirstName)}
 	result.RoomBroadcast = append(result.RoomBroadcast, fmt.Sprintf("%s arrives.", player.FirstName))
 	e.applyEntryScripts(ctx, player, dest, result)
@@ -771,6 +777,9 @@ func (e *GameEngine) applySayMove(ctx context.Context, player *Player, sc *Scrip
 // If the player is a group leader, the group is disbanded and all members are notified.
 // If the player is a group member, they are removed from their leader's group.
 func (e *GameEngine) HandlePlayerDisconnect(player *Player) {
+	e.dismissSummonedCreature(player)
+	e.clearPlayerFromGuards(player.FirstName)
+
 	if player.IsGroupLeader && len(player.GroupMembers) > 0 {
 		if e.sessions != nil {
 			for _, memberName := range player.GroupMembers {

@@ -2,6 +2,7 @@ package engine
 
 import (
 	"context"
+	"fmt"
 	"time"
 )
 
@@ -114,6 +115,38 @@ func (e *GameEngine) regenTick() {
 			changed = true
 		}
 
+		// Poison damage
+		if p.Poisoned {
+			lvl := p.PoisonLevel
+			if lvl < 1 {
+				lvl = 1
+			}
+			p.BodyPoints -= lvl
+			if p.BodyPoints < 0 {
+				p.BodyPoints = 0
+			}
+			changed = true
+			if e.sendToPlayer != nil {
+				e.sendToPlayer(p.FirstName, []string{fmt.Sprintf("The poison courses through your veins! [-%d BP, %d/%d]", lvl, p.BodyPoints, p.MaxBodyPoints)})
+			}
+		}
+
+		// Disease damage
+		if p.Diseased {
+			lvl := p.DiseaseLevel
+			if lvl < 1 {
+				lvl = 1
+			}
+			p.BodyPoints -= lvl
+			if p.BodyPoints < 0 {
+				p.BodyPoints = 0
+			}
+			changed = true
+			if e.sendToPlayer != nil {
+				e.sendToPlayer(p.FirstName, []string{fmt.Sprintf("The sickness ravages your body! [-%d BP, %d/%d]", lvl, p.BodyPoints, p.MaxBodyPoints)})
+			}
+		}
+
 		// Check for expired strength buff
 		if p.StrengthBuffID > 0 && !p.StrengthBuffExpiry.IsZero() && time.Now().After(p.StrengthBuffExpiry) {
 			p.Strength -= p.StrengthBuffBonus
@@ -138,6 +171,26 @@ func (e *GameEngine) regenTick() {
 			if e.sendToPlayer != nil {
 				e.sendToPlayer(p.FirstName, []string{"The Mystic Armor fades. The shimmering barrier around you dissipates."})
 			}
+		}
+
+		// Check for expired timed defense buffs (all defense spells except Mystic Armor)
+		var activeBuffs []TimedDefenseBuff
+		for _, b := range p.TimedDefenseBuffs {
+			if time.Now().After(b.Expiry) {
+				p.DefenseBonus -= b.Bonus
+				if p.DefenseBonus < 0 {
+					p.DefenseBonus = 0
+				}
+				changed = true
+				if e.sendToPlayer != nil {
+					e.sendToPlayer(p.FirstName, []string{fmt.Sprintf("The %s fades.", b.SpellName)})
+				}
+			} else {
+				activeBuffs = append(activeBuffs, b)
+			}
+		}
+		if len(activeBuffs) != len(p.TimedDefenseBuffs) {
+			p.TimedDefenseBuffs = activeBuffs
 		}
 
 		// Check for expired Haste buff

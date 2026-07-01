@@ -1512,7 +1512,7 @@ func (s *Server) telnetCommandLoop(ctx context.Context, session *Session, tc *te
 		// Chat flood protection
 		if len(result.RoomBroadcast) > 0 {
 			now := time.Now()
-			chatCutoff := now.Add(-10 * time.Second)
+			chatCutoff := now.Add(-9 * time.Second)
 			var recent []time.Time
 			for _, t := range session.chatTimes {
 				if t.After(chatCutoff) {
@@ -1520,7 +1520,7 @@ func (s *Server) telnetCommandLoop(ctx context.Context, session *Session, tc *te
 				}
 			}
 			session.chatTimes = recent
-			if len(session.chatTimes) >= 5 {
+			if len(session.chatTimes) >= 10 {
 				tc.writeLine("[You are sending messages too quickly. Please wait.]")
 				continue
 			}

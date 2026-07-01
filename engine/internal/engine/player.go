@@ -60,6 +60,14 @@ type InventoryItem struct {
     Contents  []InventoryItem `bson:"contents,omitempty" json:"contents,omitempty"`
 }
 
+// TimedDefenseBuff tracks one active defense spell with a bonus and expiry.
+type TimedDefenseBuff struct {
+	SpellID   int       `bson:"spellID" json:"spellID"`
+	SpellName string    `bson:"spellName" json:"spellName"`
+	Bonus     int       `bson:"bonus" json:"bonus"`
+	Expiry    time.Time `bson:"expiry" json:"expiry"`
+}
+
 // Player represents a player's current state.
 type Player struct {
 	ID         bson.ObjectID     `bson:"_id,omitempty" json:"id"`
@@ -106,10 +114,12 @@ type Player struct {
 	AgeTrue    int `bson:"ageTrue,omitempty" json:"ageTrue,omitempty"`
 
 	// Status conditions
-	Bleeding    bool `bson:"bleeding" json:"bleeding"`
-	Stunned     bool `bson:"stunned" json:"stunned"`
-	Diseased    bool `bson:"diseased" json:"diseased"`
-	Poisoned    bool `bson:"poisoned" json:"poisoned"`
+	Bleeding     bool `bson:"bleeding" json:"bleeding"`
+	Stunned      bool `bson:"stunned" json:"stunned"`
+	Diseased     bool `bson:"diseased" json:"diseased"`
+	DiseaseLevel int  `bson:"diseaseLevel,omitempty" json:"diseaseLevel,omitempty"`
+	Poisoned     bool `bson:"poisoned" json:"poisoned"`
+	PoisonLevel  int  `bson:"poisonLevel,omitempty" json:"poisonLevel,omitempty"`
 	Joined      bool `bson:"joined" json:"joined"`
 	Unconscious bool `bson:"unconscious" json:"unconscious"`
 	Immobilized bool `bson:"immobilized" json:"immobilized"`
@@ -145,6 +155,10 @@ type Player struct {
 	MysticArmorExpiry time.Time `bson:"mysticArmorExpiry,omitempty" json:"mysticArmorExpiry,omitempty"`
 	MysticArmorBonus  int       `bson:"mysticArmorBonus,omitempty" json:"mysticArmorBonus,omitempty"`
 
+	// Timed defense buffs for all defense spells other than Mystic Armor.
+	// Each entry tracks one spell's bonus and expiry independently.
+	TimedDefenseBuffs []TimedDefenseBuff `bson:"timedDefenseBuffs,omitempty" json:"timedDefenseBuffs,omitempty"`
+
 	// Haste / Slow spell timers (spell 210 / 211)
 	HasteExpiry time.Time `bson:"hasteExpiry,omitempty" json:"hasteExpiry,omitempty"`
 	SlowExpiry  time.Time `bson:"slowExpiry,omitempty" json:"slowExpiry,omitempty"`
@@ -154,8 +168,9 @@ type Player struct {
 
 	// Crafting state (transient)
 	CraftingItem  string `bson:"-" json:"-"` // what they're making (e.g., "greatsword")
-	CraftingMetal string `bson:"-" json:"-"` // what material (e.g., "copper")
-	CraftingStep  int    `bson:"-" json:"-"` // 0=not crafting, 1=planned, 2=heated, 3=hammered, 4=quenched, 5=buffed, 6=done
+	CraftingMetal string `bson:"-" json:"-"` // what material (e.g., "copper", "hide")
+	CraftingStep  int    `bson:"-" json:"-"` // 0=not crafting, 1=planned, 2+=steps
+	CraftingSkill string `bson:"-" json:"-"` // "weaponsmithing", "jewelry", "weaving", "wood"
 	CraftingAdj1  int    `bson:"-" json:"-"` // material instance Adj1 (e.g. bronze adjective ID)
 	CraftingAdj2  int    `bson:"-" json:"-"`
 	CraftingAdj3  int    `bson:"-" json:"-"`
@@ -180,6 +195,9 @@ type Player struct {
 	GroupMembers  []string `bson:"-" json:"-"` // if this player is a leader, who's in their group
 	IsGroupLeader bool     `bson:"-" json:"-"`
 
+	// Summoned creature (transient — cleared on server restart)
+	SummonedCreatureID int `bson:"-" json:"-"` // monster instance ID of active summoned creature (0 = none)
+
 	// Teleport marks (1-10) → room number
 	Marks map[int]int `bson:"marks,omitempty" json:"marks,omitempty"`
 
@@ -199,6 +217,9 @@ type Player struct {
 	BankSilver int `bson:"bankSilver,omitempty" json:"bankSilver,omitempty"`
 	BankCopper int `bson:"bankCopper,omitempty" json:"bankCopper,omitempty"`
 
+	// Safety deposit box (up to 20 items)
+	BankItems []InventoryItem `bson:"bankItems,omitempty" json:"bankItems,omitempty"`
+
 	// Organization / Guild — OrgMemberships is the source of truth (org# → rank).
 	// Organization and OrgRank are kept in sync for legacy MongoDB documents.
 	Organization    int         `bson:"organization,omitempty" json:"organization,omitempty"`
@@ -210,7 +231,8 @@ type Player struct {
 
 	// Skills
 	Skills      map[int]int  `bson:"skills" json:"skills"`           // skill# -> level
-	KnownSpells map[int]bool `bson:"knownSpells,omitempty" json:"knownSpells,omitempty"` // spell# -> known
+	KnownSpells  map[int]bool `bson:"knownSpells,omitempty" json:"knownSpells,omitempty"` // spell# -> known
+	SpellMastery map[int]int  `bson:"spellMastery,omitempty" json:"spellMastery,omitempty"` // spell# -> mastery rank
 
 	// Internal variables (INTNUM0-99, flags, etc.)
 	IntNums map[int]int `bson:"intNums" json:"intNums"`
@@ -473,10 +495,18 @@ func (p *Player) RestoreTransientState() {
 	if p.MysticArmorBonus > 0 && !p.MysticArmorExpiry.IsZero() && time.Now().Before(p.MysticArmorExpiry) {
 		p.DefenseBonus += p.MysticArmorBonus
 	} else if p.MysticArmorBonus > 0 {
-		// Buff expired while offline — clear persisted fields (caller should save)
 		p.MysticArmorBonus = 0
 		p.MysticArmorExpiry = time.Time{}
 	}
+	// Restore timed defense buffs, pruning any that expired while offline.
+	var active []TimedDefenseBuff
+	for _, b := range p.TimedDefenseBuffs {
+		if time.Now().Before(b.Expiry) {
+			p.DefenseBonus += b.Bonus
+			active = append(active, b)
+		}
+	}
+	p.TimedDefenseBuffs = active
 }
 
 // applyRoundTime adjusts a base round-time duration (in seconds) for Haste or Slow effects.

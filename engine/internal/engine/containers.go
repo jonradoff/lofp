@@ -35,6 +35,16 @@ func isContainerDef(def *gameworld.ItemDef) bool {
 		containsFlag(def.Flags, "CONTAINER") || def.Type == "CONTAINER"
 }
 
+// containerIsOpen reports whether a container's contents are currently accessible.
+// Containers without the OPENABLE flag (mugs, chalices, cauldrons, pools) have no lid
+// to close and are always accessible. Only OPENABLE containers need their state to be "OPEN".
+func containerIsOpen(def *gameworld.ItemDef, state string) bool {
+	if !containsFlag(def.Flags, "OPENABLE") {
+		return true
+	}
+	return strings.ToUpper(state) == "OPEN"
+}
+
 // containerKey returns the map key for a room-level container.
 func containerKey(roomNum, itemRef int) string {
 	return fmt.Sprintf("%d:%d", roomNum, itemRef)
@@ -117,15 +127,13 @@ func (e *GameEngine) formatContainerName(def *gameworld.ItemDef, adj1, adj2, adj
 	if !isContainerDef(def) {
 		return base
 	}
-	switch strings.ToUpper(state) {
-	case "OPEN":
-		return base + " (open)"
-	case "LOCKED":
+	if strings.ToUpper(state) == "LOCKED" {
 		return base + " (locked)"
-	default:
-		// CLOSED, "", or anything else → show as closed
-		return base + " (closed)"
 	}
+	if containerIsOpen(def, state) {
+		return base + " (open)"
+	}
+	return base + " (closed)"
 }
 
 // ── OPEN (enhanced) ─────────────────────────────────────────────────────────
@@ -142,7 +150,7 @@ func (e *GameEngine) lookInContainer(player *Player, def *gameworld.ItemDef, ii 
 	if state == "LOCKED" {
 		return &CommandResult{Messages: []string{fmt.Sprintf("%s is locked.", displayName)}}
 	}
-	if state != "OPEN" {
+	if !containerIsOpen(def, ii.State) {
 		return &CommandResult{Messages: []string{fmt.Sprintf("%s is closed.", displayName)}}
 	}
 
@@ -172,7 +180,7 @@ func (e *GameEngine) lookInRoomContainer(player *Player, def *gameworld.ItemDef,
 	if state == "LOCKED" {
 		return &CommandResult{Messages: []string{fmt.Sprintf("%s is locked.", displayName)}}
 	}
-	if state != "OPEN" {
+	if !containerIsOpen(def, ri.State) {
 		return &CommandResult{Messages: []string{fmt.Sprintf("%s is closed.", displayName)}}
 	}
 
@@ -286,7 +294,7 @@ func (e *GameEngine) doPut(ctx context.Context, player *Player, args []string) *
 		if state == "LOCKED" {
 			return &CommandResult{Messages: []string{"That container is locked."}}
 		}
-		if state != "OPEN" {
+		if !containerIsOpen(def, ii.State) {
 			return &CommandResult{Messages: []string{"That container is closed."}}
 		}
 		if errMsg, ok := e.containerCanFit(def, ii.Contents, srcDef); !ok {
@@ -340,7 +348,10 @@ func (e *GameEngine) doPut(ctx context.Context, player *Player, args []string) *
 				if sc.MoveTo > 0 {
 					dest := e.rooms[sc.MoveTo]
 					if dest != nil {
-						oldRoom := player.RoomNumber
+						origRoom := sc.OrigRoomNum
+						if origRoom == 0 {
+							origRoom = player.RoomNumber
+						}
 						player.RoomNumber = sc.MoveTo
 						e.SavePlayer(ctx, player)
 						lookResult := e.doLook(player)
@@ -349,7 +360,7 @@ func (e *GameEngine) doPut(ctx context.Context, player *Player, args []string) *
 						result.RoomDesc = lookResult.RoomDesc
 						result.Exits = lookResult.Exits
 						result.Items = lookResult.Items
-						result.OldRoom = oldRoom
+						result.OldRoom = origRoom
 						result.OldRoomMsg = []string{fmt.Sprintf("%s leaves.", player.FirstName)}
 						result.RoomBroadcast = append(result.RoomBroadcast, fmt.Sprintf("%s arrives.", player.FirstName))
 						e.applyEntryScripts(ctx, player, dest, result)
@@ -365,7 +376,7 @@ func (e *GameEngine) doPut(ctx context.Context, player *Player, args []string) *
 			if state == "LOCKED" {
 				return &CommandResult{Messages: []string{"That container is locked."}}
 			}
-			if state != "OPEN" {
+			if !containerIsOpen(def, ri.State) {
 				return &CommandResult{Messages: []string{"That container is closed."}}
 			}
 			contents := e.roomContainerGet(player.RoomNumber, ri.Ref)
@@ -570,7 +581,7 @@ func (e *GameEngine) doGetFromContainer(ctx context.Context, player *Player, ite
 		if strings.ToUpper(container.State) == "LOCKED" {
 			return &CommandResult{Messages: []string{"That container is locked."}}
 		}
-		if strings.ToUpper(container.State) != "OPEN" {
+		if !containerIsOpen(cDef, container.State) {
 			return &CommandResult{Messages: []string{"That container is closed."}}
 		}
 		skip := itemSkip
@@ -614,7 +625,7 @@ func (e *GameEngine) doGetFromContainer(ctx context.Context, player *Player, ite
 			if strings.ToUpper(ri.State) == "LOCKED" {
 				return &CommandResult{Messages: []string{"That container is locked."}}
 			}
-			if strings.ToUpper(ri.State) != "OPEN" {
+			if !containerIsOpen(cDef, ri.State) {
 				return &CommandResult{Messages: []string{"That container is closed."}}
 			}
 			contents := e.roomContainerGet(player.RoomNumber, ri.Ref)
@@ -663,7 +674,7 @@ func (e *GameEngine) doGetAllFromContainer(ctx context.Context, player *Player, 
 		if strings.ToUpper(container.State) == "LOCKED" {
 			return &CommandResult{Messages: []string{"That container is locked."}}
 		}
-		if strings.ToUpper(container.State) != "OPEN" {
+		if !containerIsOpen(cDef, container.State) {
 			return &CommandResult{Messages: []string{"That container is closed."}}
 		}
 		if len(container.Contents) == 0 {
@@ -702,7 +713,7 @@ func (e *GameEngine) doGetAllFromContainer(ctx context.Context, player *Player, 
 			if strings.ToUpper(ri.State) == "LOCKED" {
 				return &CommandResult{Messages: []string{"That container is locked."}}
 			}
-			if strings.ToUpper(ri.State) != "OPEN" {
+			if !containerIsOpen(cDef, ri.State) {
 				return &CommandResult{Messages: []string{"That container is closed."}}
 			}
 			contents := e.roomContainerGet(player.RoomNumber, ri.Ref)
@@ -1111,39 +1122,32 @@ func isJewelryBeneficialSpell(sp SpellDef) bool {
 	return !excluded[sp.ID]
 }
 
-// randomJewelryDrop selects a random jewelry item and optionally assigns a beneficial spell
-// that the player can trigger by concentrating on it while worn. Magical items have a limited
-// number of charges stored in Val4; Val4 == 0 means the item is not magical.
+// randomJewelryDrop selects a magical jewelry item from the document-defined archetype list
+// and assigns a beneficial spell (Val3) with a limited number of charges (Val2).
+// Val2 == 0 means the item has no magical charges.
+// ROUTINE1 items auto-cast their spell; ROUTINE2 items prep it for CAST.
 func (e *GameEngine) randomJewelryDrop(treasureLevel int) *gameworld.RoomItem {
-	jewelryNouns := map[string]bool{
-		"ring": true, "amulet": true, "necklace": true, "bracelet": true,
-		"brooch": true, "pendant": true, "anklet": true, "earring": true,
-		"circlet": true, "torque": true,
-	}
+	// ROUTINE1: auto-casts the spell when activated (con/rub/turn triggers)
+	routine1 := []int{1059, 149, 169, 150, 170, 154, 174}
+	// ROUTINE2: prepares the spell for the player to CAST (con/rub/wave triggers)
+	routine2 := []int{188, 183, 176, 187, 180, 184, 177, 185, 178, 186, 179, 155}
 
 	var candidates []int
-	for num, def := range e.items {
-		if def.Weight >= 1000 {
-			continue
+	for _, arch := range append(routine1, routine2...) {
+		if e.items[arch] != nil {
+			candidates = append(candidates, arch)
 		}
-		noun := strings.ToLower(e.getItemNounName(def))
-		if !jewelryNouns[noun] {
-			continue
-		}
-		candidates = append(candidates, num)
 	}
 	if len(candidates) == 0 {
 		return nil
 	}
 
 	chosen := candidates[rand.Intn(len(candidates))]
-	item := &gameworld.RoomItem{
-		Archetype: chosen,
-	}
+	item := &gameworld.RoomItem{Archetype: chosen}
 
-	// 40% chance of a spell trigger at treasure level >= 10
-	if treasureLevel >= 10 && rand.Intn(100) < 40 {
-		maxSpellLevel := treasureLevel / 5
+	// 40% chance of a spell trigger at treasure level >= 1
+	if treasureLevel >= 1 && rand.Intn(100) < 40 {
+		maxSpellLevel := treasureLevel / 2
 		if maxSpellLevel < 1 {
 			maxSpellLevel = 1
 		}
@@ -1158,10 +1162,12 @@ func (e *GameEngine) randomJewelryDrop(treasureLevel int) *gameworld.RoomItem {
 		}
 		if len(spellCandidates) > 0 {
 			sp := spellCandidates[rand.Intn(len(spellCandidates))]
-			item.Val3 = sp.ID // spell ID stored on the item; triggered by CONCENTRATE/RUB/TOUCH
-			// Assign limited charges: 3–8 at low levels, up to 15 at high levels
-			baseCharges := 15 + rand.Intn(treasureLevel/2+3)
-			item.Val4 = baseCharges
+			item.Val3 = sp.ID
+			baseCharges := 10 + rand.Intn(treasureLevel/2+3)
+			if baseCharges > 30 {
+				baseCharges = 30
+			}
+			item.Val2 = baseCharges
 		}
 	}
 

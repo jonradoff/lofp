@@ -584,6 +584,15 @@ func playerBPSpent(player *Player) int {
 			total += skillBPCost(skillID, r)
 		}
 	}
+	// 8 BP for first mastery rank, 4 BP for each additional rank
+	for _, rank := range player.SpellMastery {
+		if rank >= 1 {
+			total += 8
+		}
+		if rank >= 2 {
+			total += 4 * (rank - 1)
+		}
+	}
 	return total
 }
 
@@ -641,25 +650,45 @@ func (e *GameEngine) doSpellList(player *Player) *CommandResult {
 	}
 
 	type row struct {
-		id    int
-		level int
-		name  string
+		id      int
+		level   int
+		school  string
+		name    string
+		mastery int
 	}
 	var rows []row
 	for id := range player.KnownSpells {
 		spell := FindSpellByID(id)
 		if spell != nil {
-			rows = append(rows, row{id: spell.ID, level: spell.Level, name: spell.Name})
+			rows = append(rows, row{
+				id:      spell.ID,
+				level:   spell.Level,
+				school:  spell.School,
+				name:    spell.Name,
+				mastery: spellMasteryLevel(player, spell),
+			})
 		}
 	}
-	sort.Slice(rows, func(i, j int) bool { return rows[i].id < rows[j].id })
+	sort.Slice(rows, func(i, j int) bool {
+		if rows[i].school != rows[j].school {
+			return rows[i].school < rows[j].school
+		}
+		if rows[i].level != rows[j].level {
+			return rows[i].level < rows[j].level
+		}
+		return rows[i].id < rows[j].id
+	})
 
 	msgs := []string{
-		fmt.Sprintf("%-11s%-11s%s", "Spell", "Level", "Name"),
-		fmt.Sprintf("%-11s%-11s%s", "-----", "-----", "----"),
+		fmt.Sprintf("%-7s%-7s%-16s%s", "Spell", "Level", "School", "Name"),
+		fmt.Sprintf("%-7s%-7s%-16s%s", "-----", "-----", "------", "----"),
 	}
 	for _, r := range rows {
-		msgs = append(msgs, fmt.Sprintf("%-11d%-11d%s", r.id, r.level, r.name))
+		stars := ""
+		if r.mastery > 0 {
+			stars = " (" + strings.Repeat("*", r.mastery) + ")"
+		}
+		msgs = append(msgs, fmt.Sprintf("%-7d%-7d%-16s%s%s", r.id, r.level, r.school, r.name, stars))
 	}
 	return &CommandResult{Messages: msgs}
 }
@@ -879,9 +908,109 @@ func (e *GameEngine) doPositionWithScripts(ctx context.Context, player *Player, 
 				}
 			}
 		}
+		// Healer rooms treat sitting or laying as requesting treatment
+		if (verbUpper == "SIT" || verbUpper == "LAY") && containsModifier(room.Modifiers, "HEALER") {
+			e.applyHealerRoom(ctx, player, result)
+		}
 	}
 	e.SavePlayer(ctx, player)
 	return result
+}
+
+// applyHealerRoom handles physician healing when a player sits or lays in a HEALER room.
+// Charges 1 copper per body point healed. If the player has no money at all they are turned away.
+// If they have some money but not enough they are charged everything they have and still healed.
+// Cure poison costs 10 gold (1000 copper); cure disease costs 10 gold (1000 copper).
+func (e *GameEngine) applyHealerRoom(_ context.Context, player *Player, result *CommandResult) {
+	treated := false
+
+	// Handle status conditions first, independently of wounds
+	if player.Poisoned {
+		const poisonCost = 1000 // 10 gold in copper
+		totalCopper := player.Gold*100 + player.Silver*10 + player.Copper
+		if totalCopper >= poisonCost {
+			e.deductCopper(player, poisonCost)
+			player.Poisoned = false
+			player.PoisonLevel = 0
+			result.Messages = append(result.Messages, "A physician casts cure poison on you, neutralizing the toxin. You are charged 10 gold crowns.")
+			result.RoomBroadcast = append(result.RoomBroadcast, fmt.Sprintf("A physician casts cure poison on %s.", player.FirstName))
+			treated = true
+		} else {
+			result.Messages = append(result.Messages, "A physician examines you and shakes their head. \"We can cure your poison for 10 gold crowns, but you cannot afford our services.\"")
+		}
+	}
+
+	if player.Diseased {
+		const diseaseCost = 1000 // 10 gold in copper
+		totalCopper := player.Gold*100 + player.Silver*10 + player.Copper
+		if totalCopper >= diseaseCost {
+			e.deductCopper(player, diseaseCost)
+			player.Diseased = false
+			player.DiseaseLevel = 0
+			result.Messages = append(result.Messages, "A physician casts cure disease on you, purging the illness. You are charged 10 gold crowns.")
+			result.RoomBroadcast = append(result.RoomBroadcast, fmt.Sprintf("A physician casts cure disease on %s.", player.FirstName))
+			treated = true
+		} else {
+			result.Messages = append(result.Messages, "A physician examines you and shakes their head. \"We can cure your disease for 10 gold crowns, but you cannot afford our services.\"")
+		}
+	}
+
+	// Heal wounds
+	woundsNeeded := player.MaxBodyPoints - player.BodyPoints
+	if woundsNeeded <= 0 {
+		if !treated {
+			result.Messages = append(result.Messages, "A physician examines you and nods. \"You appear to be in perfect health. No treatment needed.\"")
+		}
+		return
+	}
+
+	totalCopper := player.Gold*100 + player.Silver*10 + player.Copper
+	if totalCopper <= 0 {
+		result.Messages = append(result.Messages, "A physician examines you and frowns. \"I'm sorry, but we require payment for our services. Come back when you have some coin.\"")
+		return
+	}
+
+	// Charge 1 copper per body point; if they can't afford full healing, take all they have
+	cost := woundsNeeded
+	charged := cost
+	if charged > totalCopper {
+		charged = totalCopper
+	}
+	e.deductCopper(player, charged)
+	player.BodyPoints = player.MaxBodyPoints
+
+	if charged < cost {
+		result.Messages = append(result.Messages, fmt.Sprintf("A physician tends to your wounds. You are charged %s (all you had).", formatPrice(charged)))
+	} else {
+		result.Messages = append(result.Messages, fmt.Sprintf("A physician tends to your wounds. You are charged %s.", formatPrice(charged)))
+	}
+	result.RoomBroadcast = append(result.RoomBroadcast, fmt.Sprintf("A physician tends to %s's wounds.", player.FirstName))
+}
+
+// deductCopper deducts an amount in copper from the player's purse, breaking higher denominations as needed.
+func (e *GameEngine) deductCopper(player *Player, amount int) {
+	remaining := amount
+	if player.Copper >= remaining {
+		player.Copper -= remaining
+		return
+	}
+	remaining -= player.Copper
+	player.Copper = 0
+	if remaining > 0 {
+		silverNeeded := (remaining + 9) / 10
+		if player.Silver >= silverNeeded {
+			player.Silver -= silverNeeded
+			player.Copper += silverNeeded*10 - remaining
+			return
+		}
+		remaining -= player.Silver * 10
+		player.Silver = 0
+	}
+	if remaining > 0 {
+		goldNeeded := (remaining + 99) / 100
+		player.Gold -= goldNeeded
+		player.Copper += goldNeeded*100 - remaining
+	}
 }
 
 // doHide handles the HIDE command.

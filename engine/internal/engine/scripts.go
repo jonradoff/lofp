@@ -33,9 +33,14 @@ type ScriptContext struct {
 	Blocked      bool // CLEARVERB: block the triggering action
 	MoveTo       int  // MOVE: destination room (0 = no move)
 	MoveGroupTo  int  // MOVEGROUP: move all players in room to destination
+	PreMoveMsgs  []string // RoomMsgs captured at the moment MOVE first fires (for old room)
 
 	StrVars  map[int]string // %0-%9 from STRCVT
 	OrigRoom *gameworld.Room // saved room for AFFECT
+
+	// OrigRoomNum is the player's room number before any MOVE fires during this script.
+	// Set once by doMove so callers can use it for OldRoom tracking after the script runs.
+	OrigRoomNum int
 
 	// Item interaction context (set when running IFPREVERB/IFVERB on a room item)
 	ItemRef *gameworld.RoomItem // the room item being interacted with
@@ -52,9 +57,18 @@ type ScriptContext struct {
 	KillPlayer        bool // KILL PLAYER: set when script kills the player
 	NeedsSave         bool // set by ROUTINE and similar actions that modify player state
 	routineChargePaid bool // true after first charge decrement this interaction (prevents double-spend across script phases)
+	preverbOnly       bool // set by RunPreverbScripts; causes execBlock to skip IFVERB blocks
 
-	// SETEVENT/CONTEVENT deferred execution
-	pendingEventDelay int             // cycles stored by the last SETEVENT
+	// moveGroupFired is set by doMoveGroup so that subsequent ECHO PLAYER/OTHERS in the same
+	// script block are suppressed — the group has conceptually already left the source room.
+	moveGroupFired bool
+
+	// RoundTimeSet holds the value passed to EQUAL ROUNDTIME so callers can emit [Round: X sec].
+	RoundTimeSet int
+
+	// SETEVENT/CONTEVENT and PLREVENT/CONTPLREVENT deferred execution
+	pendingEventDelay int  // delay set by SETEVENT (in cycles) or PLREVENT (in raw seconds)
+	pendingEventIsRaw bool // true when PLREVENT set the delay (seconds); false for SETEVENT (multiply by cycle)
 	DeferredSegments  []ScriptSegment // segments to run after their respective delays
 }
 
@@ -102,13 +116,14 @@ func (e *GameEngine) RunPreverbScripts(player *Player, room *gameworld.Room, ver
 	verb = strings.ToUpper(verb)
 
 	sc := &ScriptContext{
-		Player:     player,
-		Room:       room,
-		Engine:     e,
-		ItemRef:    ri,
-		ItemDef:    def,
-		activeVerb: verb,
-		activeRef:  refStr,
+		Player:      player,
+		Room:        room,
+		Engine:      e,
+		ItemRef:     ri,
+		ItemDef:     def,
+		activeVerb:  verb,
+		activeRef:   refStr,
+		preverbOnly: true,
 	}
 
 	// Check room-level scripts (only for room items; inventory items have Ref=-1)
@@ -249,6 +264,10 @@ func (sc *ScriptContext) execBlock(block gameworld.ScriptBlock) {
 		sc.execChildren(block)
 
 	case "IFPREVERB", "IFVERB", "IFPREVERB2", "IFVERB2":
+		// In preverb mode, skip IFVERB blocks entirely — they are handled by RunVerbScripts.
+		if sc.preverbOnly && (block.Type == "IFVERB" || block.Type == "IFVERB2") {
+			return
+		}
 		// When activeVerb is set (inside RunPreverbScripts), filter by verb and ref
 		// so nested IFPREVERB blocks inside IFVAR trees only fire for the right verb.
 		if sc.activeVerb != "" {
@@ -353,13 +372,19 @@ func (sc *ScriptContext) execChildren(block gameworld.ScriptBlock) {
 	if !sc.execActionsUntilDelay(block.Actions, block.Children) {
 		for _, child := range block.Children {
 			sc.execBlock(child)
+			// Stop processing sibling blocks once a MOVE has fired. Without this, a MOVE
+			// inside an IFVAR updates player.RoomNumber immediately, causing subsequent sibling
+			// IFVAR RNUM checks to match the new room instead of the original one.
+			if sc.MoveTo > 0 || sc.moveGroupFired {
+				break
+			}
 		}
 	}
 }
 
-// execActionsUntilDelay runs actions one by one until a SETEVENT/CONTEVENT pair is found.
-// When found, the remaining actions and children are saved as a ScriptSegment for deferred
-// execution and the function returns true (callers must not run children immediately).
+// execActionsUntilDelay runs actions one by one until a SETEVENT/CONTEVENT or PLREVENT/CONTPLREVENT
+// pair is found. When found, the remaining actions and children are saved as a ScriptSegment for
+// deferred execution and the function returns true (callers must not run children immediately).
 // Returns false if all actions ran without encountering a delay.
 func (sc *ScriptContext) execActionsUntilDelay(actions []gameworld.ScriptAction, remainingChildren []gameworld.ScriptBlock) bool {
 	for i, action := range actions {
@@ -368,11 +393,34 @@ func (sc *ScriptContext) execActionsUntilDelay(actions []gameworld.ScriptAction,
 			if len(action.Args) >= 2 {
 				cycles, _ := strconv.Atoi(action.Args[1])
 				sc.pendingEventDelay = cycles
+				sc.pendingEventIsRaw = false
 			}
 			continue
 		case "CONTEVENT":
 			sc.DeferredSegments = append(sc.DeferredSegments, ScriptSegment{
 				RelativeSeconds: sc.pendingEventDelay * scriptEventCycleSeconds,
+				Actions:         actions[i+1:],
+				Children:        remainingChildren,
+				RoomNumber:      sc.Room.Number,
+			})
+			return true
+		case "PLREVENT":
+			// PLREVENT <seconds> — player-scoped event timer; arg is raw seconds (not cycles).
+			if len(action.Args) >= 1 {
+				seconds, _ := strconv.Atoi(action.Args[0])
+				sc.pendingEventDelay = seconds
+				sc.pendingEventIsRaw = true
+			}
+			continue
+		case "CONTPLREVENT":
+			// Defer remaining actions; use raw seconds when paired with PLREVENT.
+			relSecs := sc.pendingEventDelay
+			if !sc.pendingEventIsRaw {
+				relSecs *= scriptEventCycleSeconds
+			}
+			sc.pendingEventIsRaw = false
+			sc.DeferredSegments = append(sc.DeferredSegments, ScriptSegment{
+				RelativeSeconds: relSecs,
 				Actions:         actions[i+1:],
 				Children:        remainingChildren,
 				RoomNumber:      sc.Room.Number,
@@ -401,6 +449,8 @@ func (sc *ScriptContext) execAction(action gameworld.ScriptAction) {
 		sc.doMove(action.Args)
 	case "MOVEGROUP":
 		sc.doMoveGroup(action.Args)
+	case "ROOMCOPY":
+		sc.doRoomCopy(action.Args)
 	case "SHOWROOM":
 		sc.doShowRoom(action.Args)
 	case "DISBAND":
@@ -522,13 +572,17 @@ func (sc *ScriptContext) doEcho(args []string) {
 
 	switch target {
 	case "PLAYER":
-		sc.Messages = append(sc.Messages, text)
+		// Suppress if MOVEGROUP already fired — the player has left the source room and
+		// subsequent echoes describe failure paths that no longer apply.
+		if !sc.moveGroupFired {
+			sc.Messages = append(sc.Messages, text)
+		}
 	case "ALL":
 		if affectRoom {
 			if sc.Engine.roomBroadcast != nil {
 				sc.Engine.roomBroadcast(sc.Room.Number, []string{text})
 			}
-		} else {
+		} else if !sc.moveGroupFired {
 			sc.Messages = append(sc.Messages, text)
 			sc.RoomMsgs = append(sc.RoomMsgs, text)
 		}
@@ -537,13 +591,26 @@ func (sc *ScriptContext) doEcho(args []string) {
 			if sc.Engine.roomBroadcast != nil {
 				sc.Engine.roomBroadcast(sc.Room.Number, []string{text})
 			}
-		} else {
+		} else if !sc.moveGroupFired {
 			sc.RoomMsgs = append(sc.RoomMsgs, text)
 		}
 	case "GROUP":
 		// Send to the triggering player; group-only filtering requires
 		// per-player delivery infrastructure not yet wired up.
-		sc.Messages = append(sc.Messages, text)
+		if !sc.moveGroupFired {
+			sc.Messages = append(sc.Messages, text)
+		}
+	case "OTHGROUP":
+		// "Others in the group" — when AFFECT has switched room context, broadcast
+		// directly to that room (e.g. arrival message at destination after MOVEGROUP).
+		// Otherwise treat like OTHERS in the current room.
+		if affectRoom {
+			if sc.Engine.roomBroadcast != nil {
+				sc.Engine.roomBroadcast(sc.Room.Number, []string{text})
+			}
+		} else {
+			sc.RoomMsgs = append(sc.RoomMsgs, text)
+		}
 	}
 }
 
@@ -661,7 +728,16 @@ func (sc *ScriptContext) doMove(args []string) {
 	}
 	dest := sc.resolveNumericArg(args[0])
 	if dest > 0 {
+		if sc.OrigRoomNum == 0 {
+			sc.OrigRoomNum = sc.Player.RoomNumber
+		}
+		// Snapshot RoomMsgs accumulated before this MOVE so callers can send them to the old room.
+		if sc.PreMoveMsgs == nil {
+			sc.PreMoveMsgs = sc.RoomMsgs
+			sc.RoomMsgs = nil
+		}
 		sc.MoveTo = dest
+		sc.Player.RoomNumber = dest
 	}
 }
 
@@ -673,6 +749,10 @@ func (sc *ScriptContext) doMoveGroup(args []string) {
 	dest := sc.resolveNumericArg(args[0])
 	if dest > 0 {
 		sc.MoveGroupTo = dest
+		// Mark that the group has left the source room. Subsequent ECHO PLAYER/OTHERS in
+		// the same script block are suppressed — they describe failure paths that no longer
+		// apply to players who have been moved.
+		sc.moveGroupFired = true
 	}
 }
 
@@ -885,12 +965,21 @@ func (sc *ScriptContext) evalIfItem(args []string) bool {
 	if len(args) < 1 {
 		return false
 	}
-	ref, err := strconv.Atoi(args[0])
+	// Handle both "IFITEM -1 WORN" and "IFITEM WORN -1" orderings.
+	refStr := args[0]
+	var stateStr string
+	if len(args) >= 2 {
+		stateStr = strings.ToUpper(args[1])
+	}
+	if _, err := strconv.Atoi(refStr); err != nil {
+		refStr, stateStr = stateStr, strings.ToUpper(args[0])
+	}
+	ref, err := strconv.Atoi(refStr)
 	if err != nil {
 		return false
 	}
 	// 1-arg form: existence check only.
-	if len(args) < 2 {
+	if stateStr == "" {
 		if ref == -1 && sc.ItemRef != nil {
 			return true
 		}
@@ -903,8 +992,6 @@ func (sc *ScriptContext) evalIfItem(args []string) bool {
 		}
 		return false
 	}
-	expectedState := strings.ToUpper(args[1])
-
 	var ri *gameworld.RoomItem
 	if ref == -1 && sc.ItemRef != nil {
 		ri = sc.ItemRef
@@ -921,7 +1008,7 @@ func (sc *ScriptContext) evalIfItem(args []string) bool {
 	}
 
 	state := strings.ToUpper(ri.State)
-	switch expectedState {
+	switch stateStr {
 	case "OPEN":
 		return state == "OPEN"
 	case "CLOSED":
@@ -1219,7 +1306,10 @@ func (sc *ScriptContext) getVar(name string) int {
 		if sc.Player.Submitting { return 1 }
 		return 0
 	case "ROUNDTIME":
-		return sc.Player.RoundTime
+		if sc.Player.RoundTimeExpiry.After(time.Now()) {
+			return sc.Player.RoundTime
+		}
+		return 0
 	case "SPELLNUM":
 		return sc.Player.PreparedSpell
 	case "POSITION":
@@ -1425,6 +1515,8 @@ func (sc *ScriptContext) setVar(name string, val int) {
 		sc.Player.RoundTime = val
 		if val > 0 {
 			sc.Player.RoundTimeExpiry = time.Now().Add(time.Duration(val) * time.Second)
+			sc.RoundTimeSet = val
+			sc.NeedsSave = true
 		}
 	case "WEALTH":
 		// WEALTH is in copper units — split into gold/silver/copper
@@ -1491,6 +1583,28 @@ func (sc *ScriptContext) evalIfCarry(args []string) bool {
 		}
 	}
 	return false
+}
+
+// doRoomCopy copies the exits and description from a template room into sc.Room.
+// Used by CEVENT geyser scripts to toggle which exits are open (ROOMCOPY <template>).
+func (sc *ScriptContext) doRoomCopy(args []string) {
+	if len(args) == 0 || sc.Room == nil || sc.Engine == nil {
+		return
+	}
+	templateNum := sc.resolveNumericArg(args[0])
+	if templateNum <= 0 {
+		return
+	}
+	template := sc.Engine.rooms[templateNum]
+	if template == nil {
+		return
+	}
+	newExits := make(map[string]int, len(template.Exits))
+	for dir, dest := range template.Exits {
+		newExits[dir] = dest
+	}
+	sc.Room.Exits = newExits
+	sc.Room.Description = template.Description
 }
 
 // doAffect switches script context to a different room.
@@ -1809,9 +1923,9 @@ func (sc *ScriptContext) evalIfIn(args []string) bool {
 }
 
 // doRoutine executes a built-in item magic routine.
-// ROUTINE 1 reads the spell from Val2; ROUTINE 2 reads from Val3.
-// Val4 tracks remaining charges: positive = N charges left, 0 = unlimited (legacy/scripted),
-// -1 = exhausted. The charge decrement is persisted back to the player's worn/inventory.
+// Both ROUTINE 1 and ROUTINE 2 read the spell from Val3; charges are tracked in Val2.
+// Val2 == 0 means no charges remain. Charge decrements are persisted to the player's worn/inventory.
+// ROUTINE 1 auto-casts the spell on the player; ROUTINE 2 preps it so the player can CAST it.
 func (sc *ScriptContext) doRoutine(args []string) {
 	if len(args) < 1 || sc.ItemRef == nil {
 		return
@@ -1820,17 +1934,11 @@ func (sc *ScriptContext) doRoutine(args []string) {
 	if err != nil {
 		return
 	}
-
-	var spellID int
-	switch routineNum {
-	case 1:
-		spellID = sc.ItemRef.Val2
-	case 2:
-		spellID = sc.ItemRef.Val3
-	default:
+	if routineNum != 1 && routineNum != 2 {
 		return
 	}
 
+	spellID := sc.ItemRef.Val3
 	if spellID == 0 {
 		sc.Messages = append(sc.Messages, "The item holds no magical energy.")
 		return
@@ -1842,50 +1950,54 @@ func (sc *ScriptContext) doRoutine(args []string) {
 		return
 	}
 
-	// Charge check: -1 = exhausted, 0 = unlimited, positive = N charges remaining
 	itemNoun := "item"
 	if sc.ItemDef != nil && sc.Engine != nil {
 		itemNoun = sc.Engine.getItemNounName(sc.ItemDef)
 	}
-	if sc.ItemRef.Val4 < 0 {
+
+	// Val2 == 0 means exhausted; Val2 > 0 means charges remain.
+	if sc.ItemRef.Val2 == 0 {
 		sc.Messages = append(sc.Messages, fmt.Sprintf("The %s holds no more magical power.", itemNoun))
 		return
 	}
-	if sc.ItemRef.Val4 > 0 && !sc.routineChargePaid {
-		newVal4 := sc.ItemRef.Val4 - 1
-		if newVal4 == 0 {
-			newVal4 = -1 // mark exhausted
-		}
-		sc.ItemRef.Val4 = newVal4
+
+	if !sc.routineChargePaid {
+		newVal2 := sc.ItemRef.Val2 - 1
+		sc.ItemRef.Val2 = newVal2
 		sc.routineChargePaid = true
-		// Persist charge change to the actual player worn/inventory item
+		// Persist charge change to the actual player worn/inventory item.
 		arch := sc.ItemRef.Archetype
 		for i := range sc.Player.Worn {
 			if sc.Player.Worn[i].Archetype == arch && sc.Player.Worn[i].Val3 == spellID {
-				sc.Player.Worn[i].Val4 = newVal4
+				sc.Player.Worn[i].Val2 = newVal2
 				break
 			}
 		}
 		for i := range sc.Player.Inventory {
 			if sc.Player.Inventory[i].Archetype == arch && sc.Player.Inventory[i].Val3 == spellID {
-				sc.Player.Inventory[i].Val4 = newVal4
+				sc.Player.Inventory[i].Val2 = newVal2
 				break
 			}
 		}
-		if newVal4 == -1 {
+		if newVal2 == 0 {
 			sc.Messages = append(sc.Messages, fmt.Sprintf("The %s flickers as its last charge is spent.", itemNoun))
 		} else {
-			charges := newVal4
 			suffix := "s"
-			if charges == 1 {
+			if newVal2 == 1 {
 				suffix = ""
 			}
-			sc.Messages = append(sc.Messages, fmt.Sprintf("(%d charge%s remaining)", charges, suffix))
+			sc.Messages = append(sc.Messages, fmt.Sprintf("(%d charge%s remaining)", newVal2, suffix))
 		}
 	}
-	// Val4 == 0: no charge tracking, proceed freely
 
-	sc.applyItemSpellOnPlayer(spell)
+	switch routineNum {
+	case 1:
+		sc.applyItemSpellOnPlayer(spell)
+	case 2:
+		sc.Player.PreparedSpell = spellID
+		sc.Messages = append(sc.Messages, fmt.Sprintf("The %s glows briefly. %s is prepared for casting. (CAST to release it.)", itemNoun, spell.Name))
+		sc.RoomMsgs = append(sc.RoomMsgs, fmt.Sprintf("The %s in %s's hands glows briefly.", itemNoun, sc.Player.FirstName))
+	}
 	sc.NeedsSave = true
 }
 

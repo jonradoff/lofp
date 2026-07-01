@@ -76,6 +76,7 @@ type ItemDef struct {
 	WornSlot    string   `bson:"wornSlot,omitempty" json:"wornSlot,omitempty"`
 	Flags       []string `bson:"flags" json:"flags"` // HIDDEN, LOCKABLE, OPENABLE, etc.
 	Scripts     []ScriptBlock `bson:"scripts,omitempty" json:"scripts,omitempty"`
+	ExamineDesc string   `bson:"examineDesc,omitempty" json:"examineDesc,omitempty"`
 	SourceFile  string   `bson:"sourceFile" json:"sourceFile"`
 }
 

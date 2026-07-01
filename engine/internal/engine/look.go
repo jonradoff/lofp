@@ -100,14 +100,17 @@ func (e *GameEngine) doLook(player *Player) *CommandResult {
 		}
 	}
 
-	// List exits
+	// List exits. ABOVE/BELOW are fly-only exits accessed via ASCEND/DESCEND — not shown here.
 	dirNames := map[string]string{
 		"N": "north", "S": "south", "E": "east", "W": "west",
 		"NE": "northeast", "NW": "northwest", "SE": "southeast", "SW": "southwest",
-		"U": "up", "D": "down", "O": "out", "ABOVE": "up", "BELOW": "down",
+		"U": "up", "D": "down", "O": "out",
 	}
 	var exits []string
 	for dir := range room.Exits {
+		if dir == "ABOVE" || dir == "BELOW" {
+			continue // fly-only; not visible in Obvious exits
+		}
 		if name, ok := dirNames[dir]; ok {
 			exits = append(exits, name)
 		} else {
@@ -116,9 +119,12 @@ func (e *GameEngine) doLook(player *Player) *CommandResult {
 	}
 	result.Exits = exits
 
-	// Populate GMCP room data
+	// Populate GMCP room data (also excludes ABOVE/BELOW)
 	result.RoomExits = make(map[string]int)
 	for dir, roomNum := range room.Exits {
+		if dir == "ABOVE" || dir == "BELOW" {
+			continue
+		}
 		dirLower := strings.ToLower(dir)
 		if name, ok := dirNames[dir]; ok {
 			dirLower = name
@@ -309,8 +315,16 @@ func (e *GameEngine) doLookAt(player *Player, args []string) *CommandResult {
 			msgs := []string{fmt.Sprintf("You look at your %s.", name)}
 			if sm := e.scrollLookMsg(ii.Archetype, ii.Val3); sm != "" {
 				msgs = append(msgs, sm)
+			} else if itemDef.ExamineDesc != "" {
+				msgs = append(msgs, descriptionToMessages(itemDef.ExamineDesc)...)
 			}
-			return &CommandResult{Messages: msgs}
+			// Run IFPREVERB/IFVERB LOOK scripts on the item (Ref=-1 = inventory item, skip room scripts)
+			ri := &gameworld.RoomItem{Ref: -1, Archetype: ii.Archetype, Adj1: ii.Adj1, Adj2: ii.Adj2, Adj3: ii.Adj3, Val1: ii.Val1, Val2: ii.Val2, Val3: ii.Val3, Val4: ii.Val4, Val5: ii.Val5}
+			sc := e.RunPreverbScripts(player, room, "LOOK", ri, itemDef)
+			if len(sc.Messages) > 0 {
+				msgs = append(msgs, sc.Messages...)
+			}
+			return &CommandResult{Messages: msgs, RoomBroadcast: sc.RoomMsgs}
 		}
 	}
 
@@ -528,7 +542,7 @@ func (e *GameEngine) examinePlayer(observer *Player, target *Player) *CommandRes
 		msgs = append(msgs, fmt.Sprintf("%s rooted to the spot.", pronoun))
 	}
 
-	// Guard status — collect all players guarding this target
+	// Guard status — player-guards-player
 	if e.sessions != nil {
 		for _, p := range e.sessions.OnlinePlayers() {
 			if p.RoomNumber == target.RoomNumber && containsString(p.GuardTargets, target.FirstName) {
@@ -539,6 +553,26 @@ func (e *GameEngine) examinePlayer(observer *Player, target *Player) *CommandRes
 				}
 			}
 		}
+	}
+	// Guard status — summoned creature-guards-player
+	if e.monsterMgr != nil {
+		e.monsterMgr.mu.RLock()
+		for i := range e.monsterMgr.instances {
+			g := &e.monsterMgr.instances[i]
+			if g.IsSummoned && g.Alive && g.RoomNumber == target.RoomNumber && containsString(g.GuardingPlayers, target.FirstName) {
+				gDef := e.monsters[g.DefNumber]
+				if gDef != nil {
+					gName := strings.ToLower(FormatMonsterName(gDef, e.monAdjs))
+					gArticle := capArticle(articleFor(gName, gDef.Unique))
+					if isSelf {
+						msgs = append(msgs, fmt.Sprintf("You are being guarded by %s%s.", gArticle, gName))
+					} else {
+						msgs = append(msgs, fmt.Sprintf("%s is being guarded by %s%s.", target.PronounCap(), gArticle, gName))
+					}
+				}
+			}
+		}
+		e.monsterMgr.mu.RUnlock()
 	}
 
 	// Active spell/psi effects

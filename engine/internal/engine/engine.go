@@ -8,6 +8,7 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/jonradoff/lofp/internal/gameworld"
@@ -141,6 +142,8 @@ type GameEngine struct {
         // roomContainerContents stores the contents of room-level containers (transient).
         // Key: "<roomNumber>:<itemRef>"
         roomContainerContents map[string][]InventoryItem
+	watchMu  sync.RWMutex
+	watching map[string]int // playerFirstName → roomNum their familiar is watching (0 = not watching)
 }
 
 // SetSessionProvider sets the session provider (called by API layer after init).
@@ -159,8 +162,27 @@ func (e *GameEngine) SetRoomBroadcast(fn RoomBroadcastFunc) {
 }
 
 // SetLocalRoomBroadcast sets a local-only broadcast (no hub). Used for monster activity.
+// The broadcast is wrapped to also forward messages to watchers (familiar WATCH WILL mode).
 func (e *GameEngine) SetLocalRoomBroadcast(fn LocalRoomBroadcastFunc) {
-	e.localRoomBroadcast = fn
+	e.localRoomBroadcast = func(roomNum int, messages []string) {
+		fn(roomNum, messages)
+		e.forwardToWatchers(roomNum, messages)
+	}
+}
+
+// setWatching registers or clears a player's familiar watch on a room.
+// roomNum == 0 clears the watch. Safe to call from any goroutine.
+func (e *GameEngine) setWatching(playerName string, roomNum int) {
+	e.watchMu.Lock()
+	if e.watching == nil {
+		e.watching = make(map[string]int)
+	}
+	if roomNum == 0 {
+		delete(e.watching, playerName)
+	} else {
+		e.watching[playerName] = roomNum
+	}
+	e.watchMu.Unlock()
 }
 
 // SetSendToPlayer sets the function for sending targeted messages from background tasks.
@@ -361,7 +383,10 @@ func NewGameEngine(db *mongo.Database, parsed *gameworld.ParsedData) *GameEngine
 	e.PVals = make(map[int]int)
 	e.loadPVals()
 
-        e.initContainerMap()
+	e.initContainerMap()
+
+	// Apply content patches for planned-but-commented-out script content.
+	e.applyContentPatches()
 
 	return e
 }
@@ -558,9 +583,17 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 	}
 
 	if dir, ok := dirMap[verb]; ok {
+		// Roundtime check BEFORE scripts: scripts may set roundtime as a post-move
+		// penalty (EQUAL ROUNDTIME without CLEARVERB), so we must check here rather
+		// than relying on doMove's check (which would see the newly-set expiry and block).
+		if player.RoundTimeExpiry.After(time.Now()) {
+			remaining := int(player.RoundTimeExpiry.Sub(time.Now()).Seconds()) + 1
+			return &CommandResult{Messages: []string{fmt.Sprintf("[Wait %d seconds...]", remaining)}}
+		}
 		// Check for IFPREVERB scripts on the direction using canonical verb name
 		room := e.rooms[player.RoomNumber]
 		if room != nil {
+			origRoom := player.RoomNumber // capture before scripts may MOVE the player
 			sc := &ScriptContext{Player: player, Room: room, Engine: e}
 			for _, block := range room.Scripts {
 				if block.Type == "IFPREVERB" && len(block.Args) >= 2 {
@@ -581,7 +614,6 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 					// Script provided a MOVE destination
 					dest := e.rooms[sc.MoveTo]
 					if dest != nil {
-						oldRoom := player.RoomNumber
 						player.RoomNumber = sc.MoveTo
 						e.SavePlayer(ctx, player)
 						lookResult := e.doLook(player)
@@ -590,7 +622,7 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 						result.RoomDesc = lookResult.RoomDesc
 						result.Exits = lookResult.Exits
 						result.Items = lookResult.Items
-						result.OldRoom = oldRoom
+						result.OldRoom = origRoom
 						result.OldRoomMsg = []string{fmt.Sprintf("%s leaves.", player.FirstName)}
 						result.RoomBroadcast = append(result.RoomBroadcast, fmt.Sprintf("%s arrives.", player.FirstName))
 						e.applyEntryScripts(ctx, player, dest, result)
@@ -599,7 +631,6 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 					// CLEARVERB + MOVE = script-controlled movement
 					dest := e.rooms[sc.MoveTo]
 					if dest != nil {
-						oldRoom := player.RoomNumber
 						player.RoomNumber = sc.MoveTo
 						e.SavePlayer(ctx, player)
 						lookResult := e.doLook(player)
@@ -608,7 +639,7 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 						result.RoomDesc = lookResult.RoomDesc
 						result.Exits = lookResult.Exits
 						result.Items = lookResult.Items
-						result.OldRoom = oldRoom
+						result.OldRoom = origRoom
 						result.OldRoomMsg = []string{fmt.Sprintf("%s leaves.", player.FirstName)}
 						result.RoomBroadcast = append(result.RoomBroadcast, fmt.Sprintf("%s arrives.", player.FirstName))
 						e.applyEntryScripts(ctx, player, dest, result)
@@ -619,12 +650,28 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 				}
 				return result
 			}
-			// Scripts ran but didn't block — proceed with normal movement
-			if len(sc.Messages) > 0 {
-				moveResult := e.doMove(ctx, player, dir)
-				moveResult.Messages = append(sc.Messages, moveResult.Messages...)
-				return moveResult
+			// Scripts ran but didn't block — movement proceeds. If scripts set a
+			// roundtime (post-move penalty), temporarily clear it so doMove's own
+			// roundtime check doesn't block the move, then restore it after.
+			postMoveExpiry := player.RoundTimeExpiry
+			postMoveRT := sc.RoundTimeSet
+			if postMoveRT > 0 {
+				player.RoundTimeExpiry = time.Time{}
 			}
+			var moveResult *CommandResult
+			if len(sc.Messages) > 0 {
+				moveResult = e.doMove(ctx, player, dir)
+				moveResult.Messages = append(sc.Messages, moveResult.Messages...)
+			} else {
+				moveResult = e.doMove(ctx, player, dir)
+			}
+			if postMoveRT > 0 && postMoveExpiry.After(time.Now()) {
+				player.RoundTimeExpiry = postMoveExpiry
+				player.RoundTime = postMoveRT
+				e.SavePlayer(ctx, player)
+				moveResult.Messages = append(moveResult.Messages, fmt.Sprintf("[Round: %d sec]", postMoveRT))
+			}
+			return moveResult
 		}
 		return e.doMove(ctx, player, dir)
 	}
@@ -888,7 +935,15 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 			return e.doPickLock(ctx, player, args)
 		}
 		return e.doEmoteWithScripts(ctx, player, verb, args)
-	case "SMILE", "BOW", "CURTSEY", "CURTSY", "WAVE", "NOD", "LAUGH", "CHUCKLE",
+	case "WAVE":
+		if len(args) > 0 {
+			result := e.doItemInteraction(ctx, player, verb, args)
+			if result != nil && len(result.Messages) > 0 && result.Messages[0] != "You don't see that here." {
+				return result
+			}
+		}
+		return e.processEmote(player, verb, args)
+	case "SMILE", "BOW", "CURTSEY", "CURTSY", "NOD", "LAUGH", "CHUCKLE",
 		"GRIN", "FROWN", "SIGH", "SHRUG", "WINK", "CRY", "DANCE",
 		"HUG", "KISS", "POKE", "TICKLE", "SLAP", "HOWL",
 		"PACE", "FIDGET", "SHIVER", "SNORT", "GROAN", "MUMBLE",
@@ -1087,6 +1142,10 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 		return e.doWork(ctx, player, args)
 	case "REPAIR":
 		return e.doRepair(ctx, player, args)
+	case "ENCRUST":
+		return e.doEncrust(ctx, player, args)
+	case "ENGRAVE":
+		return e.doEngrave(ctx, player, args, input)
 	// === MOVEMENT/STEALTH ===
 	case "HIDE":
 		return e.doHide(ctx, player)
@@ -1104,12 +1163,61 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 		return e.doSneak(ctx, player, args)
 	case "FLY":
 		return e.doFly(ctx, player)
-	case "ASCEND":
-		if player.Position != 4 { return &CommandResult{Messages: []string{"You must be flying to ascend."}} }
-		return e.doMove(ctx, player, "U")
-	case "DESCEND":
-		if player.Position != 4 { return &CommandResult{Messages: []string{"You must be flying to descend."}} }
-		return e.doMove(ctx, player, "D")
+	case "ASCEND", "DESCEND":
+		if player.Position != 4 {
+			return &CommandResult{Messages: []string{fmt.Sprintf("You must be flying to %s.", strings.ToLower(verb))}}
+		}
+		exitKey := "ABOVE"
+		cantMsg := "There is nowhere to ascend to from here."
+		if verb == "DESCEND" {
+			exitKey = "BELOW"
+			cantMsg = "There is nowhere to descend to from here."
+		}
+		flyRoom := e.rooms[player.RoomNumber]
+		if flyRoom == nil {
+			return &CommandResult{Error: "You are nowhere!"}
+		}
+		// Run IFPREVERB ASCEND/DESCEND -1 scripts before attempting movement.
+		flyOrigRoom := player.RoomNumber
+		flySC := &ScriptContext{Player: player, Room: flyRoom, Engine: e}
+		for _, block := range flyRoom.Scripts {
+			if block.Type == "IFPREVERB" && len(block.Args) >= 2 &&
+				strings.ToUpper(block.Args[0]) == verb && block.Args[1] == "-1" {
+				flySC.execBlock(block)
+			}
+		}
+		if flySC.MoveGroupTo > 0 {
+			e.moveGroupToRoom(ctx, player.RoomNumber, flySC.MoveGroupTo)
+		}
+		if flySC.Blocked || flySC.MoveTo > 0 {
+			flyResult := &CommandResult{}
+			flyResult.Messages = append(flyResult.Messages, flySC.Messages...)
+			flyResult.RoomBroadcast = append(flyResult.RoomBroadcast, flySC.RoomMsgs...)
+			if flySC.MoveTo > 0 && !flySC.Blocked {
+				if flyDest := e.rooms[flySC.MoveTo]; flyDest != nil {
+					player.RoomNumber = flySC.MoveTo
+					e.SavePlayer(ctx, player)
+					flyLook := e.doLook(player)
+					flyResult.Messages = append(flyResult.Messages, flyLook.Messages...)
+					flyResult.RoomName = flyLook.RoomName
+					flyResult.RoomDesc = flyLook.RoomDesc
+					flyResult.Exits = flyLook.Exits
+					flyResult.Items = flyLook.Items
+					flyResult.OldRoom = flyOrigRoom
+					flyResult.OldRoomMsg = []string{fmt.Sprintf("%s leaves.", player.FirstName)}
+					flyResult.RoomBroadcast = append(flyResult.RoomBroadcast, fmt.Sprintf("%s arrives.", player.FirstName))
+					e.applyEntryScripts(ctx, player, flyDest, flyResult)
+				}
+			}
+			if len(flyResult.Messages) == 0 {
+				flyResult.Messages = []string{cantMsg}
+			}
+			return flyResult
+		}
+		if _, hasAbove := flyRoom.Exits[exitKey]; !hasAbove {
+			return &CommandResult{Messages: []string{cantMsg}}
+		}
+		return e.doMove(ctx, player, exitKey)
 	case "LAND":
 		if player.Position != 4 { return &CommandResult{Messages: []string{"You aren't flying."}} }
 		player.Position = 0
@@ -1284,9 +1392,9 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 	case "CHANT":
 		return e.doChant(ctx, player, args)
 	case "COMMAND":
-		return &CommandResult{Messages: []string{"[Summoned creature commands coming soon.]"}}
+		return e.doCommand(ctx, player, args)
 	case "MASTER":
-		return &CommandResult{Messages: []string{"[Spell mastery coming soon.]"}}
+		return e.doMasterSpell(ctx, player, args)
 	case "NOCK", "LOAD":
 		return e.doLoadWeapon(ctx, player, args)
 	case "SPECIALIZE":

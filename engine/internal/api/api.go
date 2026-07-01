@@ -810,16 +810,16 @@ func (s *Server) handleGameWS(w http.ResponseWriter, r *http.Request) {
 				}()
 			}
 
-			// Chat flood protection: 5 broadcast messages per 10 seconds
+			// Chat flood protection: 10 broadcast messages per 9 seconds
 			if len(result.RoomBroadcast) > 0 {
 				now := time.Now()
-				cutoff := now.Add(-10 * time.Second)
+				cutoff := now.Add(-9 * time.Second)
 				var recent []time.Time
 				for _, t := range session.chatTimes {
 					if t.After(cutoff) { recent = append(recent, t) }
 				}
 				session.chatTimes = recent
-				if len(session.chatTimes) >= 5 {
+				if len(session.chatTimes) >= 10 {
 					s.sendResult(session, &engine.CommandResult{
 						Messages: []string{"[You are sending messages too quickly. Please wait.]"},
 					})

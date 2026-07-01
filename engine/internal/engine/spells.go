@@ -69,6 +69,9 @@ func init() {
 		{ID: 137, Name: "Winter Blade", School: "Conjuration", Level: 22, ManaCost: 28, CastTime: 3, Effect: "buff"},
 		{ID: 138, Name: "Energy Maelstrom", School: "Conjuration", Level: 31, ManaCost: 45, CastTime: 5, Effect: "damage", DmgMin: 30, DmgMax: 75, DmgType: "electric"},
 		{ID: 141, Name: "Pyrotechnics", School: "Conjuration", Level: 17, ManaCost: 20, CastTime: 3, Effect: "damage", DmgMin: 12, DmgMax: 35, DmgType: "heat"},
+		{ID: 139, Name: "Sorcerous Summons I", School: "Conjuration", Level: 20, ManaCost: 20, CastTime: 5, Effect: "utility"},
+		{ID: 140, Name: "Sorcerous Summons II", School: "Conjuration", Level: 35, ManaCost: 35, CastTime: 5, Effect: "utility"},
+		{ID: 144, Name: "Tindarath's Chaotic Summons", School: "Conjuration", Level: 28, ManaCost: 28, CastTime: 5, Effect: "utility"},
 	}
 	// Enchantment (200-250)
 	ench := []SpellDef{
@@ -92,11 +95,32 @@ func init() {
 		{ID: 229, Name: "Wizard's Armor", School: "Enchantment", Level: 9, ManaCost: 12, CastTime: 3, Effect: "defense", DefBonus: 15},
 		{ID: 234, Name: "Spell Shield", School: "Enchantment", Level: 13, ManaCost: 15, CastTime: 3, Effect: "defense", DefBonus: 25},
 		{ID: 235, Name: "Cloak Mind", School: "Enchantment", Level: 22, ManaCost: 25, CastTime: 3, Effect: "defense", DefBonus: 25},
+		{ID: 205, Name: "Command", School: "Enchantment", Level: 6, ManaCost: 6, CastTime: 3, Effect: "utility"},
+		{ID: 206, Name: "Domination I", School: "Enchantment", Level: 12, ManaCost: 12, CastTime: 4, Effect: "utility"},
+		{ID: 212, Name: "Mass Invisibility", School: "Enchantment", Level: 25, ManaCost: 25, CastTime: 4, Effect: "buff"},
+		{ID: 213, Name: "Bend Space I", School: "Enchantment", Level: 17, ManaCost: 17, CastTime: 4, Effect: "utility"},
+		{ID: 214, Name: "Domination II", School: "Enchantment", Level: 24, ManaCost: 24, CastTime: 4, Effect: "utility"},
+		{ID: 215, Name: "Scry", School: "Enchantment", Level: 10, ManaCost: 10, CastTime: 4, Effect: "utility"},
+		{ID: 220, Name: "Dancing Blade", School: "Enchantment", Level: 1, ManaCost: 1, CastTime: 3, Effect: "damage", DmgMin: 2, DmgMax: 8, DmgType: ""},
+		{ID: 221, Name: "Dancing Sword", School: "Enchantment", Level: 6, ManaCost: 6, CastTime: 3, Effect: "damage", DmgMin: 6, DmgMax: 20, DmgType: ""},
+		{ID: 222, Name: "Bend Space II", School: "Enchantment", Level: 23, ManaCost: 23, CastTime: 4, Effect: "utility"},
+		{ID: 226, Name: "Paranoia", School: "Enchantment", Level: 3, ManaCost: 3, CastTime: 3, Effect: "utility"},
+		{ID: 227, Name: "Imprisonment Rune", School: "Enchantment", Level: 13, ManaCost: 13, CastTime: 4, Effect: "utility"},
+		{ID: 230, Name: "Disjunction", School: "Enchantment", Level: 21, ManaCost: 21, CastTime: 4, Effect: "utility"},
+		{ID: 231, Name: "Imprison", School: "Enchantment", Level: 19, ManaCost: 19, CastTime: 4, Effect: "utility"},
+		{ID: 232, Name: "Mist Form", School: "Enchantment", Level: 20, ManaCost: 20, CastTime: 4, Effect: "utility"},
+		{ID: 243, Name: "Charge Wand", School: "Enchantment", Level: 26, ManaCost: 26, CastTime: 5, Effect: "utility"},
+		{ID: 244, Name: "Enchant an Item", School: "Enchantment", Level: 31, ManaCost: 31, CastTime: 5, Effect: "utility"},
+		{ID: 245, Name: "Slime Form", School: "Enchantment", Level: 13, ManaCost: 13, CastTime: 4, Effect: "utility"},
+		{ID: 246, Name: "Yshtarin's Confounding Translocation", School: "Enchantment", Level: 29, ManaCost: 29, CastTime: 5, Effect: "utility"},
+		{ID: 248, Name: "Phantom Form", School: "Enchantment", Level: 34, ManaCost: 34, CastTime: 4, Effect: "buff"},
 	}
 	// Necromancy (301-356)
 	necro := []SpellDef{
 		{ID: 301, Name: "Turn Undead I", School: "Necromancy", Level: 2, ManaCost: 4, CastTime: 3, Effect: "damage", DmgMin: 5, DmgMax: 15, DmgType: ""},
 		{ID: 302, Name: "Turn Undead II", School: "Necromancy", Level: 8, ManaCost: 10, CastTime: 3, Effect: "damage", DmgMin: 10, DmgMax: 30, DmgType: ""},
+		{ID: 303, Name: "Cure Poison", School: "Necromancy", Level: 11, ManaCost: 12, CastTime: 3, Effect: "utility"},
+		{ID: 319, Name: "Cure Disease", School: "Necromancy", Level: 12, ManaCost: 14, CastTime: 3, Effect: "utility"},
 		{ID: 313, Name: "Body Destruction I", School: "Necromancy", Level: 1, ManaCost: 3, CastTime: 3, Effect: "damage", DmgMin: 3, DmgMax: 10, DmgType: ""},
 		{ID: 314, Name: "Body Destruction II", School: "Necromancy", Level: 5, ManaCost: 7, CastTime: 3, Effect: "damage", DmgMin: 6, DmgMax: 20, DmgType: ""},
 		{ID: 315, Name: "Body Destruction III", School: "Necromancy", Level: 10, ManaCost: 14, CastTime: 3, Effect: "damage", DmgMin: 12, DmgMax: 35, DmgType: ""},
@@ -116,6 +140,13 @@ func init() {
 		{ID: 345, Name: "Spectral Sword", School: "Necromancy", Level: 7, ManaCost: 10, CastTime: 3, Effect: "damage", DmgMin: 6, DmgMax: 22, DmgType: ""},
 		{ID: 347, Name: "Divine Blessing", School: "Necromancy", Level: 10, ManaCost: 12, CastTime: 3, Effect: "buff"},
 		{ID: 354, Name: "Rorin's Fire", School: "Necromancy", Level: 17, ManaCost: 22, CastTime: 3, Effect: "damage", DmgMin: 15, DmgMax: 40, DmgType: "heat"},
+		{ID: 305, Name: "Breath of Life", School: "Necromancy", Level: 14, ManaCost: 14, CastTime: 5, Effect: "utility"},
+		{ID: 306, Name: "Animate Skeleton", School: "Necromancy", Level: 6, ManaCost: 6, CastTime: 5, Effect: "utility"},
+		{ID: 307, Name: "Animate Zombie", School: "Necromancy", Level: 10, ManaCost: 10, CastTime: 5, Effect: "utility"},
+		{ID: 308, Name: "Control Undead I", School: "Necromancy", Level: 7, ManaCost: 7, CastTime: 4, Effect: "utility"},
+		{ID: 309, Name: "Control Undead II", School: "Necromancy", Level: 13, ManaCost: 13, CastTime: 4, Effect: "utility"},
+		{ID: 311, Name: "Speak With Dead", School: "Necromancy", Level: 3, ManaCost: 3, CastTime: 4, Effect: "utility"},
+		{ID: 353, Name: "Summon Spectral Warrior", School: "Necromancy", Level: 32, ManaCost: 32, CastTime: 5, Effect: "utility"},
 	}
 	// General (400-415)
 	gen := []SpellDef{
@@ -125,6 +156,9 @@ func init() {
 		{ID: 405, Name: "See Hidden", School: "General", Level: 3, ManaCost: 5, CastTime: 3, Effect: "utility"},
 		{ID: 406, Name: "Dispel Invisibility", School: "General", Level: 8, ManaCost: 10, CastTime: 3, Effect: "utility"},
 		{ID: 407, Name: "Analyze Ore", School: "General", Level: 3, ManaCost: 4, CastTime: 3, Effect: "utility"},
+		{ID: 404, Name: "Aura Sense", School: "General", Level: 14, ManaCost: 14, CastTime: 3, Effect: "utility"},
+		{ID: 408, Name: "Truename", School: "General", Level: 18, ManaCost: 18, CastTime: 4, Effect: "utility"},
+		{ID: 412, Name: "Bloodsight", School: "General", Level: 9, ManaCost: 9, CastTime: 3, Effect: "utility"},
 	}
 	// Druidic (500-538)
 	druid := []SpellDef{
@@ -142,6 +176,24 @@ func init() {
 		{ID: 521, Name: "Camouflage", School: "Druidic", Level: 7, ManaCost: 8, CastTime: 3, Effect: "buff"},
 		{ID: 523, Name: "Earth Spike", School: "Druidic", Level: 5, ManaCost: 7, CastTime: 3, Effect: "damage", DmgMin: 5, DmgMax: 18, DmgType: "crushing"},
 		{ID: 524, Name: "Earth Wave", School: "Druidic", Level: 12, ManaCost: 16, CastTime: 3, Effect: "damage", DmgMin: 10, DmgMax: 30, DmgType: "crushing"},
+		{ID: 501, Name: "Call Storm", School: "Druidic", Level: 23, ManaCost: 23, CastTime: 5, Effect: "utility"},
+		{ID: 502, Name: "Disperse Storm", School: "Druidic", Level: 19, ManaCost: 19, CastTime: 4, Effect: "utility"},
+		{ID: 503, Name: "Call Lightning", School: "Druidic", Level: 17, ManaCost: 17, CastTime: 3, Effect: "damage", DmgMin: 20, DmgMax: 55, DmgType: "electric"},
+		{ID: 504, Name: "Call Animal", School: "Druidic", Level: 1, ManaCost: 1, CastTime: 4, Effect: "utility"},
+		{ID: 506, Name: "Resist Weather", School: "Druidic", Level: 3, ManaCost: 3, CastTime: 3, Effect: "buff"},
+		{ID: 509, Name: "Repel Plants", School: "Druidic", Level: 10, ManaCost: 10, CastTime: 3, Effect: "buff"},
+		{ID: 510, Name: "Repel Plants and Webs", School: "Druidic", Level: 18, ManaCost: 18, CastTime: 3, Effect: "buff"},
+		{ID: 516, Name: "Wall of Thorns", School: "Druidic", Level: 14, ManaCost: 14, CastTime: 4, Effect: "utility"},
+		{ID: 517, Name: "Stick to Snake", School: "Druidic", Level: 5, ManaCost: 5, CastTime: 4, Effect: "utility"},
+		{ID: 518, Name: "Claw Growth", School: "Druidic", Level: 2, ManaCost: 2, CastTime: 3, Effect: "buff"},
+		{ID: 522, Name: "Insect Swarm", School: "Druidic", Level: 25, ManaCost: 25, CastTime: 4, Effect: "damage", DmgMin: 15, DmgMax: 40, DmgType: ""},
+		{ID: 526, Name: "Creeping Death", School: "Druidic", Level: 22, ManaCost: 22, CastTime: 4, Effect: "damage", DmgMin: 18, DmgMax: 45, DmgType: ""},
+		{ID: 528, Name: "Free Action", School: "Druidic", Level: 20, ManaCost: 20, CastTime: 3, Effect: "buff"},
+		{ID: 531, Name: "Tree Door", School: "Druidic", Level: 10, ManaCost: 10, CastTime: 4, Effect: "utility"},
+		{ID: 532, Name: "Ride the Lightning", School: "Druidic", Level: 24, ManaCost: 24, CastTime: 3, Effect: "defense", DefBonus: 50},
+		{ID: 533, Name: "Commune with Nature", School: "Druidic", Level: 27, ManaCost: 27, CastTime: 5, Effect: "utility"},
+		{ID: 534, Name: "Claws of the Elder Wolf", School: "Druidic", Level: 21, ManaCost: 21, CastTime: 3, Effect: "buff"},
+		{ID: 535, Name: "Form Lock", School: "Druidic", Level: 18, ManaCost: 18, CastTime: 4, Effect: "utility"},
 	}
 
 	spellRegistry = append(spellRegistry, conj...)
@@ -197,6 +249,151 @@ func spellSchoolSkill(school string) int {
 	default:
 		return 23
 	}
+}
+
+// spellMasteryLevel returns the player's purchased mastery rank for a spell.
+func spellMasteryLevel(player *Player, spell *SpellDef) int {
+	if player.SpellMastery == nil {
+		return 0
+	}
+	return player.SpellMastery[spell.ID]
+}
+
+// doMasterSpell handles the MASTER command — purchase a rank of spell mastery.
+// Cost: 8 BP for rank 1, 4 BP for each additional rank.
+// Prereq: school skill >= (currentRank+2) × spellLevel.
+// Max ranks: spellLevel + 1.
+func (e *GameEngine) doMasterSpell(ctx context.Context, player *Player, args []string) *CommandResult {
+	if len(args) == 0 {
+		return &CommandResult{Messages: []string{"Master which spell? (MASTER <spell name or number>)"}}}
+
+	// Resolve spell by number or name
+	query := strings.ToLower(strings.Join(args, " "))
+	var spell *SpellDef
+	if n, err := strconv.Atoi(query); err == nil {
+		spell = FindSpellByID(n)
+	} else {
+		for id := range player.KnownSpells {
+			s := FindSpellByID(id)
+			if s != nil && strings.EqualFold(s.Name, query) {
+				spell = s
+				break
+			}
+		}
+	}
+	if spell == nil {
+		return &CommandResult{Messages: []string{"You don't know that spell."}}
+	}
+	if !player.KnownSpells[spell.ID] {
+		return &CommandResult{Messages: []string{"You don't know that spell."}}
+	}
+
+	current := 0
+	if player.SpellMastery != nil {
+		current = player.SpellMastery[spell.ID]
+	}
+	maxRanks := spell.Level + 1
+	if current >= maxRanks {
+		return &CommandResult{Messages: []string{fmt.Sprintf("You have fully mastered %s (%d/%d ranks).", spell.Name, current, maxRanks)}}
+	}
+
+	// Skill prerequisite: school skill >= 2 × spellLevel (fixed threshold, does not grow with mastery rank)
+	schoolSkillID := spellSchoolSkill(spell.School)
+	required := 2 * spell.Level
+	if player.Skills[schoolSkillID] < required {
+		return &CommandResult{Messages: []string{fmt.Sprintf("You need %s skill %d to master %s (rank %d). You have %d.", spell.School, required, spell.Name, current+1, player.Skills[schoolSkillID])}}
+	}
+
+	// Build point cost
+	bpCost := 8
+	if current > 0 {
+		bpCost = 4
+	}
+	if player.BuildPoints < bpCost {
+		return &CommandResult{Messages: []string{fmt.Sprintf("You need %d build points to master %s (you have %d).", bpCost, spell.Name, player.BuildPoints)}}
+	}
+
+	if player.SpellMastery == nil {
+		player.SpellMastery = make(map[int]int)
+	}
+	player.SpellMastery[spell.ID] = current + 1
+	player.BuildPoints -= bpCost
+
+	newRank := current + 1
+	stars := strings.Repeat("*", newRank)
+	msgs := []string{fmt.Sprintf("You study %s intensely, achieving rank %d of mastery. (%s) [-%d BP, %d BP remaining]",
+		spell.Name, newRank, stars, bpCost, player.BuildPoints)}
+	// Cast time is a flat -1s for any mastery (3→2), shown only on rank 1
+	if newRank == 1 {
+		newCastTime := spell.CastTime - 1
+		if newCastTime < 2 {
+			newCastTime = 2
+		}
+		msgs = append(msgs, fmt.Sprintf("Casting time for %s is now %d seconds (when not hasted).", spell.Name, newCastTime))
+	}
+	dmgBonus := newRank * 3 / 2
+	if spell.Effect == "damage" {
+		msgs = append(msgs, fmt.Sprintf("Mastery damage bonus: +%d (when not hasted).", dmgBonus))
+	}
+	newCost := effectiveManaCost(spell, newRank)
+	msgs = append(msgs, fmt.Sprintf("Mana cost for %s is now %d.", spell.Name, newCost))
+
+	e.SavePlayer(ctx, player)
+	return &CommandResult{Messages: msgs}
+}
+
+// effectiveManaCost returns the mana cost after mastery reduction.
+// Base cost = spell level; each mastery rank reduces by 2; floor at half base (min 1).
+func effectiveManaCost(spell *SpellDef, mastery int) int {
+	base := spell.Level
+	if base < 1 {
+		base = 1
+	}
+	minCost := base / 2
+	if minCost < 1 {
+		minCost = 1
+	}
+	cost := base - mastery*2
+	if cost < minCost {
+		cost = minCost
+	}
+	return cost
+}
+
+// isHasted returns true if the player is currently under any haste effect (spell or psionic).
+func isHasted(player *Player) bool {
+	return !player.HasteExpiry.IsZero() && time.Now().Before(player.HasteExpiry)
+}
+
+// effectiveCastTime returns the roundtime for preparing a spell, applying mastery and haste/slow.
+// Any mastery (rank 1+) reduces cast time by 1 second (flat, not per-rank), minimum 2 seconds.
+// Mastery is cancelled by haste. Slow doubles the resulting time.
+func effectiveCastTime(spell *SpellDef, mastery int, player *Player) int {
+	base := spell.CastTime
+	if isHasted(player) {
+		// Haste cancels mastery; haste halves the base time
+		return base / 2
+	}
+	result := base
+	if mastery > 0 {
+		result = base - 1
+		if result < 2 {
+			result = 2
+		}
+	}
+	if !player.SlowExpiry.IsZero() && time.Now().Before(player.SlowExpiry) {
+		result *= 2
+	}
+	return result
+}
+
+// masteryDamageBonus returns the flat damage bonus from mastery on an offensive spell.
+// ~+1.5 damage per rank, only when not hasted (haste cancels mastery per MAGIC.TXT).
+func masteryDamageBonus(mastery int, player *Player) int {
+	if mastery <= 0 || isHasted(player) {
+		return 0
+	}
+	return mastery * 3 / 2
 }
 
 // doLearn handles the LEARN command — learn a spell from a scroll.
@@ -351,6 +548,16 @@ func spellReagentArch(spellID int) int {
 		return 520 // spider eye
 	case 204:
 		return 526 // imp toe
+	case 106:
+		return 109 // garnet for fire elemental
+	case 107:
+		return 116 // opal for air elemental
+	case 108:
+		return 102 // aquamarine for water elemental
+	case 109:
+		return 107 // diamond for gargoyle
+	case 123:
+		return 122 // tourmaline for earth elemental
 	}
 	return 0
 }
@@ -362,8 +569,49 @@ func spellReagentName(spellID int) string {
 		return "a spider eye"
 	case 204:
 		return "an imp toe"
+	case 106:
+		return "a garnet"
+	case 107:
+		return "an opal"
+	case 108:
+		return "an aquamarine"
+	case 109:
+		return "a diamond"
+	case 123:
+		return "a tourmaline"
 	}
 	return ""
+}
+
+// spellReagentBaseName returns the bare noun (no article) for the reagent message.
+func spellReagentBaseName(spellID int) string {
+	switch spellID {
+	case 203:
+		return "spider eye"
+	case 204:
+		return "imp toe"
+	case 106:
+		return "garnet"
+	case 107:
+		return "opal"
+	case 108:
+		return "aquamarine"
+	case 109:
+		return "diamond"
+	case 123:
+		return "tourmaline"
+	}
+	return "reagent"
+}
+
+// spellConsumesReagentAtPrepare returns true for spells whose reagent is consumed during PREPARE
+// rather than at CAST time (elementals and gargoyle summons).
+func spellConsumesReagentAtPrepare(spellID int) bool {
+	switch spellID {
+	case 106, 107, 108, 109, 123:
+		return true
+	}
+	return false
 }
 
 // doPrepareSpell handles PREPARE/INVOKE <spell> [WITH <reagent>].
@@ -414,7 +662,7 @@ func (e *GameEngine) doPrepareSpell(player *Player, args []string) *CommandResul
 		// Find the reagent in inventory by name match and archetype
 		reagentArg = strings.ToLower(reagentArg)
 		found := false
-		for _, ii := range player.Inventory {
+		for i, ii := range player.Inventory {
 			def := e.items[ii.Archetype]
 			if def == nil || ii.Archetype != reqArch {
 				continue
@@ -422,6 +670,9 @@ func (e *GameEngine) doPrepareSpell(player *Player, args []string) *CommandResul
 			noun := e.getItemNounName(def)
 			if matchesTarget(noun, reagentArg, e.getAdjName(ii.Adj1), e.getAdjName(ii.Adj2), e.getAdjName(ii.Adj3)) {
 				player.PreparedSpellReagentArch = ii.Archetype
+				if spellConsumesReagentAtPrepare(spell.ID) {
+					player.Inventory = append(player.Inventory[:i], player.Inventory[i+1:]...)
+				}
 				found = true
 				break
 			}
@@ -434,11 +685,18 @@ func (e *GameEngine) doPrepareSpell(player *Player, args []string) *CommandResul
 	}
 
 	player.PreparedSpell = spell.ID
-	prepRT := applyRoundTime(player, spell.CastTime)
+	mastery := spellMasteryLevel(player, spell)
+	prepRT := effectiveCastTime(spell, mastery, player)
 	player.RoundTimeExpiry = time.Now().Add(time.Duration(prepRT) * time.Second)
 
+	var prepMsgs []string
+	if spellConsumesReagentAtPrepare(spell.ID) {
+		prepMsgs = append(prepMsgs, fmt.Sprintf("The %s turns to dust as it is consumed by the spell.", spellReagentBaseName(spell.ID)))
+	}
+	prepMsgs = append(prepMsgs, fmt.Sprintf("You begin preparing %s... (type CAST to release, or CAST <target>)", spell.Name))
+	prepMsgs = append(prepMsgs, fmt.Sprintf("[Round: %d sec]", prepRT))
 	return &CommandResult{
-		Messages:      []string{fmt.Sprintf("You begin preparing %s... (type CAST to release, or CAST <target>)", spell.Name), fmt.Sprintf("[Round: %d sec]", prepRT)},
+		Messages:      prepMsgs,
 		RoomBroadcast: []string{fmt.Sprintf("%s begins preparing a spell.", player.FirstName)},
 	}
 }
@@ -472,11 +730,9 @@ func (e *GameEngine) doCastSpell(ctx context.Context, player *Player, args []str
 		return &CommandResult{Messages: []string{"Your spell fizzles."}}
 	}
 
-	// Mana cost = spell level (from LEGENDS.DOC)
-	manaCost := spell.Level
-	if manaCost < 1 {
-		manaCost = 1
-	}
+	// Mana cost = spell level, reduced by mastery (from LEGENDS.DOC)
+	mastery := spellMasteryLevel(player, spell)
+	manaCost := effectiveManaCost(spell, mastery)
 	if player.Mana < manaCost {
 		player.PreparedSpell = 0
 		return &CommandResult{Messages: []string{fmt.Sprintf("Not enough mana! (%s requires %d, you have %d)", spell.Name, manaCost, player.Mana)}}
@@ -488,7 +744,7 @@ func (e *GameEngine) doCastSpell(ctx context.Context, player *Player, args []str
 		return &CommandResult{Messages: []string{fmt.Sprintf("You are still preparing... %.0f seconds remaining.", remaining+0.5)}}
 	}
 
-	// Deduct mana (cost = spell level)
+	// Deduct mana
 	player.Mana -= manaCost
 	player.PreparedSpell = 0
 
@@ -536,9 +792,7 @@ func (e *GameEngine) doCastSpell(ctx context.Context, player *Player, args []str
 	case "heal":
 		result = e.castHealSpell(ctx, player, spell, args)
 	case "defense":
-		player.DefenseBonus += spell.DefBonus
-		result.Messages = []string{fmt.Sprintf("You gesture and %s takes effect! (+%d defense)", spell.Name, spell.DefBonus)}
-		result.RoomBroadcast = []string{fmt.Sprintf("%s gestures and casts %s.", player.FirstName, spell.Name)}
+		result = e.castTimedDefenseSpell(player, spell, args)
 	case "buff":
 		result = e.castBuffSpell(player, spell, args)
 	case "utility":
@@ -555,6 +809,20 @@ func (e *GameEngine) doCastSpell(ctx context.Context, player *Player, args []str
 			result = e.castSlowSpell(ctx, player, spell, args)
 		case 216, 217, 218: // Slumber I/II/III
 			result = e.castSlumberSpell(player, spell, args)
+		case 303: // Cure Poison
+			result = e.castCureSpell(player, spell, args, "poisoned", func(p *Player) bool { return p.Poisoned }, func(p *Player) { p.Poisoned = false; p.PoisonLevel = 0 })
+		case 319: // Cure Disease
+			result = e.castCureSpell(player, spell, args, "diseased", func(p *Player) bool { return p.Diseased }, func(p *Player) { p.Diseased = false; p.DiseaseLevel = 0 })
+		case 122: // Summon Familiar
+			result = e.castSummonFamiliar(player)
+		case 504: // Call Animal
+			result = e.castCallAnimal(player)
+		case 517: // Stick to Snake
+			result = e.castStickToSnake(player)
+		case 106, 107, 108, 109, 123: // Summon Fire/Air/Water/Gargoyle/Earth Elemental
+			result = e.castSummonElemental(player, spell)
+		case 400: // Detect Magic
+			result = e.castDetectMagic(player, args)
 		default:
 			result.Messages = []string{fmt.Sprintf("You gesture and cast %s.", spell.Name)}
 			result.RoomBroadcast = []string{fmt.Sprintf("%s gestures and casts %s.", player.FirstName, spell.Name)}
@@ -602,6 +870,7 @@ func (e *GameEngine) castDamageSpell(player *Player, spell *SpellDef, args []str
 
 	name := FormatMonsterName(def, e.monAdjs)
 	dmg := rand.Intn(spell.DmgMax-spell.DmgMin+1) + spell.DmgMin
+	dmg += masteryDamageBonus(spellMasteryLevel(player, spell), player)
 
 	// Apply magic resistance
 	if def.MagicResist > 0 {
@@ -741,6 +1010,45 @@ func (e *GameEngine) castHealSpell(ctx context.Context, player *Player, spell *S
 	}
 }
 
+func (e *GameEngine) castCureSpell(player *Player, spell *SpellDef, args []string, condition string, check func(*Player) bool, clear func(*Player)) *CommandResult {
+	target := player
+	targetName := "yourself"
+	if len(args) > 0 {
+		t := strings.ToLower(strings.Join(args, " "))
+		if t != "me" && t != "myself" && t != "self" {
+			found := e.findPlayerInRoom(player, t)
+			if found != nil {
+				target = found
+				targetName = found.FirstName
+			}
+		}
+	}
+
+	if !check(target) {
+		if target == player {
+			return &CommandResult{Messages: []string{fmt.Sprintf("You gesture and cast %s, but you are not %s.", spell.Name, condition)}}
+		}
+		return &CommandResult{
+			Messages: []string{fmt.Sprintf("You gesture and cast %s on %s, but %s is not %s.", spell.Name, targetName, targetName, condition)},
+		}
+	}
+	clear(target)
+	if target == player {
+		return &CommandResult{
+			Messages:      []string{fmt.Sprintf("You gesture and cast %s. You feel the %s leave your body!", spell.Name, condition)},
+			RoomBroadcast: []string{fmt.Sprintf("%s gestures and casts %s on themselves.", player.FirstName, spell.Name)},
+			PlayerState:   target,
+		}
+	}
+	return &CommandResult{
+		Messages:      []string{fmt.Sprintf("You gesture and cast %s on %s.", spell.Name, targetName)},
+		RoomBroadcast: []string{fmt.Sprintf("%s gestures and casts %s on %s.", player.FirstName, spell.Name, targetName)},
+		TargetName:    target.FirstName,
+		TargetMsg:     []string{fmt.Sprintf("%s casts %s on you. You feel the %s leave your body!", player.FirstName, spell.Name, condition)},
+		PlayerState:   target,
+	}
+}
+
 func (e *GameEngine) castBuffSpell(player *Player, spell *SpellDef, args []string) *CommandResult {
 	msg := fmt.Sprintf("You gesture and cast %s.", spell.Name)
 	switch spell.ID {
@@ -836,6 +1144,81 @@ func (e *GameEngine) castMysticArmor(player *Player, spell *SpellDef, args []str
 		RoomBroadcast: []string{fmt.Sprintf("%s gestures and a shimmering barrier surrounds %s.", player.FirstName, target.FirstName)},
 		TargetName:    target.FirstName,
 		TargetMsg:     []string{fmt.Sprintf("%s casts %s on you! (+%d defense, 20 minutes)", player.FirstName, spell.Name, bonus)},
+	}
+}
+
+// castTimedDefenseSpell handles all defense spells (except Mystic Armor which has its own function).
+// It mirrors castMysticArmor: self-cast by default, or targets a named player in the room.
+// First cast applies spell.DefBonus for 20 minutes. Additional casts extend by 20 min (4-hour cap)
+// without re-adding the bonus. On expiry, regen.go removes the bonus and notifies the player.
+func (e *GameEngine) castTimedDefenseSpell(player *Player, spell *SpellDef, args []string) *CommandResult {
+	const maxDuration = 4 * time.Hour
+	const stackDuration = 20 * time.Minute
+
+	// Resolve target: self by default, or a named player in the room.
+	target := player
+	isSelf := true
+	if len(args) > 0 {
+		t := strings.ToLower(strings.Join(args, " "))
+		if t != "me" && t != "myself" && t != "self" {
+			found := e.findPlayerInRoom(player, t)
+			if found == nil {
+				return &CommandResult{Messages: []string{fmt.Sprintf("You don't see '%s' here.", strings.Join(args, " "))}}
+			}
+			target = found
+			isSelf = false
+		}
+	}
+
+	now := time.Now()
+
+	// Check for an existing active buff of this spell on the target.
+	for i := range target.TimedDefenseBuffs {
+		b := &target.TimedDefenseBuffs[i]
+		if b.SpellID == spell.ID && now.Before(b.Expiry) {
+			newExpiry := b.Expiry.Add(stackDuration)
+			if cap := now.Add(maxDuration); newExpiry.After(cap) {
+				newExpiry = cap
+			}
+			b.Expiry = newExpiry
+			mins := int(time.Until(b.Expiry).Minutes()) + 1
+			if !isSelf {
+				e.SavePlayer(context.Background(), target)
+				return &CommandResult{
+					Messages:      []string{fmt.Sprintf("You gesture and cast %s on %s, extending their protection. (%d minutes remaining)", spell.Name, target.FirstName, mins)},
+					RoomBroadcast: []string{fmt.Sprintf("%s gestures and casts %s on %s.", player.FirstName, spell.Name, target.FirstName)},
+					TargetName:    target.FirstName,
+					TargetMsg:     []string{fmt.Sprintf("%s casts %s on you, extending your protection. (%d minutes remaining)", player.FirstName, spell.Name, mins)},
+				}
+			}
+			return &CommandResult{
+				Messages:      []string{fmt.Sprintf("You gesture and cast %s. The protection around you strengthens! (%d minutes remaining)", spell.Name, mins)},
+				RoomBroadcast: []string{fmt.Sprintf("%s gestures and casts %s.", player.FirstName, spell.Name)},
+			}
+		}
+	}
+
+	// New buff — apply the bonus and register the expiry on the target.
+	target.TimedDefenseBuffs = append(target.TimedDefenseBuffs, TimedDefenseBuff{
+		SpellID:   spell.ID,
+		SpellName: spell.Name,
+		Bonus:     spell.DefBonus,
+		Expiry:    now.Add(stackDuration),
+	})
+	target.DefenseBonus += spell.DefBonus
+
+	if !isSelf {
+		e.SavePlayer(context.Background(), target)
+		return &CommandResult{
+			Messages:      []string{fmt.Sprintf("You gesture and cast %s on %s.", spell.Name, target.FirstName)},
+			RoomBroadcast: []string{fmt.Sprintf("%s gestures and casts %s on %s.", player.FirstName, spell.Name, target.FirstName)},
+			TargetName:    target.FirstName,
+			TargetMsg:     []string{fmt.Sprintf("%s casts %s on you! (+%d defense, 20 minutes)", player.FirstName, spell.Name, spell.DefBonus)},
+		}
+	}
+	return &CommandResult{
+		Messages:      []string{fmt.Sprintf("You gesture and %s takes effect! (+%d defense, 20 minutes)", spell.Name, spell.DefBonus)},
+		RoomBroadcast: []string{fmt.Sprintf("%s gestures and casts %s.", player.FirstName, spell.Name)},
 	}
 }
 
@@ -1041,22 +1424,30 @@ func (e *GameEngine) castSlowSpell(ctx context.Context, player *Player, spell *S
 	const duration = 20 * time.Minute
 	const maxDuration = 4 * time.Hour
 
-	if len(args) == 0 {
-		return &CommandResult{Messages: []string{"Cast Slow on whom?"}}
+	target := player
+	if len(args) > 0 {
+		t := strings.ToLower(strings.Join(args, " "))
+		if t != "me" && t != "myself" && t != "self" {
+			found := e.findPlayerInRoom(player, t)
+			if found == nil {
+				return &CommandResult{Messages: []string{fmt.Sprintf("You don't see '%s' here.", strings.Join(args, " "))}}
+			}
+			target = found
+		}
 	}
-	targetName := strings.ToLower(strings.Join(args, " "))
-	target := e.findPlayerInRoom(player, targetName)
-	if target == nil {
-		return &CommandResult{Messages: []string{fmt.Sprintf("You don't see '%s' here.", strings.Join(args, " "))}}
-	}
-	if target == player {
-		return &CommandResult{Messages: []string{"You can't cast Slow on yourself."}}
-	}
+
+	isSelf := target == player
 
 	// If target has Haste, cancel it and return them to normal speed
 	if !target.HasteExpiry.IsZero() && time.Now().Before(target.HasteExpiry) {
 		target.HasteExpiry = time.Time{}
 		e.SavePlayer(ctx, target)
+		if isSelf {
+			return &CommandResult{
+				Messages:      []string{fmt.Sprintf("You gesture and cast %s on yourself. Your haste fades and you return to normal speed.", spell.Name)},
+				RoomBroadcast: []string{fmt.Sprintf("%s gestures and casts %s on themselves.", player.FirstName, spell.Name)},
+			}
+		}
 		return &CommandResult{
 			Messages:      []string{fmt.Sprintf("You gesture and cast %s on %s. Their haste fades away!", spell.Name, target.FirstName)},
 			RoomBroadcast: []string{fmt.Sprintf("%s gestures and casts %s on %s.", player.FirstName, spell.Name, target.FirstName)},
@@ -1073,6 +1464,12 @@ func (e *GameEngine) castSlowSpell(ctx context.Context, player *Player, spell *S
 		}
 		mins := int(time.Until(target.SlowExpiry).Minutes()) + 1
 		e.SavePlayer(ctx, target)
+		if isSelf {
+			return &CommandResult{
+				Messages:      []string{fmt.Sprintf("You gesture and cast %s on yourself, extending the slowness. (%d minutes remaining)", spell.Name, mins)},
+				RoomBroadcast: []string{fmt.Sprintf("%s gestures and casts %s on themselves.", player.FirstName, spell.Name)},
+			}
+		}
 		return &CommandResult{
 			Messages:      []string{fmt.Sprintf("You gesture and cast %s on %s, extending their slowness. (%d minutes remaining)", spell.Name, target.FirstName, mins)},
 			RoomBroadcast: []string{fmt.Sprintf("%s gestures and casts %s on %s.", player.FirstName, spell.Name, target.FirstName)},
@@ -1083,6 +1480,12 @@ func (e *GameEngine) castSlowSpell(ctx context.Context, player *Player, spell *S
 
 	target.SlowExpiry = time.Now().Add(duration)
 	e.SavePlayer(ctx, target)
+	if isSelf {
+		return &CommandResult{
+			Messages:      []string{fmt.Sprintf("You gesture and cast %s on yourself. Everything seems to slow down!", spell.Name)},
+			RoomBroadcast: []string{fmt.Sprintf("%s gestures and casts %s on themselves.", player.FirstName, spell.Name)},
+		}
+	}
 	return &CommandResult{
 		Messages:      []string{fmt.Sprintf("You gesture and cast %s on %s.", spell.Name, target.FirstName)},
 		RoomBroadcast: []string{fmt.Sprintf("%s gestures and casts %s on %s.", player.FirstName, spell.Name, target.FirstName)},
@@ -1495,5 +1898,145 @@ func (e *GameEngine) castCharmSpell(player *Player, spell *SpellDef, args []stri
 	return &CommandResult{
 		Messages:      []string{fmt.Sprintf("You gesture and cast %s at %s%s!", spell.Name, article, name), fmt.Sprintf("The %s regards you with friendly eyes.", name)},
 		RoomBroadcast: []string{fmt.Sprintf("%s gestures at %s%s -- it seems calmed.", player.FirstName, article, name)},
+	}
+}
+
+// castDetectMagic handles spell 400 — Detect Magic.
+// Examines a named item (inventory, worn, or in the room) for a stored spell (Val3) and
+// reports the intensity of the magical glow based on the stored spell's level.
+func (e *GameEngine) castDetectMagic(player *Player, args []string) *CommandResult {
+	if len(args) == 0 {
+		return &CommandResult{Messages: []string{"Detect magic on what? Specify an item."}}
+	}
+	target := strings.ToLower(strings.Join(args, " "))
+	target, ordSkip := parseOrdinal(target)
+	skip := ordSkip
+
+	type candidate struct {
+		item *InventoryItem
+		def  *gameworld.ItemDef
+	}
+
+	matches := func(ii *InventoryItem) bool {
+		def := e.items[ii.Archetype]
+		if def == nil {
+			return false
+		}
+		return matchesTarget(e.getItemNounName(def), target, e.getAdjName(ii.Adj1), e.getAdjName(ii.Adj2), e.getAdjName(ii.Adj3))
+	}
+
+	// Search inventory, worn, wielded, off-hand, then room items — respecting ordinal skip.
+	var found *candidate
+	for i := range player.Inventory {
+		if !matches(&player.Inventory[i]) {
+			continue
+		}
+		if skip > 0 {
+			skip--
+			continue
+		}
+		found = &candidate{&player.Inventory[i], e.items[player.Inventory[i].Archetype]}
+		break
+	}
+	if found == nil {
+		for i := range player.Worn {
+			if !matches(&player.Worn[i]) {
+				continue
+			}
+			if skip > 0 {
+				skip--
+				continue
+			}
+			found = &candidate{&player.Worn[i], e.items[player.Worn[i].Archetype]}
+			break
+		}
+	}
+	if found == nil && player.Wielded != nil && matches(player.Wielded) {
+		if skip > 0 {
+			skip--
+		} else {
+			found = &candidate{player.Wielded, e.items[player.Wielded.Archetype]}
+		}
+	}
+	if found == nil && player.OffHand != nil && matches(player.OffHand) {
+		if skip > 0 {
+			skip--
+		} else {
+			found = &candidate{player.OffHand, e.items[player.OffHand.Archetype]}
+		}
+	}
+	if found == nil {
+		room := e.rooms[player.RoomNumber]
+		if room != nil {
+			for _, ri := range room.Items {
+				def := e.items[ri.Archetype]
+				if def == nil {
+					continue
+				}
+				if !matchesTarget(e.getItemNounName(def), target, e.getAdjName(ri.Adj1), e.getAdjName(ri.Adj2), e.getAdjName(ri.Adj3)) {
+					continue
+				}
+				if skip > 0 {
+					skip--
+					continue
+				}
+				tmp := InventoryItem{
+					Archetype: ri.Archetype,
+					Adj1: ri.Adj1, Adj2: ri.Adj2, Adj3: ri.Adj3,
+					Val2: ri.Val2, Val3: ri.Val3, Val4: ri.Val4,
+				}
+				found = &candidate{&tmp, def}
+				break
+			}
+		}
+	}
+
+	if found == nil {
+		return &CommandResult{Messages: []string{"You don't see that here."}}
+	}
+
+	itemName := e.formatItemName(found.def, found.item.Adj1, found.item.Adj2, found.item.Adj3, found.item.Tail)
+
+	if found.item.Val3 == 0 {
+		return &CommandResult{
+			Messages:      []string{fmt.Sprintf("%s reveals no magical aura.", itemName)},
+			RoomBroadcast: []string{fmt.Sprintf("%s gestures at %s.", player.FirstName, itemName)},
+		}
+	}
+
+	// Val3 = spell ID, Val2 = charges remaining. A spent item has the spell imprint
+	// but no charges — it shows a faint residual aura.
+	if found.item.Val2 == 0 {
+		return &CommandResult{
+			Messages:      []string{fmt.Sprintf("%s reveals a faint magical residue — it has been completely drained of power.", itemName)},
+			RoomBroadcast: []string{fmt.Sprintf("%s gestures at %s.", player.FirstName, itemName)},
+		}
+	}
+
+	storedSpell := FindSpellByID(found.item.Val3)
+	var glow string
+	var spellLevel int
+	if storedSpell != nil {
+		spellLevel = storedSpell.Level
+	}
+	switch {
+	case spellLevel >= 21:
+		glow = "glows a brilliant blue"
+	case spellLevel >= 11:
+		glow = "glows a bright blue"
+	case spellLevel >= 6:
+		glow = "glows blue"
+	default:
+		glow = "glows a soft blue"
+	}
+
+	chargeWord := "charge"
+	if found.item.Val2 != 1 {
+		chargeWord = "charges"
+	}
+	msg := fmt.Sprintf("%s %s (%d %s remaining).", itemName, glow, found.item.Val2, chargeWord)
+	return &CommandResult{
+		Messages:      []string{msg},
+		RoomBroadcast: []string{fmt.Sprintf("%s gestures at %s, which %s.", player.FirstName, itemName, glow)},
 	}
 }

@@ -854,7 +854,12 @@ func (e *GameEngine) doAttackMonster(ctx context.Context, player *Player, target
 	if roll < 3 && weaponDef != nil && len(def.Weapons) > 0 {
 		weaponStr := weaponDef.Weight*3 + weaponDef.Parameter1*2
 		if player.Wielded != nil {
-			weaponStr += weaponClashMetalBonus(e.getAdjName(player.Wielded.Adj1))
+			for _, adjID := range []int{player.Wielded.Adj1, player.Wielded.Adj2, player.Wielded.Adj3} {
+				if bonus := weaponClashMetalBonus(e.getAdjName(adjID)); bonus > 0 {
+					weaponStr += bonus
+					break
+				}
+			}
 		}
 		clashRoll := rand.Intn(100) + rand.Intn(100) + 2
 		msgs = append(msgs, fmt.Sprintf(" [ToHit: %d, Roll: %d] Weapon Clash! [Strength: %d, 2d100 Roll: %d]", toHit, roll, weaponStr, clashRoll))
@@ -1118,6 +1123,90 @@ func (e *GameEngine) doBackstab(ctx context.Context, player *Player, target stri
 	return result
 }
 
+// elementalGuardIntercept checks whether a summoned elemental is guarding player and intercepts
+// the attack from attackerInst. Returns (intercepted, roomMessages, summonerNameToStun).
+// summonerNameToStun is non-empty when the elemental was destroyed; caller handles stun.
+// Safe to call without monsterMgr.mu held.
+func (e *GameEngine) elementalGuardIntercept(_ *MonsterInstance, attackerDef *gameworld.MonsterDef, player *Player) (bool, []string, string) {
+	e.monsterMgr.mu.Lock()
+	var guardIdx int = -1
+	for i := range e.monsterMgr.instances {
+		g := &e.monsterMgr.instances[i]
+		if g.IsSummoned && g.Alive && g.RoomNumber == player.RoomNumber && containsString(g.GuardingPlayers, player.FirstName) {
+			guardIdx = i
+			break
+		}
+	}
+	if guardIdx < 0 {
+		e.monsterMgr.mu.Unlock()
+		return false, nil, ""
+	}
+
+	g := &e.monsterMgr.instances[guardIdx]
+	gDef := e.monsters[g.DefNumber]
+	if gDef == nil {
+		e.monsterMgr.mu.Unlock()
+		return false, nil, ""
+	}
+
+	gName := strings.ToLower(FormatMonsterName(gDef, e.monAdjs))
+	gArticle := articleFor(gName, gDef.Unique)
+	attName := strings.ToLower(FormatMonsterName(attackerDef, e.monAdjs))
+	attArticle := articleFor(attName, attackerDef.Unique)
+
+	monVerb, _ := monsterAttackVerb(attackerDef, e.items)
+	monWeapon := e.monsterWeaponName(attackerDef)
+	attackLine := fmt.Sprintf("%s%s %s %s%s with its %s.", capArticle(attArticle), attName, monVerb, gArticle, gName, monWeapon)
+
+	// Roll to-hit against the elemental's defense first.
+	toHit := calcToHit(attackerDef.Attack1, gDef.Defense)
+	roll := rand.Intn(100) + 1
+	summonerName := g.SummonerName
+
+	hitLabel := "Hit!"
+	if roll >= 96 {
+		hitLabel = "Excellent Hit!"
+	}
+
+	if roll < toHit {
+		e.monsterMgr.mu.Unlock()
+		return true, []string{attackLine, fmt.Sprintf("[ToHit: %d, Roll: %d] Miss!", toHit, roll)}, ""
+	}
+
+	// Hit — check MAGICWEAPON immunity before applying damage.
+	if gDef.MagicWeapon > 0 && attackerDef.WeaponPlus < gDef.MagicWeapon {
+		texI := gDef.TextOverrides["TEXI"]
+		if texI == "" {
+			texI = fmt.Sprintf("%s%s's attack has no effect on %s%s.", capArticle(attArticle), attName, gArticle, gName)
+		}
+		e.monsterMgr.mu.Unlock()
+		return true, []string{attackLine, fmt.Sprintf("[ToHit: %d, Roll: %d] %s", toHit, roll, hitLabel), texI}, ""
+	}
+
+	dmg := monsterDamage(attackerDef)
+	g.CurrentHP -= dmg
+
+	hitLine := fmt.Sprintf("[ToHit: %d, Roll: %d] %s %s%s takes %d damage.", toHit, roll, hitLabel, gArticle, gName, dmg)
+
+	if g.CurrentHP <= 0 {
+		g.Alive = false
+		g.DeathTime = time.Now()
+		g.GuardingPlayers = nil
+		texD := gDef.TextOverrides["TEXD"]
+		var deathSuffix string
+		if texD != "" {
+			deathSuffix = fmt.Sprintf(" It %s", texD)
+		} else {
+			deathSuffix = " It is destroyed!"
+		}
+		e.monsterMgr.mu.Unlock()
+		return true, []string{attackLine, hitLine + deathSuffix}, summonerName
+	}
+
+	e.monsterMgr.mu.Unlock()
+	return true, []string{attackLine, hitLine}, ""
+}
+
 // ---- Monster attacks Player ----
 
 func (e *GameEngine) monsterAttackPlayer(inst *MonsterInstance, def *gameworld.MonsterDef, player *Player) (playerMsgs []string, roomMsgs []string) {
@@ -1137,6 +1226,41 @@ func (e *GameEngine) monsterAttackPlayer(inst *MonsterInstance, def *gameworld.M
 				}
 				// Redirect to the guard
 				return e.monsterAttackPlayer(inst, def, guard)
+			}
+		}
+	}
+
+	// Summoned elemental guard: intercept melee attacks on the guarded player.
+	// Ranged attacks bypass the guard.
+	if e.monsterMgr != nil {
+		isRanged := false
+		for _, w := range def.Weapons {
+			if itemDef := e.items[w.Archetype]; itemDef != nil {
+				t := itemDef.Type
+				if t == "BOW_WEAPON" || t == "HANDGUN" || t == "RIFLE" || t == "THROWN_WEAPON" {
+					isRanged = true
+					break
+				}
+			}
+		}
+		if !isRanged {
+			if intercepted, iMsgs, summonerStun := e.elementalGuardIntercept(inst, def, player); intercepted {
+				roomMsgs = append(roomMsgs, iMsgs...)
+				if summonerStun != "" && e.sessions != nil {
+					for _, p := range e.sessions.OnlinePlayers() {
+						if p.FirstName == summonerStun {
+							stunSecs := 2 + rand.Intn(4)
+							p.RoundTimeExpiry = time.Now().Add(time.Duration(stunSecs) * time.Second)
+							p.SummonedCreatureID = 0
+							e.setWatching(summonerStun, 0)
+							if e.sendToPlayer != nil {
+								e.sendToPlayer(summonerStun, []string{"The loss of your summoned creature sends a wave of psychic shock through you!"})
+							}
+							break
+						}
+					}
+				}
+				return playerMsgs, roomMsgs
 			}
 		}
 	}
@@ -1245,10 +1369,16 @@ func (e *GameEngine) monsterAttackPlayer(inst *MonsterInstance, def *gameworld.M
 		// Monster poison/disease/fatigue on hit
 		if def.PoisonChance > 0 && rand.Intn(100) < def.PoisonChance {
 			player.Poisoned = true
+			if 1 > player.PoisonLevel {
+				player.PoisonLevel = 1
+			}
 			playerMsgs = append(playerMsgs, " You feel poison coursing through your veins!")
 		}
 		if def.DiseaseChance > 0 && rand.Intn(100) < def.DiseaseChance {
 			player.Diseased = true
+			if 1 > player.DiseaseLevel {
+				player.DiseaseLevel = 1
+			}
 			playerMsgs = append(playerMsgs, " You feel a sickness taking hold!")
 		}
 		if def.FatigueChance > 0 && rand.Intn(100) < def.FatigueChance {
@@ -1293,6 +1423,9 @@ func (e *GameEngine) handlePlayerDeath(player *Player, killerName string) []stri
 	player.CombatTarget = nil
 	player.Joined = false
 	player.Position = 2 // laying down
+
+	e.dismissSummonedCreature(player)
+	e.clearPlayerFromGuards(player.FirstName)
 
 	// XP penalty: lose up to 90% of XP towards current build point
 	rate := getXPPerBP(player.Level)
@@ -1342,7 +1475,9 @@ func (e *GameEngine) doDepart(player *Player) *CommandResult {
 	player.Bleeding = false
 	player.Stunned = false
 	player.Poisoned = false
+	player.PoisonLevel = 0
 	player.Diseased = false
+	player.DiseaseLevel = 0
 
 	player.BodyPoints = player.MaxBodyPoints / 4
 	if player.BodyPoints < 1 {
@@ -1486,6 +1621,31 @@ func (e *GameEngine) handleMonsterDeath(killer *Player, inst *MonsterInstance, d
 
 	if e.sendToPlayer != nil {
 		e.sendToPlayer(killer.FirstName, xpMsgs)
+	}
+
+	// If this was a summoned creature, notify its summoner, stun them, and clear their reference
+	if inst.IsSummoned && inst.SummonerName != "" {
+		cname := strings.ToLower(def.Name)
+		var deathMsg string
+		if inst.IsFamiliar {
+			deathMsg = fmt.Sprintf("Your familiar, the %s, has been slain!", cname)
+		} else {
+			deathMsg = fmt.Sprintf("Your summoned %s has been destroyed!", cname)
+		}
+		stunSecs := 2 + rand.Intn(4) // 2-5 seconds
+		e.setWatching(inst.SummonerName, 0)
+		if e.sessions != nil {
+			for _, p := range e.sessions.OnlinePlayers() {
+				if p.FirstName == inst.SummonerName && p.SummonedCreatureID == inst.ID {
+					p.SummonedCreatureID = 0
+					p.RoundTimeExpiry = time.Now().Add(time.Duration(stunSecs) * time.Second)
+					break
+				}
+			}
+		}
+		if e.sendToPlayer != nil {
+			e.sendToPlayer(inst.SummonerName, []string{deathMsg, fmt.Sprintf("[Stunned: %d sec]", stunSecs)})
+		}
 	}
 }
 
@@ -1747,6 +1907,87 @@ func (e *GameEngine) cryForLaw(attacker *Player, target *MonsterInstance, target
 	}
 }
 
+// summonedAttackMonster executes one combat tick where a summoned creature attacks a monster.
+// Must be called with monsterMgr.mu held; unlocks/relocks around the broadcast.
+func (e *GameEngine) summonedAttackMonster(inst *MonsterInstance, def *gameworld.MonsterDef) {
+	tIdx := e.monsterMgr.indexOfID(inst.MonsterTargetID)
+	if tIdx < 0 {
+		inst.MonsterTargetID = 0
+		return
+	}
+	target := &e.monsterMgr.instances[tIdx]
+	if !target.Alive || target.RoomNumber != inst.RoomNumber {
+		inst.MonsterTargetID = 0
+		return
+	}
+	targetDef := e.monsters[target.DefNumber]
+	if targetDef == nil {
+		inst.MonsterTargetID = 0
+		return
+	}
+
+	// Build names
+	aName := strings.ToLower(FormatMonsterName(def, e.monAdjs))
+	aArt := articleFor(aName, def.Unique)
+	tName := strings.ToLower(FormatMonsterName(targetDef, e.monAdjs))
+	tArt := articleFor(tName, targetDef.Unique)
+
+	monVerb, _ := monsterAttackVerb(def, e.items)
+	monWeapon := e.monsterWeaponName(def)
+	attackLine := fmt.Sprintf("%s%s %s %s%s with its %s.", capArticle(aArt), aName, monVerb, tArt, tName, monWeapon)
+
+	toHit := calcToHit(def.Attack1, targetDef.Defense)
+	roll := rand.Intn(100) + 1
+
+	var msgs []string
+	if roll < toHit {
+		msgs = []string{attackLine, fmt.Sprintf("[ToHit: %d, Roll: %d] Miss!", toHit, roll)}
+	} else {
+		hitLabel := "Hit!"
+		if roll >= 96 {
+			hitLabel = "Excellent Hit!"
+		}
+		// MagicWeapon immunity
+		if targetDef.MagicWeapon > 0 && def.WeaponPlus < targetDef.MagicWeapon {
+			texI := targetDef.TextOverrides["TEXI"]
+			if texI == "" {
+				texI = fmt.Sprintf("%s%s's attack has no effect on %s%s.", capArticle(aArt), aName, tArt, tName)
+			}
+			msgs = []string{attackLine, fmt.Sprintf("[ToHit: %d, Roll: %d] %s", toHit, roll, hitLabel), texI}
+		} else {
+			dmg := monsterDamage(def)
+			target.CurrentHP -= dmg
+			hitLine := fmt.Sprintf("[ToHit: %d, Roll: %d] %s %s%s takes %d damage.", toHit, roll, hitLabel, tArt, tName, dmg)
+			if target.CurrentHP <= 0 {
+				target.Alive = false
+				target.DeathTime = time.Now()
+				inst.MonsterTargetID = 0
+				texD := targetDef.TextOverrides["TEXD"]
+				suffix := " It is destroyed!"
+				if texD != "" {
+					suffix = " It " + texD
+				}
+				msgs = []string{attackLine, hitLine + suffix}
+				// Notify the summoner of the kill
+				if e.sendToPlayer != nil && inst.SummonerName != "" {
+					e.monsterMgr.mu.Unlock()
+					e.sendToPlayer(inst.SummonerName, []string{fmt.Sprintf("Your %s has slain %s%s!", aName, tArt, tName)})
+					e.monsterMgr.mu.Lock()
+				}
+			} else {
+				msgs = []string{attackLine, hitLine}
+			}
+		}
+	}
+
+	if e.localRoomBroadcast != nil && len(msgs) > 0 {
+		roomNum := inst.RoomNumber
+		e.monsterMgr.mu.Unlock()
+		e.localRoomBroadcast(roomNum, msgs)
+		e.monsterMgr.mu.Lock()
+	}
+}
+
 // ---- Monster Combat AI ----
 
 func (e *GameEngine) monsterCombatTick(inst *MonsterInstance, def *gameworld.MonsterDef) {
@@ -1777,6 +2018,16 @@ func (e *GameEngine) monsterCombatTick(inst *MonsterInstance, def *gameworld.Mon
 	if inst.Charmed && now.After(inst.CharmExpiry) {
 		inst.Charmed = false
 		inst.CharmTarget = ""
+	}
+
+	// Summoned creature attacking a monster
+	if inst.IsSummoned && inst.MonsterTargetID > 0 {
+		if !inst.Sleeping && !inst.Webbed && !inst.Stunned {
+			e.summonedAttackMonster(inst, def)
+		} else if inst.Stunned {
+			inst.Stunned = false
+		}
+		return
 	}
 
 	if inst.Target == "" {
@@ -1922,7 +2173,7 @@ func (e *GameEngine) monsterCheckAggro(player *Player, roomNum int) {
 
 	for i := range e.monsterMgr.instances {
 		inst := &e.monsterMgr.instances[i]
-		if inst.RoomNumber != roomNum || !inst.Alive || inst.Sedated || inst.Target != "" {
+		if inst.RoomNumber != roomNum || !inst.Alive || inst.Sedated || inst.Target != "" || inst.IsSummoned {
 			continue
 		}
 		def := e.monsters[inst.DefNumber]
@@ -1966,6 +2217,7 @@ func isNaturalWeapon(itemType string) bool {
 	}
 	return false
 }
+
 
 func (mm *monsterManager) indexOfID(id int) int {
 	for i := range mm.instances {

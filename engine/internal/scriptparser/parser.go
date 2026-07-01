@@ -320,6 +320,8 @@ func (p *fileParser) parse() {
 				})
 			}
 			p.pos++
+		case "CEVENT":
+			p.parseCEvent(fields)
 		case "ORGDEF":
 			if def, ok := parseOrgDef(fields); ok {
 				p.result.OrgDefs = append(p.result.OrgDefs, def)
@@ -329,6 +331,52 @@ func (p *fileParser) parse() {
 			p.pos++
 		}
 	}
+}
+
+// parseCEvent parses a CEVENT block starting at p.pos and appends it to p.result.CEvents.
+// On return p.pos points to the first line after the CEVENT body.
+func (p *fileParser) parseCEvent(fields []string) {
+	if len(fields) < 4 {
+		p.pos++
+		return
+	}
+	id, _ := strconv.Atoi(fields[1])
+	cycles, _ := strconv.Atoi(fields[2])
+	roomNum, _ := strconv.Atoi(fields[3])
+	ce := gameworld.CEvent{ID: id, Cycles: cycles, Room: roomNum}
+	p.pos++
+	for p.pos < len(p.lines) {
+		cline := strings.TrimSpace(p.lines[p.pos])
+		if cline == "" || strings.HasPrefix(cline, ";") {
+			p.pos++
+			continue
+		}
+		cf := strings.Fields(cline)
+		cc := strings.ToUpper(cf[0])
+		if cc == "NUMBER" || cc == "INUMBER" || cc == "MNUMBER" || cc == "CEVENT" {
+			break
+		}
+		if cc == "VARIABLE" {
+			if len(cf) >= 2 {
+				p.result.Variables = append(p.result.Variables, gameworld.Variable{Name: cf[1]})
+			}
+			p.pos++
+			continue
+		}
+		if strings.HasPrefix(cc, "IF") {
+			block := p.parseScriptBlock(cf)
+			ce.Scripts = append(ce.Scripts, block)
+			continue
+		}
+		if cc == "ECHO" || cc == "AFFECT" || cc == "RANDOM" || cc == "EQUAL" || cc == "ADD" || cc == "SUB" ||
+			cc == "NEWITEM" || cc == "REMOVEITEM" || cc == "GENMON" || cc == "KILLMON" || cc == "GMMSG" {
+			ce.Scripts = append(ce.Scripts, gameworld.ScriptBlock{
+				Type: "ACTION", Actions: []gameworld.ScriptAction{{Command: cc, Args: cf[1:]}},
+			})
+		}
+		p.pos++
+	}
+	p.result.CEvents = append(p.result.CEvents, ce)
 }
 
 func (p *fileParser) parseRoom(fields []string) {
@@ -438,7 +486,7 @@ func (p *fileParser) parseRoom(fields []string) {
 			}
 		case "FORGE", "LOOM", "MINEA", "MINEB", "MINEC",
 			"BUY_ARMOR", "BUY_SKINS", "BUY_JEWELRY", "SUBMERGED",
-			"MOVEMENT_ASTRAL":
+			"MOVEMENT_ASTRAL", "HEALER", "BANK":
 			room.Modifiers = append(room.Modifiers, cmd)
 		case "IFVERB", "IFPREVERB", "IFVERB2", "IFPREVERB2",
 			"IFITEM", "IFTOUCH", "IFVAR", "IFNOITEM",
@@ -460,41 +508,7 @@ func (p *fileParser) parseRoom(fields []string) {
 			// CALL macro — requires loading MACRO definitions from ROOMX.SCR/ROOMY.SCR.
 			// Not yet implemented; left as-is for now.
 		case "CEVENT":
-			// CEVENT <id> <cycles> <room#>
-			if len(fields) >= 4 {
-				id, _ := strconv.Atoi(fields[1])
-				cycles, _ := strconv.Atoi(fields[2])
-				roomNum, _ := strconv.Atoi(fields[3])
-				ce := gameworld.CEvent{ID: id, Cycles: cycles, Room: roomNum}
-				p.pos++
-				// Parse script blocks inside the CEVENT
-				for p.pos < len(p.lines) {
-					cline := strings.TrimSpace(p.lines[p.pos])
-					if cline == "" || strings.HasPrefix(cline, ";") {
-						p.pos++
-						continue
-					}
-					cf := strings.Fields(cline)
-					cc := strings.ToUpper(cf[0])
-					if cc == "NUMBER" || cc == "INUMBER" || cc == "MNUMBER" || cc == "CEVENT" {
-						break
-					}
-					if strings.HasPrefix(cc, "IF") {
-						block := p.parseScriptBlock(cf)
-						ce.Scripts = append(ce.Scripts, block)
-						continue
-					}
-					if cc == "CALL" || cc == "ECHO" || cc == "AFFECT" || cc == "RANDOM" || cc == "EQUAL" || cc == "ADD" || cc == "SUB" {
-						ce.Scripts = append(ce.Scripts, gameworld.ScriptBlock{
-							Type: "ACTION", Actions: []gameworld.ScriptAction{{Command: cc, Args: cf[1:]}},
-						})
-					}
-					p.pos++
-				}
-				p.result.CEvents = append(p.result.CEvents, ce)
-				continue
-			}
-			p.pos++
+			p.parseCEvent(fields)
 			continue
 		}
 		p.pos++
@@ -526,7 +540,7 @@ func (p *fileParser) parseItem(fields []string) {
 		fields := strings.Fields(line)
 		cmd := strings.ToUpper(fields[0])
 
-		if cmd == "NUMBER" || cmd == "INUMBER" || cmd == "MNUMBER" || cmd == "REGIONDEF" {
+		if cmd == "NUMBER" || cmd == "INUMBER" || cmd == "MNUMBER" || cmd == "REGIONDEF" || cmd == "CEVENT" {
 			break
 		}
 
@@ -572,8 +586,11 @@ func (p *fileParser) parseItem(fields []string) {
 				item.Substance = strings.ToUpper(fields[1])
 			}
 		case "*DESCRIPTION_START":
-			// Items can have descriptions too (rare)
-			p.readDescription()
+			// Item-level examine description
+			desc := p.readDescription()
+			if desc != "" {
+				item.ExamineDesc = desc
+			}
 			continue
 		// Item types
 		case "AMMO", "ARMOR", "BITE_WEAPON", "BOW_WEAPON", "CLAW_WEAPON",
@@ -638,7 +655,7 @@ func (p *fileParser) parseMonster(fields []string) {
 		fields := strings.Fields(line)
 		cmd := strings.ToUpper(fields[0])
 
-		if cmd == "NUMBER" || cmd == "INUMBER" || cmd == "MNUMBER" || cmd == "REGIONDEF" {
+		if cmd == "NUMBER" || cmd == "INUMBER" || cmd == "MNUMBER" || cmd == "REGIONDEF" || cmd == "CEVENT" {
 			break
 		}
 

@@ -775,7 +775,7 @@ func (s *Server) sshCommandLoop(ctx context.Context, session *Session, sc *sshCo
 
 		if len(result.RoomBroadcast) > 0 {
 			chatNow := time.Now()
-			chatCutoff := chatNow.Add(-10 * time.Second)
+			chatCutoff := chatNow.Add(-9 * time.Second)
 			var recent []time.Time
 			for _, t := range session.chatTimes {
 				if t.After(chatCutoff) {
@@ -783,7 +783,7 @@ func (s *Server) sshCommandLoop(ctx context.Context, session *Session, sc *sshCo
 				}
 			}
 			session.chatTimes = recent
-			if len(session.chatTimes) >= 5 {
+			if len(session.chatTimes) >= 10 {
 				sc.writeLine("[You are sending messages too quickly. Please wait.]")
 				continue
 			}
