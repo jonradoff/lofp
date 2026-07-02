@@ -111,6 +111,7 @@ func ParseConfig(configPath string) (*ParseResult, error) {
 				// Monsters/items/etc from seasonal scripts go into the main collections
 				result.Monsters = append(result.Monsters, seasonResult.Monsters...)
 				result.Items = append(result.Items, seasonResult.Items...)
+				result.ForageDefs = append(result.ForageDefs, seasonResult.ForageDefs...)
 			}
 		}
 	}
@@ -296,13 +297,18 @@ func (p *fileParser) parse() {
 			}
 			p.pos++
 		case "FORAGEDEF":
-			if len(fields) >= 7 {
+			// Val5 is occasionally omitted in the original data (e.g. KARTHEM.SCR),
+			// so only Terrain/ItemNum/AdjNum/Ratio/Val2 are strictly required.
+			if len(fields) >= 6 {
 				terrain := strings.ToUpper(fields[1])
 				itemNum, _ := strconv.Atoi(fields[2])
 				adjNum, _ := strconv.Atoi(fields[3])
 				ratio, _ := strconv.Atoi(fields[4])
 				v2, _ := strconv.Atoi(fields[5])
-				v5, _ := strconv.Atoi(fields[6])
+				var v5 int
+				if len(fields) >= 7 {
+					v5, _ = strconv.Atoi(fields[6])
+				}
 				p.result.ForageDefs = append(p.result.ForageDefs, gameworld.ForageDef{
 					Terrain: terrain, ItemNum: itemNum, AdjNum: adjNum, Ratio: ratio, Val2: v2, Val5: v5,
 				})
@@ -540,7 +546,11 @@ func (p *fileParser) parseItem(fields []string) {
 		fields := strings.Fields(line)
 		cmd := strings.ToUpper(fields[0])
 
-		if cmd == "NUMBER" || cmd == "INUMBER" || cmd == "MNUMBER" || cmd == "REGIONDEF" || cmd == "CEVENT" {
+		// Top-level-only directives also end the item block — they can appear
+		// between item defs in files like ISLAND.SCR (see parseRoom for the same rule).
+		if cmd == "NUMBER" || cmd == "INUMBER" || cmd == "MNUMBER" ||
+			cmd == "MLIST" || cmd == "FORAGEDEF" || cmd == "MINDEF" ||
+			cmd == "MACRO" || cmd == "MONEYDEF" || cmd == "REGIONDEF" || cmd == "CEVENT" {
 			break
 		}
 
@@ -655,7 +665,11 @@ func (p *fileParser) parseMonster(fields []string) {
 		fields := strings.Fields(line)
 		cmd := strings.ToUpper(fields[0])
 
-		if cmd == "NUMBER" || cmd == "INUMBER" || cmd == "MNUMBER" || cmd == "REGIONDEF" || cmd == "CEVENT" {
+		// Top-level-only directives also end the monster block — they can appear
+		// between monster defs (see parseRoom for the same rule).
+		if cmd == "NUMBER" || cmd == "INUMBER" || cmd == "MNUMBER" ||
+			cmd == "MLIST" || cmd == "FORAGEDEF" || cmd == "MINDEF" ||
+			cmd == "MACRO" || cmd == "MONEYDEF" || cmd == "REGIONDEF" || cmd == "CEVENT" {
 			break
 		}
 

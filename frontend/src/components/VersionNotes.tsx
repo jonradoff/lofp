@@ -9,6 +9,37 @@ export default function VersionNotes({ onBack }: { onBack: () => void }) {
 
         <div className="space-y-6 text-sm">
           <section>
+            <h2 className="text-amber-400 text-lg font-bold mb-1">v11.6.5 &mdash; July 2, 2026</h2>
+            <p className="text-gray-400 mb-3">Foraging overhaul (terrain tables, Wood Lore gating, skill-scaled rarity), crafting material search fix, free player-taught training.</p>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Foraging</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Fixed a script-loading bug that silently dropped almost every real <code className="text-amber-300">FORAGEDEF</code> entry &mdash; seasonal terrain tables (forest/mountain/plain/swamp) and the jungle table were never being loaded, so <code className="text-amber-300">FORAGE</code> fell back to generic bare-noun items with no adjectives</li>
+                  <li>Foraged items now correctly carry their proper adjective (e.g. &ldquo;yulman leaf&rdquo; instead of just &ldquo;leaf&rdquo;)</li>
+                  <li><code className="text-amber-300">FORAGE</code> now requires Wood Lore skill (18) &mdash; &ldquo;You have no training in Wood Lore.&rdquo; if untrained</li>
+                  <li>Success chance now scales with Wood Lore skill and Perception (base 30%, capped 90%), with a 10-second round time</li>
+                  <li>Higher Wood Lore skill biases the odds toward rarer finds (e.g. mandrake root) instead of only ever turning up common plants</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Crafting</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li><code className="text-amber-300">WORK &lt;material&gt;</code> now keeps searching your inventory when it finds a matching-but-unsuitable item instead of giving up immediately &mdash; e.g. a finished &ldquo;cotton jacket&rdquo; no longer blocks raw cotton later in your pack from being found</li>
+                  <li>Material matching now recognizes fully-qualified names (e.g. <code className="text-amber-300">WORK BROWN SNAKE SKIN</code>) to disambiguate between multiple similarly-named materials, in addition to a bare noun like <code className="text-amber-300">WORK SKIN</code></li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Training</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li><code className="text-amber-300">TRAIN</code> no longer charges gold for ranks made available by a fellow player&rsquo;s <code className="text-amber-300">TEACH</code> &mdash; only ranks within an organization&rsquo;s own posted training cap are charged</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
             <h2 className="text-amber-400 text-lg font-bold mb-1">v11.6.4 &mdash; June 30, 2026</h2>
             <p className="text-gray-400 mb-3">Jewelry, weaving, and wood lore multi-step crafting; ENCRUST and ENGRAVE commands for Jewelers.</p>
 

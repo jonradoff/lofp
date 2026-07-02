@@ -111,14 +111,19 @@ func (e *GameEngine) doTrainWithBP(ctx context.Context, player *Player, args []s
 	room := e.rooms[player.RoomNumber]
 
 	// Collect effective skill offers: room trainers boosted/extended by player teachers.
+	// roomMaxLevel tracks how far the room's own (paid) trainer goes; ranks above
+	// that — whether from a teacher extending an existing offer or a teacher
+	// providing a skill the room doesn't train at all — are taught by a fellow
+	// player and are free of the gold charge.
 	type skillOffer struct {
-		skillID  int
-		maxLevel int
+		skillID      int
+		maxLevel     int
+		roomMaxLevel int
 	}
 	var offers []skillOffer
 	if room != nil {
 		for _, ts := range room.TrainingSkills {
-			offers = append(offers, skillOffer{ts.SkillID, ts.MaxLevel})
+			offers = append(offers, skillOffer{ts.SkillID, ts.MaxLevel, ts.MaxLevel})
 		}
 	}
 
@@ -142,7 +147,7 @@ func (e *GameEngine) doTrainWithBP(ctx context.Context, player *Player, args []s
 					}
 				}
 				if !found {
-					offers = append(offers, skillOffer{p.Teaching, p.TeachingLevel})
+					offers = append(offers, skillOffer{p.Teaching, p.TeachingLevel, 0})
 				}
 			}
 			if p.TeachingSpell > 0 && spellTeacher == nil {
@@ -226,8 +231,10 @@ func (e *GameEngine) doTrainWithBP(ctx context.Context, player *Player, args []s
 			return &CommandResult{Messages: []string{fmt.Sprintf("Not enough build points. %s costs %d BP (you have %d).", name, bpCost, player.BuildPoints)}}
 		}
 
+		// Only ranks within the room's own posted training cap are charged gold;
+		// ranks made available by a fellow player's TEACH are free.
 		goldCost := 0
-		if player.Level > 4 {
+		if player.Level > 4 && currentLvl+1 <= o.roomMaxLevel {
 			goldCost = 5 * (currentLvl + 1)
 		}
 		if goldCost > 0 && player.Gold < goldCost {

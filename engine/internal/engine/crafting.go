@@ -1691,6 +1691,36 @@ func (e *GameEngine) doForageReal(ctx context.Context, player *Player) *CommandR
 		return &CommandResult{Messages: []string{"There is nothing to forage here."}}
 	}
 
+	// FORAGE requires Wood Lore (skill #18) per LEGENDS.DOC: "Allows a character
+	// with Wood Lore skill to search a wilderness area for useful substances."
+	woodLore := player.Skills[18]
+	if woodLore < 1 {
+		return &CommandResult{Messages: []string{"You have no training in Wood Lore."}}
+	}
+
+	if player.RoundTimeExpiry.After(time.Now()) {
+		remaining := time.Until(player.RoundTimeExpiry).Seconds()
+		return &CommandResult{Messages: []string{fmt.Sprintf("You must wait %.0f more seconds.", remaining)}}
+	}
+	rt := applyRoundTime(player, 10)
+	player.RoundTimeExpiry = time.Now().Add(time.Duration(rt) * time.Second)
+	player.RoundTime = rt
+
+	// Success chance grows with Wood Lore skill and Perception, mirroring MINE's
+	// skill-scaled chance (base 30% + skill*5 + STR/10, capped 90%).
+	chance := 30 + woodLore*6 + player.Perception/10
+	if chance > 90 {
+		chance = 90
+	}
+	if rand.Intn(100) >= chance {
+		e.SavePlayer(ctx, player)
+		return &CommandResult{
+			Messages:      []string{"You search the area but find nothing useful.", fmt.Sprintf("[Round: %d sec]", rt)},
+			RoomBroadcast: []string{fmt.Sprintf("%s forages in the area.", player.FirstName)},
+			PlayerState:   player,
+		}
+	}
+
 	// Check for forage definitions matching this terrain
 	var candidates []gameworld.ForageDef
 	for _, fd := range e.forageDefs {
@@ -1701,22 +1731,37 @@ func (e *GameEngine) doForageReal(ctx context.Context, player *Player) *CommandR
 
 	// If no ForageDefs loaded, use generic fallback
 	if len(candidates) == 0 {
-		return e.doForageFallback(ctx, player, terrain)
+		return e.doForageFallback(ctx, player, rt)
 	}
 
-	// Weighted random selection
-	totalRatio := 0
+	// Weighted random selection. Wood Lore skill biases the odds toward rarer
+	// (lower-ratio) finds: each candidate's weight gets a bonus proportional to
+	// how rare it is and the player's skill, so a novice mostly finds common
+	// items while a master has a real shot at the rare ones (e.g. mandrake root).
+	maxRatio := 0
 	for _, fd := range candidates {
-		totalRatio += fd.Ratio
+		if fd.Ratio > maxRatio {
+			maxRatio = fd.Ratio
+		}
 	}
-	if totalRatio <= 0 {
-		return e.doForageFallback(ctx, player, terrain)
+	weights := make([]int, len(candidates))
+	totalWeight := 0
+	for i, fd := range candidates {
+		w := fd.Ratio + (maxRatio-fd.Ratio)*woodLore/10
+		if w < 1 {
+			w = 1
+		}
+		weights[i] = w
+		totalWeight += w
+	}
+	if totalWeight <= 0 {
+		return e.doForageFallback(ctx, player, rt)
 	}
 
-	roll := rand.Intn(totalRatio)
+	roll := rand.Intn(totalWeight)
 	cumulative := 0
-	for _, fd := range candidates {
-		cumulative += fd.Ratio
+	for i, fd := range candidates {
+		cumulative += weights[i]
 		if roll < cumulative {
 			itemDef := e.items[fd.ItemNum]
 			if itemDef == nil {
@@ -1735,18 +1780,29 @@ func (e *GameEngine) doForageReal(ctx context.Context, player *Player) *CommandR
 
 			itemName := e.formatItemName(itemDef, item.Adj1, 0, 0)
 			return &CommandResult{
-				Messages:      []string{fmt.Sprintf("You search the area and find some %s!", itemName)},
+				Messages:      []string{fmt.Sprintf("You search the area and find some %s!", itemName), fmt.Sprintf("[Round: %d sec]", rt)},
 				RoomBroadcast: []string{fmt.Sprintf("%s forages in the area.", player.FirstName)},
 				PlayerState:   player,
 			}
 		}
 	}
 
-	return &CommandResult{Messages: []string{"You search but find nothing useful."}}
+	e.SavePlayer(ctx, player)
+	return &CommandResult{
+		Messages:    []string{"You search but find nothing useful.", fmt.Sprintf("[Round: %d sec]", rt)},
+		PlayerState: player,
+	}
 }
 
-// doForageFallback provides generic foraging when no ForageDefs are loaded.
-func (e *GameEngine) doForageFallback(ctx context.Context, player *Player, terrain string) *CommandResult {
+// doForageFallback provides generic foraging when no ForageDefs are loaded for
+// this terrain. rt is the round time already applied by doForageReal.
+func (e *GameEngine) doForageFallback(ctx context.Context, player *Player, rt int) *CommandResult {
+	room := e.rooms[player.RoomNumber]
+	terrain := ""
+	if room != nil {
+		terrain = room.Terrain
+	}
+
 	// Generic items by terrain
 	type fallbackItem struct {
 		name string
@@ -1784,11 +1840,12 @@ func (e *GameEngine) doForageFallback(ctx context.Context, player *Player, terra
 		}
 	}
 
-	// 30% chance of finding nothing
-	if rand.Intn(100) < 30 || len(items) == 0 {
+	if len(items) == 0 {
+		e.SavePlayer(ctx, player)
 		return &CommandResult{
-			Messages:      []string{"You search the area but find nothing useful."},
+			Messages:      []string{"You search the area but find nothing useful.", fmt.Sprintf("[Round: %d sec]", rt)},
 			RoomBroadcast: []string{fmt.Sprintf("%s forages in the area.", player.FirstName)},
+			PlayerState:   player,
 		}
 	}
 
@@ -1798,7 +1855,7 @@ func (e *GameEngine) doForageFallback(ctx context.Context, player *Player, terra
 	e.SavePlayer(ctx, player)
 
 	return &CommandResult{
-		Messages:      []string{fmt.Sprintf("You search the area and find some %s!", chosen.name)},
+		Messages:      []string{fmt.Sprintf("You search the area and find some %s!", chosen.name), fmt.Sprintf("[Round: %d sec]", rt)},
 		RoomBroadcast: []string{fmt.Sprintf("%s forages in the area.", player.FirstName)},
 		PlayerState:   player,
 	}
@@ -2437,11 +2494,15 @@ func parseInClause(s string) (string, string) {
 
 // ---- NON-WEAPON CRAFTING WORK CYCLES ----
 
-// findCraftMaterial searches inventory for the first item whose noun or adjective
-// starts with target and checks whether it is a valid crafting material for the
-// given skill ID (8=weaponsmithing/jeweler, 15=weaving, 18=wood).  Returns the
-// inventory index, item snapshot, and item def on success.  On failure it returns
-// idx=-1 and a human-readable error message.
+// findCraftMaterial searches inventory for an item whose noun/adjectives match
+// target (via matchesTarget, so both a bare noun like "skin" and a fully
+// qualified name like "brown snake skin" work) and checks whether it is a valid
+// crafting material for the given skill ID (8=weaponsmithing/jeweler, 15=weaving,
+// 18=wood). If a matching item isn't a suitable material, the search keeps going
+// rather than stopping, so an unsuitable match (e.g. a crafted "cotton jacket"
+// worn/carried alongside raw cotton) doesn't shadow a valid material later in the
+// inventory. Returns the inventory index, item snapshot, and item def on success.
+// On failure it returns idx=-1 and a human-readable error message.
 func (e *GameEngine) findCraftMaterial(player *Player, target string, matSkillID int) (idx int, item InventoryItem, def *gameworld.ItemDef, errMsg string) {
 	foundNoun := false
 	for j, ii := range player.Inventory {
@@ -2449,15 +2510,7 @@ func (e *GameEngine) findCraftMaterial(player *Player, target string, matSkillID
 		if mDef == nil {
 			continue
 		}
-		noun := strings.ToLower(e.getItemNounName(mDef))
-		adj1 := strings.ToLower(e.getAdjName(ii.Adj1))
-		adj2 := strings.ToLower(e.getAdjName(ii.Adj2))
-		adj3 := strings.ToLower(e.getAdjName(ii.Adj3))
-		matches := strings.HasPrefix(noun, target) ||
-			(adj1 != "" && strings.HasPrefix(adj1, target)) ||
-			(adj2 != "" && strings.HasPrefix(adj2, target)) ||
-			(adj3 != "" && strings.HasPrefix(adj3, target))
-		if !matches {
+		if !matchesTarget(e.getItemNounName(mDef), target, e.getAdjName(ii.Adj1), e.getAdjName(ii.Adj2), e.getAdjName(ii.Adj3)) {
 			continue
 		}
 		foundNoun = true
@@ -2468,7 +2521,7 @@ func (e *GameEngine) findCraftMaterial(player *Player, target string, matSkillID
 			isValid = mDef.Parameter2 == matSkillID
 		}
 		if !isValid {
-			return -1, InventoryItem{}, nil, fmt.Sprintf("That %s is not suitable material for that item.", target)
+			continue
 		}
 		return j, ii, mDef, ""
 	}
