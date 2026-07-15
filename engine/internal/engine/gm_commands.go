@@ -1765,7 +1765,11 @@ func (e *GameEngine) gmWhisper(args []string, rawInput string) *CommandResult {
 		return &CommandResult{Messages: []string{"Usage: @whisper <name> <text>"}}
 	}
 	text := extractRawArgs(rawInput, 2)
-	return &CommandResult{Messages: []string{fmt.Sprintf("You whisper to %s: %s", args[0], text)}}
+	return &CommandResult{
+		Messages:      []string{fmt.Sprintf("You whisper to %s: %s", args[0], text)},
+		WhisperTarget: args[0],
+		WhisperMsg:    text,
+	}
 }
 
 func (e *GameEngine) gmAnnounce(player *Player, args []string, rawInput string) *CommandResult {

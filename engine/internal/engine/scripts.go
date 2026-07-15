@@ -411,76 +411,74 @@ func (sc *ScriptContext) execBlock(block gameworld.ScriptBlock) {
 
 // execElse runs the ELSE branch of a conditional block (if it has one).
 func (sc *ScriptContext) execElse(block gameworld.ScriptBlock) {
-	for _, action := range block.ElseActions {
-		sc.execAction(action)
-	}
-	for _, child := range block.ElseChildren {
-		sc.execBlock(child)
-	}
+	sc.execSteps(block.ElseBody)
 }
 
-// execChildren runs the actions and nested blocks within a script block.
-// If a SETEVENT/CONTEVENT pair is encountered, remaining work is deferred into DeferredSegments.
+// execChildren runs the main branch (actions and nested blocks, in original source
+// order) of a script block. If a SETEVENT/CONTEVENT or PLREVENT/CONTPLREVENT pair is
+// encountered, remaining work is deferred into DeferredSegments.
 func (sc *ScriptContext) execChildren(block gameworld.ScriptBlock) {
-	if !sc.execActionsUntilDelay(block.Actions, block.Children) {
-		for _, child := range block.Children {
-			sc.execBlock(child)
-			// Stop processing sibling blocks once a MOVE has fired. Without this, a MOVE
-			// inside an IFVAR updates player.RoomNumber immediately, causing subsequent sibling
-			// IFVAR RNUM checks to match the new room instead of the original one.
-			if sc.MoveTo > 0 || sc.moveGroupFired {
-				break
-			}
-		}
-	}
+	sc.execSteps(block.Body)
 }
 
-// execActionsUntilDelay runs actions one by one until a SETEVENT/CONTEVENT or PLREVENT/CONTPLREVENT
-// pair is found. When found, the remaining actions and children are saved as a ScriptSegment for
-// deferred execution and the function returns true (callers must not run children immediately).
-// Returns false if all actions ran without encountering a delay.
-func (sc *ScriptContext) execActionsUntilDelay(actions []gameworld.ScriptAction, remainingChildren []gameworld.ScriptBlock) bool {
-	for i, action := range actions {
-		switch action.Command {
-		case "SETEVENT":
-			if len(action.Args) >= 2 {
-				cycles, _ := strconv.Atoi(action.Args[1])
-				sc.pendingEventDelay = cycles
+// execSteps runs a block's Body/ElseBody — actions and nested conditionals in original
+// source order (e.g. "action1; IFVAR...ENDIF; action2" runs in exactly that order,
+// rather than every flat action running before any nested block). If a SETEVENT/
+// CONTEVENT or PLREVENT/CONTPLREVENT pair is found, the remaining steps from that point
+// on are saved as a ScriptSegment for deferred execution and this returns true; callers
+// must not proceed further synchronously. Returns false if all steps ran without a delay.
+func (sc *ScriptContext) execSteps(steps []gameworld.ScriptStep) bool {
+	for i, step := range steps {
+		if step.Action != nil {
+			action := *step.Action
+			switch action.Command {
+			case "SETEVENT":
+				if len(action.Args) >= 2 {
+					cycles, _ := strconv.Atoi(action.Args[1])
+					sc.pendingEventDelay = cycles
+					sc.pendingEventIsRaw = false
+				}
+				continue
+			case "CONTEVENT":
+				sc.DeferredSegments = append(sc.DeferredSegments, ScriptSegment{
+					RelativeSeconds: sc.pendingEventDelay * scriptEventCycleSeconds,
+					Steps:           steps[i+1:],
+					RoomNumber:      sc.Room.Number,
+				})
+				return true
+			case "PLREVENT":
+				// PLREVENT <seconds> — player-scoped event timer; arg is raw seconds (not cycles).
+				if len(action.Args) >= 1 {
+					seconds, _ := strconv.Atoi(action.Args[0])
+					sc.pendingEventDelay = seconds
+					sc.pendingEventIsRaw = true
+				}
+				continue
+			case "CONTPLREVENT":
+				// Defer remaining steps; use raw seconds when paired with PLREVENT.
+				relSecs := sc.pendingEventDelay
+				if !sc.pendingEventIsRaw {
+					relSecs *= scriptEventCycleSeconds
+				}
 				sc.pendingEventIsRaw = false
+				sc.DeferredSegments = append(sc.DeferredSegments, ScriptSegment{
+					RelativeSeconds: relSecs,
+					Steps:           steps[i+1:],
+					RoomNumber:      sc.Room.Number,
+				})
+				return true
+			default:
+				sc.execAction(action)
 			}
-			continue
-		case "CONTEVENT":
-			sc.DeferredSegments = append(sc.DeferredSegments, ScriptSegment{
-				RelativeSeconds: sc.pendingEventDelay * scriptEventCycleSeconds,
-				Actions:         actions[i+1:],
-				Children:        remainingChildren,
-				RoomNumber:      sc.Room.Number,
-			})
-			return true
-		case "PLREVENT":
-			// PLREVENT <seconds> — player-scoped event timer; arg is raw seconds (not cycles).
-			if len(action.Args) >= 1 {
-				seconds, _ := strconv.Atoi(action.Args[0])
-				sc.pendingEventDelay = seconds
-				sc.pendingEventIsRaw = true
-			}
-			continue
-		case "CONTPLREVENT":
-			// Defer remaining actions; use raw seconds when paired with PLREVENT.
-			relSecs := sc.pendingEventDelay
-			if !sc.pendingEventIsRaw {
-				relSecs *= scriptEventCycleSeconds
-			}
-			sc.pendingEventIsRaw = false
-			sc.DeferredSegments = append(sc.DeferredSegments, ScriptSegment{
-				RelativeSeconds: relSecs,
-				Actions:         actions[i+1:],
-				Children:        remainingChildren,
-				RoomNumber:      sc.Room.Number,
-			})
-			return true
+		} else if step.Block != nil {
+			sc.execBlock(*step.Block)
 		}
-		sc.execAction(action)
+		// Stop processing remaining steps once a MOVE has fired. Without this, a MOVE
+		// partway through updates player.RoomNumber immediately, causing subsequent
+		// sibling checks (e.g. IFVAR RNUM) to match the new room instead of the original.
+		if sc.MoveTo > 0 || sc.moveGroupFired {
+			return false
+		}
 	}
 	return false
 }
@@ -1667,7 +1665,10 @@ func (sc *ScriptContext) evalIfCarry(args []string) bool {
 	archetype := sc.resolveNumericArg(args[0])
 	for _, ii := range sc.Player.Inventory {
 		if ii.Archetype == archetype {
-			if adj < 0 || ii.Adj1 == adj {
+			// Check all three adjective slots, not just Adj1 — store-bought "variety"
+			// items (e.g. STOREITEM's adjective) are placed in Adj3, not Adj1 (see
+			// doBuy), and crafted/found items vary in which slot holds a given adj.
+			if adj < 0 || ii.Adj1 == adj || ii.Adj2 == adj || ii.Adj3 == adj {
 				// Per GMSCRIPT.DOC: "If it is found, the current item is set to the
 				// first such item located." Needed for a following REMOVEITEM -1,
 				// %a, or ITEMADJ*/ITEMVAL* to act on the matched item.

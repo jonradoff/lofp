@@ -65,55 +65,56 @@ PARTIAL_DARKNESS
 	// Kisses 1 and 2 produce no script output, so the default emote fires
 	// ("You kiss the statue.") — natural for observers in the room.
 	//
-	// Execution order on the 3rd kiss (immediate-MOVE model):
-	//   Actions run first:
-	//     ECHO PLAYER voice  — player receives the farewell message
-	//     MOVE 170           — sc.MoveTo=170; player.RoomNumber=170 immediately
-	//     AFFECT 170         — sc.Room=170; affectRoom=(170!=170)=false
-	//     ECHO PLAYER shrink — goes to player
-	//     AFFECT 123         — sc.Room=123; affectRoom=(123!=170)=true
-	//   Children run after (affectRoom=true, sc.Room=123):
-	//     IFVAR GEN=0/1 → ECHO OTHERS gender_msg → roomBroadcast(123, msg)
+	// Execution order on the 3rd kiss (steps run in the order listed below):
+	//   ECHO PLAYER voice  — player receives the farewell message
+	//   MOVE 170           — sc.MoveTo=170; player.RoomNumber=170 immediately
+	//   AFFECT 170         — sc.Room=170; affectRoom=(170!=170)=false
+	//   ECHO PLAYER shrink — goes to player
+	//   AFFECT 123         — sc.Room=123; affectRoom=(123!=170)=true
+	//   IFVAR GEN=0/1 → ECHO OTHERS gender_msg → roomBroadcast(123, msg)
 	//
 	// Room 123 players see the gender echo (via roomBroadcast) before "[Name] leaves."
+	action := func(cmd string, args ...string) gameworld.ScriptStep {
+		return gameworld.ScriptStep{Action: &gameworld.ScriptAction{Command: cmd, Args: args}}
+	}
+	block := func(b gameworld.ScriptBlock) gameworld.ScriptStep {
+		return gameworld.ScriptStep{Block: &b}
+	}
+
 	kissBlock := gameworld.ScriptBlock{
 		Type: "IFVERB",
 		Args: []string{"KISS", "0"},
-		Actions: []gameworld.ScriptAction{
-			{Command: "ADD", Args: []string{"FLAG1", "1"}},
-		},
-		Children: []gameworld.ScriptBlock{
-			{
+		Body: []gameworld.ScriptStep{
+			action("ADD", "FLAG1", "1"),
+			block(gameworld.ScriptBlock{
 				Type: "IFVAR",
 				Args: []string{"FLAG1", "=", "3"},
-				Actions: []gameworld.ScriptAction{
-					{Command: "ECHO", Args: []string{"PLAYER",
-						`You hear the stone maiden's voice in your head, "You have freed me, if only for a moment, and as your reward, I am sending you on a great adventure, or at least you'll think so... if you live."%c%cSuddenly, you are jarred by a bolt of energy!%c`}},
-					{Command: "MOVE", Args: []string{"170"}},
-					{Command: "AFFECT", Args: []string{"170"}},
-					{Command: "ECHO", Args: []string{"PLAYER",
-						"Your body is wracked with pain and you realize that you are shrinking. How small you will get, you don't know.%cSuddenly the pain stops..."}},
-					{Command: "AFFECT", Args: []string{"123"}},
-				},
-				Children: []gameworld.ScriptBlock{
-					{
+				Body: []gameworld.ScriptStep{
+					action("ECHO", "PLAYER",
+						`You hear the stone maiden's voice in your head, "You have freed me, if only for a moment, and as your reward, I am sending you on a great adventure, or at least you'll think so... if you live."%c%cSuddenly, you are jarred by a bolt of energy!%c`),
+					action("MOVE", "170"),
+					action("AFFECT", "170"),
+					action("ECHO", "PLAYER",
+						"Your body is wracked with pain and you realize that you are shrinking. How small you will get, you don't know.%cSuddenly the pain stops..."),
+					action("AFFECT", "123"),
+					block(gameworld.ScriptBlock{
 						Type: "IFVAR",
 						Args: []string{"GEN", "=", "0"},
-						Actions: []gameworld.ScriptAction{
-							{Command: "ECHO", Args: []string{"OTHERS",
-								"As %n lustily kisses the stone maiden for a third time the statue comes to life! Smiling at %n, she points. Suddenly a spark flies from her fingertips and %n disappears.%cThe maiden becomes stone again."}},
+						Body: []gameworld.ScriptStep{
+							action("ECHO", "OTHERS",
+								"As %n lustily kisses the stone maiden for a third time the statue comes to life! Smiling at %n, she points. Suddenly a spark flies from her fingertips and %n disappears.%cThe maiden becomes stone again."),
 						},
-					},
-					{
+					}),
+					block(gameworld.ScriptBlock{
 						Type: "IFVAR",
 						Args: []string{"GEN", "=", "1"},
-						Actions: []gameworld.ScriptAction{
-							{Command: "ECHO", Args: []string{"OTHERS",
-								"As %n playfully pecks the statue for a third time the statue comes to life! Smiling at %n, she points. Suddenly a spark flies from her fingertips and %n disappears.%cThe maiden becomes stone again."}},
+						Body: []gameworld.ScriptStep{
+							action("ECHO", "OTHERS",
+								"As %n playfully pecks the statue for a third time the statue comes to life! Smiling at %n, she points. Suddenly a spark flies from her fingertips and %n disappears.%cThe maiden becomes stone again."),
 						},
-					},
+					}),
 				},
-			},
+			}),
 		},
 	}
 

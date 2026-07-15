@@ -363,12 +363,9 @@ func (e *GameEngine) scheduleScriptSegments(player *Player, segments []ScriptSeg
 				Room:   room,
 				Engine: e,
 			}
-			// Run actions; if another SETEVENT/CONTEVENT pair is found, more segments are deferred.
-			if !sc.execActionsUntilDelay(seg.Actions, seg.Children) {
-				for _, child := range seg.Children {
-					sc.execBlock(child)
-				}
-			}
+			// Run remaining steps; if another SETEVENT/CONTEVENT or PLREVENT/CONTPLREVENT
+			// pair is found, more segments are deferred (sc.DeferredSegments, chained below).
+			sc.execSteps(seg.Steps)
 			// Persist player state if modified (EQUAL) or moved (MOVE).
 			if sc.NeedsSave || sc.MoveTo > 0 {
 				e.SavePlayer(context.Background(), player)
