@@ -194,6 +194,9 @@ func (e *GameEngine) ApplyParsedData(parsed *gameworld.ParsedData) ScriptApplySt
 	for i := range parsed.MonsterAdjs {
 		e.monAdjs[parsed.MonsterAdjs[i].ID] = parsed.MonsterAdjs[i].Name
 	}
+	for i := range parsed.BreakMods {
+		e.breakMods[parsed.BreakMods[i].AdjID] = parsed.BreakMods[i].Modifier
+	}
 	for _, v := range parsed.Variables {
 		name := strings.ToUpper(v.Name)
 		if !e.namedVarNames[name] {
@@ -207,6 +210,9 @@ func (e *GameEngine) ApplyParsedData(parsed *gameworld.ParsedData) ScriptApplySt
 	}
 	if len(parsed.CEvents) > 0 {
 		e.cevents = append(e.cevents, parsed.CEvents...)
+	}
+	for i := range parsed.Macros {
+		e.macros[parsed.Macros[i].ID] = parsed.Macros[i].Scripts
 	}
 	for i := range parsed.OrgDefs {
 		def := &parsed.OrgDefs[i]

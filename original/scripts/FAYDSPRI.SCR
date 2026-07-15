@@ -3450,6 +3450,7 @@ FIXED_LIGHT
 OUTDOOR_FLOOR
 CALL 33
 ITEM 9 693 ADJ1=10
+ITEM 4 943 VAL2=2000 ; Door to Home
 
 *DESCRIPTION_START
 The silver and gold specks in the river-rock stones forming the walkway sparkle

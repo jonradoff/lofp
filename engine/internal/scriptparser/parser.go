@@ -19,12 +19,14 @@ type ParseResult struct {
 	Nouns       []gameworld.NounDef
 	Adjectives  []gameworld.AdjDef
 	MonsterAdjs []gameworld.MonsterAdjDef
+	BreakMods   []gameworld.BreakModDef
 	Variables   []gameworld.Variable
 	Regions     []gameworld.Region
 	MonsterLists         []gameworld.MonsterList
 	SeasonalMonsterLists map[string][]gameworld.MonsterList // "PSCRIPT" -> spring MLISTs, etc.
 	SeasonalRooms        map[string][]gameworld.Room        // seasonal room description overrides
 	CEvents     []gameworld.CEvent
+	Macros      []gameworld.Macro
 	MoneyDefs   []gameworld.MoneyDef
 	ForageDefs  []gameworld.ForageDef
 	MineDefs    []gameworld.MineDef
@@ -112,6 +114,7 @@ func ParseConfig(configPath string) (*ParseResult, error) {
 				result.Monsters = append(result.Monsters, seasonResult.Monsters...)
 				result.Items = append(result.Items, seasonResult.Items...)
 				result.ForageDefs = append(result.ForageDefs, seasonResult.ForageDefs...)
+				result.Macros = append(result.Macros, seasonResult.Macros...)
 			}
 		}
 	}
@@ -122,8 +125,102 @@ func ParseConfig(configPath string) (*ParseResult, error) {
 	result.Items = deduplicateItems(result.Items)
 	result.Monsters = deduplicateMonsters(result.Monsters)
 	result.Rooms = deduplicateRooms(result.Rooms)
+	result.MonsterLists = deduplicateMonsterLists(result.MonsterLists)
+	for season, lists := range result.SeasonalMonsterLists {
+		result.SeasonalMonsterLists[season] = deduplicateMonsterLists(lists)
+	}
+
+	// Resolve CALL directives: macros are defined once via MACRO N and referenced
+	// by rooms/items via CALL N. Several script files reuse the same macro ID for
+	// unrelated content, so — consistent with rooms/items/monsters above — the
+	// last MACRO definition for a given ID wins.
+	macros := deduplicateMacros(result.Macros)
+	macroByID := make(map[int][]gameworld.ScriptBlock, len(macros))
+	for _, m := range macros {
+		macroByID[m.ID] = m.Scripts
+	}
+	resolveRoomMacroCalls(result.Rooms, macroByID)
+	resolveItemMacroCalls(result.Items, macroByID)
+	resolveMonsterMacroCalls(result.Monsters, macroByID)
+	for season, rooms := range result.SeasonalRooms {
+		resolveRoomMacroCalls(rooms, macroByID)
+		result.SeasonalRooms[season] = rooms
+	}
 
 	return result, scanner.Err()
+}
+
+// resolveRoomMacroCalls appends each room's called macros' scripts onto its own
+// Scripts slice, in place.
+func resolveRoomMacroCalls(rooms []gameworld.Room, macroByID map[int][]gameworld.ScriptBlock) {
+	for i := range rooms {
+		for _, id := range rooms[i].MacroCalls {
+			if scripts, ok := macroByID[id]; ok {
+				rooms[i].Scripts = append(rooms[i].Scripts, scripts...)
+			}
+		}
+	}
+}
+
+func resolveItemMacroCalls(items []gameworld.ItemDef, macroByID map[int][]gameworld.ScriptBlock) {
+	for i := range items {
+		for _, id := range items[i].MacroCalls {
+			if scripts, ok := macroByID[id]; ok {
+				items[i].Scripts = append(items[i].Scripts, scripts...)
+			}
+		}
+	}
+}
+
+// resolveMonsterMacroCalls appends each monster's SCRIPTMACRO-referenced macro
+// scripts onto its own Scripts slice, in place. Monsters use SCRIPTMACRO N
+// (not CALL N, unlike rooms/items) to attach a shared macro's IFVERB/IFPREVERB
+// interaction handlers.
+func resolveMonsterMacroCalls(monsters []gameworld.MonsterDef, macroByID map[int][]gameworld.ScriptBlock) {
+	for i := range monsters {
+		for _, id := range monsters[i].MacroCalls {
+			if scripts, ok := macroByID[id]; ok {
+				monsters[i].Scripts = append(monsters[i].Scripts, scripts...)
+			}
+		}
+	}
+}
+
+func deduplicateMacros(macros []gameworld.Macro) []gameworld.Macro {
+	seen := make(map[int]int)
+	var out []gameworld.Macro
+	for _, m := range macros {
+		if idx, ok := seen[m.ID]; ok {
+			out[idx] = m
+		} else {
+			seen[m.ID] = len(out)
+			out = append(out, m)
+		}
+	}
+	return out
+}
+
+// deduplicateMonsterLists removes duplicate MLIST entries that share the same
+// group (Room) and MonsterID — some monster groups (e.g. group 107) are
+// defined identically in more than one script file (MONSTERS.SCR and
+// HAVEN.SCR both define group 107's muldragun spawns), and without dedup
+// the spawn logic would treat each duplicate as an independent spawn slot,
+// doubling the effective spawn rate. Keeps the last definition, consistent
+// with deduplicateItems/deduplicateMonsters/deduplicateRooms.
+func deduplicateMonsterLists(lists []gameworld.MonsterList) []gameworld.MonsterList {
+	type key struct{ room, monsterID int }
+	seen := make(map[key]int)
+	var out []gameworld.MonsterList
+	for _, ml := range lists {
+		k := key{ml.Room, ml.MonsterID}
+		if idx, ok := seen[k]; ok {
+			out[idx] = ml
+		} else {
+			seen[k] = len(out)
+			out = append(out, ml)
+		}
+	}
+	return out
 }
 
 func deduplicateItems(items []gameworld.ItemDef) []gameworld.ItemDef {
@@ -262,6 +359,15 @@ func (p *fileParser) parse() {
 				}
 			}
 			p.pos++
+		case "BREAKMOD":
+			if len(fields) >= 3 {
+				adjID, err1 := strconv.Atoi(fields[1])
+				modifier, err2 := strconv.Atoi(fields[2])
+				if err1 == nil && err2 == nil {
+					p.result.BreakMods = append(p.result.BreakMods, gameworld.BreakModDef{AdjID: adjID, Modifier: modifier})
+				}
+			}
+			p.pos++
 		case "MADJDEF":
 			if len(fields) >= 3 {
 				id, _ := strconv.Atoi(fields[1])
@@ -328,6 +434,8 @@ func (p *fileParser) parse() {
 			p.pos++
 		case "CEVENT":
 			p.parseCEvent(fields)
+		case "MACRO":
+			p.parseMacro(fields)
 		case "ORGDEF":
 			if def, ok := parseOrgDef(fields); ok {
 				p.result.OrgDefs = append(p.result.OrgDefs, def)
@@ -359,7 +467,12 @@ func (p *fileParser) parseCEvent(fields []string) {
 		}
 		cf := strings.Fields(cline)
 		cc := strings.ToUpper(cf[0])
-		if cc == "NUMBER" || cc == "INUMBER" || cc == "MNUMBER" || cc == "CEVENT" {
+		// Same top-level-only boundary set used by parseRoom/parseMacro/parseItem/
+		// parseMonster — a CEVENT body must not swallow an unrelated MACRO (or other
+		// top-level directive) that happens to follow it before the next NUMBER/CEVENT.
+		if cc == "NUMBER" || cc == "INUMBER" || cc == "MNUMBER" ||
+			cc == "MLIST" || cc == "FORAGEDEF" || cc == "MINDEF" ||
+			cc == "MACRO" || cc == "MONEYDEF" || cc == "REGIONDEF" || cc == "CEVENT" {
 			break
 		}
 		if cc == "VARIABLE" {
@@ -383,6 +496,54 @@ func (p *fileParser) parseCEvent(fields []string) {
 		p.pos++
 	}
 	p.result.CEvents = append(p.result.CEvents, ce)
+}
+
+// parseMacro parses a MACRO N block starting at p.pos and appends it to p.result.Macros.
+// Macro bodies hold the same content as a room/item body (VARIABLE decls, IF*
+// conditional blocks, bare ACTION commands) and are attached to rooms/items
+// elsewhere via CALL N. On return p.pos points to the first line after the macro body.
+func (p *fileParser) parseMacro(fields []string) {
+	if len(fields) < 2 {
+		p.pos++
+		return
+	}
+	id, _ := strconv.Atoi(fields[1])
+	macro := gameworld.Macro{ID: id}
+	p.pos++
+	for p.pos < len(p.lines) {
+		mline := strings.TrimSpace(p.lines[p.pos])
+		if mline == "" || strings.HasPrefix(mline, ";") {
+			p.pos++
+			continue
+		}
+		mf := strings.Fields(mline)
+		mc := strings.ToUpper(mf[0])
+		if mc == "NUMBER" || mc == "INUMBER" || mc == "MNUMBER" || mc == "CEVENT" ||
+			mc == "MACRO" || mc == "MLIST" || mc == "FORAGEDEF" || mc == "MINDEF" ||
+			mc == "MONEYDEF" || mc == "REGIONDEF" {
+			break
+		}
+		if mc == "VARIABLE" {
+			if len(mf) >= 2 {
+				p.result.Variables = append(p.result.Variables, gameworld.Variable{Name: mf[1]})
+			}
+			p.pos++
+			continue
+		}
+		if strings.HasPrefix(mc, "IF") {
+			block := p.parseScriptBlock(mf)
+			macro.Scripts = append(macro.Scripts, block)
+			continue
+		}
+		if mc == "ECHO" || mc == "AFFECT" || mc == "RANDOM" || mc == "EQUAL" || mc == "ADD" || mc == "SUB" ||
+			mc == "NEWITEM" || mc == "REMOVEITEM" || mc == "GENMON" || mc == "KILLMON" || mc == "GMMSG" {
+			macro.Scripts = append(macro.Scripts, gameworld.ScriptBlock{
+				Type: "ACTION", Actions: []gameworld.ScriptAction{{Command: mc, Args: mf[1:]}},
+			})
+		}
+		p.pos++
+	}
+	p.result.Macros = append(p.result.Macros, macro)
 }
 
 func (p *fileParser) parseRoom(fields []string) {
@@ -490,7 +651,7 @@ func (p *fileParser) parseRoom(fields []string) {
 			if len(fields) >= 2 {
 				room.Region, _ = strconv.Atoi(fields[1])
 			}
-		case "FORGE", "LOOM", "MINEA", "MINEB", "MINEC",
+		case "FORGE", "LOOM", "FLETCHER", "MINEA", "MINEB", "MINEC",
 			"BUY_ARMOR", "BUY_SKINS", "BUY_JEWELRY", "SUBMERGED",
 			"MOVEMENT_ASTRAL", "HEALER", "BANK":
 			room.Modifiers = append(room.Modifiers, cmd)
@@ -511,8 +672,13 @@ func (p *fileParser) parseRoom(fields []string) {
 				p.result.Variables = append(p.result.Variables, gameworld.Variable{Name: fields[1]})
 			}
 		case "CALL":
-			// CALL macro — requires loading MACRO definitions from ROOMX.SCR/ROOMY.SCR.
-			// Not yet implemented; left as-is for now.
+			// CALL macro — attaches a reusable MACRO N block's scripts to this room.
+			// Resolved once all files are parsed (see resolveRoomMacroCalls in ParseConfig),
+			// since the macro may be defined in a file loaded before or after this one.
+			if len(fields) >= 2 {
+				id, _ := strconv.Atoi(fields[1])
+				room.MacroCalls = append(room.MacroCalls, id)
+			}
 		case "CEVENT":
 			p.parseCEvent(fields)
 			continue
@@ -634,6 +800,11 @@ func (p *fileParser) parseItem(fields []string) {
 		case "VARIABLE":
 			if len(fields) >= 2 {
 				p.result.Variables = append(p.result.Variables, gameworld.Variable{Name: fields[1]})
+			}
+		case "CALL":
+			if len(fields) >= 2 {
+				id, _ := strconv.Atoi(fields[1])
+				item.MacroCalls = append(item.MacroCalls, id)
 			}
 		}
 		p.pos++
@@ -860,6 +1031,11 @@ func (p *fileParser) parseMonster(fields []string) {
 			block := p.parseScriptBlock(fields)
 			mon.Scripts = append(mon.Scripts, block)
 			continue
+		case "SCRIPTMACRO":
+			if len(fields) >= 2 {
+				id, _ := strconv.Atoi(fields[1])
+				mon.MacroCalls = append(mon.MacroCalls, id)
+			}
 		}
 		p.pos++
 	}
@@ -1028,13 +1204,13 @@ func (p *fileParser) parseScriptBlock(fields []string) gameworld.ScriptBlock {
 				}
 				if strings.HasPrefix(ecmd, "IF") {
 					child := p.parseScriptBlock(efields)
-					block.ElseChildren = append(block.ElseChildren, child)
+					block.ElseBody = append(block.ElseBody, gameworld.ScriptStep{Block: &child})
 					continue
 				}
-				block.ElseActions = append(block.ElseActions, gameworld.ScriptAction{
+				block.ElseBody = append(block.ElseBody, gameworld.ScriptStep{Action: &gameworld.ScriptAction{
 					Command: ecmd,
 					Args:    efields[1:],
-				})
+				}})
 				p.pos++
 			}
 			continue
@@ -1054,16 +1230,29 @@ func (p *fileParser) parseScriptBlock(fields []string) gameworld.ScriptBlock {
 				// Implicit ENDIF — return current block, let parent re-parse this line
 				return block
 			}
+			// Some original scripts have a missing ENDIF on an if-elseif chain testing
+			// the same variable (e.g. RANDOM X; IFVAR X = 1 ... ENDIF; IFVAR X = 2 ... ENDIF),
+			// often because a single-action nested guard like IFNOITEM/IFITEM swallowed the
+			// chain member's own ENDIF. Seeing the same condition type + variable repeated
+			// with equality checks is a strong signal this is a sibling branch, not a child —
+			// implicitly close. Restricted to "=" on both sides so it doesn't misfire on the
+			// common, legitimate pattern of nesting relational checks on the same variable to
+			// form a range (e.g. IFVAR DIGGING > 5 { IFVAR DIGGING < 10 { ... } }), which is a
+			// real nested child, not a sibling chain.
+			if cmd == block.Type && len(fields) > 2 && len(block.Args) > 1 &&
+				fields[1] == block.Args[0] && block.Args[1] == "=" && fields[2] == "=" {
+				return block
+			}
 			child := p.parseScriptBlock(fields)
-			block.Children = append(block.Children, child)
+			block.Body = append(block.Body, gameworld.ScriptStep{Block: &child})
 			continue
 		}
 
 		// It's an action
-		block.Actions = append(block.Actions, gameworld.ScriptAction{
+		block.Body = append(block.Body, gameworld.ScriptStep{Action: &gameworld.ScriptAction{
 			Command: cmd,
 			Args:    fields[1:],
-		})
+		}})
 		p.pos++
 	}
 

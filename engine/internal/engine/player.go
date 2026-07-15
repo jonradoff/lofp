@@ -138,6 +138,7 @@ type Player struct {
 	// Combat
 	Stance        int           `bson:"-" json:"-"`          // StanceNormal..StanceBerserk
 	CombatTarget  *CombatTarget `bson:"-" json:"-"`          // current combat target
+	Targets       []int         `bson:"-" json:"-"`          // TARGET command: up to 6 monster instance IDs for multi-target spells
 	DefenseBonus  int           `bson:"-" json:"-"`          // from spells/psi
 	PreparedPsi   int           `bson:"-" json:"-"`          // prepared psi discipline ID
 	ActivePsi     map[int]bool `bson:"-" json:"-"`          // currently maintained psi disciplines
@@ -151,6 +152,11 @@ type Player struct {
 	StrengthBuffExpiry time.Time `bson:"strengthBuffExpiry,omitempty" json:"strengthBuffExpiry,omitempty"`
 	StrengthBuffBonus  int       `bson:"strengthBuffBonus,omitempty" json:"strengthBuffBonus,omitempty"`
 
+	// Temporary agility buff (Agility I/II/III spells)
+	AgilityBuffID     int       `bson:"agilityBuffId,omitempty" json:"agilityBuffId,omitempty"`
+	AgilityBuffExpiry time.Time `bson:"agilityBuffExpiry,omitempty" json:"agilityBuffExpiry,omitempty"`
+	AgilityBuffBonus  int       `bson:"agilityBuffBonus,omitempty" json:"agilityBuffBonus,omitempty"`
+
 	// Temporary Mystic Armor buff (spell 102)
 	MysticArmorExpiry time.Time `bson:"mysticArmorExpiry,omitempty" json:"mysticArmorExpiry,omitempty"`
 	MysticArmorBonus  int       `bson:"mysticArmorBonus,omitempty" json:"mysticArmorBonus,omitempty"`
@@ -162,6 +168,15 @@ type Player struct {
 	// Haste / Slow spell timers (spell 210 / 211)
 	HasteExpiry time.Time `bson:"hasteExpiry,omitempty" json:"hasteExpiry,omitempty"`
 	SlowExpiry  time.Time `bson:"slowExpiry,omitempty" json:"slowExpiry,omitempty"`
+
+	// Fly spell timer (spell 224) — CanFly from this spell only lasts until FlyExpiry.
+	// Zero value means flight (if any) came from a race ability or maintained psi power instead.
+	FlyExpiry time.Time `bson:"flyExpiry,omitempty" json:"flyExpiry,omitempty"`
+
+	// Elemental resistance shields (Heat Shield / Cold Shield, spells 507/508):
+	// while active, damage of that element taken is reduced by 50%.
+	HeatShieldExpiry time.Time `bson:"heatShieldExpiry,omitempty" json:"heatShieldExpiry,omitempty"`
+	ColdShieldExpiry time.Time `bson:"coldShieldExpiry,omitempty" json:"coldShieldExpiry,omitempty"`
 
 	// Spell preparation reagent (transient — which item arch was verified at PREPARE time)
 	PreparedSpellReagentArch int `bson:"-" json:"-"`
@@ -195,8 +210,29 @@ type Player struct {
 	GroupMembers  []string `bson:"-" json:"-"` // if this player is a leader, who's in their group
 	IsGroupLeader bool     `bson:"-" json:"-"`
 
+	// Social blocking (persistent): AVOID/UNAVOID/ALLOW/UNALLOW. AvoidList
+	// blocks physical interactive emotes (KISS, NIBBLE, etc.) and HOLD from
+	// the named players; AllowList overrides AvoidList for named players.
+	AvoidList []string `bson:"avoidList,omitempty" json:"avoidList,omitempty"`
+	AllowList []string `bson:"allowList,omitempty" json:"allowList,omitempty"`
+
+	// Carry system (transient): a submitting or dead player can be picked up
+	// and carried between rooms by another player.
+	CarriedBy string `bson:"-" json:"-"` // FirstName of the player carrying this player, if any
+	Carrying  string `bson:"-" json:"-"` // FirstName of the player this player is carrying, if any
+
 	// Summoned creature (transient — cleared on server restart)
 	SummonedCreatureID int `bson:"-" json:"-"` // monster instance ID of active summoned creature (0 = none)
+
+	// Speak with Dead (spell 311): lets a dead player speak despite being otherwise incapacitated
+	SpeakWhileDead bool `bson:"-" json:"-"`
+
+	// Regeneration (spell 343): heal-over-time state
+	RegenerationAmount    int `bson:"-" json:"-"` // per-tick heal amount
+	RegenerationTicksLeft int `bson:"-" json:"-"` // remaining once-per-minute ticks
+
+	// Last command entered, for the "." repeat shortcut
+	LastCommand string `bson:"-" json:"-"`
 
 	// Teleport marks (1-10) → room number
 	Marks map[int]int `bson:"marks,omitempty" json:"marks,omitempty"`
@@ -247,6 +283,7 @@ type Player struct {
 	DescLine1  string `bson:"descLine1,omitempty" json:"descLine1,omitempty"` // custom description lines (visible on EXAMINE)
 	DescLine2  string `bson:"descLine2,omitempty" json:"descLine2,omitempty"`
 	DescLine3  string `bson:"descLine3,omitempty" json:"descLine3,omitempty"`
+	Appearance string `bson:"appearance,omitempty" json:"appearance,omitempty"` // player-set line shown on EXAMINE after worn items (APPEARANCE command)
 	EntryEcho  string `bson:"entryEcho,omitempty" json:"entryEcho,omitempty"` // custom room entry text (replaces "X arrives.")
 	ExitEcho   string `bson:"exitEcho,omitempty" json:"exitEcho,omitempty"`   // custom room exit text (replaces "X goes north.")
 

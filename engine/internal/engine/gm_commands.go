@@ -23,6 +23,10 @@ func (e *GameEngine) processGMCommand(ctx context.Context, player *Player, verb 
 		return e.gmGo(ctx, player, args)
 	case "@ADDITEM":
 		return e.gmAddItem(ctx, player, args)
+	case "@GIVE":
+		return e.gmGive(ctx, player, args)
+	case "@TAKE":
+		return e.gmTake(ctx, player, args)
 	case "@DELETE":
 		return e.gmDelete(ctx, player, args)
 	case "@RDATA":
@@ -89,6 +93,8 @@ func (e *GameEngine) processGMCommand(ctx context.Context, player *Player, verb 
 		return e.gmGenMon(player, args)
 	case "@SPAWN":
 		return e.gmSpawn(player, args)
+	case "@TREASURE":
+		return e.gmTreasure(player, args)
 	case "@ACTIVATE":
 		return &CommandResult{Messages: []string{"Monster activated."}}
 	case "@SEDATE":
@@ -230,6 +236,7 @@ func (e *GameEngine) gmHelp() *CommandResult {
 		"@find <archnum>        - Find all instances of an item",
 		"@genmon <monster#>     - Generate monster (sedated)",
 		"@get <record#>         - Pick up item by record number",
+		"@give [#] <item> to <plr> - Silently give item from your inventory to a player",
 		"@glossary <word>       - Look up a noun/adj by name",
 		"@gm                    - Put on Host Hat (visible as GM)",
 		"@go <room#>            - Teleport to a room",
@@ -266,7 +273,9 @@ func (e *GameEngine) gmHelp() *CommandResult {
 		"@snd <text>            - Echo text in current room",
 		"@spawn <monster#>      - Generate monster (active)",
 		"@speech <name> <verb>  - Set speech pattern (e.g. says grimly)",
+		"@take [#] <item> from <plr> - Silently take item from a player's inventory into yours",
 		"@title <name> <title>  - Set player title (e.g. the Baroness)",
+		"@treasure <level>      - Conjure a lootable chest/coffer/strongbox at the given treasure level (may be locked/trapped)",
 		"@trigcevent <id>       - Immediately fire a cyclic event (for testing)",
 		"@unlock <item>         - Unlock item silently",
 		"@whisper <name> <text> - Whisper to player anywhere",
@@ -335,6 +344,99 @@ func (e *GameEngine) gmAddItem(ctx context.Context, player *Player, args []strin
 	room.Items = append(room.Items, ri)
 	name := e.getItemNounName(itemDef)
 	return &CommandResult{Messages: []string{fmt.Sprintf("Added %s (archetype %d) to the room.", name, arch)}}
+}
+
+// gmGive silently moves an item from the GM's inventory into a player's inventory.
+// Usage: @give [#] <item name> to <player name>, e.g. "@give 2 enchanted randar
+// broadsword to elara" gives Elara the second enchanted randar broadsword the GM
+// is carrying.
+func (e *GameEngine) gmGive(ctx context.Context, player *Player, args []string) *CommandResult {
+	toIdx := -1
+	for i, a := range args {
+		if strings.ToUpper(a) == "TO" {
+			toIdx = i
+			break
+		}
+	}
+	if toIdx <= 0 || toIdx >= len(args)-1 {
+		return &CommandResult{Messages: []string{"Usage: @give <item> to <player>"}}
+	}
+	itemName := strings.ToLower(strings.Join(args[:toIdx], " "))
+	targetName := strings.Join(args[toIdx+1:], " ")
+	itemName, skip := parseOrdinal(itemName)
+
+	target, err := e.resolvePlayerByNameLive(ctx, targetName)
+	if err != nil {
+		return &CommandResult{Messages: []string{err.Error()}}
+	}
+
+	for i, ii := range player.Inventory {
+		itemDef := e.items[ii.Archetype]
+		if itemDef == nil {
+			continue
+		}
+		name := e.getItemNounName(itemDef)
+		if !matchesTarget(name, itemName, e.getAdjName(ii.Adj1), e.getAdjName(ii.Adj2), e.getAdjName(ii.Adj3)) {
+			continue
+		}
+		if skip > 0 {
+			skip--
+			continue
+		}
+		fullName := e.formatItemName(itemDef, ii.Adj1, ii.Adj2, ii.Adj3, ii.Tail)
+		target.Inventory = append(target.Inventory, ii)
+		player.Inventory = append(player.Inventory[:i], player.Inventory[i+1:]...)
+		e.SavePlayer(ctx, player)
+		e.SavePlayer(ctx, target)
+		return &CommandResult{Messages: []string{fmt.Sprintf("You silently give %s to %s.", fullName, target.FullName())}}
+	}
+	return &CommandResult{Messages: []string{"You don't have that."}}
+}
+
+// gmTake silently moves an item from a player's inventory into the GM's inventory.
+// Usage: @take [#] <item name> from <player name>, e.g. "@take 3 babich root from
+// elara" pulls the third babich root out of Elara's inventory.
+func (e *GameEngine) gmTake(ctx context.Context, player *Player, args []string) *CommandResult {
+	fromIdx := -1
+	for i, a := range args {
+		if strings.ToUpper(a) == "FROM" {
+			fromIdx = i
+			break
+		}
+	}
+	if fromIdx <= 0 || fromIdx >= len(args)-1 {
+		return &CommandResult{Messages: []string{"Usage: @take <item> from <player>"}}
+	}
+	itemName := strings.ToLower(strings.Join(args[:fromIdx], " "))
+	targetName := strings.Join(args[fromIdx+1:], " ")
+	itemName, skip := parseOrdinal(itemName)
+
+	target, err := e.resolvePlayerByNameLive(ctx, targetName)
+	if err != nil {
+		return &CommandResult{Messages: []string{err.Error()}}
+	}
+
+	for i, ii := range target.Inventory {
+		itemDef := e.items[ii.Archetype]
+		if itemDef == nil {
+			continue
+		}
+		name := e.getItemNounName(itemDef)
+		if !matchesTarget(name, itemName, e.getAdjName(ii.Adj1), e.getAdjName(ii.Adj2), e.getAdjName(ii.Adj3)) {
+			continue
+		}
+		if skip > 0 {
+			skip--
+			continue
+		}
+		fullName := e.formatItemName(itemDef, ii.Adj1, ii.Adj2, ii.Adj3, ii.Tail)
+		player.Inventory = append(player.Inventory, ii)
+		target.Inventory = append(target.Inventory[:i], target.Inventory[i+1:]...)
+		e.SavePlayer(ctx, player)
+		e.SavePlayer(ctx, target)
+		return &CommandResult{Messages: []string{fmt.Sprintf("You silently take %s from %s.", fullName, target.FullName())}}
+	}
+	return &CommandResult{Messages: []string{fmt.Sprintf("%s doesn't have that.", target.FullName())}}
 }
 
 func (e *GameEngine) gmDelete(ctx context.Context, player *Player, args []string) *CommandResult {
@@ -478,6 +580,9 @@ func (e *GameEngine) gmKill(ctx context.Context, player *Player, args []string) 
 	}
 	target.BodyPoints = 0
 	target.Dead = true
+	target.CombatTarget = nil
+	target.Joined = false
+	target.Position = 2 // laying down
 	e.SavePlayer(ctx, target)
 	return &CommandResult{Messages: []string{fmt.Sprintf("%s has been slain.", target.FullName())}}
 }
@@ -665,6 +770,47 @@ func (e *GameEngine) gmSpawn(player *Player, args []string) *CommandResult {
 	return &CommandResult{
 		Messages:      []string{fmt.Sprintf("Spawned %s (active) in room %d.", name, player.RoomNumber)},
 		RoomBroadcast: []string{genText},
+	}
+}
+
+// gmTreasure conjures a lootable chest/coffer/strongbox in the GM's room at the
+// given treasure level, using the same generator monster kills use (randomChestDrop
+// in treasure.go, populateContainerLoot in containers.go) — so the container may
+// come out locked and/or trapped just like a real drop.
+func (e *GameEngine) gmTreasure(player *Player, args []string) *CommandResult {
+	if len(args) < 1 {
+		return &CommandResult{Messages: []string{"Usage: @treasure <level>  (1-100+; drives lock difficulty, trap chance, and loot quality)"}}
+	}
+	level, err := strconv.Atoi(args[0])
+	if err != nil || level < 1 {
+		return &CommandResult{Messages: []string{"Invalid treasure level. Usage: @treasure <level>"}}
+	}
+	room := e.rooms[player.RoomNumber]
+	if room == nil {
+		return &CommandResult{Messages: []string{"You are nowhere."}}
+	}
+
+	item := e.randomChestDrop(level)
+	if item == nil {
+		return &CommandResult{Messages: []string{"No suitable container item found in the item table."}}
+	}
+	item.Ref = nextRoomItemRef(room)
+	room.Items = append(room.Items, *item)
+	e.populateContainerLoot(player.RoomNumber, item.Ref, level)
+
+	def := e.items[item.Archetype]
+	plainName := e.formatItemName(def, item.Adj1, item.Adj2, item.Adj3, item.Extend)
+	gmName := e.formatContainerName(def, item.Adj1, item.Adj2, item.Adj3, item.State, item.Extend)
+	trapNote := ""
+	if item.Val4 != 0 {
+		trapNote = " (trapped)"
+	}
+
+	e.Events.Publish("gm", fmt.Sprintf("GM %s conjured %s at treasure level %d in room %d", player.FirstName, plainName, level, player.RoomNumber))
+
+	return &CommandResult{
+		Messages:      []string{fmt.Sprintf("Conjured %s%s at treasure level %d (ref %d).", gmName, trapNote, level, item.Ref)},
+		RoomBroadcast: []string{fmt.Sprintf("%s appears out of thin air!", capitalize(plainName))},
 	}
 }
 
@@ -1225,29 +1371,37 @@ if len(args) >= 2 {
 	found := false
 
 	// Wielded
-	if target.Wielded != nil {
-		name := e.formatInventoryItemName(target.Wielded)
-		if itemTarget == "" || strings.Contains(strings.ToLower(name), itemTarget) {
-			msgs = append(msgs, e.formatFullItemDebug(target.Wielded, "WIELDING"))
-			found = true
-		}
+	if target.Wielded != nil && e.gmItemMatchesTarget(target.Wielded, itemTarget) {
+		msgs = append(msgs, e.formatFullItemDebug(target.Wielded, "WIELDING"))
+		found = true
 	}
 
 	// Worn items
-	for _, item := range target.Worn {
-		name := e.formatInventoryItemName(&item)
-		if itemTarget == "" || strings.Contains(strings.ToLower(name), itemTarget) {
-			msgs = append(msgs, e.formatFullItemDebug(&item, fmt.Sprintf("WORN (%s)", item.WornSlot)))
+	for i := range target.Worn {
+		item := &target.Worn[i]
+		if e.gmItemMatchesTarget(item, itemTarget) {
+			msgs = append(msgs, e.formatFullItemDebug(item, fmt.Sprintf("WORN (%s)", item.WornSlot)))
 			found = true
 		}
 	}
 
-	// Inventory
-	for i, item := range target.Inventory {
-		name := e.formatInventoryItemName(&item)
-		if itemTarget == "" || strings.Contains(strings.ToLower(name), itemTarget) {
-			msgs = append(msgs, e.formatFullItemDebug(&item, fmt.Sprintf("INV #%d", i)))
+	// Inventory (and one level into any open container's contents — e.g. a
+	// potion vial sitting inside an open bag)
+	for i := range target.Inventory {
+		item := &target.Inventory[i]
+		if e.gmItemMatchesTarget(item, itemTarget) {
+			msgs = append(msgs, e.formatFullItemDebug(item, fmt.Sprintf("INV #%d", i)))
 			found = true
+		}
+		def := e.items[item.Archetype]
+		if def != nil && isContainerDef(def) && containerIsOpen(def, item.State) {
+			for j := range item.Contents {
+				ci := &item.Contents[j]
+				if e.gmItemMatchesTarget(ci, itemTarget) {
+					msgs = append(msgs, e.formatFullItemDebug(ci, fmt.Sprintf("INV #%d > CONTENTS #%d", i, j)))
+					found = true
+				}
+			}
 		}
 	}
 
@@ -1256,6 +1410,25 @@ if len(args) >= 2 {
 	}
 
 	return &CommandResult{Messages: msgs}
+}
+
+// gmItemMatchesTarget reports whether item matches itemTarget for GM item-lookup
+// commands (@iexamine, @editem) — either by substring of its formatted name, or,
+// for a LIQCONTAINER holding a potion, by the potion's liquid-appearance phrase
+// (e.g. "crimson potion"), regardless of which vessel currently holds it.
+func (e *GameEngine) gmItemMatchesTarget(item *InventoryItem, itemTarget string) bool {
+	if itemTarget == "" {
+		return true
+	}
+	name := strings.ToLower(e.formatInventoryItemName(item))
+	if strings.Contains(name, itemTarget) {
+		return true
+	}
+	def := e.items[item.Archetype]
+	if phrase := e.potionPhraseIfAny(def, item.Val2, item.Val4); phrase != "" {
+		return strings.Contains(strings.ToLower(phrase), itemTarget)
+	}
+	return false
 }
 
 func (e *GameEngine) gmGlossary(args []string) *CommandResult {
@@ -1487,6 +1660,7 @@ func (e *GameEngine) gmOpenCloseLock(player *Player, args []string, state string
 		return &CommandResult{Messages: []string{fmt.Sprintf("Usage: @%s <item name>", strings.ToLower(state))}}
 	}
 	target := strings.ToLower(strings.Join(args, " "))
+	target, skip := parseOrdinal(target)
 	room := e.rooms[player.RoomNumber]
 	if room == nil {
 		return &CommandResult{Messages: []string{"You are nowhere."}}
@@ -1496,11 +1670,16 @@ func (e *GameEngine) gmOpenCloseLock(player *Player, args []string, state string
 		if itemDef == nil {
 			continue
 		}
-		name := strings.ToLower(e.getItemNounName(itemDef))
-		if strings.Contains(name, target) {
-			room.Items[i].State = state
-			return &CommandResult{Messages: []string{fmt.Sprintf("Set %s to %s.", name, state)}}
+		name := e.getItemNounName(itemDef)
+		if !matchesTarget(name, target, e.getAdjName(ri.Adj1), e.getAdjName(ri.Adj2), e.getAdjName(ri.Adj3)) {
+			continue
 		}
+		if skip > 0 {
+			skip--
+			continue
+		}
+		room.Items[i].State = state
+		return &CommandResult{Messages: []string{fmt.Sprintf("Set %s to %s.", name, state)}}
 	}
 	return &CommandResult{Messages: []string{"Item not found."}}
 }
@@ -2002,8 +2181,17 @@ func (e *GameEngine) resolvePlayerArg(ctx context.Context, args []string) (*Play
 	if len(args) < 1 {
 		return nil, fmt.Errorf("usage: provide a player name")
 	}
-	name := strings.ToLower(args[0])
-	// Prefer the live online session player (so changes are immediately visible)
+	return e.resolvePlayerByNameLive(ctx, args[0])
+}
+
+// resolvePlayerByNameLive resolves a player by name, preferring the live online
+// session player (so changes are immediately visible) and falling back to a DB
+// lookup for offline players.
+func (e *GameEngine) resolvePlayerByNameLive(ctx context.Context, rawName string) (*Player, error) {
+	name := strings.ToLower(strings.TrimSpace(rawName))
+	if name == "" {
+		return nil, fmt.Errorf("usage: provide a player name")
+	}
 	if e.sessions != nil {
 		for _, p := range e.sessions.OnlinePlayers() {
 			if strings.HasPrefix(strings.ToLower(p.FirstName), name) {
@@ -2011,8 +2199,7 @@ func (e *GameEngine) resolvePlayerArg(ctx context.Context, args []string) (*Play
 			}
 		}
 	}
-	// Fall back to DB lookup for offline players
-	return e.resolvePlayerByName(ctx, args[0])
+	return e.resolvePlayerByName(ctx, name)
 }
 
 // ResolvePlayerByName looks up a player by first name (public for API layer).
@@ -2054,10 +2241,10 @@ func (e *GameEngine) GetPlayer(ctx context.Context, firstName string) (*Player, 
 
 // allGMVerbs is the canonical list of all GM command verbs (with @ prefix).
 var allGMVerbs = []string{
-	"@HELP", "@GO", "@ADDITEM", "@DELETE", "@RDATA", "@HEAL", "@KILL", "@EXP",
+	"@HELP", "@GO", "@ADDITEM", "@GIVE", "@TAKE", "@DELETE", "@RDATA", "@HEAL", "@KILL", "@EXP",
 	"@GM", "@RFLAG", "@HIDE", "@UNHIDE", "@INVIS", "@VIS",
 	"@SND", "@ANNOUNCE", "@BANNER", "@WHO", "@LWHO", "@NUM", "@QSTAT", "@PINV",
-	"@GENMON", "@SPAWN", "@ACTIVATE", "@SEDATE", "@ZAP",
+	"@GENMON", "@SPAWN", "@ACTIVATE", "@SEDATE", "@ZAP", "@TREASURE",
 	"@FIND", "@LIST", "@EXAMINE", "@GLOSSARY", "@PEEK", "@SET", "@RND",
 	"@OPEN", "@CLOSE", "@LOCK", "@UNLOCK",
 	"@GOPLR", "@YANK", "@WHISPER", "@EDPLAYER", "@EDPL", "@EDS", "@EDSK", "@LSK", "@GRANTSP", "@PSI", "@MLIST",
@@ -2127,13 +2314,17 @@ func (e *GameEngine) formatFullItemDebug(item *InventoryItem, location string) s
 	if def != nil && def.ExamineDesc != "" {
 		examineDesc = fmt.Sprintf("\n  ExamineDesc=%q", def.ExamineDesc)
 	}
+	hardness := ""
+	if def != nil && isWeaponItemType(def.Type) {
+		hardness = fmt.Sprintf("\n  Hardness=%d (Weapon Clash break-resistance)", e.weaponHardness(item, def))
+	}
 	return fmt.Sprintf("%s: %s (arch=%d)\n"+
 		"  Adj1=%s | Adj2=%s | Adj3=%s\n"+
-		"  Val1=%d Val2=%d Val3=%d Val4=%d Val5=%d%s%s%s",
+		"  Val1=%d Val2=%d Val3=%d Val4=%d Val5=%d%s%s%s%s",
 		location, baseName, item.Archetype,
 		adj1, adj2, adj3,
 		item.Val1, item.Val2, item.Val3, item.Val4, item.Val5,
-		state, tail, examineDesc)
+		state, tail, examineDesc, hardness)
 }
 
 // gmEdItem implements @editem / @edn.
@@ -2231,15 +2422,11 @@ func (e *GameEngine) gmEdItem(ctx context.Context, gmPlayer *Player, args []stri
 
 	var found []itemRef
 
-	if target.Wielded != nil {
-		name := strings.ToLower(e.formatInventoryItemName(target.Wielded))
-		if strings.Contains(name, itemTarget) {
-			found = append(found, itemRef{item: target.Wielded, label: "WIELDING"})
-		}
+	if target.Wielded != nil && e.gmItemMatchesTarget(target.Wielded, itemTarget) {
+		found = append(found, itemRef{item: target.Wielded, label: "WIELDING"})
 	}
 	for i := range target.Worn {
-		name := strings.ToLower(e.formatInventoryItemName(&target.Worn[i]))
-		if strings.Contains(name, itemTarget) {
+		if e.gmItemMatchesTarget(&target.Worn[i], itemTarget) {
 			found = append(found, itemRef{
 				item:    &target.Worn[i],
 				label:   fmt.Sprintf("WORN (%s)", target.Worn[i].WornSlot),
@@ -2249,14 +2436,29 @@ func (e *GameEngine) gmEdItem(ctx context.Context, gmPlayer *Player, args []stri
 		}
 	}
 	for i := range target.Inventory {
-		name := strings.ToLower(e.formatInventoryItemName(&target.Inventory[i]))
-		if strings.Contains(name, itemTarget) {
+		invItem := &target.Inventory[i]
+		if e.gmItemMatchesTarget(invItem, itemTarget) {
 			found = append(found, itemRef{
-				item:   &target.Inventory[i],
+				item:   invItem,
 				label:  fmt.Sprintf("INV #%d", i),
 				inInv:  true,
 				invIdx: i,
 			})
+		}
+		// One level into any open container's contents (e.g. a potion vial
+		// sitting inside an open bag) — mutated directly via pointer, so no
+		// writeback bookkeeping (inWorn/inInv) is needed for these matches.
+		def := e.items[invItem.Archetype]
+		if def != nil && isContainerDef(def) && containerIsOpen(def, invItem.State) {
+			for j := range invItem.Contents {
+				ci := &invItem.Contents[j]
+				if e.gmItemMatchesTarget(ci, itemTarget) {
+					found = append(found, itemRef{
+						item:  ci,
+						label: fmt.Sprintf("INV #%d > CONTENTS #%d", i, j),
+					})
+				}
+			}
 		}
 	}
 

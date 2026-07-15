@@ -23,7 +23,7 @@ IFPREVERB TAKE -1
     ECHO PLAYER You try to pick the bunnies up, but they manage to squirm out of your grasp.
     ECHO OTHERS %N tries to pick up some bunnies, but they manage to squrim out of %h grasp, one after another.
   ENDIF
-  IFVAR DUMMY2 = 2
+  IFVAR DUMMY1 = 2
     CLEARVERB
     ECHO PLAYER You leap forward, arms outstretched, and try to grab all of the bunnies at once, but fail miserably.
     ECHO OTHERS %N leaps forward, arms outstretched, and tries to grab all of the bunnies at once, but fails miserably.

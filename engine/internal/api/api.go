@@ -58,14 +58,14 @@ type ClientConn interface {
 type Session struct {
 	Player       *engine.Player
 	Conn         ClientConn
-	CaptureID    string    // active capture session ID, empty if not recording
-	lastCmdTime  time.Time // rate limiting: last command timestamp
-	cmdCount     int       // rate limiting: commands in current window
+	CaptureID    string      // active capture session ID, empty if not recording
+	lastCmdTime  time.Time   // rate limiting: last command timestamp
+	cmdCount     int         // rate limiting: commands in current window
 	chatTimes    []time.Time // chat flood: timestamps of recent broadcasts
 	cmdTimes     []time.Time // command rate: sliding window for 10/10s limit
-	authFailures int        // auth attempt failures (disconnect after 3)
-	lastActivity time.Time  // idle timeout tracking
-	quitSent     bool       // QUIT already broadcast departure
+	authFailures int         // auth attempt failures (disconnect after 3)
+	lastActivity time.Time   // idle timeout tracking
+	quitSent     bool        // QUIT already broadcast departure
 }
 
 // wsConn wraps a gorilla WebSocket connection to implement ClientConn.
@@ -102,7 +102,6 @@ func (w *wsConn) Close() error {
 func (w *wsConn) RemoteAddr() string {
 	return w.conn.RemoteAddr().String()
 }
-
 
 // getClientIP extracts the real client IP from the request, preferring
 // Fly-Client-IP (set by Fly.io proxy), then X-Forwarded-For, then RemoteAddr.
@@ -203,6 +202,13 @@ func NewServer(ge *engine.GameEngine, parsed *gameworld.ParsedData, authSvc *aut
 	// Set up room broadcast for background tasks (monsters, CEVENTs)
 	ge.SetRoomBroadcast(func(roomNumber int, messages []string) {
 		s.broadcastToRoom(roomNumber, "", messages)
+	})
+
+	// Room broadcast that excludes one player — used by scheduled script segments
+	// (SETEVENT/CONTEVENT) whose triggering player already received the same
+	// ECHO ALL text via a direct message.
+	ge.SetRoomBroadcastExclude(func(roomNumber int, excludeName string, messages []string) {
+		s.broadcastToRoom(roomNumber, excludeName, messages)
 	})
 
 	// Local-only broadcast for monster activity (no hub, this machine only)
@@ -490,7 +496,9 @@ func (s *Server) handleGameWS(w http.ResponseWriter, r *http.Request) {
 	defer func() {
 		s.connMu.Lock()
 		s.connsByIP[ip]--
-		if s.connsByIP[ip] <= 0 { delete(s.connsByIP, ip) }
+		if s.connsByIP[ip] <= 0 {
+			delete(s.connsByIP, ip)
+		}
 		s.connMu.Unlock()
 	}()
 
@@ -779,7 +787,9 @@ func (s *Server) handleGameWS(w http.ResponseWriter, r *http.Request) {
 			cutoff := now.Add(-10 * time.Second)
 			var recentCmds []time.Time
 			for _, t := range session.cmdTimes {
-				if t.After(cutoff) { recentCmds = append(recentCmds, t) }
+				if t.After(cutoff) {
+					recentCmds = append(recentCmds, t)
+				}
 			}
 			session.cmdTimes = append(recentCmds, now)
 			if !session.Player.IsGM && !isGive && len(session.cmdTimes) > 20 {
@@ -816,7 +826,9 @@ func (s *Server) handleGameWS(w http.ResponseWriter, r *http.Request) {
 				cutoff := now.Add(-9 * time.Second)
 				var recent []time.Time
 				for _, t := range session.chatTimes {
-					if t.After(cutoff) { recent = append(recent, t) }
+					if t.After(cutoff) {
+						recent = append(recent, t)
+					}
 				}
 				session.chatTimes = recent
 				if len(session.chatTimes) >= 10 {
@@ -1042,6 +1054,11 @@ func (s *Server) broadcastToRoom(roomNumber int, excludeName string, messages []
 		ExcludePlayers: allExcludes,
 		Messages:       messages,
 	})
+
+	// Relay to any summoner whose familiar/summoned creature is watching this room
+	// (COMMAND WATCH WILL) — covers player speech, actions, combat, and arrivals/departures,
+	// not just monster AI activity.
+	s.engine.ForwardToWatchers(roomNumber, messages)
 }
 
 func (s *Server) sendToPlayer(firstName string, messages []string) {

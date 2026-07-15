@@ -9,6 +9,250 @@ export default function VersionNotes({ onBack }: { onBack: () => void }) {
 
         <div className="space-y-6 text-sm">
           <section>
+            <h2 className="text-amber-400 text-lg font-bold mb-1">v11.10.0 &mdash; July 14, 2026</h2>
+            <p className="text-gray-400 mb-3">Alchemy &amp; potion brewing rebuilt from the ground up, plus fixes to spell targeting, item script dispatch, and Wood Lore crafting.</p>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Alchemy &amp; Brewing</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Reagent recognition rebuilt &mdash; <code className="text-amber-300">BREW</code> now identifies every catalyst and reagent by its actual name (e.g. mandrake root, babich root, muur crystal), matching the original &ldquo;Art of Alchemy&rdquo; reference notes, instead of a per-instance field almost no real ingredient in the world ever had set</li>
+                  <li>Brewing order no longer matters &mdash; the catalyst and two reagents can be added in any order, as documented</li>
+                  <li>Fixed reagent/container name matching so <code className="text-amber-300">BREW MANDRAKE ROOT IN FLASK</code> and similar actually find the named items</li>
+                  <li>Potion sip count now matches the container&rsquo;s real capacity (Vial 2, Flask 5, Flagon 6, Bottle 10, Ewer 6) instead of a random 2&ndash;5 regardless of vessel</li>
+                  <li>Brewed potions now get a random liquid-appearance adjective like any other potion (e.g. &ldquo;a fuming potion&rdquo;) instead of showing as plain &ldquo;some liquid&rdquo; when examined</li>
+                  <li>Removed the reference &ldquo;Bottle Color&rdquo; column from the recipe list and completion messages &mdash; that was only the original compiling player&rsquo;s personal notes, not a game mechanic</li>
+                  <li>Each <code className="text-amber-300">BREW</code> step now takes a 15-second round (7 sec under Haste), matching other crafting skills</li>
+                  <li>Successfully brewing a potion now awards experience scaled to its recipe level (level &times; 20), the same formula used for jewelry/wood/weaving crafts</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Spellcasting</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li><code className="text-amber-300">CAST</code> now supports ordinal targeting for item-targeted spells like Enchantment &mdash; <code className="text-amber-300">CAST 2 RAPIER</code> correctly enchants the second rapier instead of failing</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Item Scripts</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li><code className="text-amber-300">LIGHT</code> and <code className="text-amber-300">EXTINGUISH</code> now check a named item&rsquo;s own script before falling back to standard lighting logic</li>
+                  <li><code className="text-amber-300">PLAY</code> now runs a named instrument&rsquo;s own script instead of always printing generic flavor text &mdash; fixes instruments like the teak flute that have distinct wielded/not-wielded text</li>
+                  <li>Script engine now supports <code className="text-amber-300">IFITEM -1 WIELDED</code> checks (previously only WORN was recognized), and wielded/off-hand items are now correctly tagged when their scripts run</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Wood Lore &amp; Crafting</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Fixed a parser bug where FLETCHER-tagged rooms (bowyer/fletcher shops) were never recognized as valid crafting workshops, blocking Wood Lore <code className="text-amber-300">CRAFT</code> entirely</li>
+                  <li>Fixed several Wood Lore items (musical instruments, staves, and other non-launcher items) awarding zero experience on completion due to missing source data &mdash; they now fall back to a sensible difficulty-based reward</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2 className="text-amber-400 text-lg font-bold mb-1">v11.9.0 &mdash; July 13, 2026</h2>
+            <p className="text-gray-400 mb-3">New potions system &mdash; random potion drops, containers, alchemy analysis, and pouring &mdash; plus several spell-duration fixes and a new APPEARANCE command.</p>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Potions</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Potion containers (bottle, flask, vial) now drop as loot from monster kills or turn up inside chests, filled with 2&ndash;10 sips of a random spell scaled to the monster&rsquo;s treasure level</li>
+                  <li>Flask and vial get a random material adjective (glass, jade, obsidian, crystal, etc.); every container reveals a random liquid appearance (crimson, cloudy, fizzing, reeking, etc.) once opened</li>
+                  <li><code className="text-amber-300">SIP</code>/<code className="text-amber-300">DRINK</code> now actually casts the potion&rsquo;s spell instead of printing &ldquo;[Spell effect coming soon.]&rdquo;</li>
+                  <li><code className="text-amber-300">LOOK IN</code> and plain <code className="text-amber-300">EXAMINE</code> on a potion container report fullness (full, 3/4 full, half full, 1/4 full, almost empty) and describe the liquid inside</li>
+                  <li>New <code className="text-amber-300">POUR &lt;container&gt; INTO &lt;container&gt;</code> command to transfer liquid between containers</li>
+                  <li><code className="text-amber-300">ANALYZE</code> can now identify a potion&rsquo;s magical properties for players with Alchemy skill</li>
+                  <li>Potions (and items generally) sitting inside an open container can now be targeted directly by <code className="text-amber-300">SIP</code>, <code className="text-amber-300">EXAMINE</code>, <code className="text-amber-300">ANALYZE</code>, <code className="text-amber-300">@iexamine</code>, and <code className="text-amber-300">@editem</code> &mdash; including by the potion&rsquo;s own color rather than the vessel holding it (e.g. <code className="text-amber-300">SIP CRIMSON POTION</code>)</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Spell Duration Fixes</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Fly (224) and the new Heat Shield/Cold Shield (507/508) are now proper 20-minute timed buffs like other spells, extending on recast instead of lasting forever or doing nothing at all</li>
+                  <li>Heat Shield and Cold Shield now actually reduce heat and cold damage taken by 50% while active</li>
+                  <li>Potion/scroll/wand-triggered Strength, Agility, Mystic Armor, and defense-spell buffs are now temporary (20 minutes, extending on recast) instead of permanent stacking increases</li>
+                  <li>Psionic Flight (Mind over Matter 10) no longer persists across logout, and players no longer get stuck &ldquo;hovering in the air&rdquo; after landing</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">New Commands</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li><code className="text-amber-300">APPEARANCE</code> (abbr. <code className="text-amber-300">APPEAR</code>) lets you set a custom line shown when others examine you, appended after your worn equipment</li>
+                  <li><code className="text-amber-300">COMMAND LOOK</code> lets a summoned creature look around its room and report back</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2 className="text-amber-400 text-lg font-bold mb-1">v11.8.0 &mdash; July 11, 2026</h2>
+            <p className="text-gray-400 mb-3">New TARGET command for multi-target spellcasting; Chain Lightning, Flaming Arrows, and Siryx&rsquo;s Terrible Tentacles rebuilt to hit every creature you&rsquo;ve targeted.</p>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">TARGET Command</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li><code className="text-amber-300">TARGET &lt;creature&gt;</code> (or <code className="text-amber-300">TAR</code>) builds a list of up to 6 creatures in the room for multi-target spells &mdash; supports ordinal disambiguation (<code className="text-amber-300">TARGET 2 werewolf</code>) just like ATTACK</li>
+                  <li>Targeting the same creature twice is rejected (&ldquo;That is already being targeted.&rdquo;), and the list reports when it&rsquo;s full (6/6)</li>
+                  <li>Targets are automatically dropped from the list if they die, flee, or otherwise leave the room, freeing a slot for a new target</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Chain Lightning (Conjuration 132)</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>With an active TARGET list, the bolt now arcs from you to the named target and then chains through every other targeted creature in turn, each taking its own independently-rolled damage</li>
+                  <li>Falls back to a single bolt at one target if no TARGET list has been built, same as before</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Flaming Arrows (Conjuration 131)</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Now fires one flaming arrow at every creature in your TARGET list, each independently rolled for damage</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Siryx&rsquo;s Terrible Tentacles (Conjuration 134)</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>New immobilize spell &mdash; black tentacles burst from the ground and grab hold of every creature in your TARGET list (or a single named target), with no body-point size limit on what it can restrain</li>
+                  <li>Entangled creatures can&rsquo;t attack or flee, and take crushing damage once every minute until they die, break free, or the spell expires</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2 className="text-amber-400 text-lg font-bold mb-1">v11.7.0 &mdash; July 10, 2026</h2>
+            <p className="text-gray-400 mb-3">Necromancy overhaul &mdash; undead-only Turn/Destroy Undead, Control/Animate Undead, Reconstruction, Regeneration, Speak with Dead, Summon Spectral Warrior; SAY command and &ldquo;.&rdquo; repeat-last-command.</p>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Undead-Only Spells</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Turn Undead I/II (301/302) and Destroy Undead I/II/III (339&ndash;341) now only affect actual undead creatures (RACE 22, e.g. skeletons and zombies) &mdash; casting on a living creature now fizzles with no effect instead of dealing damage</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Control Undead I/II (Necromancy 308/309)</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Dominate an existing undead creature in the room &mdash; <code className="text-amber-300">CAST control undead i &lt;creature&gt;</code> &mdash; and command it with the same <code className="text-amber-300">COMMAND FOLLOW/GUARD/ATTACK/BEGONE</code> verbs used on summoned elementals</li>
+                  <li>Control Undead I only works on undead with 100 or fewer body points; Control Undead II raises the cap to 200</li>
+                  <li>Control lasts 40 minutes &mdash; afterward the undead breaks free of its bonds and turns hostile again</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Animate Skeleton / Animate Zombie (Necromancy 306/307)</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Summon a fresh skeleton or zombie fully under your control, permanent until dismissed &mdash; same command set as a summoned elemental</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Summon Spectral Warrior (Necromancy 353)</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Summons a spectral warrior under your command &mdash; requires some ghoul dust as a reagent, consumed at <code className="text-amber-300">PREPARE</code></li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Undead Healing &amp; Harm</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Body Restoration I/II/III (316&ndash;318) now sear an undead target with holy energy as damage instead of healing them</li>
+                  <li>Reconstruction (337) now only heals undead targets &mdash; casting it on a living creature fizzles with no effect</li>
+                  <li>Regeneration (343) is now a heal-over-time spell: heals once immediately on cast, then heals the same amount again once per minute for 5 more minutes</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Speak with Dead (Necromancy 311)</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Cast on a dead player&rsquo;s body to grant them the power of speech again, even though they remain otherwise incapacitated until DEPART or resurrection</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Commands</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li><code className="text-amber-300">SAY &lt;message&gt;</code> now works as an alias for <code className="text-amber-300">'&lt;message&gt;</code> / <code className="text-amber-300">"&lt;message&gt;</code>, including automatic ask/exclaim detection and speech-manner overrides</li>
+                  <li>Entering <code className="text-amber-300">.</code> by itself now repeats your last entered command (e.g. <code className="text-amber-300">attack fire giant</code> then <code className="text-amber-300">.</code> attacks again)</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2 className="text-amber-400 text-lg font-bold mb-1">v11.6.8 &mdash; July 8, 2026</h2>
+            <p className="text-gray-400 mb-3">INLAY and INSET jeweler commands, spell reagent fixes, and a new Breath of Life resurrection spell.</p>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Jeweler Commands</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Added <code className="text-amber-300">INLAY &lt;item&gt; WITH &lt;gem&gt;</code> and <code className="text-amber-300">INSET &lt;item&gt; WITH &lt;gem&gt;</code> alongside <code className="text-amber-300">ENCRUST</code> &mdash; same requirements (Jeweler 3, forge/workshop, 2 free adjective slots), different resulting adjective (e.g. an emerald inlaid ring, a sapphire inset amulet)</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Spell Reagents</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Fixed Enchantment II and Enchantment III incorrectly demanding a spider eye/imp toe at cast time even when the spell was chanted from a scroll instead of self-prepared &mdash; reagents are now only required when a player prepares and casts the spell themselves</li>
+                  <li>Closed a loophole where casting a reagent-requiring spell in one step (<code className="text-amber-300">CAST &lt;spell&gt; &lt;target&gt;</code> without a prior <code className="text-amber-300">PREPARE</code>) skipped the reagent check entirely &mdash; it now directs you to <code className="text-amber-300">PREPARE ... WITH ...</code> instead</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Breath of Life (Necromancy 305)</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>New resurrection spell &mdash; requires some mandrake root as a reagent (consumed at <code className="text-amber-300">PREPARE</code>), then <code className="text-amber-300">CAST &lt;dead player&gt;</code> to raise them where they fell, restoring 1-10 body points</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2 className="text-amber-400 text-lg font-bold mb-1">v11.6.7 &mdash; July 5, 2026</h2>
+            <p className="text-gray-400 mb-3">Guard-redirected combat message routing, Crescent muldragun lair over-spawning, GM ordinal targeting for lock commands.</p>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Combat</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Fixed guard-redirected monster attacks not sending the defender their own <code className="text-amber-300">[ToHit: X, Roll: Y]</code> detail &mdash; when a player guards another and an attack is redirected to them, the guard now sees their private combat roll instead of only the room&rsquo;s simplified broadcast line</li>
+                  <li>Guard-redirected combat now saves the correct player&rsquo;s health and status afterward &mdash; was previously saving the original target instead of the guard who actually took the hit</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Monster Spawning</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Fixed the Crescent muldragun/bhulondag lair spawning far too many monsters at once &mdash; duplicate <code className="text-amber-300">MLIST</code> spawn entries defined in both MONSTERS.SCR and HAVEN.SCR were being loaded twice, doubling every spawn roll for that group</li>
+                  <li>Monster groups no longer fill to their full population cap in a single check &mdash; each check now adds at most one monster per spawn entry, so numbers build up gradually instead of bursting in all at once</li>
+                  <li>Periodic respawn checks slowed roughly 3.5&times; (about every 30 seconds &rarr; about every 105 seconds)</li>
+                  <li>Added a 20-second per-room spawn cooldown &mdash; a group of players arriving together, or rapidly leaving and re-entering, no longer triggers a separate spawn roll for every single arrival</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">GM Tools</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li><code className="text-amber-300">@unlock</code>/<code className="text-amber-300">@lock</code>/<code className="text-amber-300">@open</code>/<code className="text-amber-300">@close</code> now support ordinal targeting (e.g., <code className="text-amber-300">@unlock 2 door</code>) to disambiguate when multiple matching items are in the room</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2 className="text-amber-400 text-lg font-bold mb-1">v11.6.6 &mdash; July 3, 2026</h2>
+            <p className="text-gray-400 mb-3">Spell cast message overhaul &mdash; original per-spell flavor text, caster/onlooker perspective split, and shared damage lines.</p>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Spell Flavor Text</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Damage spells with no custom text now correctly fall back to generic per-damage-type flavor (bolt of energy, ball of flame, freezing sphere, bolt of lightning, force blast) &mdash; and the caster now sees a second-person line (&ldquo;You form a freezing sphere&hellip;&rdquo;) while onlookers see the third-person version (&ldquo;Chandra forms a freezing sphere&hellip;&rdquo;)</li>
+                  <li>Call Meteor (112) restored to its original two-part effect &mdash; hammers the target with independently-rolled heat and crushing damage, each shown as its own damage line (&ldquo;&hellip;burn to &hellip;&rdquo; / &ldquo;&hellip;blow to &hellip;&rdquo;)</li>
+                  <li>Frost Ray (120), Lightning Bolt (103), Spectral Sword (345), and Earth Spike (523) now use their original spell-specific cast text instead of the generic elemental fallback</li>
+                  <li>Web spell now shows &ldquo;&lt;target&gt; is covered with strands of sticky webbing!&rdquo; to both caster and room, replacing the old generic entangle text</li>
+                  <li>Onlookers in the room now see the same damage line as the caster (e.g. &ldquo;Minor blast to body. [20 Damage]&rdquo;) for every damage spell, instead of only the caster seeing the result</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
             <h2 className="text-amber-400 text-lg font-bold mb-1">v11.6.5 &mdash; July 2, 2026</h2>
             <p className="text-gray-400 mb-3">Foraging overhaul (terrain tables, Wood Lore gating, skill-scaled rarity), crafting material search fix, free player-taught training.</p>
 

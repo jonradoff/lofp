@@ -169,6 +169,18 @@ func (e *GameEngine) LoadPlayer(ctx context.Context, firstName, lastName string)
 		e.SavePlayer(ctx, &player)
 	}
 
+	// Maintained psi powers (e.g. Mind Over Matter 10: Flight) only track their
+	// active state in-memory (ActivePsi is session-only, not persisted). If CanFly
+	// survived a reload but wasn't granted by race or an active Fly spell, the
+	// concentration lapsed when the player disconnected — land them and clear it.
+	if player.CanFly && player.Race != RaceDrakin && (player.FlyExpiry.IsZero() || time.Now().After(player.FlyExpiry)) {
+		player.CanFly = false
+		if player.Position == 4 {
+			player.Position = 0
+		}
+		e.SavePlayer(ctx, &player)
+	}
+
 	return &player, nil
 }
 
@@ -835,6 +847,9 @@ func (e *GameEngine) doChant(ctx context.Context, player *Player, args []string)
 	if len(args) == 0 {
 		return &CommandResult{Messages: []string{"Chant what?"}}
 	}
+	if player.Skills[23] < 1 && !player.IsGM {
+		return &CommandResult{Messages: []string{"You lack the training in Spellcraft to invoke a scroll's magic."}}
+	}
 	target := strings.ToLower(strings.Join(args, " "))
 	target = strings.TrimPrefix(target, "my ")
 	target, ordSkip := parseOrdinal(target)
@@ -871,6 +886,7 @@ func (e *GameEngine) doChant(ctx context.Context, player *Player, args []string)
 
 		player.Inventory = append(player.Inventory[:i], player.Inventory[i+1:]...)
 		player.PreparedSpell = spellNum
+		player.PreparedSpellReagentArch = 0 // scroll casting never requires a reagent
 		scrollRT := applyRoundTime(player, 3)
 		player.RoundTimeExpiry = time.Now().Add(time.Duration(scrollRT) * time.Second)
 		e.SavePlayer(ctx, player)
@@ -905,6 +921,24 @@ func (e *GameEngine) doPositionWithScripts(ctx context.Context, player *Player, 
 					sc.execBlock(block)
 					result.Messages = append(result.Messages, sc.Messages...)
 					result.RoomBroadcast = append(result.RoomBroadcast, sc.RoomMsgs...)
+					// A synchronous MOVE (no PLREVENT delay) relocates the player immediately.
+					if sc.MoveTo > 0 {
+						if newRoom := e.rooms[sc.MoveTo]; newRoom != nil {
+							player.RoomNumber = sc.MoveTo
+							lookResult := e.doLook(player)
+							result.Messages = append(result.Messages, lookResult.Messages...)
+							result.RoomName = lookResult.RoomName
+							result.RoomDesc = lookResult.RoomDesc
+							result.Exits = lookResult.Exits
+							result.Items = lookResult.Items
+							e.applyEntryScripts(ctx, player, newRoom, result)
+						}
+					}
+					// PLREVENT/CONTPLREVENT-deferred actions (e.g. a delayed MOVE) must be
+					// scheduled, or their effects — including the move itself — are lost.
+					if len(sc.DeferredSegments) > 0 {
+						e.scheduleScriptSegments(player, sc.DeferredSegments)
+					}
 				}
 			}
 		}
@@ -1064,12 +1098,46 @@ func (e *GameEngine) doSneak(ctx context.Context, player *Player, args []string)
 	if sneakChance > 90 {
 		sneakChance = 90
 	}
+	sneakSuccess := rand.Intn(100) < sneakChance
+	// doMove unconditionally clears player.Hidden as a side effect of normal movement
+	// (see movement.go) — restore it here based on the sneak roll rather than the
+	// stealth skill silently doing nothing on success.
 	result := e.doMove(ctx, player, dir)
-	if rand.Intn(100) >= sneakChance {
+	if result.OldRoom == 0 {
+		// Move never actually happened (blocked, immobilized, wrong position, etc.) —
+		// stay hidden and don't consume the roll.
+		player.Hidden = true
+		return result
+	}
+	if sneakSuccess {
+		player.Hidden = true
+	} else {
 		player.Hidden = false
 		result.Messages = append(result.Messages, "You have been noticed!")
 	}
 	return result
+}
+
+// doAppearance handles the APPEARANCE command, letting a player set a custom line
+// shown on EXAMINE after the listing of worn items (e.g. "You catch the scent of
+// some exotic cologne wafting from his direction."). APPEARANCE with no text shows
+// the current line; APPEARANCE CLEAR removes it.
+func (e *GameEngine) doAppearance(ctx context.Context, player *Player, rawInput string) *CommandResult {
+	text := extractOriginalArgs(rawInput)
+	if text == "" {
+		if player.Appearance == "" {
+			return &CommandResult{Messages: []string{"You haven't set a custom appearance line. (usage: APPEARANCE <description>, or APPEARANCE CLEAR)"}}
+		}
+		return &CommandResult{Messages: []string{fmt.Sprintf("Your current appearance line: %s", player.Appearance)}}
+	}
+	if strings.EqualFold(text, "clear") || strings.EqualFold(text, "off") || strings.EqualFold(text, "none") {
+		player.Appearance = ""
+		e.SavePlayer(ctx, player)
+		return &CommandResult{Messages: []string{"Your custom appearance line has been cleared."}}
+	}
+	player.Appearance = text
+	e.SavePlayer(ctx, player)
+	return &CommandResult{Messages: []string{fmt.Sprintf("Your appearance line is now: %s", text)}}
 }
 
 // doFly handles the FLY command.

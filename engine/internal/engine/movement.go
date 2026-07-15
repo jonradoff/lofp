@@ -10,6 +10,20 @@ import (
 	"github.com/jonradoff/lofp/internal/gameworld"
 )
 
+// messagesHaveRoundTime reports whether any message already displays a round-time
+// indicator, so callers can skip synthesizing a duplicate "[Round: N sec]" line.
+// Many original scripts bake this display directly into their own ECHO text (e.g.
+// "You make your way across...%c [Round: 5 sec]"), separately from EQUAL ROUNDTIME
+// setting sc.RoundTimeSet — appending both produces a doubled-up line for the player.
+func messagesHaveRoundTime(msgs []string) bool {
+	for _, m := range msgs {
+		if strings.Contains(m, "[Round:") {
+			return true
+		}
+	}
+	return false
+}
+
 func (e *GameEngine) doMove(ctx context.Context, player *Player, dir string) *CommandResult {
 	if player.Immobilized {
 		return &CommandResult{Messages: []string{"You are immobilized and cannot move!"}}
@@ -60,8 +74,8 @@ func (e *GameEngine) doMove(ctx context.Context, player *Player, dir string) *Co
 
 	player.RoomNumber = destNum
 	player.Submitting = false // moving clears submit state
-	e.disengageCombat(player)  // moving clears combat
-	player.GuardTargets = nil  // guard is room-specific
+	e.disengageCombat(player) // moving clears combat
+	player.GuardTargets = nil // guard is room-specific
 	player.GuardPortals = nil
 	player.GuardItems = nil
 
@@ -81,6 +95,61 @@ func (e *GameEngine) doMove(ctx context.Context, player *Player, dir string) *Co
 		}
 	}
 	e.SavePlayer(ctx, player)
+
+	// Relocate followers and summoned creatures BEFORE rendering any room look.
+	// If this happened after doLook (as it used to), the leader's own room
+	// render would list who's present in destNum before the group/summons had
+	// actually been moved there, making it look like they didn't follow.
+	var movedFollowers []*Player
+	if player.IsGroupLeader && len(player.GroupMembers) > 0 && e.sessions != nil {
+		for _, memberName := range player.GroupMembers {
+			for _, p := range e.sessions.OnlinePlayers() {
+				if p.FirstName == memberName && p.RoomNumber == originalRoom && !p.Dead {
+					p.RoomNumber = destNum
+					p.Submitting = false
+					e.disengageCombat(p)
+					e.SavePlayer(ctx, p)
+					movedFollowers = append(movedFollowers, p)
+					break
+				}
+			}
+		}
+	}
+	var summonOldMsgs, summonRoomMsgs []string
+	if e.monsterMgr != nil {
+		e.monsterMgr.mu.Lock()
+		for i := range e.monsterMgr.instances {
+			inst := &e.monsterMgr.instances[i]
+			if inst.Alive && inst.IsSummoned && inst.FollowTarget == player.FirstName && inst.RoomNumber == originalRoom {
+				def := e.monsters[inst.DefNumber]
+				if def != nil {
+					cname := strings.ToLower(FormatMonsterName(def, e.monAdjs))
+					carticle := articleFor(cname, def.Unique)
+					summonOldMsgs = append(summonOldMsgs, fmt.Sprintf("%s%s follows %s %s.", capArticle(carticle), cname, player.FirstName, dirName))
+					summonRoomMsgs = append(summonRoomMsgs, fmt.Sprintf("%s%s follows %s in.", capArticle(carticle), cname, player.FirstName))
+				}
+				e.monsterMgr.moveMonster(i, destNum)
+			}
+		}
+		e.monsterMgr.mu.Unlock()
+	}
+
+	// A carried player travels along, silently — they're passive cargo, not
+	// an active participant, so no entry scripts run for them.
+	if player.Carrying != "" && e.sessions != nil {
+		for _, p := range e.sessions.OnlinePlayers() {
+			if p.FirstName == player.Carrying && p.RoomNumber == originalRoom {
+				p.RoomNumber = destNum
+				e.SavePlayer(ctx, p)
+				if e.sendToPlayer != nil {
+					carriedLook := e.doLook(p)
+					e.sendToPlayer(p.FirstName, carriedLook.Messages)
+				}
+				break
+			}
+		}
+	}
+
 	result := e.doLook(player)
 	result.OldRoom = originalRoom
 	// Invisible GMs move silently — no exit/entry echoes
@@ -100,47 +169,27 @@ func (e *GameEngine) doMove(ctx context.Context, player *Player, dir string) *Co
 	// Run IFENTRY scripts for the destination room
 	e.applyEntryScripts(ctx, player, dest, result)
 
-	// Group movement: if leader has followers, move them too
-	if player.IsGroupLeader && len(player.GroupMembers) > 0 && e.sessions != nil {
-		groupDir := dirName
-		for _, memberName := range player.GroupMembers {
-			for _, p := range e.sessions.OnlinePlayers() {
-				if p.FirstName == memberName && p.RoomNumber == originalRoom && !p.Dead {
-					p.RoomNumber = destNum
-					p.Submitting = false
-					e.disengageCombat(p)
-					e.SavePlayer(ctx, p)
-					// Send the follower a look at the new room
-					if e.sendToPlayer != nil {
-						followLook := e.doLook(p)
-						e.sendToPlayer(p.FirstName, followLook.Messages)
-					}
-					e.applyEntryScripts(ctx, p, dest, &CommandResult{})
-					break
-				}
+	// Group movement echoes + each follower's own room render. Everyone's
+	// RoomNumber was already updated above, so each follower's look (and the
+	// leader's) correctly shows the whole group and any summons as present.
+	if len(movedFollowers) > 0 {
+		for _, p := range movedFollowers {
+			if e.sendToPlayer != nil {
+				followLook := e.doLook(p)
+				e.sendToPlayer(p.FirstName, followLook.Messages)
 			}
+			e.applyEntryScripts(ctx, p, dest, &CommandResult{})
 		}
-		result.OldRoomMsg = append(result.OldRoomMsg, fmt.Sprintf("%s's group goes %s.", player.FirstName, groupDir))
+		result.OldRoomMsg = append(result.OldRoomMsg, fmt.Sprintf("%s's group goes %s.", player.FirstName, dirName))
 		result.RoomBroadcast = append(result.RoomBroadcast, fmt.Sprintf("%s's group arrives.", player.FirstName))
 	}
 
-	// Move any summoned creatures that are following this player
-	if e.monsterMgr != nil {
-		e.monsterMgr.mu.Lock()
-		for i := range e.monsterMgr.instances {
-			inst := &e.monsterMgr.instances[i]
-			if inst.Alive && inst.IsSummoned && inst.FollowTarget == player.FirstName && inst.RoomNumber == originalRoom {
-				def := e.monsters[inst.DefNumber]
-				if def != nil {
-					cname := strings.ToLower(FormatMonsterName(def, e.monAdjs))
-					carticle := articleFor(cname, def.Unique)
-					result.OldRoomMsg = append(result.OldRoomMsg, fmt.Sprintf("%s%s follows %s %s.", capArticle(carticle), cname, player.FirstName, dirName))
-					e.monsterMgr.moveMonster(i, destNum)
-					result.RoomBroadcast = append(result.RoomBroadcast, fmt.Sprintf("%s%s follows %s in.", capArticle(carticle), cname, player.FirstName))
-				}
-			}
-		}
-		e.monsterMgr.mu.Unlock()
+	result.OldRoomMsg = append(result.OldRoomMsg, summonOldMsgs...)
+	result.RoomBroadcast = append(result.RoomBroadcast, summonRoomMsgs...)
+
+	if player.Carrying != "" {
+		result.OldRoomMsg = append(result.OldRoomMsg, fmt.Sprintf("%s carries %s %s.", player.FirstName, player.Carrying, dirName))
+		result.RoomBroadcast = append(result.RoomBroadcast, fmt.Sprintf("%s carries %s in.", player.FirstName, player.Carrying))
 	}
 
 	return result
@@ -338,9 +387,15 @@ func (e *GameEngine) scheduleScriptSegments(player *Player, segments []ScriptSeg
 					e.applyEntryScripts(context.Background(), player, newRoom, &CommandResult{})
 				}
 			}
-			// Deliver room broadcast messages.
-			if len(sc.RoomMsgs) > 0 && e.roomBroadcast != nil {
-				e.roomBroadcast(seg.RoomNumber, sc.RoomMsgs)
+			// Deliver room broadcast messages, excluding player — ECHO ALL populates both
+			// sc.Messages (sent directly above) and sc.RoomMsgs, so without the exclusion
+			// player would receive the same line twice.
+			if len(sc.RoomMsgs) > 0 {
+				if e.roomBroadcastExclude != nil {
+					e.roomBroadcastExclude(seg.RoomNumber, player.FirstName, sc.RoomMsgs)
+				} else if e.roomBroadcast != nil {
+					e.roomBroadcast(seg.RoomNumber, sc.RoomMsgs)
+				}
 			}
 			// Chain further deferred segments recursively.
 			if len(sc.DeferredSegments) > 0 {
@@ -421,7 +476,9 @@ func (e *GameEngine) doGo(ctx context.Context, player *Player, args []string) *C
 	if player.Position != 0 && player.Position != 4 {
 		posNames := map[int]string{1: "sitting", 2: "laying down", 3: "kneeling"}
 		posName := posNames[player.Position]
-		if posName == "" { posName = "not standing" }
+		if posName == "" {
+			posName = "not standing"
+		}
 		return &CommandResult{Messages: []string{fmt.Sprintf("You can't move while %s! Try STANDing first.", posName)}}
 	}
 	if player.RoundTimeExpiry.After(time.Now()) {
@@ -458,7 +515,10 @@ func (e *GameEngine) doGo(ctx context.Context, player *Player, args []string) *C
 		if !matchesTarget(name, target, e.getAdjName(ri.Adj1), e.getAdjName(ri.Adj2), e.getAdjName(ri.Adj3)) {
 			continue
 		}
-		if skip > 0 { skip--; continue }
+		if skip > 0 {
+			skip--
+			continue
+		}
 		if isPortal(itemDef.Type) {
 			return e.doGoPortal(ctx, player, room, &room.Items[i], itemDef)
 		}
@@ -498,7 +558,7 @@ func (e *GameEngine) doGo(ctx context.Context, player *Player, args []string) *C
 			if sc2.RoundTimeSet > 0 {
 				roundTimeSet = sc2.RoundTimeSet
 			}
-			if roundTimeSet > 0 {
+			if roundTimeSet > 0 && !messagesHaveRoundTime(result.Messages) {
 				result.Messages = append(result.Messages, fmt.Sprintf("[Round: %d sec]", roundTimeSet))
 			}
 			if len(result.Messages) == 0 {
@@ -565,7 +625,7 @@ func (e *GameEngine) doGoPortal(ctx context.Context, player *Player, room *gamew
 		if len(sc.DeferredSegments) > 0 {
 			e.scheduleScriptSegments(player, sc.DeferredSegments)
 		}
-		if sc.RoundTimeSet > 0 {
+		if sc.RoundTimeSet > 0 && !messagesHaveRoundTime(result.Messages) {
 			result.Messages = append(result.Messages, fmt.Sprintf("[Round: %d sec]", sc.RoundTimeSet))
 		}
 		if len(result.Messages) == 0 {
@@ -611,6 +671,58 @@ func (e *GameEngine) doGoPortal(ctx context.Context, player *Player, room *gamew
 	player.GuardItems = nil
 	player.RoomNumber = destNum
 	e.SavePlayer(ctx, player)
+
+	// Relocate followers and summoned creatures BEFORE rendering any room look
+	// (see doMove for why — otherwise the group looks like it didn't follow).
+	var movedFollowers []*Player
+	if player.IsGroupLeader && len(player.GroupMembers) > 0 && e.sessions != nil {
+		for _, memberName := range player.GroupMembers {
+			for _, p := range e.sessions.OnlinePlayers() {
+				if p.FirstName == memberName && p.RoomNumber == originalRoom && !p.Dead {
+					p.RoomNumber = destNum
+					p.Submitting = false
+					e.disengageCombat(p)
+					e.SavePlayer(ctx, p)
+					movedFollowers = append(movedFollowers, p)
+					break
+				}
+			}
+		}
+	}
+	var summonOldMsgs, summonRoomMsgs []string
+	if e.monsterMgr != nil {
+		e.monsterMgr.mu.Lock()
+		for i := range e.monsterMgr.instances {
+			inst := &e.monsterMgr.instances[i]
+			if inst.Alive && inst.IsSummoned && inst.FollowTarget == player.FirstName && inst.RoomNumber == originalRoom {
+				def := e.monsters[inst.DefNumber]
+				if def != nil {
+					cname := strings.ToLower(FormatMonsterName(def, e.monAdjs))
+					carticle := articleFor(cname, def.Unique)
+					summonOldMsgs = append(summonOldMsgs, fmt.Sprintf("%s%s follows %s through %s.", capArticle(carticle), cname, player.FirstName, portalName))
+					summonRoomMsgs = append(summonRoomMsgs, fmt.Sprintf("%s%s follows %s in.", capArticle(carticle), cname, player.FirstName))
+				}
+				e.monsterMgr.moveMonster(i, destNum)
+			}
+		}
+		e.monsterMgr.mu.Unlock()
+	}
+
+	// A carried player travels through the portal along, silently.
+	if player.Carrying != "" && e.sessions != nil {
+		for _, p := range e.sessions.OnlinePlayers() {
+			if p.FirstName == player.Carrying && p.RoomNumber == originalRoom {
+				p.RoomNumber = destNum
+				e.SavePlayer(ctx, p)
+				if e.sendToPlayer != nil {
+					carriedLook := e.doLook(p)
+					e.sendToPlayer(p.FirstName, carriedLook.Messages)
+				}
+				break
+			}
+		}
+	}
+
 	lookResult := e.doLook(player)
 	result.Messages = append(result.Messages, lookResult.Messages...)
 	result.RoomName = lookResult.RoomName
@@ -624,45 +736,26 @@ func (e *GameEngine) doGoPortal(ctx context.Context, player *Player, room *gamew
 	// Run IFENTRY scripts at destination
 	e.applyEntryScripts(ctx, player, dest, result)
 
-	// Group movement: if leader has followers, move them through the portal too
-	if player.IsGroupLeader && len(player.GroupMembers) > 0 && e.sessions != nil {
-		for _, memberName := range player.GroupMembers {
-			for _, p := range e.sessions.OnlinePlayers() {
-				if p.FirstName == memberName && p.RoomNumber == originalRoom && !p.Dead {
-					p.RoomNumber = destNum
-					p.Submitting = false
-					e.disengageCombat(p)
-					e.SavePlayer(ctx, p)
-					if e.sendToPlayer != nil {
-						followLook := e.doLook(p)
-						e.sendToPlayer(p.FirstName, followLook.Messages)
-					}
-					e.applyEntryScripts(ctx, p, dest, &CommandResult{})
-					break
-				}
+	// Group movement echoes + each follower's own room render (everyone's
+	// RoomNumber was already updated above, so it correctly shows the group).
+	if len(movedFollowers) > 0 {
+		for _, p := range movedFollowers {
+			if e.sendToPlayer != nil {
+				followLook := e.doLook(p)
+				e.sendToPlayer(p.FirstName, followLook.Messages)
 			}
+			e.applyEntryScripts(ctx, p, dest, &CommandResult{})
 		}
 		result.OldRoomMsg = append(result.OldRoomMsg, fmt.Sprintf("%s's group goes through %s.", player.FirstName, portalName))
 		result.RoomBroadcast = append(result.RoomBroadcast, fmt.Sprintf("%s's group arrives.", player.FirstName))
 	}
 
-	// Move any summoned creatures that are following this player through the portal too
-	if e.monsterMgr != nil {
-		e.monsterMgr.mu.Lock()
-		for i := range e.monsterMgr.instances {
-			inst := &e.monsterMgr.instances[i]
-			if inst.Alive && inst.IsSummoned && inst.FollowTarget == player.FirstName && inst.RoomNumber == originalRoom {
-				def := e.monsters[inst.DefNumber]
-				if def != nil {
-					cname := strings.ToLower(FormatMonsterName(def, e.monAdjs))
-					carticle := articleFor(cname, def.Unique)
-					result.OldRoomMsg = append(result.OldRoomMsg, fmt.Sprintf("%s%s follows %s through %s.", capArticle(carticle), cname, player.FirstName, portalName))
-					e.monsterMgr.moveMonster(i, destNum)
-					result.RoomBroadcast = append(result.RoomBroadcast, fmt.Sprintf("%s%s follows %s in.", capArticle(carticle), cname, player.FirstName))
-				}
-			}
-		}
-		e.monsterMgr.mu.Unlock()
+	result.OldRoomMsg = append(result.OldRoomMsg, summonOldMsgs...)
+	result.RoomBroadcast = append(result.RoomBroadcast, summonRoomMsgs...)
+
+	if player.Carrying != "" {
+		result.OldRoomMsg = append(result.OldRoomMsg, fmt.Sprintf("%s carries %s through %s.", player.FirstName, player.Carrying, portalName))
+		result.RoomBroadcast = append(result.RoomBroadcast, fmt.Sprintf("%s carries %s in.", player.FirstName, player.Carrying))
 	}
 
 	return result
@@ -675,7 +768,9 @@ func (e *GameEngine) doClimb(ctx context.Context, player *Player, args []string)
 	if player.Position != 0 && player.Position != 4 {
 		posNames := map[int]string{1: "sitting", 2: "laying down", 3: "kneeling"}
 		posName := posNames[player.Position]
-		if posName == "" { posName = "not standing" }
+		if posName == "" {
+			posName = "not standing"
+		}
 		return &CommandResult{Messages: []string{fmt.Sprintf("You can't climb while %s! Try STANDing first.", posName)}}
 	}
 	if player.RoundTimeExpiry.After(time.Now()) {
@@ -697,7 +792,10 @@ func (e *GameEngine) doClimb(ctx context.Context, player *Player, args []string)
 		}
 		name := e.getItemNounName(itemDef)
 		if matchesTarget(name, target, e.getAdjName(ri.Adj1), e.getAdjName(ri.Adj2), e.getAdjName(ri.Adj3)) {
-			if skip > 0 { skip--; continue }
+			if skip > 0 {
+				skip--
+				continue
+			}
 
 			// Run IFVERB CLIMB scripts first (some rooms use IFVERB instead of IFPREVERB)
 			sc := e.RunVerbScripts(player, room, "CLIMB", &room.Items[i], itemDef)
@@ -717,7 +815,7 @@ func (e *GameEngine) doClimb(ctx context.Context, player *Player, args []string)
 					// MOVEGROUP: move entire group to destination. Post-MOVEGROUP echoes
 					// were already suppressed in doEcho via moveGroupFired, so sc.Messages
 					// only contains pre-success messages. Append round time then move.
-					if sc.RoundTimeSet > 0 {
+					if sc.RoundTimeSet > 0 && !messagesHaveRoundTime(result.Messages) {
 						result.Messages = append(result.Messages, fmt.Sprintf("[Round: %d sec]", sc.RoundTimeSet))
 					}
 					e.moveGroupToRoom(ctx, player.RoomNumber, sc.MoveGroupTo)
@@ -745,7 +843,7 @@ func (e *GameEngine) doClimb(ctx context.Context, player *Player, args []string)
 					e.SavePlayer(ctx, player)
 				}
 
-				if sc.RoundTimeSet > 0 {
+				if sc.RoundTimeSet > 0 && !messagesHaveRoundTime(result.Messages) {
 					result.Messages = append(result.Messages, fmt.Sprintf("[Round: %d sec]", sc.RoundTimeSet))
 				}
 				if len(result.Messages) == 0 {

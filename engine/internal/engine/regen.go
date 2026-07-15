@@ -159,6 +159,34 @@ func (e *GameEngine) regenTick() {
 			}
 		}
 
+		// Check for expired agility buff
+		if p.AgilityBuffID > 0 && !p.AgilityBuffExpiry.IsZero() && time.Now().After(p.AgilityBuffExpiry) {
+			p.Agility -= p.AgilityBuffBonus
+			p.AgilityBuffID = 0
+			p.AgilityBuffBonus = 0
+			p.AgilityBuffExpiry = time.Time{}
+			changed = true
+			if e.sendToPlayer != nil {
+				e.sendToPlayer(p.FirstName, []string{"The magical agility fades. You feel your normal reflexes return."})
+			}
+		}
+
+		// Check for expired Heat Shield / Cold Shield
+		if !p.HeatShieldExpiry.IsZero() && time.Now().After(p.HeatShieldExpiry) {
+			p.HeatShieldExpiry = time.Time{}
+			changed = true
+			if e.sendToPlayer != nil {
+				e.sendToPlayer(p.FirstName, []string{"Your resistance to heat fades."})
+			}
+		}
+		if !p.ColdShieldExpiry.IsZero() && time.Now().After(p.ColdShieldExpiry) {
+			p.ColdShieldExpiry = time.Time{}
+			changed = true
+			if e.sendToPlayer != nil {
+				e.sendToPlayer(p.FirstName, []string{"Your resistance to cold fades."})
+			}
+		}
+
 		// Check for expired Mystic Armor buff
 		if p.MysticArmorBonus > 0 && !p.MysticArmorExpiry.IsZero() && time.Now().After(p.MysticArmorExpiry) {
 			p.DefenseBonus -= p.MysticArmorBonus
@@ -199,6 +227,40 @@ func (e *GameEngine) regenTick() {
 			changed = true
 			if e.sendToPlayer != nil {
 				e.sendToPlayer(p.FirstName, []string{"The magical haste fades. You feel yourself return to normal speed."})
+			}
+		}
+
+		// Regeneration (spell 343) heal-over-time: once per minute for up to 5 more ticks.
+		if p.RegenerationTicksLeft > 0 {
+			if p.BodyPoints < p.MaxBodyPoints {
+				p.BodyPoints += p.RegenerationAmount
+				if p.BodyPoints > p.MaxBodyPoints {
+					p.BodyPoints = p.MaxBodyPoints
+				}
+				if e.sendToPlayer != nil {
+					e.sendToPlayer(p.FirstName, []string{fmt.Sprintf("Regeneration knits your wounds. [+%d BP, %d/%d]", p.RegenerationAmount, p.BodyPoints, p.MaxBodyPoints)})
+				}
+			}
+			p.RegenerationTicksLeft--
+			if p.RegenerationTicksLeft <= 0 {
+				p.RegenerationAmount = 0
+			}
+			changed = true
+		}
+
+		// Check for expired Fly buff
+		if !p.FlyExpiry.IsZero() && time.Now().After(p.FlyExpiry) {
+			p.FlyExpiry = time.Time{}
+			p.CanFly = false
+			changed = true
+			if p.Position == 4 {
+				p.Position = 0
+				if e.roomBroadcast != nil {
+					e.roomBroadcast(p.RoomNumber, []string{fmt.Sprintf("%s drifts to the ground as the magic fades.", p.FirstName)})
+				}
+			}
+			if e.sendToPlayer != nil {
+				e.sendToPlayer(p.FirstName, []string{"The magic sustaining your flight fades. You settle back to the ground."})
 			}
 		}
 

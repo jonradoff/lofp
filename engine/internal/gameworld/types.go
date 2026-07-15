@@ -16,6 +16,7 @@ type Room struct {
 	Region           int               `bson:"region,omitempty" json:"region,omitempty"`
 	Modifiers        []string          `bson:"modifiers" json:"modifiers"` // FORGE, LOOM, MINEA, etc.
 	Scripts          []ScriptBlock     `bson:"scripts" json:"scripts"`     // conditional blocks
+	MacroCalls       []int             `bson:"macroCalls,omitempty" json:"macroCalls,omitempty"` // CALL directives; resolved into Scripts at load time
 	SourceFile       string            `bson:"sourceFile" json:"sourceFile"`
 }
 
@@ -76,6 +77,7 @@ type ItemDef struct {
 	WornSlot    string   `bson:"wornSlot,omitempty" json:"wornSlot,omitempty"`
 	Flags       []string `bson:"flags" json:"flags"` // HIDDEN, LOCKABLE, OPENABLE, etc.
 	Scripts     []ScriptBlock `bson:"scripts,omitempty" json:"scripts,omitempty"`
+	MacroCalls  []int    `bson:"macroCalls,omitempty" json:"macroCalls,omitempty"` // CALL directives; resolved into Scripts at load time
 	ExamineDesc string   `bson:"examineDesc,omitempty" json:"examineDesc,omitempty"`
 	SourceFile  string   `bson:"sourceFile" json:"sourceFile"`
 }
@@ -139,6 +141,7 @@ type MonsterDef struct {
 	PsiLevel       int               `bson:"psiLevel,omitempty" json:"psiLevel,omitempty"`
 	Disciplines    []int             `bson:"disciplines,omitempty" json:"disciplines,omitempty"`
 	Scripts        []ScriptBlock     `bson:"scripts,omitempty" json:"scripts,omitempty"`
+	MacroCalls     []int             `bson:"macroCalls,omitempty" json:"macroCalls,omitempty"` // SCRIPTMACRO directives; resolved into Scripts at load time
 	SourceFile     string            `bson:"sourceFile" json:"sourceFile"`
 }
 
@@ -157,6 +160,14 @@ type MonsterWeapon struct {
 	Probability int `bson:"probability" json:"probability"`
 }
 
+// Macro is a reusable block of script content (IF*/ACTION blocks) defined once
+// with MACRO N and attached to rooms/items via CALL N. Resolved into the
+// referencing room/item's Scripts at load time.
+type Macro struct {
+	ID      int           `bson:"id" json:"id"`
+	Scripts []ScriptBlock `bson:"scripts" json:"scripts"`
+}
+
 // CEvent represents a cyclic event that fires periodically.
 type CEvent struct {
 	ID      int           `bson:"id" json:"id"`
@@ -167,12 +178,29 @@ type CEvent struct {
 
 // ScriptBlock represents a conditional block (IFVERB...ENDIF, etc.)
 type ScriptBlock struct {
-	Type         string         `bson:"type" json:"type"`           // IFVERB, IFPREVERB, IFENTRY, IFSAY, etc.
-	Args         []string       `bson:"args" json:"args"`
-	Actions      []ScriptAction `bson:"actions" json:"actions"`
-	Children     []ScriptBlock  `bson:"children,omitempty" json:"children,omitempty"` // nested IFs
-	ElseActions  []ScriptAction `bson:"elseActions,omitempty" json:"elseActions,omitempty"`   // ELSE branch actions
-	ElseChildren []ScriptBlock  `bson:"elseChildren,omitempty" json:"elseChildren,omitempty"` // ELSE branch nested IFs
+	Type string   `bson:"type" json:"type"` // IFVERB, IFPREVERB, IFENTRY, IFSAY, ACTION, etc.
+	Args []string `bson:"args" json:"args"`
+
+	// Actions holds a flat action list only for Type=="ACTION" pseudo-blocks — the
+	// single-action wrappers used in top-level lists (room/item/monster Scripts,
+	// CEVENT/MACRO bodies) for a bare action line with no surrounding conditional.
+	Actions []ScriptAction `bson:"actions,omitempty" json:"actions,omitempty"`
+
+	// Body and ElseBody hold a real conditional block's main/ELSE branch as a single
+	// ordered sequence of actions and nested blocks, in original source order — e.g.
+	// "action1; IFVAR...ENDIF; action2" executes action1, then the nested IFVAR, then
+	// action2, rather than every flat action running before any nested block regardless
+	// of where it appeared in the source (the old split Actions/Children representation
+	// couldn't preserve that interleaving).
+	Body     []ScriptStep `bson:"body,omitempty" json:"body,omitempty"`
+	ElseBody []ScriptStep `bson:"elseBody,omitempty" json:"elseBody,omitempty"`
+}
+
+// ScriptStep is one item in a script block's Body/ElseBody: exactly one of Action or
+// Block is set, preserving the original source order of actions and nested conditionals.
+type ScriptStep struct {
+	Action *ScriptAction `bson:"action,omitempty" json:"action,omitempty"`
+	Block  *ScriptBlock  `bson:"block,omitempty" json:"block,omitempty"`
 }
 
 // ScriptAction represents a command inside a conditional block.
@@ -197,6 +225,14 @@ type AdjDef struct {
 type MonsterAdjDef struct {
 	ID   int    `bson:"id" json:"id"`
 	Name string `bson:"name" json:"name"`
+}
+
+// BreakModDef maps an item adjective ID to a hardness/break-chance modifier
+// (positive = harder to damage, negative = easier to damage). Parsed from
+// BREAKMOD directives, e.g. "BREAKMOD 5 100" for the alzyron adjective.
+type BreakModDef struct {
+	AdjID    int `bson:"adjId" json:"adjId"`
+	Modifier int `bson:"modifier" json:"modifier"`
 }
 
 // Variable is a named game variable.

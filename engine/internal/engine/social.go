@@ -121,10 +121,12 @@ func (e *GameEngine) runVerbScriptsForTarget(ctx context.Context, player *Player
 	allPlayerItems := make([]InventoryItem, 0, len(player.Inventory)+len(player.Worn)+1)
 	allPlayerItems = append(allPlayerItems, player.Inventory...)
 	allPlayerItems = append(allPlayerItems, player.Worn...)
+	wieldedIdx := -1
 	if player.Wielded != nil {
+		wieldedIdx = len(allPlayerItems)
 		allPlayerItems = append(allPlayerItems, *player.Wielded)
 	}
-	for _, ii := range allPlayerItems {
+	for idx, ii := range allPlayerItems {
 		itemDef := e.items[ii.Archetype]
 		if itemDef == nil {
 			continue
@@ -132,9 +134,19 @@ func (e *GameEngine) runVerbScriptsForTarget(ctx context.Context, player *Player
 		name := e.getItemNounName(itemDef)
 		if matchesTarget(name, target, e.getAdjName(ii.Adj1), e.getAdjName(ii.Adj2), e.getAdjName(ii.Adj3)) {
 			if skip > 0 { skip--; continue }
+			// State drives IFITEM -1 WORN/WIELDED checks (e.g. item 631's flute script).
+			itemState := ii.State
+			if itemState == "" {
+				if idx == wieldedIdx {
+					itemState = "WIELDED"
+				} else if ii.WornSlot != "" {
+					itemState = "WORN"
+				}
+			}
 			tempRI := gameworld.RoomItem{Ref: -1, Archetype: ii.Archetype,
 				Adj1: ii.Adj1, Adj2: ii.Adj2, Adj3: ii.Adj3,
-				Val1: ii.Val1, Val2: ii.Val2, Val3: ii.Val3, Val4: ii.Val4, Val5: ii.Val5}
+				Val1: ii.Val1, Val2: ii.Val2, Val3: ii.Val3, Val4: ii.Val4, Val5: ii.Val5,
+				State: itemState}
 			result := &CommandResult{}
 			sc0 := e.RunItemScripts(player, room, &tempRI, itemDef)
 			sc1 := e.RunPreverbScripts(player, room, verb, &tempRI, itemDef)
@@ -331,6 +343,9 @@ func (e *GameEngine) doFollow(player *Player, args []string) *CommandResult {
 
 // doHold handles the HOLD command (group) — leader adds a member.
 func (e *GameEngine) doHold(player *Player, found *Player) *CommandResult {
+	if e.isAvoiding(player.FirstName, found) {
+		return avoidBlockMessage(found.FirstName)
+	}
 	if found.Following != "" {
 		return &CommandResult{Messages: []string{fmt.Sprintf("%s is already following someone.", found.FirstName)}}
 	}
@@ -358,18 +373,25 @@ func (e *GameEngine) moveGroupToRoom(ctx context.Context, srcRoom, destRoom int)
 	if dest == nil || e.sessions == nil {
 		return
 	}
+	// Relocate everyone first, then render looks — otherwise the first player
+	// moved would get a look at destRoom before their groupmates had actually
+	// arrived, making it look like the rest of the group didn't come along.
+	var moved []*Player
 	for _, p := range e.sessions.OnlinePlayers() {
 		if p.RoomNumber == srcRoom && !p.Dead {
 			p.RoomNumber = destRoom
 			p.Submitting = false
 			e.disengageCombat(p)
 			e.SavePlayer(ctx, p)
-			if e.sendToPlayer != nil {
-				lookResult := e.doLook(p)
-				e.sendToPlayer(p.FirstName, lookResult.Messages)
-			}
-			e.applyEntryScripts(ctx, p, dest, &CommandResult{})
+			moved = append(moved, p)
 		}
+	}
+	for _, p := range moved {
+		if e.sendToPlayer != nil {
+			lookResult := e.doLook(p)
+			e.sendToPlayer(p.FirstName, lookResult.Messages)
+		}
+		e.applyEntryScripts(ctx, p, dest, &CommandResult{})
 	}
 }
 
@@ -818,6 +840,26 @@ func (e *GameEngine) HandlePlayerDisconnect(player *Player) {
 				}
 			}
 		}
+	}
+
+	// Break any carry relationship this player was part of, either way.
+	if player.Carrying != "" && e.sessions != nil {
+		for _, p := range e.sessions.OnlinePlayers() {
+			if p.FirstName == player.Carrying {
+				p.CarriedBy = ""
+				break
+			}
+		}
+		player.Carrying = ""
+	}
+	if player.CarriedBy != "" && e.sessions != nil {
+		for _, p := range e.sessions.OnlinePlayers() {
+			if p.FirstName == player.CarriedBy {
+				p.Carrying = ""
+				break
+			}
+		}
+		player.CarriedBy = ""
 	}
 }
 

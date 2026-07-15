@@ -9,6 +9,46 @@ import (
 	"github.com/jonradoff/lofp/internal/gameworld"
 )
 
+// undergarmentHiddenBy maps inner (undergarment) worn slots to the outer slots
+// that layer over them and hide them from a LOOK description.
+var undergarmentHiddenBy = map[string][]string{
+	"WORN_TORSO1": {"WORN_TORSO2", "WORN_TORSO3", "WORN_ARMOR", "WORN_BODY"},
+	"WORN_TRUNK1": {"WORN_TRUNK2"},
+	"WORN_FEET1":  {"WORN_FEET2"},
+}
+
+// revealedLayerName returns the display name of the inner-layer item that becomes
+// visible after removedSlot is vacated (i.e. removedSlot was the last outer layer
+// covering it), or "" if nothing is revealed.
+func (e *GameEngine) revealedLayerName(player *Player, removedSlot string) string {
+	wornSlots := map[string]bool{}
+	for _, w := range player.Worn {
+		wornSlots[w.WornSlot] = true
+	}
+	for innerSlot, outerSlots := range undergarmentHiddenBy {
+		wasCoveredByRemoved := false
+		stillCovered := false
+		for _, outer := range outerSlots {
+			if outer == removedSlot {
+				wasCoveredByRemoved = true
+			} else if wornSlots[outer] {
+				stillCovered = true
+			}
+		}
+		if !wasCoveredByRemoved || stillCovered {
+			continue
+		}
+		for _, w := range player.Worn {
+			if w.WornSlot == innerSlot {
+				if def := e.items[w.Archetype]; def != nil {
+					return e.formatItemName(def, w.Adj1, w.Adj2, w.Adj3, w.Tail)
+				}
+			}
+		}
+	}
+	return ""
+}
+
 // doLookFull always shows the full room description (explicit LOOK command).
 func (e *GameEngine) doLookFull(player *Player) *CommandResult {
 	room := e.rooms[player.RoomNumber]
@@ -91,6 +131,9 @@ func (e *GameEngine) doLook(player *Player) *CommandResult {
 				posDesc = " (kneeling)"
 			case 4:
 				posDesc = " (flying)"
+			}
+			if p.CarriedBy != "" {
+				posDesc += fmt.Sprintf(" (carried by %s)", p.CarriedBy)
 			}
 			if p.WolfForm {
 				playersHere = append(playersHere, "a wolf"+posDesc)
@@ -259,6 +302,7 @@ func (e *GameEngine) doLookAt(player *Player, args []string) *CommandResult {
 			break
 		}
 	}
+	remaining, mine := stripMyPrefix(remaining)
 	remaining, ordSkip := parseOrdinal(remaining)
 	skip := ordSkip
 
@@ -272,22 +316,26 @@ func (e *GameEngine) doLookAt(player *Player, args []string) *CommandResult {
 			def.Container == "IN" || def.Container == "ON"
 	}
 
-	// Search room items
-	for _, ri := range room.Items {
-		itemDef := e.items[ri.Archetype]
-		if itemDef == nil {
-			continue
-		}
-		name := e.getItemNounName(itemDef)
-		if matchesTarget(name, remaining, e.getAdjName(ri.Adj1), e.getAdjName(ri.Adj2), e.getAdjName(ri.Adj3)) {
-			if skip > 0 { skip--; continue }
-			if prefix == "IN" && isContainer(itemDef) {
-				return e.lookInRoomContainer(player, itemDef, &ri)
+	// Search room items — skipped entirely when "my" was used (e.g. "look in my chest").
+	if !mine {
+		for _, ri := range room.Items {
+			itemDef := e.items[ri.Archetype]
+			if itemDef == nil {
+				continue
 			}
-			if prefix != "" {
-				return e.lookPrefixRoomItem(room, itemDef, &ri, prefix)
+			if e.matchesItemOrPotion(itemDef, ri.Adj1, ri.Adj2, ri.Adj3, ri.Val2, ri.Val4, remaining) {
+				if skip > 0 {
+					skip--
+					continue
+				}
+				if prefix == "IN" && isContainer(itemDef) {
+					return e.lookInRoomContainer(player, itemDef, &ri)
+				}
+				if prefix != "" {
+					return e.lookPrefixRoomItem(room, itemDef, &ri, prefix)
+				}
+				return e.examineRoomItem(player, room, itemDef, &ri)
 			}
-			return e.examineRoomItem(player, room, itemDef, &ri)
 		}
 	}
 
@@ -295,40 +343,79 @@ func (e *GameEngine) doLookAt(player *Player, args []string) *CommandResult {
 	allItems := make([]InventoryItem, 0, len(player.Inventory)+len(player.Worn)+2)
 	allItems = append(allItems, player.Inventory...)
 	allItems = append(allItems, player.Worn...)
-	if player.Wielded != nil { allItems = append(allItems, *player.Wielded) }
-	if player.OffHand != nil { allItems = append(allItems, *player.OffHand) }
+	if player.Wielded != nil {
+		allItems = append(allItems, *player.Wielded)
+	}
+	if player.OffHand != nil {
+		allItems = append(allItems, *player.OffHand)
+	}
 	for _, ii := range allItems {
 		itemDef := e.items[ii.Archetype]
 		if itemDef == nil {
 			continue
 		}
-		name := e.getItemNounName(itemDef)
-		if matchesTarget(name, remaining, e.getAdjName(ii.Adj1), e.getAdjName(ii.Adj2), e.getAdjName(ii.Adj3)) {
-			if skip > 0 { skip--; continue }
-			if prefix == "IN" && isContainer(itemDef) {
-				return e.lookInContainer(player, itemDef, &ii)
+		if e.matchesItemOrPotion(itemDef, ii.Adj1, ii.Adj2, ii.Adj3, ii.Val2, ii.Val4, remaining) {
+			if skip > 0 {
+				skip--
+				continue
 			}
-			if prefix != "" {
-				displayName := e.formatItemName(itemDef, ii.Adj1, ii.Adj2, ii.Adj3, ii.Tail)
-				return &CommandResult{Messages: []string{fmt.Sprintf("You see nothing noteworthy %s %s.", strings.ToLower(prefix), displayName)}}
+			return e.examineCarriedItem(player, room, ii, itemDef, prefix)
+		}
+	}
+
+	// Not found directly — check one level into any open carried container
+	// (e.g. an alchemist checking a vial of potion sitting inside an open bag).
+	for _, container := range e.findOpenContainers(allItems) {
+		for _, ci := range container.Contents {
+			cdef := e.items[ci.Archetype]
+			if cdef == nil {
+				continue
 			}
-			msgs := []string{fmt.Sprintf("You look at your %s.", name)}
-			if sm := e.scrollLookMsg(ii.Archetype, ii.Val3); sm != "" {
-				msgs = append(msgs, sm)
-			} else if itemDef.ExamineDesc != "" {
-				msgs = append(msgs, descriptionToMessages(itemDef.ExamineDesc)...)
+			if e.matchesItemOrPotion(cdef, ci.Adj1, ci.Adj2, ci.Adj3, ci.Val2, ci.Val4, remaining) {
+				if skip > 0 {
+					skip--
+					continue
+				}
+				return e.examineCarriedItem(player, room, ci, cdef, prefix)
 			}
-			// Run IFPREVERB/IFVERB LOOK scripts on the item (Ref=-1 = inventory item, skip room scripts)
-			ri := &gameworld.RoomItem{Ref: -1, Archetype: ii.Archetype, Adj1: ii.Adj1, Adj2: ii.Adj2, Adj3: ii.Adj3, Val1: ii.Val1, Val2: ii.Val2, Val3: ii.Val3, Val4: ii.Val4, Val5: ii.Val5}
-			sc := e.RunPreverbScripts(player, room, "LOOK", ri, itemDef)
-			if len(sc.Messages) > 0 {
-				msgs = append(msgs, sc.Messages...)
-			}
-			return &CommandResult{Messages: msgs, RoomBroadcast: sc.RoomMsgs}
 		}
 	}
 
 	return &CommandResult{Messages: []string{"You don't see that here."}}
+}
+
+// examineCarriedItem builds the EXAMINE/LOOK result for one matched item that the
+// player is carrying — held directly, worn, wielded, or nested one level inside an
+// open container. A LIQCONTAINER examined without an IN/ON/UNDER prefix implicitly
+// behaves like LOOK IN, reporting fullness and what liquid (if any) is visible.
+func (e *GameEngine) examineCarriedItem(player *Player, room *gameworld.Room, ii InventoryItem, itemDef *gameworld.ItemDef, prefix string) *CommandResult {
+	name := e.getItemNounName(itemDef)
+	if (prefix == "" || prefix == "IN") && itemDef.Type == "LIQCONTAINER" {
+		if !containerIsOpen(itemDef, ii.State) {
+			return &CommandResult{Messages: []string{fmt.Sprintf("%s is closed.", capitalize(e.formatItemName(itemDef, ii.Adj1, ii.Adj2, ii.Adj3, ii.Tail)))}}
+		}
+		return &CommandResult{Messages: e.potionLookInMessages(itemDef, ii.Adj1, ii.Val2, ii.Val4, ii.Tail)}
+	}
+	if prefix == "IN" && isContainerDef(itemDef) {
+		return e.lookInContainer(player, itemDef, &ii)
+	}
+	if prefix != "" {
+		displayName := e.formatItemName(itemDef, ii.Adj1, ii.Adj2, ii.Adj3, ii.Tail)
+		return &CommandResult{Messages: []string{fmt.Sprintf("You see nothing noteworthy %s %s.", strings.ToLower(prefix), displayName)}}
+	}
+	msgs := []string{fmt.Sprintf("You look at your %s.", name)}
+	if sm := e.scrollLookMsg(ii.Archetype, ii.Val3); sm != "" {
+		msgs = append(msgs, sm)
+	} else if itemDef.ExamineDesc != "" {
+		msgs = append(msgs, descriptionToMessages(itemDef.ExamineDesc)...)
+	}
+	// Run IFPREVERB/IFVERB LOOK scripts on the item (Ref=-1 = inventory item, skip room scripts)
+	ri := &gameworld.RoomItem{Ref: -1, Archetype: ii.Archetype, Adj1: ii.Adj1, Adj2: ii.Adj2, Adj3: ii.Adj3, Val1: ii.Val1, Val2: ii.Val2, Val3: ii.Val3, Val4: ii.Val4, Val5: ii.Val5}
+	sc := e.RunPreverbScripts(player, room, "LOOK", ri, itemDef)
+	if len(sc.Messages) > 0 {
+		msgs = append(msgs, sc.Messages...)
+	}
+	return &CommandResult{Messages: msgs, RoomBroadcast: sc.RoomMsgs}
 }
 
 // scrollLookMsg returns a description line if the item is a scroll, empty string otherwise.
@@ -390,6 +477,9 @@ func (e *GameEngine) findMonsterInRoomEx(player *Player, target string, includeD
 		monsters = e.monsterMgr.MonstersInRoom(player.RoomNumber)
 	}
 	target = strings.ToLower(strings.TrimSpace(target))
+	// Ordinal prefix/suffix so "attack 2 skeleton" / "attack second skeleton" /
+	// "attack skeleton 2" target the 2nd matching monster instead of the 1st.
+	target, skip := parseOrdinal(target)
 	// Strip leading articles so "a skeleton" matches "skeleton"
 	for _, article := range []string{"a ", "an ", "the ", "some "} {
 		if strings.HasPrefix(target, article) {
@@ -405,6 +495,10 @@ func (e *GameEngine) findMonsterInRoomEx(player *Player, target string, includeD
 		name := strings.ToLower(FormatMonsterName(def, e.monAdjs))
 		noun := strings.ToLower(def.Name)
 		if strings.HasPrefix(name, target) || strings.HasPrefix(noun, target) {
+			if skip > 0 {
+				skip--
+				continue
+			}
 			return &monsters[i], def
 		}
 	}
@@ -586,7 +680,7 @@ func (e *GameEngine) examinePlayer(observer *Player, target *Player) *CommandRes
 			msgs = append(msgs, fmt.Sprintf("%s radiates with magical strength.", heOrShe))
 		}
 	}
-	if target.CanFly && target.Race != RaceDrakin {
+	if target.Position == 4 && target.Race != RaceDrakin {
 		msgs = append(msgs, fmt.Sprintf("%s hovering in the air.", pronoun))
 	}
 	if target.Invisible {
@@ -633,12 +727,6 @@ func (e *GameEngine) examinePlayer(observer *Player, target *Player) *CommandRes
 	for _, w := range target.Worn {
 		wornSlots[w.WornSlot] = true
 	}
-	// undergarmentHiddenBy maps inner slots to the outer slots that cover them
-	undergarmentHiddenBy := map[string][]string{
-		"WORN_TORSO1": {"WORN_TORSO2", "WORN_TORSO3", "WORN_ARMOR", "WORN_BODY"},
-		"WORN_TRUNK1": {"WORN_TRUNK2"},
-		"WORN_FEET1":  {"WORN_FEET2"},
-	}
 	var wornNames []string
 	for _, worn := range target.Worn {
 		if outerSlots, isUnder := undergarmentHiddenBy[worn.WornSlot]; isUnder {
@@ -666,6 +754,11 @@ func (e *GameEngine) examinePlayer(observer *Player, target *Player) *CommandRes
 		}
 	}
 
+	// Player-set custom appearance line (APPEARANCE command)
+	if target.Appearance != "" {
+		msgs = append(msgs, target.Appearance)
+	}
+
 	return &CommandResult{Messages: msgs}
 }
 
@@ -673,13 +766,19 @@ func (e *GameEngine) examinePlayer(observer *Player, target *Player) *CommandRes
 func (e *GameEngine) formatItemNameNoArticle(def *gameworld.ItemDef, adj1, adj2, adj3 int, tail ...string) string {
 	var parts []string
 	if adj1 > 0 {
-		if name, ok := e.adjectives[adj1]; ok { parts = append(parts, name) }
+		if name, ok := e.adjectives[adj1]; ok {
+			parts = append(parts, name)
+		}
 	}
 	if adj2 > 0 {
-		if name, ok := e.adjectives[adj2]; ok { parts = append(parts, name) }
+		if name, ok := e.adjectives[adj2]; ok {
+			parts = append(parts, name)
+		}
 	}
 	if adj3 > 0 {
-		if name, ok := e.adjectives[adj3]; ok { parts = append(parts, name) }
+		if name, ok := e.adjectives[adj3]; ok {
+			parts = append(parts, name)
+		}
 	}
 	parts = append(parts, e.getItemNounName(def))
 	name := strings.Join(parts, " ")
@@ -878,6 +977,17 @@ func matchesTargetOrdinal(nounName, cleanTarget string, skip *int, adjNames ...s
 		return false
 	}
 	return true
+}
+
+// stripMyPrefix detects a leading "my " in a target string (e.g. "my chest" from
+// "look in my chest"). When present, the word is removed so noun-matching still
+// works, and the returned bool tells the caller to restrict its search to the
+// player's own possessions (inventory/worn/wielded) instead of also checking the room.
+func stripMyPrefix(target string) (string, bool) {
+	if rest, ok := strings.CutPrefix(target, "my "); ok {
+		return strings.TrimSpace(rest), true
+	}
+	return target, false
 }
 
 // matchesTarget reports whether the player's target string refers to an item with

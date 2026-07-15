@@ -210,25 +210,26 @@ func simplifiedDamageTier(dmg int) string {
 	}
 }
 
-// weaponClashMetalBonus returns the bonus added to weapon strength during a clash
-// based on metal type. Soft/low-value metals grant no bonus; harder alloys and
-// exotic metals grant increasing bonuses up to +75 for randar.
-func weaponClashMetalBonus(metalName string) int {
-	switch strings.ToLower(metalName) {
-	case "steel":
-		return 50
-	case "truesteel":
-		return 80
-	case "elkyri":
-		return 110
-	case "albescent":
-		return 130
-	case "randar":
-		return 150
-	default:
-		// copper, silver, gold, tin, iron, bronze, wood, etc. — no bonus
+// weaponHardness computes a weapon's break-resistance ("Strength" in the
+// Weapon Clash message): a base value from weight/damage plus the BREAKMOD
+// modifier (from adjnoun.scr) for each of the weapon instance's adjectives
+// (Adj1/Adj2/Adj3). BREAKMOD values are additive per original script data —
+// e.g. a "ceremonial" (-80) "alzyron" (+100) sword nets +20 from adjectives.
+func (e *GameEngine) weaponHardness(wielded *InventoryItem, weaponDef *gameworld.ItemDef) int {
+	if weaponDef == nil {
 		return 0
 	}
+	hardness := weaponDef.Weight*3 + weaponDef.Parameter1*2
+	if wielded == nil {
+		return hardness
+	}
+	for _, adjID := range []int{wielded.Adj1, wielded.Adj2, wielded.Adj3} {
+		if adjID == 0 {
+			continue
+		}
+		hardness += e.breakMods[adjID]
+	}
+	return hardness
 }
 
 // ---- Attack verb by weapon type (from session capture) ----
@@ -268,6 +269,20 @@ func monsterAttackVerb(def *gameworld.MonsterDef, items map[int]*gameworld.ItemD
 }
 
 // ---- Weapon skill mapping ----
+
+// isWeaponItemType reports whether an item type is a melee/ranged weapon
+// (as opposed to armor, shields, or non-combat items).
+func isWeaponItemType(itemType string) bool {
+	switch itemType {
+	case "SLASH_WEAPON", "TWOHAND_WEAPON", "CLAW_WEAPON", "DRAKIN_SLASH",
+		"PUNCTURE_WEAPON", "POLE_WEAPON", "POLETHROWN", "DRAKIN_POLE", "STABTHROWN",
+		"CRUSH_WEAPON", "BLUNT_WEAPON", "DRAKIN_CRUSH",
+		"BOW_WEAPON", "THROWN_WEAPON", "DRAKIN_THROWN", "BITE_WEAPON":
+		return true
+	default:
+		return false
+	}
+}
 
 func weaponSkillForType(itemType string) int {
 	switch itemType {
@@ -757,6 +772,7 @@ func (e *GameEngine) doAttackMonster(ctx context.Context, player *Player, target
 	}
 
 	// Engage
+	e.breakCarryAsCarrier(ctx, player)
 	player.CombatTarget = &CombatTarget{IsMonster: true, MonsterID: inst.ID}
 	player.Joined = true
 	e.monsterMgr.mu.Lock()
@@ -852,15 +868,7 @@ func (e *GameEngine) doAttackMonster(ctx context.Context, player *Player, target
 
 	// Weapon clash on roll < 3 (only vs weapon-wielding monsters)
 	if roll < 3 && weaponDef != nil && len(def.Weapons) > 0 {
-		weaponStr := weaponDef.Weight*3 + weaponDef.Parameter1*2
-		if player.Wielded != nil {
-			for _, adjID := range []int{player.Wielded.Adj1, player.Wielded.Adj2, player.Wielded.Adj3} {
-				if bonus := weaponClashMetalBonus(e.getAdjName(adjID)); bonus > 0 {
-					weaponStr += bonus
-					break
-				}
-			}
-		}
+		weaponStr := e.weaponHardness(player.Wielded, weaponDef)
 		clashRoll := rand.Intn(100) + rand.Intn(100) + 2
 		msgs = append(msgs, fmt.Sprintf(" [ToHit: %d, Roll: %d] Weapon Clash! [Strength: %d, 2d100 Roll: %d]", toHit, roll, weaponStr, clashRoll))
 		if clashRoll > weaponStr {
@@ -1040,15 +1048,48 @@ func (e *GameEngine) doAttackMonster(ctx context.Context, player *Player, target
 			result.Messages = append(result.Messages, fmt.Sprintf(" [ToHit: %d, Roll: %d] Hit!", ohToHit, ohRoll))
 			ohDmg := playerDamage(player, offHandDef)
 			ohDmg = applyArmor(ohDmg, def.Armor)
+			ohImmType := weaponImmunityType(offHandDef)
+			if level, ok := def.Immunities[ohImmType]; ok {
+				ohDmg = applyImmunity(ohDmg, level)
+			}
 			if ohDmg <= 0 {
 				ohDmg = 1
 			}
 			ohPart := randomBodyPart(def.BodyType)
 			result.Messages = append(result.Messages, fmt.Sprintf(" %s %s to %s. [%d Damage]", damageSeverity(ohDmg), ohDmgNoun, ohPart, ohDmg))
+
+			// Weapon elemental crit / slayer bonus (off-hand)
+			if ohCritDmg, ohCritType := weaponCritDamage(player.OffHand, offHandDef, def); ohCritDmg > 0 {
+				ohDmg += ohCritDmg
+				ohCritPart := randomBodyPart(def.BodyType)
+				ohCritSeverity := damageSeverity(ohCritDmg)
+				ohWeaponNoun := strings.ToLower(e.nouns[offHandDef.NameID])
+				switch ohCritType {
+				case "fire":
+					result.Messages = append(result.Messages, fmt.Sprintf(" The %s radiates intense heat!", ohWeaponNoun))
+					result.Messages = append(result.Messages, fmt.Sprintf(" %s burn to %s. [%d Damage]", ohCritSeverity, ohCritPart, ohCritDmg))
+				case "cold":
+					result.Messages = append(result.Messages, fmt.Sprintf(" The %s radiates intense cold!", ohWeaponNoun))
+					result.Messages = append(result.Messages, fmt.Sprintf(" %s freeze to %s. [%d Damage]", ohCritSeverity, ohCritPart, ohCritDmg))
+				case "lightning":
+					result.Messages = append(result.Messages, fmt.Sprintf(" The %s crackles with electricity!", ohWeaponNoun))
+					result.Messages = append(result.Messages, fmt.Sprintf(" %s shock to %s. [%d Damage]", ohCritSeverity, ohCritPart, ohCritDmg))
+				case "slayer":
+					result.Messages = append(result.Messages, " Your weapon resonates against its foe!")
+					result.Messages = append(result.Messages, fmt.Sprintf(" %s strike to %s. [%d Damage]", ohCritSeverity, ohCritPart, ohCritDmg))
+				}
+			}
+
 			ohKilled, ohWoke := e.damageMonster(inst.ID, ohDmg)
 			if ohWoke {
 				result.Messages = append(result.Messages, fmt.Sprintf(" The %s wakes up, startled!", name))
 			}
+
+			// Weapon poison (off-hand)
+			if ohPoisonLvl := weaponPoisonLevel(player.OffHand); ohPoisonLvl > 0 && !ohKilled {
+				result.Messages = append(result.Messages, " Your weapon delivers its venom!")
+			}
+
 			if ohKilled {
 				result.Messages = append(result.Messages, " It collapses, dead.")
 				e.handleMonsterDeath(player, inst, def)
@@ -1184,6 +1225,17 @@ func (e *GameEngine) elementalGuardIntercept(_ *MonsterInstance, attackerDef *ga
 	}
 
 	dmg := monsterDamage(attackerDef)
+	dmg = applyArmor(dmg, gDef.Armor)
+	var attackerWeaponDef *gameworld.ItemDef
+	if len(attackerDef.Weapons) > 0 {
+		attackerWeaponDef = e.items[attackerDef.Weapons[0].Archetype]
+	}
+	if level, ok := gDef.Immunities[weaponImmunityType(attackerWeaponDef)]; ok {
+		dmg = applyImmunity(dmg, level)
+	}
+	if dmg <= 0 {
+		dmg = 1
+	}
 	g.CurrentHP -= dmg
 
 	hitLine := fmt.Sprintf("[ToHit: %d, Roll: %d] %s %s%s takes %d damage.", toHit, roll, hitLabel, gArticle, gName, dmg)
@@ -1209,9 +1261,13 @@ func (e *GameEngine) elementalGuardIntercept(_ *MonsterInstance, attackerDef *ga
 
 // ---- Monster attacks Player ----
 
-func (e *GameEngine) monsterAttackPlayer(inst *MonsterInstance, def *gameworld.MonsterDef, player *Player) (playerMsgs []string, roomMsgs []string) {
+// monsterAttackPlayer resolves a monster's attack against player. The returned
+// defender is whoever actually took the attack — it differs from player when
+// the attack is redirected to a guard, and callers must send playerMsgs (which
+// contains the private [ToHit/Roll] detail) to defender, not to player.
+func (e *GameEngine) monsterAttackPlayer(inst *MonsterInstance, def *gameworld.MonsterDef, player *Player) (playerMsgs []string, roomMsgs []string, defender *Player) {
 	if player.Dead || !inst.Alive {
-		return nil, nil
+		return nil, nil, nil
 	}
 
 	// Guard redirect: if someone is guarding this player, redirect the attack
@@ -1260,7 +1316,7 @@ func (e *GameEngine) monsterAttackPlayer(inst *MonsterInstance, def *gameworld.M
 						}
 					}
 				}
-				return playerMsgs, roomMsgs
+				return playerMsgs, roomMsgs, nil
 			}
 		}
 	}
@@ -1296,7 +1352,15 @@ func (e *GameEngine) monsterAttackPlayer(inst *MonsterInstance, def *gameworld.M
 			if reduction > 50 { reduction = 50 }
 			specDmg = specDmg * (100 - reduction) / 100
 		}
-		_ = specType
+
+		// Heat Shield / Cold Shield: 50% reduction of matching elemental damage
+		now := time.Now()
+		if specType == "Heat" && !player.HeatShieldExpiry.IsZero() && now.Before(player.HeatShieldExpiry) {
+			specDmg /= 2
+		}
+		if specType == "Cold" && !player.ColdShieldExpiry.IsZero() && now.Before(player.ColdShieldExpiry) {
+			specDmg /= 2
+		}
 
 		part := randomBodyPart("HUMAN")
 		severity := damageSeverity(specDmg)
@@ -1312,7 +1376,7 @@ func (e *GameEngine) monsterAttackPlayer(inst *MonsterInstance, def *gameworld.M
 		if player.BodyPoints <= 0 {
 			deathMsgs := e.handlePlayerDeath(player, name)
 			playerMsgs = append(playerMsgs, deathMsgs...)
-			return playerMsgs, roomMsgs
+			return playerMsgs, roomMsgs, player
 		}
 		} // end else (didn't dodge)
 	}
@@ -1413,7 +1477,7 @@ func (e *GameEngine) monsterAttackPlayer(inst *MonsterInstance, def *gameworld.M
 		roomMsgs = append(roomMsgs, fmt.Sprintf("%s%s %s %s. Miss.", capArt, name, monVerb, player.FirstName))
 	}
 
-	return playerMsgs, roomMsgs
+	return playerMsgs, roomMsgs, player
 }
 
 // ---- Death ----
@@ -1956,6 +2020,17 @@ func (e *GameEngine) summonedAttackMonster(inst *MonsterInstance, def *gameworld
 			msgs = []string{attackLine, fmt.Sprintf("[ToHit: %d, Roll: %d] %s", toHit, roll, hitLabel), texI}
 		} else {
 			dmg := monsterDamage(def)
+			dmg = applyArmor(dmg, targetDef.Armor)
+			var attackerWeaponDef *gameworld.ItemDef
+			if len(def.Weapons) > 0 {
+				attackerWeaponDef = e.items[def.Weapons[0].Archetype]
+			}
+			if level, ok := targetDef.Immunities[weaponImmunityType(attackerWeaponDef)]; ok {
+				dmg = applyImmunity(dmg, level)
+			}
+			if dmg <= 0 {
+				dmg = 1
+			}
 			target.CurrentHP -= dmg
 			hitLine := fmt.Sprintf("[ToHit: %d, Roll: %d] %s %s%s takes %d damage.", toHit, roll, hitLabel, tArt, tName, dmg)
 			if target.CurrentHP <= 0 {
@@ -2012,6 +2087,13 @@ func (e *GameEngine) monsterCombatTick(inst *MonsterInstance, def *gameworld.Mon
 			e.localRoomBroadcast(inst.RoomNumber, []string{fmt.Sprintf("The %s breaks free of the webs.", strings.ToLower(name))})
 		}
 	}
+	if inst.Tentacled && now.After(inst.TentacleExpiry) {
+		inst.Tentacled = false
+		if e.localRoomBroadcast != nil {
+			name := FormatMonsterName(def, e.monAdjs)
+			e.localRoomBroadcast(inst.RoomNumber, []string{fmt.Sprintf("The tentacles release the %s and sink back into the ground.", strings.ToLower(name))})
+		}
+	}
 	if inst.Feared && now.After(inst.FearExpiry) {
 		inst.Feared = false
 	}
@@ -2022,7 +2104,7 @@ func (e *GameEngine) monsterCombatTick(inst *MonsterInstance, def *gameworld.Mon
 
 	// Summoned creature attacking a monster
 	if inst.IsSummoned && inst.MonsterTargetID > 0 {
-		if !inst.Sleeping && !inst.Webbed && !inst.Stunned {
+		if !inst.Sleeping && !inst.Webbed && !inst.Tentacled && !inst.Stunned {
 			e.summonedAttackMonster(inst, def)
 		} else if inst.Stunned {
 			inst.Stunned = false
@@ -2051,6 +2133,11 @@ func (e *GameEngine) monsterCombatTick(inst *MonsterInstance, def *gameworld.Mon
 
 	// Webbed: cannot attack or flee
 	if inst.Webbed {
+		return
+	}
+
+	// Tentacled: cannot attack or flee
+	if inst.Tentacled {
 		return
 	}
 
@@ -2089,19 +2176,22 @@ func (e *GameEngine) monsterCombatTick(inst *MonsterInstance, def *gameworld.Mon
 	}
 
 	e.monsterMgr.mu.Unlock()
-	playerMsgs, roomMsgs := e.monsterAttackPlayer(inst, def, target)
+	playerMsgs, roomMsgs, defender := e.monsterAttackPlayer(inst, def, target)
 	e.monsterMgr.mu.Lock()
 
-	if e.sendToPlayer != nil && len(playerMsgs) > 0 {
-		e.sendToPlayer(target.FirstName, playerMsgs)
+	// defender is who actually took the attack — it differs from target when
+	// the attack was redirected to a guard, and the detailed [ToHit/Roll]
+	// message (playerMsgs) must go to them, not the original target.
+	if e.sendToPlayer != nil && len(playerMsgs) > 0 && defender != nil {
+		e.sendToPlayer(defender.FirstName, playerMsgs)
 	}
 	if e.localRoomBroadcast != nil && len(roomMsgs) > 0 {
 		e.localRoomBroadcast(inst.RoomNumber, roomMsgs)
 	}
 
 	// Save player state after monster combat (persists HP loss, death, poison, etc.)
-	if e.db != nil {
-		go e.SavePlayer(context.Background(), target)
+	if e.db != nil && defender != nil {
+		go e.SavePlayer(context.Background(), defender)
 	}
 
 	// Monster flee behavior (strategy 301-500 = flee when wounded, 501+ = fight to death)

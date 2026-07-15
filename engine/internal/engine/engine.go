@@ -98,6 +98,11 @@ type RoomChangeCallback func(change RoomChange)
 // RoomBroadcastFunc sends messages to all players in a room (used by background tasks).
 type RoomBroadcastFunc func(roomNumber int, messages []string)
 
+// RoomBroadcastExcludeFunc sends messages to all players in a room except the named player.
+// Used when a scheduled script segment already delivered the same text directly to that
+// player (e.g. ECHO ALL, which populates both the direct-message and room-broadcast lists).
+type RoomBroadcastExcludeFunc func(roomNumber int, excludeName string, messages []string)
+
 // LocalRoomBroadcastFunc sends messages to players on THIS machine only (not via hub).
 // Used for monster ambient text and combat which is per-machine.
 type LocalRoomBroadcastFunc func(roomNumber int, messages []string)
@@ -107,43 +112,46 @@ type PlayerMessageFunc func(playerName string, messages []string)
 
 // GameEngine holds the loaded game world and processes commands.
 type GameEngine struct {
-	db              *mongo.Database
-	nouns           map[int]string
-	adjectives      map[int]string
-	monAdjs         map[int]string
-	items           map[int]*gameworld.ItemDef
-	rooms           map[int]*gameworld.Room
-	monsters        map[int]*gameworld.MonsterDef
-	startRoom       int
-	departRoom      int // safe room for DEPART (bump room)
-	sessions        SessionProvider
-	onRoomChange    RoomChangeCallback
-	roomBroadcast      RoomBroadcastFunc
-	localRoomBroadcast LocalRoomBroadcastFunc
-	sendToPlayer       PlayerMessageFunc
-	monsterMgr      *monsterManager
-	RegionWeather   map[int]int // region -> weather state
-	monsterLists         []gameworld.MonsterList         // base + current season MLISTs
-	baseMonsterLists     []gameworld.MonsterList         // always-loaded MLISTs
+	db                   *mongo.Database
+	nouns                map[int]string
+	adjectives           map[int]string
+	monAdjs              map[int]string
+	breakMods            map[int]int // adjective ID -> weapon hardness modifier (BREAKMOD)
+	items                map[int]*gameworld.ItemDef
+	rooms                map[int]*gameworld.Room
+	monsters             map[int]*gameworld.MonsterDef
+	startRoom            int
+	departRoom           int // safe room for DEPART (bump room)
+	sessions             SessionProvider
+	onRoomChange         RoomChangeCallback
+	roomBroadcast        RoomBroadcastFunc
+	roomBroadcastExclude RoomBroadcastExcludeFunc
+	localRoomBroadcast   LocalRoomBroadcastFunc
+	sendToPlayer         PlayerMessageFunc
+	monsterMgr           *monsterManager
+	RegionWeather        map[int]int                        // region -> weather state
+	monsterLists         []gameworld.MonsterList            // base + current season MLISTs
+	baseMonsterLists     []gameworld.MonsterList            // always-loaded MLISTs
 	seasonalMonsterLists map[string][]gameworld.MonsterList // per-season MLISTs
 	seasonalRooms        map[string][]gameworld.Room        // per-season room overrides
 	currentSeason        string                             // current active season key
-	cevents         []gameworld.CEvent
-	forageDefs      []gameworld.ForageDef
-	regions         map[int]*gameworld.Region
-	PVals           map[int]int // persistent global values
-	NamedVars       map[string]int // VARIABLE-defined global named variables (DANWATER, etc.)
-	namedVarNames   map[string]bool // set of valid named variable names
-	orgDefs         map[int]*gameworld.OrgDef // org# -> OrgDef
-	Events          *EventBus
-	Banner          string // active login banner; in-memory so it works even if MongoDB is down
-	lastAssistName  string // last player who used ASSIST (for @answer)
-	lastAssistRoom  int    // room number of last ASSIST
-        // roomContainerContents stores the contents of room-level containers (transient).
-        // Key: "<roomNumber>:<itemRef>"
-        roomContainerContents map[string][]InventoryItem
-	watchMu  sync.RWMutex
-	watching map[string]int // playerFirstName → roomNum their familiar is watching (0 = not watching)
+	cevents              []gameworld.CEvent
+	macros               map[int][]gameworld.ScriptBlock // macro# -> scripts, for inline CALL N actions
+	forageDefs           []gameworld.ForageDef
+	regions              map[int]*gameworld.Region
+	PVals                map[int]int               // persistent global values
+	NamedVars            map[string]int            // VARIABLE-defined global named variables (DANWATER, etc.)
+	namedVarNames        map[string]bool           // set of valid named variable names
+	orgDefs              map[int]*gameworld.OrgDef // org# -> OrgDef
+	Events               *EventBus
+	Banner               string // active login banner; in-memory so it works even if MongoDB is down
+	lastAssistName       string // last player who used ASSIST (for @answer)
+	lastAssistRoom       int    // room number of last ASSIST
+	// roomContainerContents stores the contents of room-level containers (transient).
+	// Key: "<roomNumber>:<itemRef>"
+	roomContainerContents map[string][]InventoryItem
+	watchMu               sync.RWMutex
+	watching              map[string]int // playerFirstName → roomNum their familiar is watching (0 = not watching)
 }
 
 // SetSessionProvider sets the session provider (called by API layer after init).
@@ -159,6 +167,12 @@ func (e *GameEngine) SetRoomChangeCallback(cb RoomChangeCallback) {
 // SetRoomBroadcast sets the function used by background tasks to send messages to rooms.
 func (e *GameEngine) SetRoomBroadcast(fn RoomBroadcastFunc) {
 	e.roomBroadcast = fn
+}
+
+// SetRoomBroadcastExclude sets the function used to send messages to a room while
+// excluding one player by name (used by scheduled script segments — see RoomBroadcastExcludeFunc).
+func (e *GameEngine) SetRoomBroadcastExclude(fn RoomBroadcastExcludeFunc) {
+	e.roomBroadcastExclude = fn
 }
 
 // SetLocalRoomBroadcast sets a local-only broadcast (no hub). Used for monster activity.
@@ -300,6 +314,7 @@ func NewGameEngine(db *mongo.Database, parsed *gameworld.ParsedData) *GameEngine
 		nouns:      make(map[int]string),
 		adjectives: make(map[int]string),
 		monAdjs:    make(map[int]string),
+		breakMods:  make(map[int]int),
 		items:      make(map[int]*gameworld.ItemDef),
 		rooms:      make(map[int]*gameworld.Room),
 		monsters:   make(map[int]*gameworld.MonsterDef),
@@ -314,6 +329,9 @@ func NewGameEngine(db *mongo.Database, parsed *gameworld.ParsedData) *GameEngine
 	}
 	for i := range parsed.MonsterAdjs {
 		e.monAdjs[parsed.MonsterAdjs[i].ID] = parsed.MonsterAdjs[i].Name
+	}
+	for i := range parsed.BreakMods {
+		e.breakMods[parsed.BreakMods[i].AdjID] = parsed.BreakMods[i].Modifier
 	}
 	for i := range parsed.Items {
 		e.items[parsed.Items[i].Number] = &parsed.Items[i]
@@ -370,6 +388,14 @@ func NewGameEngine(db *mongo.Database, parsed *gameworld.ParsedData) *GameEngine
 
 	// Store CEvents
 	e.cevents = parsed.CEvents
+
+	// Store macros for inline CALL N actions (subroutine-style invocation from within
+	// an already-running script, as opposed to CALL/SCRIPTMACRO at room/item/monster
+	// definition time, which is resolved statically into Scripts at parse time).
+	e.macros = make(map[int][]gameworld.ScriptBlock, len(parsed.Macros))
+	for _, m := range parsed.Macros {
+		e.macros[m.ID] = m.Scripts
+	}
 
 	// Load organization definitions
 	e.orgDefs = make(map[int]*gameworld.OrgDef)
@@ -431,7 +457,7 @@ type CommandResult struct {
 	CantMsg    string `json:"-"`
 	CantSender string `json:"-"`
 	// LogEvent: optional event to log (type, detail).
-	LogEventType string `json:"-"`
+	LogEventType   string `json:"-"`
 	LogEventDetail string `json:"-"`
 }
 
@@ -457,6 +483,21 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 		input = input[:maxInputLength]
 	}
 
+	// "." repeats the last command entered.
+	if input == "." {
+		if player.LastCommand == "" {
+			return &CommandResult{Messages: []string{"You haven't entered a command yet."}}
+		}
+		input = player.LastCommand
+	} else {
+		player.LastCommand = input
+	}
+
+	// Being carried is passive — any action the carried player takes breaks it.
+	if player.CarriedBy != "" {
+		e.breakCarryAsCarried(ctx, player, fmt.Sprintf("%s stirs and slips from your grip!", player.FirstName))
+	}
+
 	// Clean up stale follow state — if leader is no longer online, clear Following
 	if player.Following != "" && e.sessions != nil {
 		leaderOnline := false
@@ -471,20 +512,35 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 		}
 	}
 
-	// Dead players can only DEPART, LOOK, WHO, QUIT, EXP, STATUS, HEALTH
+	isQuoteSpeech := strings.HasPrefix(input, "'") || strings.HasPrefix(input, "\"")
+	isSayVerb := len(input) >= 3 && strings.EqualFold(input[:3], "say") && (len(input) == 3 || input[3] == ' ')
+
+	// Dead players can only DEPART, LOOK, WHO, QUIT, EXP, STATUS, HEALTH — unless
+	// Speak with Dead (spell 311) has granted them the power of speech.
 	if player.Dead {
-		verb := strings.ToUpper(strings.Fields(input)[0])
-		switch verb {
-		case "DEPART", "LOOK", "WHO", "QUIT", "EXP", "EXPERIENCE", "STATUS", "HEALTH", "HELP":
-			// allowed — fall through to normal processing
-		default:
-			return &CommandResult{Messages: []string{"You are dead and can't do much of anything. Type DEPART to allow Eternity, Inc. to retrieve you."}}
+		isSpeech := isQuoteSpeech || isSayVerb
+		if !(isSpeech && player.SpeakWhileDead) {
+			verb := strings.ToUpper(strings.Fields(input)[0])
+			switch verb {
+			case "DEPART", "LOOK", "WHO", "QUIT", "EXP", "EXPERIENCE", "STATUS", "HEALTH", "HELP":
+				// allowed — fall through to normal processing
+			default:
+				return &CommandResult{Messages: []string{"You are dead and can't do much of anything. Type DEPART to allow Eternity, Inc. to retrieve you."}}
+			}
 		}
 	}
 
-	// Handle speech
-	if strings.HasPrefix(input, "'") || strings.HasPrefix(input, "\"") {
-		msg := input[1:]
+	// Handle speech: '<msg>, "<msg>, or SAY <msg>
+	if isQuoteSpeech || isSayVerb {
+		var msg string
+		if isQuoteSpeech {
+			msg = input[1:]
+		} else {
+			msg = strings.TrimSpace(input[3:])
+			if msg == "" {
+				return &CommandResult{Messages: []string{"Say what?"}}
+			}
+		}
 		verb := "say"
 		thirdVerb := "says"
 		if strings.HasSuffix(msg, "?") {
@@ -513,6 +569,12 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 				if sc.MoveTo > 0 {
 					e.applySayMove(ctx, player, sc, result)
 				}
+				e.SavePlayer(ctx, player)
+				// PLREVENT/CONTPLREVENT-deferred actions (e.g. a multi-part scripted
+				// reply) must be scheduled, or everything after the delay is lost.
+				if len(sc.DeferredSegments) > 0 {
+					e.scheduleScriptSegments(player, sc.DeferredSegments)
+				}
 			}
 			return result
 		}
@@ -536,6 +598,12 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 			}
 			if sc.MoveTo > 0 {
 				e.applySayMove(ctx, player, sc, result)
+			}
+			e.SavePlayer(ctx, player)
+			// PLREVENT/CONTPLREVENT-deferred actions (e.g. a multi-part scripted
+			// reply) must be scheduled, or everything after the delay is lost.
+			if len(sc.DeferredSegments) > 0 {
+				e.scheduleScriptSegments(player, sc.DeferredSegments)
 			}
 		}
 		return result
@@ -669,7 +737,9 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 				player.RoundTimeExpiry = postMoveExpiry
 				player.RoundTime = postMoveRT
 				e.SavePlayer(ctx, player)
-				moveResult.Messages = append(moveResult.Messages, fmt.Sprintf("[Round: %d sec]", postMoveRT))
+				if !messagesHaveRoundTime(moveResult.Messages) {
+					moveResult.Messages = append(moveResult.Messages, fmt.Sprintf("[Round: %d sec]", postMoveRT))
+				}
 			}
 			return moveResult
 		}
@@ -690,7 +760,7 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 	case "CLIMB":
 		return e.doClimb(ctx, player, args)
 	case "GET", "TAKE":
-		return e.doGetEnhanced(ctx, player, args)
+		return e.doGetEnhanced(ctx, player, verb, args)
 	case "DROP":
 		return e.doDrop(ctx, player, args)
 	case "INVENTORY":
@@ -752,6 +822,9 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 		player.Position = 3
 		return e.doPositionWithScripts(ctx, player, verb, "You kneel down.", fmt.Sprintf("%s kneels down.", player.FirstName))
 	case "LAY":
+		if len(args) > 0 {
+			return e.doLayCarried(ctx, player, args)
+		}
 		if player.Position == 2 {
 			return &CommandResult{Messages: []string{"You are already lying down."}}
 		}
@@ -781,7 +854,9 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 			lvl := player.Skills[id]
 			if lvl > 0 {
 				name := SkillNames[id]
-				if name == "" { name = fmt.Sprintf("Skill #%d", id) }
+				if name == "" {
+					name = fmt.Sprintf("Skill #%d", id)
+				}
 				skillMsgs = append(skillMsgs, fmt.Sprintf("  %s: rank %d", name, lvl))
 				hasSkills = true
 			}
@@ -819,16 +894,12 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 	case "INFO":
 		return e.doInfo(player)
 	case "TIME":
-		period := "day"
-		if IsNight() {
-			period = "night"
-		}
 		moonPhases := []string{"new", "waxing crescent", "first quarter", "waxing gibbous", "full", "waning gibbous", "last quarter", "waning crescent"}
 		greatMoon := moonPhases[GameDay()%8]
 		phulcrus := moonPhases[(GameDay()+4)%8]
 		return &CommandResult{Messages: []string{
 			fmt.Sprintf("It is %s %d, %d (Year of the Wyrm).", GameMonthName(), GameDay()%28+1, GameYear()),
-			fmt.Sprintf("It is %s. The season is %s.", period, SeasonName()),
+			fmt.Sprintf("It is %s. The season is %s.", TimePeriod(), SeasonName()),
 			fmt.Sprintf("The Great Moon is %s and Phulcrus is %s.", greatMoon, phulcrus),
 		}}
 	case "PAY":
@@ -876,19 +947,46 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 			if player.SpeechAdverb != "" {
 				adverb = player.SpeechAdverb + " "
 			}
-			return &CommandResult{
-				Messages:      []string{fmt.Sprintf("You %ssing, \"%s\"", adverb, text)},
-				RoomBroadcast: []string{fmt.Sprintf("%s %ssings, \"%s\"", player.FirstName, adverb, text)},
+			// Support \ as line break for poetry/songs, same as RECITE
+			lines := strings.Split(text, "\\")
+			var selfMsgs, roomMsgs []string
+			for i, line := range lines {
+				line = strings.TrimSpace(line)
+				if line == "" {
+					continue
+				}
+				if i == 0 {
+					selfMsgs = append(selfMsgs, fmt.Sprintf("You %ssing, \"%s", adverb, line))
+					roomMsgs = append(roomMsgs, fmt.Sprintf("%s %ssings, \"%s", player.FirstName, adverb, line))
+				} else {
+					selfMsgs = append(selfMsgs, fmt.Sprintf("  %s", line))
+					roomMsgs = append(roomMsgs, fmt.Sprintf("  %s", line))
+				}
 			}
+			if len(selfMsgs) > 0 {
+				selfMsgs[len(selfMsgs)-1] += "\""
+				roomMsgs[len(roomMsgs)-1] += "\""
+			}
+			return &CommandResult{Messages: selfMsgs, RoomBroadcast: roomMsgs}
 		}
 		return e.processEmote(player, verb, args)
 	case "PLAY":
+		// Let a named item's own script (e.g. item 631's IFPREVERB PLAY -1, which
+		// distinguishes wielded vs not-wielded) run before falling back to the generic
+		// instrument flavor text below.
+		if len(args) > 0 {
+			target := strings.ToLower(strings.Join(args, " "))
+			room := e.rooms[player.RoomNumber]
+			if result := e.runVerbScriptsForTarget(ctx, player, room, "PLAY", target); result != nil {
+				return result
+			}
+		}
 		// If wielding an instrument, produce special music output
 		if player.Wielded != nil {
 			wDef := e.items[player.Wielded.Archetype]
 			if wDef != nil {
 				wieldedNoun := strings.ToLower(e.getItemNounName(wDef))
-				wieldedFullName := e.formatItemName(wDef, player.Wielded.Adj1, player.Wielded.Adj2, player.Wielded.Adj3, player.Wielded.Tail)
+				wieldedFullName := e.formatItemNameNoArticle(wDef, player.Wielded.Adj1, player.Wielded.Adj2, player.Wielded.Adj3, player.Wielded.Tail)
 				instruments := []string{"harp", "lyre", "violin", "flute", "drum", "horn", "lute"}
 				for _, inst := range instruments {
 					if strings.Contains(wieldedNoun, inst) || strings.Contains(strings.ToLower(wieldedFullName), inst) {
@@ -966,7 +1064,7 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 		"FUME", "SQUINT", "HUM", "SNIFFLE", "SLOUCH", "SNORE", "SNEEZE",
 		"STARE", "PUCKER", "CRACK", "BOUNCE", "STRIKE", "CLUTCH",
 		"WIPE", "GRIT", "TOSS", "ATTENTION", "TONGUE", "WRINKLE", "PUFF",
-		"DIZZY", "BAT",
+		"DIZZY", "BAT", "FLAIL", "WAKE", "SOB",
 		// Race-specific emotes (handled by race check in processEmote)
 		"FLICK", "BARE", "SPREAD", "FOLD", "SWISH",
 		"RUBEARS", "PULLBEARD", "SCENT", "WHINE", "DROOP", "CHASE":
@@ -1014,7 +1112,9 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 		var selfMsgs, roomMsgs []string
 		for i, line := range lines {
 			line = strings.TrimSpace(line)
-			if line == "" { continue }
+			if line == "" {
+				continue
+			}
 			if i == 0 {
 				selfMsgs = append(selfMsgs, fmt.Sprintf("You recite, '%s", line))
 				roomMsgs = append(roomMsgs, fmt.Sprintf("%s recites, '%s", player.FirstName, line))
@@ -1069,13 +1169,24 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 			roomBroadcast = sc.RoomMsgs
 		}
 		return &CommandResult{Messages: msgs, RoomBroadcast: roomBroadcast}
-	case "PULL", "PUSH", "RUB", "TOUCH", "DIG", "USE", "THUMP":
+	case "RUB":
+		if len(args) > 0 {
+			if part := strings.ToLower(args[len(args)-1]); part == "back" || part == "foot" || part == "feet" {
+				return e.processRubPart(player, args[:len(args)-1], part)
+			}
+		}
+		result := e.doItemInteraction(ctx, player, verb, args)
+		if result != nil && len(result.Messages) > 0 && result.Messages[0] != "You don't see that here." {
+			return result
+		}
+		return e.processEmote(player, verb, args)
+	case "PULL", "PUSH", "TOUCH", "DIG", "USE", "THUMP":
 		result := e.doItemInteraction(ctx, player, verb, args)
 		// If item interaction found nothing, fall back to emote for verbs that have emote entries
 		if result != nil && len(result.Messages) > 0 && result.Messages[0] != "You don't see that here." {
 			return result
 		}
-		if verb == "THUMP" {
+		if verb == "THUMP" || verb == "TOUCH" {
 			return e.processEmote(player, verb, args)
 		}
 		return result
@@ -1097,11 +1208,11 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 	case "BUY", "ORDER":
 		return e.doBuy(ctx, player, args)
 	case "SELL":
-	        if len(args) >= 2 && strings.ToUpper(args[0]) == "ALL" {
-                    noun := strings.ToLower(strings.Join(args[1:], " "))
-                    return e.doSellAll(ctx, player, noun)
-                }
-                return e.doSell(ctx, player, args)
+		if len(args) >= 2 && strings.ToUpper(args[0]) == "ALL" {
+			noun := strings.ToLower(strings.Join(args[1:], " "))
+			return e.doSellAll(ctx, player, noun)
+		}
+		return e.doSell(ctx, player, args)
 	case "APPRAISE":
 		return e.doAppraise(player, args)
 	case "DRINK", "SIP":
@@ -1144,6 +1255,10 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 		return e.doRepair(ctx, player, args)
 	case "ENCRUST":
 		return e.doEncrust(ctx, player, args)
+	case "INLAY":
+		return e.doInlay(ctx, player, args)
+	case "INSET":
+		return e.doInset(ctx, player, args)
 	case "ENGRAVE":
 		return e.doEngrave(ctx, player, args, input)
 	// === MOVEMENT/STEALTH ===
@@ -1219,15 +1334,17 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 		}
 		return e.doMove(ctx, player, exitKey)
 	case "LAND":
-		if player.Position != 4 { return &CommandResult{Messages: []string{"You aren't flying."}} }
+		if player.Position != 4 {
+			return &CommandResult{Messages: []string{"You aren't flying."}}
+		}
 		player.Position = 0
 		e.SavePlayer(ctx, player)
 		return &CommandResult{Messages: []string{"You land."}, RoomBroadcast: []string{fmt.Sprintf("%s lands.", player.FirstName)}}
 	// === ITEM INTERACTION ===
 	case "PUT", "PLACE":
 		return e.doPut(ctx, player, args)
-        case "DUMP":
-            return e.doDump(ctx, player, args)
+	case "DUMP":
+		return e.doDump(ctx, player, args)
 	case "FILL":
 		return e.doFill(ctx, player, args)
 	case "MARK":
@@ -1242,10 +1359,11 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 	case "SPELL":
 		return e.doSpellList(player)
 	case "UNPROMPT":
-		player.PromptMode = false; e.SavePlayer(ctx, player)
+		player.PromptMode = false
+		e.SavePlayer(ctx, player)
 		return &CommandResult{Messages: []string{"Prompt indicators off."}}
 	case "VERSION", "NEWS", "NOTES":
-		return &CommandResult{Messages: []string{"Legends of Future Past v11.5.11"}}
+		return &CommandResult{Messages: []string{"Legends of Future Past v11.10.0"}}
 	case "CREDITS":
 		return &CommandResult{Messages: []string{
 			"",
@@ -1307,6 +1425,8 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 			return &CommandResult{Messages: []string{"Attack what?"}}
 		}
 		return e.doAttackMonster(ctx, player, strings.Join(args, " "))
+	case "TARGET":
+		return e.doTarget(player, args)
 	case "FLEE":
 		return e.doFlee(ctx, player)
 	case "ADVANCE":
@@ -1319,6 +1439,7 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 		if inst != nil {
 			name := FormatMonsterName(def, e.monAdjs)
 			article := articleFor(name, def.Unique)
+			e.breakCarryAsCarrier(ctx, player)
 			player.CombatTarget = &CombatTarget{IsMonster: true, MonsterID: inst.ID}
 			player.Joined = true
 			e.monsterMgr.mu.Lock()
@@ -1370,7 +1491,13 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 		}
 		return e.doAttackMonster(ctx, player, strings.Join(args, " "))
 	case "AVOID":
-		return &CommandResult{Messages: []string{"[Avoid coming soon.]"}}
+		return e.doAvoid(ctx, player, args)
+	case "UNAVOID":
+		return e.doUnavoid(ctx, player, args)
+	case "ALLOW":
+		return e.doAllow(ctx, player, args)
+	case "UNALLOW":
+		return e.doUnallow(ctx, player, args)
 	case "BERSERK", "FRENZY":
 		return e.doStance(player, StanceBerserk)
 	case "DEFENSIVE":
@@ -1392,7 +1519,9 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 	case "CHANT":
 		return e.doChant(ctx, player, args)
 	case "COMMAND":
-		return e.doCommand(ctx, player, args)
+		return e.doCommand(ctx, player, args, input)
+	case "APPEARANCE":
+		return e.doAppearance(ctx, player, input)
 	case "MASTER":
 		return e.doMasterSpell(ctx, player, args)
 	case "NOCK", "LOAD":
@@ -1413,7 +1542,7 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 	case "UNLEARN":
 		return e.doUnlearn(ctx, player, args)
 	case "LEARN":
-    		return e.doLearn(ctx, player, args)
+		return e.doLearn(ctx, player, args)
 	case "ANOINT":
 		return e.doAnoint(ctx, player, args)
 	case "TRAP":
@@ -1478,10 +1607,17 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 			return &CommandResult{Messages: []string{"You are not submitting."}}
 		}
 		player.Submitting = false
+		e.breakCarryAsCarried(ctx, player, fmt.Sprintf("%s stops submitting and slips from your grip!", player.FirstName))
 		return &CommandResult{
 			Messages:      []string{"You stop submitting."},
 			RoomBroadcast: []string{fmt.Sprintf("%s stops submitting.", player.FirstName)},
 		}
+	case "CARRY":
+		return e.doCarry(ctx, player, args)
+	case "RELEASE":
+		return e.doRelease(ctx, player)
+	case "PUTDOWN":
+		return e.doReleaseCarry(ctx, player)
 	case "ARREST":
 		return &CommandResult{Messages: []string{"[Arrest coming soon.]"}} // TODO: lawkeeper arrest
 	case "ENROLL":
@@ -1523,7 +1659,9 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 		reportText := strings.Join(strings.Fields(input)[1:], " ")
 		room := e.rooms[player.RoomNumber]
 		roomName := "unknown"
-		if room != nil { roomName = room.Name }
+		if room != nil {
+			roomName = room.Name
+		}
 		e.Events.Publish("report", fmt.Sprintf("[REPORT] %s (room %d %s): %s", player.FirstName, player.RoomNumber, roomName, reportText))
 		return &CommandResult{
 			Messages:       []string{"Your report has been filed. Thank you!"},
@@ -1536,7 +1674,7 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 	case "UNLOCK":
 		return e.doUnlock(ctx, player, args)
 	case "POUR":
-		return &CommandResult{Messages: []string{"[Liquid transfer coming soon.]"}}
+		return e.doPour(ctx, player, args)
 	case "ACTBRIEF":
 		return e.doSet(ctx, player, []string{"ACTBRIEF"})
 	case "RPBRIEF":
@@ -1577,10 +1715,10 @@ var allVerbs = []string{
 	// Communication
 	"THINK", "CANT",
 	// Combat (TODO: implement)
-	"ATTACK", "KILL", "SLAY", "SMITE", "ADVANCE", "RETREAT", "GUARD",
-	"BACKSTAB", "BITE", "AVOID", "BERSERK", "FRENZY",
+	"ATTACK", "KILL", "SLAY", "SMITE", "ADVANCE", "RETREAT", "GUARD", "TARGET",
+	"BACKSTAB", "BITE", "AVOID", "UNAVOID", "ALLOW", "UNALLOW", "BERSERK", "FRENZY",
 	"DEFENSIVE", "OFFENSIVE", "WARY", "NORMAL",
-	"INVOKE", "PREPARE", "CHANT", "COMMAND", "MASTER",
+	"INVOKE", "PREPARE", "CHANT", "COMMAND", "MASTER", "APPEARANCE",
 	"NOCK", "LOAD", "SPECIALIZE",
 	// Skill-based (TODO: implement)
 	"DISARM", "STEAL", "FILCH", "ROB", "STALK",
@@ -1589,7 +1727,7 @@ var allVerbs = []string{
 	"SURVEY", "SPLIT",
 	// Racial (TODO: implement)
 	"BLEND", "CALL", "TRANSFORM", "MOLD",
-	"DISGUISE", "SUBMIT", "UNSUBMIT", "ARREST",
+	"DISGUISE", "SUBMIT", "UNSUBMIT", "ARREST", "CARRY", "RELEASE", "PUTDOWN",
 	"ENROLL", "INITIATE", "JOIN", "FOLLOW", "LEAVE", "DISBAND",
 	"TEND", "BREAK",
 	"SNIFF", "SMELL", "LISTEN",
@@ -1629,7 +1767,7 @@ var allVerbs = []string{
 	"FUME", "SQUINT", "HUM", "SNIFFLE", "SLOUCH", "SNORE", "SNEEZE",
 	"STARE", "PUCKER", "CRACK", "BOUNCE", "STRIKE", "CLUTCH",
 	"WIPE", "GRIT", "TOSS", "ATTENTION", "TONGUE", "WRINKLE", "PUFF",
-	"DIZZY", "BAT",
+	"DIZZY", "BAT", "FLAIL", "WAKE", "SOB",
 	// Race-specific
 	"FLICK", "BARE", "SPREAD", "FOLD", "SWISH",
 	"RUBEARS", "PULLBEARD", "SCENT", "WHINE", "DROOP",
@@ -1642,7 +1780,7 @@ var verbAliases = map[string]string{
 	"INV": "INVENTORY", "STAT": "STATUS", "UNUSE": "UNWIELD",
 	"DON": "WEAR", "EXIT": "QUIT", "SKILL": "SKILLS",
 	"WHI": "WHISPER", "THIN": "THINK", "CONTA": "CONTACT",
-	"DI": "DIAGNOSE",
+	"DI":    "DIAGNOSE",
 	"ORDER": "BUY", "UNLIGHT": "EXTINGUISH", "IGNITE": "LIGHT",
 	"QUAFF": "DRINK", "SHOUT": "YELL", "A": "ATTACK",
 	"PLACE": "PUT", "TRANS": "TRANSFORM",
@@ -1678,4 +1816,3 @@ func resolveVerb(input string) string {
 	}
 	return input
 }
-

@@ -207,7 +207,12 @@ BREAKMOD 1269 260
 BREAKMOD 1062 5
 ; black-grey
 BREAKMOD 1094 25
-
+; enchanted
+BREAKMOD 523 10
+; ensorcelled
+BREAKMOD 524 20
+; eldritch
+BREAKMOD 525 30
 
 ;**********    ITEM SCRIPT 19 MAY 94
 ;

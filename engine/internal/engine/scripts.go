@@ -14,12 +14,12 @@ import (
 // SETEVENT N cycles ALWAYS delays N × this many seconds.
 const scriptEventCycleSeconds = 5
 
-// ScriptSegment is a time-delayed group of script actions created by a SETEVENT/CONTEVENT pair.
+// ScriptSegment is a time-delayed group of script steps created by a SETEVENT/CONTEVENT
+// or PLREVENT/CONTPLREVENT pair.
 type ScriptSegment struct {
-	RelativeSeconds int                      // seconds to wait after previous segment fires
-	Actions         []gameworld.ScriptAction // actions to run when segment fires
-	Children        []gameworld.ScriptBlock  // children to run after actions (if no sub-delay found)
-	RoomNumber      int                      // sc.Room.Number at time of scheduling
+	RelativeSeconds int                     // seconds to wait after previous segment fires
+	Steps           []gameworld.ScriptStep  // remaining actions/nested blocks to run when segment fires, in original order
+	RoomNumber      int                     // sc.Room.Number at time of scheduling
 }
 
 // ScriptContext holds state for script execution within a single trigger.
@@ -54,6 +54,12 @@ type ScriptContext struct {
 	activeVerb string
 	activeRef  string
 
+	// sayText holds the normalized (uppercased, trailing-punctuation-trimmed) text a
+	// player just said, set by RunSayScripts. IFSAY blocks match against it wherever
+	// they're encountered — including nested inside a top-level IFVAR tree gating a
+	// multi-stage conversation — rather than only at the room's top level.
+	sayText string
+
 	KillPlayer        bool // KILL PLAYER: set when script kills the player
 	NeedsSave         bool // set by ROUTINE and similar actions that modify player state
 	routineChargePaid bool // true after first charge decrement this interaction (prevents double-spend across script phases)
@@ -87,26 +93,37 @@ func (e *GameEngine) RunEntryScripts(player *Player, room *gameworld.Room) *Scri
 	return sc
 }
 
-// RunSayScripts executes IFSAY blocks when a player says something.
+// RunSayScripts executes IFSAY blocks when a player says something. IFSAY blocks are
+// matched wherever they're found — at the room's top level, or nested inside a
+// top-level IFVAR tree that gates a multi-stage conversation (e.g. "has the player
+// already paid tribute?" before listening for "passage"/"wisdom"). Only IFSAY and
+// IFVAR are walked at the top level; IFVERB/IFPREVERB/IFENTRY etc. have their own
+// dedicated runners and must not fire just because the player said something.
 func (e *GameEngine) RunSayScripts(player *Player, room *gameworld.Room, text string) *ScriptContext {
 	sc := &ScriptContext{
-		Player: player,
-		Room:   room,
-		Engine: e,
+		Player:  player,
+		Room:    room,
+		Engine:  e,
+		sayText: strings.ToUpper(strings.TrimRight(text, ".?!")),
 	}
-	textUpper := strings.ToUpper(strings.TrimRight(text, ".?!"))
 	for _, block := range room.Scripts {
-		if block.Type == "IFSAY" && len(block.Args) >= 1 {
-			// IFSAY args use underscores for spaces; trim trailing punctuation so
-			// "computer, identify" matches the pattern "COMPUTER,_IDENTIFY."
-			pattern := strings.ToUpper(strings.ReplaceAll(block.Args[0], "_", " "))
-			pattern = strings.TrimRight(pattern, ".?!")
-			if textUpper == pattern || strings.Contains(textUpper, pattern) {
-				sc.execBlock(block)
-			}
+		if block.Type == "IFSAY" || block.Type == "IFVAR" {
+			sc.execBlock(block)
 		}
 	}
 	return sc
+}
+
+// matchesSayText reports whether sc.sayText matches an IFSAY block's pattern.
+// IFSAY args use underscores for spaces; trailing punctuation is trimmed so
+// "computer, identify" matches the pattern "COMPUTER,_IDENTIFY."
+func (sc *ScriptContext) matchesSayText(args []string) bool {
+	if sc.sayText == "" || len(args) < 1 {
+		return false
+	}
+	pattern := strings.ToUpper(strings.ReplaceAll(args[0], "_", " "))
+	pattern = strings.TrimRight(pattern, ".?!")
+	return sc.sayText == pattern || strings.Contains(sc.sayText, pattern)
 }
 
 // RunPreverbScripts executes IFPREVERB blocks for a specific verb and item ref.
@@ -234,6 +251,41 @@ func (e *GameEngine) RunVerbScripts(player *Player, room *gameworld.Room, verb s
 	return sc
 }
 
+// RunMonsterPreverbScript executes a monster's IFVERB/IFPREVERB -1 blocks (attached via
+// SCRIPTMACRO N — see resolveMonsterMacroCalls) for a specific verb, such as EXAMINE or
+// GIVE directed at the monster. item/itemDef may be nil for verbs with no associated item
+// (e.g. EXAMINE); when present, the item is exposed as the "current item" (Ref -1) so
+// %a and ITEMADJ/ITEMVAL checks resolve, and a script's REMOVEITEM -1 removes it from the
+// player's inventory (see doRemoveItem's Ref==-1 handling).
+func (e *GameEngine) RunMonsterPreverbScript(player *Player, room *gameworld.Room, monDef *gameworld.MonsterDef, verb string, item *InventoryItem, itemDef *gameworld.ItemDef) *ScriptContext {
+	verb = strings.ToUpper(verb)
+	sc := &ScriptContext{
+		Player:      player,
+		Room:        room,
+		Engine:      e,
+		activeVerb:  verb,
+		activeRef:   "-1",
+		preverbOnly: true,
+	}
+	if item != nil {
+		sc.ItemRef = &gameworld.RoomItem{
+			Ref: -1, Archetype: item.Archetype,
+			Adj1: item.Adj1, Adj2: item.Adj2, Adj3: item.Adj3,
+			Val1: item.Val1, Val2: item.Val2, Val3: item.Val3, Val4: item.Val4, Val5: item.Val5,
+			State: item.State,
+		}
+		sc.ItemDef = itemDef
+	}
+	for _, block := range monDef.Scripts {
+		if (block.Type == "IFVERB" || block.Type == "IFPREVERB") && len(block.Args) >= 2 {
+			if strings.ToUpper(block.Args[0]) == verb && block.Args[1] == "-1" {
+				sc.execBlock(block)
+			}
+		}
+	}
+	return sc
+}
+
 // RunRoomVerbScripts checks room-level IFVERB and IFPREVERB blocks whose item ref is -1.
 // These are "bare verb" room scripts that fire for any use of the verb in the room,
 // regardless of whether a specific item was targeted. Used when no item target is given,
@@ -309,8 +361,9 @@ func (sc *ScriptContext) execBlock(block gameworld.ScriptBlock) {
 		}
 
 	case "IFSAY":
-		// Condition already matched by caller
-		sc.execChildren(block)
+		if sc.matchesSayText(block.Args) {
+			sc.execChildren(block)
+		}
 
 	case "IFTOUCH":
 		// When activeVerb is set, only execute for touch-type verbs.
@@ -455,6 +508,8 @@ func (sc *ScriptContext) execAction(action gameworld.ScriptAction) {
 		sc.doShowRoom(action.Args)
 	case "DISBAND":
 		sc.doDisband()
+	case "CALL":
+		sc.doCallMacro(action.Args)
 	case "SETEVENT":
 		if len(action.Args) >= 2 {
 			cycles, _ := strconv.Atoi(action.Args[1])
@@ -894,6 +949,7 @@ func (sc *ScriptContext) doRemoveItem(args []string) {
 		for i, ii := range sc.Player.Inventory {
 			if ii.Archetype == sc.ItemRef.Archetype {
 				sc.Player.Inventory = append(sc.Player.Inventory[:i], sc.Player.Inventory[i+1:]...)
+				sc.NeedsSave = true
 				return
 			}
 		}
@@ -1019,6 +1075,8 @@ func (sc *ScriptContext) evalIfItem(args []string) bool {
 		return state == "UNLOCKED" || state == "OPEN"
 	case "WORN":
 		return state == "WORN"
+	case "WIELDED":
+		return state == "WIELDED"
 	}
 	return false
 }
@@ -1358,7 +1416,16 @@ func (sc *ScriptContext) getVar(name string) int {
 	case "WEALTH2", "WEALTH3", "WEALTH4", "WEALTH5", "WEALTH6", "WEALTH7", "WEALTH8", "WEALTH9":
 		return 0 // TODO: multi-currency per region
 	case "OBJWEIGHT":
-		if sc.ItemDef != nil { return sc.ItemDef.Weight }
+		if sc.ItemDef != nil {
+			w := sc.ItemDef.Weight
+			// For containers, include the weight of everything placed inside — e.g. a
+			// stream's OBJWEIGHT should grow as boulders are PUT into it so scripts can
+			// track dam progress. Static def.Weight alone never changes.
+			if sc.Room != nil && sc.ItemRef != nil && sc.ItemRef.Ref >= 0 && isContainerDef(sc.ItemDef) {
+				w += sc.Engine.roomContainerContentsWeight(sc.Room, sc.ItemRef.Ref)
+			}
+			return w
+		}
 		return 0
 	case "PLAYERNUM":
 		return 0 // TODO: unique player number
@@ -1567,22 +1634,82 @@ func (sc *ScriptContext) evalIfCarry(args []string) bool {
 	if len(args) < 1 {
 		return false
 	}
-	archetype, err := strconv.Atoi(args[0])
-	if err != nil {
-		return false
-	}
 	adj := -1
 	if len(args) >= 2 {
-		adj, _ = strconv.Atoi(args[1])
+		adj = sc.resolveNumericArg(args[1])
 	}
+	// IFCARRY WIELDED <adj> is a special form referring to the player's currently
+	// wielded weapon rather than a search by archetype number (WIELDED isn't a
+	// literal archetype ID). Match it against the wielded item and expose it as
+	// the "current item" so nested ITEMADJ1/ITEMADJ2/etc. checks resolve correctly.
+	if strings.EqualFold(args[0], "WIELDED") {
+		w := sc.Player.Wielded
+		if w == nil || (adj >= 0 && w.Adj1 != adj) {
+			return false
+		}
+		sc.ItemRef = &gameworld.RoomItem{
+			Ref:       -1,
+			Archetype: w.Archetype,
+			Adj1:      w.Adj1,
+			Adj2:      w.Adj2,
+			Adj3:      w.Adj3,
+			Val1:      w.Val1,
+			Val2:      w.Val2,
+			Val3:      w.Val3,
+			Val4:      w.Val4,
+			Val5:      w.Val5,
+			State:     w.State,
+		}
+		return true
+	}
+	// Archetype arg may be a literal number or a named variable (e.g. IFCARRY INTNUM83
+	// INTNUM84, used to check for whatever quest item a prior CALL/RANDOM chose).
+	archetype := sc.resolveNumericArg(args[0])
 	for _, ii := range sc.Player.Inventory {
 		if ii.Archetype == archetype {
 			if adj < 0 || ii.Adj1 == adj {
+				// Per GMSCRIPT.DOC: "If it is found, the current item is set to the
+				// first such item located." Needed for a following REMOVEITEM -1,
+				// %a, or ITEMADJ*/ITEMVAL* to act on the matched item.
+				sc.ItemRef = &gameworld.RoomItem{
+					Ref: -1, Archetype: ii.Archetype,
+					Adj1: ii.Adj1, Adj2: ii.Adj2, Adj3: ii.Adj3,
+					Val1: ii.Val1, Val2: ii.Val2, Val3: ii.Val3, Val4: ii.Val4, Val5: ii.Val5,
+					State: ii.State,
+				}
+				if sc.Engine != nil {
+					sc.ItemDef = sc.Engine.items[ii.Archetype]
+				}
 				return true
 			}
 		}
 	}
 	return false
+}
+
+// doCallMacro handles CALL N as an inline, subroutine-style action: it runs macro N's
+// script blocks immediately within the current ScriptContext, then execution continues
+// with whatever follows the CALL in the calling script. This is distinct from a room/
+// item's top-level CALL N (or a monster's SCRIPTMACRO N), which are resolved once at
+// parse time into that room/item/monster's own Scripts (see resolveRoomMacroCalls etc.)
+// rather than invoked live mid-script.
+func (sc *ScriptContext) doCallMacro(args []string) {
+	if len(args) < 1 || sc.Engine == nil {
+		return
+	}
+	id, err := strconv.Atoi(args[0])
+	if err != nil {
+		return
+	}
+	for _, block := range sc.Engine.macros[id] {
+		if block.Type == "ACTION" {
+			for _, action := range block.Actions {
+				sc.execAction(action)
+			}
+		} else {
+			sc.execBlock(block)
+		}
+	}
 }
 
 // doRoomCopy copies the exits and description from a template room into sc.Room.
@@ -1728,9 +1855,12 @@ func (sc *ScriptContext) doStrCpy(args []string) {
 	if err != nil || digit < 0 || digit > 9 {
 		return
 	}
-	// Join remaining args and strip quotes
+	// Join remaining args and strip quotes. Underscores stand in for spaces, the same
+	// convention IFSAY patterns use, since a script argument can't itself contain a
+	// literal space (e.g. STRCPY 0 "some_meteoric_dust" -> "some meteoric dust").
 	text := strings.Join(args[1:], " ")
 	text = strings.Trim(text, "\"")
+	text = strings.ReplaceAll(text, "_", " ")
 	if sc.StrVars == nil {
 		sc.StrVars = make(map[int]string)
 	}
@@ -2055,34 +2185,46 @@ func (sc *ScriptContext) applyItemSpellOnPlayer(spell *SpellDef) {
 		sc.RoomMsgs = append(sc.RoomMsgs, fmt.Sprintf("%s is bathed in healing energy.", player.FirstName))
 
 	case "defense":
-		player.DefenseBonus += spell.DefBonus
-		sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s! (+%d defense)", spell.Name, spell.DefBonus))
+		mins, _ := applyTimedDefenseBuff(player, spell)
+		sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s! (+%d defense, %d minutes)", spell.Name, spell.DefBonus, mins))
 		sc.RoomMsgs = append(sc.RoomMsgs, fmt.Sprintf("A shimmer of protective energy surrounds %s.", player.FirstName))
+
+	case "damage":
+		dmgMin, dmgMax := spell.DmgMin, spell.DmgMax
+		if dmgMax <= dmgMin {
+			dmgMax = dmgMin + 1
+		}
+		amount := dmgMin + rand.Intn(dmgMax-dmgMin+1)
+		player.BodyPoints -= amount
+		sc.Messages = append(sc.Messages, fmt.Sprintf("The item channels %s! Searing agony wracks your body. [-%d BP]", spell.Name, amount))
+		sc.RoomMsgs = append(sc.RoomMsgs, fmt.Sprintf("%s cries out in pain!", player.FirstName))
+		if player.BodyPoints <= 0 {
+			sc.Messages = append(sc.Messages, sc.Engine.handlePlayerDeath(player, "a cursed potion")...)
+		}
 
 	case "buff":
 		switch spell.ID {
 		case 102: // Mystic Armor
-			player.DefenseBonus += spell.DefBonus
-			sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s! (+%d defense)", spell.Name, spell.DefBonus))
+			mins, _ := applyMysticArmorBuff(player, spell)
+			sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s! (+%d defense, %d minutes)", spell.Name, spell.DefBonus, mins))
 			sc.RoomMsgs = append(sc.RoomMsgs, fmt.Sprintf("A shimmering barrier of energy surrounds %s.", player.FirstName))
-		case 207: // Strength I
-			player.Strength += 10
-			sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s! (+10 STR)", spell.Name))
-			sc.RoomMsgs = append(sc.RoomMsgs, fmt.Sprintf("%s glows with newfound strength.", player.FirstName))
-		case 208: // Strength II
-			player.Strength += 20
-			sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s! (+20 STR)", spell.Name))
-			sc.RoomMsgs = append(sc.RoomMsgs, fmt.Sprintf("%s glows with newfound strength.", player.FirstName))
-		case 209: // Strength III
-			player.Strength += 30
-			sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s! (+30 STR)", spell.Name))
-			sc.RoomMsgs = append(sc.RoomMsgs, fmt.Sprintf("%s pulses with extraordinary strength.", player.FirstName))
+		case 207, 208, 209: // Strength I/II/III
+			bonus, mins, applied, ok := applyStrengthBuff(player, spell)
+			if !ok {
+				sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s, but you already have a better Strength spell in place.", spell.Name))
+			} else if !applied {
+				sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s. Your strength pulsates with renewed energy! (%d minutes remaining)", spell.Name, mins))
+			} else {
+				sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s! (+%d STR, %d minutes)", spell.Name, bonus, mins))
+				sc.RoomMsgs = append(sc.RoomMsgs, fmt.Sprintf("%s glows with newfound strength.", player.FirstName))
+			}
 		case 210: // Haste
 			player.HasteExpiry = time.Now().Add(20 * time.Minute)
 			sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s. The world slows around you!", spell.Name))
 			sc.RoomMsgs = append(sc.RoomMsgs, fmt.Sprintf("%s moves with incredible speed.", player.FirstName))
 		case 224: // Fly
 			player.CanFly = true
+			player.FlyExpiry = time.Now().Add(20 * time.Minute)
 			sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s. You rise into the air!", spell.Name))
 			sc.RoomMsgs = append(sc.RoomMsgs, fmt.Sprintf("%s rises into the air!", player.FirstName))
 		case 225: // Invisibility
@@ -2092,26 +2234,34 @@ func (sc *ScriptContext) applyItemSpellOnPlayer(spell *SpellDef) {
 		case 347: // Divine Blessing
 			sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s. You feel divinely blessed.", spell.Name))
 			sc.RoomMsgs = append(sc.RoomMsgs, fmt.Sprintf("A warm golden light briefly surrounds %s.", player.FirstName))
-		case 507: // Heat Shield
-			player.DefenseBonus += 10
-			sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s! You feel protected from heat.", spell.Name))
-			sc.RoomMsgs = append(sc.RoomMsgs, fmt.Sprintf("A faint shimmer of heat surrounds %s.", player.FirstName))
-		case 508: // Cold Shield
-			player.DefenseBonus += 10
-			sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s! You feel protected from cold.", spell.Name))
-			sc.RoomMsgs = append(sc.RoomMsgs, fmt.Sprintf("A frosty aura briefly surrounds %s.", player.FirstName))
+		case 507, 508: // Heat Shield / Cold Shield
+			var expiry *time.Time
+			elementName := "heat"
+			if spell.ID == 508 {
+				expiry = &player.ColdShieldExpiry
+				elementName = "cold"
+			} else {
+				expiry = &player.HeatShieldExpiry
+			}
+			mins, applied := applyElementalShield(expiry)
+			if !applied {
+				sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s. Your resistance to %s strengthens! (%d minutes remaining)", spell.Name, elementName, mins))
+			} else {
+				sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s! You feel protected from %s. (50%% resistance, 20 minutes)", spell.Name, elementName))
+				sc.RoomMsgs = append(sc.RoomMsgs, fmt.Sprintf("A shimmer surrounds %s.", player.FirstName))
+			}
 		case 512: // True Aim
 			sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s. Your aim feels supernaturally true.", spell.Name))
 			sc.RoomMsgs = append(sc.RoomMsgs, fmt.Sprintf("%s's eyes gleam with unnatural focus.", player.FirstName))
-		case 513: // Agility I
-			player.Agility += 10
-			sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s! (+10 AGI)", spell.Name))
-		case 514: // Agility II
-			player.Agility += 20
-			sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s! (+20 AGI)", spell.Name))
-		case 515: // Agility III
-			player.Agility += 30
-			sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s! (+30 AGI)", spell.Name))
+		case 513, 514, 515: // Agility I/II/III
+			bonus, mins, applied, ok := applyAgilityBuff(player, spell)
+			if !ok {
+				sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s, but you already have a better Agility spell in place.", spell.Name))
+			} else if !applied {
+				sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s. Your reflexes sharpen with renewed energy! (%d minutes remaining)", spell.Name, mins))
+			} else {
+				sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s! (+%d AGI, %d minutes)", spell.Name, bonus, mins))
+			}
 		case 521: // Camouflage
 			player.Hidden = true
 			sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s. You blend with your surroundings.", spell.Name))

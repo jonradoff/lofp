@@ -128,13 +128,31 @@ func elementalVal3(elemType string, purity int) int {
 	}
 }
 
-// replaceOilyAdj swaps adjective 221 (oily) or 684 (oiled) to 752 (iridescent).
-// Oily/oiled metals must not carry elemental crit properties into crafted items.
-func replaceOilyAdj(adj int) int {
-	if adj == 221 || adj == 684 {
-		return 752
+// canonicalizeOilyAdjs rewrites a crafted item's adjective list so that oily/oiled
+// metal (adj 221 or 684) becomes the pair Adj1=752 (iridescent), Adj2=684 (oiled) —
+// the exact order eddie3.scr's cave rooms check (ITEMADJ1=752, ITEMADJ2=684) to grant
+// round-time avoidance. Oily/oiled metals must not carry elemental crit properties
+// into crafted items. Any other adjective present is preserved in the remaining slot.
+func canonicalizeOilyAdjs(adjs [3]int) [3]int {
+	isOily := false
+	var rest []int
+	for _, a := range adjs {
+		if a == 221 || a == 684 {
+			isOily = true
+			continue
+		}
+		if a > 0 {
+			rest = append(rest, a)
+		}
 	}
-	return adj
+	if !isOily {
+		return adjs
+	}
+	result := [3]int{752, 684, 0}
+	if len(rest) > 0 {
+		result[2] = rest[0]
+	}
+	return result
 }
 
 // oreXPBase returns base XP for mining a given metal type.
@@ -1166,19 +1184,29 @@ func (e *GameEngine) doCraft(ctx context.Context, player *Player, args []string)
 		player.Inventory = append(player.Inventory[:materialIdx], player.Inventory[materialIdx+1:]...)
 
 		// Create the item with the full material name as adjectives.
-		// Oily/oiled metals become iridescent in the finished piece.
+		// Oily/oiled metals become iridescent (752) + oiled (684) in the finished piece.
+		finishedAdjs := canonicalizeOilyAdjs([3]int{craftAdj(0), craftAdj(1), craftAdj(2)})
 		item := InventoryItem{
 			Archetype: def.Number,
-			Adj1:      replaceOilyAdj(craftAdj(0)),
-			Adj2:      replaceOilyAdj(craftAdj(1)),
-			Adj3:      replaceOilyAdj(craftAdj(2)),
+			Adj1:      finishedAdjs[0],
+			Adj2:      finishedAdjs[1],
+			Adj3:      finishedAdjs[2],
 		}
 		player.Inventory = append(player.Inventory, item)
 
 		// XP award: scale by skill level required (weaponsmithing uses metalDifficulty instead).
+		// Jewelry/weaving items always carry this on Parameter2 (Parameter1 unused there).
+		// Wood Lore items are inconsistent in the source data — many non-launcher items
+		// (instruments, staves, etc.) never got a Parameter2 assigned, so fall back to
+		// Parameter1 (their only other small, per-item difficulty-shaped field) rather
+		// than silently awarding zero.
 		xpAward := 0
-		if skillID != 8 && def.Parameter2 > 0 {
-			xpAward = def.Parameter2 * 20
+		if skillID != 8 {
+			if def.Parameter2 > 0 {
+				xpAward = def.Parameter2 * 20
+			} else if def.Parameter1 > 0 {
+				xpAward = def.Parameter1 * 20
+			}
 		}
 		if xpAward > 0 {
 			player.Experience += xpAward
@@ -1504,17 +1532,16 @@ func (e *GameEngine) doWork(ctx context.Context, player *Player, args []string) 
 		smithSkill := player.Skills[8]
 		sharpness := weaponSharpnessBonus(player.CraftingVal2, smithSkill)
 		val3 := player.CraftingVal3
-		rAdj1 := replaceOilyAdj(adj1)
-		rAdj2 := replaceOilyAdj(player.CraftingAdj2)
-		rAdj3 := replaceOilyAdj(player.CraftingAdj3)
-		if rAdj1 != adj1 || rAdj2 != player.CraftingAdj2 || rAdj3 != player.CraftingAdj3 {
+		origAdjs := [3]int{adj1, player.CraftingAdj2, player.CraftingAdj3}
+		finishedAdjs := canonicalizeOilyAdjs(origAdjs)
+		if finishedAdjs != origAdjs {
 			val3 = 0
 		}
 		item := InventoryItem{
 			Archetype: weaponDef.Number,
-			Adj1:      rAdj1,
-			Adj2:      rAdj2,
-			Adj3:      rAdj3,
+			Adj1:      finishedAdjs[0],
+			Adj2:      finishedAdjs[1],
+			Adj3:      finishedAdjs[2],
 			Val1:      sharpness, // non-magical quality bonus
 			Val2:      0,         // no magical enchantment from forging
 			Val3:      val3,      // elemental crit type (from ore); 0 if oily/oiled
@@ -1780,7 +1807,7 @@ func (e *GameEngine) doForageReal(ctx context.Context, player *Player) *CommandR
 
 			itemName := e.formatItemName(itemDef, item.Adj1, 0, 0)
 			return &CommandResult{
-				Messages:      []string{fmt.Sprintf("You search the area and find some %s!", itemName), fmt.Sprintf("[Round: %d sec]", rt)},
+				Messages:      []string{fmt.Sprintf("You search the area and find %s!", itemName), fmt.Sprintf("[Round: %d sec]", rt)},
 				RoomBroadcast: []string{fmt.Sprintf("%s forages in the area.", player.FirstName)},
 				PlayerState:   player,
 			}
@@ -1946,64 +1973,100 @@ func (e *GameEngine) doAnalyze(ctx context.Context, player *Player, args []strin
 	}
 	target := strings.ToLower(strings.Join(args, " "))
 
-	for _, ii := range player.Inventory {
+	for i := range player.Inventory {
+		ii := &player.Inventory[i]
 		def := e.items[ii.Archetype]
-		if def == nil {
-			continue
+		if e.matchesItemOrPotion(def, ii.Adj1, ii.Adj2, ii.Adj3, ii.Val2, ii.Val4, target) {
+			return e.analyzeItem(player, ii, def)
 		}
-		name := strings.ToLower(e.getItemNounName(def))
-		if !strings.HasPrefix(name, target) {
-			continue
-		}
+	}
 
-		if def.Type == "ORE" {
-			miningSkill := player.Skills[35]
-			if miningSkill < 3 {
-				return &CommandResult{Messages: []string{"You don't have enough mining skill to analyze this ore. (Need Mining 3+)"}}
+	// Not found directly — check one level into any open carried container
+	// (e.g. an alchemist analyzing a potion sitting inside an open bag).
+	for _, container := range e.findOpenContainers(player.Inventory) {
+		for i := range container.Contents {
+			ci := &container.Contents[i]
+			cdef := e.items[ci.Archetype]
+			if e.matchesItemOrPotion(cdef, ci.Adj1, ci.Adj2, ci.Adj3, ci.Val2, ci.Val4, target) {
+				return e.analyzeItem(player, ci, cdef)
 			}
-			purity := ii.Val1
-			desc := "poor"
-			if purity > 80 {
-				desc = "nearly solid metal"
-			} else if purity > 60 {
-				desc = "excellent"
-			} else if purity > 40 {
-				desc = "good"
-			} else if purity > 20 {
-				desc = "fair"
-			}
-			msg := fmt.Sprintf("You examine the ore carefully. It appears to be of %s quality. (Purity: %d%%)", desc, purity)
-			// At Mining 5+ the smith's eye can gauge the metal's color potential.
-			if miningSkill >= 5 && ii.Val2 > 0 {
-				colorNames := map[int]string{1: "purple", 2: "indigo", 3: "blue"}
-				if cName, ok := colorNames[ii.Val2]; ok {
-					msg += fmt.Sprintf(" The metal has a %s quality.", cName)
-				}
-			}
-			return &CommandResult{Messages: []string{msg}}
 		}
-
-		// Reagent analysis for alchemy
-		if containsFlag(def.Flags, "REAGENT") {
-			reagentTypes := map[int]string{
-				1: "Power (mild)", 2: "Power (strong)", 3: "Power (very strong)",
-				4: "Health", 5: "Harm", 6: "Body", 7: "Resist",
-				8: "Enhancement", 9: "Misc (common)", 10: "Misc (uncommon)",
-				11: "Misc (rare)", 12: "Mind", 13: "Protection",
-			}
-			rType := ii.Val5
-			typeName := reagentTypes[rType]
-			if typeName == "" {
-				typeName = "unknown"
-			}
-			itemName := e.formatItemName(def, ii.Adj1, ii.Adj2, ii.Adj3, ii.Tail)
-			return &CommandResult{Messages: []string{fmt.Sprintf("You analyze %s. Alchemical properties: %s.", itemName, typeName)}}
-		}
-
-		return &CommandResult{Messages: []string{"You can't determine anything special about that."}}
 	}
 
 	return &CommandResult{Messages: []string{"You don't have that."}}
+}
+
+// analyzeItem performs the ANALYZE effect on one matched item: ore quality,
+// alchemical reagent properties, or — for a LIQCONTAINER holding a potion —
+// identifying its bound spell, gated on the Alchemy skill (31).
+func (e *GameEngine) analyzeItem(player *Player, ii *InventoryItem, def *gameworld.ItemDef) *CommandResult {
+	if def == nil {
+		return &CommandResult{Messages: []string{"You can't determine anything special about that."}}
+	}
+
+	if def.Type == "ORE" {
+		miningSkill := player.Skills[35]
+		if miningSkill < 3 {
+			return &CommandResult{Messages: []string{"You don't have enough mining skill to analyze this ore. (Need Mining 3+)"}}
+		}
+		purity := ii.Val1
+		desc := "poor"
+		if purity > 80 {
+			desc = "nearly solid metal"
+		} else if purity > 60 {
+			desc = "excellent"
+		} else if purity > 40 {
+			desc = "good"
+		} else if purity > 20 {
+			desc = "fair"
+		}
+		msg := fmt.Sprintf("You examine the ore carefully. It appears to be of %s quality. (Purity: %d%%)", desc, purity)
+		// At Mining 5+ the smith's eye can gauge the metal's color potential.
+		if miningSkill >= 5 && ii.Val2 > 0 {
+			colorNames := map[int]string{1: "purple", 2: "indigo", 3: "blue"}
+			if cName, ok := colorNames[ii.Val2]; ok {
+				msg += fmt.Sprintf(" The metal has a %s quality.", cName)
+			}
+		}
+		return &CommandResult{Messages: []string{msg}}
+	}
+
+	if def.Type == "LIQCONTAINER" {
+		itemName := e.formatItemName(def, ii.Adj1, ii.Adj2, ii.Adj3, ii.Tail)
+		if !containerIsOpen(def, ii.State) {
+			return &CommandResult{Messages: []string{fmt.Sprintf("%s is closed.", capitalize(itemName))}}
+		}
+		if ii.Val2 <= 0 {
+			return &CommandResult{Messages: []string{fmt.Sprintf("%s is empty; there's nothing to analyze.", capitalize(itemName))}}
+		}
+		alchemySkill := player.Skills[31]
+		if alchemySkill < 1 {
+			return &CommandResult{Messages: []string{"You don't know enough alchemy to analyze potions. (Requires Alchemy 1+)"}}
+		}
+		if ii.Val3 == 0 {
+			return &CommandResult{Messages: []string{fmt.Sprintf("You analyze %s. It's an ordinary liquid — no magical properties.", itemName)}}
+		}
+		spell := FindSpellByID(ii.Val3)
+		if spell == nil {
+			return &CommandResult{Messages: []string{fmt.Sprintf("You analyze %s, but can't identify its magical properties.", itemName)}}
+		}
+		return &CommandResult{Messages: []string{fmt.Sprintf("You analyze %s. It contains the effects of '%s' (spell #%d).", itemName, spell.Name, spell.ID)}}
+	}
+
+	// Reagent analysis for alchemy
+	if containsFlag(def.Flags, "REAGENT") {
+		itemName := e.formatItemName(def, ii.Adj1, ii.Adj2, ii.Adj3, ii.Tail)
+		if tier, ok := lookupAlchemyCatalyst(ii.Archetype, ii.Adj1, ii.Adj2, ii.Adj3); ok {
+			tierNames := map[int]string{1: "Mild Catalyst", 2: "Strong Catalyst", 3: "Very Strong Catalyst"}
+			return &CommandResult{Messages: []string{fmt.Sprintf("You analyze %s. Alchemical properties: %s.", itemName, tierNames[tier])}}
+		}
+		if letter, ok := lookupAlchemyLetter(ii.Archetype, ii.Adj1, ii.Adj2, ii.Adj3); ok {
+			return &CommandResult{Messages: []string{fmt.Sprintf("You analyze %s. Alchemical properties: %s.", itemName, alchemyLetterNames[letter])}}
+		}
+		return &CommandResult{Messages: []string{fmt.Sprintf("You analyze %s. It has no notable alchemical properties.", itemName)}}
+	}
+
+	return &CommandResult{Messages: []string{"You can't determine anything special about that."}}
 }
 
 // ---- BREW (Alchemy) ----
@@ -2017,50 +2080,172 @@ type alchemyRecipe struct {
 	spellID  int    // resulting potion spell
 	level    int    // minimum alchemy level
 	name     string
-	color    string
 }
 
+// alchemyRecipes intentionally omits the "Bottle Color" column from
+// original/legends/alchemy.txt — that was just the compiling player's own notes for
+// tracking which container held which potion, not a game mechanic, so it has no bearing
+// on brewing and isn't shown to players. The actual container's appearance when examined
+// is a random liquid-appearance adjective (see potionLiquidAdjIDs), same as any other potion.
 var alchemyRecipes = []alchemyRecipe{
-	{"1AB", 1, "A", "B", 316, 1, "Body Restoration I", "Green"},
-	{"1AF", 1, "A", "F", 313, 1, "Body Destruction I", "Dark"},
-	{"1AH", 1, "A", "H", 520, 1, "Night Vision", "Black"},
-	{"1AG", 1, "A", "G", 518, 2, "Claw Growth", "Ebony"},
-	{"1AC", 1, "A", "C", 339, 3, "Destroy Undead I", "White"},
-	{"1CH", 1, "C", "H", 506, 3, "Resist Weather", "Blue"},
-	{"1EG", 1, "E", "G", 226, 3, "Paranoia", "Pink"},
-	{"1AI", 1, "A", "I", 207, 4, "Strength I", "Rose"},
-	{"1GI", 1, "G", "I", 513, 4, "Agility I", "Khaki"},
-	{"1AD", 1, "A", "D", 102, 5, "Mystic Armor", "Silvery Blue"},
-	{"2AF", 2, "A", "F", 314, 5, "Body Destruction II", "Dark"},
-	{"2CF", 2, "C", "F", 317, 5, "Body Restoration II", "Green"},
-	{"2CG", 2, "C", "G", 401, 5, "Dispel Lesser Magic", "Red"},
-	{"2HI", 2, "H", "I", 210, 5, "Haste", "Sea Blue"},
-	{"2DG", 2, "D", "G", 521, 7, "Camouflage", "Forest Camo"},
-	{"2AG", 2, "A", "G", 511, 8, "Carapace", "Brown"},
-	{"2AI", 2, "A", "I", 208, 8, "Strength II", "Rose"},
-	{"2AC", 2, "A", "C", 335, 9, "Invigoration II", "Pink"},
-	{"2EG", 2, "E", "G", 403, 9, "Mindlink", "Azure"},
-	{"2CH", 2, "C", "H", 509, 10, "Repel Plants", "Mossy Green"},
-	{"3AF", 3, "A", "F", 315, 10, "Body Destruction III", "Dark"},
-	{"2BI", 2, "B", "I", 303, 11, "Cure Poison", "Purple"},
-	{"2GI", 2, "G", "I", 514, 11, "Agility II", "Khaki"},
-	{"3AG", 3, "A", "G", 224, 11, "Fly", "Cerulean"},
-	{"2BD", 2, "B", "D", 319, 12, "Cure Disease", "Pale Blue"},
-	{"2DI", 2, "D", "I", 234, 13, "Spell Shield", "Silvery Blue"},
-	{"3DG", 3, "D", "G", 225, 14, "Invisibility", "White"},
-	{"3AD", 3, "A", "D", 105, 15, "Globe of Protection", "Violet"},
-	{"3AI", 3, "A", "I", 209, 16, "Strength III", "Rose"},
-	{"3GI", 3, "G", "I", 515, 16, "Agility III", "Khaki"},
-	{"3CH", 3, "C", "H", 510, 18, "Repel Plants & Webs", "Forest Green"},
-	{"3FJ", 3, "F", "J", 232, 20, "Mist Form", "Gray"},
+	{"1AB", 1, "A", "B", 316, 1, "Body Restoration I"},
+	{"1AF", 1, "A", "F", 313, 1, "Body Destruction I"},
+	{"1AH", 1, "A", "H", 520, 1, "Night Vision"},
+	{"1AG", 1, "A", "G", 518, 2, "Claw Growth"},
+	{"1AC", 1, "A", "C", 339, 3, "Destroy Undead I"},
+	{"1CH", 1, "C", "H", 506, 3, "Resist Weather"},
+	{"1EG", 1, "E", "G", 226, 3, "Paranoia"},
+	{"1AI", 1, "A", "I", 207, 4, "Strength I"},
+	{"1GI", 1, "G", "I", 513, 4, "Agility I"},
+	{"1AD", 1, "A", "D", 102, 5, "Mystic Armor"},
+	{"2AF", 2, "A", "F", 314, 5, "Body Destruction II"},
+	{"2CF", 2, "C", "F", 317, 5, "Body Restoration II"},
+	{"2CG", 2, "C", "G", 401, 5, "Dispel Lesser Magic"},
+	{"2HI", 2, "H", "I", 210, 5, "Haste"},
+	{"2DG", 2, "D", "G", 521, 7, "Camouflage"},
+	{"2AG", 2, "A", "G", 511, 8, "Carapace"},
+	{"2AI", 2, "A", "I", 208, 8, "Strength II"},
+	{"2AC", 2, "A", "C", 335, 9, "Invigoration II"},
+	{"2EG", 2, "E", "G", 403, 9, "Mindlink"},
+	{"2CH", 2, "C", "H", 509, 10, "Repel Plants"},
+	{"3AF", 3, "A", "F", 315, 10, "Body Destruction III"},
+	{"2BI", 2, "B", "I", 303, 11, "Cure Poison"},
+	{"2GI", 2, "G", "I", 514, 11, "Agility II"},
+	{"3AG", 3, "A", "G", 224, 11, "Fly"},
+	{"2BD", 2, "B", "D", 319, 12, "Cure Disease"},
+	{"2DI", 2, "D", "I", 234, 13, "Spell Shield"},
+	{"3DG", 3, "D", "G", 225, 14, "Invisibility"},
+	{"3AD", 3, "A", "D", 105, 15, "Globe of Protection"},
+	{"3AI", 3, "A", "I", 209, 16, "Strength III"},
+	{"3GI", 3, "G", "I", 515, 16, "Agility III"},
+	{"3CH", 3, "C", "H", 510, 18, "Repel Plants & Webs"},
+	{"3FJ", 3, "F", "J", 232, 20, "Mist Form"},
 }
 
-// Reagent type letters mapped to val5 values
-var reagentLetters = map[int]string{
-	6: "A", 4: "B", 0: "C", 13: "D", 12: "E", 5: "F",
-	8: "G", 9: "H", 10: "I", 11: "J",
+// alchemyReagentKey identifies a specific alchemical ingredient by its item archetype
+// (INUMBER) and adjective. Reagent items are generic nouns (e.g. archetype 494 is just
+// "root") distinguished only by which adjective is attached (542=mandrake, 531=babich, ...),
+// so — unlike most of the crafting system — alchemy can't key off a flag+Val on the
+// archetype; it has to key off the specific (archetype, adjective) pair, sourced by
+// cross-referencing original/legends/alchemy.txt against the real item/adjective/
+// FORAGEDEF/STOREITEM data in original/scripts/. adj=0 means the ingredient carries no
+// distinguishing adjective (e.g. plain "garlic", "emeralds", "moonstones").
+type alchemyReagentKey struct {
+	archetype int
+	adj       int
 }
-var catalystFromVal5 = map[int]int{1: 1, 2: 2, 3: 3}
+
+// alchemyCatalystTier maps a catalyst ingredient to its grade: 1=Mild (MCAT), 2=Strong
+// (SCAT), 3=Very Strong (VCAT). Only mandrake root (tier 1) and meteoric dust (assigned
+// here to tier 2) are currently confirmed obtainable in the world data (store/forage);
+// the rest are included so the recipe still resolves correctly if such an item is ever
+// placed, looted, or GM-granted.
+var alchemyCatalystTier = map[alchemyReagentKey]int{
+	{494, 542}:   1, // mandrake root
+	{520, 723}:   1, // sharkhor eyes
+	{1439, 723}:  1,
+	{515, 654}:   1, // beetle hair
+	{512, 1115}:  2, // fungal dust
+	{1152, 1115}: 2,
+	{520, 653}:   2, // ant eyes
+	{1439, 653}:  2,
+	{515, 653}:   2, // ant hair
+	{527, 653}:   2, // ant legs
+	{510, 142}:   2, // giant tooth
+	{512, 1104}:  2, // meteoric dust (confirmed purchasable — see CHLRFALL.SCR-style stores)
+	{1152, 1104}: 2,
+	{512, 1072}:  3, // doubloon dust
+	{1152, 1072}: 3,
+	{108, 0}:     3, // emeralds
+}
+
+// alchemyReagentLetter maps an effect ingredient to its category letter (A-J), matching
+// the column headers in original/legends/alchemy.txt (A:BODY, B:HLTH, C:NEGN, D:PROT,
+// E:MIND, F:HARM, G:ENHC, H:MMAG, I:SMAG, J:VMAG). "Pearls" are deliberately omitted —
+// the source doc lists them as a filler ingredient under nearly every category, so they
+// have no single deterministic letter.
+var alchemyReagentLetter = map[alchemyReagentKey]string{
+	{1502, 1103}: "A", // muur crystals
+	{1690, 609}:  "A", // onoki moss
+	{1858, 1416}: "A", // wrinkled mushroom (real forageable Body reagent, FORAGEDEF val5=6)
+	{275, 531}:   "B", // babich blossoms
+	{494, 531}:   "B", // babich root
+	{1501, 0}:    "C", // garlic
+	{1681, 1244}: "C", // tricana seedlings
+	{113, 0}:     "D", // moonstones
+	{1442, 196}:  "D", // mirmach bark (confirmed forageable, FORAGEDEF val5=13)
+	{521, 433}:   "D", // troll tongue
+	{504, 567}:   "E", // ettin beards
+	{514, 431}:   "E", // goblin hides
+	{587, 554}:   "F", // deadly nightshade (confirmed purchasable)
+	{520, 799}:   "F", // toad eyes
+	{1439, 799}:  "F",
+	{1650, 468}:  "G", // golden flowers
+	{504, 798}:   "G", // spriggan beards
+	{1153, 37}:   "G", // brilliant feathers
+	{1689, 608}:  "G", // roseate eggshells
+	{507, 556}:   "G", // skrag scales
+	{520, 1105}:  "H", // newt eyes (confirmed purchasable)
+	{1439, 1105}: "H",
+	{1144, 0}:    "I", // coconut
+	{1450, 0}:    "I",
+	{1680, 1236}: "I", // manango pits
+	{528, 545}:   "I", // spider fangs
+	{505, 1115}:  "I", // fungal claws
+	{1688, 1235}: "J", // riyong mushroom
+	{1858, 1235}: "J",
+	{118, 0}:     "J", // rubies
+	{1441, 145}:  "J", // glowing fungus
+}
+
+var alchemyLetterNames = map[string]string{
+	"A": "Body", "B": "Health", "C": "Negation", "D": "Protection", "E": "Mind",
+	"F": "Harmful", "G": "Enhancing", "H": "Mild magic", "I": "Strong magic", "J": "Very strong magic",
+}
+
+// lookupAlchemyCatalyst checks all three adjective slots of an item instance (bought
+// reagents carry their identifying adjective in Adj3; foraged/room-placed ones in Adj1)
+// against alchemyCatalystTier.
+func lookupAlchemyCatalyst(archetype, adj1, adj2, adj3 int) (tier int, ok bool) {
+	for _, a := range []int{adj1, adj2, adj3, 0} {
+		if t, found := alchemyCatalystTier[alchemyReagentKey{archetype, a}]; found {
+			return t, true
+		}
+	}
+	return 0, false
+}
+
+// lookupAlchemyLetter is the same lookup as lookupAlchemyCatalyst but against
+// alchemyReagentLetter.
+func lookupAlchemyLetter(archetype, adj1, adj2, adj3 int) (letter string, ok bool) {
+	for _, a := range []int{adj1, adj2, adj3, 0} {
+		if l, found := alchemyReagentLetter[alchemyReagentKey{archetype, a}]; found {
+			return l, true
+		}
+	}
+	return "", false
+}
+
+// alchemyReagentCode resolves an ingredient to a single packed code: 1-3 for a catalyst
+// tier, or 11-20 for a letter category (A=11 .. J=20), or 0 if it's not a recognized
+// alchemical ingredient (brewing with it will simply fail to match any recipe).
+func alchemyReagentCode(archetype, adj1, adj2, adj3 int) int {
+	if tier, ok := lookupAlchemyCatalyst(archetype, adj1, adj2, adj3); ok {
+		return tier
+	}
+	if letter, ok := lookupAlchemyLetter(archetype, adj1, adj2, adj3); ok {
+		return 11 + int(letter[0]-'A')
+	}
+	return 0
+}
+
+// alchemyCodeToLetter reverses the letter half of alchemyReagentCode's encoding.
+func alchemyCodeToLetter(code int) string {
+	if code < 11 || code > 20 {
+		return ""
+	}
+	return string(rune('A' + code - 11))
+}
 
 func (e *GameEngine) doBrew(ctx context.Context, player *Player, args []string) *CommandResult {
 	if player.Skills[31] < 1 {
@@ -2072,13 +2257,18 @@ func (e *GameEngine) doBrew(ctx context.Context, player *Player, args []string) 
 		msgs = append(msgs, "=== Alchemy Recipes (by level) ===")
 		for _, r := range alchemyRecipes {
 			if r.level <= player.Skills[31] {
-				msgs = append(msgs, fmt.Sprintf("  Level %2d: %s (%s)", r.level, r.name, r.color))
+				msgs = append(msgs, fmt.Sprintf("  Level %2d: %s", r.level, r.name))
 			}
 		}
 		if len(msgs) == 1 {
 			msgs = append(msgs, "  You don't know any recipes at your current level.")
 		}
 		return &CommandResult{Messages: msgs}
+	}
+
+	if player.RoundTimeExpiry.After(time.Now()) {
+		remaining := time.Until(player.RoundTimeExpiry).Seconds()
+		return &CommandResult{Messages: []string{fmt.Sprintf("You must wait %.0f more seconds.", remaining)}}
 	}
 
 	// BREW <reagent> IN <container>
@@ -2088,7 +2278,9 @@ func (e *GameEngine) doBrew(ctx context.Context, player *Player, args []string) 
 		return &CommandResult{Messages: []string{"Brew in what? Usage: BREW <reagent> IN <flask/vial>"}}
 	}
 
-	// Find the reagent
+	// Find the reagent. Reagent items are generic nouns (e.g. "root") distinguished only
+	// by their adjective (e.g. "mandrake root"), so this must match on noun+adjectives —
+	// not the bare noun — like every other item lookup in the codebase.
 	reagentIdx := -1
 	var reagentItem *InventoryItem
 	for i, ii := range player.Inventory {
@@ -2099,8 +2291,8 @@ func (e *GameEngine) doBrew(ctx context.Context, player *Player, args []string) 
 		if !containsFlag(def.Flags, "REAGENT") {
 			continue
 		}
-		name := strings.ToLower(e.getItemNounName(def))
-		if strings.HasPrefix(name, reagentTarget) || strings.Contains(name, reagentTarget) {
+		name := e.getItemNounName(def)
+		if matchesTarget(name, reagentTarget, e.getAdjName(ii.Adj1), e.getAdjName(ii.Adj2), e.getAdjName(ii.Adj3)) {
 			reagentIdx = i
 			reagentItem = &player.Inventory[i]
 			break
@@ -2117,24 +2309,29 @@ func (e *GameEngine) doBrew(ctx context.Context, player *Player, args []string) 
 		if def == nil {
 			continue
 		}
-		name := strings.ToLower(e.getItemNounName(def))
-		if def.Type == "LIQCONTAINER" || def.Container == "IN" {
-			if strings.HasPrefix(name, containerTarget) || strings.Contains(name, containerTarget) {
-				containerIdx = i
-				break
-			}
+		if def.Type != "LIQCONTAINER" && def.Container != "IN" {
+			continue
+		}
+		name := e.getItemNounName(def)
+		if matchesTarget(name, containerTarget, e.getAdjName(ii.Adj1), e.getAdjName(ii.Adj2), e.getAdjName(ii.Adj3)) {
+			containerIdx = i
+			break
 		}
 	}
 	if containerIdx < 0 {
 		return &CommandResult{Messages: []string{"You don't have a suitable container. You need a flask, vial, or bottle."}}
 	}
 
-	// Add reagent to the brew (track via container's Val fields)
-	// Val3 = accumulated recipe code character, Val5 = number of ingredients added
-	container := &player.Inventory[containerIdx]
-	reagentType := reagentLetters[reagentItem.Val5]
-	if reagentType == "" {
-		reagentType = "H" // default to mild magic
+	// Resolve the reagent's alchemical code (catalyst tier 1-3, or letter category 11-20)
+	// from its actual archetype+adjective — not a fabricated per-instance flag — before
+	// it's consumed. An unrecognized REAGENT item still gets added (code 0) so the brew
+	// fails naturally as an invalid combination rather than being silently rejected here.
+	code := alchemyReagentCode(reagentItem.Archetype, reagentItem.Adj1, reagentItem.Adj2, reagentItem.Adj3)
+
+	reagentDef := e.items[reagentItem.Archetype]
+	reagentName := "the reagent"
+	if reagentDef != nil {
+		reagentName = e.formatItemName(reagentDef, reagentItem.Adj1, reagentItem.Adj2, reagentItem.Adj3, reagentItem.Tail)
 	}
 
 	// Consume reagent
@@ -2143,92 +2340,103 @@ func (e *GameEngine) doBrew(ctx context.Context, player *Player, args []string) 
 	if containerIdx > reagentIdx {
 		containerIdx--
 	}
-	container = &player.Inventory[containerIdx]
+	container := &player.Inventory[containerIdx]
 
-	// Track ingredients in container's Val fields
-	ingredients := container.Val5
-	container.Val5 = ingredients + 1
+	// Track ingredients in container's Val fields: Val5 = count added so far (0-3),
+	// Val4 = the 3 codes packed 2 digits each (order they were added — brewing order
+	// doesn't matter, so this is decoded as an unordered set of 3 once complete).
+	container.Val5++
+	container.Val4 = container.Val4*100 + code
 
-	// Store reagent type codes: Val4 encodes up to 3 ingredient types
-	// Simple encoding: multiply previous by 100 and add new
-	container.Val4 = container.Val4*100 + reagentItem.Val5
-
-	reagentDef := e.items[reagentItem.Archetype]
-	reagentName := "the reagent"
-	if reagentDef != nil {
-		reagentName = e.getItemNounName(reagentDef)
-	}
+	// Every brew step takes a round, same as the other crafting skills (15 sec, 7 if hasted).
+	brewRT := applyRoundTime(player, 15)
+	player.RoundTimeExpiry = time.Now().Add(time.Duration(brewRT) * time.Second)
+	player.RoundTime = brewRT
 
 	if container.Val5 < 3 {
 		e.SavePlayer(ctx, player)
 		return &CommandResult{
-			Messages:      []string{fmt.Sprintf("You add %s to the brew. (%d/3 ingredients)", reagentName, container.Val5)},
+			Messages:      []string{fmt.Sprintf("You add %s to the brew. (%d/3 ingredients)", reagentName, container.Val5), fmt.Sprintf("[Round: %d sec]", brewRT)},
 			RoomBroadcast: []string{fmt.Sprintf("%s adds an ingredient to a bubbling brew.", player.FirstName)},
 			PlayerState:   player,
 		}
 	}
 
-	// 3 ingredients added — attempt to brew!
-	// Decode the three ingredients
-	code3 := container.Val4 % 100
-	code2 := (container.Val4 / 100) % 100
-	code1 := (container.Val4 / 10000) % 100
-
-	letter1 := reagentLetters[code1]
-	letter2 := reagentLetters[code2]
-	letter3 := reagentLetters[code3]
-
-	// Determine catalyst level from first ingredient
-	catLevel := catalystFromVal5[code1]
-	if catLevel == 0 {
-		catLevel = 1
+	// 3 ingredients added — attempt to brew! Decode the three codes; brewing order
+	// doesn't matter, so identify whichever one is the catalyst (any order) and treat
+	// the other two as the pair of effect letters.
+	codes := [3]int{
+		container.Val4 % 100,
+		(container.Val4 / 100) % 100,
+		(container.Val4 / 10000) % 100,
+	}
+	catLevel := 0
+	var letters []string
+	for _, c := range codes {
+		if c >= 1 && c <= 3 {
+			catLevel = c
+			continue
+		}
+		letters = append(letters, alchemyCodeToLetter(c))
 	}
 
-	// Try to match a recipe
-	for _, recipe := range alchemyRecipes {
-		if recipe.catalyst != catLevel {
-			continue
-		}
-		// Check if ingredients match (order doesn't matter for reagent1/reagent2)
-		match := false
-		if (letter2 == recipe.reagent1 && letter3 == recipe.reagent2) ||
-			(letter2 == recipe.reagent2 && letter3 == recipe.reagent1) ||
-			(letter1 == recipe.reagent1 && letter3 == recipe.reagent2) ||
-			(letter1 == recipe.reagent2 && letter3 == recipe.reagent1) {
-			match = true
-		}
-		_ = letter1 // catalyst is consumed too
-		if !match {
-			continue
-		}
+	// Try to match a recipe: need exactly one catalyst and two valid letters.
+	if catLevel > 0 && len(letters) == 2 {
+		for _, recipe := range alchemyRecipes {
+			if recipe.catalyst != catLevel {
+				continue
+			}
+			match := (letters[0] == recipe.reagent1 && letters[1] == recipe.reagent2) ||
+				(letters[0] == recipe.reagent2 && letters[1] == recipe.reagent1)
+			if !match {
+				continue
+			}
 
-		// Check alchemy skill
-		if player.Skills[31] < recipe.level {
-			container.Val4 = 0
+			// Check alchemy skill
+			if player.Skills[31] < recipe.level {
+				container.Val4 = 0
+				container.Val5 = 0
+				e.SavePlayer(ctx, player)
+				return &CommandResult{
+					Messages: []string{
+						"The brew bubbles violently! It's a valid recipe, but beyond your current skill.",
+						fmt.Sprintf("(Requires Alchemy level %d, you have %d)", recipe.level, player.Skills[31]),
+						fmt.Sprintf("[Round: %d sec]", brewRT),
+					},
+					PlayerState: player,
+				}
+			}
+
+			// Success! Create potion — sip count matches the container's own capacity
+			// (Vial:2, Flask:5, Flagon:6, Bottle:10, Ewer:6), not a fixed random range.
+			// The container's appearance gets a random liquid-appearance adjective, same
+			// as any other potion (randomPotionDrop) — its look gives no hint of the
+			// bound effect, which is only revealed by ANALYZE or by drinking it.
+			containerDef := e.items[container.Archetype]
+			sips := 5
+			if containerDef != nil && containerDef.Interior > 0 {
+				sips = containerDef.Interior
+			}
+			container.Val3 = recipe.spellID // spell stored in container
+			container.Val4 = potionLiquidAdjIDs[rand.Intn(len(potionLiquidAdjIDs))]
 			container.Val5 = 0
+			container.Val2 = sips
+
+			// XP award scales with the potion's recipe level, same formula (level*20)
+			// used for jewelry/wood/weaving crafts.
+			xpAward := recipe.level * 20
+			player.Experience += xpAward
 			e.SavePlayer(ctx, player)
+
 			return &CommandResult{
 				Messages: []string{
-					"The brew bubbles violently! It's a valid recipe, but beyond your current skill.",
-					fmt.Sprintf("(Requires Alchemy level %d, you have %d)", recipe.level, player.Skills[31]),
+					fmt.Sprintf("The brew shimmers magically! You have created a %s potion! (%d sips)", recipe.name, container.Val2),
+					fmt.Sprintf("[Round: %d sec]", brewRT),
+					fmt.Sprintf("You have been awarded %d experience points.", xpAward),
 				},
-				PlayerState: player,
+				RoomBroadcast: []string{fmt.Sprintf("%s completes a potion that shimmers with magical energy!", player.FirstName)},
+				PlayerState:   player,
 			}
-		}
-
-		// Success! Create potion
-		container.Val3 = recipe.spellID // spell stored in container
-		container.Val4 = 0
-		container.Val5 = 0
-		container.Val2 = 2 + rand.Intn(4) // 2-5 sips
-		e.SavePlayer(ctx, player)
-
-		return &CommandResult{
-			Messages: []string{
-				fmt.Sprintf("The brew shimmers magically! You have created a %s potion! (%s, %d sips)", recipe.name, recipe.color, container.Val2),
-			},
-			RoomBroadcast: []string{fmt.Sprintf("%s completes a potion that shimmers with magical energy!", player.FirstName)},
-			PlayerState:   player,
 		}
 	}
 
@@ -2237,7 +2445,7 @@ func (e *GameEngine) doBrew(ctx context.Context, player *Player, args []string) 
 	container.Val5 = 0
 	e.SavePlayer(ctx, player)
 	return &CommandResult{
-		Messages:      []string{"A foul odor rises from the brew. The combination produces nothing useful."},
+		Messages:      []string{"A foul odor rises from the brew. The combination produces nothing useful.", fmt.Sprintf("[Round: %d sec]", brewRT)},
 		RoomBroadcast: []string{fmt.Sprintf("%s's brew emits a foul odor.", player.FirstName)},
 		PlayerState:   player,
 	}
@@ -2283,28 +2491,32 @@ func (e *GameEngine) findJewelerItem(player *Player, target string, inclWielded 
 	return -1, -1, false, nil
 }
 
-// ---- ENCRUST ----
+// ---- ENCRUST / INLAY / INSET ----
 
-func (e *GameEngine) doEncrust(ctx context.Context, player *Player, args []string) *CommandResult {
+// doGemAdorn implements the shared logic behind ENCRUST, INLAY and INSET: each
+// sets a gem into an ENCRUSTABLE item, differing only in the verb used for
+// messages and the resulting adjective (e.g. "encrusted", "inlaid", "inset").
+func (e *GameEngine) doGemAdorn(ctx context.Context, player *Player, args []string, verb string, resultAdjName string, fallbackAdjID int) *CommandResult {
+	verbUpper := strings.ToUpper(verb)
 	if player.Skills[0] < 3 {
-		return &CommandResult{Messages: []string{"You need Jeweler skill level 3 to encrust items."}}
+		return &CommandResult{Messages: []string{fmt.Sprintf("You need Jeweler skill level 3 to %s items.", verb)}}
 	}
 	room := e.rooms[player.RoomNumber]
 	if room == nil || (!containsModifier(room.Modifiers, "FORGE") && !containsModifier(room.Modifiers, "LOOM")) {
-		return &CommandResult{Messages: []string{"You need to be at a forge or jeweler's workshop to encrust items."}}
+		return &CommandResult{Messages: []string{fmt.Sprintf("You need to be at a forge or jeweler's workshop to %s items.", verb)}}
 	}
 	if player.RoundTimeExpiry.After(time.Now()) {
 		remaining := time.Until(player.RoundTimeExpiry).Seconds()
 		return &CommandResult{Messages: []string{fmt.Sprintf("You must wait %.0f more seconds.", remaining)}}
 	}
 	if len(args) == 0 {
-		return &CommandResult{Messages: []string{"Encrust what? Usage: ENCRUST <item> WITH <gem>"}}
+		return &CommandResult{Messages: []string{fmt.Sprintf("%s what? Usage: %s <item> WITH <gem>", strings.Title(verb), verbUpper)}}
 	}
 
 	raw := strings.ToLower(strings.Join(args, " "))
 	itemTarget, gemTarget := parseWithClause(raw)
 	if gemTarget == "" {
-		return &CommandResult{Messages: []string{"Encrust with what gem? Usage: ENCRUST <item> WITH <gem>"}}
+		return &CommandResult{Messages: []string{fmt.Sprintf("%s with what gem? Usage: %s <item> WITH <gem>", strings.Title(verb), verbUpper)}}
 	}
 
 	itemIdx, wornIdx, _, targetDef := e.findJewelerItem(player, itemTarget, false, func(d *gameworld.ItemDef) bool {
@@ -2328,7 +2540,7 @@ func (e *GameEngine) doEncrust(ctx context.Context, player *Player, args []strin
 		}
 	}
 	if freeSlots < 2 {
-		return &CommandResult{Messages: []string{"That item already has too many adjectives to encrust with a gem."}}
+		return &CommandResult{Messages: []string{fmt.Sprintf("That item already has too many adjectives to %s with a gem.", verb)}}
 	}
 
 	// Find gem in inventory (archetypes 99-123)
@@ -2354,9 +2566,9 @@ func (e *GameEngine) doEncrust(ctx context.Context, player *Player, args []strin
 	if gemAdjID == 0 {
 		return &CommandResult{Messages: []string{"That gem type has no corresponding adjective."}}
 	}
-	encrustedAdjID := e.adjByName("encrusted")
-	if encrustedAdjID == 0 {
-		encrustedAdjID = 114
+	resultAdjID := e.adjByName(resultAdjName)
+	if resultAdjID == 0 {
+		resultAdjID = fallbackAdjID
 	}
 
 	// First existing non-zero adj shifts to Adj3
@@ -2371,8 +2583,8 @@ func (e *GameEngine) doEncrust(ctx context.Context, player *Player, args []strin
 		itemIdx--
 	}
 
-	// Apply: Adj1=gem noun, Adj2=encrusted, Adj3=existing
-	newAdj1, newAdj2, newAdj3 := gemAdjID, encrustedAdjID, existingAdj
+	// Apply: Adj1=gem noun, Adj2=result adjective, Adj3=existing
+	newAdj1, newAdj2, newAdj3 := gemAdjID, resultAdjID, existingAdj
 	var displayTail string
 	if itemIdx >= 0 {
 		player.Inventory[itemIdx].Adj1 = newAdj1
@@ -2400,6 +2612,18 @@ func (e *GameEngine) doEncrust(ctx context.Context, player *Player, args []strin
 		RoomBroadcast: []string{fmt.Sprintf("%s works carefully at the jeweler's bench.", player.FirstName)},
 		PlayerState:   player,
 	}
+}
+
+func (e *GameEngine) doEncrust(ctx context.Context, player *Player, args []string) *CommandResult {
+	return e.doGemAdorn(ctx, player, args, "encrust", "encrusted", 114)
+}
+
+func (e *GameEngine) doInlay(ctx context.Context, player *Player, args []string) *CommandResult {
+	return e.doGemAdorn(ctx, player, args, "inlay", "inlaid", 168)
+}
+
+func (e *GameEngine) doInset(ctx context.Context, player *Player, args []string) *CommandResult {
+	return e.doGemAdorn(ctx, player, args, "inset", "inset", 650)
 }
 
 // ---- ENGRAVE ----
@@ -2596,9 +2820,16 @@ func (e *GameEngine) completeCraft(ctx context.Context, player *Player, completi
 	}
 	player.Inventory = append(player.Inventory, item)
 
+	// Jewelry/weaving items always carry difficulty on Parameter2 (Parameter1 unused
+	// there). Wood Lore items are inconsistent in the source data — many non-launcher
+	// items (instruments, staves, etc.) never got a Parameter2 assigned, so fall back
+	// to Parameter1 (their only other small, per-item difficulty-shaped field) rather
+	// than silently awarding zero.
 	xpAward := 0
 	if craftDef.Parameter2 > 0 {
 		xpAward = craftDef.Parameter2 * 20
+	} else if craftDef.Parameter1 > 0 {
+		xpAward = craftDef.Parameter1 * 20
 	}
 	if xpAward > 0 {
 		player.Experience += xpAward
@@ -2649,9 +2880,10 @@ func (e *GameEngine) doWorkJewelry(ctx context.Context, player *Player, args []s
 
 		adj1, adj2, adj3 := buildCraftAdjs(matItem, matDef)
 		player.Inventory = append(player.Inventory[:idx], player.Inventory[idx+1:]...)
-		player.CraftingAdj1 = replaceOilyAdj(adj1)
-		player.CraftingAdj2 = replaceOilyAdj(adj2)
-		player.CraftingAdj3 = replaceOilyAdj(adj3)
+		finishedAdjs := canonicalizeOilyAdjs([3]int{adj1, adj2, adj3})
+		player.CraftingAdj1 = finishedAdjs[0]
+		player.CraftingAdj2 = finishedAdjs[1]
+		player.CraftingAdj3 = finishedAdjs[2]
 		player.CraftingMetal = target
 		player.CraftingStep = 2
 

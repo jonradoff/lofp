@@ -36,6 +36,9 @@ type MonsterInstance struct {
 	Charmed     bool      `json:"-"` // Charm spell: won't attack the caster
 	CharmExpiry time.Time `json:"-"`
 	CharmTarget string    `json:"-"` // player name who charmed it
+	Tentacled          bool      `json:"-"` // Siryx's Terrible Tentacles: immobilized, takes periodic crushing damage
+	TentacleExpiry     time.Time `json:"-"`
+	TentacleCasterName string    `json:"-"` // player who cast Tentacles, for death XP attribution on the DOT tick
 
 	// Summoned creature fields (transient)
 	SummonerName    string `json:"-"` // name of the player who summoned this creature
@@ -45,6 +48,7 @@ type MonsterInstance struct {
 	FollowTarget    string   `json:"-"` // name of player this creature follows when they move; "" = not following
 	GuardingPlayers []string `json:"-"` // names of players being guarded (for COMMAND GUARD)
 	MonsterTargetID int      `json:"-"` // instance ID of a monster this creature is attacking; 0 = none
+	ControlExpiry   time.Time `json:"-"` // Control Undead: when control lapses and the creature turns hostile again (zero = never expires)
 }
 
 // monsterManager handles monster spawning and tracking.
@@ -54,6 +58,7 @@ type monsterManager struct {
 	nextID         int
 	monstersByRoom map[int][]int    // roomNumber -> slice of instance indices
 	roomLastPlayer map[int]time.Time // roomNumber -> last time a player was present
+	lastSpawnCheck map[int]time.Time // roomNumber -> last time spawnForRoom actually ran its checks
 }
 
 func newMonsterManager() *monsterManager {
@@ -61,8 +66,15 @@ func newMonsterManager() *monsterManager {
 		nextID:         1, // 0 is the "no instance" sentinel used by SummonedCreatureID
 		monstersByRoom: make(map[int][]int),
 		roomLastPlayer: make(map[int]time.Time),
+		lastSpawnCheck: make(map[int]time.Time),
 	}
 }
+
+// spawnCheckCooldown throttles spawnForRoom per room so a group of players
+// entering together (each triggers their own applyEntryScripts call) or a
+// player rapidly leaving/re-entering only counts as one spawn opportunity
+// instead of one per arrival.
+const spawnCheckCooldown = 20 * time.Second
 
 // SpawnInitialMonsters is now a no-op. Monsters spawn on demand when players are nearby.
 func (mm *monsterManager) SpawnInitialMonsters(monsterLists []gameworld.MonsterList, monsters map[int]*gameworld.MonsterDef) int {
@@ -101,7 +113,13 @@ func (e *GameEngine) spawnForRoom(roomNum int) {
 
 	// Track player presence for unload timer
 	e.monsterMgr.mu.Lock()
-	e.monsterMgr.roomLastPlayer[roomNum] = time.Now()
+	now := time.Now()
+	e.monsterMgr.roomLastPlayer[roomNum] = now
+	if last, ok := e.monsterMgr.lastSpawnCheck[roomNum]; ok && now.Sub(last) < spawnCheckCooldown {
+		e.monsterMgr.mu.Unlock()
+		return
+	}
+	e.monsterMgr.lastSpawnCheck[roomNum] = now
 	e.monsterMgr.mu.Unlock()
 
 	// Look up the room's monster group ID
@@ -141,12 +159,11 @@ func (e *GameEngine) spawnForRoom(roomNum int) {
 			}
 		}
 
-		// Spawn up to MaxCount, each with Probability% chance
+		// Attempt at most one spawn per check so population builds up gradually
+		// toward MaxCount across repeated entries/ticks, rather than filling
+		// the room in a single burst the moment a player first arrives.
 		spawned := 0
-		for existingCount+spawned < ml.MaxCount {
-			if ml.Probability > 0 && rand.Intn(100) >= ml.Probability {
-				break // failed probability check — stop trying for this entry
-			}
+		if existingCount < ml.MaxCount && (ml.Probability <= 0 || rand.Intn(100) < ml.Probability) {
 			hp := def.Body
 			if def.ExtraBody > 0 {
 				hp += rand.Intn(def.ExtraBody/2+1) + def.ExtraBody/2
@@ -310,6 +327,8 @@ func (e *GameEngine) MonsterLookLines(roomNum int) []string {
 			name += " (sleeping)"
 		} else if inst.Webbed {
 			name += " (webbed)"
+		} else if inst.Tentacled {
+			name += " (entangled)"
 		} else if inst.Feared {
 			name += " (cowering)"
 		}
@@ -349,8 +368,17 @@ func (e *GameEngine) StartMonsterLoop() {
 			// Corpse decay: remove dead monsters after 60 seconds
 			if tick%20 == 0 {
 				e.cleanupCorpses()
+				e.tentacleDamageTick()
 			}
-			// Periodic respawn check near players every ~30 seconds
+			// Periodic respawn check near players every ~30 seconds.
+			// (This was temporarily slowed to ~105s while chasing the Crescent
+			// muldragun over-spawning, but that turned out to be caused by
+			// real bugs — duplicate MLIST entries loaded from two script
+			// files, and spawnForRoom being called once per group member on
+			// entry — both fixed at the root now. Slowing this shared,
+			// global tick was an unnecessary blanket nerf on top of that and
+			// made every other monster group in the game respawn too
+			// slowly, so it's reverted back to its original rate.)
 			if tick%10 == 0 {
 				e.respawnNearPlayers()
 			}
@@ -425,6 +453,14 @@ func (e *GameEngine) unloadDistantMonsters() {
 			continue
 		}
 
+		// Don't unload summoned/controlled creatures — they persist until their
+		// summoner dismisses them, they die, or the summoner dies/disconnects.
+		// Silently unloading them here left players with no explanation for why
+		// a spectral warrior or elemental they'd left guarding/behind vanished.
+		if inst.IsSummoned {
+			continue
+		}
+
 		// Don't unload if room had a player recently (within 3 minutes)
 		if lastSeen, ok := e.monsterMgr.roomLastPlayer[inst.RoomNumber]; ok {
 			if now.Sub(lastSeen) < 3*time.Minute {
@@ -475,6 +511,86 @@ func (e *GameEngine) cleanupCorpses() {
 	}
 }
 
+// tentacleDamageTick applies Siryx's Terrible Tentacles' once-a-minute
+// crushing damage to every monster currently held by tentacles. Runs on the
+// same ~60-second cadence as corpse decay (StartMonsterLoop, tick%20==0).
+// The immobilize status itself (Tentacled/TentacleExpiry) is set at cast
+// time and expired in monsterCombatTick, same as Webbed/Sleeping/Feared.
+func (e *GameEngine) tentacleDamageTick() {
+	if e.monsterMgr == nil {
+		return
+	}
+	spell := FindSpellByID(134)
+	if spell == nil {
+		return
+	}
+
+	type tentacleKill struct {
+		inst MonsterInstance
+		def  *gameworld.MonsterDef
+	}
+	var kills []tentacleKill
+
+	e.monsterMgr.mu.Lock()
+	for i := range e.monsterMgr.instances {
+		inst := &e.monsterMgr.instances[i]
+		if !inst.Alive || !inst.Tentacled {
+			continue
+		}
+		def := e.monsters[inst.DefNumber]
+		if def == nil {
+			continue
+		}
+
+		dmg := rand.Intn(spell.DmgMax-spell.DmgMin+1) + spell.DmgMin
+		if level, ok := def.Immunities[elementalImmunityType(spell.DmgType)]; ok {
+			dmg = applyImmunity(dmg, level)
+		}
+		if dmg <= 0 {
+			continue
+		}
+
+		if e.localRoomBroadcast != nil {
+			name := strings.ToLower(FormatMonsterName(def, e.monAdjs))
+			article := articleFor(name, def.Unique)
+			crushLine := fmt.Sprintf("The tentacles crush %s%s!", article, name)
+			dmgLine := fmt.Sprintf(" %s %s to %s. [%d Damage]", damageSeverity(dmg), spellDmgNoun(spell.DmgType), randomBodyPart(def.BodyType), dmg)
+			e.localRoomBroadcast(inst.RoomNumber, []string{crushLine, dmgLine})
+		}
+
+		inst.CurrentHP -= dmg
+		if inst.CurrentHP <= 0 {
+			inst.Alive = false
+			inst.CurrentHP = 0
+			inst.DeathTime = time.Now()
+			inst.Tentacled = false
+			kills = append(kills, tentacleKill{inst: *inst, def: def})
+		}
+	}
+	e.monsterMgr.mu.Unlock()
+
+	for _, k := range kills {
+		name := strings.ToLower(FormatMonsterName(k.def, e.monAdjs))
+		if e.localRoomBroadcast != nil {
+			deathText := k.def.TextOverrides["TEXD"]
+			if deathText != "" {
+				e.localRoomBroadcast(k.inst.RoomNumber, []string{fmt.Sprintf("A %s %s", name, deathText)})
+			} else {
+				e.localRoomBroadcast(k.inst.RoomNumber, []string{fmt.Sprintf("A %s collapses, dead!", name)})
+			}
+		}
+		if e.sessions == nil || k.inst.TentacleCasterName == "" {
+			continue
+		}
+		for _, p := range e.sessions.OnlinePlayers() {
+			if p.FirstName == k.inst.TentacleCasterName {
+				e.handleMonsterDeath(p, &k.inst, k.def)
+				break
+			}
+		}
+	}
+}
+
 func (e *GameEngine) monsterTick(tick int) {
 	if e.monsterMgr == nil || e.localRoomBroadcast == nil {
 		return
@@ -491,6 +607,35 @@ func (e *GameEngine) monsterTick(tick int) {
 
 		def := e.monsters[inst.DefNumber]
 		if def == nil {
+			continue
+		}
+
+		// Control Undead expiry: the creature breaks free of its bonds and turns hostile again.
+		if inst.IsSummoned && !inst.ControlExpiry.IsZero() && time.Now().After(inst.ControlExpiry) {
+			name := strings.ToLower(FormatMonsterName(def, e.monAdjs))
+			summoner := inst.SummonerName
+			inst.IsSummoned = false
+			inst.SummonerName = ""
+			inst.FollowTarget = ""
+			inst.GuardingPlayers = nil
+			inst.MonsterTargetID = 0
+			inst.ControlExpiry = time.Time{}
+			if e.localRoomBroadcast != nil {
+				e.localRoomBroadcast(inst.RoomNumber, []string{fmt.Sprintf("The %s's eyes flare with malevolent hunger as it breaks free of its bonds!", name)})
+			}
+			if summoner != "" {
+				if e.sendToPlayer != nil {
+					e.sendToPlayer(summoner, []string{fmt.Sprintf("Your control over the %s fades. It turns hostile!", name)})
+				}
+				if e.sessions != nil {
+					for _, p := range e.sessions.OnlinePlayers() {
+						if p.FirstName == summoner {
+							p.SummonedCreatureID = 0
+							break
+						}
+					}
+				}
+			}
 			continue
 		}
 

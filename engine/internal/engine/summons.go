@@ -105,26 +105,128 @@ func (e *GameEngine) spawnSummonedCreature(player *Player, mnumber int, isFamili
 	summoned := fmt.Sprintf("%s %s%s!", flavorPrefix, carticle, cname)
 	if isFamiliar {
 		return &CommandResult{
-			Messages:      []string{summoned, fmt.Sprintf("You have summoned %s%s as your familiar. (COMMAND FOLLOW ME, COMMAND WATCH WILL, COMMAND BEGONE)", carticle, cname)},
+			Messages:      []string{summoned, fmt.Sprintf("You have summoned %s%s as your familiar. (COMMAND FOLLOW ME, COMMAND STAY, COMMAND WATCH WILL, COMMAND LOOK, COMMAND SAY <message>, COMMAND BEGONE)", carticle, cname)},
 			RoomBroadcast: []string{fmt.Sprintf("%s%s appears in a shimmer of magical light.", capArticle(carticle), cname)},
 		}
 	}
 	return &CommandResult{
-		Messages:      []string{summoned, fmt.Sprintf("You have summoned %s%s. (COMMAND FOLLOW ME, COMMAND GUARD ME, COMMAND ATTACK <name>, COMMAND BEGONE)", carticle, cname)},
+		Messages:      []string{summoned, fmt.Sprintf("You have summoned %s%s. (COMMAND FOLLOW ME, COMMAND STAY, COMMAND GUARD ME, COMMAND ATTACK <name>, COMMAND LOOK, COMMAND SAY <message>, COMMAND BEGONE)", carticle, cname)},
 		RoomBroadcast: []string{fmt.Sprintf("%s%s appears in a burst of magical energy.", capArticle(carticle), cname)},
+	}
+}
+
+// castAnimateUndead handles Animate Skeleton (306) and Animate Zombie (307).
+// Summons a fresh undead creature (skeleton or zombie) fully under the caster's
+// control, exactly like a summoned elemental — permanent until dismissed.
+func (e *GameEngine) castAnimateUndead(player *Player, mnumber int, flavorPrefix string) *CommandResult {
+	if player.SummonedCreatureID != 0 {
+		return &CommandResult{Messages: []string{"You already have a summoned creature. Use COMMAND BEGONE to dismiss it first."}}
+	}
+	return e.spawnSummonedCreature(player, mnumber, false, flavorPrefix)
+}
+
+// castSummonSpectralWarrior handles spell 353 — Summon Spectral Warrior (MNUMBER 130).
+// Requires ghoul dust (item 512 with Adj1 546) as a reagent, consumed at PREPARE time.
+func (e *GameEngine) castSummonSpectralWarrior(player *Player) *CommandResult {
+	if player.SummonedCreatureID != 0 {
+		return &CommandResult{Messages: []string{"You already have a summoned creature. Use COMMAND BEGONE to dismiss it first."}}
+	}
+	player.PreparedSpellReagentArch = 0
+	return e.spawnSummonedCreature(player, 130, false, "Ghostly mist swirls and coalesces into")
+}
+
+// castControlUndead handles Control Undead I (308) and II (309). Rather than summoning
+// a new creature, it dominates an existing undead creature in the room for 40 minutes,
+// after which control lapses and the creature turns hostile again (see monsterTick).
+// Control I only works on undead with <=100 body points; Control II raises the cap to <=200.
+func (e *GameEngine) castControlUndead(player *Player, spell *SpellDef, args []string) *CommandResult {
+	if player.SummonedCreatureID != 0 {
+		return &CommandResult{Messages: []string{"You already have a summoned or controlled creature. Use COMMAND BEGONE to dismiss it first."}}
+	}
+	if len(args) == 0 {
+		return &CommandResult{Messages: []string{"Control which undead creature?"}}
+	}
+	targetName := strings.Join(args, " ")
+	inst, def := e.findMonsterInRoom(player, targetName)
+	if inst == nil {
+		return &CommandResult{Messages: []string{fmt.Sprintf("You don't see '%s' here.", targetName)}}
+	}
+	if def.Race != 22 {
+		return &CommandResult{Messages: []string{"Your spell has no effect — that creature is not undead."}}
+	}
+	if inst.IsSummoned {
+		return &CommandResult{Messages: []string{"That undead is already under someone's control."}}
+	}
+	bodyCap := 100
+	if spell.ID == 309 {
+		bodyCap = 200
+	}
+	if def.Body > bodyCap {
+		return &CommandResult{Messages: []string{"This undead's malevolent will is too strong for you to dominate."}}
+	}
+
+	cname := strings.ToLower(FormatMonsterName(def, e.monAdjs))
+	carticle := articleFor(cname, def.Unique)
+	instID := inst.ID
+
+	e.monsterMgr.mu.Lock()
+	for i := range e.monsterMgr.instances {
+		if e.monsterMgr.instances[i].ID == instID {
+			e.monsterMgr.instances[i].IsSummoned = true
+			e.monsterMgr.instances[i].SummonerName = player.FirstName
+			e.monsterMgr.instances[i].FollowTarget = player.FirstName
+			e.monsterMgr.instances[i].Target = ""
+			e.monsterMgr.instances[i].MonsterTargetID = 0
+			e.monsterMgr.instances[i].ControlExpiry = time.Now().Add(40 * time.Minute)
+			break
+		}
+	}
+	e.monsterMgr.mu.Unlock()
+	player.SummonedCreatureID = instID
+
+	return &CommandResult{
+		Messages: []string{
+			fmt.Sprintf("You fix your gaze on %s%s and speak words of dark binding!", carticle, cname),
+			fmt.Sprintf("%s%s falls under your control for 40 minutes. (COMMAND FOLLOW ME, COMMAND STAY, COMMAND GUARD ME, COMMAND ATTACK <name>, COMMAND LOOK, COMMAND SAY <message>, COMMAND BEGONE)", capArticle(carticle), cname),
+		},
+		RoomBroadcast: []string{fmt.Sprintf("%s fixes %s gaze on %s%s, who suddenly goes still and obedient.", player.FirstName, player.Possessive(), carticle, cname)},
+	}
+}
+
+// castSpeakWithDead handles spell 311 — Speak with Dead. Grants a dead player in the
+// room the ability to speak again, even though they remain otherwise incapacitated.
+func (e *GameEngine) castSpeakWithDead(player *Player, args []string) *CommandResult {
+	if len(args) == 0 {
+		return &CommandResult{Messages: []string{"Speak with Dead requires a target. Cast it on a dead player's body."}}
+	}
+	targetName := strings.ToLower(strings.Join(args, " "))
+	target := e.findPlayerInRoom(player, targetName)
+	if target == nil {
+		return &CommandResult{Messages: []string{"You don't see that here."}}
+	}
+	if !target.Dead {
+		return &CommandResult{Messages: []string{fmt.Sprintf("%s is not dead.", target.FirstName)}}
+	}
+	target.SpeakWhileDead = true
+	return &CommandResult{
+		Messages:      []string{fmt.Sprintf("You commune with %s's spirit, granting it the power of speech.", target.FirstName)},
+		RoomBroadcast: []string{fmt.Sprintf("%s murmurs strange words over %s's body.", player.FirstName, target.FirstName)},
+		TargetName:    target.FirstName,
+		TargetMsg:     []string{fmt.Sprintf("%s's words wash over you, and you find you can speak once more, though the rest of you remains still and cold.", player.FirstName)},
+		PlayerState:   target,
 	}
 }
 
 // --- COMMAND verb ---
 
 // doCommand handles the COMMAND verb for controlling summoned creatures.
-func (e *GameEngine) doCommand(ctx context.Context, player *Player, args []string) *CommandResult {
+func (e *GameEngine) doCommand(ctx context.Context, player *Player, args []string, rawInput string) *CommandResult {
 	_ = ctx
 	if player.SummonedCreatureID == 0 {
 		return &CommandResult{Messages: []string{"You have no summoned creature to command."}}
 	}
 	if len(args) == 0 {
-		return &CommandResult{Messages: []string{"Command it to do what? (FOLLOW ME, FOLLOW <name>, BEGONE, WATCH WILL, GUARD ME, GUARD <name>, ATTACK <name>)"}}
+		return &CommandResult{Messages: []string{"Command it to do what? (FOLLOW ME, FOLLOW <name>, STAY, BEGONE, WATCH WILL, GUARD ME, GUARD <name>, ATTACK <name>, LOOK, SAY <message>)"}}
 	}
 
 	// Locate the summoned creature in the manager
@@ -161,6 +263,9 @@ func (e *GameEngine) doCommand(ctx context.Context, player *Player, args []strin
 	if len(args) > 1 {
 		rest = strings.ToLower(strings.Join(args[1:], " "))
 	}
+	// rawRest preserves the original case of the message for COMMAND SAY — args is
+	// derived from the fully-uppercased input, so it can't be used for that.
+	rawRest := extractRawArgs(rawInput, 2)
 
 	// Determine how the player appears to others (hidden/invisible → "something")
 	isHidden := player.Hidden || player.Invisible || player.GMInvis
@@ -233,6 +338,36 @@ func (e *GameEngine) doCommand(ctx context.Context, player *Player, args []strin
 		return &CommandResult{
 			Messages:      []string{fmt.Sprintf("%s acknowledges your command.", capCname)},
 			RoomBroadcast: commandBroadcast(followLabel),
+		}
+
+	case "stay":
+		// COMMAND STAY — stop following (or guarding) and remain in the current room
+		e.monsterMgr.mu.Lock()
+		for i := range e.monsterMgr.instances {
+			if e.monsterMgr.instances[i].ID == instID {
+				e.monsterMgr.instances[i].FollowTarget = ""
+				e.monsterMgr.instances[i].WatchMode = false
+				e.monsterMgr.instances[i].GuardingPlayers = nil
+				break
+			}
+		}
+		e.monsterMgr.mu.Unlock()
+		e.setWatching(player.FirstName, 0)
+		actionMsg := fmt.Sprintf("%s stays put.", capCname)
+		if sameRoom {
+			rb := commandBroadcast("stay")
+			rb = append(rb, actionMsg)
+			return &CommandResult{
+				Messages:      []string{fmt.Sprintf("%s acknowledges your command.", capCname)},
+				RoomBroadcast: rb,
+			}
+		}
+		if e.localRoomBroadcast != nil {
+			e.localRoomBroadcast(instRoom, []string{actionMsg})
+		}
+		return &CommandResult{
+			Messages:      []string{fmt.Sprintf("%s acknowledges your command.", capCname)},
+			RoomBroadcast: commandBroadcast("stay"),
 		}
 
 	case "begone":
@@ -483,9 +618,66 @@ func (e *GameEngine) doCommand(ctx context.Context, player *Player, args []strin
 			RoomBroadcast: rb,
 		}
 
+	case "say":
+		// COMMAND SAY <message> — the creature repeats the message aloud
+		if rawRest == "" {
+			return &CommandResult{Messages: []string{"Command it to say what? (COMMAND SAY <message>)"}}
+		}
+		spokenLine := fmt.Sprintf("%s says, \"%s\"", capCname, rawRest)
+		rb := commandBroadcast("say " + rawRest)
+		if sameRoom {
+			rb = append(rb, spokenLine)
+			return &CommandResult{
+				Messages:      []string{spokenLine},
+				RoomBroadcast: rb,
+			}
+		}
+		if e.localRoomBroadcast != nil {
+			e.localRoomBroadcast(instRoom, []string{spokenLine})
+		}
+		return &CommandResult{
+			Messages:      []string{fmt.Sprintf("%s acknowledges your command.", capCname)},
+			RoomBroadcast: rb,
+		}
+
+	case "look":
+		// COMMAND LOOK — the creature gazes around, and the summoner sees the room
+		// through its senses, exactly as if they were standing there themselves.
+		lookMsg := fmt.Sprintf("%s gazes at the surroundings.", capCname)
+		rb := commandBroadcast("look")
+
+		savedRoom := player.RoomNumber
+		player.RoomNumber = instRoom
+		lookResult := e.doLook(player)
+		player.RoomNumber = savedRoom
+		msgs := append([]string{fmt.Sprintf("Through your %s's senses, you see:", cname)}, lookResult.Messages...)
+
+		if sameRoom {
+			rb = append(rb, lookMsg)
+			return &CommandResult{
+				Messages:      msgs,
+				RoomBroadcast: rb,
+			}
+		}
+		if e.localRoomBroadcast != nil {
+			e.localRoomBroadcast(instRoom, []string{lookMsg})
+		}
+		return &CommandResult{
+			Messages:      msgs,
+			RoomBroadcast: rb,
+		}
+
 	default:
-		return &CommandResult{Messages: []string{"Unknown command. Options: FOLLOW ME, FOLLOW <name>, BEGONE, WATCH WILL, GUARD ME, GUARD <name>, ATTACK <name>"}}
+		return &CommandResult{Messages: []string{"Unknown command. Options: FOLLOW ME, FOLLOW <name>, STAY, BEGONE, WATCH WILL, GUARD ME, GUARD <name>, ATTACK <name>, LOOK, SAY <message>"}}
 	}
+}
+
+// ForwardToWatchers relays room broadcast messages (player speech, actions, combat,
+// arrivals/departures) to players whose familiar/summoned creature is watching that room
+// via COMMAND WATCH WILL. Exported so the API layer can call it for the RoomBroadcast/
+// OldRoomMsg paths, not just monster AI activity routed through SetLocalRoomBroadcast.
+func (e *GameEngine) ForwardToWatchers(roomNum int, messages []string) {
+	e.forwardToWatchers(roomNum, messages)
 }
 
 // forwardToWatchers sends room broadcast messages to players whose familiar is watching that room.

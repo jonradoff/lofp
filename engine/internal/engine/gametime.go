@@ -35,6 +35,29 @@ func GameMinutes() int {
 func GameHour() int { return GameMinutes() / 60 % 24 }
 func GameDay() int  { return GameMinutes()/(60*24)%336 + 1 } // 336 days = 12 months × 28 days
 
+// TimePeriod returns the current time of day as one of eight three-hour bands,
+// used by the TIME command to give players a more specific read than day/night.
+func TimePeriod() string {
+	switch h := GameHour(); {
+	case h < 2 || h >= 23:
+		return "midnight"
+	case h < 5:
+		return "very early morning"
+	case h < 8:
+		return "dawn"
+	case h < 11:
+		return "mid morning"
+	case h < 14:
+		return "noon"
+	case h < 17:
+		return "afternoon"
+	case h < 20:
+		return "evening"
+	default:
+		return "night"
+	}
+}
+
 func GameMonth() int {
 	m := ((GameDay() - 1) / 28) + 1
 	if m > 12 {
