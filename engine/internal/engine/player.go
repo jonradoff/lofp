@@ -53,6 +53,9 @@ type InventoryItem struct {
     Val3      int    `bson:"val3,omitempty" json:"val3,omitempty"`
     Val4      int    `bson:"val4,omitempty" json:"val4,omitempty"`
     Val5      int    `bson:"val5,omitempty" json:"val5,omitempty"`
+    // Sharpness is the non-magical to-hit bonus forged into a weapon (weaponSharpnessBonus).
+    // Kept separate from Val1, which per GMSCRIPT.DOC is the item's copper sell value.
+    Sharpness int    `bson:"sharpness,omitempty" json:"sharpness,omitempty"`
     State     string `bson:"state,omitempty" json:"state,omitempty"`
     Tail      string `bson:"tail,omitempty" json:"tail,omitempty"`
     WornSlot  string `bson:"wornSlot,omitempty" json:"wornSlot,omitempty"`

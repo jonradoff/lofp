@@ -1827,7 +1827,7 @@ func (e *GameEngine) castBuffSpell(player *Player, spell *SpellDef, args []strin
 	case 210: // Haste
 		return e.castHasteSpell(player, spell, args)
 	case 224: // Fly
-		return e.castFlySpell(player, spell)
+		return e.castFlySpell(player, spell, args)
 	case 225: // Invisibility
 		player.Invisible = true
 		msg = fmt.Sprintf("You gesture and cast %s. You fade from sight.", spell.Name)
@@ -2558,28 +2558,59 @@ func (e *GameEngine) castHasteSpell(player *Player, spell *SpellDef, args []stri
 
 // castFlySpell handles Fly (spell 224) as a temporary flight buff.
 // Initial cast: flight for 20 minutes. Recasting while already active extends
-// the duration by 20 minutes up to a 4-hour cap.
-func (e *GameEngine) castFlySpell(player *Player, spell *SpellDef) *CommandResult {
+// the duration by 20 minutes up to a 4-hour cap. Can be cast on another player
+// in the room by name, like Haste and the Strength spells.
+func (e *GameEngine) castFlySpell(player *Player, spell *SpellDef, args []string) *CommandResult {
 	const flyDuration = 20 * time.Minute
 	const flyMaxDuration = 4 * time.Hour
 
-	if !player.FlyExpiry.IsZero() && time.Now().Before(player.FlyExpiry) {
-		player.FlyExpiry = player.FlyExpiry.Add(flyDuration)
-		if player.FlyExpiry.After(time.Now().Add(flyMaxDuration)) {
-			player.FlyExpiry = time.Now().Add(flyMaxDuration)
-		}
-		mins := int(time.Until(player.FlyExpiry).Minutes()) + 1
-		return &CommandResult{
-			Messages:      []string{fmt.Sprintf("You gesture and cast %s. You are already aloft! (%d minutes remaining)", spell.Name, mins)},
-			RoomBroadcast: []string{fmt.Sprintf("%s gestures and casts %s.", player.FirstName, spell.Name)},
+	target := player
+	isSelf := true
+	if len(args) > 0 {
+		t := strings.ToLower(strings.Join(args, " "))
+		if t != "me" && t != "myself" && t != "self" {
+			found := e.findPlayerInRoom(player, t)
+			if found == nil {
+				return &CommandResult{Messages: []string{fmt.Sprintf("You don't see '%s' here.", strings.Join(args, " "))}}
+			}
+			target = found
+			isSelf = false
 		}
 	}
 
-	player.CanFly = true
-	player.FlyExpiry = time.Now().Add(flyDuration)
+	if !target.FlyExpiry.IsZero() && time.Now().Before(target.FlyExpiry) {
+		target.FlyExpiry = target.FlyExpiry.Add(flyDuration)
+		if target.FlyExpiry.After(time.Now().Add(flyMaxDuration)) {
+			target.FlyExpiry = time.Now().Add(flyMaxDuration)
+		}
+		mins := int(time.Until(target.FlyExpiry).Minutes()) + 1
+		if isSelf {
+			return &CommandResult{
+				Messages:      []string{fmt.Sprintf("You gesture and cast %s. You are already aloft! (%d minutes remaining)", spell.Name, mins)},
+				RoomBroadcast: []string{fmt.Sprintf("%s gestures and casts %s.", player.FirstName, spell.Name)},
+			}
+		}
+		return &CommandResult{
+			Messages:      []string{fmt.Sprintf("You gesture and cast %s on %s, extending their flight. (%d minutes remaining)", spell.Name, target.FirstName, mins)},
+			RoomBroadcast: []string{fmt.Sprintf("%s gestures and casts %s on %s.", player.FirstName, spell.Name, target.FirstName)},
+			TargetName:    target.FirstName,
+			TargetMsg:     []string{fmt.Sprintf("%s casts %s on you. You are already aloft! (%d minutes remaining)", player.FirstName, spell.Name, mins)},
+		}
+	}
+
+	target.CanFly = true
+	target.FlyExpiry = time.Now().Add(flyDuration)
+	if isSelf {
+		return &CommandResult{
+			Messages:      []string{fmt.Sprintf("You gesture and cast %s. You rise into the air!", spell.Name)},
+			RoomBroadcast: []string{fmt.Sprintf("%s gestures and casts %s.", player.FirstName, spell.Name)},
+		}
+	}
 	return &CommandResult{
-		Messages:      []string{fmt.Sprintf("You gesture and cast %s. You rise into the air!", spell.Name)},
-		RoomBroadcast: []string{fmt.Sprintf("%s gestures and casts %s.", player.FirstName, spell.Name)},
+		Messages:      []string{fmt.Sprintf("You gesture and cast %s on %s.", spell.Name, target.FirstName)},
+		RoomBroadcast: []string{fmt.Sprintf("%s gestures and casts %s on %s.", player.FirstName, spell.Name, target.FirstName)},
+		TargetName:    target.FirstName,
+		TargetMsg:     []string{fmt.Sprintf("%s casts %s on you. You rise into the air!", player.FirstName, spell.Name)},
 	}
 }
 

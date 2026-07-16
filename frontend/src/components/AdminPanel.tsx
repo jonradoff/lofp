@@ -51,6 +51,7 @@ interface RoomItemDetail {
   val3?: number
   val4?: number
   val5?: number
+  sharpness?: number
   state?: string
   extend?: string
   putIn?: number
@@ -750,6 +751,7 @@ export default function AdminPanel() {
                                 {item.val3 ? <span className="text-blue-400">val3={item.val3}</span> : null}
                                 {item.val4 ? <span className="text-blue-400">val4={item.val4}</span> : null}
                                 {item.val5 ? <span className="text-blue-400">val5={item.val5}</span> : null}
+                                {item.sharpness ? <span className="text-blue-400">sharpness={item.sharpness}</span> : null}
                                 {item.state ? <span className="text-yellow-400">state: {item.state}</span> : null}
                                 {item.isPut ? <span className="text-cyan-400">inside ref {item.putIn}</span> : null}
                                 {item.extend ? <span className="text-gray-500">"{item.extend}"</span> : null}

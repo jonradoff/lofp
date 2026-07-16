@@ -691,7 +691,11 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 						result.Exits = lookResult.Exits
 						result.Items = lookResult.Items
 						result.OldRoom = origRoom
-						result.OldRoomMsg = []string{fmt.Sprintf("%s leaves.", player.FirstName)}
+						if len(sc.PreMoveMsgs) > 0 {
+							result.OldRoomMsg = sc.PreMoveMsgs
+						} else {
+							result.OldRoomMsg = []string{fmt.Sprintf("%s leaves.", player.FirstName)}
+						}
 						result.RoomBroadcast = append(result.RoomBroadcast, fmt.Sprintf("%s arrives.", player.FirstName))
 						e.applyEntryScripts(ctx, player, dest, result)
 					}
@@ -708,7 +712,11 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 						result.Exits = lookResult.Exits
 						result.Items = lookResult.Items
 						result.OldRoom = origRoom
-						result.OldRoomMsg = []string{fmt.Sprintf("%s leaves.", player.FirstName)}
+						if len(sc.PreMoveMsgs) > 0 {
+							result.OldRoomMsg = sc.PreMoveMsgs
+						} else {
+							result.OldRoomMsg = []string{fmt.Sprintf("%s leaves.", player.FirstName)}
+						}
 						result.RoomBroadcast = append(result.RoomBroadcast, fmt.Sprintf("%s arrives.", player.FirstName))
 						e.applyEntryScripts(ctx, player, dest, result)
 					}
@@ -848,7 +856,8 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 		return e.doWho(player)
 	case "SKILLS":
 		var skillMsgs []string
-		skillMsgs = append(skillMsgs, "=== Your Skills ===")
+		skillMsgs = append(skillMsgs, fmt.Sprintf("%-2s %-26s%-10s", "#", "Skill", "Level"))
+		skillMsgs = append(skillMsgs, fmt.Sprintf("%-2s %-26s%-10s", "--", "-----", "-----"))
 		hasSkills := false
 		for id := 0; id <= 35; id++ {
 			lvl := player.Skills[id]
@@ -857,12 +866,12 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 				if name == "" {
 					name = fmt.Sprintf("Skill #%d", id)
 				}
-				skillMsgs = append(skillMsgs, fmt.Sprintf("  %s: rank %d", name, lvl))
+				skillMsgs = append(skillMsgs, fmt.Sprintf("%-2d %-26s%-10d", id, name, lvl))
 				hasSkills = true
 			}
 		}
 		if !hasSkills {
-			skillMsgs = append(skillMsgs, "  You have no trained skills yet.")
+			skillMsgs = append(skillMsgs, "You have no trained skills yet.")
 		}
 		skillMsgs = append(skillMsgs, fmt.Sprintf("Build Points: %d", player.BuildPoints))
 		return &CommandResult{Messages: skillMsgs}
@@ -1363,7 +1372,7 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 		e.SavePlayer(ctx, player)
 		return &CommandResult{Messages: []string{"Prompt indicators off."}}
 	case "VERSION", "NEWS", "NOTES":
-		return &CommandResult{Messages: []string{"Legends of Future Past v11.10.0"}}
+		return &CommandResult{Messages: []string{"Legends of Future Past v11.11.0"}}
 	case "CREDITS":
 		return &CommandResult{Messages: []string{
 			"",

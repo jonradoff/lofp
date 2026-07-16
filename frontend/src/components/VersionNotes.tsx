@@ -9,6 +9,65 @@ export default function VersionNotes({ onBack }: { onBack: () => void }) {
 
         <div className="space-y-6 text-sm">
           <section>
+            <h2 className="text-amber-400 text-lg font-bold mb-1">v11.11.0 &mdash; July 15, 2026</h2>
+            <p className="text-gray-400 mb-3">Script engine execution-order rework, monster dialogue scripting, and the full &ldquo;Enter the Fold&rdquo; lens-of-worlds quest chain fixed end-to-end.</p>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Script Engine</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Rebuilt how conditional script blocks execute &mdash; actions and nested <code className="text-amber-300">IFVAR</code> checks now run in their original source order instead of every flat action always running before any nested block, fixing scripts that pick a new value and then reference it later in the same block</li>
+                  <li><code className="text-amber-300">ELSE</code> branches now correctly support <code className="text-amber-300">PLREVENT</code>/<code className="text-amber-300">SETEVENT</code> delayed continuations &mdash; previously anything after a delay inside an ELSE branch ran immediately instead of waiting</li>
+                  <li><code className="text-amber-300">IFSAY</code> blocks nested inside a room&rsquo;s <code className="text-amber-300">IFVAR</code> tree (multi-stage conversations gated on quest flags) are now reachable &mdash; previously only top-level <code className="text-amber-300">IFSAY</code> blocks could ever match</li>
+                  <li><code className="text-amber-300">KNEEL</code>/<code className="text-amber-300">SIT</code>/<code className="text-amber-300">STAND</code>/<code className="text-amber-300">LAY</code> and spoken commands (<code className="text-amber-300">SAY</code>/<code className="text-amber-300">&apos;</code>) now correctly schedule delayed script continuations (<code className="text-amber-300">PLREVENT</code>/<code className="text-amber-300">CONTPLREVENT</code>) instead of silently dropping everything after the delay</li>
+                  <li>Fixed a parser bug where a <code className="text-amber-300">CEVENT</code> (cyclic world event) immediately followed by a <code className="text-amber-300">MACRO</code> definition would swallow the entire macro into its own body and fire it on a timer, unconditionally, with no acting player</li>
+                  <li>Added support for <code className="text-amber-300">CALL N</code> as an inline, mid-script subroutine call (e.g. resolving a quest item&rsquo;s name for display on demand) &mdash; previously only the static room/item-level <code className="text-amber-300">CALL</code> attachment worked</li>
+                  <li>Monsters can now have their own <code className="text-amber-300">EXAMINE</code>/<code className="text-amber-300">GIVE</code>/etc. scripts attached via <code className="text-amber-300">SCRIPTMACRO</code> &mdash; this directive was silently ignored before, so no monster dialogue script ever ran</li>
+                  <li><code className="text-amber-300">GIVE &lt;item&gt; TO &lt;monster&gt;</code> now actually works &mdash; previously GIVE only ever considered player targets</li>
+                  <li><code className="text-amber-300">IFCARRY</code> now resolves variable arguments (not just literal numbers) and checks all three adjective slots instead of only the first &mdash; fixes quest checks for store-bought items, whose adjective is stored in the third slot</li>
+                  <li>Text set via <code className="text-amber-300">STRCPY</code> now converts underscores to spaces (e.g. &ldquo;some_meteoric_dust&rdquo; &rarr; &ldquo;some meteoric dust&rdquo;), matching how <code className="text-amber-300">IFSAY</code> patterns already worked</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Ming-K&rsquo;Tuk &amp; The Fold</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>The riddle trial in the Phosphorescent Catacombs (speaking the pass phrases, then kneeling at the altar) now actually teleports you onward instead of just running a normal kneel</li>
+                  <li>Ming-K&rsquo;Tuk will now accept tribute, ask his questions, and grant passage through his lair when properly flattered &mdash; the entire conversation and tribute sequence was previously unreachable</li>
+                  <li>The &ldquo;Enter the Fold&rdquo; lens-of-worlds scavenger hunt (Cellar &rarr; Beyond the Breach &rarr; The Void) now works start to finish &mdash; turning in a quest component is correctly detected, the hint for the next component names it correctly, and the finished lens is awarded after the full trial</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">GM Tools</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>New <code className="text-amber-300">@give [#] &lt;item&gt; to &lt;player&gt;</code> and <code className="text-amber-300">@take [#] &lt;item&gt; from &lt;player&gt;</code> &mdash; silently move an item between a GM&rsquo;s inventory and a player&rsquo;s, with ordinal and adjective matching</li>
+                  <li>Fixed <code className="text-amber-300">@whisper</code> &mdash; it reported the message as sent but never actually delivered it to the target</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Crafting</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Weapons and jewelry crafted from oiled/oily metal now correctly show both the iridescent and oiled adjectives (needed to avoid round-time in certain caves) instead of losing the oiled adjective entirely</li>
+                  <li>Mortar (used in alchemy) was incorrectly classified as an instantly-created Weaponsmithing item &mdash; it&rsquo;s now properly a Jeweler craft using the same <code className="text-amber-300">CRAFT</code> &rarr; <code className="text-amber-300">WORK</code> sequence as its pestle counterpart</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Fixes</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li><code className="text-amber-300">SNEAK</code> could never actually keep you hidden while moving, win or lose &mdash; fixed</li>
+                  <li>Enchantment spells no longer overwrite an item&rsquo;s existing adjective when all three adjective slots are already full &mdash; the magical bonus is still applied, the item&rsquo;s look is just left alone</li>
+                  <li><code className="text-amber-300">OPEN</code>/<code className="text-amber-300">CLOSE</code> on an already-open or already-closed item now says so instead of silently repeating the action</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">World</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Sharkhor spawn rate along the Inner Sea shore increased slightly (10% &rarr; 15% per check)</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
             <h2 className="text-amber-400 text-lg font-bold mb-1">v11.10.0 &mdash; July 14, 2026</h2>
             <p className="text-gray-400 mb-3">Alchemy &amp; potion brewing rebuilt from the ground up, plus fixes to spell targeting, item script dispatch, and Wood Lore crafting.</p>
 

@@ -2324,10 +2324,10 @@ func (e *GameEngine) formatFullItemDebug(item *InventoryItem, location string) s
 	}
 	return fmt.Sprintf("%s: %s (arch=%d)\n"+
 		"  Adj1=%s | Adj2=%s | Adj3=%s\n"+
-		"  Val1=%d Val2=%d Val3=%d Val4=%d Val5=%d%s%s%s%s",
+		"  Val1=%d Val2=%d Val3=%d Val4=%d Val5=%d Sharpness=%d%s%s%s%s",
 		location, baseName, item.Archetype,
 		adj1, adj2, adj3,
-		item.Val1, item.Val2, item.Val3, item.Val4, item.Val5,
+		item.Val1, item.Val2, item.Val3, item.Val4, item.Val5, item.Sharpness,
 		state, tail, examineDesc, hardness)
 }
 
@@ -2342,7 +2342,7 @@ func (e *GameEngine) formatFullItemDebug(item *InventoryItem, location string) s
 //       — edit an item in another player's inventory / wielded / worn
 //
 // <item>  : partial name match (same as @iexamine)
-// <field> : adj1 adj2 adj3 val1 val2 val3 val4 val5 state
+// <field> : adj1 adj2 adj3 val1 val2 val3 val4 val5 sharpness state
 //           archetype  (dangerous but allowed)
 //           flag+<FLAG>  flag-<FLAG>   (add / remove a flag on the archetype def)
 // <value> : integer for numeric fields, string for state / flags
@@ -2358,7 +2358,7 @@ func (e *GameEngine) gmEdItem(ctx context.Context, gmPlayer *Player, args []stri
 
 	// --- usage guard ---
 	const usage = "Usage: @editem [player] <item> <field> <value>\n" +
-		"  Fields: adj1 adj2 adj3  val1-val5  state  tail  archetype  flag+FLAG / flag-FLAG\n" +
+		"  Fields: adj1 adj2 adj3  val1-val5  sharpness  state  tail  archetype  flag+FLAG / flag-FLAG\n" +
 		"  Example: @editem robe val1 1\n" +
 		"  Example: @editem Moryan robe adj2 47\n" +
 		"  Example: @editem gloves tail lined with palest pink silk\n" +
@@ -2492,7 +2492,7 @@ func (e *GameEngine) gmEdItem(ctx context.Context, gmPlayer *Player, args []stri
 	// ---- integer fields ----
 	case field == "adj1", field == "adj2", field == "adj3",
 		field == "val1", field == "val2", field == "val3", field == "val4", field == "val5",
-		field == "archetype":
+		field == "sharpness", field == "archetype":
 
 		v, err := strconv.Atoi(valueStr)
 		if err != nil {
@@ -2516,6 +2516,8 @@ func (e *GameEngine) gmEdItem(ctx context.Context, gmPlayer *Player, args []stri
 			old, item.Val4 = item.Val4, v
 		case "val5":
 			old, item.Val5 = item.Val5, v
+		case "sharpness":
+			old, item.Sharpness = item.Sharpness, v
 		case "archetype":
 			old, item.Archetype = item.Archetype, v
 		}

@@ -351,27 +351,27 @@ func playerAttackRating(player *Player, weaponDef *gameworld.ItemDef) int {
 	case 3:
 		rating -= 10
 	}
-	// Val1 = non-magical to-hit bonus, Val2 = magical enchantment bonus
+	// Sharpness = non-magical to-hit bonus, Val2 = magical enchantment bonus
 	if player.Wielded != nil {
-		rating += player.Wielded.Val1 + player.Wielded.Val2
+		rating += player.Wielded.Sharpness + player.Wielded.Val2
 	}
 	return rating
 }
 
-// armorEnchantBonus sums Val1 (quality) + Val2 (magic enchantment) from all worn ARMOR items
+// armorEnchantBonus sums Sharpness (quality) + Val2 (magic enchantment) from all worn ARMOR items
 // and the equipped shield (if any).
 func armorEnchantBonus(player *Player, items map[int]*gameworld.ItemDef) int {
 	bonus := 0
 	for _, worn := range player.Worn {
 		def := items[worn.Archetype]
 		if def != nil && def.Type == "ARMOR" {
-			bonus += worn.Val1 + worn.Val2
+			bonus += worn.Sharpness + worn.Val2
 		}
 	}
 	if player.OffHand != nil {
 		def := items[player.OffHand.Archetype]
 		if def != nil && def.Type == "SHIELD" {
-			bonus += player.OffHand.Val1 + player.OffHand.Val2
+			bonus += player.OffHand.Sharpness + player.OffHand.Val2
 		}
 	}
 	return bonus
@@ -1027,7 +1027,7 @@ func (e *GameEngine) doAttackMonster(ctx context.Context, player *Player, target
 			effectiveRank = twoWepSkill
 		}
 		ohAttack := 50 + player.Level*3 + effectiveRank*5 + player.Strength/5
-		ohAttack += player.OffHand.Val1 + player.OffHand.Val2
+		ohAttack += player.OffHand.Sharpness + player.OffHand.Val2
 		switch player.Stance {
 		case StanceOffensive:
 			ohAttack += 15

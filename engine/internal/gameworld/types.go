@@ -32,6 +32,7 @@ type RoomItem struct {
 	Val3      int            `bson:"val3,omitempty" json:"val3,omitempty"`
 	Val4      int            `bson:"val4,omitempty" json:"val4,omitempty"`
 	Val5      int            `bson:"val5,omitempty" json:"val5,omitempty"`
+	Sharpness int            `bson:"sharpness,omitempty" json:"sharpness,omitempty"` // non-magical to-hit bonus forged into a weapon
 	State     string         `bson:"state,omitempty" json:"state,omitempty"` // OPEN, CLOSED, LOCKED, etc.
 	Extend    string         `bson:"extend,omitempty" json:"extend,omitempty"` // extended description
 	PutIn     int            `bson:"putIn,omitempty" json:"putIn,omitempty"` // if PUT, which ref it's inside

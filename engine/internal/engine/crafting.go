@@ -76,7 +76,7 @@ func oreColorVal(grade string) int {
 	}
 }
 
-// weaponSharpnessBonus computes the non-magical to-hit bonus (Val1) for a weapon
+// weaponSharpnessBonus computes the non-magical to-hit bonus (Sharpness) for a weapon
 // freshly forged from metal with the given color (1=purple, 2=indigo, 3=blue).
 // Formula from the original game: base range from color + randomised smith skill bonus
 // → upper max → final roll. Mirrors the documented sharpness system.
@@ -1527,7 +1527,9 @@ func (e *GameEngine) doWork(ctx context.Context, player *Player, args []string) 
 			adj1 = e.adjByName(player.CraftingMetal)
 		}
 		// CraftingVal2 held the ore's color (1=purple, 2=indigo, 3=blue) through the
-		// smelt→forge pipeline. Convert it now to a non-magical to-hit bonus (Val1).
+		// smelt→forge pipeline. Convert it now to a non-magical to-hit bonus (Sharpness).
+		// Val1 is left unset so computeSellValue falls back to the item's weight-based
+		// copper value — Val1 is the item's sale price per GMSCRIPT.DOC, not a quality bonus.
 		// Val2 on the finished weapon means magical enchantment, so it must be zeroed.
 		smithSkill := player.Skills[8]
 		sharpness := weaponSharpnessBonus(player.CraftingVal2, smithSkill)
@@ -1542,11 +1544,11 @@ func (e *GameEngine) doWork(ctx context.Context, player *Player, args []string) 
 			Adj1:      finishedAdjs[0],
 			Adj2:      finishedAdjs[1],
 			Adj3:      finishedAdjs[2],
-			Val1:      sharpness, // non-magical quality bonus
 			Val2:      0,         // no magical enchantment from forging
 			Val3:      val3,      // elemental crit type (from ore); 0 if oily/oiled
 			Val4:      player.CraftingVal4,
 			Val5:      player.CraftingVal5,
+			Sharpness: sharpness, // non-magical quality bonus, forged into the weapon
 		}
 		player.Inventory = append(player.Inventory, item)
 

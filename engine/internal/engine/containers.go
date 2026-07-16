@@ -334,7 +334,8 @@ func (e *GameEngine) lookInRoomContainer(player *Player, def *gameworld.ItemDef,
 				Archetype: ri2.Archetype,
 				Adj1:      ri2.Adj1, Adj2: ri2.Adj2, Adj3: ri2.Adj3,
 				Val1: ri2.Val1, Val2: ri2.Val2, Val3: ri2.Val3, Val4: ri2.Val4, Val5: ri2.Val5,
-				State: ri2.State,
+				Sharpness: ri2.Sharpness,
+				State:     ri2.State,
 			})
 		}
 	}
@@ -804,7 +805,8 @@ func (e *GameEngine) doGetAll(ctx context.Context, player *Player, noun string) 
 			Archetype: ri.Archetype,
 			Adj1:      ri.Adj1, Adj2: ri.Adj2, Adj3: ri.Adj3,
 			Val1: ri.Val1, Val2: ri.Val2, Val3: ri.Val3, Val4: ri.Val4, Val5: ri.Val5,
-			State: ri.State,
+			Sharpness: ri.Sharpness,
+			State:     ri.State,
 		}
 		if isContainerDef(def) {
 			newInvItem.Contents = e.roomContainerGet(player.RoomNumber, ri.Ref)
@@ -1066,7 +1068,8 @@ func (e *GameEngine) doDump(ctx context.Context, player *Player, args []string) 
 				Archetype: item.Archetype,
 				Adj1:      item.Adj1, Adj2: item.Adj2, Adj3: item.Adj3,
 				Val1: item.Val1, Val2: item.Val2, Val3: item.Val3, Val4: item.Val4, Val5: item.Val5,
-				State: item.State,
+				Sharpness: item.Sharpness,
+				State:     item.State,
 			}
 			room.Items = append(room.Items, droppedItem)
 			e.notifyRoomChange(RoomChange{RoomNumber: player.RoomNumber, Type: "item_add", Item: &droppedItem})
@@ -1308,8 +1311,9 @@ func inventoryFromRoomItem(ri *gameworld.RoomItem) InventoryItem {
 		Archetype: ri.Archetype,
 		Adj1:      ri.Adj1, Adj2: ri.Adj2, Adj3: ri.Adj3,
 		Val1: ri.Val1, Val2: ri.Val2, Val3: ri.Val3, Val4: ri.Val4, Val5: ri.Val5,
-		State: ri.State,
-		Tail:  ri.Extend,
+		Sharpness: ri.Sharpness,
+		State:     ri.State,
+		Tail:      ri.Extend,
 	}
 }
 

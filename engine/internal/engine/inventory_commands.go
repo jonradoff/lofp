@@ -309,8 +309,9 @@ func (e *GameEngine) doGet(ctx context.Context, player *Player, verb string, arg
 				Archetype: ri.Archetype,
 				Adj1:      ri.Adj1, Adj2: ri.Adj2, Adj3: ri.Adj3,
 				Val1: ri.Val1, Val2: ri.Val2, Val3: ri.Val3, Val4: ri.Val4, Val5: ri.Val5,
-				State: ri.State,
-				Tail:  ri.Extend,
+				Sharpness: ri.Sharpness,
+				State:     ri.State,
+				Tail:      ri.Extend,
 			}
 			if isContainerDef(itemDef) {
 				newItem.Contents = e.roomContainerGet(player.RoomNumber, ri.Ref)
@@ -331,8 +332,9 @@ func (e *GameEngine) doGet(ctx context.Context, player *Player, verb string, arg
 			Archetype: ri.Archetype,
 			Adj1:      ri.Adj1, Adj2: ri.Adj2, Adj3: ri.Adj3,
 			Val1: ri.Val1, Val2: ri.Val2, Val3: ri.Val3, Val4: ri.Val4, Val5: ri.Val5,
-			State: ri.State,
-			Tail:  ri.Extend,
+			Sharpness: ri.Sharpness,
+			State:     ri.State,
+			Tail:      ri.Extend,
 		}
 		if isContainerDef(itemDef) {
 			newItem.Contents = e.roomContainerGet(player.RoomNumber, ri.Ref)
@@ -438,8 +440,9 @@ func (e *GameEngine) doDrop(ctx context.Context, player *Player, args []string) 
 				Archetype: ii.Archetype,
 				Adj1:      ii.Adj1, Adj2: ii.Adj2, Adj3: ii.Adj3,
 				Val1: ii.Val1, Val2: ii.Val2, Val3: ii.Val3, Val4: ii.Val4, Val5: ii.Val5,
-				State:  ii.State,
-				Extend: ii.Tail,
+				Sharpness: ii.Sharpness,
+				State:     ii.State,
+				Extend:    ii.Tail,
 			}
 			if isContainerDef(itemDef) {
 				e.roomContainerSet(player.RoomNumber, droppedItem.Ref, ii.Contents)

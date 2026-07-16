@@ -471,13 +471,15 @@ func (sc *ScriptContext) execSteps(steps []gameworld.ScriptStep) bool {
 				sc.execAction(action)
 			}
 		} else if step.Block != nil {
+			// Skip nested conditional blocks once a MOVE has fired — they'd evaluate
+			// against the new room instead of the original (e.g. a sibling IFVAR RNUM
+			// check). Plain actions are NOT skipped: MOVE is routinely followed by
+			// AFFECT <destRoom> + ECHO OTHERS in the same block to announce arrival in
+			// the new room, and that idiom must keep running after MOVE fires.
+			if sc.MoveTo > 0 || sc.moveGroupFired {
+				continue
+			}
 			sc.execBlock(*step.Block)
-		}
-		// Stop processing remaining steps once a MOVE has fired. Without this, a MOVE
-		// partway through updates player.RoomNumber immediately, causing subsequent
-		// sibling checks (e.g. IFVAR RNUM) to match the new room instead of the original.
-		if sc.MoveTo > 0 || sc.moveGroupFired {
-			return false
 		}
 	}
 	return false
