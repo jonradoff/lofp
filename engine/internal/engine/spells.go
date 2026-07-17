@@ -731,7 +731,7 @@ func (e *GameEngine) doPrepareSpell(player *Player, args []string) *CommandResul
 	if spellConsumesReagentAtPrepare(spell.ID) {
 		prepMsgs = append(prepMsgs, spellReagentConsumeMessage(spell.ID))
 	}
-	prepMsgs = append(prepMsgs, fmt.Sprintf("You begin preparing %s... (type CAST to release, or CAST <target>)", spell.Name))
+	prepMsgs = append(prepMsgs, fmt.Sprintf("You prepare the %s spell.", spell.Name))
 	prepMsgs = append(prepMsgs, fmt.Sprintf("[Round: %d sec]", prepRT))
 	return &CommandResult{
 		Messages:      prepMsgs,
@@ -912,8 +912,14 @@ func (e *GameEngine) doCastSpell(ctx context.Context, player *Player, args []str
 		result.RoomBroadcast = []string{fmt.Sprintf("%s gestures and casts %s.", player.FirstName, spell.Name)}
 	}
 
-	// Prepend success roll message
-	result.Messages = append([]string{successMsg}, result.Messages...)
+	// Prepend success roll message — insert right after "You gesture." if the
+	// spell-specific handler already led with that line (the classic
+	// gesture -> roll -> effect ordering), otherwise put it first.
+	if len(result.Messages) > 0 && result.Messages[0] == "You gesture." {
+		result.Messages = append([]string{result.Messages[0], successMsg}, result.Messages[1:]...)
+	} else {
+		result.Messages = append([]string{successMsg}, result.Messages...)
+	}
 
 	e.SavePlayer(ctx, player)
 
@@ -1906,7 +1912,7 @@ func (e *GameEngine) castMysticArmor(player *Player, spell *SpellDef, args []str
 
 	if isSelf {
 		return &CommandResult{
-			Messages:      []string{fmt.Sprintf("You gesture and %s takes effect! (+%d defense, 20 minutes)", spell.Name, spell.DefBonus)},
+			Messages:      []string{"You gesture.", "The glowing outline of armor appears around you."},
 			RoomBroadcast: []string{fmt.Sprintf("%s gestures and a shimmering barrier surrounds them.", player.FirstName)},
 		}
 	}
@@ -2078,10 +2084,31 @@ func (e *GameEngine) castTimedDefenseSpell(player *Player, spell *SpellDef, args
 			TargetMsg:     []string{fmt.Sprintf("%s casts %s on you! (+%d defense, 20 minutes)", player.FirstName, spell.Name, spell.DefBonus)},
 		}
 	}
+	if flavor := defenseSpellFlavorText(spell.ID); flavor != "" {
+		return &CommandResult{
+			Messages:      []string{"You gesture.", flavor},
+			RoomBroadcast: []string{fmt.Sprintf("%s gestures and casts %s.", player.FirstName, spell.Name)},
+		}
+	}
 	return &CommandResult{
 		Messages:      []string{fmt.Sprintf("You gesture and %s takes effect! (+%d defense, 20 minutes)", spell.Name, spell.DefBonus)},
 		RoomBroadcast: []string{fmt.Sprintf("%s gestures and casts %s.", player.FirstName, spell.Name)},
 	}
+}
+
+// defenseSpellFlavorText returns the classic flavor line shown when a defense
+// spell that has a dedicated one takes effect on a self-cast. Spells without an
+// entry here fall back to the generic "(+N defense, M minutes)" message.
+func defenseSpellFlavorText(spellID int) string {
+	switch spellID {
+	case 105: // Globe of Protection
+		return "A prismatic globe encircles you."
+	case 130: // Mass Protection
+		return "A large white sphere of light encircles you."
+	case 326: // Spectral Shield
+		return "A ghostly shield hovers before you."
+	}
+	return ""
 }
 
 // castEnchantmentSpell handles Enchantment I (202), II (203), III (204).

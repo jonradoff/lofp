@@ -670,7 +670,27 @@ func (e *GameEngine) examinePlayer(observer *Player, target *Player) *CommandRes
 	}
 
 	// Active spell/psi effects
-	if target.DefenseBonus > 0 {
+	mysticArmorActive := target.MysticArmorBonus > 0 && !target.MysticArmorExpiry.IsZero() && time.Now().Before(target.MysticArmorExpiry)
+	if mysticArmorActive {
+		msgs = append(msgs, fmt.Sprintf("%s outlined in glowing armor.", pronoun))
+	}
+	genericAura := false
+	for _, b := range target.TimedDefenseBuffs {
+		if time.Now().After(b.Expiry) {
+			continue
+		}
+		switch b.SpellID {
+		case 105: // Globe of Protection
+			msgs = append(msgs, fmt.Sprintf("%s surrounded by a prismatic globe.", pronoun))
+		case 130: // Mass Protection
+			msgs = append(msgs, fmt.Sprintf("%s the center of a large, white sphere of light.", pronoun))
+		case 326: // Spectral Shield
+			msgs = append(msgs, fmt.Sprintf("%s protected by a ghostly, hovering shield.", pronoun))
+		default:
+			genericAura = true
+		}
+	}
+	if genericAura {
 		msgs = append(msgs, fmt.Sprintf("A shimmering magical aura surrounds %s.", isSelfOr(isSelf, "you", heOrSheLC)))
 	}
 	if target.StrengthBuffID > 0 && !target.StrengthBuffExpiry.IsZero() && time.Now().Before(target.StrengthBuffExpiry) {

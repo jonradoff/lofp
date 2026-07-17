@@ -9,6 +9,48 @@ export default function VersionNotes({ onBack }: { onBack: () => void }) {
 
         <div className="space-y-6 text-sm">
           <section>
+            <h2 className="text-amber-400 text-lg font-bold mb-1">v11.12.0 &mdash; July 16, 2026</h2>
+            <p className="text-gray-400 mb-3">New WEATHER command and live temperature system, matching GM weather override, a weapon-value economy fix, and original-style spell messages for the defense buffs.</p>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">New Commands</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li><code className="text-amber-300">WEATHER</code> shows the current conditions and temperature for your region &mdash; the condition name plus a descriptive line (e.g. &ldquo;A light rain falls steadily, pattering softly on the ground.&rdquo;) when outdoors, or just an ambient temperature reading when indoors</li>
+                  <li>Temperature is now a live value derived from season, time of day, and the region&rsquo;s current weather state, rather than a fixed or absent reading</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">GM Tools</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>New <code className="text-amber-300">@weather [value]</code> &mdash; shows the numeric weather state and temperature for your region with no argument, or sets the region&rsquo;s weather (0&ndash;14) and broadcasts the transition to outdoor players there, same as a natural weather change</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Fixes</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Fixed a long-standing bug where the <code className="text-amber-300">WEA</code> script variable (used by <code className="text-amber-300">IFVAR WEA</code> checks in world scripts) always read region 0&rsquo;s weather no matter where a script was actually running &mdash; weather-gated content in every other region (e.g. rain-triggered foraging on Island) could never correctly detect rain</li>
+                  <li>The non-magical sharpness bonus a forged weapon gets from Weaponsmithing was being stored in the same field read as the item&rsquo;s copper sell value &mdash; freshly forged weapons were selling for only a few coppers instead of a real price; sharpness now has its own dedicated field, and existing forged weapons in the database were corrected with a one-time migration</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Commands</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li><code className="text-amber-300">SKILLS</code> (abbr. <code className="text-amber-300">SKILL</code>) now renders as a fixed-width table (<code className="text-amber-300">#</code>, Skill, Level columns) matching the original game&rsquo;s output, instead of a simple bulleted list</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Spellcasting</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li><code className="text-amber-300">PREPARE</code> now shows &ldquo;You prepare the &lt;spell&gt; spell.&rdquo;, matching original wording</li>
+                  <li>Mystic Armor, Globe of Protection, Mass Protection, and Spectral Shield now show original-style self-cast messages &mdash; &ldquo;You gesture.&rdquo; &rarr; the success roll &rarr; a spell-specific flavor line (e.g. &ldquo;A prismatic globe encircles you.&rdquo;) &mdash; instead of one generic combined line</li>
+                  <li>Examining another player now shows a spell-specific line for these four buffs (e.g. &ldquo;She is outlined in glowing armor.&rdquo;) instead of the same generic &ldquo;shimmering magical aura&rdquo; line used for every defense spell</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
             <h2 className="text-amber-400 text-lg font-bold mb-1">v11.11.0 &mdash; July 15, 2026</h2>
             <p className="text-gray-400 mb-3">Script engine execution-order rework, monster dialogue scripting, and the full &ldquo;Enter the Fold&rdquo; lens-of-worlds quest chain fixed end-to-end.</p>
 

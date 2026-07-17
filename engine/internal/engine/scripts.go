@@ -1322,7 +1322,15 @@ func (sc *ScriptContext) getVar(name string) int {
 	// Weather
 	case "WEA":
 		if sc.Engine.RegionWeather != nil {
-			return sc.Engine.RegionWeather[0] // default region
+			region := 0
+			if sc.Room != nil {
+				region = sc.Room.Region
+			} else if sc.Player != nil {
+				if r := sc.Engine.rooms[sc.Player.RoomNumber]; r != nil {
+					region = r.Region
+				}
+			}
+			return sc.Engine.RegionWeather[region]
 		}
 		return 0
 	// Gender

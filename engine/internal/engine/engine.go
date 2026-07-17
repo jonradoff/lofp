@@ -911,6 +911,8 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 			fmt.Sprintf("It is %s. The season is %s.", TimePeriod(), SeasonName()),
 			fmt.Sprintf("The Great Moon is %s and Phulcrus is %s.", greatMoon, phulcrus),
 		}}
+	case "WEATHER":
+		return e.doWeather(player)
 	case "PAY":
 		return e.doPay(ctx, player)
 	case "WHISPER":
@@ -1372,7 +1374,7 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 		e.SavePlayer(ctx, player)
 		return &CommandResult{Messages: []string{"Prompt indicators off."}}
 	case "VERSION", "NEWS", "NOTES":
-		return &CommandResult{Messages: []string{"Legends of Future Past v11.11.0"}}
+		return &CommandResult{Messages: []string{"Legends of Future Past v11.12.0"}}
 	case "CREDITS":
 		return &CommandResult{Messages: []string{
 			"",
@@ -1745,7 +1747,7 @@ var allVerbs = []string{
 	// Interaction
 	"GIVE", "EAT", "COUNT", "DEPART",
 	// Info
-	"TIME", "EXPERIENCE", "INFO",
+	"TIME", "EXPERIENCE", "INFO", "WEATHER",
 	// Roleplay verbs
 	"SMILE", "BOW", "CURTSEY", "WAVE", "NOD", "LAUGH", "CHUCKLE",
 	"GRIN", "FROWN", "SIGH", "SHRUG", "WINK", "CRY", "DANCE",

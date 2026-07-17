@@ -658,7 +658,7 @@ func (e *GameEngine) doHelp() *CommandResult {
 		"           PUT <item> IN <container>, DUMP <container>",
 		"           GET ALL, GET ALL <noun>",
 		"Selling:   SELL <item>, SELL ALL <noun>",
-		"Info: STATUS, HEALTH, WEALTH, SKILLS, WHO",
+		"Info: STATUS, HEALTH, WEALTH, SKILLS, WHO, TIME, WEATHER",
 		"Combat: ATTACK <target>, ADVANCE <target>, RETREAT",
 		"Social: '<message> (say), ACT <action>, WHISPER <person> <msg>",
 		"Position: SIT, STAND, KNEEL, LAY",

@@ -205,6 +205,8 @@ func (e *GameEngine) processGMCommand(ctx context.Context, player *Player, verb 
 		return e.gmTrigCEvent(player, args)
 	case "@MASTERY":
 		return e.gmMastery(ctx, args)
+	case "@WEATHER":
+		return e.gmWeather(player, args)
 	default:
 		return &CommandResult{Messages: []string{fmt.Sprintf("Unknown GM command: %s", strings.ToLower(verb))}}
 	}
@@ -278,6 +280,7 @@ func (e *GameEngine) gmHelp() *CommandResult {
 		"@treasure <level>      - Conjure a lootable chest/coffer/strongbox at the given treasure level (may be locked/trapped)",
 		"@trigcevent <id>       - Immediately fire a cyclic event (for testing)",
 		"@unlock <item>         - Unlock item silently",
+		"@weather [value]       - Show your region's weather/temperature, or set weather (0-14)",
 		"@whisper <name> <text> - Whisper to player anywhere",
 		"@who                   - List all players with details",
 		"@yank <name>           - Yank a player to your room",
@@ -2256,7 +2259,7 @@ var allGMVerbs = []string{
 	"@ENTRY", "@EXIT", "@SUGGEST", "@MSG", "@SAVE", "@RESTORE", "@REGISTER",
 	"@ASSIST?", "@OLDCOMP", "@EDITEM", "@EDN", "@GET", "@LOOK",
 	"@QUEUE", "@UNQUEUE",
-	"@MASTERY",
+	"@MASTERY", "@WEATHER",
 }
 
 // resolveGMVerb resolves a GM command abbreviation to its canonical form.

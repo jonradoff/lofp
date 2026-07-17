@@ -503,13 +503,15 @@ func (e *GameEngine) projectBuff(player *Player, disc *PsiDiscipline) *CommandRe
 // projectTeleport teleports the player to a marked location.
 func (e *GameEngine) projectTeleport(ctx context.Context, player *Player, args []string) *CommandResult {
 	if player.Marks == nil || len(player.Marks) == 0 {
-		return &CommandResult{Messages: []string{"You have no marks set. Use MARK <1-5> to mark a location first."}}
+		return &CommandResult{Messages: []string{"You have no marks set. Use MARK <1-10> to mark a location first."}}
 	}
 	markNum := 1
 	if len(args) > 0 {
-		if n, err := strconv.Atoi(args[0]); err == nil && n >= 1 && n <= 5 {
-			markNum = n
+		n, err := strconv.Atoi(args[0])
+		if err != nil || n < 1 || n > 10 {
+			return &CommandResult{Messages: []string{"Mark number must be 1-10."}}
 		}
+		markNum = n
 	}
 	roomNum, ok := player.Marks[markNum]
 	if !ok {

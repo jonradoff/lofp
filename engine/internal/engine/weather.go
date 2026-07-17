@@ -1,7 +1,11 @@
 package engine
 
 import (
+	"fmt"
 	"math/rand"
+	"sort"
+	"strconv"
+	"strings"
 	"time"
 )
 
@@ -127,6 +131,66 @@ func (e *GameEngine) GetRoomWeather(roomNum int) string {
 	return ""
 }
 
+// temperatureBySeason gives a baseline Fahrenheit temperature for each season.
+var temperatureBySeason = map[string]int{
+	"PSCRIPT": 55, // Spring
+	"SSCRIPT": 85, // Summer
+	"ASCRIPT": 55, // Autumn
+	"WSCRIPT": 25, // Winter
+}
+
+// temperatureByPeriod adjusts the seasonal baseline for time of day (see TimePeriod).
+var temperatureByPeriod = map[string]int{
+	"midnight":            -12,
+	"very early morning":  -10,
+	"dawn":                -5,
+	"mid morning":         0,
+	"noon":                8,
+	"afternoon":           6,
+	"evening":             -2,
+	"night":               -8,
+}
+
+// temperatureByWeather adjusts the temperature for the current weather state.
+var temperatureByWeather = map[int]int{
+	0: 5, 1: 2, 2: 0, 3: -3, 4: -5, 5: -7, 6: -8, 7: -10, 8: -12,
+	9: -10, 10: -15, 11: -18, 12: -22, 13: -26, 14: -32,
+}
+
+// GetTemperature returns the current temperature (degrees Fahrenheit) for a region,
+// derived from season, time of day, and the region's current weather state.
+func (e *GameEngine) GetTemperature(region int) int {
+	state := 0
+	if e.RegionWeather != nil {
+		if s, ok := e.RegionWeather[region]; ok {
+			state = s
+		}
+	}
+	return temperatureBySeason[GameSeason()] + temperatureByPeriod[TimePeriod()] + temperatureByWeather[state]
+}
+
+// TemperatureDesc returns a short descriptive word for a Fahrenheit temperature.
+func TemperatureDesc(f int) string {
+	switch {
+	case f < 20:
+		return "frigid"
+	case f < 32:
+		return "freezing"
+	case f < 45:
+		return "cold"
+	case f < 60:
+		return "cool"
+	case f < 75:
+		return "mild"
+	case f < 85:
+		return "warm"
+	case f < 95:
+		return "hot"
+	default:
+		return "sweltering"
+	}
+}
+
 // isOutdoorTerrain returns true if the terrain type is outdoors.
 func isOutdoorTerrain(terrain string) bool {
 	switch terrain {
@@ -177,30 +241,120 @@ func (e *GameEngine) advanceWeather() {
 
 		if newState != oldState {
 			e.RegionWeather[region] = newState
-
-			// Find the transition message
-			msg := weatherTransitionMessages[[2]int{oldState, newState}]
-			if msg == "" {
-				// Generic fallback
-				if newState == 0 {
-					msg = "The skies clear."
-				} else if desc, ok := weatherRoomDesc[newState]; ok {
-					msg = desc
-				} else {
-					msg = "The weather shifts."
-				}
-			}
-
-			// Broadcast to all outdoor rooms in this region
-			if e.localRoomBroadcast != nil {
-				for num, room := range e.rooms {
-					if room.Region == region && isOutdoorTerrain(room.Terrain) {
-						e.localRoomBroadcast(num, []string{msg})
-					}
-				}
-			}
+			e.broadcastWeatherChange(region, oldState, newState)
 		}
 	}
+}
+
+// broadcastWeatherChange announces a weather transition to all outdoor rooms
+// in the given region, picking a scripted transition line if one exists for
+// this exact oldState->newState pair, falling back to a generic line otherwise.
+func (e *GameEngine) broadcastWeatherChange(region, oldState, newState int) {
+	if e.localRoomBroadcast == nil {
+		return
+	}
+	msg := weatherTransitionMessages[[2]int{oldState, newState}]
+	if msg == "" {
+		if newState == 0 {
+			msg = "The skies clear."
+		} else if desc, ok := weatherRoomDesc[newState]; ok {
+			msg = desc
+		} else {
+			msg = "The weather shifts."
+		}
+	}
+	for num, room := range e.rooms {
+		if room.Region == region && isOutdoorTerrain(room.Terrain) {
+			e.localRoomBroadcast(num, []string{msg})
+		}
+	}
+}
+
+// weatherValueList returns a comma-separated "id=Name" listing of all known
+// weather states, in ID order, for GM command usage/error text.
+func weatherValueList() string {
+	ids := make([]int, 0, len(WeatherNames))
+	for id := range WeatherNames {
+		ids = append(ids, id)
+	}
+	sort.Ints(ids)
+	parts := make([]string, len(ids))
+	for i, id := range ids {
+		parts[i] = fmt.Sprintf("%d=%s", id, WeatherNames[id])
+	}
+	return strings.Join(parts, ", ")
+}
+
+// gmWeather handles @weather [value] — shows the current weather (and
+// temperature) for the GM's region with no args, or sets the region's
+// weather state and broadcasts the transition when given a value.
+func (e *GameEngine) gmWeather(player *Player, args []string) *CommandResult {
+	room := e.rooms[player.RoomNumber]
+	region := 0
+	if room != nil {
+		region = room.Region
+	}
+
+	if len(args) == 0 {
+		state := 0
+		if e.RegionWeather != nil {
+			state = e.RegionWeather[region]
+		}
+		temp := e.GetTemperature(region)
+		return &CommandResult{Messages: []string{
+			fmt.Sprintf("Region %d weather: %d (%s). Temperature: %d degrees (%s).",
+				region, state, WeatherNames[state], temp, TemperatureDesc(temp)),
+		}}
+	}
+
+	newState, err := strconv.Atoi(args[0])
+	if err != nil {
+		return &CommandResult{Messages: []string{"Usage: @weather [value]. Valid values: " + weatherValueList()}}
+	}
+	name, ok := WeatherNames[newState]
+	if !ok {
+		return &CommandResult{Messages: []string{"Invalid weather value. Valid values: " + weatherValueList()}}
+	}
+
+	if e.RegionWeather == nil {
+		e.RegionWeather = make(map[int]int)
+	}
+	oldState := e.RegionWeather[region]
+	e.RegionWeather[region] = newState
+	if newState != oldState {
+		e.broadcastWeatherChange(region, oldState, newState)
+	}
+
+	return &CommandResult{Messages: []string{fmt.Sprintf("Region %d weather set to %d (%s).", region, newState, name)}}
+}
+
+// doWeather handles the WEATHER command, showing the player the current
+// conditions and temperature for their region.
+func (e *GameEngine) doWeather(player *Player) *CommandResult {
+	room := e.rooms[player.RoomNumber]
+	region := 0
+	if room != nil {
+		region = room.Region
+	}
+	temp := e.GetTemperature(region)
+	tempDesc := TemperatureDesc(temp)
+
+	if room == nil || !isOutdoorTerrain(room.Terrain) {
+		return &CommandResult{Messages: []string{
+			fmt.Sprintf("You can't see the sky from here, but it feels %s, around %d degrees.", tempDesc, temp),
+		}}
+	}
+
+	state, ok := e.RegionWeather[region]
+	if !ok {
+		state = 0
+	}
+	msgs := []string{fmt.Sprintf("The weather is currently %s.", WeatherNames[state])}
+	if desc, ok := weatherRoomDesc[state]; ok {
+		msgs = append(msgs, desc)
+	}
+	msgs = append(msgs, fmt.Sprintf("It feels %s, around %d degrees.", tempDesc, temp))
+	return &CommandResult{Messages: msgs}
 }
 
 // StartWeatherCycle starts a background goroutine that changes weather periodically.
