@@ -6,6 +6,7 @@ import (
 	"log"
 	"math/rand"
 	"regexp"
+	"sort"
 	"strconv"
 	"strings"
 	"sync"
@@ -530,6 +531,20 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 		}
 	}
 
+	// Unconscious players (knocked out at exactly 0 body points — a hit that would have
+	// driven them below 0 kills instead, see resolveDirectHitOutcome) can only LOOK, WHO,
+	// QUIT, EXP, STATUS, HEALTH, HELP — no speech, no actions — until they're healed
+	// back above 0 or natural regen gets them there (wakeFromUnconscious).
+	if player.Unconscious {
+		verb := strings.ToUpper(strings.Fields(input)[0])
+		switch verb {
+		case "LOOK", "WHO", "QUIT", "EXP", "EXPERIENCE", "STATUS", "HEALTH", "HELP":
+			// allowed — fall through to normal processing
+		default:
+			return &CommandResult{Messages: []string{"You are unconscious and cannot do anything."}}
+		}
+	}
+
 	// Handle speech: '<msg>, "<msg>, or SAY <msg>
 	if isQuoteSpeech || isSayVerb {
 		var msg string
@@ -552,9 +567,15 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 		}
 		// Custom speech pattern overrides the verb (e.g., "says grimly", "squawks")
 		if player.SpeechAdverb != "" {
+			// A concealed speaker (Hidden/Invisible/@hide/@invis) never leaks their name or
+			// custom speech verb to onlookers — just the generic "Something says/asks/exclaims".
+			roomLine := fmt.Sprintf("%s %ss, \"%s\"", player.FirstName, player.SpeechAdverb, msg)
+			if player.IsConcealed() {
+				roomLine = fmt.Sprintf("Something %s, \"%s\"", thirdVerb, msg)
+			}
 			result := &CommandResult{
 				Messages:      []string{fmt.Sprintf("You %s, \"%s\"", player.SpeechAdverb, msg)},
-				RoomBroadcast: []string{fmt.Sprintf("%s %ss, \"%s\"", player.FirstName, player.SpeechAdverb, msg)},
+				RoomBroadcast: []string{roomLine},
 			}
 			// Run IFSAY scripts
 			room := e.rooms[player.RoomNumber]
@@ -578,9 +599,13 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 			}
 			return result
 		}
+		roomLine := fmt.Sprintf("%s %s, \"%s\"", player.FirstName, thirdVerb, msg)
+		if player.IsConcealed() {
+			roomLine = fmt.Sprintf("Something %s, \"%s\"", thirdVerb, msg)
+		}
 		result := &CommandResult{
 			Messages:      []string{fmt.Sprintf("You %s, \"%s\"", verb, msg)},
-			RoomBroadcast: []string{fmt.Sprintf("%s %s, \"%s\"", player.FirstName, thirdVerb, msg)},
+			RoomBroadcast: []string{roomLine},
 		}
 		// Run IFSAY scripts
 		room := e.rooms[player.RoomNumber]
@@ -872,6 +897,22 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 		}
 		if !hasSkills {
 			skillMsgs = append(skillMsgs, "You have no trained skills yet.")
+		}
+		var specNounIDs []int
+		for nounID, rank := range player.WeaponSpecialization {
+			if rank > 0 {
+				specNounIDs = append(specNounIDs, nounID)
+			}
+		}
+		if len(specNounIDs) > 0 {
+			sort.Ints(specNounIDs)
+			skillMsgs = append(skillMsgs, "")
+			skillMsgs = append(skillMsgs, fmt.Sprintf("%-26s%-10s", "Weapon Specialization", "Level"))
+			skillMsgs = append(skillMsgs, fmt.Sprintf("%-26s%-10s", strings.Repeat("-", len("Weapon Specialization")), "-----"))
+			for _, nounID := range specNounIDs {
+				name := strings.Title(e.nouns[nounID])
+				skillMsgs = append(skillMsgs, fmt.Sprintf("%-26s%-10d", name, player.WeaponSpecialization[nounID]))
+			}
 		}
 		skillMsgs = append(skillMsgs, fmt.Sprintf("Build Points: %d", player.BuildPoints))
 		return &CommandResult{Messages: skillMsgs}
@@ -1374,7 +1415,7 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 		e.SavePlayer(ctx, player)
 		return &CommandResult{Messages: []string{"Prompt indicators off."}}
 	case "VERSION", "NEWS", "NOTES":
-		return &CommandResult{Messages: []string{"Legends of Future Past v11.12.0"}}
+		return &CommandResult{Messages: []string{"Legends of Future Past v11.17.0"}}
 	case "CREDITS":
 		return &CommandResult{Messages: []string{
 			"",
@@ -1538,7 +1579,7 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 	case "NOCK", "LOAD":
 		return e.doLoadWeapon(ctx, player, args)
 	case "SPECIALIZE":
-		return &CommandResult{Messages: []string{"[Weapon specialization coming soon.]"}}
+		return e.doSpecializeWeapon(ctx, player, args)
 	// === SKILL-BASED (TODO: implement) ===
 	case "DISARM":
 		return e.doDisarm(ctx, player, args)

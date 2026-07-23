@@ -350,6 +350,7 @@ func (e *GameEngine) doPickLock(ctx context.Context, player *Player, args []stri
 			containerTarget = strings.TrimSpace(raw[:idx])
 		}
 	}
+	containerTarget, containerMine := stripMyPrefix(containerTarget)
 
 	// Find a lockpick in inventory, recording its index and material adjective.
 	pickIdx := -1
@@ -425,9 +426,36 @@ func (e *GameEngine) doPickLock(ctx context.Context, player *Player, args []stri
 		}
 	}
 
-	// Check room items first.
+	// Check inventory items first — a container you're holding takes priority
+	// over one merely lying in the room (matches doPut/doGetAllFromContainer).
+	for i, ii := range player.Inventory {
+		def := e.items[ii.Archetype]
+		if def == nil || strings.ToUpper(ii.State) != "LOCKED" {
+			continue
+		}
+		if !matchesTarget(e.getItemNounName(def), containerTarget, e.getAdjName(ii.Adj1), e.getAdjName(ii.Adj2), e.getAdjName(ii.Adj3)) {
+			continue
+		}
+		displayName := e.formatItemName(def, ii.Adj1, ii.Adj2, ii.Adj3, ii.Tail)
+		chance := 30 + lockSkill*5 + player.Agility/5 - ii.Val1
+		if chance < 5 {
+			chance = 5
+		}
+		ok, roll := tryPick(ii.Val1)
+		if ok {
+			player.Inventory[i].State = "CLOSED"
+			player.Experience += 50 * ii.Val1
+			e.SavePlayer(ctx, player)
+			return successMsg(displayName)
+		}
+		breakMsg := maybeBreakPick(roll, chance)
+		e.SavePlayer(ctx, player)
+		return failMsg(displayName, breakMsg)
+	}
+
+	// Room items — skipped when "my" was used (e.g. "pick lock my chest").
 	room := e.rooms[player.RoomNumber]
-	if room != nil {
+	if room != nil && !containerMine {
 		for i, ri := range room.Items {
 			def := e.items[ri.Archetype]
 			if def == nil || strings.ToUpper(ri.State) != "LOCKED" {
@@ -455,32 +483,6 @@ func (e *GameEngine) doPickLock(ctx context.Context, player *Player, args []stri
 		}
 	}
 
-	// Check inventory items.
-	for i, ii := range player.Inventory {
-		def := e.items[ii.Archetype]
-		if def == nil || strings.ToUpper(ii.State) != "LOCKED" {
-			continue
-		}
-		if !matchesTarget(e.getItemNounName(def), containerTarget, e.getAdjName(ii.Adj1), e.getAdjName(ii.Adj2), e.getAdjName(ii.Adj3)) {
-			continue
-		}
-		displayName := e.formatItemName(def, ii.Adj1, ii.Adj2, ii.Adj3, ii.Tail)
-		chance := 30 + lockSkill*5 + player.Agility/5 - ii.Val1
-		if chance < 5 {
-			chance = 5
-		}
-		ok, roll := tryPick(ii.Val1)
-		if ok {
-			player.Inventory[i].State = "CLOSED"
-			player.Experience += 50 * ii.Val1
-			e.SavePlayer(ctx, player)
-			return successMsg(displayName)
-		}
-		breakMsg := maybeBreakPick(roll, chance)
-		e.SavePlayer(ctx, player)
-		return failMsg(displayName, breakMsg)
-	}
-
 	return &CommandResult{Messages: []string{"You don't see anything locked here."}}
 }
 
@@ -503,67 +505,148 @@ func (e *GameEngine) doTend(ctx context.Context, player *Player, args []string) 
 		return &CommandResult{Messages: []string{fmt.Sprintf("You must wait %.0f more seconds.", remaining)}}
 	}
 
-	// Determine target
-	target := player
-	targetName := "yourself"
-	if len(args) > 0 {
-		t := strings.ToLower(strings.Join(args, " "))
-		if t != "me" && t != "myself" && t != "self" {
-			found := e.findPlayerInRoom(player, t)
-			if found != nil {
-				target = found
-				targetName = found.FirstName
-			}
+	// Determine target: self, another player, or a monster/corpse in the room
+	if len(args) == 0 {
+		return e.tendPlayer(ctx, player, player, "yourself", healSkill)
+	}
+	t := strings.ToLower(strings.Join(args, " "))
+	if t == "me" || t == "myself" || t == "self" {
+		return e.tendPlayer(ctx, player, player, "yourself", healSkill)
+	}
+	if found := e.findPlayerInRoom(player, t); found != nil {
+		return e.tendPlayer(ctx, player, found, found.FirstName, healSkill)
+	}
+	if inst, def := e.findMonsterInRoomIncludeDead(player, t); inst != nil {
+		name := FormatMonsterName(def, e.monAdjs)
+		return e.tendMonster(ctx, player, inst, name, healSkill)
+	}
+	return &CommandResult{Messages: []string{"You don't see them here."}}
+}
+
+// selectTendableWound finds the least-severe wound in wounds and checks
+// whether healSkill is high enough to treat it — wounds are always removed
+// least-severe-first, and if the healer can't yet manage even that one they
+// can't skip ahead to a different wound.
+func selectTendableWound(wounds []Wound, healSkill int) (wound Wound, idx int, failMsg string) {
+	if len(wounds) == 0 {
+		return Wound{}, -1, ""
+	}
+	idx = 0
+	for i := 1; i < len(wounds); i++ {
+		if wounds[i].Level < wounds[idx].Level {
+			idx = i
 		}
 	}
+	wound = wounds[idx]
+	required := (wound.Level*20 + 11) / 12 // proportional 1-12 -> 2-20; skill 20 heals any severity
+	if healSkill < required {
+		return Wound{}, -1, fmt.Sprintf("Your Healing skill isn't advanced enough to tend that wound yet. (need %d, have %d)", required, healSkill)
+	}
+	return wound, idx, ""
+}
 
-	if target.BodyPoints >= target.MaxBodyPoints && !target.Bleeding && !target.Poisoned {
-		if target == player {
+// tendPlayer handles TEND when the target is a player (self or another).
+func (e *GameEngine) tendPlayer(ctx context.Context, healer, target *Player, targetName string, healSkill int) *CommandResult {
+	isSelf := target == healer
+	if len(target.Wounds) == 0 {
+		if isSelf {
 			return &CommandResult{Messages: []string{"You don't need healing."}}
 		}
 		return &CommandResult{Messages: []string{fmt.Sprintf("%s doesn't need healing.", targetName)}}
 	}
-
-	// Healing amount: 2 + healSkill*2 + random(healSkill)
-	heal := 2 + healSkill*2 + rand.Intn(healSkill+1)
-
-	// Same race bonus: +50%
-	if target.Race == player.Race {
-		heal = heal * 3 / 2
+	if target.Position != 1 && target.Position != 2 {
+		if isSelf {
+			return &CommandResult{Messages: []string{"You must be sitting or lying down to tend your wounds."}}
+		}
+		return &CommandResult{Messages: []string{fmt.Sprintf("%s must be sitting or lying down to be tended.", targetName)}}
 	}
 
+	wound, idx, failMsg := selectTendableWound(target.Wounds, healSkill)
+	if failMsg != "" {
+		return &CommandResult{Messages: []string{failMsg}}
+	}
+
+	heal := wound.Level
+	if target.Race == healer.Race {
+		heal = heal * 3 / 2
+	}
 	target.BodyPoints += heal
 	if target.BodyPoints > target.MaxBodyPoints {
 		target.BodyPoints = target.MaxBodyPoints
 	}
+	target.Wounds = append(target.Wounds[:idx], target.Wounds[idx+1:]...)
+	target.Bleeding = anyBleeding(target.Wounds)
 
-	// Stop bleeding
-	if target.Bleeding {
-		target.Bleeding = false
-	}
+	woundDesc := woundWord(wound.DamageType, wound.Level) + " " + wound.Location
+	healer.Experience += 10 * wound.Level
 
-	// 5 second round timer
-	firstAidRT := applyRoundTime(player, 5)
-	player.RoundTimeExpiry = time.Now().Add(time.Duration(firstAidRT) * time.Second)
+	firstAidRT := applyRoundTime(healer, 5)
+	healer.RoundTimeExpiry = time.Now().Add(time.Duration(firstAidRT) * time.Second)
 
-	e.SavePlayer(ctx, player)
-	if target != player {
+	// If this brought the target back above 0 body points, wake them immediately
+	// rather than making them wait for the next regen tick.
+	wakeMsg := wakeFromUnconscious(target)
+
+	e.SavePlayer(ctx, healer)
+	if !isSelf {
 		e.SavePlayer(ctx, target)
 	}
 
-	if target == player {
+	if isSelf {
+		msgs := []string{fmt.Sprintf("You tend to your %s, healing %d body points. [Round: 5 sec] [BP: %d/%d]", woundDesc, heal, target.BodyPoints, target.MaxBodyPoints)}
+		if wakeMsg != "" {
+			msgs = append(msgs, wakeMsg)
+		}
 		return &CommandResult{
-			Messages: []string{fmt.Sprintf("You tend to your wounds, healing %d body points. [Round: 5 sec] [BP: %d/%d]", heal, target.BodyPoints, target.MaxBodyPoints)},
-			RoomBroadcast: []string{fmt.Sprintf("%s tends to %s wounds.", player.FirstName, player.Possessive())},
-			PlayerState: player,
+			Messages:      msgs,
+			RoomBroadcast: []string{fmt.Sprintf("%s tends to %s wounds.", healer.FirstName, healer.Possessive())},
+			PlayerState:   healer,
 		}
 	}
 
+	targetMsgs := []string{fmt.Sprintf("%s tends to your %s, healing %d body points. [BP: %d/%d]", healer.FirstName, woundDesc, heal, target.BodyPoints, target.MaxBodyPoints)}
+	if wakeMsg != "" {
+		targetMsgs = append(targetMsgs, wakeMsg)
+	}
 	return &CommandResult{
-		Messages: []string{fmt.Sprintf("You tend to %s's wounds, healing %d body points.", targetName, heal)},
-		RoomBroadcast: []string{fmt.Sprintf("%s tends to %s's wounds.", player.FirstName, targetName)},
-		TargetName: target.FirstName,
-		TargetMsg: []string{fmt.Sprintf("%s tends to your wounds, healing %d body points. [BP: %d/%d]", player.FirstName, heal, target.BodyPoints, target.MaxBodyPoints)},
+		Messages:      []string{fmt.Sprintf("You tend to %s's %s, healing %d body points.", targetName, woundDesc, heal)},
+		RoomBroadcast: []string{fmt.Sprintf("%s tends to %s's wounds.", healer.FirstName, targetName)},
+		TargetName:    target.FirstName,
+		TargetMsg:     targetMsgs,
+		PlayerState:   healer,
+	}
+}
+
+// tendMonster handles TEND when the target is a monster (dead or alive).
+// Monster targets have no position requirement and gain no body-point
+// healing of their own from being tended — only the wound is removed and the
+// healer gains XP, as if patching up a corpse or a downed creature.
+func (e *GameEngine) tendMonster(ctx context.Context, healer *Player, inst *MonsterInstance, targetName string, healSkill int) *CommandResult {
+	if len(inst.Wounds) == 0 {
+		return &CommandResult{Messages: []string{fmt.Sprintf("%s doesn't need healing.", targetName)}}
+	}
+
+	_, idx, failMsg := selectTendableWound(inst.Wounds, healSkill)
+	if failMsg != "" {
+		return &CommandResult{Messages: []string{failMsg}}
+	}
+
+	removed, ok := e.removeMonsterWound(inst.ID, idx)
+	if !ok {
+		return &CommandResult{Messages: []string{fmt.Sprintf("%s doesn't need healing.", targetName)}}
+	}
+
+	woundDesc := woundWord(removed.DamageType, removed.Level) + " " + removed.Location
+	healer.Experience += 10 * removed.Level
+
+	firstAidRT := applyRoundTime(healer, 5)
+	healer.RoundTimeExpiry = time.Now().Add(time.Duration(firstAidRT) * time.Second)
+	e.SavePlayer(ctx, healer)
+
+	return &CommandResult{
+		Messages:      []string{fmt.Sprintf("You tend to %s's %s. [Round: 5 sec]", targetName, woundDesc)},
+		RoomBroadcast: []string{fmt.Sprintf("%s tends to %s's wounds.", healer.FirstName, targetName)},
+		PlayerState:   healer,
 	}
 }
 

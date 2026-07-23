@@ -172,24 +172,31 @@ func joinWithAnd(items []string) string {
 	}
 }
 
-// ---- Damage severity tiers (from original session capture) ----
+// ---- Damage severity tiers (single-word descriptors for combat hit messages;
+// vocabulary sourced from original session captures — see original/chandra_wastes.txt,
+// e.g. "Minor burn to right leg. [17 Damage]", "Ghastly burn to head. [39 Damage]") ----
 
-var severityTiers = []struct {
-	maxDmg int
-	name   string
-}{
-	{5, "Puny"}, {10, "Grazing"}, {15, "Insignificant"}, {20, "Minor"},
-	{25, "Passable"}, {30, "Good"}, {40, "Well-aimed"}, {50, "Masterful"},
-	{60, "Grisly"}, {75, "Severe"}, {100, "Ghastly"}, {99999, "Dazzling explosive"},
+var severityWords = [12]string{
+	"Puny", "Feeble", "Grazing", "Insignificant", "Fine", "Minor",
+	"Passable", "Good", "Serious", "Grisly", "Severe", "Ghastly",
 }
 
-func damageSeverity(dmg int) string {
-	for _, tier := range severityTiers {
-		if dmg <= tier.maxDmg {
-			return tier.name
-		}
+// damageSeverity returns a single-word severity descriptor for a hit, e.g. "Minor"
+// or "Ghastly", for use in "<Severity> <type> to <part>. [N Damage]" combat lines.
+// Severity is based on the damage as a fraction of the target's max HP (via the
+// same 1-12 wound-level bands used for persistent wound tracking), not the raw
+// damage number alone — the same absolute damage is a much bigger deal against a
+// weak monster than a tough one, which is why the same raw damage shows up under
+// different severity words for different targets in the original session captures.
+func damageSeverity(dmg, maxHP int) string {
+	level := woundLevelFromDamage(dmg, maxHP)
+	if level < 1 {
+		level = 1
 	}
-	return "Devastating"
+	if level > len(severityWords) {
+		level = len(severityWords)
+	}
+	return severityWords[level-1]
 }
 
 // simplifiedDamageTier returns a simplified damage description for third-person room broadcasts.
@@ -213,8 +220,9 @@ func simplifiedDamageTier(dmg int) string {
 // weaponHardness computes a weapon's break-resistance ("Strength" in the
 // Weapon Clash message): a base value from weight/damage plus the BREAKMOD
 // modifier (from adjnoun.scr) for each of the weapon instance's adjectives
-// (Adj1/Adj2/Adj3). BREAKMOD values are additive per original script data —
-// e.g. a "ceremonial" (-80) "alzyron" (+100) sword nets +20 from adjectives.
+// (Adj1/Adj2/Adj3), plus the instance's own GM-editable HardnessMod (@editem).
+// BREAKMOD values are additive per original script data — e.g. a "ceremonial"
+// (-80) "alzyron" (+100) sword nets +20 from adjectives.
 func (e *GameEngine) weaponHardness(wielded *InventoryItem, weaponDef *gameworld.ItemDef) int {
 	if weaponDef == nil {
 		return 0
@@ -229,7 +237,66 @@ func (e *GameEngine) weaponHardness(wielded *InventoryItem, weaponDef *gameworld
 		}
 		hardness += e.breakMods[adjID]
 	}
+	hardness += wielded.HardnessMod
 	return hardness
+}
+
+// ---- Weapon damage-type kill flavors (from original session capture) ----
+
+// meleeSlashPunctureKillFlavors describes a killing slash or (melee) puncture blow
+// itself, replacing the normal severity/damage line the same way elementalKillFlavors
+// does for elemental damage — see weaponKillFlavor.
+var meleeSlashPunctureKillFlavors = []string{
+	"Shot to back creates peep-hole through heart.",
+	"Slash to spine exposes innards.",
+	"Brutal abdominal cut results in disembowelment.",
+	"Precise strike between shoulders fillets spine.",
+}
+
+// rangedPunctureKillFlavors supplements meleeSlashPunctureKillFlavors for puncture
+// kills specifically from bow/crossbow (and other thrown/projectile) weapons.
+var rangedPunctureKillFlavors = []string{
+	"Terrible gouge skewers spleen.",
+	"Horrible downward thrust lacerates liver.",
+}
+
+var crushKillFlavors = []string{
+	"Blow to body ruptures internal organs!",
+}
+
+// weaponKillFlavor returns a random description of a killing weapon blow for dtype
+// ("slash", "puncture", "crush", as returned by damageTypeForWeapon), or "" if none
+// exists — callers should fall back to the normal severity/damage line in that case.
+// ranged should be true for bow/crossbow/thrown weapons, widening the puncture pool
+// with projectile-specific text.
+func weaponKillFlavor(dtype string, ranged bool) string {
+	var pool []string
+	switch dtype {
+	case "slash":
+		pool = meleeSlashPunctureKillFlavors
+	case "puncture":
+		pool = meleeSlashPunctureKillFlavors
+		if ranged {
+			pool = append(append([]string{}, meleeSlashPunctureKillFlavors...), rangedPunctureKillFlavors...)
+		}
+	case "crush":
+		pool = crushKillFlavors
+	}
+	if len(pool) == 0 {
+		return ""
+	}
+	return pool[rand.Intn(len(pool))]
+}
+
+// isRangedWeaponType reports whether a weapon type fires/throws its damage rather
+// than delivering it in melee — used to pick the wider ranged-puncture kill-flavor
+// pool for bow/crossbow (and thrown) kills.
+func isRangedWeaponType(weaponType string) bool {
+	switch weaponType {
+	case "BOW_WEAPON", "THROWN_WEAPON", "STABTHROWN", "POLETHROWN", "DRAKIN_THROWN", "HANDGUN", "RIFLE":
+		return true
+	}
+	return false
 }
 
 // ---- Attack verb by weapon type (from session capture) ----
@@ -294,8 +361,10 @@ func weaponSkillForType(itemType string) int {
 		return 13
 	case "POLE_WEAPON", "POLETHROWN":
 		return 25
-	case "BOW_WEAPON", "THROWN_WEAPON":
+	case "BOW_WEAPON":
 		return 3
+	case "THROWN_WEAPON":
+		return 19
 	case "DRAKIN_SLASH", "DRAKIN_CRUSH", "DRAKIN_POLE", "DRAKIN_THROWN":
 		return 16
 	case "CLAW_WEAPON", "BITE_WEAPON":
@@ -303,6 +372,25 @@ func weaponSkillForType(itemType string) int {
 	default:
 		return 13
 	}
+}
+
+// specializableWeaponSkills are the weapon skills a player may pick a
+// specific weapon type to specialize in via SPECIALIZE.
+var specializableWeaponSkills = map[int]bool{
+	9:  true, // Crushing Weapons
+	13: true, // Edged Weapons
+	16: true, // Drakin Weapons
+	19: true, // Thrown Weapons
+	25: true, // Polearms
+}
+
+// weaponSpecializationRank returns the player's specialization rank (0-5) for
+// the given weapon, keyed by its base noun ID (e.g. the noun for "broadsword").
+func (e *GameEngine) weaponSpecializationRank(player *Player, weaponDef *gameworld.ItemDef) int {
+	if player.WeaponSpecialization == nil || weaponDef == nil {
+		return 0
+	}
+	return player.WeaponSpecialization[weaponDef.NameID]
 }
 
 // ---- To-Hit Calculation ----
@@ -431,7 +519,31 @@ func playerArmorPercent(player *Player, items map[int]*gameworld.ItemDef) int {
 	if total > 85 {
 		total = 85
 	}
+	if natural := drakinNaturalArmorPercent(player); natural > total {
+		total = natural
+	}
 	return total
+}
+
+// drakinNaturalArmorPercent returns 0 for every race except Drakin. LEGENDS.DOC says
+// Drakin never wear armor, and separately that "some races have natural armor that
+// increases in effectiveness with every level" — undocumented for Drakin specifically
+// (no numeric value survives anywhere in the source material), so this is a judgment
+// call: scale from a modest 17% at level 1 up to a plate-armor-equivalent 75% (the
+// strongest ordinary, non-unique body armor in the item scripts) by level 30, then hold
+// there. Takes the max against any worn armor rather than stacking, since Drakin scales
+// are their armor system, not a supplement to gear — nothing currently stops a Drakin
+// from wearing armor items too (ITEMARM.SCR has no race restriction), so this avoids
+// double-dipping if that ever happens.
+func drakinNaturalArmorPercent(player *Player) int {
+	if player.Race != RaceDrakin {
+		return 0
+	}
+	pct := 15 + player.Level*2
+	if pct > 75 {
+		pct = 75
+	}
+	return pct
 }
 
 // ---- Damage Calculation ----
@@ -570,20 +682,29 @@ func monsterDamage(def *gameworld.MonsterDef) int {
 	return rand.Intn(maxDmg-minDmg+1) + minDmg
 }
 
-func monsterSpecialDamage(def *gameworld.MonsterDef) (int, string) {
-	if def.SpecUse <= 0 || rand.Intn(100) >= def.SpecUse {
-		return 0, ""
-	}
-	dmg := def.SpecBase + rand.Intn(max(1, def.SpecDmg))
-	return dmg, def.SpecDmgType
-}
-
 func applyArmor(dmg, armorPct int) int {
 	reduced := dmg * (100 - armorPct) / 100
 	if reduced < 0 {
 		reduced = 0
 	}
 	return reduced
+}
+
+// applyDrakinElementalVulnerability applies Drakin's extra heat/cold damage. LEGENDS.DOC
+// says "great swings in temperature are more deadly to them than other races" but no
+// numeric value survives anywhere in the source material, so +25% is a judgment call.
+// dmgType is matched case-insensitively against "heat"/"cold" ("Heat"/"Cold" for monster
+// special attacks, "heat"/"cold" for spell-derived damage types); anything else, or any
+// non-Drakin player, is a no-op.
+func applyDrakinElementalVulnerability(player *Player, dmgType string, dmg int) int {
+	if player.Race != RaceDrakin {
+		return dmg
+	}
+	switch strings.ToLower(dmgType) {
+	case "heat", "cold":
+		return dmg * 125 / 100
+	}
+	return dmg
 }
 
 func applyImmunity(dmg int, immunityLevel int) int {
@@ -811,6 +932,12 @@ func (e *GameEngine) doAttackMonster(ctx context.Context, player *Player, target
 				fatCost = 3
 			}
 		}
+		if weaponDef != nil {
+			fatCost -= e.weaponSpecializationRank(player, weaponDef)
+			if fatCost < 1 {
+				fatCost = 1
+			}
+		}
 		if isTwoWeapon {
 			ohFat := 1
 			if offHandDef.Weight > 5 {
@@ -818,6 +945,10 @@ func (e *GameEngine) doAttackMonster(ctx context.Context, player *Player, target
 				if ohFat > 3 {
 					ohFat = 3
 				}
+			}
+			ohFat -= e.weaponSpecializationRank(player, offHandDef)
+			if ohFat < 1 {
+				ohFat = 1
 			}
 			fatCost += ohFat
 		}
@@ -847,7 +978,10 @@ func (e *GameEngine) doAttackMonster(ctx context.Context, player *Player, target
 	// Resolve to-hit
 	attackRating := playerAttackRating(player, weaponDef) + wMod - fatPenalty
 	if inst.Stunned {
-		attackRating += 20 // bonus for attacking stunned target
+		attackRating += 20 // bonus for attacking a stunned target (LEGENDS.DOC: -20 defense while stunned)
+	}
+	if inst.KnockedDown {
+		attackRating += 50 // bonus for attacking a knocked-down target (LEGENDS.DOC: -50 defense while down)
 	}
 	monDefense := def.Defense + inst.DefenseBonus
 	toHit := calcToHit(attackRating, monDefense)
@@ -939,33 +1073,83 @@ func (e *GameEngine) doAttackMonster(ctx context.Context, player *Player, target
 			dmg = 1
 		}
 
-		part := randomBodyPart(def.BodyType)
-		severity := damageSeverity(dmg)
-		msgs = append(msgs, fmt.Sprintf(" %s %s to %s. [%d Damage]", severity, dmgNoun, part, dmg))
+		specRank := e.weaponSpecializationRank(player, weaponDef)
+		part, locMult := rollBodyPart(def.BodyType, specRank)
+		dmg = dmg * locMult / 100
+		if dmg <= 0 {
+			dmg = 1
+		}
+		dtype := damageTypeForWeapon(weaponDef, e)
+		woundLevel := woundLevelFromDamage(dmg, inst.MaxHP)
+		e.addMonsterWound(inst.ID, part, dtype, woundLevel)
+		// Message construction deferred until after damageMonster below so a killing
+		// blow with no elemental crit can show weaponKillFlavor instead of the normal
+		// severity/damage line.
+		baseHitLine := fmt.Sprintf(" %s %s to %s. [%d Damage]", damageSeverity(dmg, inst.MaxHP), dmgNoun, part, dmg)
 
-		// Weapon elemental crit / slayer bonus
-		if critDmg, critType := weaponCritDamage(player.Wielded, weaponDef, def); critDmg > 0 {
+		// Weapon elemental crit / slayer bonus. Message construction is deferred until
+		// after damageMonster below so a killing crit can show its kill-flavor line
+		// (see elementalKillFlavor) instead of the normal severity/damage line.
+		var critType string
+		var critMsgs []string
+		if critDmg, ct := weaponCritDamage(player.Wielded, weaponDef, def); critDmg > 0 {
+			critType = ct
+			critPart, critLocMult := rollBodyPart(def.BodyType, specRank)
+			critDmg = critDmg * critLocMult / 100
+			if critDmg <= 0 {
+				critDmg = 1
+			}
 			dmg += critDmg
-			critPart := randomBodyPart(def.BodyType)
-			critSeverity := damageSeverity(critDmg)
+			var critDtype string
+			switch critType {
+			case "fire", "cold", "lightning":
+				critDtype = "burn"
+			default:
+				critDtype = damageTypeForWeapon(weaponDef, e)
+			}
+			critLevel := woundLevelFromDamage(critDmg, inst.MaxHP)
+			e.addMonsterWound(inst.ID, critPart, critDtype, critLevel)
+			critWord := damageSeverity(critDmg, inst.MaxHP)
 			weaponNoun := strings.ToLower(e.nouns[weaponDef.NameID])
 			switch critType {
 			case "fire":
-				msgs = append(msgs, fmt.Sprintf(" The %s radiates intense heat!", weaponNoun))
-				msgs = append(msgs, fmt.Sprintf(" %s burn to %s. [%d Damage]", critSeverity, critPart, critDmg))
+				critMsgs = append(critMsgs, fmt.Sprintf(" The %s radiates intense heat!", weaponNoun))
+				critMsgs = append(critMsgs, fmt.Sprintf(" %s burn to %s. [%d Damage]", critWord, critPart, critDmg))
 			case "cold":
-				msgs = append(msgs, fmt.Sprintf(" The %s radiates intense cold!", weaponNoun))
-				msgs = append(msgs, fmt.Sprintf(" %s freeze to %s. [%d Damage]", critSeverity, critPart, critDmg))
+				critMsgs = append(critMsgs, fmt.Sprintf(" The %s radiates intense cold!", weaponNoun))
+				critMsgs = append(critMsgs, fmt.Sprintf(" %s freeze to %s. [%d Damage]", critWord, critPart, critDmg))
 			case "lightning":
-				msgs = append(msgs, fmt.Sprintf(" The %s crackles with electricity!", weaponNoun))
-				msgs = append(msgs, fmt.Sprintf(" %s shock to %s. [%d Damage]", critSeverity, critPart, critDmg))
+				critMsgs = append(critMsgs, fmt.Sprintf(" The %s crackles with electricity!", weaponNoun))
+				critMsgs = append(critMsgs, fmt.Sprintf(" %s shock to %s. [%d Damage]", critWord, critPart, critDmg))
 			case "slayer":
-				msgs = append(msgs, fmt.Sprintf(" Your weapon resonates against its foe!"))
-				msgs = append(msgs, fmt.Sprintf(" %s strike to %s. [%d Damage]", critSeverity, critPart, critDmg))
+				critMsgs = append(critMsgs, " Your weapon resonates against its foe!")
+				critMsgs = append(critMsgs, fmt.Sprintf(" %s strike to %s. [%d Damage]", critWord, critPart, critDmg))
 			}
 		}
 
-		killed, woke := e.damageMonster(inst.ID, dmg)
+		killed, woke := e.damageMonster(inst.ID, dmg, player.FirstName)
+
+		// If there's no elemental crit to supply its own kill-flavor line below, a
+		// killing base hit gets weaponKillFlavor in place of the normal severity line.
+		if killed && critType == "" {
+			if kf := weaponKillFlavor(dtype, isRangedWeaponType(weaponDef.Type)); kf != "" {
+				baseHitLine = " " + kf
+			}
+		}
+		msgs = append(msgs, baseHitLine)
+
+		if len(critMsgs) > 0 {
+			if killed {
+				if kf := elementalKillFlavor(critType); kf != "" {
+					msgs = append(msgs, critMsgs[0], " "+kf)
+				} else {
+					msgs = append(msgs, critMsgs...)
+				}
+			} else {
+				msgs = append(msgs, critMsgs...)
+			}
+		}
+
 		if woke {
 			msgs = append(msgs, fmt.Sprintf("The %s wakes up, startled!", name))
 		}
@@ -976,11 +1160,25 @@ func (e *GameEngine) doAttackMonster(ctx context.Context, player *Player, target
 		}
 
 		wasStunned := false
+		staggerBroadcast := ""
 		if excellent && !killed {
 			if rand.Intn(100) < 30 {
-				msgs = append(msgs, " It is stunned!")
 				wasStunned = true
-				inst.Stunned = true
+				// LEGENDS.DOC: an excellent hit "may result in stunning you or knocking
+				// you off your feet" — two distinct outcomes of the same crit, not the
+				// same thing (see the MonsterInstance field comments). No documented
+				// split between the two, so 50/50 is a judgment call.
+				if rand.Intn(100) < 50 {
+					stunSecs := 3 + rand.Intn(4) // 3-6 sec; no melee-crit-stun duration is documented (only psi spells have one), so this is a judgment call too
+					inst.Stunned = true
+					inst.StunExpiry = time.Now().Add(time.Duration(stunSecs) * time.Second)
+					msgs = append(msgs, " It is stunned!")
+					staggerBroadcast = ", stun"
+				} else {
+					inst.KnockedDown = true
+					msgs = append(msgs, " It is knocked off its feet!")
+					staggerBroadcast = ", knockdown"
+				}
 			}
 		}
 
@@ -991,15 +1189,13 @@ func (e *GameEngine) doAttackMonster(ctx context.Context, player *Player, target
 			} else {
 				msgs = append(msgs, " It collapses, dead.")
 			}
-			e.handleMonsterDeath(player, inst, def)
-			player.CombatTarget = nil
-			player.Joined = false
+			e.handleMonsterDeath([]*Player{player}, inst, def)
 		}
 
 		// Build simplified 3rd-person broadcast
 		broadcastMsg := fmt.Sprintf("%s %s at %s%s. %s %s", player.FirstName, thirdVerb, article, name, hitLabel, simplifiedDamageTier(dmg))
 		if wasStunned {
-			broadcastMsg += ", stun"
+			broadcastMsg += staggerBroadcast
 		}
 		broadcastMsg += "."
 		if killed {
@@ -1055,32 +1251,79 @@ func (e *GameEngine) doAttackMonster(ctx context.Context, player *Player, target
 			if ohDmg <= 0 {
 				ohDmg = 1
 			}
-			ohPart := randomBodyPart(def.BodyType)
-			result.Messages = append(result.Messages, fmt.Sprintf(" %s %s to %s. [%d Damage]", damageSeverity(ohDmg), ohDmgNoun, ohPart, ohDmg))
+			ohSpecRank := e.weaponSpecializationRank(player, offHandDef)
+			ohPart, ohLocMult := rollBodyPart(def.BodyType, ohSpecRank)
+			ohDmg = ohDmg * ohLocMult / 100
+			if ohDmg <= 0 {
+				ohDmg = 1
+			}
+			ohDtype := damageTypeForWeapon(offHandDef, e)
+			ohWoundLevel := woundLevelFromDamage(ohDmg, inst.MaxHP)
+			e.addMonsterWound(inst.ID, ohPart, ohDtype, ohWoundLevel)
+			// Message construction deferred until after damageMonster below — see the
+			// main-hand attack above.
+			ohBaseHitLine := fmt.Sprintf(" %s %s to %s. [%d Damage]", damageSeverity(ohDmg, inst.MaxHP), ohDmgNoun, ohPart, ohDmg)
 
-			// Weapon elemental crit / slayer bonus (off-hand)
-			if ohCritDmg, ohCritType := weaponCritDamage(player.OffHand, offHandDef, def); ohCritDmg > 0 {
+			// Weapon elemental crit / slayer bonus (off-hand). Message construction is
+			// deferred until after damageMonster below — see the main-hand attack above.
+			var ohCritType string
+			var ohCritMsgs []string
+			if ohCritDmg, oct := weaponCritDamage(player.OffHand, offHandDef, def); ohCritDmg > 0 {
+				ohCritType = oct
+				ohCritPart, ohCritLocMult := rollBodyPart(def.BodyType, ohSpecRank)
+				ohCritDmg = ohCritDmg * ohCritLocMult / 100
+				if ohCritDmg <= 0 {
+					ohCritDmg = 1
+				}
 				ohDmg += ohCritDmg
-				ohCritPart := randomBodyPart(def.BodyType)
-				ohCritSeverity := damageSeverity(ohCritDmg)
+				var ohCritDtype string
+				switch ohCritType {
+				case "fire", "cold", "lightning":
+					ohCritDtype = "burn"
+				default:
+					ohCritDtype = damageTypeForWeapon(offHandDef, e)
+				}
+				ohCritLevel := woundLevelFromDamage(ohCritDmg, inst.MaxHP)
+				e.addMonsterWound(inst.ID, ohCritPart, ohCritDtype, ohCritLevel)
+				ohCritWord := damageSeverity(ohCritDmg, inst.MaxHP)
 				ohWeaponNoun := strings.ToLower(e.nouns[offHandDef.NameID])
 				switch ohCritType {
 				case "fire":
-					result.Messages = append(result.Messages, fmt.Sprintf(" The %s radiates intense heat!", ohWeaponNoun))
-					result.Messages = append(result.Messages, fmt.Sprintf(" %s burn to %s. [%d Damage]", ohCritSeverity, ohCritPart, ohCritDmg))
+					ohCritMsgs = append(ohCritMsgs, fmt.Sprintf(" The %s radiates intense heat!", ohWeaponNoun))
+					ohCritMsgs = append(ohCritMsgs, fmt.Sprintf(" %s burn to %s. [%d Damage]", ohCritWord, ohCritPart, ohCritDmg))
 				case "cold":
-					result.Messages = append(result.Messages, fmt.Sprintf(" The %s radiates intense cold!", ohWeaponNoun))
-					result.Messages = append(result.Messages, fmt.Sprintf(" %s freeze to %s. [%d Damage]", ohCritSeverity, ohCritPart, ohCritDmg))
+					ohCritMsgs = append(ohCritMsgs, fmt.Sprintf(" The %s radiates intense cold!", ohWeaponNoun))
+					ohCritMsgs = append(ohCritMsgs, fmt.Sprintf(" %s freeze to %s. [%d Damage]", ohCritWord, ohCritPart, ohCritDmg))
 				case "lightning":
-					result.Messages = append(result.Messages, fmt.Sprintf(" The %s crackles with electricity!", ohWeaponNoun))
-					result.Messages = append(result.Messages, fmt.Sprintf(" %s shock to %s. [%d Damage]", ohCritSeverity, ohCritPart, ohCritDmg))
+					ohCritMsgs = append(ohCritMsgs, fmt.Sprintf(" The %s crackles with electricity!", ohWeaponNoun))
+					ohCritMsgs = append(ohCritMsgs, fmt.Sprintf(" %s shock to %s. [%d Damage]", ohCritWord, ohCritPart, ohCritDmg))
 				case "slayer":
-					result.Messages = append(result.Messages, " Your weapon resonates against its foe!")
-					result.Messages = append(result.Messages, fmt.Sprintf(" %s strike to %s. [%d Damage]", ohCritSeverity, ohCritPart, ohCritDmg))
+					ohCritMsgs = append(ohCritMsgs, " Your weapon resonates against its foe!")
+					ohCritMsgs = append(ohCritMsgs, fmt.Sprintf(" %s strike to %s. [%d Damage]", ohCritWord, ohCritPart, ohCritDmg))
 				}
 			}
 
-			ohKilled, ohWoke := e.damageMonster(inst.ID, ohDmg)
+			ohKilled, ohWoke := e.damageMonster(inst.ID, ohDmg, player.FirstName)
+
+			if ohKilled && ohCritType == "" {
+				if kf := weaponKillFlavor(ohDtype, isRangedWeaponType(offHandDef.Type)); kf != "" {
+					ohBaseHitLine = " " + kf
+				}
+			}
+			result.Messages = append(result.Messages, ohBaseHitLine)
+
+			if len(ohCritMsgs) > 0 {
+				if ohKilled {
+					if kf := elementalKillFlavor(ohCritType); kf != "" {
+						result.Messages = append(result.Messages, ohCritMsgs[0], " "+kf)
+					} else {
+						result.Messages = append(result.Messages, ohCritMsgs...)
+					}
+				} else {
+					result.Messages = append(result.Messages, ohCritMsgs...)
+				}
+			}
+
 			if ohWoke {
 				result.Messages = append(result.Messages, fmt.Sprintf(" The %s wakes up, startled!", name))
 			}
@@ -1092,9 +1335,7 @@ func (e *GameEngine) doAttackMonster(ctx context.Context, player *Player, target
 
 			if ohKilled {
 				result.Messages = append(result.Messages, " It collapses, dead.")
-				e.handleMonsterDeath(player, inst, def)
-				player.CombatTarget = nil
-				player.Joined = false
+				e.handleMonsterDeath([]*Player{player}, inst, def)
 			}
 			result.RoomBroadcast = append(result.RoomBroadcast, fmt.Sprintf("%s %s at %s%s with their off hand. Hit.", player.FirstName, ohThirdVerb, article, name))
 		} else {
@@ -1325,61 +1566,11 @@ func (e *GameEngine) monsterAttackPlayer(inst *MonsterInstance, def *gameworld.M
 	article := articleFor(name, def.Unique)
 	capArt := capArticle(article)
 
-	// Special attack
-	if specDmg, specType := monsterSpecialDamage(def); specDmg > 0 {
-		// Combat Maneuvering: 2% per rank chance to dodge special attack (max 95%)
-		combatManeuver := player.Skills[10]
-		dodgeChance := combatManeuver * 2
-		if dodgeChance > 95 { dodgeChance = 95 }
-		if dodgeChance > 0 && rand.Intn(100) < dodgeChance {
-			playerMsgs = append(playerMsgs, fmt.Sprintf("%s%s uses a special attack, but you dodge it!", capArt, name))
-		} else {
-		specText := def.TextOverrides["TEXX"]
-		if specText != "" {
-			specText = strings.Replace(specText, "%s", capArt+name, 1)
-			specText = strings.Replace(specText, "%s", player.FirstName, 1)
-		} else {
-			specText = fmt.Sprintf("%s%s uses a special attack on %s!", capArt, name, player.FirstName)
-		}
-
-		armorPct := playerArmorPercent(player, e.items)
-		specDmg = applyArmor(specDmg, armorPct)
-
-		// Endurance: 1% elemental damage reduction per rank (max 50%)
-		enduranceSkill := player.Skills[11]
-		if enduranceSkill > 0 && (specType == "Heat" || specType == "Cold" || specType == "Electric") {
-			reduction := enduranceSkill
-			if reduction > 50 { reduction = 50 }
-			specDmg = specDmg * (100 - reduction) / 100
-		}
-
-		// Heat Shield / Cold Shield: 50% reduction of matching elemental damage
-		now := time.Now()
-		if specType == "Heat" && !player.HeatShieldExpiry.IsZero() && now.Before(player.HeatShieldExpiry) {
-			specDmg /= 2
-		}
-		if specType == "Cold" && !player.ColdShieldExpiry.IsZero() && now.Before(player.ColdShieldExpiry) {
-			specDmg /= 2
-		}
-
-		part := randomBodyPart("HUMAN")
-		severity := damageSeverity(specDmg)
-		player.BodyPoints -= specDmg
-		if player.BodyPoints < 0 {
-			player.BodyPoints = 0
-		}
-
-		playerMsgs = append(playerMsgs, specText)
-		playerMsgs = append(playerMsgs, fmt.Sprintf(" %s burn to %s. [%d Damage]", severity, part, specDmg))
-		roomMsgs = append(roomMsgs, specText)
-
-		if player.BodyPoints <= 0 {
-			deathMsgs := e.handlePlayerDeath(player, name)
-			playerMsgs = append(playerMsgs, deathMsgs...)
-			return playerMsgs, roomMsgs, player
-		}
-		} // end else (didn't dodge)
-	}
+	// Special attacks and spell casts are handled a level up, in monsterCombatTick
+	// (via monsterTrySpecialAttack/monsterTryStartCast) — they're ranged "attack forms"
+	// per GMSCRIPT.DOC that can target any current attacker, not just this monster's
+	// single locked melee target, so they're resolved before monsterAttackPlayer is
+	// ever called for a normal-attack tick.
 
 	// Normal attack
 	monWeaponName := e.monsterWeaponName(def)
@@ -1421,14 +1612,26 @@ func (e *GameEngine) monsterAttackPlayer(inst *MonsterInstance, def *gameworld.M
 			dmg = 1
 		}
 
-		part := randomBodyPart("HUMAN")
-		severity := damageSeverity(dmg)
+		part, locMult := rollBodyPart("HUMAN", 0)
+		dmg = dmg * locMult / 100
+		if dmg <= 0 {
+			dmg = 1
+		}
+		var monWeaponDef *gameworld.ItemDef
+		if len(def.Weapons) > 0 {
+			monWeaponDef = e.items[def.Weapons[0].Archetype]
+		}
+		dtype := damageTypeForWeapon(monWeaponDef, e)
+		woundLevel := woundLevelFromDamage(dmg, player.MaxBodyPoints)
+		player.Wounds = applyWoundToList(player.Wounds, part, dtype, woundLevel, !player.Undead)
+		player.Bleeding = anyBleeding(player.Wounds)
 		player.BodyPoints -= dmg
+		rawBP := player.BodyPoints
 		if player.BodyPoints < 0 {
 			player.BodyPoints = 0
 		}
 
-		playerMsgs = append(playerMsgs, fmt.Sprintf(" %s %s to %s. [%d Damage]", severity, monDmgNoun, part, dmg))
+		playerMsgs = append(playerMsgs, fmt.Sprintf(" %s %s to %s. [%d Damage]", damageSeverity(dmg, player.MaxBodyPoints), monDmgNoun, part, dmg))
 
 		// Monster poison/disease/fatigue on hit
 		if def.PoisonChance > 0 && rand.Intn(100) < def.PoisonChance {
@@ -1459,16 +1662,21 @@ func (e *GameEngine) monsterAttackPlayer(inst *MonsterInstance, def *gameworld.M
 
 		// Build simplified 3rd-person broadcast for monster attack
 		monBroadcast := fmt.Sprintf("%s%s %s %s. %s %s.", capArt, name, monVerb, player.FirstName, hitLabel, simplifiedDamageTier(dmg))
-		if player.BodyPoints <= 0 {
-			// Arena prevents full death
+		if rawBP <= 0 {
+			// Arena prevents full death (and unconsciousness)
 			if e.isArenaRoom(player.RoomNumber) {
 				player.BodyPoints = 1
 				playerMsgs = append(playerMsgs, " The arena's enchantment prevents your death!")
 			} else {
-				playerMsgs = append(playerMsgs, fmt.Sprintf(" %s%s slays %s.", capArt, name, player.FirstName))
-				deathMsgs := e.handlePlayerDeath(player, name)
-				playerMsgs = append(playerMsgs, deathMsgs...)
-				monBroadcast += fmt.Sprintf(" %s%s slays %s!", capArt, name, player.FirstName)
+				outcomeMsgs, died := e.resolveDirectHitOutcome(player, rawBP, name)
+				if died {
+					playerMsgs = append(playerMsgs, fmt.Sprintf(" %s%s slays %s.", capArt, name, player.FirstName))
+					playerMsgs = append(playerMsgs, outcomeMsgs...)
+					monBroadcast += fmt.Sprintf(" %s%s slays %s!", capArt, name, player.FirstName)
+				} else {
+					playerMsgs = append(playerMsgs, outcomeMsgs...)
+					monBroadcast += fmt.Sprintf(" %s%s knocks %s unconscious!", capArt, name, player.FirstName)
+				}
 			}
 		}
 		roomMsgs = append(roomMsgs, monBroadcast)
@@ -1480,9 +1688,323 @@ func (e *GameEngine) monsterAttackPlayer(inst *MonsterInstance, def *gameworld.M
 	return playerMsgs, roomMsgs, player
 }
 
+// ---- Monster special attacks and spellcasting ----
+//
+// Both are ranged "attack forms" per GMSCRIPT.DOC ("special attack forms" for SPECUSE,
+// and spells are cast as a gesture rather than a melee swing) so — unlike the monster's
+// normal melee attack, which always targets whoever it's locked onto (inst.Target) —
+// they pick randomly among whoever is currently attacking it, or failing that, anyone
+// in the room. They also bypass guard interception entirely (see monsterAttackPlayer's
+// guard-redirect/elemental-guard-intercept, which only applies to the normal attack).
+
+// monsterAttackTargetPool returns the candidate targets for a monster's special attack
+// or spell cast: players currently fighting it (CombatTarget pointed at this instance),
+// or every valid player in its room if nobody currently is.
+func (e *GameEngine) monsterAttackTargetPool(inst *MonsterInstance) []*Player {
+	if e.sessions == nil {
+		return nil
+	}
+	var attackers, roomPlayers []*Player
+	for _, p := range e.sessions.OnlinePlayers() {
+		if p.RoomNumber != inst.RoomNumber || p.Dead || p.Hidden || p.Invisible || p.GMInvis {
+			continue
+		}
+		roomPlayers = append(roomPlayers, p)
+		if p.CombatTarget != nil && p.CombatTarget.IsMonster && p.CombatTarget.MonsterID == inst.ID {
+			attackers = append(attackers, p)
+		}
+	}
+	if len(attackers) > 0 {
+		return attackers
+	}
+	return roomPlayers
+}
+
+// monsterDodgeChance is the Combat Maneuvering skill's chance to completely avoid a
+// monster's special attack or spell — 2% per rank, capped at 95%, per LEGENDS.DOC.
+func monsterDodgeChance(target *Player) int {
+	chance := target.Skills[10] * 2
+	if chance > 95 {
+		chance = 95
+	}
+	return chance
+}
+
+// applyMonsterElementalDamageToPlayer applies a monster's ranged hit (special attack or
+// spell) to player: armor%, Drakin heat/cold vulnerability, Endurance skill reduction,
+// Heat/Cold Shield mitigation, then rolls a body part and applies the wound. Returns the
+// final damage dealt, the body part hit, the wound damage-type noun (for dmgNounForType),
+// and the player's raw (pre-clamp) BodyPoints after the hit, for resolveDirectHitOutcome.
+func (e *GameEngine) applyMonsterElementalDamageToPlayer(player *Player, dmg int, dmgType string) (finalDmg int, part string, dtype string, rawBP int) {
+	armorPct := playerArmorPercent(player, e.items)
+	dmg = applyArmor(dmg, armorPct)
+	dmg = applyDrakinElementalVulnerability(player, dmgType, dmg)
+
+	upperType := strings.ToUpper(dmgType)
+	if enduranceSkill := player.Skills[11]; enduranceSkill > 0 && (upperType == "HEAT" || upperType == "COLD" || upperType == "ELECTRIC") {
+		reduction := enduranceSkill
+		if reduction > 50 {
+			reduction = 50
+		}
+		dmg = dmg * (100 - reduction) / 100
+	}
+
+	now := time.Now()
+	if upperType == "HEAT" && !player.HeatShieldExpiry.IsZero() && now.Before(player.HeatShieldExpiry) {
+		dmg /= 2
+	}
+	if upperType == "COLD" && !player.ColdShieldExpiry.IsZero() && now.Before(player.ColdShieldExpiry) {
+		dmg /= 2
+	}
+
+	part, locMult := rollBodyPart("HUMAN", 0)
+	dmg = dmg * locMult / 100
+	if dmg <= 0 {
+		dmg = 1
+	}
+	dtype = damageTypeForSpecAttack(dmgType)
+	level := woundLevelFromDamage(dmg, player.MaxBodyPoints)
+	player.Wounds = applyWoundToList(player.Wounds, part, dtype, level, !player.Undead)
+	player.Bleeding = anyBleeding(player.Wounds)
+	player.BodyPoints -= dmg
+	rawBP = player.BodyPoints
+	if player.BodyPoints < 0 {
+		player.BodyPoints = 0
+	}
+	return dmg, part, dtype, rawBP
+}
+
+// monsterTrySpecialAttack rolls a monster's SPECUSE chance (skipping entirely once
+// SPECUSES uses have been spent) and, on success, resolves a special attack against a
+// randomly chosen target from monsterAttackTargetPool. Returns used=false if the monster
+// should try something else (spell, then normal attack) this tick instead.
+func (e *GameEngine) monsterTrySpecialAttack(inst *MonsterInstance, def *gameworld.MonsterDef) (playerMsgs, roomMsgs []string, defender *Player, used bool) {
+	if def.SpecUse <= 0 {
+		return nil, nil, nil, false
+	}
+	if def.SpecUses > 0 && inst.SpecAttacksUsed >= def.SpecUses {
+		return nil, nil, nil, false
+	}
+	if rand.Intn(100) >= def.SpecUse {
+		return nil, nil, nil, false
+	}
+	targets := e.monsterAttackTargetPool(inst)
+	if len(targets) == 0 {
+		return nil, nil, nil, false
+	}
+	target := targets[rand.Intn(len(targets))]
+
+	e.monsterMgr.mu.Lock()
+	inst.SpecAttacksUsed++
+	e.monsterMgr.mu.Unlock()
+
+	name := FormatMonsterName(def, e.monAdjs)
+	article := articleFor(name, def.Unique)
+	capArt := capArticle(article)
+
+	if dodge := monsterDodgeChance(target); dodge > 0 && rand.Intn(100) < dodge {
+		playerMsgs = append(playerMsgs, fmt.Sprintf("%s%s uses a special attack, but you dodge it!", capArt, name))
+		return playerMsgs, nil, target, true
+	}
+
+	specText := def.TextOverrides["TEXX"]
+	if specText != "" {
+		specText = strings.Replace(specText, "%s", capArt+name, 1)
+		specText = strings.Replace(specText, "%s", target.FirstName, 1)
+	} else {
+		specText = fmt.Sprintf("%s%s uses a special attack on %s!", capArt, name, target.FirstName)
+	}
+
+	dmg := def.SpecBase + rand.Intn(max(1, def.SpecDmg))
+	finalDmg, part, dtype, rawBP := e.applyMonsterElementalDamageToPlayer(target, dmg, def.SpecDmgType)
+
+	playerMsgs = append(playerMsgs, specText)
+	playerMsgs = append(playerMsgs, fmt.Sprintf(" %s %s to %s. [%d Damage]", damageSeverity(finalDmg, target.MaxBodyPoints), dmgNounForType(dtype), part, finalDmg))
+	roomMsgs = append(roomMsgs, specText)
+
+	if rawBP <= 0 {
+		outcomeMsgs, died := e.resolveDirectHitOutcome(target, rawBP, name)
+		playerMsgs = append(playerMsgs, outcomeMsgs...)
+		if !died {
+			roomMsgs = append(roomMsgs, fmt.Sprintf("%s%s knocks %s unconscious!", capArt, name, target.FirstName))
+		}
+	}
+	return playerMsgs, roomMsgs, target, true
+}
+
+// monsterTryStartCast rolls a monster's SPELLUSE chance and, if it triggers, begins a
+// multi-tick spell cast: TEXS ("prepares a spell," per GMSCRIPT.DOC) shows now, and the
+// spell resolves after CASTLEVEL seconds via resolveMonsterCast — unless disrupted by
+// taking damage in the meantime (see damageMonster), which matches "A muldragun's spell
+// is disrupted!" in original/log.txt. Mana is spent up front and never recovers; once a
+// monster can't afford any of its spells it stops trying for the rest of the fight.
+// Returns true if a cast was started (consuming this attack turn).
+func (e *GameEngine) monsterTryStartCast(inst *MonsterInstance, def *gameworld.MonsterDef) bool {
+	if inst.Casting || len(def.Spells) == 0 || def.SpellUse <= 0 {
+		return false
+	}
+	if rand.Intn(100) >= def.SpellUse {
+		return false
+	}
+	var affordable []int
+	for _, id := range def.Spells {
+		if sp := FindSpellByID(id); sp != nil && sp.ManaCost <= inst.CurrentMana {
+			affordable = append(affordable, id)
+		}
+	}
+	if len(affordable) == 0 {
+		return false
+	}
+	targets := e.monsterAttackTargetPool(inst)
+	if len(targets) == 0 {
+		return false
+	}
+	target := targets[rand.Intn(len(targets))]
+	spellID := affordable[rand.Intn(len(affordable))]
+	sp := FindSpellByID(spellID)
+
+	castSeconds := def.CastLevel
+	if castSeconds <= 0 {
+		castSeconds = 3
+	}
+
+	e.monsterMgr.mu.Lock()
+	inst.CurrentMana -= sp.ManaCost
+	inst.Casting = true
+	inst.CastSpellID = spellID
+	inst.CastTarget = target.FirstName
+	inst.CastExpiry = time.Now().Add(time.Duration(castSeconds) * time.Second)
+	e.monsterMgr.mu.Unlock()
+
+	if texs := def.TextOverrides["TEXS"]; texs != "" && e.localRoomBroadcast != nil {
+		e.localRoomBroadcast(inst.RoomNumber, []string{texs})
+	}
+	return true
+}
+
+// resolveMonsterCast finishes a spell cast begun by monsterTryStartCast once CASTLEVEL
+// seconds have passed: rolls the monster's spellcraft check (SPELLSKILL) and, on
+// success, shows TEXL (the "gestures/casts" line, per GMSCRIPT.DOC) aimed at the stored
+// target followed by the spell's normal damage resolution — reusing the same dice,
+// damage type, and player-side mitigations (armor/Drakin/Endurance/shields) as a player
+// casting the same spell. On failure shows TEXQ ("fails its spellcraft check").
+func (e *GameEngine) resolveMonsterCast(inst *MonsterInstance, def *gameworld.MonsterDef) (playerMsgs, roomMsgs []string, defender *Player) {
+	e.monsterMgr.mu.Lock()
+	spellID := inst.CastSpellID
+	targetName := inst.CastTarget
+	inst.Casting = false
+	inst.CastSpellID = 0
+	inst.CastTarget = ""
+	inst.CastExpiry = time.Time{}
+	e.monsterMgr.mu.Unlock()
+
+	sp := FindSpellByID(spellID)
+	if sp == nil || e.sessions == nil {
+		return nil, nil, nil
+	}
+	var target *Player
+	for _, p := range e.sessions.OnlinePlayers() {
+		if p.FirstName == targetName && p.RoomNumber == inst.RoomNumber && !p.Dead {
+			target = p
+			break
+		}
+	}
+	if target == nil || target.Hidden || target.Invisible || target.GMInvis {
+		return nil, nil, nil
+	}
+
+	name := FormatMonsterName(def, e.monAdjs)
+	article := articleFor(name, def.Unique)
+	capArt := capArticle(article)
+
+	texl := def.TextOverrides["TEXL"]
+	gestureMsg := fmt.Sprintf("%s%s gestures and casts a spell at %s.", capArt, name, target.FirstName)
+	if texl != "" {
+		gestureMsg = fmt.Sprintf("%s at %s.", texl, target.FirstName)
+	}
+	roomMsgs = append(roomMsgs, gestureMsg)
+
+	// Spellcraft check (SPELLSKILL, "base spellcraft skill" per GMSCRIPT.DOC): mirrors
+	// the shape of the player formula (25 base + skill-derived bonus, capped 95%), with
+	// SPELLSKILL treated as an already-scaled bonus — a judgment call, since the doc
+	// doesn't give the exact formula, but it matches original/log.txt: every recorded
+	// black muldragun cast either lands or gets disrupted, never shows its TEXQ miss.
+	castChance := 25 + def.SpellSkill
+	if castChance > 95 {
+		castChance = 95
+	}
+	if castChance < 5 {
+		castChance = 5
+	}
+
+	if rand.Intn(100) >= castChance {
+		texq := def.TextOverrides["TEXQ"]
+		if texq == "" {
+			texq = fmt.Sprintf("%s%s's spell fizzles.", capArt, name)
+		}
+		roomMsgs = append(roomMsgs, texq)
+		return nil, roomMsgs, nil
+	}
+
+	if dodge := monsterDodgeChance(target); dodge > 0 && rand.Intn(100) < dodge {
+		playerMsgs = append(playerMsgs, fmt.Sprintf("%s%s casts a spell at you, but you dodge it!", capArt, name))
+		return playerMsgs, roomMsgs, target
+	}
+
+	dmg := rand.Intn(sp.DmgMax-sp.DmgMin+1) + sp.DmgMin
+	if dmg <= 0 {
+		dmg = 1
+	}
+	finalDmg, part, dtype, rawBP := e.applyMonsterElementalDamageToPlayer(target, dmg, sp.DmgType)
+
+	playerMsgs = append(playerMsgs, fmt.Sprintf(" %s %s to %s. [%d Damage]", damageSeverity(finalDmg, target.MaxBodyPoints), dmgNounForType(dtype), part, finalDmg))
+
+	if rawBP <= 0 {
+		outcomeMsgs, died := e.resolveDirectHitOutcome(target, rawBP, name)
+		playerMsgs = append(playerMsgs, outcomeMsgs...)
+		if !died {
+			roomMsgs = append(roomMsgs, fmt.Sprintf("%s%s knocks %s unconscious!", capArt, name, target.FirstName))
+		}
+	}
+	return playerMsgs, roomMsgs, target
+}
+
 // ---- Death ----
 
+// resolveDirectHitOutcome decides what happens when a single direct hit — a weapon
+// attack or a spell, as opposed to an ongoing bleed/poison/disease tick — brings a
+// player to or below 0 body points. rawBP is the value from BEFORE it gets clamped to
+// 0 for storage; that distinction is exactly the rule: landing at precisely 0 knocks
+// the player out (same presentation as being put to sleep by a Slumber spell — laying
+// down, unconscious, until healed or naturally regenerated back above 0), while
+// anything that drives them below 0 is lethal. Callers must clamp player.BodyPoints to
+// 0 themselves before/around this call; this only sets Unconscious+Position or defers
+// to handlePlayerDeath. Returns messages to append for the player, and whether they died.
+func (e *GameEngine) resolveDirectHitOutcome(player *Player, rawBP int, killerName string) (msgs []string, died bool) {
+	if rawBP == 0 {
+		player.Unconscious = true
+		player.Position = 2
+		return []string{fmt.Sprintf(" %s collapses, unconscious.", player.FirstName)}, false
+	}
+	return e.handlePlayerDeath(player, killerName), true
+}
+
+// wakeFromUnconscious clears Unconscious and restores a standing position the moment a
+// player's body points rise back above 0 — called anywhere body points are increased
+// (healing spells, TEND, natural regen) so recovery is immediate rather than waiting for
+// the next regen tick. Returns a message to show the player if they woke up, or "" if
+// nothing changed.
+func wakeFromUnconscious(p *Player) string {
+	if p.Unconscious && p.BodyPoints > 0 {
+		p.Unconscious = false
+		p.Position = 0
+		return "You regain consciousness!"
+	}
+	return ""
+}
+
 func (e *GameEngine) handlePlayerDeath(player *Player, killerName string) []string {
+	player.Unconscious = false
 	player.Dead = true
 	player.CombatTarget = nil
 	player.Joined = false
@@ -1535,6 +2057,7 @@ func (e *GameEngine) doDepart(player *Player) *CommandResult {
 	}
 
 	player.Dead = false
+	player.Unconscious = false
 	player.Position = 0
 	player.Bleeding = false
 	player.Stunned = false
@@ -1565,13 +2088,18 @@ func (e *GameEngine) doDepart(player *Player) *CommandResult {
 	return result
 }
 
-// damageMonster applies damage to a monster instance.
+// damageMonster applies damage to a monster instance, attributed to attackerName (the
+// player who dealt it — recorded as LastAttacker so a bleed-out or other no-single-blow
+// death can still award kill XP; see dotKillRecipients).
 // Returns (killed, woke) where woke is true if the monster was sleeping and woke up.
-func (e *GameEngine) damageMonster(monsterID int, dmg int) (killed bool, woke bool) {
+func (e *GameEngine) damageMonster(monsterID int, dmg int, attackerName string) (killed bool, woke bool) {
 	e.monsterMgr.mu.Lock()
 	defer e.monsterMgr.mu.Unlock()
 	for i := range e.monsterMgr.instances {
 		if e.monsterMgr.instances[i].ID == monsterID && e.monsterMgr.instances[i].Alive {
+			if attackerName != "" {
+				e.monsterMgr.instances[i].LastAttacker = attackerName
+			}
 			if e.monsterMgr.instances[i].Sleeping {
 				e.monsterMgr.instances[i].Sleeping = false
 				e.monsterMgr.instances[i].SleepExpiry = time.Time{}
@@ -1585,38 +2113,167 @@ func (e *GameEngine) damageMonster(monsterID int, dmg int) (killed bool, woke bo
 				e.monsterMgr.instances[i].DeathTime = time.Now()
 				return true, woke
 			}
+			// A hit while casting disrupts the spell (GMSCRIPT.DOC's NONDISRUPTABLE flag
+			// exempts a monster from this) — matches "A muldragun's spell is disrupted!"
+			// in original/log.txt. Mana already spent (monsterTryStartCast) is not refunded.
+			if e.monsterMgr.instances[i].Casting {
+				def := e.monsters[e.monsterMgr.instances[i].DefNumber]
+				if def == nil || !def.NonDisruptable {
+					e.monsterMgr.instances[i].Casting = false
+					e.monsterMgr.instances[i].CastSpellID = 0
+					e.monsterMgr.instances[i].CastTarget = ""
+					e.monsterMgr.instances[i].CastExpiry = time.Time{}
+					if e.localRoomBroadcast != nil && def != nil {
+						name := FormatMonsterName(def, e.monAdjs)
+						article := capArticle(articleFor(name, def.Unique))
+						e.localRoomBroadcast(e.monsterMgr.instances[i].RoomNumber, []string{fmt.Sprintf("%s%s's spell is disrupted!", article, name)})
+					}
+				}
+			}
 			return false, woke
 		}
 	}
 	return false, false
 }
 
+// addMonsterWound appends a wound to a monster instance, found by ID. Wound
+// writes must go through this (rather than mutating a pointer returned by
+// findMonsterInRoom/etc.) because those finders return a pointer into a
+// snapshot copy, not the live instance in monsterMgr.instances.
+func (e *GameEngine) addMonsterWound(monsterID int, location, damageType string, level int) {
+	e.monsterMgr.mu.Lock()
+	defer e.monsterMgr.mu.Unlock()
+	for i := range e.monsterMgr.instances {
+		if e.monsterMgr.instances[i].ID == monsterID {
+			def := e.monsters[e.monsterMgr.instances[i].DefNumber]
+			canBleed := def == nil || def.Race != 22 // RACE 22 = undead; no blood to lose
+			e.monsterMgr.instances[i].Wounds = applyWoundToList(e.monsterMgr.instances[i].Wounds, location, damageType, level, canBleed)
+			return
+		}
+	}
+}
+
+// removeMonsterWound removes the wound at idx from a monster instance's
+// wound list, found by ID. See addMonsterWound for why this indirection is
+// necessary.
+func (e *GameEngine) removeMonsterWound(monsterID int, idx int) (Wound, bool) {
+	e.monsterMgr.mu.Lock()
+	defer e.monsterMgr.mu.Unlock()
+	for i := range e.monsterMgr.instances {
+		if e.monsterMgr.instances[i].ID == monsterID {
+			wounds := e.monsterMgr.instances[i].Wounds
+			if idx < 0 || idx >= len(wounds) {
+				return Wound{}, false
+			}
+			removed := wounds[idx]
+			e.monsterMgr.instances[i].Wounds = append(wounds[:idx], wounds[idx+1:]...)
+			return removed, true
+		}
+	}
+	return Wound{}, false
+}
+
 // ---- Monster Death ----
 
-func (e *GameEngine) handleMonsterDeath(killer *Player, inst *MonsterInstance, def *gameworld.MonsterDef) {
-	// XP formula: Body (not ExtraBody) + Attack/5 + Defense/5 + Armor/2 + level scaling
-	xp := def.Body + def.Attack1/5 + def.Defense/5 + def.Armor/2
+// groupOf returns player plus every other online member of their group (leader +
+// followers), resolved to live *Player pointers. If player isn't grouped, returns just
+// player. Mirrors the group-resolution logic in doSplit (social.go SPLIT command).
+func (e *GameEngine) groupOf(player *Player) []*Player {
+	group := []*Player{player}
+	if e.sessions == nil {
+		return group
+	}
+	var otherNames []string
+	if player.IsGroupLeader {
+		otherNames = player.GroupMembers
+	} else if player.Following != "" {
+		for _, p := range e.sessions.OnlinePlayers() {
+			if p.FirstName == player.Following {
+				otherNames = append([]string{p.FirstName}, p.GroupMembers...)
+				break
+			}
+		}
+	}
+	for _, name := range otherNames {
+		if name == player.FirstName {
+			continue
+		}
+		for _, p := range e.sessions.OnlinePlayers() {
+			if p.FirstName == name {
+				group = append(group, p)
+				break
+			}
+		}
+	}
+	return group
+}
+
+// dotKillRecipients resolves who should receive XP for a damage-over-time kill (bleed-
+// out, tentacle DOT, and any future poison/disease-to-death mechanic) that has no single
+// decisive blow: the last player to damage the monster (lastAttackerName — e.g.
+// MonsterInstance.LastAttacker or TentacleCasterName), plus their group, minus anyone
+// hidden or invisible. A solo attacker always gets credit regardless of concealment —
+// same as a normal kill, which never checks concealment at all; the exclusion only
+// matters for deciding who shares in a group split. Returns nil if the last attacker
+// isn't online, or if they're grouped and everyone eligible is concealed — in that case
+// the kill is unattributed (no XP, just a broadcast), same as before this tracking existed.
+func (e *GameEngine) dotKillRecipients(lastAttackerName string) []*Player {
+	if lastAttackerName == "" || e.sessions == nil {
+		return nil
+	}
+	var attacker *Player
+	for _, p := range e.sessions.OnlinePlayers() {
+		if p.FirstName == lastAttackerName {
+			attacker = p
+			break
+		}
+	}
+	if attacker == nil {
+		return nil
+	}
+	group := e.groupOf(attacker)
+	if len(group) == 1 {
+		return group
+	}
+	var visible []*Player
+	for _, p := range group {
+		if !p.IsConcealed() {
+			visible = append(visible, p)
+		}
+	}
+	return visible
+}
+
+// handleMonsterDeath awards kill XP/alignment/loot for a monster's death. recipients[0]
+// is the primary killer — room-level effects (weapon drop, treasure, kill-event log) are
+// anchored to their room. XP is split evenly across all of recipients (each still gets
+// their own per-level diminishing-returns scaling and level-up check), which is a normal
+// solo kill when len(recipients) == 1 — every existing call site passes exactly one
+// player. Callers with no single decisive blow (bleed-out, tentacle DOT) can instead pass
+// a whole group via dotKillRecipients. recipients must be non-empty.
+func (e *GameEngine) handleMonsterDeath(recipients []*Player, inst *MonsterInstance, def *gameworld.MonsterDef) {
+	if len(recipients) == 0 {
+		return
+	}
+	killer := recipients[0]
+
+	// Take everyone who was fighting this monster out of combat, not just the killer —
+	// see clearCombatForMonster for why a group can share the same CombatTarget.MonsterID.
+	e.clearCombatForMonster(inst.ID)
+
+	// XP formula: Body (not ExtraBody) + Attack/5 + Defense/5 + Armor/2 + level scaling,
+	// split evenly across recipients before each person's own per-level scaling applies.
+	baseXP := def.Body + def.Attack1/5 + def.Defense/5 + def.Armor/2
 	if def.MagicResist > 0 {
-		xp += def.MagicResist / 5
+		baseXP += def.MagicResist / 5
 	}
-	if xp < 10 {
-		xp = 10
+	if baseXP < 10 {
+		baseXP = 10
 	}
-	// Scale XP slightly by player level (diminishing returns for grinding weak mobs)
-	if killer.Level > 1 && xp < killer.Level*5 {
-		xp = max(5, xp*50/(killer.Level*5))
-	}
-	killer.Experience += xp
+	sharedXP := baseXP / len(recipients)
 
-	// Alignment shift
-	if def.Alignment < 0 {
-		killer.Alignment += 1
-	} else if def.Alignment > 0 {
-		killer.Alignment -= 1
-	}
-
-	e.Events.Publish("combat", fmt.Sprintf("%s killed %s (monster %d) for %d XP in room %d",
-		killer.FirstName, def.Name, def.Number, xp, killer.RoomNumber))
+	e.Events.Publish("combat", fmt.Sprintf("%s killed %s (monster %d) in room %d",
+		killer.FirstName, def.Name, def.Number, killer.RoomNumber))
 
 	// Drop monster's weapon into the room as loot (skip natural weapons like claws/teeth/fists)
 	if len(def.Weapons) > 0 && !def.Discorporate {
@@ -1652,39 +2309,52 @@ func (e *GameEngine) handleMonsterDeath(killer *Player, inst *MonsterInstance, d
 		}
 	}
 
-	// Recalculate build points and check for level-up
-	oldLevel := killer.Level
-	oldBP := killer.BuildPoints
-	leveledUp := recalcBuildPoints(killer)
-	newBP := killer.BuildPoints
-
-	// Tell the player
-	var xpMsgs []string
-	xpMsgs = append(xpMsgs, fmt.Sprintf("[+%d experience]", xp))
-	if newBP > oldBP {
-		xpMsgs = append(xpMsgs, fmt.Sprintf("[+%d build points! Total: %d]", newBP-oldBP, newBP))
-	}
-
-	if leveledUp {
-		killer.MaxBodyPoints += killer.Constitution / 10
-		killer.BodyPoints = killer.MaxBodyPoints
-		killer.MaxFatigue += killer.Constitution / 15
-		killer.Fatigue = killer.MaxFatigue
-		killer.MaxMana += (killer.Willpower + killer.Empathy) / 15
-		killer.Mana = killer.MaxMana
-		killer.MaxPsi += killer.Willpower / 10
-		killer.Psi = killer.MaxPsi
-		xpMsgs = append(xpMsgs, fmt.Sprintf("Congratulations! You have advanced to level %d!", killer.Level))
-		if e.roomBroadcast != nil {
-			e.roomBroadcast(killer.RoomNumber, []string{
-				fmt.Sprintf("%s has advanced to level %d!", killer.FirstName, killer.Level),
-			})
+	for _, p := range recipients {
+		xp := sharedXP
+		// Scale XP slightly by player level (diminishing returns for grinding weak mobs)
+		if p.Level > 1 && xp < p.Level*5 {
+			xp = max(5, xp*50/(p.Level*5))
 		}
-		_ = oldLevel
-	}
+		p.Experience += xp
 
-	if e.sendToPlayer != nil {
-		e.sendToPlayer(killer.FirstName, xpMsgs)
+		// Alignment shift
+		if def.Alignment < 0 {
+			p.Alignment += 1
+		} else if def.Alignment > 0 {
+			p.Alignment -= 1
+		}
+
+		// Recalculate build points and check for level-up
+		oldBP := p.BuildPoints
+		leveledUp := recalcBuildPoints(p)
+		newBP := p.BuildPoints
+
+		var xpMsgs []string
+		xpMsgs = append(xpMsgs, fmt.Sprintf("[+%d experience]", xp))
+		if newBP > oldBP {
+			xpMsgs = append(xpMsgs, fmt.Sprintf("[+%d build points! Total: %d]", newBP-oldBP, newBP))
+		}
+
+		if leveledUp {
+			p.MaxBodyPoints += p.Constitution / 10
+			p.BodyPoints = p.MaxBodyPoints
+			p.MaxFatigue += p.Constitution / 15
+			p.Fatigue = p.MaxFatigue
+			p.MaxMana += (p.Willpower + p.Empathy) / 15
+			p.Mana = p.MaxMana
+			p.MaxPsi += p.Willpower / 10
+			p.Psi = p.MaxPsi
+			xpMsgs = append(xpMsgs, fmt.Sprintf("Congratulations! You have advanced to level %d!", p.Level))
+			if e.roomBroadcast != nil {
+				e.roomBroadcast(p.RoomNumber, []string{
+					fmt.Sprintf("%s has advanced to level %d!", p.FirstName, p.Level),
+				})
+			}
+		}
+
+		if e.sendToPlayer != nil {
+			e.sendToPlayer(p.FirstName, xpMsgs)
+		}
 	}
 
 	// If this was a summoned creature, notify its summoner, stun them, and clear their reference
@@ -1793,6 +2463,24 @@ func (e *GameEngine) disengageCombat(player *Player) {
 	}
 	player.CombatTarget = nil
 	player.Joined = false
+}
+
+// clearCombatForMonster takes every online player whose CombatTarget still points at
+// monsterID out of combat. A monster's death only reaches the killer/caster passed into
+// handleMonsterDeath — this catches everyone else who was also fighting the same monster
+// (a group fight, or anyone who joined via ATTACK — see the ATTACK handler, which only
+// sets a monster's own Target back-reference if it was empty, so multiple players can
+// share the same CombatTarget.MonsterID) so they don't have to notice and RETREAT manually.
+func (e *GameEngine) clearCombatForMonster(monsterID int) {
+	if e.sessions == nil {
+		return
+	}
+	for _, p := range e.sessions.OnlinePlayers() {
+		if p.CombatTarget != nil && p.CombatTarget.IsMonster && p.CombatTarget.MonsterID == monsterID {
+			p.CombatTarget = nil
+			p.Joined = false
+		}
+	}
 }
 
 // ---- Stances ----
@@ -2101,13 +2789,20 @@ func (e *GameEngine) monsterCombatTick(inst *MonsterInstance, def *gameworld.Mon
 		inst.Charmed = false
 		inst.CharmTarget = ""
 	}
+	if inst.Stunned && now.After(inst.StunExpiry) {
+		inst.Stunned = false
+		if e.localRoomBroadcast != nil {
+			name := FormatMonsterName(def, e.monAdjs)
+			e.localRoomBroadcast(inst.RoomNumber, []string{fmt.Sprintf("The %s shakes off its stupor.", strings.ToLower(name))})
+		}
+	}
 
 	// Summoned creature attacking a monster
 	if inst.IsSummoned && inst.MonsterTargetID > 0 {
-		if !inst.Sleeping && !inst.Webbed && !inst.Tentacled && !inst.Stunned {
+		if !inst.Sleeping && !inst.Webbed && !inst.Tentacled && !inst.Stunned && !inst.KnockedDown {
 			e.summonedAttackMonster(inst, def)
-		} else if inst.Stunned {
-			inst.Stunned = false
+		} else if inst.KnockedDown {
+			inst.KnockedDown = false
 		}
 		return
 	}
@@ -2141,9 +2836,19 @@ func (e *GameEngine) monsterCombatTick(inst *MonsterInstance, def *gameworld.Mon
 		return
 	}
 
-	// Stunned monsters skip their combat tick and recover
+	// Stunned: cannot attack, move, or flee until StunExpiry passes (expired above)
 	if inst.Stunned {
-		inst.Stunned = false
+		return
+	}
+
+	// Knocked down: costs exactly one tick to stand back up, then resumes acting —
+	// mirrors SleepStand above.
+	if inst.KnockedDown {
+		inst.KnockedDown = false
+		if e.localRoomBroadcast != nil {
+			name := FormatMonsterName(def, e.monAdjs)
+			e.localRoomBroadcast(inst.RoomNumber, []string{fmt.Sprintf("The %s scrambles back to its feet!", strings.ToLower(name))})
+		}
 		return
 	}
 
@@ -2156,6 +2861,30 @@ func (e *GameEngine) monsterCombatTick(inst *MonsterInstance, def *gameworld.Mon
 	if e.sessions == nil {
 		return
 	}
+
+	// Continue or resolve an in-progress spell cast before anything else this tick —
+	// see monsterTryStartCast/resolveMonsterCast. A cast in progress fully occupies the
+	// monster (no melee, no starting a second cast) until CASTLEVEL seconds pass or it's
+	// disrupted by taking damage (damageMonster).
+	if inst.Casting {
+		if now.Before(inst.CastExpiry) {
+			return
+		}
+		e.monsterMgr.mu.Unlock()
+		playerMsgs, roomMsgs, defender := e.resolveMonsterCast(inst, def)
+		e.monsterMgr.mu.Lock()
+		if e.sendToPlayer != nil && len(playerMsgs) > 0 && defender != nil {
+			e.sendToPlayer(defender.FirstName, playerMsgs)
+		}
+		if e.localRoomBroadcast != nil && len(roomMsgs) > 0 {
+			e.localRoomBroadcast(inst.RoomNumber, roomMsgs)
+		}
+		if e.db != nil && defender != nil {
+			go e.SavePlayer(context.Background(), defender)
+		}
+		return
+	}
+
 	var target *Player
 	for _, p := range e.sessions.OnlinePlayers() {
 		if p.FirstName == inst.Target && p.RoomNumber == inst.RoomNumber && !p.Dead {
@@ -2176,7 +2905,19 @@ func (e *GameEngine) monsterCombatTick(inst *MonsterInstance, def *gameworld.Mon
 	}
 
 	e.monsterMgr.mu.Unlock()
-	playerMsgs, roomMsgs, defender := e.monsterAttackPlayer(inst, def, target)
+	startedCast := e.monsterTryStartCast(inst, def)
+	var playerMsgs, roomMsgs []string
+	var defender *Player
+	handled := startedCast
+	if !startedCast {
+		if specMsgs, specRoomMsgs, specDefender, used := e.monsterTrySpecialAttack(inst, def); used {
+			playerMsgs, roomMsgs, defender = specMsgs, specRoomMsgs, specDefender
+			handled = true
+		}
+	}
+	if !handled {
+		playerMsgs, roomMsgs, defender = e.monsterAttackPlayer(inst, def, target)
+	}
 	e.monsterMgr.mu.Lock()
 
 	// defender is who actually took the attack — it differs from target when

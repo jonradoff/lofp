@@ -69,9 +69,16 @@ func (e *GameEngine) runVerbScriptsForTarget(ctx context.Context, player *Player
 			riCopy := ri
 			origRoom := player.RoomNumber // capture before scripts may MOVE the player
 			result := &CommandResult{}
-			sc0 := e.RunItemScripts(player, room, &riCopy, itemDef)
+			sc0 := e.RunItemScripts(player, room, verb, &riCopy, itemDef)
 			sc1 := e.RunPreverbScripts(player, room, verb, &riCopy, itemDef)
 			sc2 := e.RunVerbScripts(player, room, verb, &riCopy, itemDef)
+			// PLREVENT/CONTPLREVENT-deferred actions must be scheduled, or everything
+			// after the delay is lost.
+			for _, segs := range [][]ScriptSegment{sc0.DeferredSegments, sc1.DeferredSegments, sc2.DeferredSegments} {
+				if len(segs) > 0 {
+					e.scheduleScriptSegments(player, segs)
+				}
+			}
 			result.Messages = append(result.Messages, sc0.Messages...)
 			result.Messages = append(result.Messages, sc1.Messages...)
 			result.Messages = append(result.Messages, sc2.Messages...)
@@ -146,11 +153,19 @@ func (e *GameEngine) runVerbScriptsForTarget(ctx context.Context, player *Player
 			tempRI := gameworld.RoomItem{Ref: -1, Archetype: ii.Archetype,
 				Adj1: ii.Adj1, Adj2: ii.Adj2, Adj3: ii.Adj3,
 				Val1: ii.Val1, Val2: ii.Val2, Val3: ii.Val3, Val4: ii.Val4, Val5: ii.Val5,
+				ItemBits: ii.ItemBits,
 				State: itemState}
 			result := &CommandResult{}
-			sc0 := e.RunItemScripts(player, room, &tempRI, itemDef)
+			sc0 := e.RunItemScripts(player, room, verb, &tempRI, itemDef)
 			sc1 := e.RunPreverbScripts(player, room, verb, &tempRI, itemDef)
 			sc2 := e.RunVerbScripts(player, room, verb, &tempRI, itemDef)
+			// PLREVENT/CONTPLREVENT-deferred actions must be scheduled, or everything
+			// after the delay is lost.
+			for _, segs := range [][]ScriptSegment{sc0.DeferredSegments, sc1.DeferredSegments, sc2.DeferredSegments} {
+				if len(segs) > 0 {
+					e.scheduleScriptSegments(player, segs)
+				}
+			}
 			result.Messages = append(result.Messages, sc0.Messages...)
 			result.Messages = append(result.Messages, sc1.Messages...)
 			result.Messages = append(result.Messages, sc2.Messages...)
@@ -186,9 +201,13 @@ func (e *GameEngine) doWhisper(player *Player, args []string, rawInput string) *
 		if text == "" {
 			return &CommandResult{Messages: []string{"Whisper what?"}}
 		}
+		roomLine := fmt.Sprintf("%s whispers to those close, \"%s\"", player.FirstName, text)
+		if player.IsConcealed() {
+			roomLine = fmt.Sprintf("Something whispers to those close, \"%s\"", text)
+		}
 		return &CommandResult{
 			Messages:      []string{fmt.Sprintf("You whisper to those close, \"%s\"", text)},
-			RoomBroadcast: []string{fmt.Sprintf("%s whispers to those close, \"%s\"", player.FirstName, text)},
+			RoomBroadcast: []string{roomLine},
 		}
 	}
 
@@ -201,9 +220,13 @@ func (e *GameEngine) doWhisper(player *Player, args []string, rawInput string) *
 	if text == "" {
 		return &CommandResult{Messages: []string{"Whisper what?"}}
 	}
+	roomLine := fmt.Sprintf("%s whispers to %s.", player.FirstName, found.FirstName)
+	if player.IsConcealed() {
+		roomLine = fmt.Sprintf("Something whispers to %s.", found.FirstName)
+	}
 	return &CommandResult{
 		Messages:      []string{fmt.Sprintf("You whisper to %s.", found.FirstName)},
-		RoomBroadcast: []string{fmt.Sprintf("%s whispers to %s.", player.FirstName, found.FirstName)},
+		RoomBroadcast: []string{roomLine},
 		TargetName:    found.FirstName, // exclude target from room broadcast — they get WhisperMsg instead
 		WhisperTarget: found.FirstName,
 		WhisperMsg:    fmt.Sprintf("%s whispers to you, \"%s\"", player.FirstName, text),
@@ -231,9 +254,13 @@ func (e *GameEngine) doYell(player *Player, args []string, rawInput string) *Com
 		}
 	}
 
+	roomLine := fmt.Sprintf("%s %syells, \"%s\"", player.FirstName, adverb, text)
+	if player.IsConcealed() {
+		roomLine = fmt.Sprintf("Something yells, \"%s\"", text)
+	}
 	return &CommandResult{
 		Messages:      []string{fmt.Sprintf("You %syell, \"%s\"", adverb, text)},
-		RoomBroadcast: []string{fmt.Sprintf("%s %syells, \"%s\"", player.FirstName, adverb, text)},
+		RoomBroadcast: []string{roomLine},
 	}
 }
 
@@ -335,10 +362,11 @@ func (e *GameEngine) doFollow(player *Player, args []string) *CommandResult {
 	if !alreadyIn {
 		found.GroupMembers = append(found.GroupMembers, player.FirstName)
 	}
-	return &CommandResult{
-		Messages:      []string{fmt.Sprintf("You are now following %s.", found.FirstName)},
-		RoomBroadcast: []string{fmt.Sprintf("%s is now following %s.", player.FirstName, found.FirstName)},
+	result := &CommandResult{Messages: []string{fmt.Sprintf("You are now following %s.", found.FirstName)}}
+	if !player.IsConcealed() {
+		result.RoomBroadcast = []string{fmt.Sprintf("%s is now following %s.", player.FirstName, found.FirstName)}
 	}
+	return result
 }
 
 // doHold handles the HOLD command (group) — leader adds a member.

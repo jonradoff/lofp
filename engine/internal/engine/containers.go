@@ -335,6 +335,8 @@ func (e *GameEngine) lookInRoomContainer(player *Player, def *gameworld.ItemDef,
 				Adj1:      ri2.Adj1, Adj2: ri2.Adj2, Adj3: ri2.Adj3,
 				Val1: ri2.Val1, Val2: ri2.Val2, Val3: ri2.Val3, Val4: ri2.Val4, Val5: ri2.Val5,
 				Sharpness: ri2.Sharpness,
+				HardnessMod: ri2.HardnessMod,
+				ItemBits:  ri2.ItemBits,
 				State:     ri2.State,
 			})
 		}
@@ -369,12 +371,17 @@ func (e *GameEngine) lookInRoomContainer(player *Player, def *gameworld.ItemDef,
 // ItemRef/ItemDef are set to it so IFVAR ARCHNUM and REMOVEITEM -1 resolve correctly.
 // handled is false when no script intercepted the verb (CLEARVERB/MOVE), meaning the
 // caller should fall through to normal container-put handling for def.
-func (e *GameEngine) runPutIntoTargetScripts(ctx context.Context, player *Player, room *gameworld.Room, def *gameworld.ItemDef, srcDef *gameworld.ItemDef, roomScripts []gameworld.ScriptBlock, refStr string) (result *CommandResult, handled bool) {
+func (e *GameEngine) runPutIntoTargetScripts(ctx context.Context, player *Player, room *gameworld.Room, def *gameworld.ItemDef, srcDef *gameworld.ItemDef, srcItem InventoryItem, roomScripts []gameworld.ScriptBlock, refStr string) (result *CommandResult, handled bool) {
 	sc := &ScriptContext{
-		Player:  player,
-		Room:    room,
-		Engine:  e,
-		ItemRef: &gameworld.RoomItem{Archetype: srcDef.Number, Ref: -1},
+		Player: player,
+		Room:   room,
+		Engine: e,
+		ItemRef: &gameworld.RoomItem{
+			Archetype: srcDef.Number, Ref: -1,
+			Adj1: srcItem.Adj1, Adj2: srcItem.Adj2, Adj3: srcItem.Adj3,
+			Val1: srcItem.Val1, Val2: srcItem.Val2, Val3: srcItem.Val3, Val4: srcItem.Val4, Val5: srcItem.Val5,
+			Sharpness: srcItem.Sharpness, HardnessMod: srcItem.HardnessMod, ItemBits: srcItem.ItemBits, State: srcItem.State,
+		},
 		ItemDef: srcDef,
 	}
 	isPutBlock := func(block gameworld.ScriptBlock) bool {
@@ -399,10 +406,22 @@ func (e *GameEngine) runPutIntoTargetScripts(ctx context.Context, player *Player
 	if sc.NeedsSave {
 		e.SavePlayer(ctx, player)
 	}
-	if !sc.Blocked && sc.MoveTo == 0 {
+	// PLREVENT/CONTPLREVENT-deferred actions (e.g. the garment-finishing contraption's
+	// close-wait-reopen sequence) must be scheduled, or everything after the delay is lost.
+	if len(sc.DeferredSegments) > 0 {
+		e.scheduleScriptSegments(player, sc.DeferredSegments)
+	}
+	// A matched IFPREVERB2 PUT block "handles" the put whenever it actually did
+	// something — echoed a message, blocked the action, moved the player, or deferred
+	// further steps — not just when it explicitly CLEARVERBed. Without this, a
+	// no-CLEARVERB success branch (e.g. one that echoes progress and defers the rest via
+	// PLREVENT) falls through to the generic container-transfer code below, which
+	// silently discards the script's messages and duplicates/overrides its own handling.
+	if !sc.Blocked && sc.MoveTo == 0 && len(sc.Messages) == 0 && len(sc.RoomMsgs) == 0 &&
+		len(sc.GMMsgs) == 0 && len(sc.DeferredSegments) == 0 {
 		return nil, false
 	}
-	result = &CommandResult{Messages: sc.Messages, RoomBroadcast: sc.RoomMsgs}
+	result = &CommandResult{Messages: sc.Messages, RoomBroadcast: sc.RoomMsgs, GMBroadcast: sc.GMMsgs}
 	if sc.MoveTo > 0 {
 		if dest := e.rooms[sc.MoveTo]; dest != nil {
 			origRoom := sc.OrigRoomNum
@@ -492,7 +511,7 @@ func (e *GameEngine) doPut(ctx context.Context, player *Player, args []string) *
 			continue
 		}
 
-		if result, handled := e.runPutIntoTargetScripts(ctx, player, room, def, srcDef, nil, "-1"); handled {
+		if result, handled := e.runPutIntoTargetScripts(ctx, player, room, def, srcDef, srcItem, nil, "-1"); handled {
 			return result
 		}
 
@@ -532,7 +551,7 @@ func (e *GameEngine) doPut(ctx context.Context, player *Player, args []string) *
 			}
 
 			refStr := fmt.Sprintf("%d", ri.Ref)
-			if result, handled := e.runPutIntoTargetScripts(ctx, player, room, def, srcDef, room.Scripts, refStr); handled {
+			if result, handled := e.runPutIntoTargetScripts(ctx, player, room, def, srcDef, srcItem, room.Scripts, refStr); handled {
 				return result
 			}
 
@@ -806,6 +825,8 @@ func (e *GameEngine) doGetAll(ctx context.Context, player *Player, noun string) 
 			Adj1:      ri.Adj1, Adj2: ri.Adj2, Adj3: ri.Adj3,
 			Val1: ri.Val1, Val2: ri.Val2, Val3: ri.Val3, Val4: ri.Val4, Val5: ri.Val5,
 			Sharpness: ri.Sharpness,
+			HardnessMod: ri.HardnessMod,
+			ItemBits:  ri.ItemBits,
 			State:     ri.State,
 		}
 		if isContainerDef(def) {
@@ -1069,6 +1090,8 @@ func (e *GameEngine) doDump(ctx context.Context, player *Player, args []string) 
 				Adj1:      item.Adj1, Adj2: item.Adj2, Adj3: item.Adj3,
 				Val1: item.Val1, Val2: item.Val2, Val3: item.Val3, Val4: item.Val4, Val5: item.Val5,
 				Sharpness: item.Sharpness,
+				HardnessMod: item.HardnessMod,
+				ItemBits:  item.ItemBits,
 				State:     item.State,
 			}
 			room.Items = append(room.Items, droppedItem)
@@ -1312,6 +1335,8 @@ func inventoryFromRoomItem(ri *gameworld.RoomItem) InventoryItem {
 		Adj1:      ri.Adj1, Adj2: ri.Adj2, Adj3: ri.Adj3,
 		Val1: ri.Val1, Val2: ri.Val2, Val3: ri.Val3, Val4: ri.Val4, Val5: ri.Val5,
 		Sharpness: ri.Sharpness,
+		HardnessMod: ri.HardnessMod,
+		ItemBits:  ri.ItemBits,
 		State:     ri.State,
 		Tail:      ri.Extend,
 	}

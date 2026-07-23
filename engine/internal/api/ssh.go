@@ -708,8 +708,9 @@ func (s *Server) sshCreateCharacter(sc *sshConn, ctx context.Context, accountID 
 	if err != nil {
 		return nil
 	}
-	var gender int
-	fmt.Sscanf(strings.TrimSpace(genderStr), "%d", &gender)
+	var genderChoice int
+	fmt.Sscanf(strings.TrimSpace(genderStr), "%d", &genderChoice)
+	gender := genderChoice - 1 // displayed 1/2 -> internal GenderMale=0/GenderFemale=1
 
 	if err := engine.ValidateCharacterInput(firstName, lastName, race, gender); err != nil {
 		sc.writeLine(ansiRed + err.Error() + ansiReset)
@@ -721,9 +722,91 @@ func (s *Server) sshCreateCharacter(sc *sshConn, ctx context.Context, accountID 
 		return nil
 	}
 
-	player := s.engine.CreateNewPlayer(ctx, firstName, lastName, race, gender, accountID)
+	appearance := sshRollAndPickAppearance(sc, race, gender)
+	if appearance == nil {
+		return nil
+	}
+
+	player := s.engine.CreateNewPlayer(ctx, firstName, lastName, race, gender, appearance, accountID)
 	sc.writeLine(ansiGreen + fmt.Sprintf("Welcome to the Shattered Realms, %s the %s!", player.FullName(), engine.RaceNameByID(player.Race)) + ansiReset)
 	return player
+}
+
+// sshRollAndPickAppearance mirrors telnetRollAndPickAppearance for SSH connections.
+func sshRollAndPickAppearance(sc *sshConn, race, gender int) *engine.CharacterAppearance {
+	var appearance *engine.CharacterAppearance
+	sc.writeLine("")
+	for {
+		appearance = engine.RollCharacterAppearance(race, gender)
+		heightFeet := appearance.Height / 12
+		heightInches := appearance.Height % 12
+		sc.writeLine(fmt.Sprintf("Quickness: %-3d  Constitution: %-3d  Strength: %-3d  Agility: %-3d",
+			appearance.Quickness, appearance.Constitution, appearance.Strength, appearance.Agility))
+		sc.writeLine(fmt.Sprintf("Willpower: %-3d  Perception: %-3d  Empathy: %-3d",
+			appearance.Willpower, appearance.Perception, appearance.Empathy))
+		sc.writeLine(fmt.Sprintf("Age: %-3d  Height: %d'%d  Weight: %-3d",
+			appearance.Age, heightFeet, heightInches, appearance.Weight))
+		sc.writePrompt("Reroll these stats? (Y/N): ")
+		answer, err := sc.readLine(time.Minute, true)
+		if err != nil {
+			return nil
+		}
+		if !strings.HasPrefix(strings.ToUpper(strings.TrimSpace(answer)), "Y") {
+			break
+		}
+		sc.writeLine("")
+	}
+
+	eyeIdx := sshPickFromList(sc, "Eye color", engine.EyeColors)
+	if eyeIdx < 0 {
+		return nil
+	}
+	appearance.EyeColor = engine.EyeColors[eyeIdx]
+
+	skinIdx := sshPickFromList(sc, "Skin color", engine.SkinColors)
+	if skinIdx < 0 {
+		return nil
+	}
+	appearance.SkinColor = engine.SkinColors[skinIdx]
+
+	styleIdx := sshPickFromList(sc, "Hair style", engine.HairStyles)
+	if styleIdx < 0 {
+		return nil
+	}
+	appearance.HairStyle = engine.HairStyles[styleIdx]
+
+	if appearance.HairStyle == "bald" {
+		appearance.HairColor = ""
+	} else {
+		colorIdx := sshPickFromList(sc, "Hair color", engine.HairColors)
+		if colorIdx < 0 {
+			return nil
+		}
+		appearance.HairColor = engine.HairColors[colorIdx]
+	}
+
+	return appearance
+}
+
+// sshPickFromList mirrors telnetPickFromList for SSH connections.
+func sshPickFromList(sc *sshConn, label string, options []string) int {
+	sc.writeLine("")
+	sc.writeLine(label + ":")
+	for i, opt := range options {
+		sc.writeLine(fmt.Sprintf("  %2d) %s", i+1, opt))
+	}
+	for {
+		sc.writePrompt(fmt.Sprintf("%s (1-%d): ", label, len(options)))
+		line, err := sc.readLine(time.Minute, true)
+		if err != nil {
+			return -1
+		}
+		var choice int
+		if _, err := fmt.Sscanf(strings.TrimSpace(line), "%d", &choice); err == nil && choice >= 1 && choice <= len(options) {
+			return choice - 1
+		}
+		sc.writeLine(ansiRed + "Invalid choice." + ansiReset)
+	}
 }
 
 func (s *Server) sshCommandLoop(ctx context.Context, session *Session, sc *sshConn) {

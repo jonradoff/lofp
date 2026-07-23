@@ -1,5 +1,13 @@
 ; Contains modern (2026+) fixes for broken behaviors that probably also existed in the original game
 ;
+; NOUNDEF/ADJDEF must stay at true top level (before any NUMBER/INUMBER block) —
+; the parser's room/item sub-loops don't recognize them as block terminators, so
+; a NOUNDEF/ADJDEF placed after an open room or item block gets silently dropped.
+;
+; Reroll charm noun/adjective (see the "reroll charm" item further below).
+NOUNDEF 9001 charm
+ADJDEF 9001 reroll
+;
 ; Nobody could figure out how to get out of the Rare Weapon Exchange! Changed the door to a normal type
 ; that you can use GO on (the push door function still works though).
 ;
@@ -69,4 +77,84 @@ STOREITEM 23 -1 2500
 STOREITEM 27 -1 5100
 STOREITEM 35 -1 700
 STOREITEM 48 -1 1900
+;
+; Reroll charm — one-time-use item for characters created before the stat-roll
+; character creation option existed. Eligibility is enforced by distribution, not
+; by this script: a GM hands one to a specific legacy player via
+;   @additem <player> 9001 adj1=9001
+; No per-player "already used" flag is needed — the charm only exists at all
+; because a GM chose to hand one out, and it destroys itself the moment it's
+; committed, so it can't be reused or handed off. (Its NOUNDEF/ADJDEF are
+; declared at the top of this file — see the comment there for why.)
+;
+; Usage: RUB the charm to roll a preview of new stats (STR/AGI/QUI/CON/PER/WIL/
+; EMP, using the same racial ranges new characters roll from). RUB again as many
+; times as you like — each rub replaces the previous preview with a fresh one.
+; EXAMINE the charm at any time to see the current preview and a reminder of how
+; it works. Once you like what you see, CONCENTRATE on the charm to lock those
+; exact stats in and crumble the charm to dust.
+;
+; The preview is never persisted as seven raw stat values — only the seed that
+; produced it (ItemVal1), which the ROLLSTR/ROLLAGI/.../ROLLEMP pseudo-variables
+; (engine getVar) deterministically re-derive on demand for RUB, EXAMINE, and
+; APPLYROLL alike, so all three always agree on the same preview.
+;
+;I# 9001 : reroll charm
+INUMBER 9001
+NAME 9001
+WEIGHT 1
+VOLUME 1
+SUBSTANCE INDESTRUCTABLE
+*DESCRIPTION_START
+A restless light churns beneath its surface, as if it hasn't yet decided what it wants to become. RUB it to roll a preview of new stats, as many times as you like. Once you like what you see, CONCENTRATE on it to make those stats permanent -- the charm will crumble to dust when you do.
+*DESCRIPTION_END
+IFPREVERB RUB -1
+  CLEARVERB
+  RANDOM ITEMVAL1 1 999999999 0
+  STRCVT 0 ROLLSTR
+  STRCVT 1 ROLLAGI
+  STRCVT 2 ROLLQUI
+  STRCVT 3 ROLLCON
+  STRCVT 4 ROLLPER
+  STRCVT 5 ROLLWIL
+  STRCVT 6 ROLLEMP
+  ECHO PLAYER %a glimmers as new possibilities swirl into view...
+  ECHO PLAYER Strength: %0, Agility: %1, Quickness: %2, Constitution: %3, Perception: %4, Willpower: %5, Empathy: %6
+  ECHO PLAYER Rub %a again to reroll, or CONCENTRATE on it to make these permanent.
+  ECHO OTHERS %N rubs %a, which glimmers softly.
+ENDIF
+IFPREVERB LOOK -1
+  IFVAR ITEMVAL1 = 0
+    ECHO PLAYER RUB %a to roll a preview of new stats.
+  ELSE
+    STRCVT 0 ROLLSTR
+    STRCVT 1 ROLLAGI
+    STRCVT 2 ROLLQUI
+    STRCVT 3 ROLLCON
+    STRCVT 4 ROLLPER
+    STRCVT 5 ROLLWIL
+    STRCVT 6 ROLLEMP
+    ECHO PLAYER %a currently holds: Strength: %0, Agility: %1, Quickness: %2, Constitution: %3, Perception: %4, Willpower: %5, Empathy: %6
+    ECHO PLAYER Rub %a again to reroll, or CONCENTRATE on it to make these permanent.
+  ENDIF
+ENDIF
+IFPREVERB CONCENTRATE -1
+  CLEARVERB
+  IFVAR ITEMVAL1 = 0
+    ECHO PLAYER Nothing happens -- you must RUB %a first to roll a preview.
+  ELSE
+    STRCVT 0 ROLLSTR
+    STRCVT 1 ROLLAGI
+    STRCVT 2 ROLLQUI
+    STRCVT 3 ROLLCON
+    STRCVT 4 ROLLPER
+    STRCVT 5 ROLLWIL
+    STRCVT 6 ROLLEMP
+    APPLYROLL
+    ECHO PLAYER %a flares with a searing light as your body dissolves and reforms anew!
+    ECHO PLAYER Your new stats -- Strength: %0, Agility: %1, Quickness: %2, Constitution: %3, Perception: %4, Willpower: %5, Empathy: %6.
+    ECHO OTHERS %N is engulfed in a blinding flash of light as %a flares and crumbles away!
+    REMOVEITEM -1
+  ENDIF
+ENDIF
 ;

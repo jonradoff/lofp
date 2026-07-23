@@ -33,6 +33,12 @@ type RoomItem struct {
 	Val4      int            `bson:"val4,omitempty" json:"val4,omitempty"`
 	Val5      int            `bson:"val5,omitempty" json:"val5,omitempty"`
 	Sharpness int            `bson:"sharpness,omitempty" json:"sharpness,omitempty"` // non-magical to-hit bonus forged into a weapon
+	// HardnessMod is a per-instance modifier to a weapon's Weapon Clash break-resistance
+	// (see weaponHardness in engine/combat.go), GM-editable via @editem.
+	HardnessMod int        `bson:"hardnessMod,omitempty" json:"hardnessMod,omitempty"`
+	// ItemBits holds the 0-19 boolean flags documented as ITEMBIT(#) in MANUAL.DOC — a
+	// per-instance bitmask distinct from VAL1-5. Bit N corresponds to ITEMBIT<N>.
+	ItemBits  int            `bson:"itemBits,omitempty" json:"itemBits,omitempty"`
 	State     string         `bson:"state,omitempty" json:"state,omitempty"` // OPEN, CLOSED, LOCKED, etc.
 	Extend    string         `bson:"extend,omitempty" json:"extend,omitempty"` // extended description
 	PutIn     int            `bson:"putIn,omitempty" json:"putIn,omitempty"` // if PUT, which ref it's inside

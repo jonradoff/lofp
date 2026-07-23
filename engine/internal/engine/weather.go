@@ -201,11 +201,26 @@ func isOutdoorTerrain(terrain string) bool {
 	return false
 }
 
+// snowStates are weather states that only make sense when it's cold enough for
+// precipitation to fall as ice or snow rather than rain: Sleet, Snow Flurries,
+// Moderate Snow, Heavy Snow, Blizzard.
+var snowStates = map[int]bool{10: true, 11: true, 12: true, 13: true, 14: true}
+
 // advanceWeather randomly transitions weather for all regions and broadcasts changes.
+//
+// The random walk previously had no concept of season at all, so a region could
+// wander from Overcast into Snow Flurries and all the way up to Blizzard purely by
+// chance regardless of what season it was — meanwhile GetTemperature is computed
+// independently from season/time-of-day/weather-state, so in Summer (85°F baseline)
+// it stayed a mild 55-65°F even while the weather type had drifted into "Blizzard."
+// Players saw "It is snowing heavily" right next to "around 61 degrees." Snow-family
+// states are now only reachable outside Summer.
 func (e *GameEngine) advanceWeather() {
 	if e.RegionWeather == nil {
 		return
 	}
+
+	snowOK := GameSeason() != "SSCRIPT" // not Summer
 
 	// Collect all regions that have outdoor rooms
 	regionSet := make(map[int]bool)
@@ -219,7 +234,27 @@ func (e *GameEngine) advanceWeather() {
 
 	for region := range regionSet {
 		oldState := e.RegionWeather[region]
+
+		// Season just turned to Summer while this region was sitting in a snow
+		// state (e.g. a lingering Blizzard from Spring) — clear it back to Overcast
+		// rather than let it randomly walk deeper into snow in the middle of July.
+		if !snowOK && snowStates[oldState] {
+			newState := 2 // Overcast
+			e.RegionWeather[region] = newState
+			e.broadcastWeatherChange(region, oldState, newState)
+			continue
+		}
+
 		transitions := weatherTransitions[oldState]
+		if !snowOK {
+			filtered := make([][2]int, 0, len(transitions))
+			for _, t := range transitions {
+				if !snowStates[t[0]] {
+					filtered = append(filtered, t)
+				}
+			}
+			transitions = filtered
+		}
 		if len(transitions) == 0 {
 			continue
 		}

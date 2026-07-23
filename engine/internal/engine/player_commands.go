@@ -20,52 +20,48 @@ import (
 )
 
 // CreateNewPlayer creates a new player character and saves it to MongoDB.
-func (e *GameEngine) CreateNewPlayer(ctx context.Context, firstName, lastName string, race, gender int, accountID ...string) *Player {
-	ranges := RaceStatRanges[race]
-	rollStat := func(idx int) int {
-		r := ranges[idx]
-		return r[0] + rand.Intn(r[1]-r[0]+1)
+// appearance may be nil, or have any subset of fields set to zero/empty — any
+// stat/height/weight/age that is zero, and any color/style that is empty, gets
+// rolled/defaulted here. A fully-populated appearance (from a validated
+// creation flow that already let the player reroll and pick colors) is used
+// as-is. Callers that accept appearance input from an untrusted client (WS/REST)
+// MUST run it through ValidateCharacterAppearance first.
+func (e *GameEngine) CreateNewPlayer(ctx context.Context, firstName, lastName string, race, gender int, appearance *CharacterAppearance, accountID ...string) *Player {
+	a := CharacterAppearance{}
+	if appearance != nil {
+		a = *appearance
 	}
 
-	str := rollStat(0)
-	agi := rollStat(1)
-	qui := rollStat(2)
-	con := rollStat(3)
-	per := rollStat(4)
-	wil := rollStat(5)
-	emp := rollStat(6)
+	if a.Strength == 0 || a.Agility == 0 || a.Quickness == 0 || a.Constitution == 0 ||
+		a.Perception == 0 || a.Willpower == 0 || a.Empathy == 0 {
+		a.Strength, a.Agility, a.Quickness, a.Constitution, a.Perception, a.Willpower, a.Empathy = RollStats(race)
+	}
+	if a.Height == 0 || a.Weight == 0 {
+		a.Height, a.Weight = RollHeightWeight(race, gender)
+	}
+	if a.Age == 0 {
+		a.Age = RollAge(race)
+	}
+	if a.EyeColor == "" {
+		a.EyeColor = RandomEyeColor()
+	}
+	if a.SkinColor == "" {
+		a.SkinColor = RandomSkinColor()
+	}
+	if a.HairStyle == "" {
+		a.HairStyle = RandomHairStyle()
+	}
+	if a.HairStyle == "bald" {
+		a.HairColor = ""
+	} else if a.HairColor == "" {
+		a.HairColor = RandomHairColor()
+	}
 
+	str, agi, qui, con, per, wil, emp := a.Strength, a.Agility, a.Quickness, a.Constitution, a.Perception, a.Willpower, a.Empathy
 	bodyPts := 20 + con/2
 	fatigue := 20 + (con+str)/3
 	mana := emp / 2
 	psi := wil / 2
-
-	heightWeightRanges := map[int][4]int{
-		1: {62, 76, 120, 220},
-		2: {66, 80, 100, 170},
-		3: {48, 58, 130, 200},
-		4: {64, 74, 130, 200},
-		5: {62, 74, 150, 230},
-		6: {68, 82, 150, 250},
-		7: {60, 74, 150, 250},
-		8: {58, 72, 80, 130},
-	}
-	hw := heightWeightRanges[race]
-	if hw == [4]int{} {
-		hw = [4]int{62, 76, 120, 220}
-	}
-	height := hw[0] + rand.Intn(hw[1]-hw[0]+1)
-	weight := hw[2] + rand.Intn(hw[3]-hw[2]+1)
-	if gender == 1 {
-		height -= 2 + rand.Intn(3)
-		weight -= 10 + rand.Intn(20)
-		if height < hw[0]-4 {
-			height = hw[0] - 4
-		}
-		if weight < hw[2]-20 {
-			weight = hw[2] - 20
-		}
-	}
 
 	now := time.Now()
 	player := &Player{
@@ -90,15 +86,21 @@ func (e *GameEngine) CreateNewPlayer(ctx context.Context, firstName, lastName st
 		MaxMana:          mana,
 		Psi:              psi,
 		MaxPsi:           psi,
-		Height:           height,
-		HeightTrue:       height,
-		Weight:           weight,
-		WeightTrue:       weight,
+		Height:           a.Height,
+		HeightTrue:       a.Height,
+		Weight:           a.Weight,
+		WeightTrue:       a.Weight,
+		Age:              a.Age,
+		AgeTrue:          a.Age,
+		EyeColor:         a.EyeColor,
+		SkinColor:        a.SkinColor,
+		HairStyle:        a.HairStyle,
+		HairColor:        a.HairColor,
 		RoomNumber:       201,
 		Position:         0,
 		Skills:           make(map[int]int),
 		IntNums:          make(map[int]int),
-		Gold:             5,
+		Gold:             20,
 		Silver:           10,
 		Copper:           50,
 		PromptMode:       true,
@@ -140,32 +142,43 @@ func (e *GameEngine) LoadPlayer(ctx context.Context, firstName, lastName string)
 		return nil, err
 	}
 
+	// Backfill fields that didn't exist (or weren't rolled) when this character was
+	// created — legacy documents from before Age/appearance were added.
+	needsSave := false
 	if player.Height == 0 || player.Weight == 0 {
-		heightWeightRanges := map[int][4]int{
-			1: {62, 76, 120, 220}, 2: {66, 80, 100, 170}, 3: {48, 58, 130, 200},
-			4: {64, 74, 130, 200}, 5: {62, 74, 150, 230}, 6: {68, 82, 150, 250},
-			7: {60, 74, 150, 250}, 8: {58, 72, 80, 130},
-		}
-		hw := heightWeightRanges[player.Race]
-		if hw == [4]int{} {
-			hw = [4]int{62, 76, 120, 220}
-		}
+		h, w := RollHeightWeight(player.Race, player.Gender)
 		if player.Height == 0 {
-			h := hw[0] + rand.Intn(hw[1]-hw[0]+1)
-			if player.Gender == 1 {
-				h -= 2 + rand.Intn(3)
-			}
 			player.Height = h
 			player.HeightTrue = h
 		}
 		if player.Weight == 0 {
-			w := hw[2] + rand.Intn(hw[3]-hw[2]+1)
-			if player.Gender == 1 {
-				w -= 10 + rand.Intn(20)
-			}
 			player.Weight = w
 			player.WeightTrue = w
 		}
+		needsSave = true
+	}
+	if player.Age == 0 {
+		age := RollAge(player.Race)
+		player.Age = age
+		player.AgeTrue = age
+		needsSave = true
+	}
+	if player.EyeColor == "" {
+		player.EyeColor = RandomEyeColor()
+		needsSave = true
+	}
+	if player.SkinColor == "" {
+		player.SkinColor = RandomSkinColor()
+		needsSave = true
+	}
+	if player.HairStyle == "" {
+		player.HairStyle = RandomHairStyle()
+		if player.HairStyle != "bald" {
+			player.HairColor = RandomHairColor()
+		}
+		needsSave = true
+	}
+	if needsSave {
 		e.SavePlayer(ctx, &player)
 	}
 
@@ -563,6 +576,45 @@ func organizationName(org int) string {
 	return fmt.Sprintf("Organization %d", org)
 }
 
+// orgRankTitle returns the rank title for a numeric org rank, per MANUAL.DOC's
+// ORGRANK table: 0-49 Initiate/Acolyte, 50-99 Journeyman/Adept, 100-199
+// Master/Priest, 200+ High Master/High Priest. Guild-style words are used
+// unless orgType is "TEMPLE" or "CULT" (Priest-style), matching OrgDef.OrgType.
+func orgRankTitle(orgType string, rank int) string {
+	isTemple := orgType == "TEMPLE" || orgType == "CULT"
+	switch {
+	case rank >= 200:
+		if isTemple {
+			return "High Priest"
+		}
+		return "High Master"
+	case rank >= 100:
+		if isTemple {
+			return "Priest"
+		}
+		return "Master"
+	case rank >= 50:
+		if isTemple {
+			return "Adept"
+		}
+		return "Journeyman"
+	default:
+		if isTemple {
+			return "Acolyte"
+		}
+		return "Initiate"
+	}
+}
+
+// orgTypeFor returns the OrgDef.OrgType for an org number ("GUILD" by default
+// if no OrgDef is loaded for it).
+func (e *GameEngine) orgTypeFor(orgNum int) string {
+	if def, ok := e.orgDefs[orgNum]; ok {
+		return strings.ToUpper(def.OrgType)
+	}
+	return "GUILD"
+}
+
 // doEnroll handles the ENROLL command — joins an OPEN organization by standing in its training room.
 func (e *GameEngine) doEnroll(ctx context.Context, player *Player) *CommandResult {
 	room := e.rooms[player.RoomNumber]
@@ -598,6 +650,15 @@ func playerBPSpent(player *Player) int {
 	}
 	// 8 BP for first mastery rank, 4 BP for each additional rank
 	for _, rank := range player.SpellMastery {
+		if rank >= 1 {
+			total += 8
+		}
+		if rank >= 2 {
+			total += 4 * (rank - 1)
+		}
+	}
+	// 8 BP for first specialization rank, 4 BP for each additional rank
+	for _, rank := range player.WeaponSpecialization {
 		if rank >= 1 {
 			total += 8
 		}
@@ -991,7 +1052,7 @@ func (e *GameEngine) applyHealerRoom(_ context.Context, player *Player, result *
 
 	// Heal wounds
 	woundsNeeded := player.MaxBodyPoints - player.BodyPoints
-	if woundsNeeded <= 0 {
+	if woundsNeeded <= 0 && len(player.Wounds) == 0 {
 		if !treated {
 			result.Messages = append(result.Messages, "A physician examines you and nods. \"You appear to be in perfect health. No treatment needed.\"")
 		}
@@ -1004,14 +1065,22 @@ func (e *GameEngine) applyHealerRoom(_ context.Context, player *Player, result *
 		return
 	}
 
-	// Charge 1 copper per body point; if they can't afford full healing, take all they have
-	cost := woundsNeeded
+	// 1 copper per body point restored, plus an additional 5 copper per
+	// severity level for each wound treated. If they can't afford it all,
+	// take all they have.
+	severityTotal := 0
+	for _, w := range player.Wounds {
+		severityTotal += w.Level
+	}
+	cost := woundsNeeded + 5*severityTotal
 	charged := cost
 	if charged > totalCopper {
 		charged = totalCopper
 	}
 	e.deductCopper(player, charged)
 	player.BodyPoints = player.MaxBodyPoints
+	player.Wounds = nil
+	player.Bleeding = false
 
 	if charged < cost {
 		result.Messages = append(result.Messages, fmt.Sprintf("A physician tends to your wounds. You are charged %s (all you had).", formatPrice(charged)))

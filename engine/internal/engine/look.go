@@ -122,15 +122,22 @@ func (e *GameEngine) doLook(player *Player) *CommandResult {
 				continue
 			}
 			posDesc := ""
-			switch p.Position {
-			case 1:
-				posDesc = " (sitting)"
-			case 2:
-				posDesc = " (lying down)"
-			case 3:
-				posDesc = " (kneeling)"
-			case 4:
-				posDesc = " (flying)"
+			switch {
+			case p.Dead:
+				posDesc = " (dead)"
+			case p.Unconscious:
+				posDesc = " (unconscious)"
+			default:
+				switch p.Position {
+				case 1:
+					posDesc = " (sitting)"
+				case 2:
+					posDesc = " (lying down)"
+				case 3:
+					posDesc = " (kneeling)"
+				case 4:
+					posDesc = " (flying)"
+				}
 			}
 			if p.CarriedBy != "" {
 				posDesc += fmt.Sprintf(" (carried by %s)", p.CarriedBy)
@@ -288,8 +295,8 @@ func (e *GameEngine) doLookAt(player *Player, args []string) *CommandResult {
 	}
 
 	// Check if target is a monster in the room
-	if _, monDef := e.findMonsterInRoom(player, target); monDef != nil {
-		return e.examineMonster(monDef)
+	if monInst, monDef := e.findMonsterInRoom(player, target); monDef != nil {
+		return e.examineMonster(monInst, monDef)
 	}
 
 	// Check IN/ON/UNDER prefixes
@@ -410,12 +417,27 @@ func (e *GameEngine) examineCarriedItem(player *Player, room *gameworld.Room, ii
 		msgs = append(msgs, descriptionToMessages(itemDef.ExamineDesc)...)
 	}
 	// Run IFPREVERB/IFVERB LOOK scripts on the item (Ref=-1 = inventory item, skip room scripts)
-	ri := &gameworld.RoomItem{Ref: -1, Archetype: ii.Archetype, Adj1: ii.Adj1, Adj2: ii.Adj2, Adj3: ii.Adj3, Val1: ii.Val1, Val2: ii.Val2, Val3: ii.Val3, Val4: ii.Val4, Val5: ii.Val5}
+	ri := &gameworld.RoomItem{Ref: -1, Archetype: ii.Archetype, Adj1: ii.Adj1, Adj2: ii.Adj2, Adj3: ii.Adj3, Val1: ii.Val1, Val2: ii.Val2, Val3: ii.Val3, Val4: ii.Val4, Val5: ii.Val5, ItemBits: ii.ItemBits}
+	// Root-level IFVAR blocks may contain nested IFVERB EXAMINE -1 blocks (e.g. the
+	// lens of worlds' SHOWROOM preview); RunPreverbScripts/RunVerbScripts only match
+	// top-level IFVERB blocks, so this walk is needed to reach those.
+	sc0 := e.RunItemScripts(player, room, "EXAMINE", ri, itemDef)
+	if len(sc0.Messages) > 0 {
+		msgs = append(msgs, sc0.Messages...)
+	}
 	sc := e.RunPreverbScripts(player, room, "LOOK", ri, itemDef)
 	if len(sc.Messages) > 0 {
 		msgs = append(msgs, sc.Messages...)
 	}
-	return &CommandResult{Messages: msgs, RoomBroadcast: sc.RoomMsgs}
+	// PLREVENT/CONTPLREVENT-deferred actions must be scheduled, or everything after
+	// the delay is lost.
+	for _, segs := range [][]ScriptSegment{sc0.DeferredSegments, sc.DeferredSegments} {
+		if len(segs) > 0 {
+			e.scheduleScriptSegments(player, segs)
+		}
+	}
+	roomMsgs := append(append([]string{}, sc0.RoomMsgs...), sc.RoomMsgs...)
+	return &CommandResult{Messages: msgs, RoomBroadcast: roomMsgs}
 }
 
 // scrollLookMsg returns a description line if the item is a scroll, empty string otherwise.
@@ -505,14 +527,26 @@ func (e *GameEngine) findMonsterInRoomEx(player *Player, target string, includeD
 	return nil, nil
 }
 
-// examineMonster returns a description of a monster.
-func (e *GameEngine) examineMonster(def *gameworld.MonsterDef) *CommandResult {
+// examineMonster returns a description of a monster, including its live
+// wound state.
+func (e *GameEngine) examineMonster(inst *MonsterInstance, def *gameworld.MonsterDef) *CommandResult {
 	name := FormatMonsterName(def, e.monAdjs)
 	var msgs []string
 	if def.Description != "" {
 		msgs = append(msgs, def.Description)
 	} else {
 		msgs = append(msgs, fmt.Sprintf("You see a %s.", name))
+	}
+	if inst != nil {
+		deadSuffix := ""
+		if !inst.Alive {
+			deadSuffix = "is dead"
+		}
+		if len(inst.Wounds) > 0 {
+			msgs = append(msgs, "It has "+buildWoundSentence(inst.Wounds, deadSuffix)+".")
+		} else if !inst.Alive {
+			msgs = append(msgs, "It is dead.")
+		}
 	}
 	return &CommandResult{Messages: msgs}
 }
@@ -539,7 +573,7 @@ func (e *GameEngine) examinePlayer(observer *Player, target *Player) *CommandRes
 		msgs = append(msgs, fmt.Sprintf("You look at %s.", target.FullName()))
 	}
 
-	// Custom @line descriptions override the auto-generated race/gender line
+	// Custom @line descriptions override the auto-generated race/gender/build/appearance lines
 	if target.DescLine1 != "" || target.DescLine2 != "" || target.DescLine3 != "" {
 		if target.DescLine1 != "" {
 			msgs = append(msgs, target.DescLine1)
@@ -551,7 +585,29 @@ func (e *GameEngine) examinePlayer(observer *Player, target *Player) *CommandRes
 			msgs = append(msgs, target.DescLine3)
 		}
 	} else {
-		msgs = append(msgs, fmt.Sprintf("%s a %s %s.", pronoun, target.RaceName(), genderName(target.Gender)))
+		// Matches the authentic session-capture format, e.g. "You see Shirla Rennay,
+		// a young female aelfen." — used even for self (the original says "You see
+		// <name>...", not "You are...", when you look at yourself).
+		ageWord := ageDescriptor(target.Age, target.Race)
+		msgs = append(msgs, fmt.Sprintf("You see %s, %s%s %s %s.",
+			target.FullName(), articleFor(ageWord, false), ageWord, strings.ToLower(genderName(target.Gender)), strings.ToLower(target.RaceName())))
+
+		msgs = append(msgs, fmt.Sprintf("%s %s, %s and %s.", pronoun,
+			heightDescriptor(target.Height, target.Race), weightDescriptor(target.Weight, target.Race), buildDescriptor(target.Strength, target.Race)))
+
+		subj, hasVerb, beVerb := "He", "has", "is"
+		if isSelf {
+			subj, hasVerb, beVerb = "You", "have", "are"
+		} else if target.Gender == 1 {
+			subj = "She"
+		}
+		if target.HairStyle == "bald" {
+			msgs = append(msgs, fmt.Sprintf("%s %s %s eyes and %s skin. %s %s completely bald.",
+				subj, hasVerb, target.EyeColor, target.SkinColor, subj, beVerb))
+		} else {
+			msgs = append(msgs, fmt.Sprintf("%s %s %s eyes, %s skin and %s %s hair.",
+				subj, hasVerb, target.EyeColor, target.SkinColor, target.HairStyle, target.HairColor))
+		}
 	}
 
 	heOrShe := "He"
@@ -571,6 +627,10 @@ func (e *GameEngine) examinePlayer(observer *Player, target *Player) *CommandRes
 	}
 	if isSelf {
 		switch {
+		case target.Dead:
+			msgs = append(msgs, "You are dead.")
+		case target.Unconscious:
+			msgs = append(msgs, "You are unconscious.")
 		case healthPct >= 100:
 			msgs = append(msgs, "You are in perfect health.")
 		case healthPct >= 75:
@@ -579,13 +639,15 @@ func (e *GameEngine) examinePlayer(observer *Player, target *Player) *CommandRes
 			msgs = append(msgs, "You are moderately wounded.")
 		case healthPct >= 25:
 			msgs = append(msgs, "You are seriously wounded.")
-		case healthPct > 0:
-			msgs = append(msgs, "You are critically wounded!")
 		default:
-			msgs = append(msgs, "You are dead.")
+			msgs = append(msgs, "You are critically wounded!")
 		}
 	} else {
 		switch {
+		case target.Dead:
+			msgs = append(msgs, fmt.Sprintf("%s is dead.", heOrShe))
+		case target.Unconscious:
+			msgs = append(msgs, fmt.Sprintf("%s is unconscious.", heOrShe))
 		case healthPct >= 100:
 			msgs = append(msgs, fmt.Sprintf("%s appears to be in perfect health.", heOrShe))
 		case healthPct >= 75:
@@ -594,10 +656,8 @@ func (e *GameEngine) examinePlayer(observer *Player, target *Player) *CommandRes
 			msgs = append(msgs, fmt.Sprintf("%s is moderately wounded.", heOrShe))
 		case healthPct >= 25:
 			msgs = append(msgs, fmt.Sprintf("%s is seriously wounded.", heOrShe))
-		case healthPct > 0:
-			msgs = append(msgs, fmt.Sprintf("%s is critically wounded!", heOrShe))
 		default:
-			msgs = append(msgs, fmt.Sprintf("%s is dead.", heOrShe))
+			msgs = append(msgs, fmt.Sprintf("%s is critically wounded!", heOrShe))
 		}
 	}
 
@@ -634,6 +694,13 @@ func (e *GameEngine) examinePlayer(observer *Player, target *Player) *CommandRes
 	}
 	if target.Immobilized {
 		msgs = append(msgs, fmt.Sprintf("%s rooted to the spot.", pronoun))
+	}
+	if len(target.Wounds) > 0 {
+		if isSelf {
+			msgs = append(msgs, "You have "+buildWoundSentence(target.Wounds, "")+".")
+		} else {
+			msgs = append(msgs, fmt.Sprintf("%s has %s.", heOrShe, buildWoundSentence(target.Wounds, "")))
+		}
 	}
 
 	// Guard status — player-guards-player
@@ -893,6 +960,17 @@ func (e *GameEngine) examineRoomItem(player *Player, room *gameworld.Room, def *
 		result.Messages = append(result.Messages, "It is nondescript.")
 	}
 
+	// Run root-level IFVAR blocks (can contain nested IFVERB EXAMINE -1 blocks, e.g.
+	// the lens of worlds' SHOWROOM preview — RunVerbScripts only matches top-level
+	// IFVERB blocks, so verb-gated blocks nested inside an IFVAR tree need this too).
+	sc0 := e.RunItemScripts(player, room, "EXAMINE", ri, def)
+	if len(sc0.Messages) > 0 {
+		result.Messages = append(result.Messages, sc0.Messages...)
+	}
+	if len(sc0.RoomMsgs) > 0 {
+		result.RoomBroadcast = append(result.RoomBroadcast, sc0.RoomMsgs...)
+	}
+
 	// Run IFVERB LOOK scripts on the item (can add SHOWROOM output, etc.)
 	sc := e.RunVerbScripts(player, room, "LOOK", ri, def)
 	if len(sc.Messages) > 0 {
@@ -900,6 +978,13 @@ func (e *GameEngine) examineRoomItem(player *Player, room *gameworld.Room, def *
 	}
 	if len(sc.RoomMsgs) > 0 {
 		result.RoomBroadcast = append(result.RoomBroadcast, sc.RoomMsgs...)
+	}
+	// PLREVENT/CONTPLREVENT-deferred actions must be scheduled, or everything after
+	// the delay is lost.
+	for _, segs := range [][]ScriptSegment{sc0.DeferredSegments, sc.DeferredSegments} {
+		if len(segs) > 0 {
+			e.scheduleScriptSegments(player, segs)
+		}
 	}
 
 	return result

@@ -56,6 +56,16 @@ type InventoryItem struct {
     // Sharpness is the non-magical to-hit bonus forged into a weapon (weaponSharpnessBonus).
     // Kept separate from Val1, which per GMSCRIPT.DOC is the item's copper sell value.
     Sharpness int    `bson:"sharpness,omitempty" json:"sharpness,omitempty"`
+    // HardnessMod is a per-instance modifier to a weapon's break-resistance in Weapon
+    // Clash (see weaponHardness in combat.go), on top of the archetype's weight/damage
+    // base and any adjective BREAKMODs. GM-editable via @editem; kept as its own field
+    // rather than a Val slot since Val1-5 are all already claimed for other weapon uses.
+    HardnessMod int    `bson:"hardnessMod,omitempty" json:"hardnessMod,omitempty"`
+    // ItemBits holds the 0-19 boolean flags documented as ITEMBIT(#) in MANUAL.DOC — a
+    // per-instance bitmask distinct from VAL1-5 (each of which already has its own
+    // documented meaning; see project_item_val_fields memory). Bit N corresponds to
+    // ITEMBIT<N>, read/written via IFVAR ITEMBIT#/EQUAL ITEMBIT# in scripts.
+    ItemBits  int    `bson:"itemBits,omitempty" json:"itemBits,omitempty"`
     State     string `bson:"state,omitempty" json:"state,omitempty"`
     Tail      string `bson:"tail,omitempty" json:"tail,omitempty"`
     WornSlot  string `bson:"wornSlot,omitempty" json:"wornSlot,omitempty"`
@@ -115,9 +125,14 @@ type Player struct {
 	WeightTrue int `bson:"weightTrue,omitempty" json:"weightTrue,omitempty"`
 	Age        int `bson:"age,omitempty" json:"age,omitempty"`
 	AgeTrue    int `bson:"ageTrue,omitempty" json:"ageTrue,omitempty"`
+	EyeColor   string `bson:"eyeColor,omitempty" json:"eyeColor,omitempty"`
+	HairColor  string `bson:"hairColor,omitempty" json:"hairColor,omitempty"` // empty when HairStyle is "bald"
+	HairStyle  string `bson:"hairStyle,omitempty" json:"hairStyle,omitempty"`
+	SkinColor  string `bson:"skinColor,omitempty" json:"skinColor,omitempty"`
 
 	// Status conditions
-	Bleeding     bool `bson:"bleeding" json:"bleeding"`
+	Bleeding     bool    `bson:"bleeding" json:"bleeding"` // derived: recomputed from Wounds after every add/remove
+	Wounds       []Wound `bson:"wounds,omitempty" json:"wounds,omitempty"`
 	Stunned      bool `bson:"stunned" json:"stunned"`
 	Diseased     bool `bson:"diseased" json:"diseased"`
 	DiseaseLevel int  `bson:"diseaseLevel,omitempty" json:"diseaseLevel,omitempty"`
@@ -272,6 +287,7 @@ type Player struct {
 	Skills      map[int]int  `bson:"skills" json:"skills"`           // skill# -> level
 	KnownSpells  map[int]bool `bson:"knownSpells,omitempty" json:"knownSpells,omitempty"` // spell# -> known
 	SpellMastery map[int]int  `bson:"spellMastery,omitempty" json:"spellMastery,omitempty"` // spell# -> mastery rank
+	WeaponSpecialization map[int]int `bson:"weaponSpecialization,omitempty" json:"weaponSpecialization,omitempty"` // weapon noun ID -> specialization rank
 
 	// Internal variables (INTNUM0-99, flags, etc.)
 	IntNums map[int]int `bson:"intNums" json:"intNums"`
@@ -440,6 +456,14 @@ func RaceNameByID(race int) string {
 // IsFlying returns true if the player is able to fly (Drakin race or magical effect).
 func (p *Player) IsFlying() bool {
 	return p.Race == RaceDrakin || p.CanFly
+}
+
+// IsConcealed reports whether the player's presence should be kept off other
+// players' echoes — stealthed (Hidden), under the Invisibility spell, or a GM
+// using @hide or @invis. Used to suppress movement/follow/portal echoes
+// entirely and to anonymize speech as "Something" instead of the player's name.
+func (p *Player) IsConcealed() bool {
+	return p.Hidden || p.Invisible || p.GMHidden || p.GMInvis
 }
 
 // RestoreTransientState re-applies persisted buff effects to in-memory transient fields.

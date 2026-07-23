@@ -1257,6 +1257,11 @@ func (e *GameEngine) doWork(ctx context.Context, player *Player, args []string) 
 				}
 				if matchesTarget(e.getItemNounName(itemDef), target, e.getAdjName(ri.Adj1), e.getAdjName(ri.Adj2), e.getAdjName(ri.Adj3)) {
 					sc := e.RunPreverbScripts(player, room, "WORK", &room.Items[i], itemDef)
+					// PLREVENT/CONTPLREVENT-deferred actions must be scheduled, or
+					// everything after the delay is lost.
+					if len(sc.DeferredSegments) > 0 {
+						e.scheduleScriptSegments(player, sc.DeferredSegments)
+					}
 					if sc.Blocked || len(sc.Messages) > 0 || len(sc.RoomMsgs) > 0 {
 						e.SavePlayer(ctx, player)
 						result := &CommandResult{Messages: sc.Messages, RoomBroadcast: sc.RoomMsgs, GMBroadcast: sc.GMMsgs, PlayerState: player}
@@ -1286,8 +1291,14 @@ func (e *GameEngine) doWork(ctx context.Context, player *Player, args []string) 
 					Ref: -1, Archetype: ii.Archetype,
 					Adj1: ii.Adj1, Adj2: ii.Adj2, Adj3: ii.Adj3,
 					Val1: ii.Val1, Val2: ii.Val2, Val3: ii.Val3, Val4: ii.Val4, Val5: ii.Val5,
+					ItemBits: ii.ItemBits,
 				}
 				sc := e.RunPreverbScripts(player, room, "WORK", &tempRI, itemDef)
+				// PLREVENT/CONTPLREVENT-deferred actions must be scheduled, or
+				// everything after the delay is lost.
+				if len(sc.DeferredSegments) > 0 {
+					e.scheduleScriptSegments(player, sc.DeferredSegments)
+				}
 				if sc.Blocked || len(sc.Messages) > 0 || len(sc.RoomMsgs) > 0 {
 					e.SavePlayer(ctx, player)
 					result := &CommandResult{Messages: sc.Messages, RoomBroadcast: sc.RoomMsgs, GMBroadcast: sc.GMMsgs, PlayerState: player}
@@ -2786,6 +2797,23 @@ func buildCraftAdjs(matItem InventoryItem, matDef *gameworld.ItemDef) (adj1, adj
 	return get(0), get(1), get(2)
 }
 
+// buildWeaveCraftAdjs computes the adjective list for a woven garment. Unlike
+// buildCraftAdjs (which packs adjectives into the first free slot), the raw
+// cloth's material type (matDef.Parameter1 — e.g. 72=cotton, 356=wool) is always
+// pinned to Adj3, since FAYDINDR.SCR room 315's garment-finishing contraption
+// checks ITEMADJ3 to decide whether a garment is cotton or wool. Any other
+// adjective on the raw cloth (e.g. a dye color applied before weaving) goes in
+// Adj1 instead of being squeezed out.
+func buildWeaveCraftAdjs(matItem InventoryItem, matDef *gameworld.ItemDef) (adj1, adj2, adj3 int) {
+	for _, a := range []int{matItem.Adj1, matItem.Adj2, matItem.Adj3} {
+		if a > 0 && a != matDef.Parameter1 {
+			adj1 = a
+			break
+		}
+	}
+	return adj1, 0, matDef.Parameter1
+}
+
 // completeCraft creates the finished item for jewelry, weaving, or wood crafts and resets state.
 func (e *GameEngine) completeCraft(ctx context.Context, player *Player, completionMsg, broadcastMsg string) *CommandResult {
 	var craftDef *gameworld.ItemDef
@@ -2950,7 +2978,7 @@ func (e *GameEngine) doWorkWeaving(ctx context.Context, player *Player, args []s
 			return &CommandResult{Messages: []string{errMsg}}
 		}
 
-		adj1, adj2, adj3 := buildCraftAdjs(matItem, matDef)
+		adj1, adj2, adj3 := buildWeaveCraftAdjs(matItem, matDef)
 		player.Inventory = append(player.Inventory[:idx], player.Inventory[idx+1:]...)
 		player.CraftingAdj1 = adj1
 		player.CraftingAdj2 = adj2

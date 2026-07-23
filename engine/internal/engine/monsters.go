@@ -17,13 +17,27 @@ type MonsterInstance struct {
 	RoomNumber   int       `json:"roomNumber"`
 	Alive        bool      `json:"alive"`
 	Sedated      bool      `json:"sedated"`
-	Stunned      bool      `json:"-"` // stunned: skip next combat tick, easier to hit
+	// Stunned/KnockedDown: LEGENDS.DOC says an excellent hit (roll > 95) "may result
+	// in stunning you or knocking you off your feet. In the case of a stun ... you are
+	// unable to attack or move again until the stun wears off. If you are knocked down
+	// ... until you stand up again" — so these are two distinct outcomes of the same
+	// crit roll, not the same thing. Stunned lasts for StunExpiry (a duration; no exact
+	// seconds is documented for a melee-crit stun specifically, only for psi spells, so
+	// 3-6 seconds is a judgment call — see the roll site in doAttackMonster) and gives
+	// a bonus to hit it (see the +20 attack rating above). KnockedDown has no duration;
+	// it costs exactly one combat tick to stand back up, mirroring SleepStand below.
+	Stunned      bool      `json:"-"`
+	StunExpiry   time.Time `json:"-"`
+	KnockedDown  bool      `json:"-"` // knocked off its feet; must stand up (one skipped tick) before acting
 	Skinned      bool      `json:"-"` // already skinned
 	DefenseBonus int       `json:"-"` // from active psi defenses
 	CurrentHP  int       `json:"currentHP"`
+	MaxHP      int       `json:"maxHP"`
+	Wounds     []Wound   `json:"-"` // in-memory only, not persisted
 	Target     string    `json:"-"`
 	Searched   bool      `json:"-"` // already searched for loot
 	DeathTime  time.Time `json:"-"` // when it died (for corpse decay)
+	LastAttacker string  `json:"-"` // name of the last player to damage this monster (set in damageMonster), for death XP attribution when it dies with no single decisive blow (bleed-out, etc.)
 
 	// Spell status effects
 	Sleeping    bool      `json:"-"` // Slumber spell: no attack, no flee
@@ -39,6 +53,21 @@ type MonsterInstance struct {
 	Tentacled          bool      `json:"-"` // Siryx's Terrible Tentacles: immobilized, takes periodic crushing damage
 	TentacleExpiry     time.Time `json:"-"`
 	TentacleCasterName string    `json:"-"` // player who cast Tentacles, for death XP attribution on the DOT tick
+
+	// Monster spellcasting (SPELLUSE/SPELL/MANA) and special attacks (SPECUSE/SPECUSES).
+	// CurrentMana is seeded from def.Mana at spawn and never regenerates (per GMSCRIPT.DOC,
+	// unlike players monsters have no mana recovery) — once spent it stays spent for the
+	// rest of the monster's life. SpecAttacksUsed counts against def.SpecUses.
+	CurrentMana     int       `json:"-"`
+	SpecAttacksUsed int       `json:"-"`
+	// Casting tracks an in-progress spell: GMSCRIPT.DOC's CASTLEVEL is the cast's duration
+	// in seconds (TEXS shown when it starts, TEXL + resolution when CastExpiry passes) and
+	// can be interrupted by taking damage before then unless the monster is NONDISRUPTABLE
+	// (see damageMonster) — matching "A muldragun's spell is disrupted!" in original/log.txt.
+	Casting     bool      `json:"-"`
+	CastSpellID int       `json:"-"`
+	CastTarget  string    `json:"-"` // player FirstName chosen as the spell's target when casting began
+	CastExpiry  time.Time `json:"-"`
 
 	// Summoned creature fields (transient)
 	SummonerName    string `json:"-"` // name of the player who summoned this creature
@@ -174,7 +203,9 @@ func (e *GameEngine) spawnForRoom(roomNum int) {
 				RoomNumber:   roomNum,
 				Alive:        true,
 				CurrentHP:    hp,
+				MaxHP:        hp,
 				DefenseBonus: monsterPsiDefenseBonus(def.Disciplines),
+				CurrentMana:  def.Mana,
 			}
 			idx := len(e.monsterMgr.instances)
 			e.monsterMgr.instances = append(e.monsterMgr.instances, inst)
@@ -198,10 +229,11 @@ func (e *GameEngine) spawnForRoom(roomNum int) {
 }
 
 // SpawnOne creates a single monster instance in a room. hp should include ExtraBody.
-func (mm *monsterManager) SpawnOne(defNum, roomNum, hp int) {
+// mana seeds CurrentMana (pass the def's Mana field; 0 if the monster has no spells).
+func (mm *monsterManager) SpawnOne(defNum, roomNum, hp, mana int) {
 	mm.mu.Lock()
 	defer mm.mu.Unlock()
-	inst := MonsterInstance{ID: mm.nextID, DefNumber: defNum, RoomNumber: roomNum, Alive: true, CurrentHP: hp}
+	inst := MonsterInstance{ID: mm.nextID, DefNumber: defNum, RoomNumber: roomNum, Alive: true, CurrentHP: hp, MaxHP: hp, CurrentMana: mana}
 	idx := len(mm.instances)
 	mm.instances = append(mm.instances, inst)
 	mm.monstersByRoom[roomNum] = append(mm.monstersByRoom[roomNum], idx)
@@ -369,6 +401,7 @@ func (e *GameEngine) StartMonsterLoop() {
 			if tick%20 == 0 {
 				e.cleanupCorpses()
 				e.tentacleDamageTick()
+				e.bleedDamageTick()
 			}
 			// Periodic respawn check near players every ~30 seconds.
 			// (This was temporarily slowed to ~105s while chasing the Crescent
@@ -554,7 +587,7 @@ func (e *GameEngine) tentacleDamageTick() {
 			name := strings.ToLower(FormatMonsterName(def, e.monAdjs))
 			article := articleFor(name, def.Unique)
 			crushLine := fmt.Sprintf("The tentacles crush %s%s!", article, name)
-			dmgLine := fmt.Sprintf(" %s %s to %s. [%d Damage]", damageSeverity(dmg), spellDmgNoun(spell.DmgType), randomBodyPart(def.BodyType), dmg)
+			dmgLine := fmt.Sprintf(" %s %s to %s. [%d Damage]", damageSeverity(dmg, inst.MaxHP), spellDmgNoun(spell.DmgType), randomBodyPart(def.BodyType), dmg)
 			e.localRoomBroadcast(inst.RoomNumber, []string{crushLine, dmgLine})
 		}
 
@@ -579,14 +612,83 @@ func (e *GameEngine) tentacleDamageTick() {
 				e.localRoomBroadcast(k.inst.RoomNumber, []string{fmt.Sprintf("A %s collapses, dead!", name)})
 			}
 		}
-		if e.sessions == nil || k.inst.TentacleCasterName == "" {
+		if recipients := e.dotKillRecipients(k.inst.TentacleCasterName); len(recipients) > 0 {
+			e.handleMonsterDeath(recipients, &k.inst, k.def)
+		}
+	}
+}
+
+// bleedDamageTick applies once-a-minute bleed-out damage to every monster
+// instance with an active bleeding wound. Runs on the same ~60-second
+// cadence as tentacleDamageTick (StartMonsterLoop, tick%20==0). Bleed-out
+// kills have no single decisive blow (the wounds may have come from multiple
+// attackers over time), so kill XP is attributed to whoever landed the last
+// hit before it bled out — see MonsterInstance.LastAttacker (set in
+// damageMonster) and dotKillRecipients.
+func (e *GameEngine) bleedDamageTick() {
+	if e.monsterMgr == nil {
+		return
+	}
+
+	type bleedKill struct {
+		inst MonsterInstance
+		def  *gameworld.MonsterDef
+	}
+	var kills []bleedKill
+
+	e.monsterMgr.mu.Lock()
+	for i := range e.monsterMgr.instances {
+		inst := &e.monsterMgr.instances[i]
+		if !inst.Alive || !anyBleeding(inst.Wounds) {
 			continue
 		}
-		for _, p := range e.sessions.OnlinePlayers() {
-			if p.FirstName == k.inst.TentacleCasterName {
-				e.handleMonsterDeath(p, &k.inst, k.def)
-				break
+		def := e.monsters[inst.DefNumber]
+		if def == nil {
+			continue
+		}
+
+		total := 0
+		for _, w := range inst.Wounds {
+			if w.Bleeding {
+				total += woundBleedDrainPerMinute(w.Level)
 			}
+		}
+		if total <= 0 {
+			continue
+		}
+
+		if e.localRoomBroadcast != nil {
+			name := strings.ToLower(FormatMonsterName(def, e.monAdjs))
+			article := articleFor(name, def.Unique)
+			e.localRoomBroadcast(inst.RoomNumber, []string{fmt.Sprintf("%s%s's wounds bleed! [-%d Damage]", capArticle(article), name, total)})
+		}
+
+		inst.CurrentHP -= total
+		if inst.CurrentHP <= 0 {
+			inst.Alive = false
+			inst.CurrentHP = 0
+			inst.DeathTime = time.Now()
+			kills = append(kills, bleedKill{inst: *inst, def: def})
+		}
+	}
+	e.monsterMgr.mu.Unlock()
+
+	for _, k := range kills {
+		// Everyone who was fighting it needs to be taken out of combat regardless of
+		// whether anyone ends up credited with the kill below — see clearCombatForMonster.
+		e.clearCombatForMonster(k.inst.ID)
+		if recipients := e.dotKillRecipients(k.inst.LastAttacker); len(recipients) > 0 {
+			e.handleMonsterDeath(recipients, &k.inst, k.def)
+		}
+		if e.localRoomBroadcast == nil {
+			continue
+		}
+		name := strings.ToLower(FormatMonsterName(k.def, e.monAdjs))
+		deathText := k.def.TextOverrides["TEXD"]
+		if deathText != "" {
+			e.localRoomBroadcast(k.inst.RoomNumber, []string{fmt.Sprintf("A %s %s", name, deathText)})
+		} else {
+			e.localRoomBroadcast(k.inst.RoomNumber, []string{fmt.Sprintf("A %s collapses, dead!", name)})
 		}
 	}
 }

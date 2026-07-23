@@ -32,6 +32,22 @@ export interface Character {
   race: number
   gender: number
   isGM?: boolean
+  // Appearance: only present when creating a brand-new character (see CharacterCreate.tsx).
+  // Loading an existing character omits these — the server just loads what's already saved.
+  strength?: number
+  agility?: number
+  quickness?: number
+  constitution?: number
+  perception?: number
+  willpower?: number
+  empathy?: number
+  height?: number
+  weight?: number
+  age?: number
+  eyeColor?: string
+  hairColor?: string
+  hairStyle?: string
+  skinColor?: string
 }
 
 export interface AuthUser {

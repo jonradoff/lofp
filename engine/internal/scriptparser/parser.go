@@ -1017,7 +1017,7 @@ func (p *fileParser) parseMonster(fields []string) {
 				mon.Disciplines = append(mon.Disciplines, disc)
 			}
 		case "TEXA", "TEXB", "TEXC", "TEXD", "TEXE", "TEXF", "TEXG", "TEXH",
-			"TEXI", "TEXL", "TEXM", "TEXQ", "TEXR", "TEXTS", "TEXS", "TEXV", "TEXZ",
+			"TEXI", "TEXL", "TEXM", "TEXQ", "TEXR", "TEXS", "TEXV", "TEXX", "TEXZ",
 			"TEX1", "TEX2", "TEX3", "TEX4":
 			if len(fields) >= 2 {
 				if mon.TextOverrides == nil { mon.TextOverrides = make(map[string]string) }

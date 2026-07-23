@@ -152,8 +152,8 @@ func (e *GameEngine) doMove(ctx context.Context, player *Player, dir string) *Co
 
 	result := e.doLook(player)
 	result.OldRoom = originalRoom
-	// Invisible GMs move silently — no exit/entry echoes
-	if !player.GMInvis {
+	// Concealed players (Invisible spell, @hide, @invis) move silently — no exit/entry echoes
+	if !player.IsConcealed() {
 		if player.ExitEcho != "" {
 			result.OldRoomMsg = []string{player.ExitEcho}
 		} else {
@@ -430,6 +430,11 @@ func (e *GameEngine) doSteal(ctx context.Context, player *Player, args []string)
 			continue
 		}
 		sc := e.RunPreverbScripts(player, room, "STEAL", &room.Items[i], itemDef)
+		// PLREVENT/CONTPLREVENT-deferred actions must be scheduled, or everything
+		// after the delay is lost.
+		if len(sc.DeferredSegments) > 0 {
+			e.scheduleScriptSegments(player, sc.DeferredSegments)
+		}
 		result := &CommandResult{}
 		result.Messages = append(result.Messages, sc.Messages...)
 		result.RoomBroadcast = append(result.RoomBroadcast, sc.RoomMsgs...)
@@ -520,8 +525,23 @@ func (e *GameEngine) doGo(ctx context.Context, player *Player, args []string) *C
 			return e.doGoPortal(ctx, player, room, &room.Items[i], itemDef)
 		}
 		// Non-portal item matched — run both IFPREVERB GO and IFVERB GO scripts.
-		sc := e.RunPreverbScripts(player, room, "GO", &room.Items[i], itemDef)
-		sc2 := e.RunVerbScripts(player, room, "GO", &room.Items[i], itemDef)
+		// Copy ri so that a REMOVEITEM inside the first script (e.g. the secret-passage
+		// idiom: reveal a hidden item, then remove it once stepped through) can't shrink
+		// room.Items out from under the second call's stale index.
+		// Capture the room being left before the scripts run — a script MOVE (as used by
+		// the secret-passage idiom) sets player.RoomNumber directly, so reading it after
+		// would report the destination instead of the room being left.
+		originalRoom := player.RoomNumber
+		riCopy := ri
+		sc := e.RunPreverbScripts(player, room, "GO", &riCopy, itemDef)
+		sc2 := e.RunVerbScripts(player, room, "GO", &riCopy, itemDef)
+		// PLREVENT/CONTPLREVENT-deferred actions must be scheduled, or everything
+		// after the delay is lost — regardless of which branch below is taken.
+		for _, segs := range [][]ScriptSegment{sc.DeferredSegments, sc2.DeferredSegments} {
+			if len(segs) > 0 {
+				e.scheduleScriptSegments(player, segs)
+			}
+		}
 		result := &CommandResult{}
 		result.Messages = append(result.Messages, sc.Messages...)
 		result.Messages = append(result.Messages, sc2.Messages...)
@@ -546,11 +566,8 @@ func (e *GameEngine) doGo(ctx context.Context, player *Player, args []string) *C
 			return result
 		}
 		if blocked && moveTo == 0 {
-			// CLEARVERB without MOVE or MOVEGROUP — block the normal action, but still
-			// schedule any PLREVENT/CONTPLREVENT-deferred segments (e.g. crevice squeeze).
-			if len(sc.DeferredSegments) > 0 {
-				e.scheduleScriptSegments(player, sc.DeferredSegments)
-			}
+			// CLEARVERB without MOVE or MOVEGROUP — block the normal action (deferred
+			// segments were already scheduled above, regardless of branch).
 			roundTimeSet := sc.RoundTimeSet
 			if sc2.RoundTimeSet > 0 {
 				roundTimeSet = sc2.RoundTimeSet
@@ -566,7 +583,6 @@ func (e *GameEngine) doGo(ctx context.Context, player *Player, args []string) *C
 		if moveTo > 0 {
 			dest := e.rooms[moveTo]
 			if dest != nil {
-				originalRoom := player.RoomNumber
 				player.RoomNumber = moveTo
 				e.SavePlayer(ctx, player)
 				lookResult := e.doLook(player)
@@ -607,21 +623,37 @@ func (e *GameEngine) doGoPortal(ctx context.Context, player *Player, room *gamew
 
 	// Run IFPREVERB GO scripts (can CLEARVERB to block)
 	sc := e.RunPreverbScripts(player, room, "GO", ri, itemDef)
+	// PLREVENT/CONTPLREVENT-deferred actions must be scheduled, or everything after
+	// the delay is lost — regardless of which branch below is taken.
+	if len(sc.DeferredSegments) > 0 {
+		e.scheduleScriptSegments(player, sc.DeferredSegments)
+	}
 	result := &CommandResult{}
 	if len(sc.Messages) > 0 {
 		result.Messages = append(result.Messages, sc.Messages...)
 	}
-	if len(sc.RoomMsgs) > 0 {
-		result.RoomBroadcast = append(result.RoomBroadcast, sc.RoomMsgs...)
-	}
 	if len(sc.GMMsgs) > 0 {
 		result.GMBroadcast = append(result.GMBroadcast, sc.GMMsgs...)
 	}
-	if sc.Blocked && sc.MoveTo == 0 {
-		// Schedule any PLREVENT/CONTPLREVENT-deferred segments before returning.
-		if len(sc.DeferredSegments) > 0 {
-			e.scheduleScriptSegments(player, sc.DeferredSegments)
+	if sc.MoveGroupTo > 0 {
+		// sc.RoomMsgs here are pre-MOVEGROUP echoes (e.g. "%N goes through the hole")
+		// describing the departure — they belong in the room being left, not wherever
+		// the player ends up after moveGroupToRoom updates player.RoomNumber below.
+		if len(sc.RoomMsgs) > 0 {
+			result.OldRoom = originalRoom
+			result.OldRoomMsg = append(result.OldRoomMsg, sc.RoomMsgs...)
 		}
+		if sc.RoundTimeSet > 0 && !messagesHaveRoundTime(result.Messages) {
+			result.Messages = append(result.Messages, fmt.Sprintf("[Round: %d sec]", sc.RoundTimeSet))
+		}
+		e.moveGroupToRoom(ctx, player.RoomNumber, sc.MoveGroupTo)
+		return result
+	}
+	if len(sc.RoomMsgs) > 0 {
+		result.RoomBroadcast = append(result.RoomBroadcast, sc.RoomMsgs...)
+	}
+	if sc.Blocked && sc.MoveTo == 0 {
+		// (Deferred segments were already scheduled above, regardless of branch.)
 		if sc.RoundTimeSet > 0 && !messagesHaveRoundTime(result.Messages) {
 			result.Messages = append(result.Messages, fmt.Sprintf("[Round: %d sec]", sc.RoundTimeSet))
 		}
@@ -799,6 +831,11 @@ func (e *GameEngine) doClimb(ctx context.Context, player *Player, args []string)
 			// If IFVERB CLIMB produced nothing, try IFPREVERB CLIMB
 			if sc.MoveTo == 0 && !sc.Blocked && len(sc.Messages) == 0 && len(sc.RoomMsgs) == 0 {
 				sc = e.RunPreverbScripts(player, room, "CLIMB", &room.Items[i], itemDef)
+			}
+			// PLREVENT/CONTPLREVENT-deferred actions must be scheduled, or everything
+			// after the delay is lost.
+			if len(sc.DeferredSegments) > 0 {
+				e.scheduleScriptSegments(player, sc.DeferredSegments)
 			}
 
 			// If climb scripts handled it, apply the result

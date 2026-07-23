@@ -44,7 +44,7 @@ func (e *GameEngine) doItemInteraction(ctx context.Context, player *Player, verb
 		origRoom := player.RoomNumber // capture before scripts may MOVE the player
 		result := &CommandResult{}
 		// Run root-level IFVAR blocks on the item (fire as preamble for any verb)
-		sc0 := e.RunItemScripts(player, room, &room.Items[i], itemDef)
+		sc0 := e.RunItemScripts(player, room, verb, &room.Items[i], itemDef)
 		result.Messages = append(result.Messages, sc0.Messages...)
 		result.GMBroadcast = append(result.GMBroadcast, sc0.GMMsgs...)
 		// Run IFPREVERB scripts (item-level + room specific-ref + room -1 catch-all)
@@ -55,6 +55,13 @@ func (e *GameEngine) doItemInteraction(ctx context.Context, player *Player, verb
 		sc2 := e.RunVerbScripts(player, room, verb, &room.Items[i], itemDef)
 		result.Messages = append(result.Messages, sc2.Messages...)
 		result.GMBroadcast = append(result.GMBroadcast, sc2.GMMsgs...)
+		// PLREVENT/CONTPLREVENT-deferred actions (e.g. a multi-stage scripted sequence)
+		// must be scheduled, or everything after the delay is lost.
+		for _, segs := range [][]ScriptSegment{sc0.DeferredSegments, sc.DeferredSegments, sc2.DeferredSegments} {
+			if len(segs) > 0 {
+				e.scheduleScriptSegments(player, segs)
+			}
+		}
 		moveTo := sc0.MoveTo
 		if sc.MoveTo > 0 {
 			moveTo = sc.MoveTo
@@ -140,10 +147,11 @@ func (e *GameEngine) doItemInteraction(ctx context.Context, player *Player, verb
 			tempRI := gameworld.RoomItem{Ref: -1, Archetype: ii.Archetype,
 				Adj1: ii.Adj1, Adj2: ii.Adj2, Adj3: ii.Adj3,
 				Val1: ii.Val1, Val2: ii.Val2, Val3: ii.Val3, Val4: ii.Val4, Val5: ii.Val5,
+				ItemBits: ii.ItemBits,
 				State: itemState}
 			result := &CommandResult{}
 			// Run root IFVAR blocks (preamble for any verb)
-			sc0 := e.RunItemScripts(player, room, &tempRI, itemDef)
+			sc0 := e.RunItemScripts(player, room, verb, &tempRI, itemDef)
 			result.Messages = append(result.Messages, sc0.Messages...)
 			// Run IFPREVERB blocks (item-level only; room scripts excluded for inventory items)
 			sc1 := e.RunPreverbScripts(player, room, verb, &tempRI, itemDef)
@@ -154,6 +162,13 @@ func (e *GameEngine) doItemInteraction(ctx context.Context, player *Player, verb
 			// Persist player state if ROUTINE or similar modified it
 			if sc0.NeedsSave || sc1.NeedsSave || sc2.NeedsSave {
 				e.SavePlayer(ctx, player)
+			}
+			// PLREVENT/CONTPLREVENT-deferred actions (e.g. a multi-stage scripted sequence)
+			// must be scheduled, or everything after the delay is lost.
+			for _, segs := range [][]ScriptSegment{sc0.DeferredSegments, sc1.DeferredSegments, sc2.DeferredSegments} {
+				if len(segs) > 0 {
+					e.scheduleScriptSegments(player, segs)
+				}
 			}
 			moveTo := sc0.MoveTo
 			if sc1.MoveTo > 0 {
@@ -263,12 +278,37 @@ func (e *GameEngine) doGet(ctx context.Context, player *Player, verb string, arg
 		// script cannot invalidate the slice reference.
 		riCopy := ri
 		sc := e.RunPreverbScripts(player, room, verb, &riCopy, itemDef)
-		if sc.Blocked || len(sc.Messages) > 0 || len(sc.RoomMsgs) > 0 {
+		// PLREVENT/CONTPLREVENT-deferred actions must be scheduled, or everything
+		// after the delay is lost.
+		if len(sc.DeferredSegments) > 0 {
+			e.scheduleScriptSegments(player, sc.DeferredSegments)
+		}
+		if sc.Blocked {
 			result := &CommandResult{Messages: sc.Messages, RoomBroadcast: sc.RoomMsgs, GMBroadcast: sc.GMMsgs}
-			if sc.Blocked && len(result.Messages) == 0 {
+			if len(result.Messages) == 0 {
 				result.Messages = []string{"You can't take that."}
 			}
 			return result
+		}
+		// Scripts without CLEARVERB (e.g. the creod's "wild magic lashes out" zap, or the
+		// lens of worlds' first-touch binding ceremony) are flavor/side-effects layered on
+		// top of the default pickup, not a replacement for it — fall through so the item
+		// actually gets added to inventory, carrying the script's messages along.
+		scriptMsgs, scriptRoomMsgs, scriptGMMsgs := sc.Messages, sc.RoomMsgs, sc.GMMsgs
+
+		// The script may have consumed the item itself (e.g. REMOVEITEM -1 on the lens of
+		// worlds' "crumbles to dust" branch) without setting CLEARVERB. Re-locate it by ref
+		// rather than trusting the loop's index — both because it may already be gone, and
+		// because REMOVEITEM may have shifted every later index in room.Items.
+		curIdx := -1
+		for j, r2 := range room.Items {
+			if r2.Ref == ri.Ref {
+				curIdx = j
+				break
+			}
+		}
+		if curIdx == -1 {
+			return &CommandResult{Messages: scriptMsgs, RoomBroadcast: scriptRoomMsgs, GMBroadcast: scriptGMMsgs}
 		}
 
 		// Physical pickup filters (after scripts had a chance to handle the verb)
@@ -288,13 +328,14 @@ func (e *GameEngine) doGet(ctx context.Context, player *Player, verb string, arg
 			if coins <= 0 {
 				coins = 1
 			}
-			room.Items = append(room.Items[:i], room.Items[i+1:]...)
+			room.Items = append(room.Items[:curIdx], room.Items[curIdx+1:]...)
 			e.notifyRoomChange(RoomChange{RoomNumber: player.RoomNumber, Type: "item_remove", ItemRef: ri.Ref})
 			pickupMsg := e.addCoinsToPlayer(player, ri.Archetype, coins)
 			e.SavePlayer(ctx, player)
 			return &CommandResult{
-				Messages:      []string{pickupMsg},
-				RoomBroadcast: []string{fmt.Sprintf("%s picks up some coins.", player.FirstName)},
+				Messages:      append(scriptMsgs, pickupMsg),
+				RoomBroadcast: append(scriptRoomMsgs, fmt.Sprintf("%s picks up some coins.", player.FirstName)),
+				GMBroadcast:   scriptGMMsgs,
 			}
 		}
 
@@ -302,7 +343,11 @@ func (e *GameEngine) doGet(ctx context.Context, player *Player, verb string, arg
 
 		// Check for item guard before pickup
 		if guardBlocked, guardPlayerMsgs, guardRoomMsgs := e.checkItemGuard(player, ri.Archetype, fullName); guardBlocked {
-			return &CommandResult{Messages: guardPlayerMsgs, RoomBroadcast: guardRoomMsgs}
+			return &CommandResult{
+				Messages:      append(scriptMsgs, guardPlayerMsgs...),
+				RoomBroadcast: append(scriptRoomMsgs, guardRoomMsgs...),
+				GMBroadcast:   scriptGMMsgs,
+			}
 		} else if len(guardRoomMsgs) > 0 {
 			// Guard was bypassed — pick up with bypass messages
 			newItem := InventoryItem{
@@ -310,6 +355,8 @@ func (e *GameEngine) doGet(ctx context.Context, player *Player, verb string, arg
 				Adj1:      ri.Adj1, Adj2: ri.Adj2, Adj3: ri.Adj3,
 				Val1: ri.Val1, Val2: ri.Val2, Val3: ri.Val3, Val4: ri.Val4, Val5: ri.Val5,
 				Sharpness: ri.Sharpness,
+				HardnessMod: ri.HardnessMod,
+				ItemBits:  ri.ItemBits,
 				State:     ri.State,
 				Tail:      ri.Extend,
 			}
@@ -318,12 +365,13 @@ func (e *GameEngine) doGet(ctx context.Context, player *Player, verb string, arg
 				e.roomContainerDelete(player.RoomNumber, ri.Ref)
 			}
 			player.Inventory = append(player.Inventory, newItem)
-			room.Items = append(room.Items[:i], room.Items[i+1:]...)
+			room.Items = append(room.Items[:curIdx], room.Items[curIdx+1:]...)
 			e.notifyRoomChange(RoomChange{RoomNumber: player.RoomNumber, Type: "item_remove", ItemRef: ri.Ref})
 			e.SavePlayer(ctx, player)
 			return &CommandResult{
-				Messages:      append(guardPlayerMsgs, fmt.Sprintf("You pick up %s.", fullName)),
-				RoomBroadcast: guardRoomMsgs,
+				Messages:      append(scriptMsgs, append(guardPlayerMsgs, fmt.Sprintf("You pick up %s.", fullName))...),
+				RoomBroadcast: append(scriptRoomMsgs, guardRoomMsgs...),
+				GMBroadcast:   scriptGMMsgs,
 			}
 		}
 
@@ -333,6 +381,8 @@ func (e *GameEngine) doGet(ctx context.Context, player *Player, verb string, arg
 			Adj1:      ri.Adj1, Adj2: ri.Adj2, Adj3: ri.Adj3,
 			Val1: ri.Val1, Val2: ri.Val2, Val3: ri.Val3, Val4: ri.Val4, Val5: ri.Val5,
 			Sharpness: ri.Sharpness,
+			HardnessMod: ri.HardnessMod,
+			ItemBits:  ri.ItemBits,
 			State:     ri.State,
 			Tail:      ri.Extend,
 		}
@@ -343,12 +393,13 @@ func (e *GameEngine) doGet(ctx context.Context, player *Player, verb string, arg
 		player.Inventory = append(player.Inventory, newItem)
 
 		// Remove from room
-		room.Items = append(room.Items[:i], room.Items[i+1:]...)
+		room.Items = append(room.Items[:curIdx], room.Items[curIdx+1:]...)
 		e.notifyRoomChange(RoomChange{RoomNumber: player.RoomNumber, Type: "item_remove", ItemRef: ri.Ref})
 		e.SavePlayer(ctx, player)
 		return &CommandResult{
-			Messages:      []string{fmt.Sprintf("You pick up %s.", fullName)},
-			RoomBroadcast: []string{fmt.Sprintf("%s picks up %s.", player.FirstName, fullName)},
+			Messages:      append(scriptMsgs, fmt.Sprintf("You pick up %s.", fullName)),
+			RoomBroadcast: append(scriptRoomMsgs, fmt.Sprintf("%s picks up %s.", player.FirstName, fullName)),
+			GMBroadcast:   scriptGMMsgs,
 		}
 	}
 
@@ -397,7 +448,8 @@ func (e *GameEngine) doDrop(ctx context.Context, player *Player, args []string) 
 			// Check room IFPREVERB DROP scripts before executing (e.g., item falls into fissure).
 			tempRI := gameworld.RoomItem{Ref: -1, Archetype: ii.Archetype,
 				Adj1: ii.Adj1, Adj2: ii.Adj2, Adj3: ii.Adj3,
-				Val1: ii.Val1, Val2: ii.Val2, Val3: ii.Val3, Val4: ii.Val4, Val5: ii.Val5}
+				Val1: ii.Val1, Val2: ii.Val2, Val3: ii.Val3, Val4: ii.Val4, Val5: ii.Val5,
+				ItemBits: ii.ItemBits}
 			sc := &ScriptContext{Player: player, Room: room, Engine: e, ItemRef: &tempRI, ItemDef: itemDef}
 			// Room -1 catch-all IFPREVERB DROP scripts (fissure, pit, etc.)
 			for _, block := range room.Scripts {
@@ -441,6 +493,8 @@ func (e *GameEngine) doDrop(ctx context.Context, player *Player, args []string) 
 				Adj1:      ii.Adj1, Adj2: ii.Adj2, Adj3: ii.Adj3,
 				Val1: ii.Val1, Val2: ii.Val2, Val3: ii.Val3, Val4: ii.Val4, Val5: ii.Val5,
 				Sharpness: ii.Sharpness,
+				HardnessMod: ii.HardnessMod,
+				ItemBits:  ii.ItemBits,
 				State:     ii.State,
 				Extend:    ii.Tail,
 			}
@@ -613,16 +667,20 @@ func (e *GameEngine) doStatus(player *Player) *CommandResult {
 
 	var msgs []string
 
-	// Organization memberships
+	// Organization memberships: "You are a high master of the Crimson Band."
 	for _, orgNum := range player.OrgList() {
 		rank := player.RankIn(orgNum)
-		msgs = append(msgs, fmt.Sprintf("You are a member of the %s (rank %d).", organizationName(orgNum), rank))
+		title := orgRankTitle(e.orgTypeFor(orgNum), rank)
+		name := organizationName(orgNum)
+		if def, ok := e.orgDefs[orgNum]; ok {
+			name = def.Name
+		}
+		msgs = append(msgs, fmt.Sprintf("You are %s%s of the %s.", articleFor(title, false), title, name))
 	}
 
 	msgs = append(msgs,
-		fmt.Sprintf("Name: %s   Race: %s   Gender: %s   Level: %d", player.FullName(), player.RaceName(), genderName(player.Gender), player.Level),
-		fmt.Sprintf("Strength: %d   Agility: %d   Quickness: %d", player.Strength, player.Agility, player.Quickness),
-		fmt.Sprintf("Constitution: %d   Perception: %d   Willpower: %d   Empathy: %d", player.Constitution, player.Perception, player.Willpower, player.Empathy),
+		fmt.Sprintf("Name: %s   Race: %s   Gender: %s", player.FullName(), player.RaceName(), genderName(player.Gender)),
+		fmt.Sprintf("Level: %d", player.Level),
 	)
 
 	// Build points
@@ -634,6 +692,17 @@ func (e *GameEngine) doStatus(player *Player) *CommandResult {
 		fmt.Sprintf("Build Points to date: %d", totalBP),
 		fmt.Sprintf("Unspent Build Points: %d", player.BuildPoints),
 		fmt.Sprintf("Experience Points until next Build Point: %d", xpUntilNextBP),
+	)
+
+	heightFeet := player.Height / 12
+	heightInches := player.Height % 12
+	loadWeight := playerLoadWeight(player, e.items)
+
+	msgs = append(msgs,
+		fmt.Sprintf("Quickness: %-3d  Constitution: %-3d  Strength: %-3d  Agility: %-3d", player.Quickness, player.Constitution, player.Strength, player.Agility),
+		fmt.Sprintf("Willpower: %-3d  Perception: %-3d  Empathy: %-3d", player.Willpower, player.Perception, player.Empathy),
+		fmt.Sprintf("Age: %-3d  Height: %d'%d  Weight: %-3d  Load: %d", player.Age, heightFeet, heightInches, player.Weight, loadWeight),
+		"",
 	)
 
 	// Attack/Defense modifiers
@@ -648,15 +717,12 @@ func (e *GameEngine) doStatus(player *Player) *CommandResult {
 	msgs = append(msgs,
 		fmt.Sprintf("Current Attack Modifier: %d [%s]", atkRating, stanceLabel),
 		fmt.Sprintf("Current Defend Modifier: %d", defRating),
-	)
-
-	// Height/Weight/Load
-	heightFeet := player.Height / 12
-	heightInches := player.Height % 12
-	loadWeight := playerLoadWeight(player, e.items)
-	msgs = append(msgs,
-		fmt.Sprintf("Height: %d'%d   Weight: %d lbs", heightFeet, heightInches, player.Weight),
-		fmt.Sprintf("Load: %d lbs", loadWeight),
+		"",
+		fmt.Sprintf("Body Points: %d/%d", player.BodyPoints, player.MaxBodyPoints),
+		fmt.Sprintf("Mana: %d/%d", player.Mana, player.MaxMana),
+		fmt.Sprintf("Psi: %d/%d", player.Psi, player.MaxPsi),
+		fmt.Sprintf("Fatigue: %d/%d", player.Fatigue, player.MaxFatigue),
+		"[Type SPELLS or SKILLS for more information.]",
 	)
 
 	return &CommandResult{Messages: msgs}
@@ -679,11 +745,15 @@ func (e *GameEngine) doHealth(player *Player) *CommandResult {
 	default:
 		healthDesc = "You are dead."
 	}
-	return &CommandResult{Messages: []string{
+	msgs := []string{
 		healthDesc,
 		fmt.Sprintf("Body: %d/%d   Fatigue: %d/%d", player.BodyPoints, player.MaxBodyPoints, player.Fatigue, player.MaxFatigue),
 		fmt.Sprintf("Mana: %d/%d   Psi: %d/%d", player.Mana, player.MaxMana, player.Psi, player.MaxPsi),
-	}}
+	}
+	if len(player.Wounds) > 0 {
+		msgs = append(msgs, "You have "+buildWoundSentence(player.Wounds, "")+".")
+	}
+	return &CommandResult{Messages: msgs}
 }
 
 // wornSlotMax defines the maximum items allowed per worn slot; unlisted slots default to 1.
@@ -1028,6 +1098,70 @@ func (e *GameEngine) doRemove(ctx context.Context, player *Player, args []string
 	return &CommandResult{Messages: []string{"You aren't wearing that."}}
 }
 
+// findLinkedPortal locates the room item on the other side of a portal (door, gate,
+// etc.) — the item in the destination room whose own Val2 points back to originRoom.
+// Doors are placed in matching pairs, one in each of the two rooms they connect, and
+// OPEN/CLOSE/LOCK/UNLOCK need to keep both sides' State in sync. Prefers a same-
+// archetype match (the normal convention — the same door item on both sides) and
+// falls back to any portal item that points back to originRoom otherwise.
+func (e *GameEngine) findLinkedPortal(originRoom int, ri *gameworld.RoomItem, itemDef *gameworld.ItemDef) (*gameworld.Room, int) {
+	if !isPortal(itemDef.Type) || ri.Val2 <= 0 || ri.Val2 == originRoom {
+		return nil, -1
+	}
+	destRoom := e.rooms[ri.Val2]
+	if destRoom == nil {
+		return nil, -1
+	}
+	fallback := -1
+	for i := range destRoom.Items {
+		other := &destRoom.Items[i]
+		if other.Val2 != originRoom {
+			continue
+		}
+		otherDef := e.items[other.Archetype]
+		if otherDef == nil || !isPortal(otherDef.Type) {
+			continue
+		}
+		if other.Archetype == ri.Archetype {
+			return destRoom, i
+		}
+		if fallback == -1 {
+			fallback = i
+		}
+	}
+	if fallback >= 0 {
+		return destRoom, fallback
+	}
+	return nil, -1
+}
+
+// syncLinkedPortal mirrors a door/gate's new State onto its paired item in the
+// destination room (see findLinkedPortal), so a door locked/unlocked/opened/closed
+// from one side is reflected on the other, and broadcasts an echo to whoever is
+// standing in that other room describing what they see/hear happen — mirroring the
+// KNOCK command's cross-room echo (see emotes.go). echoTemplate is a fmt template
+// with a single %s for the door's display name, e.g. "You see %s open."
+func (e *GameEngine) syncLinkedPortal(originRoom int, ri *gameworld.RoomItem, itemDef *gameworld.ItemDef, newState string, echoTemplate string) {
+	destRoom, idx := e.findLinkedPortal(originRoom, ri, itemDef)
+	if destRoom == nil {
+		return
+	}
+	other := &destRoom.Items[idx]
+	if other.State == newState {
+		return
+	}
+	other.State = newState
+	e.notifyRoomChange(RoomChange{RoomNumber: destRoom.Number, Type: "item_state", ItemRef: other.Ref, NewState: newState})
+	if e.roomBroadcast == nil {
+		return
+	}
+	displayName := "a door"
+	if otherDef := e.items[other.Archetype]; otherDef != nil {
+		displayName = e.formatItemName(otherDef, other.Adj1, other.Adj2, other.Adj3, other.Extend)
+	}
+	e.roomBroadcast(destRoom.Number, []string{fmt.Sprintf(echoTemplate, displayName)})
+}
+
 func (e *GameEngine) doOpen(player *Player, args []string) *CommandResult {
 	if len(args) == 0 {
 		return &CommandResult{Messages: []string{"Open what?"}}
@@ -1040,6 +1174,42 @@ func (e *GameEngine) doOpen(player *Player, args []string) *CommandResult {
 	if room == nil {
 		return &CommandResult{Messages: []string{"You can't do that here."}}
 	}
+	// Check inventory containers first — a container you're holding takes
+	// priority over one merely lying in the room (matches doPut/doGetAllFromContainer).
+	for i, ii := range player.Inventory {
+		itemDef := e.items[ii.Archetype]
+		if itemDef == nil {
+			continue
+		}
+		name := e.getItemNounName(itemDef)
+		if matchesTarget(name, target, e.getAdjName(ii.Adj1), e.getAdjName(ii.Adj2), e.getAdjName(ii.Adj3)) {
+			if skip > 0 {
+				skip--
+				continue
+			}
+			if !containsFlag(itemDef.Flags, "OPENABLE") {
+				return &CommandResult{Messages: []string{"You can't open that."}}
+			}
+			if ii.State == "LOCKED" {
+				return &CommandResult{Messages: []string{"It's locked."}}
+			}
+			if ii.State == "LATCHED" {
+				return &CommandResult{Messages: []string{"It's latched shut."}}
+			}
+			if ii.State == "OPEN" {
+				fullName := e.formatItemName(itemDef, ii.Adj1, ii.Adj2, ii.Adj3, ii.Tail)
+				return &CommandResult{Messages: []string{fmt.Sprintf("%s is already open.", capitalize(fullName))}}
+			}
+			player.Inventory[i].State = "OPEN"
+			fullName := e.formatItemName(itemDef, ii.Adj1, ii.Adj2, ii.Adj3, ii.Tail)
+			openMsg := fmt.Sprintf("You open %s.", fullName)
+			if itemDef.Type == "LIQCONTAINER" && ii.Val2 > 0 && ii.Val4 != 0 {
+				openMsg = fmt.Sprintf("You open %s, revealing a %s potion.", fullName, e.getAdjName(ii.Val4))
+			}
+			return &CommandResult{Messages: []string{openMsg}}
+		}
+	}
+	// Room containers — skipped when "my" was used (e.g. "open my chest").
 	if !mine {
 		for i, ri := range room.Items {
 			itemDef := e.items[ri.Archetype]
@@ -1085,42 +1255,14 @@ func (e *GameEngine) doOpen(player *Player, args []string) *CommandResult {
 				if len(trapMsgs) > 0 {
 					msgs = append(msgs, trapMsgs...)
 				}
-				return &CommandResult{Messages: msgs}
+				if isPortal(itemDef.Type) {
+					e.syncLinkedPortal(player.RoomNumber, &room.Items[i], itemDef, "OPEN", "You see %s open.")
+				}
+				return &CommandResult{
+					Messages:      msgs,
+					RoomBroadcast: []string{fmt.Sprintf("%s opens %s.", player.FirstName, fullName)},
+				}
 			}
-		}
-	}
-	// Check inventory containers
-	for i, ii := range player.Inventory {
-		itemDef := e.items[ii.Archetype]
-		if itemDef == nil {
-			continue
-		}
-		name := e.getItemNounName(itemDef)
-		if matchesTarget(name, target, e.getAdjName(ii.Adj1), e.getAdjName(ii.Adj2), e.getAdjName(ii.Adj3)) {
-			if skip > 0 {
-				skip--
-				continue
-			}
-			if !containsFlag(itemDef.Flags, "OPENABLE") {
-				return &CommandResult{Messages: []string{"You can't open that."}}
-			}
-			if ii.State == "LOCKED" {
-				return &CommandResult{Messages: []string{"It's locked."}}
-			}
-			if ii.State == "LATCHED" {
-				return &CommandResult{Messages: []string{"It's latched shut."}}
-			}
-			if ii.State == "OPEN" {
-				fullName := e.formatItemName(itemDef, ii.Adj1, ii.Adj2, ii.Adj3, ii.Tail)
-				return &CommandResult{Messages: []string{fmt.Sprintf("%s is already open.", capitalize(fullName))}}
-			}
-			player.Inventory[i].State = "OPEN"
-			fullName := e.formatItemName(itemDef, ii.Adj1, ii.Adj2, ii.Adj3, ii.Tail)
-			openMsg := fmt.Sprintf("You open %s.", fullName)
-			if itemDef.Type == "LIQCONTAINER" && ii.Val2 > 0 && ii.Val4 != 0 {
-				openMsg = fmt.Sprintf("You open %s, revealing a %s potion.", fullName, e.getAdjName(ii.Val4))
-			}
-			return &CommandResult{Messages: []string{openMsg}}
 		}
 	}
 	return &CommandResult{Messages: []string{"You don't see that here."}}
@@ -1208,6 +1350,11 @@ func (e *GameEngine) checkTrap(player *Player, ri *gameworld.RoomItem) []string 
 	case trapType >= 1000: // Glyph traps (spell-based)
 		spellDmg := 20 + rand.Intn(40)
 		glyphType := (trapType / 1000) % 10
+		if glyphType <= 2 {
+			spellDmg = applyDrakinElementalVulnerability(player, "heat", spellDmg)
+		} else if glyphType <= 4 {
+			spellDmg = applyDrakinElementalVulnerability(player, "cold", spellDmg)
+		}
 		now := time.Now()
 		if glyphType <= 2 && !player.HeatShieldExpiry.IsZero() && now.Before(player.HeatShieldExpiry) {
 			spellDmg /= 2
@@ -1247,6 +1394,28 @@ func (e *GameEngine) doClose(player *Player, args []string) *CommandResult {
 	if room == nil {
 		return &CommandResult{Messages: []string{"You can't do that here."}}
 	}
+	// Check inventory containers first — a container you're holding takes
+	// priority over one merely lying in the room (matches doPut/doGetAllFromContainer).
+	for i, ii := range player.Inventory {
+		itemDef := e.items[ii.Archetype]
+		if itemDef == nil {
+			continue
+		}
+		name := e.getItemNounName(itemDef)
+		if matchesTarget(name, target, e.getAdjName(ii.Adj1), e.getAdjName(ii.Adj2), e.getAdjName(ii.Adj3)) {
+			if skip > 0 {
+				skip--
+				continue
+			}
+			fullName := e.formatItemName(itemDef, ii.Adj1, ii.Adj2, ii.Adj3, ii.Tail)
+			if ii.State != "OPEN" {
+				return &CommandResult{Messages: []string{fmt.Sprintf("%s is already closed.", capitalize(fullName))}}
+			}
+			player.Inventory[i].State = "CLOSED"
+			return &CommandResult{Messages: []string{fmt.Sprintf("You close %s.", fullName)}}
+		}
+	}
+	// Room containers — skipped when "my" was used (e.g. "close my chest").
 	if !mine {
 		for i, ri := range room.Items {
 			itemDef := e.items[ri.Archetype]
@@ -1265,28 +1434,14 @@ func (e *GameEngine) doClose(player *Player, args []string) *CommandResult {
 				}
 				room.Items[i].State = "CLOSED"
 				e.notifyRoomChange(RoomChange{RoomNumber: player.RoomNumber, Type: "item_state", ItemRef: ri.Ref, NewState: "CLOSED"})
-				return &CommandResult{Messages: []string{fmt.Sprintf("You close %s.", fullName)}}
+				if isPortal(itemDef.Type) {
+					e.syncLinkedPortal(player.RoomNumber, &room.Items[i], itemDef, "CLOSED", "You see %s close.")
+				}
+				return &CommandResult{
+					Messages:      []string{fmt.Sprintf("You close %s.", fullName)},
+					RoomBroadcast: []string{fmt.Sprintf("%s closes %s.", player.FirstName, fullName)},
+				}
 			}
-		}
-	}
-	// Check inventory containers
-	for i, ii := range player.Inventory {
-		itemDef := e.items[ii.Archetype]
-		if itemDef == nil {
-			continue
-		}
-		name := e.getItemNounName(itemDef)
-		if matchesTarget(name, target, e.getAdjName(ii.Adj1), e.getAdjName(ii.Adj2), e.getAdjName(ii.Adj3)) {
-			if skip > 0 {
-				skip--
-				continue
-			}
-			fullName := e.formatItemName(itemDef, ii.Adj1, ii.Adj2, ii.Adj3, ii.Tail)
-			if ii.State != "OPEN" {
-				return &CommandResult{Messages: []string{fmt.Sprintf("%s is already closed.", capitalize(fullName))}}
-			}
-			player.Inventory[i].State = "CLOSED"
-			return &CommandResult{Messages: []string{fmt.Sprintf("You close %s.", fullName)}}
 		}
 	}
 	return &CommandResult{Messages: []string{"You don't see that here."}}
@@ -1524,11 +1679,19 @@ func (e *GameEngine) doEat(ctx context.Context, player *Player, args []string) *
 			room := e.rooms[player.RoomNumber]
 			tempRI := gameworld.RoomItem{Ref: -1, Archetype: ii.Archetype,
 				Adj1: ii.Adj1, Adj2: ii.Adj2, Adj3: ii.Adj3,
-				Val1: ii.Val1, Val2: ii.Val2, Val3: ii.Val3, Val4: ii.Val4, Val5: ii.Val5}
+				Val1: ii.Val1, Val2: ii.Val2, Val3: ii.Val3, Val4: ii.Val4, Val5: ii.Val5,
+				ItemBits: ii.ItemBits}
 			// Run all item-level scripts (IFVAR at root level + IFVERB EAT)
-			sc := e.RunItemScripts(player, room, &tempRI, itemDef)
+			sc := e.RunItemScripts(player, room, "EAT", &tempRI, itemDef)
 			sc2 := e.RunVerbScripts(player, room, "EAT", &tempRI, itemDef)
 			sc.Messages = append(sc.Messages, sc2.Messages...)
+			// PLREVENT/CONTPLREVENT-deferred actions must be scheduled, or everything
+			// after the delay is lost.
+			for _, segs := range [][]ScriptSegment{sc.DeferredSegments, sc2.DeferredSegments} {
+				if len(segs) > 0 {
+					e.scheduleScriptSegments(player, segs)
+				}
+			}
 			// Scripts may have modified tempRI.Val3
 			spellNum := tempRI.Val3
 			// Fallback for herbs whose original scripts omit the IFVAR ITEMADJ3→ITEMVAL3 block.
@@ -1947,8 +2110,14 @@ func (e *GameEngine) drinkItem(ctx context.Context, player *Player, ii *Inventor
 	room := e.rooms[player.RoomNumber]
 	tempRI := gameworld.RoomItem{Ref: -1, Archetype: ii.Archetype,
 		Adj1: ii.Adj1, Adj2: ii.Adj2, Adj3: ii.Adj3,
-		Val1: ii.Val1, Val2: ii.Val2, Val3: ii.Val3, Val4: ii.Val4, Val5: ii.Val5}
-	sc := e.RunItemScripts(player, room, &tempRI, itemDef)
+		Val1: ii.Val1, Val2: ii.Val2, Val3: ii.Val3, Val4: ii.Val4, Val5: ii.Val5,
+		ItemBits: ii.ItemBits}
+	sc := e.RunItemScripts(player, room, "DRINK", &tempRI, itemDef)
+	// PLREVENT/CONTPLREVENT-deferred actions must be scheduled, or everything after
+	// the delay is lost.
+	if len(sc.DeferredSegments) > 0 {
+		e.scheduleScriptSegments(player, sc.DeferredSegments)
+	}
 	spellNum := tempRI.Val3
 
 	// Potions (Val4 set to a liquid-appearance adjective) get flavor text naming
@@ -2108,9 +2277,6 @@ func (e *GameEngine) doFlip(ctx context.Context, player *Player, args []string) 
 		if itemDef == nil {
 			continue
 		}
-		if !containsFlag(itemDef.Flags, "FLIPABLE") {
-			continue
-		}
 		name := e.getItemNounName(itemDef)
 		if !matchesTarget(name, target, e.getAdjName(ri.Adj1), e.getAdjName(ri.Adj2), e.getAdjName(ri.Adj3)) {
 			continue
@@ -2120,14 +2286,22 @@ func (e *GameEngine) doFlip(ctx context.Context, player *Player, args []string) 
 			continue
 		}
 		displayName := e.formatItemName(itemDef, ri.Adj1, ri.Adj2, ri.Adj3, ri.Extend)
-		// IFPREVERB FLIP runs before the state change; CLEARVERB blocks it
+		// IFPREVERB FLIP runs before the state change; CLEARVERB blocks it. Some items
+		// (e.g. a combination-lock knob) define a custom FLIP script without being
+		// physically FLIPABLE — run scripts first, same as PULL/PUSH/TURN, so those
+		// aren't skipped before ever getting a chance to fire.
 		preSc := e.RunPreverbScripts(player, room, "FLIP", &room.Items[i], itemDef)
-		result := &CommandResult{
-			Messages:      preSc.Messages,
-			RoomBroadcast: preSc.RoomMsgs,
+		// PLREVENT/CONTPLREVENT-deferred actions must be scheduled, or everything
+		// after the delay is lost.
+		if len(preSc.DeferredSegments) > 0 {
+			e.scheduleScriptSegments(player, preSc.DeferredSegments)
 		}
-		if preSc.Blocked {
-			return result
+		if preSc.Blocked || len(preSc.Messages) > 0 || len(preSc.RoomMsgs) > 0 {
+			return &CommandResult{Messages: preSc.Messages, RoomBroadcast: preSc.RoomMsgs}
+		}
+		if !containsFlag(itemDef.Flags, "FLIPABLE") {
+			// No script handled it, and this item has no generic flip-state — not a valid target.
+			continue
 		}
 		// Perform the state change
 		if ri.State == "FLIPPED" {
@@ -2139,8 +2313,10 @@ func (e *GameEngine) doFlip(ctx context.Context, player *Player, args []string) 
 		}
 		// IFVERB FLIP runs after the state change
 		sc := e.RunVerbScripts(player, room, "FLIP", &room.Items[i], itemDef)
-		result.Messages = append(result.Messages, sc.Messages...)
-		result.RoomBroadcast = append(result.RoomBroadcast, sc.RoomMsgs...)
+		if len(sc.DeferredSegments) > 0 {
+			e.scheduleScriptSegments(player, sc.DeferredSegments)
+		}
+		result := &CommandResult{Messages: sc.Messages, RoomBroadcast: sc.RoomMsgs}
 		if len(result.Messages) == 0 {
 			result.Messages = []string{fmt.Sprintf("You flip %s.", displayName)}
 		}
@@ -2198,40 +2374,89 @@ func (e *GameEngine) doLock(ctx context.Context, player *Player, args []string) 
 	}
 	raw := strings.ToLower(strings.Join(args, " "))
 	target, keyName := parseWithClause(raw)
+	target, mine := stripMyPrefix(target)
 	target, ordSkip := parseOrdinal(target)
 	skip := ordSkip
 	room := e.rooms[player.RoomNumber]
 	if room == nil {
 		return &CommandResult{Messages: []string{"You can't do that here."}}
 	}
-	for i, ri := range room.Items {
-		itemDef := e.items[ri.Archetype]
+	// Check inventory containers first — a container you're holding takes
+	// priority over one merely lying in the room (matches doOpen/doClose/doPickLock).
+	for i, ii := range player.Inventory {
+		itemDef := e.items[ii.Archetype]
 		if itemDef == nil {
 			continue
 		}
-		if !containsFlag(itemDef.Flags, "LOCKABLE") {
-			continue
-		}
 		name := e.getItemNounName(itemDef)
-		if !matchesTarget(name, target, e.getAdjName(ri.Adj1), e.getAdjName(ri.Adj2), e.getAdjName(ri.Adj3)) {
+		if !matchesTarget(name, target, e.getAdjName(ii.Adj1), e.getAdjName(ii.Adj2), e.getAdjName(ii.Adj3)) {
 			continue
 		}
 		if skip > 0 {
 			skip--
 			continue
 		}
-		if ri.State == "LOCKED" {
+		if !containsFlag(itemDef.Flags, "LOCKABLE") {
+			return &CommandResult{Messages: []string{"You can't lock that."}}
+		}
+		displayName := e.formatItemName(itemDef, ii.Adj1, ii.Adj2, ii.Adj3, ii.Tail)
+		if ii.State == "LOCKED" {
 			return &CommandResult{Messages: []string{"It's already locked."}}
 		}
-		// Find matching key
-		keyItem := e.findKey(player, ri.Val3, keyName)
+		if ii.State == "OPEN" {
+			return &CommandResult{Messages: []string{fmt.Sprintf("You must close %s first.", displayName)}}
+		}
+		keyItem := e.findKey(player, ii.Val3, keyName)
 		if keyItem == nil {
 			return &CommandResult{Messages: []string{"You don't have the right key."}}
 		}
-		room.Items[i].State = "LOCKED"
-		e.notifyRoomChange(RoomChange{RoomNumber: player.RoomNumber, Type: "item_state", ItemRef: ri.Ref, NewState: "LOCKED"})
-		displayName := e.formatItemName(itemDef, ri.Adj1, ri.Adj2, ri.Adj3, ri.Extend)
-		return &CommandResult{Messages: []string{fmt.Sprintf("You lock %s.", displayName)}}
+		player.Inventory[i].State = "LOCKED"
+		return &CommandResult{
+			Messages: []string{fmt.Sprintf("You lock %s.", displayName)},
+		}
+	}
+	// Room containers — skipped when "my" was used (e.g. "lock my chest").
+	if !mine {
+		for i, ri := range room.Items {
+			itemDef := e.items[ri.Archetype]
+			if itemDef == nil {
+				continue
+			}
+			name := e.getItemNounName(itemDef)
+			if !matchesTarget(name, target, e.getAdjName(ri.Adj1), e.getAdjName(ri.Adj2), e.getAdjName(ri.Adj3)) {
+				continue
+			}
+			if skip > 0 {
+				skip--
+				continue
+			}
+			// LOCKABLE is checked against the item the ordinal/name actually selected, not
+			// used to filter candidates beforehand — otherwise "lock 2 door" would count
+			// only the lockable doors, disagreeing with OPEN/CLOSE/TAP's numbering of the
+			// same room items and silently missing the door the player meant.
+			if !containsFlag(itemDef.Flags, "LOCKABLE") {
+				return &CommandResult{Messages: []string{"You can't lock that."}}
+			}
+			displayName := e.formatItemName(itemDef, ri.Adj1, ri.Adj2, ri.Adj3, ri.Extend)
+			if ri.State == "LOCKED" {
+				return &CommandResult{Messages: []string{"It's already locked."}}
+			}
+			if ri.State == "OPEN" {
+				return &CommandResult{Messages: []string{fmt.Sprintf("You must close %s first.", displayName)}}
+			}
+			// Find matching key
+			keyItem := e.findKey(player, ri.Val3, keyName)
+			if keyItem == nil {
+				return &CommandResult{Messages: []string{"You don't have the right key."}}
+			}
+			room.Items[i].State = "LOCKED"
+			e.notifyRoomChange(RoomChange{RoomNumber: player.RoomNumber, Type: "item_state", ItemRef: ri.Ref, NewState: "LOCKED"})
+			e.syncLinkedPortal(player.RoomNumber, &room.Items[i], itemDef, "LOCKED", "You hear %s lock.")
+			return &CommandResult{
+				Messages:      []string{fmt.Sprintf("You lock %s.", displayName)},
+				RoomBroadcast: []string{fmt.Sprintf("%s locks %s.", player.FirstName, displayName)},
+			}
+		}
 	}
 	return &CommandResult{Messages: []string{"You don't see anything to lock here."}}
 }
@@ -2242,40 +2467,81 @@ func (e *GameEngine) doUnlock(ctx context.Context, player *Player, args []string
 	}
 	raw := strings.ToLower(strings.Join(args, " "))
 	target, keyName := parseWithClause(raw)
+	target, mine := stripMyPrefix(target)
 	target, ordSkip := parseOrdinal(target)
 	skip := ordSkip
 	room := e.rooms[player.RoomNumber]
 	if room == nil {
 		return &CommandResult{Messages: []string{"You can't do that here."}}
 	}
-	for i, ri := range room.Items {
-		itemDef := e.items[ri.Archetype]
+	// Check inventory containers first — a container you're holding takes
+	// priority over one merely lying in the room (matches doOpen/doClose/doPickLock).
+	for i, ii := range player.Inventory {
+		itemDef := e.items[ii.Archetype]
 		if itemDef == nil {
 			continue
 		}
-		if !containsFlag(itemDef.Flags, "LOCKABLE") {
-			continue
-		}
 		name := e.getItemNounName(itemDef)
-		if !matchesTarget(name, target, e.getAdjName(ri.Adj1), e.getAdjName(ri.Adj2), e.getAdjName(ri.Adj3)) {
+		if !matchesTarget(name, target, e.getAdjName(ii.Adj1), e.getAdjName(ii.Adj2), e.getAdjName(ii.Adj3)) {
 			continue
 		}
 		if skip > 0 {
 			skip--
 			continue
 		}
-		if ri.State != "LOCKED" {
+		if !containsFlag(itemDef.Flags, "LOCKABLE") {
+			return &CommandResult{Messages: []string{"You can't unlock that."}}
+		}
+		if ii.State != "LOCKED" {
 			return &CommandResult{Messages: []string{"It isn't locked."}}
 		}
-		// Find matching key
-		keyItem := e.findKey(player, ri.Val3, keyName)
+		keyItem := e.findKey(player, ii.Val3, keyName)
 		if keyItem == nil {
 			return &CommandResult{Messages: []string{"You don't have the right key."}}
 		}
-		room.Items[i].State = "CLOSED"
-		e.notifyRoomChange(RoomChange{RoomNumber: player.RoomNumber, Type: "item_state", ItemRef: ri.Ref, NewState: "CLOSED"})
-		displayName := e.formatItemName(itemDef, ri.Adj1, ri.Adj2, ri.Adj3, ri.Extend)
-		return &CommandResult{Messages: []string{fmt.Sprintf("You unlock %s.", displayName)}}
+		player.Inventory[i].State = "CLOSED"
+		displayName := e.formatItemName(itemDef, ii.Adj1, ii.Adj2, ii.Adj3, ii.Tail)
+		return &CommandResult{
+			Messages: []string{fmt.Sprintf("You unlock %s.", displayName)},
+		}
+	}
+	// Room containers — skipped when "my" was used (e.g. "unlock my chest").
+	if !mine {
+		for i, ri := range room.Items {
+			itemDef := e.items[ri.Archetype]
+			if itemDef == nil {
+				continue
+			}
+			name := e.getItemNounName(itemDef)
+			if !matchesTarget(name, target, e.getAdjName(ri.Adj1), e.getAdjName(ri.Adj2), e.getAdjName(ri.Adj3)) {
+				continue
+			}
+			if skip > 0 {
+				skip--
+				continue
+			}
+			// See doLock: check LOCKABLE against the selected item, not as a pre-filter,
+			// so ordinals ("2 door") agree with OPEN/CLOSE/TAP's numbering of room items.
+			if !containsFlag(itemDef.Flags, "LOCKABLE") {
+				return &CommandResult{Messages: []string{"You can't unlock that."}}
+			}
+			if ri.State != "LOCKED" {
+				return &CommandResult{Messages: []string{"It isn't locked."}}
+			}
+			// Find matching key
+			keyItem := e.findKey(player, ri.Val3, keyName)
+			if keyItem == nil {
+				return &CommandResult{Messages: []string{"You don't have the right key."}}
+			}
+			room.Items[i].State = "CLOSED"
+			e.notifyRoomChange(RoomChange{RoomNumber: player.RoomNumber, Type: "item_state", ItemRef: ri.Ref, NewState: "CLOSED"})
+			displayName := e.formatItemName(itemDef, ri.Adj1, ri.Adj2, ri.Adj3, ri.Extend)
+			e.syncLinkedPortal(player.RoomNumber, &room.Items[i], itemDef, "CLOSED", "You hear %s unlock.")
+			return &CommandResult{
+				Messages:      []string{fmt.Sprintf("You unlock %s.", displayName)},
+				RoomBroadcast: []string{fmt.Sprintf("%s unlocks %s.", player.FirstName, displayName)},
+			}
+		}
 	}
 	return &CommandResult{Messages: []string{"You don't see anything to unlock here."}}
 }
@@ -2292,6 +2558,12 @@ func parseWithClause(s string) (string, string) {
 // findKey searches the player's inventory for a KEY-type item whose Val3 matches lockVal3.
 // If keyName is non-empty, the key must also match that name.
 func (e *GameEngine) findKey(player *Player, lockVal3 int, keyName string) *InventoryItem {
+	if lockVal3 == 0 {
+		// 0 means "no code assigned" (the zero value for an unset Val3, e.g. a lockable
+		// item placed via @additem without a val3=N) — never treat that as a match, or
+		// any other equally-unconfigured KEY item would incorrectly open it.
+		return nil
+	}
 	allItems := make([]InventoryItem, 0, len(player.Inventory))
 	allItems = append(allItems, player.Inventory...)
 	for i := range allItems {
@@ -2584,6 +2856,11 @@ func (e *GameEngine) doRead(player *Player, args []string) *CommandResult {
 			}
 			// Run IFPREVERB READ scripts first — they may supply the read text
 			sc := e.RunPreverbScripts(player, room, "READ", &room.Items[i], itemDef)
+			// PLREVENT/CONTPLREVENT-deferred actions must be scheduled, or everything
+			// after the delay is lost.
+			if len(sc.DeferredSegments) > 0 {
+				e.scheduleScriptSegments(player, sc.DeferredSegments)
+			}
 			if sc.Blocked || len(sc.Messages) > 0 {
 				return &CommandResult{Messages: sc.Messages, RoomBroadcast: sc.RoomMsgs}
 			}

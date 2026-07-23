@@ -47,6 +47,22 @@ func (e *GameEngine) regenTick() {
 
 		changed := false
 
+		// Snapshot taken before any of this tick's regen/DoT effects run: were they
+		// already unconscious (at 0 body points, presumably from a bleed/poison/disease
+		// tick on some earlier minute) when this tick started? Poison/bleeding/disease
+		// never kill outright on the tick that first knocks someone to 0 — that clamps
+		// to 0 and knocks them out instead, giving other players a window to TEND them
+		// or cast Body Restoration/Cure Poison/Cure Disease. But if the same condition
+		// is still active and they're still unconscious from a PRIOR tick, the next tick
+		// does kill them — this is what makes the reprieve a real race against time
+		// rather than a permanent immunity. Using a snapshot from before this tick's own
+		// effects run (rather than re-checking live after each DoT block) means multiple
+		// conditions ticking in the same minute (e.g. both poisoned and bleeding) can only
+		// ever knock a previously-conscious player out once, never stack into a same-tick
+		// kill.
+		wasUnconsciousAtZero := p.Unconscious && p.BodyPoints <= 0
+		died := false
+
 		// Fatigue regen
 		if p.Fatigue < p.MaxFatigue {
 			base := p.Constitution / 20
@@ -116,34 +132,128 @@ func (e *GameEngine) regenTick() {
 		}
 
 		// Poison damage
-		if p.Poisoned {
+		if p.Poisoned && !died {
 			lvl := p.PoisonLevel
 			if lvl < 1 {
 				lvl = 1
 			}
-			p.BodyPoints -= lvl
-			if p.BodyPoints < 0 {
-				p.BodyPoints = 0
+			if wasUnconsciousAtZero {
+				died = true
+				changed = true
+				if e.sendToPlayer != nil {
+					e.sendToPlayer(p.FirstName, e.handlePlayerDeath(p, "poison"))
+				}
+			} else {
+				p.BodyPoints -= lvl
+				if p.BodyPoints <= 0 {
+					p.BodyPoints = 0
+					p.Unconscious = true
+					p.Position = 2
+					changed = true
+					if e.sendToPlayer != nil {
+						e.sendToPlayer(p.FirstName, []string{
+							fmt.Sprintf("The poison courses through your veins! [-%d BP, %d/%d]", lvl, p.BodyPoints, p.MaxBodyPoints),
+							"You collapse, unconscious!",
+						})
+					}
+				} else {
+					changed = true
+					if e.sendToPlayer != nil {
+						e.sendToPlayer(p.FirstName, []string{fmt.Sprintf("The poison courses through your veins! [-%d BP, %d/%d]", lvl, p.BodyPoints, p.MaxBodyPoints)})
+					}
+				}
 			}
-			changed = true
-			if e.sendToPlayer != nil {
-				e.sendToPlayer(p.FirstName, []string{fmt.Sprintf("The poison courses through your veins! [-%d BP, %d/%d]", lvl, p.BodyPoints, p.MaxBodyPoints)})
+		}
+
+		// Bleeding damage (from unhealed slash/puncture wounds)
+		if p.Bleeding && !died {
+			total := 0
+			for _, w := range p.Wounds {
+				if w.Bleeding {
+					total += woundBleedDrainPerMinute(w.Level)
+				}
+			}
+			if total > 0 {
+				if wasUnconsciousAtZero {
+					died = true
+					changed = true
+					if e.sendToPlayer != nil {
+						e.sendToPlayer(p.FirstName, e.handlePlayerDeath(p, "blood loss"))
+					}
+				} else {
+					p.BodyPoints -= total
+					if p.BodyPoints <= 0 {
+						p.BodyPoints = 0
+						p.Unconscious = true
+						p.Position = 2
+						changed = true
+						if e.sendToPlayer != nil {
+							e.sendToPlayer(p.FirstName, []string{
+								fmt.Sprintf("Your wounds bleed! [-%d BP, %d/%d]", total, p.BodyPoints, p.MaxBodyPoints),
+								"You collapse, unconscious!",
+							})
+						}
+					} else {
+						changed = true
+						if e.sendToPlayer != nil {
+							e.sendToPlayer(p.FirstName, []string{fmt.Sprintf("Your wounds bleed! [-%d BP, %d/%d]", total, p.BodyPoints, p.MaxBodyPoints)})
+						}
+					}
+				}
 			}
 		}
 
 		// Disease damage
-		if p.Diseased {
+		if p.Diseased && !died {
 			lvl := p.DiseaseLevel
 			if lvl < 1 {
 				lvl = 1
 			}
-			p.BodyPoints -= lvl
-			if p.BodyPoints < 0 {
-				p.BodyPoints = 0
+			if wasUnconsciousAtZero {
+				died = true
+				changed = true
+				if e.sendToPlayer != nil {
+					e.sendToPlayer(p.FirstName, e.handlePlayerDeath(p, "disease"))
+				}
+			} else {
+				p.BodyPoints -= lvl
+				if p.BodyPoints <= 0 {
+					p.BodyPoints = 0
+					p.Unconscious = true
+					p.Position = 2
+					changed = true
+					if e.sendToPlayer != nil {
+						e.sendToPlayer(p.FirstName, []string{
+							fmt.Sprintf("The sickness ravages your body! [-%d BP, %d/%d]", lvl, p.BodyPoints, p.MaxBodyPoints),
+							"You collapse, unconscious!",
+						})
+					}
+				} else {
+					changed = true
+					if e.sendToPlayer != nil {
+						e.sendToPlayer(p.FirstName, []string{fmt.Sprintf("The sickness ravages your body! [-%d BP, %d/%d]", lvl, p.BodyPoints, p.MaxBodyPoints)})
+					}
+				}
 			}
+		}
+
+		if died {
+			if changed {
+				e.SavePlayer(context.Background(), p)
+			}
+			continue
+		}
+
+		// Coming out of unconsciousness naturally (regen ticked them back above 0
+		// without anyone's help) — healing spells and TEND wake the player immediately
+		// themselves; this is the passive fallback.
+		if wakeMsg := wakeFromUnconscious(p); wakeMsg != "" {
 			changed = true
 			if e.sendToPlayer != nil {
-				e.sendToPlayer(p.FirstName, []string{fmt.Sprintf("The sickness ravages your body! [-%d BP, %d/%d]", lvl, p.BodyPoints, p.MaxBodyPoints)})
+				e.sendToPlayer(p.FirstName, []string{wakeMsg})
+			}
+			if e.roomBroadcast != nil {
+				e.roomBroadcast(p.RoomNumber, []string{fmt.Sprintf("%s stirs and regains consciousness.", p.FirstName)})
 			}
 		}
 

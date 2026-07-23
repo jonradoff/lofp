@@ -3689,7 +3689,7 @@ ITEM 1 448 ADJ1=1345
 ITEM 2 249
 ;MAT
 ITEM 3 376 ADJ1=443
-ITEM 4 943 VAL2=2000 ; Door to Home
+ITEM 4 943 VAL2=2000 VAL3=1234 ; Door to Home
 *DESCRIPTION_START ITEM EXAM 2
 It's impossible to see through the window because of all the dog and kitty
 "licks" all over it.

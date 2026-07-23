@@ -27,6 +27,8 @@ func (e *GameEngine) processGMCommand(ctx context.Context, player *Player, verb 
 		return e.gmGive(ctx, player, args)
 	case "@TAKE":
 		return e.gmTake(ctx, player, args)
+	case "@DUPE":
+		return e.gmDupe(player, args)
 	case "@DELETE":
 		return e.gmDelete(ctx, player, args)
 	case "@RDATA":
@@ -205,6 +207,8 @@ func (e *GameEngine) processGMCommand(ctx context.Context, player *Player, verb 
 		return e.gmTrigCEvent(player, args)
 	case "@MASTERY":
 		return e.gmMastery(ctx, args)
+	case "@SPECIALIZE":
+		return e.gmSpecialize(ctx, args)
 	case "@WEATHER":
 		return e.gmWeather(player, args)
 	default:
@@ -225,10 +229,11 @@ func (e *GameEngine) gmHelp() *CommandResult {
 	return &CommandResult{Messages: []string{
 		"=== GM Commands (alphabetical) ===",
 		"@activate              - Activate a sedated monster",
-		"@additem <archnum>     - Add item to current room",
+		"@additem <archnum> [valN=x] [adjN=x] - Add item to current room",
 		"@announce <mode> <msg> - Announce (1=global 2=mindlink)",
 		"@close <item>          - Close item silently",
 		"@delete <item>         - Delete an item from the room",
+		"@dupe [#] <item>       - Duplicate an item you're carrying onto the ground",
 		"@echoplr <name> <text> - Echo text to a player",
 		"@edpl <name>           - Show/edit player fields",
 		"@edsk <name> <sk> <lv> - Set a player's skill level",
@@ -310,8 +315,8 @@ func (e *GameEngine) gmGo(ctx context.Context, player *Player, args []string) *C
 	e.SavePlayer(ctx, player)
 	result := e.doLook(player)
 	result.Messages = append([]string{fmt.Sprintf("Teleported to room %d.", num)}, result.Messages...)
-	// Broadcast exit/entry echoes (invisible GMs are completely silent)
-	if !player.GMInvis {
+	// Broadcast exit/entry echoes (concealed GMs are completely silent)
+	if !player.IsConcealed() {
 		if player.ExitEcho != "" {
 			result.OldRoomMsg = []string{player.ExitEcho}
 		} else {
@@ -329,7 +334,7 @@ func (e *GameEngine) gmGo(ctx context.Context, player *Player, args []string) *C
 
 func (e *GameEngine) gmAddItem(ctx context.Context, player *Player, args []string) *CommandResult {
 	if len(args) < 1 {
-		return &CommandResult{Messages: []string{"Usage: @additem <archetype#>"}}
+		return &CommandResult{Messages: []string{"Usage: @additem <archetype#> [val1=N] [val2=N] [val3=N] [val4=N] [val5=N] [adj1=N] [adj2=N] [adj3=N]"}}
 	}
 	arch, err := strconv.Atoi(args[0])
 	if err != nil {
@@ -344,7 +349,40 @@ func (e *GameEngine) gmAddItem(ctx context.Context, player *Player, args []strin
 		return &CommandResult{Messages: []string{"You are nowhere."}}
 	}
 	ri := gameworld.RoomItem{Archetype: arch, Ref: len(room.Items)}
+	for _, arg := range args[1:] {
+		parts := strings.SplitN(arg, "=", 2)
+		if len(parts) != 2 {
+			continue
+		}
+		val, err := strconv.Atoi(parts[1])
+		if err != nil {
+			continue
+		}
+		switch strings.ToUpper(parts[0]) {
+		case "ADJ1":
+			ri.Adj1 = val
+		case "ADJ2":
+			ri.Adj2 = val
+		case "ADJ3":
+			ri.Adj3 = val
+		case "VAL1":
+			ri.Val1 = val
+		case "VAL2":
+			ri.Val2 = val
+		case "VAL3":
+			ri.Val3 = val
+		case "VAL4":
+			ri.Val4 = val
+		case "VAL5":
+			ri.Val5 = val
+		}
+	}
 	room.Items = append(room.Items, ri)
+	e.notifyRoomChange(RoomChange{
+		RoomNumber: room.Number,
+		Type:       "item_add",
+		Item:       &ri,
+	})
 	name := e.getItemNounName(itemDef)
 	return &CommandResult{Messages: []string{fmt.Sprintf("Added %s (archetype %d) to the room.", name, arch)}}
 }
@@ -440,6 +478,82 @@ func (e *GameEngine) gmTake(ctx context.Context, player *Player, args []string) 
 		return &CommandResult{Messages: []string{fmt.Sprintf("You silently take %s from %s.", fullName, target.FullName())}}
 	}
 	return &CommandResult{Messages: []string{fmt.Sprintf("%s doesn't have that.", target.FullName())}}
+}
+
+// gmDupe creates an exact duplicate of an item the GM is carrying (wielded, off-hand,
+// worn, or in inventory) and places the copy on the ground in the GM's current room.
+// The original is untouched. All per-instance fields — adjectives, VAL1-5, sharpness,
+// hardness mod, item bits, state, tail, and (for an open container) contents — are
+// copied onto the new room item.
+//
+// Usage: @dupe [#] [adjectives] <item name>
+//
+//	@dupe robe                          — duplicate the robe onto the ground
+//	@dupe ruby studded silver ring      — duplicate by adjective + noun
+//	@dupe 2 silver ring                 — duplicate the 2nd matching silver ring
+func (e *GameEngine) gmDupe(player *Player, args []string) *CommandResult {
+	if len(args) < 1 {
+		return &CommandResult{Messages: []string{"Usage: @dupe [#] <item name>"}}
+	}
+	room := e.rooms[player.RoomNumber]
+	if room == nil {
+		return &CommandResult{Messages: []string{"You are nowhere."}}
+	}
+
+	itemName := strings.ToLower(strings.Join(args, " "))
+	itemName, skip := parseOrdinal(itemName)
+
+	// Search order mirrors @editem: wielded, off-hand, worn, then inventory.
+	var candidates []*InventoryItem
+	if player.Wielded != nil {
+		candidates = append(candidates, player.Wielded)
+	}
+	if player.OffHand != nil {
+		candidates = append(candidates, player.OffHand)
+	}
+	for i := range player.Worn {
+		candidates = append(candidates, &player.Worn[i])
+	}
+	for i := range player.Inventory {
+		candidates = append(candidates, &player.Inventory[i])
+	}
+
+	for _, ii := range candidates {
+		itemDef := e.items[ii.Archetype]
+		if itemDef == nil {
+			continue
+		}
+		name := e.getItemNounName(itemDef)
+		if !matchesTarget(name, itemName, e.getAdjName(ii.Adj1), e.getAdjName(ii.Adj2), e.getAdjName(ii.Adj3)) {
+			continue
+		}
+		if skip > 0 {
+			skip--
+			continue
+		}
+
+		dupe := gameworld.RoomItem{
+			Ref:       nextRoomItemRef(room),
+			Archetype: ii.Archetype,
+			Adj1:      ii.Adj1, Adj2: ii.Adj2, Adj3: ii.Adj3,
+			Val1: ii.Val1, Val2: ii.Val2, Val3: ii.Val3, Val4: ii.Val4, Val5: ii.Val5,
+			Sharpness:   ii.Sharpness,
+			HardnessMod: ii.HardnessMod,
+			ItemBits:    ii.ItemBits,
+			State:       ii.State,
+			Extend:      ii.Tail,
+		}
+		if isContainerDef(itemDef) && len(ii.Contents) > 0 {
+			// Copy the slice so mutating the duplicate's contents can't alias the original.
+			e.roomContainerSet(room.Number, dupe.Ref, append([]InventoryItem(nil), ii.Contents...))
+		}
+		room.Items = append(room.Items, dupe)
+		e.notifyRoomChange(RoomChange{RoomNumber: room.Number, Type: "item_add", Item: &dupe})
+
+		fullName := e.formatItemName(itemDef, ii.Adj1, ii.Adj2, ii.Adj3, ii.Tail)
+		return &CommandResult{Messages: []string{fmt.Sprintf("You duplicate %s and set the copy on the ground.", fullName)}}
+	}
+	return &CommandResult{Messages: []string{"You don't have that."}}
 }
 
 func (e *GameEngine) gmDelete(ctx context.Context, player *Player, args []string) *CommandResult {
@@ -540,10 +654,20 @@ func (e *GameEngine) gmRData(player *Player, args []string) *CommandResult {
 	for _, ri := range room.Items {
 		itemDef := e.items[ri.Archetype]
 		name := "???"
+		var flags []string
 		if itemDef != nil {
 			name = e.formatItemName(itemDef, ri.Adj1, ri.Adj2, ri.Adj3, ri.Extend)
+			flags = itemDef.Flags
 		}
 		msgs = append(msgs, fmt.Sprintf("  Ref=%d Arch=%d %s", ri.Ref, ri.Archetype, name))
+		// Adj1-3/Val1-5/State are per-instance data (e.g. a door's Val3 lock code, which
+		// must match a key's Val3 for LOCK/UNLOCK to accept it — see findKey) that isn't
+		// visible anywhere else for room items, unlike @iexamine for inventory items.
+		msgs = append(msgs, fmt.Sprintf("    Adj1=%d Adj2=%d Adj3=%d | Val1=%d Val2=%d Val3=%d Val4=%d Val5=%d | State=%q",
+			ri.Adj1, ri.Adj2, ri.Adj3, ri.Val1, ri.Val2, ri.Val3, ri.Val4, ri.Val5, ri.State))
+		if len(flags) > 0 {
+			msgs = append(msgs, fmt.Sprintf("    Flags: %s", strings.Join(flags, ", ")))
+		}
 	}
 	if room.MonsterGroup > 0 {
 		msgs = append(msgs, fmt.Sprintf("Monster Group: %d", room.MonsterGroup))
@@ -564,6 +688,7 @@ func (e *GameEngine) gmHeal(ctx context.Context, player *Player, args []string) 
 	target.Fatigue = target.MaxFatigue
 	target.Mana = target.MaxMana
 	target.Psi = target.MaxPsi
+	target.Wounds = nil
 	target.Bleeding = false
 	target.Stunned = false
 	target.Diseased = false
@@ -572,6 +697,7 @@ func (e *GameEngine) gmHeal(ctx context.Context, player *Player, args []string) 
 	target.PoisonLevel = 0
 	target.Unconscious = false
 	target.Dead = false
+	target.Position = 0
 	e.SavePlayer(ctx, target)
 	return &CommandResult{Messages: []string{fmt.Sprintf("Healed %s to full.", target.FullName())}}
 }
@@ -583,6 +709,7 @@ func (e *GameEngine) gmKill(ctx context.Context, player *Player, args []string) 
 	}
 	target.BodyPoints = 0
 	target.Dead = true
+	target.Unconscious = false
 	target.CombatTarget = nil
 	target.Joined = false
 	target.Position = 2 // laying down
@@ -744,7 +871,7 @@ func (e *GameEngine) gmGenMon(player *Player, args []string) *CommandResult {
 		return &CommandResult{Messages: []string{fmt.Sprintf("Monster %d does not exist.", num)}}
 	}
 	name := FormatMonsterName(mon, e.monAdjs)
-	e.monsterMgr.SpawnOne(num, player.RoomNumber, mon.Body)
+	e.monsterMgr.SpawnOne(num, player.RoomNumber, mon.Body, mon.Mana)
 	e.monsterMgr.SetSedated(e.monsterMgr.lastSpawnedID(), true)
 	e.Events.Publish("monster", fmt.Sprintf("GM %s generated %s (sedated) in room %d", player.FirstName, name, player.RoomNumber))
 	return &CommandResult{Messages: []string{fmt.Sprintf("Generated %s (sedated) in room %d.", name, player.RoomNumber)}}
@@ -763,7 +890,7 @@ func (e *GameEngine) gmSpawn(player *Player, args []string) *CommandResult {
 		return &CommandResult{Messages: []string{fmt.Sprintf("Monster %d does not exist.", num)}}
 	}
 	name := FormatMonsterName(mon, e.monAdjs)
-	e.monsterMgr.SpawnOne(num, player.RoomNumber, mon.Body)
+	e.monsterMgr.SpawnOne(num, player.RoomNumber, mon.Body, mon.Mana)
 	e.Events.Publish("monster", fmt.Sprintf("GM %s spawned %s (active) in room %d", player.FirstName, name, player.RoomNumber))
 	// Broadcast the monster's arrival to the room
 	genText := mon.TextOverrides["TEXG"]
@@ -1598,6 +1725,18 @@ func (e *GameEngine) gmSetOnPlayer(ctx context.Context, player *Player, args []s
 		player.MaxPsi = val
 	case varName == "GENDER":
 		player.Gender = val
+	case varName == "AGE":
+		// Age/AgeTrue always move together — nothing in the engine currently makes
+		// displayed age diverge from true age, so a GM edit shouldn't create a
+		// mismatch either.
+		player.Age = val
+		player.AgeTrue = val
+	case varName == "HEIGHT":
+		player.Height = val
+		player.HeightTrue = val
+	case varName == "WEIGHT":
+		player.Weight = val
+		player.WeightTrue = val
 	case varName == "ROUNDTIME":
 		player.RoundTime = val
 	case varName == "SPELLNUM":
@@ -1622,6 +1761,13 @@ func (e *GameEngine) gmSetOnPlayer(ctx context.Context, player *Player, args []s
 		}
 		player.IntNums[idx] = val
 	default:
+		// Check named global variables (DANWATER, montessia, etc.) — mirrors the same
+		// fallback @peek already has for reading them.
+		if e.namedVarNames[varName] {
+			e.NamedVars[varName] = val
+			e.SavePlayer(ctx, player)
+			return &CommandResult{Messages: []string{fmt.Sprintf("Set %s = %d", varName, val)}}
+		}
 		return &CommandResult{Messages: []string{fmt.Sprintf("Unknown variable: %s", varName)}}
 	}
 	e.SavePlayer(ctx, player)
@@ -1697,7 +1843,7 @@ func (e *GameEngine) gmGoPlr(ctx context.Context, player *Player, args []string)
 	e.SavePlayer(ctx, player)
 	result := e.doLook(player)
 	result.Messages = append([]string{fmt.Sprintf("Teleported to %s (room %d).", target.FullName(), target.RoomNumber)}, result.Messages...)
-	if !player.GMInvis {
+	if !player.IsConcealed() {
 		if player.ExitEcho != "" {
 			result.OldRoomMsg = []string{player.ExitEcho}
 		} else {
@@ -1722,7 +1868,7 @@ func (e *GameEngine) gmAnswer(ctx context.Context, player *Player) *CommandResul
 	e.SavePlayer(ctx, player)
 	result := e.doLook(player)
 	result.Messages = append([]string{fmt.Sprintf("Answering %s's assist request. Teleported to room %d.", e.lastAssistName, e.lastAssistRoom)}, result.Messages...)
-	if !player.GMInvis {
+	if !player.IsConcealed() {
 		result.OldRoomMsg = []string{fmt.Sprintf("%s vanishes.", player.FirstName)}
 		result.RoomBroadcast = []string{fmt.Sprintf("%s appears.", player.FirstName)}
 	}
@@ -2248,7 +2394,7 @@ func (e *GameEngine) GetPlayer(ctx context.Context, firstName string) (*Player, 
 
 // allGMVerbs is the canonical list of all GM command verbs (with @ prefix).
 var allGMVerbs = []string{
-	"@HELP", "@GO", "@ADDITEM", "@GIVE", "@TAKE", "@DELETE", "@RDATA", "@HEAL", "@KILL", "@EXP",
+	"@HELP", "@GO", "@ADDITEM", "@GIVE", "@TAKE", "@DUPE", "@DELETE", "@RDATA", "@HEAL", "@KILL", "@EXP",
 	"@GM", "@RFLAG", "@HIDE", "@UNHIDE", "@INVIS", "@VIS",
 	"@SND", "@ANNOUNCE", "@BANNER", "@WHO", "@LWHO", "@NUM", "@QSTAT", "@PINV",
 	"@GENMON", "@SPAWN", "@ACTIVATE", "@SEDATE", "@ZAP", "@TREASURE",
@@ -2259,7 +2405,7 @@ var allGMVerbs = []string{
 	"@ENTRY", "@EXIT", "@SUGGEST", "@MSG", "@SAVE", "@RESTORE", "@REGISTER",
 	"@ASSIST?", "@OLDCOMP", "@EDITEM", "@EDN", "@GET", "@LOOK",
 	"@QUEUE", "@UNQUEUE",
-	"@MASTERY", "@WEATHER",
+	"@MASTERY", "@SPECIALIZE", "@WEATHER",
 }
 
 // resolveGMVerb resolves a GM command abbreviation to its canonical form.
@@ -2323,15 +2469,25 @@ func (e *GameEngine) formatFullItemDebug(item *InventoryItem, location string) s
 	}
 	hardness := ""
 	if def != nil && isWeaponItemType(def.Type) {
-		hardness = fmt.Sprintf("\n  Hardness=%d (Weapon Clash break-resistance)", e.weaponHardness(item, def))
+		hardness = fmt.Sprintf("\n  HardnessMod=%d | Hardness=%d (Weapon Clash break-resistance)", item.HardnessMod, e.weaponHardness(item, def))
+	}
+	bits := ""
+	if item.ItemBits != 0 {
+		var set []string
+		for i := 0; i <= 19; i++ {
+			if item.ItemBits&(1<<i) != 0 {
+				set = append(set, strconv.Itoa(i))
+			}
+		}
+		bits = fmt.Sprintf("\n  ItemBits=%d (set: %s)", item.ItemBits, strings.Join(set, ", "))
 	}
 	return fmt.Sprintf("%s: %s (arch=%d)\n"+
 		"  Adj1=%s | Adj2=%s | Adj3=%s\n"+
-		"  Val1=%d Val2=%d Val3=%d Val4=%d Val5=%d Sharpness=%d%s%s%s%s",
+		"  Val1=%d Val2=%d Val3=%d Val4=%d Val5=%d Sharpness=%d%s%s%s%s%s",
 		location, baseName, item.Archetype,
 		adj1, adj2, adj3,
 		item.Val1, item.Val2, item.Val3, item.Val4, item.Val5, item.Sharpness,
-		state, tail, examineDesc, hardness)
+		state, tail, examineDesc, hardness, bits)
 }
 
 // gmEdItem implements @editem / @edn.
@@ -2345,8 +2501,9 @@ func (e *GameEngine) formatFullItemDebug(item *InventoryItem, location string) s
 //       — edit an item in another player's inventory / wielded / worn
 //
 // <item>  : partial name match (same as @iexamine)
-// <field> : adj1 adj2 adj3 val1 val2 val3 val4 val5 sharpness state
+// <field> : adj1 adj2 adj3 val1 val2 val3 val4 val5 sharpness hardnessmod state
 //           archetype  (dangerous but allowed)
+//           itembit0 .. itembit19  (per-instance boolean flags, ITEMBIT# in scripts)
 //           flag+<FLAG>  flag-<FLAG>   (add / remove a flag on the archetype def)
 // <value> : integer for numeric fields, string for state / flags
 //
@@ -2356,16 +2513,20 @@ func (e *GameEngine) formatFullItemDebug(item *InventoryItem, location string) s
 //   @editem robe state OPEN
 //   @editem robe flag+DYEABLE
 //   @editem robe flag-DYEABLE
+//   @editem sword hardnessmod 20
 //   @editem Moryan robe val1 1
+//   @editem Moryan ring itembit0 1
 func (e *GameEngine) gmEdItem(ctx context.Context, gmPlayer *Player, args []string, rawInput string) *CommandResult {
 
 	// --- usage guard ---
 	const usage = "Usage: @editem [player] <item> <field> <value>\n" +
-		"  Fields: adj1 adj2 adj3  val1-val5  sharpness  state  tail  archetype  flag+FLAG / flag-FLAG\n" +
+		"  Fields: adj1 adj2 adj3  val1-val5  sharpness  hardnessmod  state  tail  archetype  itembit0-itembit19  flag+FLAG / flag-FLAG\n" +
 		"  Example: @editem robe val1 1\n" +
 		"  Example: @editem Moryan robe adj2 47\n" +
+		"  Example: @editem sword hardnessmod 20  (Weapon Clash break-resistance bonus)\n" +
 		"  Example: @editem gloves tail lined with palest pink silk\n" +
-		"  Example: @editem gloves tail -  (clears the tail)"
+		"  Example: @editem gloves tail -  (clears the tail)\n" +
+		"  Example: @editem Moryan ring itembit0 1  (grants War Room access on a Crimson Band ring)"
 
 	if len(args) < 3 {
 		return &CommandResult{Messages: []string{usage}}
@@ -2495,7 +2656,7 @@ func (e *GameEngine) gmEdItem(ctx context.Context, gmPlayer *Player, args []stri
 	// ---- integer fields ----
 	case field == "adj1", field == "adj2", field == "adj3",
 		field == "val1", field == "val2", field == "val3", field == "val4", field == "val5",
-		field == "sharpness", field == "archetype":
+		field == "sharpness", field == "hardnessmod", field == "archetype":
 
 		v, err := strconv.Atoi(valueStr)
 		if err != nil {
@@ -2521,6 +2682,8 @@ func (e *GameEngine) gmEdItem(ctx context.Context, gmPlayer *Player, args []stri
 			old, item.Val5 = item.Val5, v
 		case "sharpness":
 			old, item.Sharpness = item.Sharpness, v
+		case "hardnessmod":
+			old, item.HardnessMod = item.HardnessMod, v
 		case "archetype":
 			old, item.Archetype = item.Archetype, v
 		}
@@ -2582,8 +2745,30 @@ func (e *GameEngine) gmEdItem(ctx context.Context, gmPlayer *Player, args []stri
 			changeDesc = fmt.Sprintf("Removed flag %s from arch %d (%s)", flagName, item.Archetype, e.getItemNounName(def))
 		}
 
+	// ---- itembit0-itembit19 — per-instance boolean flag (ITEMBIT# in scripts) ----
+	case strings.HasPrefix(field, "itembit"):
+		idxStr := field[len("itembit"):]
+		idx, err := strconv.Atoi(idxStr)
+		if err != nil || idx < 0 || idx > 19 {
+			return &CommandResult{Messages: []string{fmt.Sprintf("'%s' is not a valid ITEMBIT field — use itembit0 through itembit19.", field)}}
+		}
+		v, err := strconv.Atoi(valueStr)
+		if err != nil {
+			return &CommandResult{Messages: []string{fmt.Sprintf("'%s' is not a valid integer (use 0 or 1).", valueStr)}}
+		}
+		old := 0
+		if item.ItemBits&(1<<idx) != 0 {
+			old = 1
+		}
+		if v != 0 {
+			item.ItemBits |= 1 << idx
+		} else {
+			item.ItemBits &^= 1 << idx
+		}
+		changeDesc = fmt.Sprintf("Set %s: ITEMBIT%d %d → %d", ref.label, idx, old, v)
+
 	default:
-		validFields := "adj1 adj2 adj3  val1 val2 val3 val4 val5  state  tail  archetype  flag+FLAG flag-FLAG"
+		validFields := "adj1 adj2 adj3  val1 val2 val3 val4 val5  state  tail  archetype  itembit0-itembit19  flag+FLAG flag-FLAG"
 		return &CommandResult{Messages: []string{
 			fmt.Sprintf("Unknown field '%s'. Valid fields: %s", field, validFields),
 		}}

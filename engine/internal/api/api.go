@@ -311,6 +311,7 @@ func (s *Server) setupRoutes() {
 	// Characters (authenticated)
 	api.HandleFunc("/characters", s.handleListCharacters).Methods("GET")
 	api.HandleFunc("/characters", s.handleCreateCharacter).Methods("POST")
+	api.HandleFunc("/characters/roll", s.handleRollCharacter).Methods("POST")
 	api.HandleFunc("/characters/{firstName}", s.handleDeleteCharacter).Methods("DELETE")
 	api.HandleFunc("/characters/{firstName}/gm", s.handleToggleGM).Methods("PUT")
 	api.HandleFunc("/characters/{firstName}/apikey", s.handleGenerateAPIKey).Methods("POST")
@@ -408,6 +409,64 @@ type CreateCharMsg struct {
 	LastName  string `json:"lastName"`
 	Race      int    `json:"race"`
 	Gender    int    `json:"gender"`
+
+	// Appearance is optional: an older/simpler client can omit it entirely and the
+	// engine will roll everything server-side. A client that ran the reroll/picker
+	// flow submits its accepted values here, which get validated in full before use.
+	Strength     int    `json:"strength,omitempty"`
+	Agility      int    `json:"agility,omitempty"`
+	Quickness    int    `json:"quickness,omitempty"`
+	Constitution int    `json:"constitution,omitempty"`
+	Perception   int    `json:"perception,omitempty"`
+	Willpower    int    `json:"willpower,omitempty"`
+	Empathy      int    `json:"empathy,omitempty"`
+	Height       int    `json:"height,omitempty"`
+	Weight       int    `json:"weight,omitempty"`
+	Age          int    `json:"age,omitempty"`
+	EyeColor     string `json:"eyeColor,omitempty"`
+	HairColor    string `json:"hairColor,omitempty"`
+	HairStyle    string `json:"hairStyle,omitempty"`
+	SkinColor    string `json:"skinColor,omitempty"`
+}
+
+// appearance builds a *engine.CharacterAppearance from the message fields, or nil
+// if none were provided at all (backward-compatible "roll everything" path).
+func (c *CreateCharMsg) appearance() *engine.CharacterAppearance {
+	a := &engine.CharacterAppearance{
+		Strength: c.Strength, Agility: c.Agility, Quickness: c.Quickness, Constitution: c.Constitution,
+		Perception: c.Perception, Willpower: c.Willpower, Empathy: c.Empathy,
+		Height: c.Height, Weight: c.Weight, Age: c.Age,
+		EyeColor: c.EyeColor, HairColor: c.HairColor, HairStyle: c.HairStyle, SkinColor: c.SkinColor,
+	}
+	if a.IsEmpty() {
+		return nil
+	}
+	return a
+}
+
+// RollCharacterRequest is the body for POST /characters/roll.
+type RollCharacterRequest struct {
+	Race   int `json:"race"`
+	Gender int `json:"gender"`
+}
+
+func (s *Server) handleRollCharacter(w http.ResponseWriter, r *http.Request) {
+	accountID := s.getAccountID(r)
+	if accountID == "" {
+		http.Error(w, "unauthorized", 401)
+		return
+	}
+	var req RollCharacterRequest
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		http.Error(w, "invalid request", 400)
+		return
+	}
+	if req.Race < 1 || req.Race > 8 || (req.Gender != engine.GenderMale && req.Gender != engine.GenderFemale) {
+		http.Error(w, "invalid race or gender", 400)
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(engine.RollCharacterAppearance(req.Race, req.Gender))
 }
 
 type AuthMsg struct {
@@ -670,7 +729,14 @@ func (s *Server) handleGameWS(w http.ResponseWriter, r *http.Request) {
 					session.Conn.SendTypedMessage("error", map[string]interface{}{"message": "You can have at most 8 characters per account."})
 					continue
 				}
-				player = s.engine.CreateNewPlayer(ctx, create.FirstName, create.LastName, create.Race, create.Gender, accountID)
+				appearance := create.appearance()
+				if appearance != nil {
+					if err := engine.ValidateCharacterAppearance(create.Race, create.Gender, appearance); err != nil {
+						session.Conn.SendTypedMessage("error", map[string]interface{}{"message": err.Error()})
+						continue
+					}
+				}
+				player = s.engine.CreateNewPlayer(ctx, create.FirstName, create.LastName, create.Race, create.Gender, appearance, accountID)
 				s.gamelog.Log(gamelog.EventCharacterCreate, player.FullName(), accountID,
 					fmt.Sprintf("Race: %s, Gender: %d", player.RaceName(), player.Gender),
 					player.RoomNumber, "")
@@ -1606,7 +1672,16 @@ func (s *Server) handleCreateCharacter(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(map[string]string{"error": "That first name is already taken. Please choose another."})
 		return
 	}
-	player := s.engine.CreateNewPlayer(r.Context(), req.FirstName, req.LastName, req.Race, req.Gender, accountID)
+	appearance := req.appearance()
+	if appearance != nil {
+		if err := engine.ValidateCharacterAppearance(req.Race, req.Gender, appearance); err != nil {
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(400)
+			json.NewEncoder(w).Encode(map[string]string{"error": err.Error()})
+			return
+		}
+	}
+	player := s.engine.CreateNewPlayer(r.Context(), req.FirstName, req.LastName, req.Race, req.Gender, appearance, accountID)
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(player)
 }

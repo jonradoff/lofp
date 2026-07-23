@@ -9,6 +9,222 @@ export default function VersionNotes({ onBack }: { onBack: () => void }) {
 
         <div className="space-y-6 text-sm">
           <section>
+            <h2 className="text-amber-400 text-lg font-bold mb-1">v11.17.0 &mdash; July 22, 2026</h2>
+            <p className="text-gray-400 mb-3">Doors and gates now stay in sync from both sides of the doorway, a fully rebuilt ITEMBIT flag system that was silently broken since launch, two revived-from-the-dead spells, and a new GM item-duplication command.</p>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Doors &amp; Locks</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li><code className="text-amber-300">LOCK</code>/<code className="text-amber-300">UNLOCK</code> now number room items the same way <code className="text-amber-300">OPEN</code>/<code className="text-amber-300">CLOSE</code>/<code className="text-amber-300">TAP</code> already did &mdash; previously they only counted the <em>lockable</em> items in a room when resolving an ordinal, so in a room with two doors, &ldquo;<code className="text-amber-300">lock 2 door</code>&rdquo; could silently miss the door you meant</li>
+                  <li>Locking, unlocking, opening, or closing a door or gate now mirrors the same change onto its paired door in the room on the other side, and echoes an ambient message there (&ldquo;You see a door open.&rdquo;, &ldquo;You hear a door lock.&rdquo;, etc.) &mdash; previously the two sides could fall out of sync (unlock from one side, walk through, lock from the other &mdash; the first side stayed unlocked)</li>
+                  <li><code className="text-amber-300">LOCK</code>/<code className="text-amber-300">UNLOCK</code>/<code className="text-amber-300">OPEN</code>/<code className="text-amber-300">CLOSE</code> now also announce to your own room (&ldquo;Chandra locks a door.&rdquo;) &mdash; previously these actions were completely silent to anyone standing right there</li>
+                  <li><code className="text-amber-300">LOCK</code> now refuses to lock an open door (&ldquo;You must close &lt;door&gt; first.&rdquo;) instead of silently forcing it closed for you</li>
+                  <li><code className="text-amber-300">@rdata</code> now shows full per-item detail (adjectives, VAL1&ndash;5, state, flags) for every item in a room instead of just its name &mdash; the only way to actually verify a door and its key share the same lock code (VAL3)</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">ITEMBIT System</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>ITEMBIT0&ndash;19, the per-item boolean flag system documented in the GM Manual, was never actually wired up &mdash; reading a flag collided with VAL4 (which has its own unrelated meaning), and writing one (<code className="text-amber-300">EQUAL ITEMBIT#</code>) was a silent no-op everywhere. Both now work correctly, backed by a real dedicated field</li>
+                  <li>This fixes any script that was quietly relying on an ITEMBIT check and getting nothing &mdash; including the Crimson Band ring&rsquo;s War Room access check at the tapestry in the Hallway of Warriors</li>
+                  <li><code className="text-amber-300">@editem</code> can now set <code className="text-amber-300">itembit0</code> through <code className="text-amber-300">itembit19</code> on an item</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Spells</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Pyrotechnics (Conjuration 141) was incorrectly dealing damage; it&rsquo;s now the harmless fireworks display it always should have been &mdash; casting it launches a volley that, over the following minute, treats every outdoor player in your region to one of 12 random firework displays roughly every 15 seconds</li>
+                  <li>Mindlink (403) didn&rsquo;t do anything when cast; it now grants <code className="text-amber-300">THINK</code> (telepathic speech) for an hour, the same effect as eating a thesnia leaf or drinking a thesnia potion &mdash; castable on yourself or another player in the room</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">New GM Command</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li><code className="text-amber-300">@dupe [#] &lt;item&gt;</code> &mdash; duplicates an item you&rsquo;re wielding, wearing, or carrying and places the copy on the ground, including its adjectives, VAL1&ndash;5, sharpness, hardness modifier, item bits, and (for an open container) its contents</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Fixes</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li><code className="text-amber-300">IFCARRY</code> now also checks worn items, not just loose inventory &mdash; scripts gating on a worn ring, amulet, etc. were failing even when you had the item on</li>
+                  <li>Fixed a data bug across five Fayd script files (the base room plus all four seasonal variants) where a value edit (<code className="text-amber-300">VAL3=1234</code>) glued directly against a trailing comment with no space was silently dropped by the parser &mdash; also removed a stray duplicate, unedited copy of the same door item left over in the spring script</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2 className="text-amber-400 text-lg font-bold mb-1">v11.16.0 &mdash; July 21, 2026</h2>
+            <p className="text-gray-400 mb-3">Unconsciousness replaces instant death at 0 body points, a real monster stun/knockdown system, a game-wide fix for delayed scripted sequences silently dropping, and a new reroll charm for legacy characters.</p>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Death &amp; Unconsciousness</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Dropping to exactly 0 body points from a weapon hit or spell now knocks you unconscious (laying down, out cold, same presentation as being put to sleep) instead of killing you outright &mdash; only a hit that would drive you below 0 is lethal</li>
+                  <li>Bleeding, poison, and disease never kill outright on the tick that first drops you to 0 &mdash; you&rsquo;re knocked unconscious instead, giving someone else a chance to <code className="text-amber-300">TEND</code> you or cast Body Restoration/Cure Poison/Cure Disease. If the same condition is still active and you&rsquo;re still unconscious at 0 when it ticks again, that tick is lethal</li>
+                  <li>Unconscious players are locked out of every command except <code className="text-amber-300">LOOK</code>/<code className="text-amber-300">WHO</code>/<code className="text-amber-300">QUIT</code>/<code className="text-amber-300">STATUS</code>/<code className="text-amber-300">HEALTH</code>/<code className="text-amber-300">HELP</code> &mdash; no speech, no actions &mdash; until healed or natural regeneration brings them back above 0</li>
+                  <li>Room listings and <code className="text-amber-300">LOOK AT</code> now correctly show &ldquo;(unconscious)&rdquo;/&ldquo;is unconscious&rdquo; instead of lumping it in with ordinary &ldquo;lying down&rdquo;</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Monster Combat AI</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Stun from an excellent hit is now a real timed status (3&ndash;6 seconds) that actually blocks a monster from attacking, moving, or fleeing for its whole duration &mdash; previously it only skipped exactly one action before immediately resuming as normal</li>
+                  <li>New Knocked Down status &mdash; an alternative outcome to stun on an excellent hit (50/50 split) &mdash; costs a monster one full turn getting back on its feet before it can act again, the same way a monster already had to stand up after being put to sleep</li>
+                  <li>A monster that bleeds to death (or dies to Siryx&rsquo;s Terrible Tentacles) now correctly awards kill experience to whoever landed the last hit, split evenly among their group if they&rsquo;re grouped with others who aren&rsquo;t hidden or invisible &mdash; previously a bleed-out death awarded no experience to anyone at all</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Fixes</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Fixed a game-wide bug where a scripted item&rsquo;s delayed continuation (<code className="text-amber-300">PLREVENT</code>/<code className="text-amber-300">CONTPLREVENT</code>) was silently dropped after the first pause in <code className="text-amber-300">RUB</code>/<code className="text-amber-300">TAP</code>/<code className="text-amber-300">TOUCH</code>/<code className="text-amber-300">PULL</code>/<code className="text-amber-300">PUSH</code>/<code className="text-amber-300">TURN</code>/<code className="text-amber-300">SEARCH</code>/<code className="text-amber-300">DIG</code>, <code className="text-amber-300">WORK</code>, <code className="text-amber-300">EAT</code>, <code className="text-amber-300">DRINK</code>, <code className="text-amber-300">FLIP</code>, <code className="text-amber-300">READ</code>, <code className="text-amber-300">GET</code>, <code className="text-amber-300">LOOK</code>/<code className="text-amber-300">EXAMINE</code>, <code className="text-amber-300">GO</code>, <code className="text-amber-300">STEAL</code>, and <code className="text-amber-300">CLIMB</code> &mdash; any multi-stage scripted sequence using a delay (e.g. a fountain&rsquo;s dawn-triggered dance) would just stop after its first line</li>
+                  <li>Fixed a related bug where putting an item into a scripted container/device (e.g. a garment-finishing contraption) discarded the item&rsquo;s own adjectives/values before its script ran, breaking material checks, and where the device&rsquo;s success branch never actually ran because it wasn&rsquo;t recognized as having &ldquo;handled&rdquo; the action</li>
+                  <li>Weather no longer shows Snow Flurries through Blizzard during Summer while reporting a warm temperature &mdash; the weather-type simulation previously had no concept of season at all</li>
+                  <li>Keys no longer falsely open a lock that was never assigned a code &mdash; both sides defaulting to an unset value no longer counts as a match</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Drakin</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Drakin now have natural scale armor that strengthens with level (since they can&rsquo;t wear armor at all), and take 25% additional damage from heat and cold &mdash; both documented racial traits that were never actually implemented</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">New Item</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Reroll charm &mdash; a GM-distributed item for characters created before stat rerolling existed at character creation. <code className="text-amber-300">RUB</code> it to preview a fresh set of stats as many times as you like, then <code className="text-amber-300">CONCENTRATE</code> on it to lock them in; it crumbles to dust once used</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">GM Tools</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li><code className="text-amber-300">@set</code> can now edit a player&rsquo;s <code className="text-amber-300">AGE</code>, <code className="text-amber-300">HEIGHT</code>, and <code className="text-amber-300">WEIGHT</code>, and can now write any named script variable (e.g. quest flags) the same way <code className="text-amber-300">@peek</code> could already read them</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">New Characters</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Starting gold raised from 5 to 20</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2 className="text-amber-400 text-lg font-bold mb-1">v11.15.0 &mdash; July 20, 2026</h2>
+            <p className="text-gray-400 mb-3">Character creation overhaul &mdash; age, eye/hair/skin appearance, and a reroll-until-you&rsquo;re-happy stat system, plus <code className="text-amber-300">STAT</code> and <code className="text-amber-300">EXAMINE</code> rebuilt to match the original game&rsquo;s output, and a scripting bug fix.</p>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Character Creation</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>New characters now roll Age, and choose Eye Color, Skin Color, Hair Style and Hair Color from wide fantasy-appropriate lists (12 hair styles including a Bald option that skips hair color entirely) &mdash; available on the web client, telnet, and SSH</li>
+                  <li>Stats (Strength/Agility/Quickness/Constitution/Perception/Willpower/Empathy) plus Height/Weight/Age can now be rerolled as many times as you like before locking them in, matching the original game&rsquo;s &ldquo;reroll until you like what you see&rdquo; character creation &mdash; still respects each race&rsquo;s stat ranges</li>
+                  <li>Fixed a telnet/SSH bug where choosing &ldquo;1) Male&rdquo; at character creation actually created a Female character internally, and choosing &ldquo;2) Female&rdquo; was rejected outright</li>
+                  <li>Existing characters created before this update are seamlessly backfilled with a rolled Age and appearance the next time they log in</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">STAT &amp; EXAMINE</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li><code className="text-amber-300">STAT</code> reformatted to match the original layout, verified against a 1996 session capture &mdash; guild rank/title shown first (e.g. &ldquo;You are a high master of the Crimson Band.&rdquo;), followed by Name/Race/Gender, Level, build points, stats grouped Quickness/Constitution/Strength/Agility and Willpower/Perception/Empathy, an Age/Height/Weight/Load line, and (previously missing entirely) Body Points/Mana/Psi/Fatigue</li>
+                  <li><code className="text-amber-300">EXAMINE</code> (on yourself or another player) now builds a real physical description from your stats and appearance choices, e.g. &ldquo;You see Shirla Rennay, a young female aelfen. She is tall, light weight and robust. She has blue eyes, fair skin and long, flowing golden blond hair.&rdquo; &mdash; height/weight/build descriptors are derived from your actual stats rather than being random</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Fixes</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Fixed item scripts with a verb-gated block nested inside a value-setting <code className="text-amber-300">IFVAR</code> tree (like the lens of worlds&rsquo; <code className="text-amber-300">SHOWROOM</code> preview) firing on <em>any</em> interaction instead of only the intended verb &mdash; e.g. <code className="text-amber-300">POINT</code>ing at the lens no longer shows the hidden room it&rsquo;s only supposed to reveal on <code className="text-amber-300">EXAMINE</code></li>
+                  <li>Other players now see &ldquo;&lt;name&gt; incants a spell.&rdquo; when someone prepares a spell, instead of &ldquo;begins preparing a spell&rdquo;</li>
+                  <li>Rorin&rsquo;s Fire now has its own cast flavor text (a wave of red and orange flame that hisses and constricts &ldquo;like a snake&rdquo;) instead of the generic fire-bolt message</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2 className="text-amber-400 text-lg font-bold mb-1">v11.14.0 &mdash; July 19, 2026</h2>
+            <p className="text-gray-400 mb-3">Combat hit messages rebuilt with proper single-word severity descriptors and special elemental death flavor text, plus a batch of crash and quest-blocking fixes and a new weapon hardness modifier for GMs.</p>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Combat Messages</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Hit messages now show a proper single capitalized severity word (e.g. &ldquo;Minor burn to right leg. [17 Damage]&rdquo;) instead of the multi-word, lowercase persistent-wound vocabulary meant for the <code className="text-amber-300">HEALTH</code> command (e.g. &ldquo;slightly lacerated slash to right arm&rdquo;)</li>
+                  <li>Severity is now correctly based on damage as a percentage of the target&rsquo;s max body points, matching original session-log evidence &mdash; the same raw damage number can be &ldquo;Minor&rdquo; against a tough monster and &ldquo;Ghastly&rdquo; against a weak one</li>
+                  <li>A killing blow from a cold or heat spell (or a weapon&rsquo;s elemental crit) now shows a special description of the death itself &mdash; e.g. &ldquo;Chilly body barrage solidifies muscle tissue.&rdquo; or &ldquo;Dazzling explosive display carbonizes bones and flesh.&rdquo; &mdash; in place of the normal severity/damage line, matching original wording</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">GM Tools</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li><code className="text-amber-300">@additem &lt;archetype#&gt; [val1=N] &hellip; [adj1=N] &hellip;</code> now accepts value/adjective modifiers when spawning an item, so quest items that depend on a specific starting value (e.g. the lens of worlds) can actually be set up correctly for testing</li>
+                  <li>Weapons now have a GM-editable hardness modifier &mdash; <code className="text-amber-300">@editem &lt;weapon&gt; hardnessmod &lt;N&gt;</code> adjusts Weapon Clash break-resistance on top of the weapon&rsquo;s normal weight/adjective-based value, visible via <code className="text-amber-300">@iexamine</code>, and survives being dropped and picked back up</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Fixes</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Fixed a crash-causing bug where a portal script using <code className="text-amber-300">MOVEGROUP</code> (rather than <code className="text-amber-300">MOVE</code>) &mdash; like the hidden hole on Island &mdash; never actually moved anyone through, and could misroute its departure message to the wrong room</li>
+                  <li>Fixed a server crash when stepping through a secret passage revealed by <code className="text-amber-300">KNOCK</code>ing (e.g. the Matriarch Tree basement) &mdash; the passage script removing itself from the room after use could invalidate the room&rsquo;s item list out from under the very next line of code</li>
+                  <li>Invisible GMs no longer leak a script&rsquo;s room broadcast (e.g. a portal&rsquo;s custom &ldquo;goes through&rdquo; text) to other players when triggering it &mdash; matching the silence already applied to ordinary movement</li>
+                  <li>Fixed <code className="text-amber-300">GET</code> on an item with a non-blocking script (e.g. the lens of worlds&rsquo; first-touch binding ceremony, or a cursed item&rsquo;s magical backlash) never actually completing the pickup, and fixed a related crash when such a script destroys the item itself as a side effect (e.g. &ldquo;crumbles into dust&rdquo;)</li>
+                  <li><code className="text-amber-300">FLIP</code> now checks an item&rsquo;s own script before requiring it be physically flippable &mdash; fixes puzzle items like a combination-lock knob that only responds to a room-defined <code className="text-amber-300">FLIP</code> script</li>
+                  <li>When a monster dies, every player who was fighting it is now taken out of combat automatically &mdash; previously only the player who landed the killing blow was disengaged, leaving groupmates (or anyone who died to bleed-out rather than a direct hit) stuck needing to manually <code className="text-amber-300">RETREAT</code></li>
+                  <li>Wounds on undead players and monsters no longer bleed &mdash; they have no blood to lose</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2 className="text-amber-400 text-lg font-bold mb-1">v11.13.0 &mdash; July 17, 2026</h2>
+            <p className="text-gray-400 mb-3">New weapon specialization system, and a full hit-location damage &amp; wound-tracking overhaul &mdash; real bleeding, per-wound severity descriptions, and TEND reworked to heal wound-by-wound.</p>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">New Commands</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li><code className="text-amber-300">SPECIALIZE &lt;weapon&gt;</code> &mdash; spend build points to specialize in the weapon you&rsquo;re wielding (Crushing, Edged, Drakin, Polearms, or Thrown Weapons only; requires 10+ skill in that weapon&rsquo;s category). Each of the 5 ranks reduces the fatigue cost of attacking with that weapon by 1 (never below 1) and shifts 5% of your hit-location odds toward the head and body. <code className="text-amber-300">SPECIALIZE</code> alone lists your current specializations, and they now appear in the <code className="text-amber-300">SKILLS</code> table</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Combat &amp; Wounds</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Hits now land on a specific body part with real consequences &mdash; strikes to the head, body, or back deal full damage; arms and legs take 40%; hands, paws, and tails take 20% &mdash; derived from an original session-log analysis</li>
+                  <li>Wounds are now individually tracked on both players and monsters, each described with vocabulary matching the weapon that caused it &mdash; slash (nicked &rarr; cut &rarr; lacerated &rarr; gashed), puncture (pricked &rarr; stabbed &rarr; punctured &rarr; gored), crush (scuffed &rarr; bruised &rarr; battered &rarr; crushed &rarr; ruptured), and burn (singed &rarr; scorched &rarr; burned &rarr; charred) for heat/cold/electric damage &mdash; 12 severity levels each</li>
+                  <li>Slash and puncture wounds beyond the mildest two levels now cause real bleeding &mdash; body points drain away once a minute until the wound is treated, and can kill if ignored long enough, for both players and monsters</li>
+                  <li><code className="text-amber-300">HEALTH</code> and <code className="text-amber-300">EXAMINE</code> now describe accumulated wounds by location, e.g. &ldquo;You have a nicked head, a nicked body, a nicked and slightly punctured back&hellip;&rdquo;</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Healing</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li><code className="text-amber-300">TEND</code> no longer restores a flat chunk of body points &mdash; it removes one wound at a time, always the least severe first, healing exactly as many body points as that wound&rsquo;s severity level (same-race targets still get the existing +50% bonus)</li>
+                  <li>Higher Healing skill is required to treat more severe wounds &mdash; skill 20 can treat any severity, and a healer who isn&rsquo;t skilled enough for the least severe wound present is turned away rather than skipping ahead to an easier one</li>
+                  <li>The target being tended must now be sitting or lying down, but no longer needs to be alive &mdash; <code className="text-amber-300">TEND</code> now also works on a fresh corpse, player or monster</li>
+                  <li>Tending a wound now awards the healer experience scaled to its severity</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">GM Tools</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>New <code className="text-amber-300">@specialize &lt;player&gt; [&lt;weapon&gt; &lt;level&gt;]</code> &mdash; list or directly set a player&rsquo;s weapon specialization rank (0&ndash;5), spending or refunding build points as the level changes, the same way <code className="text-amber-300">@mastery</code> already works for spells</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Fixes</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Psionic Teleportation (<code className="text-amber-300">PROJECT &lt;mark&gt;</code>) always sent you to mark 1 no matter which mark number you specified &mdash; it now correctly honors marks 1&ndash;10, matching Bend Space I</li>
+                  <li>Thrown weapons (javelins, spears, throwing daggers, etc.) were training your Missile Weapons skill instead of Thrown Weapons for to-hit purposes &mdash; fixed to use the correct skill, matching the original game&rsquo;s distinct bow vs. thrown-weapon skills</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
             <h2 className="text-amber-400 text-lg font-bold mb-1">v11.12.0 &mdash; July 16, 2026</h2>
             <p className="text-gray-400 mb-3">New WEATHER command and live temperature system, matching GM weather override, a weapon-value economy fix, and original-style spell messages for the defense buffs.</p>
 

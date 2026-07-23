@@ -68,7 +68,7 @@ func init() {
 		{ID: 136, Name: "Inferno Blade", School: "Conjuration", Level: 19, ManaCost: 25, CastTime: 3, Effect: "buff"},
 		{ID: 137, Name: "Winter Blade", School: "Conjuration", Level: 22, ManaCost: 28, CastTime: 3, Effect: "buff"},
 		{ID: 138, Name: "Energy Maelstrom", School: "Conjuration", Level: 31, ManaCost: 45, CastTime: 5, Effect: "damage", DmgMin: 30, DmgMax: 75, DmgType: "electric"},
-		{ID: 141, Name: "Pyrotechnics", School: "Conjuration", Level: 17, ManaCost: 20, CastTime: 3, Effect: "damage", DmgMin: 12, DmgMax: 35, DmgType: "heat"},
+		{ID: 141, Name: "Pyrotechnics", School: "Conjuration", Level: 17, ManaCost: 20, CastTime: 3, Effect: "utility"},
 		{ID: 139, Name: "Sorcerous Summons I", School: "Conjuration", Level: 20, ManaCost: 20, CastTime: 5, Effect: "utility"},
 		{ID: 140, Name: "Sorcerous Summons II", School: "Conjuration", Level: 35, ManaCost: 35, CastTime: 5, Effect: "utility"},
 		{ID: 144, Name: "Tindarath's Chaotic Summons", School: "Conjuration", Level: 28, ManaCost: 28, CastTime: 5, Effect: "utility"},
@@ -735,7 +735,7 @@ func (e *GameEngine) doPrepareSpell(player *Player, args []string) *CommandResul
 	prepMsgs = append(prepMsgs, fmt.Sprintf("[Round: %d sec]", prepRT))
 	return &CommandResult{
 		Messages:      prepMsgs,
-		RoomBroadcast: []string{fmt.Sprintf("%s begins preparing a spell.", player.FirstName)},
+		RoomBroadcast: []string{fmt.Sprintf("%s incants a spell.", player.FirstName)},
 	}
 }
 
@@ -861,6 +861,10 @@ func (e *GameEngine) doCastSpell(ctx context.Context, player *Player, args []str
 		switch spell.ID {
 		case 114: // Mystic Key
 			result = e.castMysticKey(player, args)
+		case 141: // Pyrotechnics
+			result = e.castPyrotechnics(player)
+		case 403: // Mindlink
+			result = e.castMindlink(player, spell, args)
 		case 127: // Web
 			result = e.castWebSpell(player, spell, args)
 		case 134: // Siryx's Terrible Tentacles
@@ -924,6 +928,35 @@ func (e *GameEngine) doCastSpell(ctx context.Context, player *Player, args []str
 	e.SavePlayer(ctx, player)
 
 	return result
+}
+
+// elementalKillFlavors holds damage-type-specific descriptions of a killing blow
+// itself, replacing the normal "<Severity> <type> to <part>. [N Damage]" line when
+// that hit finishes off the target. Vocabulary sourced from original session
+// captures (see original/chandra_wastes.txt), e.g. "Chilly body barrage solidifies
+// muscle tissue." and "Dazzling explosive display carbonizes bones and flesh."
+var elementalKillFlavors = map[string][]string{
+	"cold": {
+		"Chilly body barrage solidifies muscle tissue.",
+		"Torso frozen. Body shatters as it hits the ground.",
+		"Frosty blast glaciates circulatory system.",
+	},
+	"heat": {
+		"Dazzling explosive display carbonizes bones and flesh.",
+		"Heart melts. Opponent exhales boiling blood.",
+		"Flame strike superheats lungs, exploding chest!",
+	},
+	"crushing": crushKillFlavors,
+}
+
+// elementalKillFlavor returns a random kill-flavor line for dmgType, or "" if none
+// exists — callers should fall back to the normal severity/damage line in that case.
+func elementalKillFlavor(dmgType string) string {
+	variants := elementalKillFlavors[dmgType]
+	if len(variants) == 0 {
+		return ""
+	}
+	return variants[rand.Intn(len(variants))]
 }
 
 func (e *GameEngine) castDamageSpell(player *Player, spell *SpellDef, args []string, spectacular bool) *CommandResult {
@@ -1020,24 +1053,24 @@ func (e *GameEngine) castDamageSpell(player *Player, spell *SpellDef, args []str
 	// second-person ("You...") version; onlookers see a third-person version.
 	flavorSelf := fmt.Sprintf("You form a bolt of energy and hurl it at %s%s!", article, name)
 	flavorRoom := fmt.Sprintf("%s forms a bolt of energy and hurls it at %s%s!", player.FirstName, article, name)
-	flavorDmg := fmt.Sprintf("%s %s to %s. [%d Damage]", damageSeverity(dmg), spellDmgNoun(spell.DmgType), randomBodyPart(def.BodyType), dmg)
+	flavorDmg := fmt.Sprintf("%s %s to %s. [%d Damage]", damageSeverity(dmg, inst.MaxHP), spellDmgNoun(spell.DmgType), randomBodyPart(def.BodyType), dmg)
 	switch spell.DmgType {
 	case "heat":
 		flavorSelf = fmt.Sprintf("You form a ball of flame and hurl it at %s%s!", article, name)
 		flavorRoom = fmt.Sprintf("%s forms a ball of flame and hurls it at %s%s!", player.FirstName, article, name)
-		flavorDmg = fmt.Sprintf("%s burn to %s. [%d Damage]", damageSeverity(dmg), randomBodyPart(def.BodyType), dmg)
+		flavorDmg = fmt.Sprintf("%s burn to %s. [%d Damage]", damageSeverity(dmg, inst.MaxHP), randomBodyPart(def.BodyType), dmg)
 	case "cold":
 		flavorSelf = fmt.Sprintf("You form a freezing sphere from the air and hurl it at %s%s!", article, name)
 		flavorRoom = fmt.Sprintf("%s forms a freezing sphere from the air and hurls it at %s%s!", player.FirstName, article, name)
-		flavorDmg = fmt.Sprintf("%s blast to %s. [%d Damage]", damageSeverity(dmg), randomBodyPart(def.BodyType), dmg)
+		flavorDmg = fmt.Sprintf("%s blast to %s. [%d Damage]", damageSeverity(dmg, inst.MaxHP), randomBodyPart(def.BodyType), dmg)
 	case "electric":
 		flavorSelf = fmt.Sprintf("You release a bolt of lightning at %s%s!", article, name)
 		flavorRoom = fmt.Sprintf("%s releases a bolt of lightning at %s%s!", player.FirstName, article, name)
-		flavorDmg = fmt.Sprintf("%s shock to %s. [%d Damage]", damageSeverity(dmg), randomBodyPart(def.BodyType), dmg)
+		flavorDmg = fmt.Sprintf("%s shock to %s. [%d Damage]", damageSeverity(dmg, inst.MaxHP), randomBodyPart(def.BodyType), dmg)
 	case "crushing":
 		flavorSelf = fmt.Sprintf("You hurl a force blast at %s%s!", article, name)
 		flavorRoom = fmt.Sprintf("%s hurls a force blast at %s%s!", player.FirstName, article, name)
-		flavorDmg = fmt.Sprintf("%s strike to %s. [%d Damage]", damageSeverity(dmg), randomBodyPart(def.BodyType), dmg)
+		flavorDmg = fmt.Sprintf("%s strike to %s. [%d Damage]", damageSeverity(dmg, inst.MaxHP), randomBodyPart(def.BodyType), dmg)
 	}
 
 	// Generic pre-cast gesture line; some spells (e.g. Earth Spike) gesture
@@ -1061,9 +1094,12 @@ func (e *GameEngine) castDamageSpell(player *Player, spell *SpellDef, args []str
 		gestureRoom = fmt.Sprintf("%s gestures towards the ground.", player.FirstName)
 		flavorSelf = fmt.Sprintf("As you beckon to the ground, a horrible spike thrusts up from the earth and impales %s%s!", article, name)
 		flavorRoom = fmt.Sprintf("As %s beckons to the ground, a horrible spike thrusts up from the earth and impales %s%s!", player.FirstName, article, name)
+	case 354: // Rorin's Fire
+		flavorSelf = fmt.Sprintf("A wave of red and orange flames erupts from your hand and encircles %s%s, hissing and constricting like a snake!", article, name)
+		flavorRoom = fmt.Sprintf("A wave of red and orange flames erupts from %s's hand and encircles %s%s, hissing and constricting like a snake!", player.FirstName, article, name)
 	}
 
-	killed, woke := e.damageMonster(inst.ID, dmg)
+	killed, woke := e.damageMonster(inst.ID, dmg, player.FirstName)
 
 	var msgs, roomMsgs []string
 	if woke {
@@ -1073,10 +1109,17 @@ func (e *GameEngine) castDamageSpell(player *Player, spell *SpellDef, args []str
 	roomMsgs = append(roomMsgs, gestureRoom)
 	msgs = append(msgs, flavorSelf)
 	roomMsgs = append(roomMsgs, flavorRoom)
-	msgs = append(msgs, flavorDmg)
-	roomMsgs = append(roomMsgs, flavorDmg)
 
 	if killed {
+		// The killing blow gets its own damage-type flavor line describing how the
+		// creature actually died, in place of the normal severity/damage line.
+		if kf := elementalKillFlavor(spell.DmgType); kf != "" {
+			msgs = append(msgs, kf)
+			roomMsgs = append(roomMsgs, kf)
+		} else {
+			msgs = append(msgs, flavorDmg)
+			roomMsgs = append(roomMsgs, flavorDmg)
+		}
 		deathText := def.TextOverrides["TEXD"]
 		if deathText != "" {
 			msgs = append(msgs, fmt.Sprintf("A %s %s", name, deathText))
@@ -1085,9 +1128,10 @@ func (e *GameEngine) castDamageSpell(player *Player, spell *SpellDef, args []str
 			msgs = append(msgs, "He collapses, dead.")
 			roomMsgs = append(roomMsgs, fmt.Sprintf("A %s collapses, dead!", name))
 		}
-		e.handleMonsterDeath(player, inst, def)
-		player.CombatTarget = nil
-		player.Joined = false
+		e.handleMonsterDeath([]*Player{player}, inst, def)
+	} else {
+		msgs = append(msgs, flavorDmg)
+		roomMsgs = append(roomMsgs, flavorDmg)
 	}
 
 	return &CommandResult{Messages: msgs, RoomBroadcast: roomMsgs}
@@ -1142,7 +1186,7 @@ func (e *GameEngine) castMeteorSpell(player *Player, spell *SpellDef, inst *Mons
 	flavorSelf := fmt.Sprintf("You point to the sky. A moment later, a meteor screeches from the heavens and hammers %s%s!", article, name)
 	flavorRoom := fmt.Sprintf("%s points to the sky. A moment later, a meteor screeches from the heavens and hammers %s%s!", player.FirstName, article, name)
 
-	killed, woke := e.damageMonster(inst.ID, totalDmg)
+	killed, woke := e.damageMonster(inst.ID, totalDmg, player.FirstName)
 
 	var msgs, roomMsgs []string
 	if woke {
@@ -1152,18 +1196,24 @@ func (e *GameEngine) castMeteorSpell(player *Player, spell *SpellDef, inst *Mons
 	roomMsgs = append(roomMsgs, fmt.Sprintf("%s gestures at %s%s.", player.FirstName, article, name))
 	msgs = append(msgs, flavorSelf)
 	roomMsgs = append(roomMsgs, flavorRoom)
-	if heatDmg > 0 {
-		burnLine := fmt.Sprintf("%s burn to %s. [%d Damage]", damageSeverity(heatDmg), randomBodyPart(def.BodyType), heatDmg)
-		msgs = append(msgs, burnLine)
-		roomMsgs = append(roomMsgs, burnLine)
-	}
-	if crushDmg > 0 {
-		blowLine := fmt.Sprintf("%s blow to %s. [%d Damage]", damageSeverity(crushDmg), randomBodyPart(def.BodyType), crushDmg)
-		msgs = append(msgs, blowLine)
-		roomMsgs = append(roomMsgs, blowLine)
-	}
-
 	if killed {
+		// The killing blow gets its own flavor line describing how the creature
+		// actually died, in place of the normal per-component severity lines.
+		if kf := elementalKillFlavor("heat"); kf != "" {
+			msgs = append(msgs, kf)
+			roomMsgs = append(roomMsgs, kf)
+		} else {
+			if heatDmg > 0 {
+				burnLine := fmt.Sprintf("%s burn to %s. [%d Damage]", damageSeverity(heatDmg, inst.MaxHP), randomBodyPart(def.BodyType), heatDmg)
+				msgs = append(msgs, burnLine)
+				roomMsgs = append(roomMsgs, burnLine)
+			}
+			if crushDmg > 0 {
+				blowLine := fmt.Sprintf("%s blow to %s. [%d Damage]", damageSeverity(crushDmg, inst.MaxHP), randomBodyPart(def.BodyType), crushDmg)
+				msgs = append(msgs, blowLine)
+				roomMsgs = append(roomMsgs, blowLine)
+			}
+		}
 		deathText := def.TextOverrides["TEXD"]
 		if deathText != "" {
 			msgs = append(msgs, fmt.Sprintf("A %s %s", name, deathText))
@@ -1172,9 +1222,18 @@ func (e *GameEngine) castMeteorSpell(player *Player, spell *SpellDef, inst *Mons
 			msgs = append(msgs, "He collapses, dead.")
 			roomMsgs = append(roomMsgs, fmt.Sprintf("A %s collapses, dead!", name))
 		}
-		e.handleMonsterDeath(player, inst, def)
-		player.CombatTarget = nil
-		player.Joined = false
+		e.handleMonsterDeath([]*Player{player}, inst, def)
+	} else {
+		if heatDmg > 0 {
+			burnLine := fmt.Sprintf("%s burn to %s. [%d Damage]", damageSeverity(heatDmg, inst.MaxHP), randomBodyPart(def.BodyType), heatDmg)
+			msgs = append(msgs, burnLine)
+			roomMsgs = append(roomMsgs, burnLine)
+		}
+		if crushDmg > 0 {
+			blowLine := fmt.Sprintf("%s blow to %s. [%d Damage]", damageSeverity(crushDmg, inst.MaxHP), randomBodyPart(def.BodyType), crushDmg)
+			msgs = append(msgs, blowLine)
+			roomMsgs = append(roomMsgs, blowLine)
+		}
 	}
 
 	return &CommandResult{Messages: msgs, RoomBroadcast: roomMsgs}
@@ -1279,11 +1338,11 @@ func (e *GameEngine) castChainLightningSpell(player *Player, spell *SpellDef, ar
 
 		arcSelf := fmt.Sprintf("Lightning arcs from %s to %s%s!", prevSelf, article, name)
 		arcRoom := fmt.Sprintf("Lightning arcs from %s to %s%s!", prevRoom, article, name)
-		dmgLine := fmt.Sprintf(" %s %s to %s. [%d Damage]", damageSeverity(dmg), spellDmgNoun(spell.DmgType), randomBodyPart(en.Def.BodyType), dmg)
+		dmgLine := fmt.Sprintf(" %s %s to %s. [%d Damage]", damageSeverity(dmg, en.Inst.MaxHP), spellDmgNoun(spell.DmgType), randomBodyPart(en.Def.BodyType), dmg)
 		msgs = append(msgs, arcSelf, dmgLine)
 		roomMsgs = append(roomMsgs, arcRoom, dmgLine)
 
-		killed, _ := e.damageMonster(en.Inst.ID, dmg)
+		killed, _ := e.damageMonster(en.Inst.ID, dmg, player.FirstName)
 		if killed {
 			deathText := en.Def.TextOverrides["TEXD"]
 			if deathText != "" {
@@ -1294,12 +1353,8 @@ func (e *GameEngine) castChainLightningSpell(player *Player, spell *SpellDef, ar
 				roomMsgs = append(roomMsgs, fmt.Sprintf("A %s collapses, dead!", name))
 			}
 			instCopy := en.Inst
-			e.handleMonsterDeath(player, &instCopy, en.Def)
+			e.handleMonsterDeath([]*Player{player}, &instCopy, en.Def)
 			player.Targets = removeTargetID(player.Targets, en.Inst.ID)
-			if player.CombatTarget != nil && player.CombatTarget.MonsterID == en.Inst.ID {
-				player.CombatTarget = nil
-				player.Joined = false
-			}
 		}
 
 		prevSelf, prevRoom = fullName, fullName
@@ -1346,12 +1401,21 @@ func (e *GameEngine) castFlamingArrowsSpell(player *Player, spell *SpellDef, arg
 		}
 
 		flyLine := fmt.Sprintf("A flaming arrow flies from %s and strikes %s%s!", player.FirstName, article, name)
-		dmgLine := fmt.Sprintf(" %s %s to %s. [%d Damage]", damageSeverity(dmg), spellDmgNoun(spell.DmgType), randomBodyPart(en.Def.BodyType), dmg)
-		msgs = append(msgs, flyLine, dmgLine)
-		roomMsgs = append(roomMsgs, flyLine, dmgLine)
+		dmgLine := fmt.Sprintf(" %s %s to %s. [%d Damage]", damageSeverity(dmg, en.Inst.MaxHP), spellDmgNoun(spell.DmgType), randomBodyPart(en.Def.BodyType), dmg)
+		msgs = append(msgs, flyLine)
+		roomMsgs = append(roomMsgs, flyLine)
 
-		killed, _ := e.damageMonster(en.Inst.ID, dmg)
+		killed, _ := e.damageMonster(en.Inst.ID, dmg, player.FirstName)
 		if killed {
+			// The killing blow gets its own flavor line describing how the creature
+			// actually died, in place of the normal severity/damage line.
+			if kf := elementalKillFlavor(spell.DmgType); kf != "" {
+				msgs = append(msgs, kf)
+				roomMsgs = append(roomMsgs, kf)
+			} else {
+				msgs = append(msgs, dmgLine)
+				roomMsgs = append(roomMsgs, dmgLine)
+			}
 			deathText := en.Def.TextOverrides["TEXD"]
 			if deathText != "" {
 				msgs = append(msgs, fmt.Sprintf("A %s %s", name, deathText))
@@ -1361,12 +1425,11 @@ func (e *GameEngine) castFlamingArrowsSpell(player *Player, spell *SpellDef, arg
 				roomMsgs = append(roomMsgs, fmt.Sprintf("A %s collapses, dead!", name))
 			}
 			instCopy := en.Inst
-			e.handleMonsterDeath(player, &instCopy, en.Def)
+			e.handleMonsterDeath([]*Player{player}, &instCopy, en.Def)
 			player.Targets = removeTargetID(player.Targets, en.Inst.ID)
-			if player.CombatTarget != nil && player.CombatTarget.MonsterID == en.Inst.ID {
-				player.CombatTarget = nil
-				player.Joined = false
-			}
+		} else {
+			msgs = append(msgs, dmgLine)
+			roomMsgs = append(roomMsgs, dmgLine)
 		}
 	}
 
@@ -1508,18 +1571,30 @@ func (e *GameEngine) castHealSpell(ctx context.Context, player *Player, spell *S
 		target.BodyPoints = target.MaxBodyPoints
 	}
 
+	// If this brought the target back above 0 body points, wake them immediately
+	// rather than making them wait for the next regen tick.
+	wakeMsg := wakeFromUnconscious(target)
+
 	if target == player {
+		msgs := []string{fmt.Sprintf("You gesture and cast %s on yourself, healing %d body points. [BP: %d/%d]", spell.Name, amount, target.BodyPoints, target.MaxBodyPoints)}
+		if wakeMsg != "" {
+			msgs = append(msgs, wakeMsg)
+		}
 		return &CommandResult{
-			Messages:      []string{fmt.Sprintf("You gesture and cast %s on yourself, healing %d body points. [BP: %d/%d]", spell.Name, amount, target.BodyPoints, target.MaxBodyPoints)},
+			Messages:      msgs,
 			RoomBroadcast: []string{fmt.Sprintf("%s gestures and casts %s.", player.FirstName, spell.Name)},
 		}
 	}
 
+	targetMsgs := []string{fmt.Sprintf("%s casts %s on you, healing %d body points. [BP: %d/%d]", player.FirstName, spell.Name, amount, target.BodyPoints, target.MaxBodyPoints)}
+	if wakeMsg != "" {
+		targetMsgs = append(targetMsgs, wakeMsg)
+	}
 	return &CommandResult{
 		Messages:      []string{fmt.Sprintf("You gesture and cast %s on %s, healing %d body points.", spell.Name, targetName, amount)},
 		RoomBroadcast: []string{fmt.Sprintf("%s gestures and casts %s on %s.", player.FirstName, spell.Name, targetName)},
 		TargetName:    target.FirstName,
-		TargetMsg:     []string{fmt.Sprintf("%s casts %s on you, healing %d body points. [BP: %d/%d]", player.FirstName, spell.Name, amount, target.BodyPoints, target.MaxBodyPoints)},
+		TargetMsg:     targetMsgs,
 	}
 }
 
@@ -1527,14 +1602,16 @@ func (e *GameEngine) castHealSpell(ctx context.Context, player *Player, spell *S
 // target is undead: the healing energy sears the undead flesh as damage instead.
 func (e *GameEngine) castBodyRestorationOnUndead(ctx context.Context, player, target *Player, spell *SpellDef, targetName string, dmg int) *CommandResult {
 	target.BodyPoints -= dmg
+	rawBP := target.BodyPoints
 	if target.BodyPoints < 0 {
 		target.BodyPoints = 0
 	}
 
 	if target == player {
 		msgs := []string{fmt.Sprintf("You gesture and cast %s on yourself, but your undead flesh sears with holy energy! [%d Damage]", spell.Name, dmg)}
-		if target.BodyPoints <= 0 {
-			msgs = append(msgs, e.handlePlayerDeath(target, "the necromantic backlash")...)
+		if rawBP <= 0 {
+			outcomeMsgs, _ := e.resolveDirectHitOutcome(target, rawBP, "the necromantic backlash")
+			msgs = append(msgs, outcomeMsgs...)
 		}
 		e.SavePlayer(ctx, target)
 		return &CommandResult{Messages: msgs, RoomBroadcast: []string{fmt.Sprintf("%s gestures and casts %s.", player.FirstName, spell.Name)}}
@@ -1547,9 +1624,9 @@ func (e *GameEngine) castBodyRestorationOnUndead(ctx context.Context, player, ta
 		TargetMsg:     []string{fmt.Sprintf("%s casts %s on you! Holy energy sears your undead flesh! [%d Damage]", player.FirstName, spell.Name, dmg)},
 		PlayerState:   target,
 	}
-	if target.BodyPoints <= 0 {
-		deathMsgs := e.handlePlayerDeath(target, "the necromantic backlash")
-		result.TargetMsg = append(result.TargetMsg, deathMsgs...)
+	if rawBP <= 0 {
+		outcomeMsgs, _ := e.resolveDirectHitOutcome(target, rawBP, "the necromantic backlash")
+		result.TargetMsg = append(result.TargetMsg, outcomeMsgs...)
 	}
 	e.SavePlayer(ctx, target)
 	return result
@@ -2109,6 +2186,43 @@ func defenseSpellFlavorText(spellID int) string {
 		return "A ghostly shield hovers before you."
 	}
 	return ""
+}
+
+// castMindlink handles Mindlink (403): grants the caster, or a named target in the
+// room, telepathic ability (the THINK command) for one hour. Identical in effect to
+// eating a thesnia leaf or drinking a thesnia potion — see the spellNum == 403
+// handling in inventory_commands.go's doEat/doDrink, which this mirrors.
+func (e *GameEngine) castMindlink(player *Player, spell *SpellDef, args []string) *CommandResult {
+	target := player
+	isSelf := true
+	if len(args) > 0 {
+		t := strings.ToLower(strings.Join(args, " "))
+		if t != "me" && t != "myself" && t != "self" {
+			found := e.findPlayerInRoom(player, t)
+			if found == nil {
+				return &CommandResult{Messages: []string{fmt.Sprintf("You don't see '%s' here.", strings.Join(args, " "))}}
+			}
+			target = found
+			isSelf = false
+		}
+	}
+
+	target.TelepathyActive = true
+	target.TelepathyExpiry = time.Now().Add(1 * time.Hour)
+
+	if !isSelf {
+		e.SavePlayer(context.Background(), target)
+		return &CommandResult{
+			Messages:      []string{fmt.Sprintf("You gesture and cast %s on %s.", spell.Name, target.FirstName)},
+			RoomBroadcast: []string{fmt.Sprintf("%s gestures and casts %s on %s.", player.FirstName, spell.Name, target.FirstName)},
+			TargetName:    target.FirstName,
+			TargetMsg:     []string{fmt.Sprintf("%s casts %s on you. You feel your mind open to the thoughts of others.", player.FirstName, spell.Name)},
+		}
+	}
+	return &CommandResult{
+		Messages:      []string{fmt.Sprintf("You gesture and cast %s. You feel your mind open to the thoughts of others.", spell.Name)},
+		RoomBroadcast: []string{fmt.Sprintf("%s gestures and casts %s.", player.FirstName, spell.Name)},
+	}
 }
 
 // castEnchantmentSpell handles Enchantment I (202), II (203), III (204).
@@ -2720,6 +2834,78 @@ func (e *GameEngine) castMysticKey(player *Player, args []string) *CommandResult
 	return &CommandResult{Messages: []string{"You don't see anything locked here."}}
 }
 
+// pyrotechnicsMessages are the possible firework displays for Pyrotechnics (spell 141).
+// In the original game this was a pure spectacle spell — no damage — that treated
+// outdoor players in the caster's region to a random display several times over the
+// minute after casting. Firework names are for internal reference only and never
+// appear in the broadcast text.
+var pyrotechnicsMessages = []string{
+	// Golden Chrysanthemum
+	"A shrill whistle rises into the night as a single rocket streaks skyward, leaving a glowing trail behind it. BOOM! A brilliant golden sphere erupts overhead, its countless sparkling tendrils slowly cascading toward the earth like a shower of molten sunlight before fading into darkness.",
+	// Dragon's Breath
+	"A crimson rocket hisses upward, climbing higher and higher before erupting with a thunderous KRA-BOOM! A fiery dragon, crafted entirely from emerald and crimson sparks, coils through the sky. It opens its jaws and exhales a torrent of glittering stars before dissolving into smoke.",
+	// Silver Willow
+	"A brilliant silver streak races upward, ending in a deep, echoing BOOM! A dazzling silver burst blooms overhead, its graceful branches drifting downward in slow motion. The shimmering trails linger for several heartbeats before quietly vanishing.",
+	// Phoenix Ascending
+	"A golden rocket screams toward the heavens before exploding with a sharp CRACK! A pillar of scarlet fire races skyward and blossoms into the unmistakable shape of a magnificent phoenix. Its wings beat once in a shower of golden embers before it disappears.",
+	// Celestial Ring
+	"A lone rocket whistles high above the crowd before bursting with a crisp POP! A perfect circle of sapphire and violet stars blossoms overhead, expanding until it nearly fills the sky. Tiny white sparks dance around its edges like twinkling constellations.",
+	// Wizard's Butterflies
+	"A tiny silver flare zips into the darkness with barely a sound. PFFT! Dozens of glowing butterflies in every imaginable color flutter out of the fading spark, drifting lazily among the spectators before evaporating into glittering dust.",
+	// Thunder King's Salute
+	"Three rockets leap skyward one after another with a piercing whistle. BOOM! BOOM! BOOM! Enormous bursts of red, white, and blue explode overhead while showers of crackling gold rain through the drifting smoke.",
+	// Rainbow Peonies
+	"A rocket streaks into the sky, followed by another, then another in rapid succession. SNAP! SNAP! SNAP! BOOM! Brilliant peony-shaped explosions paint the heavens in crimson, emerald, sapphire, violet, and gold until the sky is awash in color.",
+	// Moonlit Comets
+	"A cluster of pale silver rockets shoots silently into the heavens before bursting with a soft POOM... A dozen silver comets streak across the sky, each leaving a shimmering tail before blossoming into tiny drifting stars.",
+	// Gandalf's Sailing Ship
+	"A sparkling white rocket ascends in a graceful arc, ending with a gentle FWOOM! Instead of bursting into stars, a graceful ship with billowing silver sails appears among the heavens. It glides silently across the sky, leaving a glittering wake before fading into the night.",
+	// Heart of the Heavens
+	"A ruby-red rocket whistles upward, ending with a warm BOOF! A glowing crimson heart blossoms overhead, surrounded by tiny golden stars that circle it for a moment before the heart slowly dissolves into rose-colored embers.",
+	// Grand Finale
+	"A dozen rockets scream skyward all at once, filling the air with shrill whistles. SNAP! SNAP! SNAP! BOOM! KRAK! BOOM! BOOM! CRACK! The heavens erupt into an overwhelming display of crimson, emerald, sapphire, violet, silver, and gold. Hundreds of crackling stars race in every direction before a final blinding white flash and one earth-shaking KABOOOOOM! bring the spectacle to an end.",
+}
+
+// castPyrotechnics launches a non-damaging fireworks display. Over the minute after
+// casting, 4 times at ~15 second intervals, a random firework message from
+// pyrotechnicsMessages is broadcast to every outdoor room in the caster's region —
+// not just the caster's own room — mirroring broadcastWeatherChange's region-wide,
+// outdoor-only delivery. Recipients are whoever is actually in an eligible room at
+// each tick, so players moving in or out during the display naturally see more or
+// less of it.
+func (e *GameEngine) castPyrotechnics(player *Player) *CommandResult {
+	room := e.rooms[player.RoomNumber]
+	if room == nil {
+		return &CommandResult{Messages: []string{"You can't do that here."}}
+	}
+	region := room.Region
+
+	for i := 1; i <= 4; i++ {
+		time.AfterFunc(time.Duration(i*15)*time.Second, func() {
+			e.broadcastPyrotechnics(region)
+		})
+	}
+
+	return &CommandResult{
+		Messages:      []string{"You launch a volley of fireworks into the night sky!"},
+		RoomBroadcast: []string{fmt.Sprintf("%s launches a volley of fireworks into the sky!", player.FirstName)},
+	}
+}
+
+// broadcastPyrotechnics sends one random firework display message to every outdoor
+// room in the given region (see isOutdoorTerrain).
+func (e *GameEngine) broadcastPyrotechnics(region int) {
+	if e.localRoomBroadcast == nil {
+		return
+	}
+	msg := pyrotechnicsMessages[rand.Intn(len(pyrotechnicsMessages))]
+	for num, room := range e.rooms {
+		if room.Region == region && isOutdoorTerrain(room.Terrain) {
+			e.localRoomBroadcast(num, []string{msg})
+		}
+	}
+}
+
 // isLivingCreature returns false for undead, demons, and elementals that are immune
 // to mind-affecting magic (Slumber, Fear, Charm).
 func isLivingCreature(def *gameworld.MonsterDef) bool {
@@ -3063,6 +3249,7 @@ func (e *GameEngine) castDetectMagic(player *Player, args []string) *CommandResu
 					Archetype: ri.Archetype,
 					Adj1: ri.Adj1, Adj2: ri.Adj2, Adj3: ri.Adj3,
 					Val2: ri.Val2, Val3: ri.Val3, Val4: ri.Val4,
+					ItemBits: ri.ItemBits,
 				}
 				found = &candidate{&tmp, def}
 				break

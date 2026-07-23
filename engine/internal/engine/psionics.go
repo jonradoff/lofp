@@ -455,16 +455,14 @@ func (e *GameEngine) projectDamage(player *Player, disc *PsiDiscipline, args []s
 		}
 	}
 
-	killed, _ := e.damageMonster(inst.ID, dmg)
+	killed, _ := e.damageMonster(inst.ID, dmg, player.FirstName)
 	if killed {
 		deathText := def.TextOverrides["TEXD"]
 		deathMsg := fmt.Sprintf("A %s collapses, dead!", name)
 		if deathText != "" {
 			deathMsg = fmt.Sprintf("A %s %s", name, deathText)
 		}
-		e.handleMonsterDeath(player, inst, def)
-		player.CombatTarget = nil
-		player.Joined = false
+		e.handleMonsterDeath([]*Player{player}, inst, def)
 		return &CommandResult{
 			Messages:      []string{fmt.Sprintf("You project %s at a %s for %d damage!", disc.Name, name, dmg), deathMsg},
 			RoomBroadcast: []string{fmt.Sprintf("%s focuses psychic energy at a %s!", player.FirstName, name), deathMsg},
