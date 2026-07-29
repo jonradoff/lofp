@@ -28,6 +28,9 @@ func (e *GameEngine) doMove(ctx context.Context, player *Player, dir string) *Co
 	if player.Immobilized {
 		return &CommandResult{Messages: []string{"You are immobilized and cannot move!"}}
 	}
+	if len(player.Entangles) > 0 {
+		return &CommandResult{Messages: []string{fmt.Sprintf("You are bound by %s and cannot move!", player.Entangles[0].SpellName)}}
+	}
 	if player.RoundTimeExpiry.After(time.Now()) {
 		remaining := int(player.RoundTimeExpiry.Sub(time.Now()).Seconds()) + 1
 		return &CommandResult{Messages: []string{fmt.Sprintf("[Wait %d seconds...]", remaining)}}

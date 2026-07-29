@@ -2,7 +2,6 @@ package engine
 
 import (
 	"fmt"
-	"math"
 	"math/rand"
 
 	"github.com/jonradoff/lofp/internal/gameworld"
@@ -307,7 +306,8 @@ func (e *GameEngine) randomScrollDrop(treasureLevel int) *gameworld.RoomItem {
 	}
 
 	// Pick a spell appropriate for treasure level
-	maxSpellLevel := int(math.Ceil(float64(treasureLevel) / 1.5))
+	// maxSpellLevel := int(math.Ceil(float64(treasureLevel) / 1.5))
+	maxSpellLevel := treasureLevel
 	if maxSpellLevel < 1 {
 		maxSpellLevel = 1
 	}
@@ -328,6 +328,7 @@ func (e *GameEngine) randomScrollDrop(treasureLevel int) *gameworld.RoomItem {
 	spell := candidates[rand.Intn(len(candidates))]
 	ri := &gameworld.RoomItem{
 		Archetype: scrollArch,
+		Val1:      spell.Level * 50, // copper value per GMSCRIPT.DOC; halved on sale by computeSellValue
 		Val3:      spell.ID,
 	}
 	adjWord := scrollAdjectiveWords[rand.Intn(len(scrollAdjectiveWords))]
@@ -382,6 +383,14 @@ func (e *GameEngine) randomPotionDrop(treasureLevel int) *gameworld.RoomItem {
 	if len(candidates) > 0 {
 		item.Val3 = candidates[rand.Intn(len(candidates))]
 	}
+
+	// Val1 = copper value per GMSCRIPT.DOC; halved on sale by computeSellValue.
+	// Scales with the bound spell's level and how many sips remain.
+	spellLevel := 1
+	if sp := FindSpellByID(item.Val3); sp != nil {
+		spellLevel = sp.Level
+	}
+	item.Val1 = spellLevel*20 + sips*5
 
 	return item
 }

@@ -89,12 +89,18 @@ func (e *GameEngine) processGMCommand(ctx context.Context, player *Player, verb 
 		return e.gmNum(ctx, args)
 	case "@QSTAT":
 		return e.gmQStat(ctx, args)
+	case "@STAT":
+		return e.gmStat(ctx, args)
+	case "@SKILL":
+		return e.gmSkill(ctx, args)
 	case "@PINV":
 		return e.gmPInv(ctx, args)
 	case "@GENMON":
 		return e.gmGenMon(player, args)
 	case "@SPAWN":
 		return e.gmSpawn(player, args)
+	case "@CALLPACK":
+		return e.gmCallPack(player)
 	case "@TREASURE":
 		return e.gmTreasure(player, args)
 	case "@ACTIVATE":
@@ -277,9 +283,11 @@ func (e *GameEngine) gmHelp() *CommandResult {
 		"@rnd <#>               - Generate random number 1-#",
 		"@sedate <monster>      - Sedate a monster",
 		"@set <variable> <val>  - Set a variable value",
+		"@skill <name>          - View a player's SKILLS list",
 		"@snd <text>            - Echo text in current room",
 		"@spawn <monster#>      - Generate monster (active)",
 		"@speech <name> <verb>  - Set speech pattern (e.g. says grimly)",
+		"@stat <name>           - View a player's STATUS page",
 		"@take [#] <item> from <plr> - Silently take item from a player's inventory into yours",
 		"@title <name> <title>  - Set player title (e.g. the Baroness)",
 		"@treasure <level>      - Conjure a lootable chest/coffer/strongbox at the given treasure level (may be locked/trapped)",
@@ -807,6 +815,24 @@ func (e *GameEngine) gmNum(ctx context.Context, args []string) *CommandResult {
 	}}
 }
 
+// gmStat shows a GM the exact same STATUS page a player sees when they type STATUS.
+func (e *GameEngine) gmStat(ctx context.Context, args []string) *CommandResult {
+	target, err := e.resolvePlayerArg(ctx, args)
+	if err != nil {
+		return &CommandResult{Messages: []string{err.Error()}}
+	}
+	return e.doStatus(target)
+}
+
+// gmSkill shows a GM the exact same SKILLS list a player sees when they type SKILLS.
+func (e *GameEngine) gmSkill(ctx context.Context, args []string) *CommandResult {
+	target, err := e.resolvePlayerArg(ctx, args)
+	if err != nil {
+		return &CommandResult{Messages: []string{err.Error()}}
+	}
+	return e.doSkillsList(target)
+}
+
 func (e *GameEngine) gmQStat(ctx context.Context, args []string) *CommandResult {
 	target, err := e.resolvePlayerArg(ctx, args)
 	if err != nil {
@@ -901,6 +927,20 @@ func (e *GameEngine) gmSpawn(player *Player, args []string) *CommandResult {
 		Messages:      []string{fmt.Sprintf("Spawned %s (active) in room %d.", name, player.RoomNumber)},
 		RoomBroadcast: []string{genText},
 	}
+}
+
+// gmCallPack triggers the Call the Pack effect (see castCallThePack) in the GM's own
+// room, for testing without needing an item/NPC script wired up yet.
+func (e *GameEngine) gmCallPack(player *Player) *CommandResult {
+	room := e.rooms[player.RoomNumber]
+	if room == nil {
+		return &CommandResult{Messages: []string{"You can't do that here."}}
+	}
+	count := e.castCallThePack(room)
+	if count == 0 {
+		return &CommandResult{Messages: []string{"Call the Pack failed — monster 400 (large wolf) is not defined."}}
+	}
+	return &CommandResult{Messages: []string{fmt.Sprintf("You call out to the pack... %d wolves answer!", count)}}
 }
 
 // gmTreasure conjures a lootable chest/coffer/strongbox in the GM's room at the
@@ -2396,8 +2436,8 @@ func (e *GameEngine) GetPlayer(ctx context.Context, firstName string) (*Player, 
 var allGMVerbs = []string{
 	"@HELP", "@GO", "@ADDITEM", "@GIVE", "@TAKE", "@DUPE", "@DELETE", "@RDATA", "@HEAL", "@KILL", "@EXP",
 	"@GM", "@RFLAG", "@HIDE", "@UNHIDE", "@INVIS", "@VIS",
-	"@SND", "@ANNOUNCE", "@BANNER", "@WHO", "@LWHO", "@NUM", "@QSTAT", "@PINV",
-	"@GENMON", "@SPAWN", "@ACTIVATE", "@SEDATE", "@ZAP", "@TREASURE",
+	"@SND", "@ANNOUNCE", "@BANNER", "@WHO", "@LWHO", "@NUM", "@QSTAT", "@STAT", "@SKILL", "@PINV",
+	"@GENMON", "@SPAWN", "@CALLPACK", "@ACTIVATE", "@SEDATE", "@ZAP", "@TREASURE",
 	"@FIND", "@LIST", "@EXAMINE", "@GLOSSARY", "@PEEK", "@SET", "@RND",
 	"@OPEN", "@CLOSE", "@LOCK", "@UNLOCK",
 	"@GOPLR", "@YANK", "@WHISPER", "@EDPLAYER", "@EDPL", "@EDS", "@EDSK", "@LSK", "@GRANTSP", "@PSI", "@MLIST",

@@ -9,6 +9,194 @@ export default function VersionNotes({ onBack }: { onBack: () => void }) {
 
         <div className="space-y-6 text-sm">
           <section>
+            <h2 className="text-amber-400 text-lg font-bold mb-1">v11.22.0 &mdash; July 28, 2026</h2>
+            <p className="text-gray-400 mb-3">A wide sweep of container bugs (carried and worn alike, coins included), a crafting-economy fix so forged items are actually worth something, several scripted verbs that were silently ignoring an item&rsquo;s own response, and two revived Druidic spells.</p>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Containers</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li><code className="text-amber-300">GET &lt;coins&gt; FROM &lt;container&gt;</code> never recognized a coin pile sitting inside a container (it&rsquo;s stored differently than a normal item) and reported &ldquo;You don&rsquo;t see that in there.&rdquo; even when <code className="text-amber-300">LOOK IN</code> showed coins present; <code className="text-amber-300">GET ALL FROM</code> was worse &mdash; it silently destroyed any coins in the container instead of adding them to your purse. Both fixed</li>
+                  <li>Worn containers (backpack, waistpack, etc.) were invisible to <code className="text-amber-300">OPEN</code>, <code className="text-amber-300">CLOSE</code>, <code className="text-amber-300">PUT &hellip; IN</code>, <code className="text-amber-300">GET &hellip; FROM</code>, and <code className="text-amber-300">GET ALL FROM</code> &mdash; only a container held in your hands or lying on the ground worked. All five now check worn items too, with the same priority a carried container already had</li>
+                  <li>Fixed container capacity to match the documented meaning of the two fields: <code className="text-amber-300">INTERIOR</code> caps the total <code className="text-amber-300">VOLUME</code> of everything held inside (it was being used as a raw item-count limit), and a container&rsquo;s own <code className="text-amber-300">VOLUME</code> governs whether a single item is too bulky to fit through the opening at all (it was being used as the total capacity) &mdash; a backpack meant to hold 40 volume of gear was actually being capped by its own small carried-bulk value</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Crafting &amp; Treasure Economy</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>A weapon or piece of armor forged via Weaponsmithing never had a resale value set at all &mdash; it sold for about a copper no matter what metal it was made from. Now scales with the skill level required to craft it, capped at half of whatever the raw metal actually cost to buy, so cheap material can&rsquo;t be laundered into profit by forging and reselling it</li>
+                  <li>Monster-dropped jewelry, spell scrolls, and potions found in treasure containers had the identical problem &mdash; no value was ever set on them at all (only gems were handled correctly). All three now scale with treasure level and, for jewelry and potions, the power of any bound spell</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Combat</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li><code className="text-amber-300">REPAIR</code> always checked the first inventory item matching the name and gave up immediately if that particular one wasn&rsquo;t damaged &mdash; carrying two items sharing a name (one damaged, one not) meant the damaged one could never be reached and repaired. It now keeps looking until it finds an actually damaged match</li>
+                  <li>Weapon Clash now factors in Agility (+1 resistance per 5 points) alongside the weapon&rsquo;s own weight/adjective-based hardness, giving more agile characters better odds of keeping their own weapon undamaged</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Spells</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Sunray (Druidic 519) was dealing heat damage; it&rsquo;s supposed to stun instead &mdash; it now blinds and stuns the target for 4&ndash;6 seconds (two 1&ndash;2 rolls plus 2)</li>
+                  <li>Claw Growth (Druidic 518) previously had no effect at all when cast. It now grows natural claws usable whenever you aren&rsquo;t wielding a weapon &mdash; damage and Natural Weapons skill bonus matching a real claw weapon &mdash; lasting 20 minutes (re-casting while active adds another 20 minutes rather than resetting the timer), castable on yourself only, and immune to weapon-clash damage since there&rsquo;s no physical weapon to break</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Script Engine &amp; Commands</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li><code className="text-amber-300">%A</code> (the capitalized item name/article, e.g. &ldquo;The happy fun ball&rdquo;) was never expanded in scripts and printed literally &mdash; only lowercase <code className="text-amber-300">%a</code> worked</li>
+                  <li><code className="text-amber-300">DRINK</code> and <code className="text-amber-300">EAT</code> only ever considered items typed FOOD/LIQUID/LIQCONTAINER, so an item with its own scripted response to one of these verbs but no matching type could never trigger it. Both now fall back to the same generic script dispatch <code className="text-amber-300">PUSH</code>/<code className="text-amber-300">PUNCH</code>/<code className="text-amber-300">TURN</code> already use</li>
+                  <li><code className="text-amber-300">FLIP</code> only ever checked items lying in the room, never anything you were carrying</li>
+                  <li><code className="text-amber-300">ACTBRIEF</code> now reflects each viewer&rsquo;s own preference &mdash; previously the <em>actor&rsquo;s</em> own ACTBRIEF setting controlled whether everyone else in the room saw parentheses around their <code className="text-amber-300">ACT</code> message, instead of each player&rsquo;s own toggle</li>
+                  <li>Fixed the &ldquo;Experience Points until next Build Point&rdquo; counter reading roughly 1000 XP higher than it should for most of a level, due to a mismatched starting-build-point baseline in the calculation</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">New GM Commands</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li><code className="text-amber-300">@stat &lt;name&gt;</code> and <code className="text-amber-300">@skill &lt;name&gt;</code> &mdash; show a GM the exact same <code className="text-amber-300">STATUS</code> page or <code className="text-amber-300">SKILLS</code> list a player would see themselves, for any player by name (online or offline)</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2 className="text-amber-400 text-lg font-bold mb-1">v11.21.0 &mdash; July 27, 2026</h2>
+            <p className="text-gray-400 mb-3">Two core script-interpreter bugs fixed that silently no-op&rsquo;d across dozens of scripts game-wide, a magic/psi resistance overhaul affecting roughly half the bestiary, several dyeing and weaving fixes, and spell fumbles now actually do something instead of just fizzling.</p>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Script Interpreter</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li><code className="text-amber-300">IFVAR X == N</code> (double equals) always evaluated false &mdash; only single <code className="text-amber-300">=</code> was recognized as equality. Silently broke every script using the typo&rsquo;d double-equals form, including a Keep gate password puzzle and an orb-tap stairway reveal that could never trigger no matter how correctly you performed the sequence</li>
+                  <li><code className="text-amber-300">EQUAL</code>/<code className="text-amber-300">ADD</code>/<code className="text-amber-300">SUB ITEMADJ1-3</code> were a total no-op &mdash; the interpreter had no write case for that variable prefix at all (reads worked, writes silently did nothing). Affects roughly 300 script lines across the world; discovered via a sap reagent that was supposed to change state when lit but never did</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Magic &amp; Psionics</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Monster <code className="text-amber-300">RESIST</code>/<code className="text-amber-300">PSIRESIST</code> values (a rating stat, same family as Attack/Defense, ranging into the thousands) were being compared directly against a 0&ndash;99 roll &mdash; any monster with a resist rating of 100 or higher (roughly 48% of the bestiary) auto-resisted every spell and psi attack, unconditionally, regardless of caster skill</li>
+                  <li>Resistance now scales against the caster&rsquo;s own rating (Spellcraft skill + Empathy for spells, Psionics/school skill + Willpower for psi), using the same rating-vs-rating formula melee ToHit already uses &mdash; no monster is unhittable, no resist is a sure thing</li>
+                  <li>A fumbled spell cast (roll of 100) previously just printed &ldquo;the spell backfires&rdquo; and did nothing at all. It now actually backfires: damage spells hurt the caster instead of the intended monster, and heal/defense/buff spells land on the caster instead of whoever else they were aimed at</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Dyeing &amp; Weaving</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li><code className="text-amber-300">DYE</code> only ever searched your own inventory for the material &mdash; cloth left soaking in a dye cauldron (the normal, intended way to dye raw material) couldn&rsquo;t be found at all. Now checks inventory, then the floor, then any container in the room</li>
+                  <li><code className="text-amber-300">DYE</code> now requires an actual cauldron present in the room, not just a room flagged as a loom &mdash; most loom rooms (player housing, guild halls) never had one, so dyeing was usable in places it originally shouldn&rsquo;t have been</li>
+                  <li>Fixed the dye-color field mapping &mdash; a two-word color like &ldquo;inky black&rdquo; was showing the wrong first word (e.g. &ldquo;amazing black&rdquo; instead of &ldquo;inky black&rdquo;) because the modifier adjective was being read from the wrong item field</li>
+                  <li>Crafting a garment from cloth dyed with a two-word color (e.g. &ldquo;olive green cotton&rdquo;) dropped the second word &mdash; the crafted item now keeps both</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Combat &amp; Items</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>A monster knocked down while simultaneously fighting a summoned creature or acting as a guardian never announced getting back up &mdash; it silently recovered with no message, unlike a knockdown during ordinary player combat</li>
+                  <li><code className="text-amber-300">GET ALL</code> could scoop up items that are scripted to be un-gettable (e.g. a shop&rsquo;s price-list manuscript that&rsquo;s meant to always refuse <code className="text-amber-300">GET</code>) &mdash; it never ran an item&rsquo;s <code className="text-amber-300">GET</code> script at all, only the single-item <code className="text-amber-300">GET</code> command did. <code className="text-amber-300">GET ALL</code> now respects the same scripted protections</li>
+                  <li>Doubled the coin yield from the random lootable containers (chests, strongboxes) monsters drop</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">World Time</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>&ldquo;It is dawn&rdquo; used to cover a 3-hour window, but scripted dawn events (like a fountain&rsquo;s once-a-day effect) trigger on one exact hour in the middle of it &mdash; so two-thirds of the time you saw &ldquo;dawn&rdquo; displayed, the actual triggering hour hadn&rsquo;t arrived yet. Narrowed &ldquo;dawn&rdquo; to the exact hour scripts check</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2 className="text-amber-400 text-lg font-bold mb-1">v11.20.0 &mdash; July 26, 2026</h2>
+            <p className="text-gray-400 mb-3">New room-aware <code className="text-amber-300">ADVICE</code> subcommands for newcomers and crafters, HELP/ADVICE pointed out right at character creation, and two real bugs fixed &mdash; a parser bug mangling every flush-left price sign in the game, and an enchantment spell that was erasing a store-bought item&rsquo;s material adjective.</p>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">ADVICE Command</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li><code className="text-amber-300">ADVICE HINTS</code> &mdash; 21 newcomer tips covering guild locations, the Test Tunnels, banking, healing-by-resting, death penalties, and where to find player-made maps (Facebook group and PDF)</li>
+                  <li><code className="text-amber-300">ADVICE CRAFTING</code> is now room-aware &mdash; away from a workshop it lists the Foundry, Crafter&rsquo;s Guild, Bowyer &amp; Fletcher, and New Havarth Mining Company (room 394); standing in one of them, a master crafter steps up with trade-specific tips (smelting/forging/repair at the forge, pelt/hide prep and dyeing at the loom, Wood Lore and carving at the fletcher&rsquo;s bench, tool/purity tips at the mining shop), including a reminder that a forge or loom doubles as a jeweler&rsquo;s bench for <code className="text-amber-300">ENCRUST</code>, <code className="text-amber-300">INLAY</code>, <code className="text-amber-300">INSET</code>, and <code className="text-amber-300">ENGRAVE</code></li>
+                  <li>New characters are now told &ldquo;Type HELP for a full list of commands, or ADVICE to get some tips for getting started.&rdquo; right after character creation, on the web client, telnet, and SSH alike</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Fixes</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Fixed a script-parser bug where a flush-left price list or sign (no leading whitespace or blank lines to mark it as a table) was joined into a single unreadable run-on line instead of keeping its columns &mdash; affects every sign of this style across the world, discovered via the hat shop&rsquo;s price sign in Fayd</li>
+                  <li>Enchantment I/II/III (202/203/204) were destroying a store-bought item&rsquo;s material adjective (e.g. casting Enchantment I on leather armor produced &ldquo;enchanted armor&rdquo;, losing &ldquo;leather&rdquo;) &mdash; the spell now fills the first empty adjective slot instead of shifting all three, which was clobbering the variety adjective that purchased items carry in the third slot</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2 className="text-amber-400 text-lg font-bold mb-1">v11.19.0 &mdash; July 24, 2026</h2>
+            <p className="text-gray-400 mb-3">Five long-dormant Druidic spells brought to life &mdash; Camouflage, Call Storm, Disperse Storm, Plant Snare, and Freedom either did nothing or worked incorrectly before today &mdash; plus a full <code className="text-amber-300">SNEAK</code> rework and a new hurricane knockdown mechanic.</p>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Stealth</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Camouflage (Druidic 521) now works &mdash; grants +10 effective Stealth skill for 20 minutes, castable on yourself or another player; additional casts extend the duration instead of stacking the bonus, same as other timed buffs</li>
+                  <li><code className="text-amber-300">SNEAK</code> rebuilt: ordinary movement now always reveals a hidden player &mdash; <code className="text-amber-300">SNEAK</code> is required to attempt staying hidden while moving. The roll is now Stealth + Agility/10 + Quickness/10, made harder by the highest Perception/5 among any players already in the room you&rsquo;re moving into, and now takes a 2-second round (1 second under Haste) instead of being instant</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Weather &amp; Storms</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Call Storm (Druidic 501) and Disperse Storm (502) previously had no effect at all when cast; Call Storm now intensifies your region&rsquo;s weather one step toward Hurricane, Disperse Storm calms it one step toward Sunny &mdash; both require being outdoors</li>
+                  <li>Call Lightning (503) now requires being outdoors in at least Heavy Rain to cast, matching the original spell notes, instead of striking regardless of weather</li>
+                  <li>New Hurricane knockdown &mdash; standing, sitting, or kneeling players caught outdoors in Hurricane-force winds now have a chance each minute to be knocked to the ground; heavier and more agile characters are safer</li>
+                  <li>Resist Weather (506) now actually does something &mdash; a 20-minute buff (castable on yourself or another player) that cancels both the new Hurricane knockdown and the weather-based to-hit penalty from severe weather</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Movement-Restricting Spells</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Plant Snare (500) previously had no effect when cast; now entangles another player in grasping roots and vines outdoors, blocking their movement until it wears off or is removed</li>
+                  <li>Freedom (505) previously didn&rsquo;t work &mdash; the potion/scroll version cleared an unrelated flag, and the spell itself had no live effect at all when cast; it now removes one active movement-restricting spell (e.g. Plant Snare) from the target, chosen at random if more than one is active</li>
+                  <li>New Repel Plants (509) and Repel Plants and Webs (510) &mdash; 20-minute immunity buffs, extending on recast like other timed buffs; the first blocks Plant Snare, the second blocks Plant Snare and Web alike</li>
+                  <li>Carapace (511) could previously be cast on other players or creatures like every other defense spell; fixed to caster-only, matching the original spell notes</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2 className="text-amber-400 text-lg font-bold mb-1">v11.18.0 &mdash; July 23, 2026</h2>
+            <p className="text-gray-400 mb-3">Monsters can now actually cast their scripted spells for the first time, special attacks got several real bug fixes (target selection, missing flavor text, damage over-reduction, duplicated messages), and container commands now check what&rsquo;s in your hands before what&rsquo;s on the ground.</p>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Monster Spellcasting</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Monsters configured with a spell (<code className="text-amber-300">SPELLUSE</code>/<code className="text-amber-300">SPELL</code>/<code className="text-amber-300">MANA</code>) can now actually cast it &mdash; this was fully parsed but never once invoked, so no monster in the game had ever cast a spell despite plenty being configured to</li>
+                  <li>Full prepare-then-cast sequence: a windup announcement, then the spell&rsquo;s own cast time (matching how player spellcasting works), then a gesture line and the spell&rsquo;s normal hit-flavor text and damage &mdash; landing a hit on the monster while it&rsquo;s mid-cast disrupts the spell (unless the monster is flagged unable to be disrupted), and its mana is spent regardless</li>
+                  <li>Spell damage to a player now uses the same dice, damage type, and mitigations (armor, elemental vulnerability/resistance, shields) as when a player casts that same spell at a monster &mdash; it no longer also stacks the melee hit-location reduction (20&ndash;40% for a limb or hand) on top, which was driving it far below what the spell should do</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Monster Special Attacks</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>A monster&rsquo;s special attack (and spell cast) now targets a random player currently fighting it, or a random player in the room if nobody currently is &mdash; instead of being limited to whichever single player it happened to be locked onto in melee</li>
+                  <li>A monster&rsquo;s limited number of special-attack uses is now actually enforced &mdash; previously unlimited regardless of how the monster was configured</li>
+                  <li>Fixed a parser bug where a special attack&rsquo;s own scripted flavor text was never loaded due to a stray typo&rsquo;d token, so every special attack fell back to a generic &ldquo;uses a special attack&rdquo; line instead of things like &ldquo;turns one head to face you and looses a gout of flame!&rdquo;</li>
+                  <li>Onlookers in the room now see a simplified outcome (e.g. &ldquo;&hellip; Minor damage.&rdquo;) when a special attack or spell lands &mdash; previously only the target&rsquo;s own private message showed that anything happened at all</li>
+                  <li>The player actually hit no longer sees their own special attack or spell hit described twice &mdash; once in private detail, once again in the public room recap &mdash; the room broadcast now leaves out whoever already got the private version</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Container Commands</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li><code className="text-amber-300">OPEN</code>/<code className="text-amber-300">CLOSE</code>/<code className="text-amber-300">LOCK</code>/<code className="text-amber-300">UNLOCK</code>/lockpicking now check what you&rsquo;re holding before checking the room &mdash; previously all of these checked room items first, so holding a locked chest with an identical one lying nearby meant these commands would act on the one on the ground instead of the one in your hands (use <code className="text-amber-300">my &lt;item&gt;</code> to force your own inventory explicitly, same as before)</li>
+                  <li><code className="text-amber-300">LOCK</code>/<code className="text-amber-300">UNLOCK</code> previously couldn&rsquo;t affect anything in your inventory at all, only room items &mdash; a keyed chest you were holding could never be locked or unlocked without first setting it down</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
             <h2 className="text-amber-400 text-lg font-bold mb-1">v11.17.0 &mdash; July 22, 2026</h2>
             <p className="text-gray-400 mb-3">Doors and gates now stay in sync from both sides of the doorway, a fully rebuilt ITEMBIT flag system that was silently broken since launch, two revived-from-the-dead spells, and a new GM item-duplication command.</p>
 

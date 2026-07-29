@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"math/rand"
+	"sort"
 	"strconv"
 	"strings"
 	"time"
@@ -662,6 +663,47 @@ func (e *GameEngine) doInventory(player *Player) *CommandResult {
 	return &CommandResult{Messages: msgs}
 }
 
+// doSkillsList builds the SKILLS command output (skill levels, weapon specialization,
+// build points) for the given player. Shared with the @SKILL GM command.
+func (e *GameEngine) doSkillsList(player *Player) *CommandResult {
+	var skillMsgs []string
+	skillMsgs = append(skillMsgs, fmt.Sprintf("%-2s %-26s%-10s", "#", "Skill", "Level"))
+	skillMsgs = append(skillMsgs, fmt.Sprintf("%-2s %-26s%-10s", "--", "-----", "-----"))
+	hasSkills := false
+	for id := 0; id <= 35; id++ {
+		lvl := player.Skills[id]
+		if lvl > 0 {
+			name := SkillNames[id]
+			if name == "" {
+				name = fmt.Sprintf("Skill #%d", id)
+			}
+			skillMsgs = append(skillMsgs, fmt.Sprintf("%-2d %-26s%-10d", id, name, lvl))
+			hasSkills = true
+		}
+	}
+	if !hasSkills {
+		skillMsgs = append(skillMsgs, "You have no trained skills yet.")
+	}
+	var specNounIDs []int
+	for nounID, rank := range player.WeaponSpecialization {
+		if rank > 0 {
+			specNounIDs = append(specNounIDs, nounID)
+		}
+	}
+	if len(specNounIDs) > 0 {
+		sort.Ints(specNounIDs)
+		skillMsgs = append(skillMsgs, "")
+		skillMsgs = append(skillMsgs, fmt.Sprintf("%-26s%-10s", "Weapon Specialization", "Level"))
+		skillMsgs = append(skillMsgs, fmt.Sprintf("%-26s%-10s", strings.Repeat("-", len("Weapon Specialization")), "-----"))
+		for _, nounID := range specNounIDs {
+			name := strings.Title(e.nouns[nounID])
+			skillMsgs = append(skillMsgs, fmt.Sprintf("%-26s%-10d", name, player.WeaponSpecialization[nounID]))
+		}
+	}
+	skillMsgs = append(skillMsgs, fmt.Sprintf("Build Points: %d", player.BuildPoints))
+	return &CommandResult{Messages: skillMsgs}
+}
+
 func (e *GameEngine) doStatus(player *Player) *CommandResult {
 	recalcBuildPoints(player)
 
@@ -706,10 +748,7 @@ func (e *GameEngine) doStatus(player *Player) *CommandResult {
 	)
 
 	// Attack/Defense modifiers
-	var weaponDef *gameworld.ItemDef
-	if player.Wielded != nil {
-		weaponDef = e.items[player.Wielded.Archetype]
-	}
+	weaponDef := e.currentWeaponDef(player)
 	atkRating := playerAttackRating(player, weaponDef)
 	defRating := playerDefenseRating(player) + armorEnchantBonus(player, e.items) + shieldDefenseBonus(player, e.items)
 	stanceLabel := stanceNames[player.Stance]
@@ -1209,6 +1248,40 @@ func (e *GameEngine) doOpen(player *Player, args []string) *CommandResult {
 			return &CommandResult{Messages: []string{openMsg}}
 		}
 	}
+	// Worn containers (backpacks, waistpacks, etc.) — same priority as carried inventory.
+	for i, ii := range player.Worn {
+		itemDef := e.items[ii.Archetype]
+		if itemDef == nil {
+			continue
+		}
+		name := e.getItemNounName(itemDef)
+		if matchesTarget(name, target, e.getAdjName(ii.Adj1), e.getAdjName(ii.Adj2), e.getAdjName(ii.Adj3)) {
+			if skip > 0 {
+				skip--
+				continue
+			}
+			if !containsFlag(itemDef.Flags, "OPENABLE") {
+				return &CommandResult{Messages: []string{"You can't open that."}}
+			}
+			if ii.State == "LOCKED" {
+				return &CommandResult{Messages: []string{"It's locked."}}
+			}
+			if ii.State == "LATCHED" {
+				return &CommandResult{Messages: []string{"It's latched shut."}}
+			}
+			if ii.State == "OPEN" {
+				fullName := e.formatItemName(itemDef, ii.Adj1, ii.Adj2, ii.Adj3, ii.Tail)
+				return &CommandResult{Messages: []string{fmt.Sprintf("%s is already open.", capitalize(fullName))}}
+			}
+			player.Worn[i].State = "OPEN"
+			fullName := e.formatItemName(itemDef, ii.Adj1, ii.Adj2, ii.Adj3, ii.Tail)
+			openMsg := fmt.Sprintf("You open %s.", fullName)
+			if itemDef.Type == "LIQCONTAINER" && ii.Val2 > 0 && ii.Val4 != 0 {
+				openMsg = fmt.Sprintf("You open %s, revealing a %s potion.", fullName, e.getAdjName(ii.Val4))
+			}
+			return &CommandResult{Messages: []string{openMsg}}
+		}
+	}
 	// Room containers — skipped when "my" was used (e.g. "open my chest").
 	if !mine {
 		for i, ri := range room.Items {
@@ -1412,6 +1485,26 @@ func (e *GameEngine) doClose(player *Player, args []string) *CommandResult {
 				return &CommandResult{Messages: []string{fmt.Sprintf("%s is already closed.", capitalize(fullName))}}
 			}
 			player.Inventory[i].State = "CLOSED"
+			return &CommandResult{Messages: []string{fmt.Sprintf("You close %s.", fullName)}}
+		}
+	}
+	// Worn containers (backpacks, waistpacks, etc.) — same priority as carried inventory.
+	for i, ii := range player.Worn {
+		itemDef := e.items[ii.Archetype]
+		if itemDef == nil {
+			continue
+		}
+		name := e.getItemNounName(itemDef)
+		if matchesTarget(name, target, e.getAdjName(ii.Adj1), e.getAdjName(ii.Adj2), e.getAdjName(ii.Adj3)) {
+			if skip > 0 {
+				skip--
+				continue
+			}
+			fullName := e.formatItemName(itemDef, ii.Adj1, ii.Adj2, ii.Adj3, ii.Tail)
+			if ii.State != "OPEN" {
+				return &CommandResult{Messages: []string{fmt.Sprintf("%s is already closed.", capitalize(fullName))}}
+			}
+			player.Worn[i].State = "CLOSED"
 			return &CommandResult{Messages: []string{fmt.Sprintf("You close %s.", fullName)}}
 		}
 	}
@@ -1747,6 +1840,15 @@ func (e *GameEngine) doEat(ctx context.Context, player *Player, args []string) *
 			}
 		}
 	}
+	// No FOOD-typed item matched — some non-food items still script a response to EAT
+	// (e.g. the Happy Fun Ball's "You balance it on your nose for a moment"). Fall back
+	// to the same generic script dispatch other verbs (PUSH, PUNCH, TURN, etc.) use so
+	// those scripts still get a chance to fire.
+	if room := e.rooms[player.RoomNumber]; room != nil {
+		if result := e.runVerbScriptsForTarget(ctx, player, room, "EAT", target); result != nil {
+			return result
+		}
+	}
 	return &CommandResult{Messages: []string{"You don't have that."}}
 }
 
@@ -1819,6 +1921,13 @@ func (e *GameEngine) doBuy(ctx context.Context, player *Player, args []string) *
 			// Store adjective goes in ADJ3 (last slot) — ADJ1/ADJ2 left open for
 			// crafting/enchanting. Item scripts check ITEMADJ3 for the variety.
 			item.Adj3 = si.Adj
+		}
+		if itemDef.Type == "MATERIAL" {
+			// Stamp the purchase price as the raw material's value (VAL1 = copper sell
+			// value per GMSCRIPT.DOC). Crafting propagates this so a finished item's sale
+			// price can be capped relative to what the material actually cost — see
+			// player.CraftingVal1 in doWork/crafting.go.
+			item.Val1 = si.Price
 		}
 		player.Inventory = append(player.Inventory, item)
 		e.SavePlayer(ctx, player)
@@ -2076,6 +2185,15 @@ func (e *GameEngine) doDrink(ctx context.Context, player *Player, args []string)
 		}
 	}
 
+	// No LIQUID/LIQCONTAINER/FOOD item matched — some items still script a response to
+	// DRINK despite not being a drink at all (e.g. the Happy Fun Ball's "You bounce it
+	// off your knee"). Fall back to the same generic script dispatch other verbs
+	// (PUSH, PUNCH, TURN, etc.) use so those scripts still get a chance to fire.
+	if room := e.rooms[player.RoomNumber]; room != nil {
+		if result := e.runVerbScriptsForTarget(ctx, player, room, "DRINK", target); result != nil {
+			return result
+		}
+	}
 	return &CommandResult{Messages: []string{"You don't have that."}}
 }
 
@@ -2271,6 +2389,54 @@ func (e *GameEngine) doFlip(ctx context.Context, player *Player, args []string) 
 	room := e.rooms[player.RoomNumber]
 	if room == nil {
 		return &CommandResult{Messages: []string{"You can't do that here."}}
+	}
+	// Carried items take priority over room items (matches doPut/doOpen/doClose).
+	// Scripted FLIP responses (e.g. the Happy Fun Ball) need a chance to fire even
+	// on items that are held rather than lying in the room.
+	for i, ii := range player.Inventory {
+		itemDef := e.items[ii.Archetype]
+		if itemDef == nil {
+			continue
+		}
+		name := e.getItemNounName(itemDef)
+		if !matchesTarget(name, target, e.getAdjName(ii.Adj1), e.getAdjName(ii.Adj2), e.getAdjName(ii.Adj3)) {
+			continue
+		}
+		if skip > 0 {
+			skip--
+			continue
+		}
+		displayName := e.formatItemName(itemDef, ii.Adj1, ii.Adj2, ii.Adj3, ii.Tail)
+		tempRI := gameworld.RoomItem{Ref: -1, Archetype: ii.Archetype,
+			Adj1: ii.Adj1, Adj2: ii.Adj2, Adj3: ii.Adj3,
+			Val1: ii.Val1, Val2: ii.Val2, Val3: ii.Val3, Val4: ii.Val4, Val5: ii.Val5,
+			ItemBits: ii.ItemBits, State: ii.State}
+		preSc := e.RunPreverbScripts(player, room, "FLIP", &tempRI, itemDef)
+		if len(preSc.DeferredSegments) > 0 {
+			e.scheduleScriptSegments(player, preSc.DeferredSegments)
+		}
+		if preSc.Blocked || len(preSc.Messages) > 0 || len(preSc.RoomMsgs) > 0 {
+			return &CommandResult{Messages: preSc.Messages, RoomBroadcast: preSc.RoomMsgs}
+		}
+		if !containsFlag(itemDef.Flags, "FLIPABLE") {
+			continue
+		}
+		if ii.State == "FLIPPED" {
+			player.Inventory[i].State = "UNFLIPPED"
+		} else {
+			player.Inventory[i].State = "FLIPPED"
+		}
+		tempRI.State = player.Inventory[i].State
+		sc := e.RunVerbScripts(player, room, "FLIP", &tempRI, itemDef)
+		if len(sc.DeferredSegments) > 0 {
+			e.scheduleScriptSegments(player, sc.DeferredSegments)
+		}
+		e.SavePlayer(ctx, player)
+		result := &CommandResult{Messages: sc.Messages, RoomBroadcast: sc.RoomMsgs}
+		if len(result.Messages) == 0 {
+			result.Messages = []string{fmt.Sprintf("You flip %s.", displayName)}
+		}
+		return result
 	}
 	for i, ri := range room.Items {
 		itemDef := e.items[ri.Archetype]
@@ -3421,7 +3587,7 @@ func applyHerbSpell(player *Player, spellNum int) string {
 			return "You feel a faint tingle, but your body has reached its natural limit with this herb."
 		}
 		player.Empathy += gain
-		return fmt.Sprintf("You feel a deeper connection to those around you. [Empathy +%d]", gain)
+		return fmt.Sprintf("You feel a deeper connection to the mana flowing around you. [Empathy +%d]", gain)
 	case 333: // Kurkan Pollen — Willpower
 		if player.Willpower >= herbStatCap {
 			return "You feel a faint tingle, but your body has reached its natural limit with this herb."

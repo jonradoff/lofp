@@ -4401,6 +4401,7 @@ EXTEND 4 labeled, "For arrows only"
 EXTEND 5 labeled, "For bolts only"
 ITEM 9 693 ADJ1=10
 
+TRAINING 18 30
 
 VARIABLE ARROWSIN
 VARIABLE ARROWSPAID

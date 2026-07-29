@@ -3,6 +3,7 @@ package engine
 import (
 	"context"
 	"fmt"
+	"math/rand"
 	"time"
 )
 
@@ -331,6 +332,59 @@ func (e *GameEngine) regenTick() {
 			p.TimedDefenseBuffs = activeBuffs
 		}
 
+		// Check for expired Resist Weather buff (spell 506)
+		if !p.ResistWeatherExpiry.IsZero() && time.Now().After(p.ResistWeatherExpiry) {
+			p.ResistWeatherExpiry = time.Time{}
+			changed = true
+			if e.sendToPlayer != nil {
+				e.sendToPlayer(p.FirstName, []string{"Your resistance to the weather fades."})
+			}
+		}
+
+		// Check for expired Repel Plants / Repel Plants and Webs buffs (509/510)
+		if !p.RepelPlantsExpiry.IsZero() && time.Now().After(p.RepelPlantsExpiry) {
+			p.RepelPlantsExpiry = time.Time{}
+			changed = true
+			if e.sendToPlayer != nil {
+				e.sendToPlayer(p.FirstName, []string{"Your immunity to plant snares fades."})
+			}
+		}
+		if !p.RepelPlantsAndWebsExpiry.IsZero() && time.Now().After(p.RepelPlantsAndWebsExpiry) {
+			p.RepelPlantsAndWebsExpiry = time.Time{}
+			changed = true
+			if e.sendToPlayer != nil {
+				e.sendToPlayer(p.FirstName, []string{"Your immunity to plant snares and webs fades."})
+			}
+		}
+
+		// Check for expired Entangles (e.g. Plant Snare) — each has its own
+		// duration, independent of the others, unlike Freedom which removes one
+		// early at random.
+		var activeEntangles []PlayerEntangle
+		for _, ent := range p.Entangles {
+			if time.Now().After(ent.Expiry) {
+				changed = true
+				if e.sendToPlayer != nil {
+					e.sendToPlayer(p.FirstName, []string{fmt.Sprintf("The %s releases its hold on you.", ent.SpellName)})
+				}
+			} else {
+				activeEntangles = append(activeEntangles, ent)
+			}
+		}
+		if len(activeEntangles) != len(p.Entangles) {
+			p.Entangles = activeEntangles
+		}
+
+		// Check for expired Camouflage buff (spell 521)
+		if p.CamouflageBonus > 0 && !p.CamouflageExpiry.IsZero() && time.Now().After(p.CamouflageExpiry) {
+			p.CamouflageBonus = 0
+			p.CamouflageExpiry = time.Time{}
+			changed = true
+			if e.sendToPlayer != nil {
+				e.sendToPlayer(p.FirstName, []string{"Your camouflage fades."})
+			}
+		}
+
 		// Check for expired Haste buff
 		if !p.HasteExpiry.IsZero() && time.Now().After(p.HasteExpiry) {
 			p.HasteExpiry = time.Time{}
@@ -380,6 +434,36 @@ func (e *GameEngine) regenTick() {
 			changed = true
 			if e.sendToPlayer != nil {
 				e.sendToPlayer(p.FirstName, []string{"The magical slowness fades. You feel yourself return to normal speed."})
+			}
+		}
+
+		// Hurricane-force winds (Call Storm's max weather state, or a naturally
+		// occurring Hurricane) have a chance each tick to knock an outdoor player
+		// off their feet. Heavier, more agile players are less likely to fall —
+		// see castCallStormSpell in spells.go for how regions reach this state.
+		// Resist Weather (506) ignores this entirely.
+		resistingWeather := !p.ResistWeatherExpiry.IsZero() && time.Now().Before(p.ResistWeatherExpiry)
+		if !resistingWeather && (p.Position == 0 || p.Position == 1 || p.Position == 3) {
+			if room := e.rooms[p.RoomNumber]; room != nil && isOutdoorTerrain(room.Terrain) {
+				if e.RegionWeather[room.Region] == 8 { // Hurricane
+					knockChance := 50 - p.Weight/10 - p.Agility/5
+					if knockChance < 5 {
+						knockChance = 5
+					}
+					if knockChance > 80 {
+						knockChance = 80
+					}
+					if rand.Intn(100) < knockChance {
+						p.Position = 2 // Laying
+						changed = true
+						if e.sendToPlayer != nil {
+							e.sendToPlayer(p.FirstName, []string{"The hurricane-force winds knock you off your feet!"})
+						}
+						if e.roomBroadcast != nil {
+							e.roomBroadcast(p.RoomNumber, []string{fmt.Sprintf("%s is knocked to the ground by the howling wind!", p.FirstName)})
+						}
+					}
+				}
 			}
 		}
 

@@ -1405,6 +1405,7 @@ func (s *Server) telnetCreateCharacter(tc *telnetConn, ctx context.Context, acco
 
 	player := s.engine.CreateNewPlayer(ctx, firstName, lastName, race, gender, appearance, accountID)
 	tc.writeLine(ansiGreen + fmt.Sprintf("Welcome to the Shattered Realms, %s the %s!", player.FullName(), engine.RaceNameByID(player.Race)) + ansiReset)
+	tc.writeLine(ansiGreen + "Type HELP for a full list of commands, or ADVICE to get some tips for getting started." + ansiReset)
 	return player
 }
 

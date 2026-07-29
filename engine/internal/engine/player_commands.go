@@ -675,7 +675,7 @@ func xpUntilNextBuildPoint(player *Player) int {
 	if rate <= 0 {
 		return 0
 	}
-	bp := 20
+	bp := 30 // starting build points (matches CreateNewPlayer / recalcBuildPoints)
 	lvl := 1
 	xpRemaining := player.Experience
 
@@ -1124,7 +1124,7 @@ func (e *GameEngine) doHide(ctx context.Context, player *Player) *CommandResult 
 	if player.Joined {
 		return &CommandResult{Messages: []string{"You can't hide while in combat!"}}
 	}
-	stealthSkill := player.Skills[33]
+	stealthSkill := effectiveStealthSkill(player)
 	hideChance := 25 + stealthSkill*5 + player.Agility/10
 	if hideChance > 95 {
 		hideChance = 95
@@ -1162,8 +1162,23 @@ func (e *GameEngine) doSneak(ctx context.Context, player *Player, args []string)
 	if mapped, ok := dirMap[dir]; ok {
 		dir = mapped
 	}
-	stealthSkill := player.Skills[33]
-	sneakChance := 30 + stealthSkill*5 + player.Agility/10
+	stealthSkill := effectiveStealthSkill(player)
+	sneakChance := 30 + stealthSkill*5 + player.Agility/10 + player.Quickness/10
+
+	// Harder to slip in unnoticed if someone is already in the destination room —
+	// reduce the chance by the highest Perception/5 among players there.
+	if room := e.rooms[player.RoomNumber]; room != nil {
+		if destNum, ok := room.Exits[dir]; ok && e.sessions != nil {
+			highestPerception := 0
+			for _, p := range e.sessions.OnlinePlayers() {
+				if p.RoomNumber == destNum && p.FirstName != player.FirstName && p.Perception > highestPerception {
+					highestPerception = p.Perception
+				}
+			}
+			sneakChance -= highestPerception / 5
+		}
+	}
+
 	if sneakChance > 90 {
 		sneakChance = 90
 	}
@@ -1178,6 +1193,10 @@ func (e *GameEngine) doSneak(ctx context.Context, player *Player, args []string)
 		player.Hidden = true
 		return result
 	}
+	// Sneaking is slower than a normal move (base 2 sec, halved to 1 under Haste).
+	sneakRT := applyRoundTime(player, 2)
+	player.RoundTimeExpiry = time.Now().Add(time.Duration(sneakRT) * time.Second)
+	result.Messages = append(result.Messages, fmt.Sprintf("[Round: %d sec]", sneakRT))
 	if sneakSuccess {
 		player.Hidden = true
 	} else {
@@ -1292,10 +1311,10 @@ func (e *GameEngine) doSkin(ctx context.Context, player *Player, args []string) 
 						skinDef := e.items[si.Archetype]
 						if skinDef != nil {
 							adj := def.SkinAdj
-							skinName := e.formatItemName(skinDef, adj, 0, 0)
+							skinName := e.formatItemName(skinDef, 0, adj, 0)
 							item := InventoryItem{
 								Archetype: si.Archetype,
-								Adj1:      adj,
+								Adj2:      adj,
 							}
 							player.Inventory = append(player.Inventory, item)
 							skinMsgs = append(skinMsgs, fmt.Sprintf("You carefully skin %s%s and obtain %s.", articleFor(displayName, def.Unique), displayName, skinName))

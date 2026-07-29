@@ -117,19 +117,20 @@ func woundBleedDrainPerMinute(level int) int {
 // applyWoundToList adds a hit of the given location/damageType/level to a
 // wound list, following the "one wound per body part per damage type" rule:
 // if a wound already exists at that location with that damage type, its
-// severity increases (levels add, capped at 12) rather than a new entry
-// being appended; otherwise a new wound is created. canBleed is false for
-// undead (RACE 22 monsters, Player.Undead) — they have no blood to lose, so
-// their wounds never bleed regardless of type/severity.
+// severity becomes the worse of the existing level and this hit's level
+// (not their sum) — two level-1 nicks to the same spot leave a level-1
+// wound, not a level-2 one, matching the original's per-hit (not
+// cumulative) wound severity. Different locations/damage types remain
+// separate wounds and their bleed drains do stack (see regen.go). canBleed
+// is false for undead (RACE 22 monsters, Player.Undead) — they have no
+// blood to lose, so their wounds never bleed regardless of type/severity.
 func applyWoundToList(wounds []Wound, location, damageType string, level int, canBleed bool) []Wound {
 	for i := range wounds {
 		if wounds[i].Location == location && wounds[i].DamageType == damageType {
-			newLevel := wounds[i].Level + level
-			if newLevel > 12 {
-				newLevel = 12
+			if level > wounds[i].Level {
+				wounds[i].Level = level
 			}
-			wounds[i].Level = newLevel
-			wounds[i].Bleeding = canBleed && woundBleeds(damageType, newLevel)
+			wounds[i].Bleeding = canBleed && woundBleeds(damageType, wounds[i].Level)
 			wounds[i].CreatedAt = time.Now()
 			return wounds
 		}

@@ -171,7 +171,7 @@ func init() {
 		{ID: 513, Name: "Agility I", School: "Druidic", Level: 4, ManaCost: 6, CastTime: 3, Effect: "buff"},
 		{ID: 514, Name: "Agility II", School: "Druidic", Level: 11, ManaCost: 12, CastTime: 3, Effect: "buff"},
 		{ID: 515, Name: "Agility III", School: "Druidic", Level: 16, ManaCost: 20, CastTime: 3, Effect: "buff"},
-		{ID: 519, Name: "Sunray", School: "Druidic", Level: 13, ManaCost: 18, CastTime: 3, Effect: "damage", DmgMin: 12, DmgMax: 35, DmgType: "heat"},
+		{ID: 519, Name: "Sunray", School: "Druidic", Level: 13, ManaCost: 18, CastTime: 3, Effect: "utility"},
 		{ID: 520, Name: "Night Vision", School: "Druidic", Level: 1, ManaCost: 2, CastTime: 2, Effect: "utility"},
 		{ID: 521, Name: "Camouflage", School: "Druidic", Level: 7, ManaCost: 8, CastTime: 3, Effect: "buff"},
 		{ID: 523, Name: "Earth Spike", School: "Druidic", Level: 5, ManaCost: 7, CastTime: 3, Effect: "damage", DmgMin: 5, DmgMax: 18, DmgType: "crushing"},
@@ -824,11 +824,14 @@ func (e *GameEngine) doCastSpell(ctx context.Context, player *Player, args []str
 
 	castRoll := rand.Intn(100) + 1
 	if castRoll == 100 && !player.IsGM {
-		// Extreme failure!
-		return &CommandResult{
-			Messages:      []string{fmt.Sprintf("[Success: %d%%, Roll %d] Extreme failure! The spell backfires!", castChance, castRoll)},
-			RoomBroadcast: []string{fmt.Sprintf("Magic begins to form around %s but then fizzles.", player.FirstName)},
-		}
+		// Extreme failure! Per LEGENDS.DOC, a fumble "may result in a harmful
+		// side-effect" — the spell still goes off, but hits the caster instead
+		// of whatever/whoever they were aiming at.
+		result := e.castSpellBackfire(ctx, player, spell)
+		result.Messages = append([]string{fmt.Sprintf("[Success: %d%%, Roll %d] Extreme failure! The spell backfires!", castChance, castRoll)}, result.Messages...)
+		result.PlayerState = player
+		e.SavePlayer(ctx, player)
+		return result
 	}
 
 	spectacularSuccess := castRoll == 1
@@ -854,7 +857,11 @@ func (e *GameEngine) doCastSpell(ctx context.Context, player *Player, args []str
 	case "heal":
 		result = e.castHealSpell(ctx, player, spell, args)
 	case "defense":
-		result = e.castTimedDefenseSpell(player, spell, args)
+		if spell.ID == 511 { // Carapace — caster only, unlike other defense spells
+			result = e.castCarapaceSpell(player, spell, args)
+		} else {
+			result = e.castTimedDefenseSpell(player, spell, args)
+		}
 	case "buff":
 		result = e.castBuffSpell(player, spell, args)
 	case "utility":
@@ -871,6 +878,8 @@ func (e *GameEngine) doCastSpell(ctx context.Context, player *Player, args []str
 			result = e.castTentaclesSpell(player, spell, args)
 		case 200: // Fear
 			result = e.castFearSpell(player, spell, args)
+		case 519: // Sunray
+			result = e.castSunraySpell(player, spell, args)
 		case 201: // Charm
 			result = e.castCharmSpell(player, spell, args)
 		case 211: // Slow
@@ -885,6 +894,14 @@ func (e *GameEngine) doCastSpell(ctx context.Context, player *Player, args []str
 			result = e.castSummonFamiliar(player)
 		case 504: // Call Animal
 			result = e.castCallAnimal(player)
+		case 500: // Plant Snare
+			result = e.castPlantSnareSpell(player, spell, args)
+		case 501: // Call Storm
+			result = e.castCallStormSpell(player, spell)
+		case 502: // Disperse Storm
+			result = e.castDisperseStormSpell(player, spell)
+		case 505: // Freedom
+			result = e.castFreedomSpell(player, spell, args)
 		case 517: // Stick to Snake
 			result = e.castStickToSnake(player)
 		case 106, 107, 108, 109, 123: // Summon Fire/Air/Water/Gargoyle/Earth Elemental
@@ -930,6 +947,60 @@ func (e *GameEngine) doCastSpell(ctx context.Context, player *Player, args []str
 	return result
 }
 
+// castSpellBackfire resolves a fumbled cast (roll 100): the spell still goes
+// off, but strikes the caster instead of their intended target. Damage spells
+// hurt the caster directly (they normally only ever target monsters, so there's
+// no "redirect to a monster's attacker" to reuse); heal/defense/buff spells are
+// re-dispatched through their normal handlers with no target args, which each
+// already treat as "self" by convention (see castHealSpell/castTimedDefenseSpell/
+// castBuffSpell's "self by default" target resolution). Utility spells (fear,
+// charm, summons, detect magic, etc.) mostly have no "another player" target to
+// redirect from, so they just fizzle as before.
+func (e *GameEngine) castSpellBackfire(ctx context.Context, player *Player, spell *SpellDef) *CommandResult {
+	switch spell.Effect {
+	case "damage":
+		dmg := rand.Intn(spell.DmgMax-spell.DmgMin+1) + spell.DmgMin
+		dmg += masteryDamageBonus(spellMasteryLevel(player, spell), player)
+		if dmg <= 0 {
+			dmg = 1
+		}
+		player.BodyPoints -= dmg
+		rawBP := player.BodyPoints
+		if player.BodyPoints < 0 {
+			player.BodyPoints = 0
+		}
+		msgs := []string{fmt.Sprintf("The magic twists out of your control and strikes you instead! [%d Damage]", dmg)}
+		if rawBP <= 0 {
+			if e.isArenaRoom(player.RoomNumber) {
+				player.BodyPoints = 1
+				msgs = append(msgs, "The arena's enchantment prevents your death!")
+			} else {
+				outcomeMsgs, _ := e.resolveDirectHitOutcome(player, rawBP, spell.Name)
+				msgs = append(msgs, outcomeMsgs...)
+			}
+		}
+		e.SavePlayer(ctx, player)
+		return &CommandResult{
+			Messages:      msgs,
+			RoomBroadcast: []string{fmt.Sprintf("Magic flares wildly around %s and strikes them instead!", player.FirstName)},
+			PlayerState:   player,
+		}
+	case "heal":
+		return e.castHealSpell(ctx, player, spell, nil)
+	case "defense":
+		if spell.ID == 511 {
+			return e.castCarapaceSpell(player, spell, nil)
+		}
+		return e.castTimedDefenseSpell(player, spell, nil)
+	case "buff":
+		return e.castBuffSpell(player, spell, nil)
+	default:
+		return &CommandResult{
+			RoomBroadcast: []string{fmt.Sprintf("Magic begins to form around %s but then fizzles.", player.FirstName)},
+		}
+	}
+}
+
 // elementalKillFlavors holds damage-type-specific descriptions of a killing blow
 // itself, replacing the normal "<Severity> <type> to <part>. [N Damage]" line when
 // that hit finishes off the target. Vocabulary sourced from original session
@@ -959,7 +1030,35 @@ func elementalKillFlavor(dmgType string) string {
 	return variants[rand.Intn(len(variants))]
 }
 
+// magicResistRoll reports whether a monster resists a magic attack. RESIST in
+// MONSTERS.SCR is a rating on the same scale as ATTACK1/DEFENSE (tens to low
+// thousands), not a 0-100 percentage — so it's weighed against the caster's
+// own spellcraft-based rating using the same rating-vs-rating shape as
+// calcToHit (combat.go), rather than compared directly to a 0-99 roll.
+func magicResistRoll(player *Player, monsterResist int) bool {
+	if monsterResist <= 0 {
+		return false
+	}
+	casterRating := 50 + player.Skills[23]*5 + player.Empathy/5 // Spellcraft skill + Empathy, mirrors playerAttackRating's shape
+	return rand.Intn(100) < calcToHit(casterRating, monsterResist)
+}
+
 func (e *GameEngine) castDamageSpell(player *Player, spell *SpellDef, args []string, spectacular bool) *CommandResult {
+	// Call Lightning draws its power from an ongoing storm — per MAGIC.TXT, it
+	// "requires being outdoors in a heavy rain." Gate on Heavy Rain (5) through
+	// Hurricane (7-8); the hail/sleet/snow branch (9-14) doesn't carry the
+	// electrical charge a thunderstorm does, so it doesn't qualify.
+	if spell.ID == 503 {
+		room := e.rooms[player.RoomNumber]
+		if room == nil || !isOutdoorTerrain(room.Terrain) {
+			return &CommandResult{Messages: []string{"You must be outdoors to call down lightning."}}
+		}
+		wea := e.RegionWeather[room.Region]
+		if wea < 5 || wea > 8 {
+			return &CommandResult{Messages: []string{"The sky isn't stormy enough to call down lightning."}}
+		}
+	}
+
 	// Chain Lightning and Flaming Arrows hit every creature in the player's
 	// TARGET list at once when one has been built up; fall through to the
 	// normal single-target resolution below if no (valid) list exists.
@@ -1020,13 +1119,10 @@ func (e *GameEngine) castDamageSpell(player *Player, spell *SpellDef, args []str
 	dmg += masteryDamageBonus(spellMasteryLevel(player, spell), player)
 
 	// Apply magic resistance
-	if def.MagicResist > 0 {
-		resistRoll := rand.Intn(100)
-		if resistRoll < def.MagicResist {
-			return &CommandResult{
-				Messages:      []string{fmt.Sprintf("You gesture and cast %s at a %s, but it resists the spell!", spell.Name, name)},
-				RoomBroadcast: []string{fmt.Sprintf("%s casts %s at a %s, but it resists!", player.FirstName, spell.Name, name)},
-			}
+	if magicResistRoll(player, def.MagicResist) {
+		return &CommandResult{
+			Messages:      []string{fmt.Sprintf("You gesture and cast %s at a %s, but it resists the spell!", spell.Name, name)},
+			RoomBroadcast: []string{fmt.Sprintf("%s casts %s at a %s, but it resists!", player.FirstName, spell.Name, name)},
 		}
 	}
 
@@ -1147,13 +1243,10 @@ func (e *GameEngine) castMeteorSpell(player *Player, spell *SpellDef, inst *Mons
 	crushDmg += masteryDamageBonus(spellMasteryLevel(player, spell), player)
 
 	// A single magic resistance roll covers both damage components.
-	if def.MagicResist > 0 {
-		resistRoll := rand.Intn(100)
-		if resistRoll < def.MagicResist {
-			return &CommandResult{
-				Messages:      []string{fmt.Sprintf("You gesture and cast %s at a %s, but it resists the spell!", spell.Name, name)},
-				RoomBroadcast: []string{fmt.Sprintf("%s casts %s at a %s, but it resists!", player.FirstName, spell.Name, name)},
-			}
+	if magicResistRoll(player, def.MagicResist) {
+		return &CommandResult{
+			Messages:      []string{fmt.Sprintf("You gesture and cast %s at a %s, but it resists the spell!", spell.Name, name)},
+			RoomBroadcast: []string{fmt.Sprintf("%s casts %s at a %s, but it resists!", player.FirstName, spell.Name, name)},
 		}
 	}
 
@@ -1311,7 +1404,7 @@ func (e *GameEngine) castChainLightningSpell(player *Player, spell *SpellDef, ar
 		article := articleFor(name, en.Def.Unique)
 		fullName := article + name
 
-		if en.Def.MagicResist > 0 && rand.Intn(100) < en.Def.MagicResist {
+		if magicResistRoll(player, en.Def.MagicResist) {
 			line := fmt.Sprintf("Lightning arcs from %s to %s%s, but it resists!", prevSelf, article, name)
 			msgs = append(msgs, line)
 			roomMsgs = append(roomMsgs, fmt.Sprintf("Lightning arcs from %s to %s%s, but it resists!", prevRoom, article, name))
@@ -1377,7 +1470,7 @@ func (e *GameEngine) castFlamingArrowsSpell(player *Player, spell *SpellDef, arg
 		name := strings.ToLower(FormatMonsterName(en.Def, e.monAdjs))
 		article := articleFor(name, en.Def.Unique)
 
-		if en.Def.MagicResist > 0 && rand.Intn(100) < en.Def.MagicResist {
+		if magicResistRoll(player, en.Def.MagicResist) {
 			line := fmt.Sprintf("A flaming arrow flies from %s and strikes %s%s, but it resists!", player.FirstName, article, name)
 			msgs = append(msgs, line)
 			roomMsgs = append(roomMsgs, line)
@@ -1485,7 +1578,7 @@ func (e *GameEngine) castTentaclesSpell(player *Player, spell *SpellDef, args []
 			roomMsgs = append(roomMsgs, line)
 			continue
 		}
-		if en.Def.MagicResist > 0 && rand.Intn(100) < en.Def.MagicResist {
+		if magicResistRoll(player, en.Def.MagicResist) {
 			line := fmt.Sprintf("%s%s resists the tentacles!", capArticle(article), name)
 			msgs = append(msgs, line)
 			roomMsgs = append(roomMsgs, line)
@@ -1784,6 +1877,133 @@ func (e *GameEngine) resolveBendSpaceMark(player *Player, args []string) (*gamew
 	return dest, ""
 }
 
+// wolfPackDefNum is mnumber 400, "large wolf" (original/scripts/modern_fixes.scr) — the
+// GUARDIAN-flagged monster Call the Pack spawns.
+const wolfPackDefNum = 400
+
+// callThePackSummonMsg is what an eligible Wolfling player is told when Call the Pack is
+// cast; they have callThePackSummonSeconds to type ANSWER before the invite lapses.
+const callThePackSummonMsg = "You feel the primal call of the pack! ANSWER within a minute to join them."
+
+const callThePackSummonSeconds = 60
+
+// onlineWolflingsInRegion returns online, non-dead Wolfling players whose current room
+// is in regionID, excluding anyone already in excludeRoom (nothing to summon them to —
+// they're already there).
+func (e *GameEngine) onlineWolflingsInRegion(regionID, excludeRoom int) []*Player {
+	var result []*Player
+	if e.sessions == nil {
+		return result
+	}
+	for _, p := range e.sessions.OnlinePlayers() {
+		if p.Dead || p.Race != RaceWolfling || p.RoomNumber == excludeRoom {
+			continue
+		}
+		if room := e.rooms[p.RoomNumber]; room == nil || room.Region != regionID {
+			continue
+		}
+		result = append(result, p)
+	}
+	return result
+}
+
+// castCallThePack spawns 2-4 large wolves (mnumber 400, GUARDIAN-flagged: passive to
+// players, aggressive toward monsters already hostile to a player) in room, then sends
+// every online Wolfling player in the same region a summons they have
+// callThePackSummonSeconds to accept with ANSWER (see doAnswer).
+//
+// This is deliberately NOT a player-castable spell — it's never registered in
+// doCastSpell's switch or any player's KnownSpells, so PREPARE/CAST can't reach it.
+// Instead it's invoked directly: from the CALLPACK script action (usable by any item,
+// room, or monster script — covering "object or NPC") or the @callpack GM command.
+// Returns the number of wolves actually spawned (0 if room/monster 400 is unavailable).
+func (e *GameEngine) castCallThePack(room *gameworld.Room) int {
+	if room == nil || e.monsterMgr == nil {
+		return 0
+	}
+	wolfDef := e.monsters[wolfPackDefNum]
+	if wolfDef == nil {
+		return 0
+	}
+
+	count := 2 + rand.Intn(3) // 2-4
+	var roomMsgs []string
+	for i := 0; i < count; i++ {
+		hp := wolfDef.Body
+		if wolfDef.ExtraBody > 0 {
+			hp += rand.Intn(wolfDef.ExtraBody/2+1) + wolfDef.ExtraBody/2
+		}
+		e.monsterMgr.SpawnOne(wolfPackDefNum, room.Number, hp, wolfDef.Mana)
+		genText := wolfDef.TextOverrides["TEXG"]
+		if genText == "" {
+			genText = fmt.Sprintf("A %s appears!", FormatMonsterName(wolfDef, e.monAdjs))
+		}
+		roomMsgs = append(roomMsgs, genText)
+	}
+	if e.localRoomBroadcast != nil && len(roomMsgs) > 0 {
+		e.localRoomBroadcast(room.Number, roomMsgs)
+	}
+
+	// No region>0 gate here — a room with no assigned region defaults to Region 0,
+	// and other unassigned rooms sharing that same zero value are still a legitimate
+	// (if accidental) match; excluding them was the bug that dropped the summons.
+	if e.sendToPlayer != nil {
+		expiry := time.Now().Add(callThePackSummonSeconds * time.Second)
+		for _, p := range e.onlineWolflingsInRegion(room.Region, room.Number) {
+			p.PendingSummonsRoom = room.Number
+			p.PendingSummonsExpiry = expiry
+			e.sendToPlayer(p.FirstName, []string{callThePackSummonMsg})
+		}
+	}
+
+	return count
+}
+
+// doAnswer handles the ANSWER command: accepts a pending summons (currently only Call
+// the Pack uses this) and teleports the player to the summoning room. Auto-disengages
+// combat first, matching how other teleport effects (Bend Space, GM @answer) don't
+// require the player to flee/disengage manually first.
+func (e *GameEngine) doAnswer(ctx context.Context, player *Player) *CommandResult {
+	if player.PendingSummonsRoom == 0 || time.Now().After(player.PendingSummonsExpiry) {
+		player.PendingSummonsRoom = 0
+		return &CommandResult{Messages: []string{"Answer what?"}}
+	}
+
+	dest := e.rooms[player.PendingSummonsRoom]
+	if dest == nil {
+		player.PendingSummonsRoom = 0
+		return &CommandResult{Messages: []string{"Answer what?"}}
+	}
+
+	player.PendingSummonsRoom = 0
+	player.PendingSummonsExpiry = time.Time{}
+
+	if player.CombatTarget != nil {
+		e.disengageCombat(player)
+	}
+
+	oldRoom := player.RoomNumber
+	player.RoomNumber = dest.Number
+	e.SavePlayer(ctx, player)
+
+	lookResult := e.doLook(player)
+	result := &CommandResult{
+		Messages: append([]string{"You heed the call for the pack!"}, lookResult.Messages...),
+		RoomName: lookResult.RoomName,
+		RoomDesc: lookResult.RoomDesc,
+		Exits:    lookResult.Exits,
+		Items:    lookResult.Items,
+		OldRoom:  oldRoom,
+		OldRoomMsg: []string{fmt.Sprintf(
+			"%s looks into the distance, saying \"I heed the call.\" and hurries away...", player.FirstName)},
+		RoomBroadcast: []string{fmt.Sprintf(
+			"A dust cloud rolls in and %s runs in amidst the cloud.", player.FirstName)},
+	}
+
+	e.applyEntryScripts(ctx, player, dest, result)
+	return result
+}
+
 // castBendSpaceI teleports the caster alone to a marked location (spell 213).
 // A GM caster stays hidden/invisible and generates no messages in either room.
 func (e *GameEngine) castBendSpaceI(ctx context.Context, player *Player, args []string) *CommandResult {
@@ -1914,10 +2134,18 @@ func (e *GameEngine) castBuffSpell(player *Player, spell *SpellDef, args []strin
 	case 225: // Invisibility
 		player.Invisible = true
 		msg = fmt.Sprintf("You gesture and cast %s. You fade from sight.", spell.Name)
+	case 506: // Resist Weather
+		return e.castResistWeatherSpell(player, spell, args)
 	case 507, 508: // Heat Shield / Cold Shield
 		return e.castElementalShieldSpell(player, spell, args)
+	case 509, 510: // Repel Plants / Repel Plants and Webs
+		return e.castRepelPlantsSpell(player, spell, args)
 	case 513, 514, 515: // Agility I/II/III
 		return e.castAgilitySpell(player, spell, args)
+	case 521: // Camouflage
+		return e.castCamouflageSpell(player, spell, args)
+	case 518: // Claw Growth
+		return e.castClawGrowthSpell(player, spell, args)
 	}
 	return &CommandResult{
 		Messages:      []string{msg},
@@ -2082,6 +2310,395 @@ func (e *GameEngine) castElementalShieldSpell(player *Player, spell *SpellDef, a
 	}
 }
 
+// castResistWeatherSpell handles Resist Weather (506): while active, the target
+// ignores the Hurricane knockdown chance (regen.go) and the weather-based
+// to-hit penalty (combat.go weatherMod / playerAttackRating). Same 20-minutes-
+// per-cast/extend model as Heat/Cold Shield — see applyElementalShield.
+func (e *GameEngine) castResistWeatherSpell(player *Player, spell *SpellDef, args []string) *CommandResult {
+	target := player
+	isSelf := true
+	if len(args) > 0 {
+		t := strings.ToLower(strings.Join(args, " "))
+		if t != "me" && t != "myself" && t != "self" {
+			found := e.findPlayerInRoom(player, t)
+			if found == nil {
+				return &CommandResult{Messages: []string{fmt.Sprintf("You don't see '%s' here.", strings.Join(args, " "))}}
+			}
+			target = found
+			isSelf = false
+		}
+	}
+
+	mins, applied := applyElementalShield(&target.ResistWeatherExpiry)
+
+	if !applied {
+		if isSelf {
+			return &CommandResult{
+				Messages:      []string{fmt.Sprintf("You gesture and cast %s. Your resistance to the weather strengthens! (%d minutes remaining)", spell.Name, mins)},
+				RoomBroadcast: []string{fmt.Sprintf("%s gestures and casts %s.", player.FirstName, spell.Name)},
+			}
+		}
+		e.SavePlayer(context.Background(), target)
+		return &CommandResult{
+			Messages:      []string{fmt.Sprintf("You gesture and cast %s on %s, extending their protection. (%d minutes remaining)", spell.Name, target.FirstName, mins)},
+			RoomBroadcast: []string{fmt.Sprintf("%s gestures and casts %s on %s.", player.FirstName, spell.Name, target.FirstName)},
+			TargetName:    target.FirstName,
+			TargetMsg:     []string{fmt.Sprintf("%s casts %s on you, extending your protection. (%d minutes remaining)", player.FirstName, spell.Name, mins)},
+		}
+	}
+
+	if isSelf {
+		return &CommandResult{
+			Messages:      []string{fmt.Sprintf("You gesture and cast %s. The weather's fury will no longer trouble you! (20 minutes)", spell.Name)},
+			RoomBroadcast: []string{fmt.Sprintf("%s gestures and casts %s.", player.FirstName, spell.Name)},
+		}
+	}
+	e.SavePlayer(context.Background(), target)
+	return &CommandResult{
+		Messages:      []string{fmt.Sprintf("You gesture and cast %s on %s.", spell.Name, target.FirstName)},
+		RoomBroadcast: []string{fmt.Sprintf("%s gestures and casts %s on %s.", player.FirstName, spell.Name, target.FirstName)},
+		TargetName:    target.FirstName,
+		TargetMsg:     []string{fmt.Sprintf("%s casts %s on you. The weather's fury will no longer trouble you! (20 minutes)", player.FirstName, spell.Name)},
+	}
+}
+
+// castRepelPlantsSpell handles Repel Plants (509) and Repel Plants and Webs
+// (510): grants immunity to being newly entangled by Plant Snare (500) — and,
+// for 510 only, Web (127) as well, once Web can target players. Same
+// 20-minutes-per-cast/extend model as the other simple timed buffs.
+func (e *GameEngine) castRepelPlantsSpell(player *Player, spell *SpellDef, args []string) *CommandResult {
+	target := player
+	isSelf := true
+	if len(args) > 0 {
+		t := strings.ToLower(strings.Join(args, " "))
+		if t != "me" && t != "myself" && t != "self" {
+			found := e.findPlayerInRoom(player, t)
+			if found == nil {
+				return &CommandResult{Messages: []string{fmt.Sprintf("You don't see '%s' here.", strings.Join(args, " "))}}
+			}
+			target = found
+			isSelf = false
+		}
+	}
+
+	var expiry *time.Time
+	scope := "plant snares"
+	if spell.ID == 510 {
+		expiry = &target.RepelPlantsAndWebsExpiry
+		scope = "plant snares and webs"
+	} else {
+		expiry = &target.RepelPlantsExpiry
+	}
+
+	mins, applied := applyElementalShield(expiry)
+
+	if !applied {
+		if isSelf {
+			return &CommandResult{
+				Messages:      []string{fmt.Sprintf("You gesture and cast %s. Your immunity to %s strengthens! (%d minutes remaining)", spell.Name, scope, mins)},
+				RoomBroadcast: []string{fmt.Sprintf("%s gestures and casts %s.", player.FirstName, spell.Name)},
+			}
+		}
+		e.SavePlayer(context.Background(), target)
+		return &CommandResult{
+			Messages:      []string{fmt.Sprintf("You gesture and cast %s on %s, extending their immunity. (%d minutes remaining)", spell.Name, target.FirstName, mins)},
+			RoomBroadcast: []string{fmt.Sprintf("%s gestures and casts %s on %s.", player.FirstName, spell.Name, target.FirstName)},
+			TargetName:    target.FirstName,
+			TargetMsg:     []string{fmt.Sprintf("%s casts %s on you, extending your immunity. (%d minutes remaining)", player.FirstName, spell.Name, mins)},
+		}
+	}
+
+	if isSelf {
+		return &CommandResult{
+			Messages:      []string{fmt.Sprintf("You gesture and cast %s. You feel immune to %s! (20 minutes)", spell.Name, scope)},
+			RoomBroadcast: []string{fmt.Sprintf("%s gestures and casts %s.", player.FirstName, spell.Name)},
+		}
+	}
+	e.SavePlayer(context.Background(), target)
+	return &CommandResult{
+		Messages:      []string{fmt.Sprintf("You gesture and cast %s on %s.", spell.Name, target.FirstName)},
+		RoomBroadcast: []string{fmt.Sprintf("%s gestures and casts %s on %s.", player.FirstName, spell.Name, target.FirstName)},
+		TargetName:    target.FirstName,
+		TargetMsg:     []string{fmt.Sprintf("%s casts %s on you. You feel immune to %s! (20 minutes)", player.FirstName, spell.Name, scope)},
+	}
+}
+
+// playerImmuneToPlantSnare reports whether Repel Plants (509) or Repel Plants
+// and Webs (510) is currently active on the player.
+func playerImmuneToPlantSnare(p *Player) bool {
+	now := time.Now()
+	if !p.RepelPlantsExpiry.IsZero() && now.Before(p.RepelPlantsExpiry) {
+		return true
+	}
+	if !p.RepelPlantsAndWebsExpiry.IsZero() && now.Before(p.RepelPlantsAndWebsExpiry) {
+		return true
+	}
+	return false
+}
+
+// castPlantSnareSpell handles Plant Snare (500): entangles another player in
+// grasping roots and vines, preventing movement until it wears off or Freedom
+// (505) is cast to remove it. Per MAGIC.TXT ("Plant Snare: Outdoors only"),
+// both caster and target must be outdoors.
+func (e *GameEngine) castPlantSnareSpell(player *Player, spell *SpellDef, args []string) *CommandResult {
+	room := e.rooms[player.RoomNumber]
+	if room == nil || !isOutdoorTerrain(room.Terrain) {
+		return &CommandResult{Messages: []string{"Plant Snare only works outdoors."}}
+	}
+	if len(args) == 0 {
+		return &CommandResult{Messages: []string{"Snare whom?"}}
+	}
+	targetName := strings.ToLower(strings.Join(args, " "))
+	target := e.findPlayerInRoom(player, targetName)
+	if target == nil {
+		return &CommandResult{Messages: []string{fmt.Sprintf("You don't see '%s' here.", strings.Join(args, " "))}}
+	}
+
+	if playerImmuneToPlantSnare(target) {
+		return &CommandResult{
+			Messages:      []string{fmt.Sprintf("You gesture and cast %s at %s, but the roots and vines recoil from them!", spell.Name, target.FirstName)},
+			RoomBroadcast: []string{fmt.Sprintf("%s gestures at %s, but nothing happens.", player.FirstName, target.FirstName)},
+			TargetName:    target.FirstName,
+			TargetMsg:     []string{fmt.Sprintf("%s casts %s at you, but the roots and vines recoil from you!", player.FirstName, spell.Name)},
+		}
+	}
+
+	target.Entangles = append(target.Entangles, PlayerEntangle{
+		SpellID:   spell.ID,
+		SpellName: spell.Name,
+		Expiry:    time.Now().Add(60 * time.Second),
+	})
+	e.SavePlayer(context.Background(), target)
+
+	return &CommandResult{
+		Messages:      []string{fmt.Sprintf("You gesture and cast %s at %s. Roots and vines burst from the ground, entangling them!", spell.Name, target.FirstName)},
+		RoomBroadcast: []string{fmt.Sprintf("%s gestures at %s. Roots and vines burst from the ground, entangling them!", player.FirstName, target.FirstName)},
+		TargetName:    target.FirstName,
+		TargetMsg:     []string{fmt.Sprintf("%s casts %s at you! Roots and vines burst from the ground, entangling you!", player.FirstName, spell.Name)},
+	}
+}
+
+// castFreedomSpell handles Freedom (505): removes one active movement-
+// restricting spell (see Player.Entangles — currently populated by Plant
+// Snare) from the target, chosen at random if more than one is active. It
+// only removes the effect; it doesn't grant any lasting immunity, so the
+// target can be re-snared immediately afterward. Does not touch the older,
+// unnamed Immobilized flag (psi Immobilize, Imprisonment Rune traps) — those
+// have their own separate clear mechanisms.
+func (e *GameEngine) castFreedomSpell(player *Player, spell *SpellDef, args []string) *CommandResult {
+	target := player
+	isSelf := true
+	if len(args) > 0 {
+		t := strings.ToLower(strings.Join(args, " "))
+		if t != "me" && t != "myself" && t != "self" {
+			found := e.findPlayerInRoom(player, t)
+			if found == nil {
+				return &CommandResult{Messages: []string{fmt.Sprintf("You don't see '%s' here.", strings.Join(args, " "))}}
+			}
+			target = found
+			isSelf = false
+		}
+	}
+
+	if len(target.Entangles) == 0 {
+		if isSelf {
+			return &CommandResult{Messages: []string{fmt.Sprintf("You gesture and cast %s, but you aren't bound by any such magic.", spell.Name)}}
+		}
+		return &CommandResult{
+			Messages:   []string{fmt.Sprintf("You gesture and cast %s on %s, but they aren't bound by any such magic.", spell.Name, target.FirstName)},
+			TargetName: target.FirstName,
+			TargetMsg:  []string{fmt.Sprintf("%s casts %s on you, but you aren't bound by anything.", player.FirstName, spell.Name)},
+		}
+	}
+
+	idx := rand.Intn(len(target.Entangles))
+	removed := target.Entangles[idx]
+	target.Entangles = append(target.Entangles[:idx], target.Entangles[idx+1:]...)
+	e.SavePlayer(context.Background(), target)
+
+	if isSelf {
+		return &CommandResult{
+			Messages:      []string{fmt.Sprintf("You gesture and cast %s. The %s releases its hold on you!", spell.Name, removed.SpellName)},
+			RoomBroadcast: []string{fmt.Sprintf("%s gestures and breaks free from the %s.", player.FirstName, removed.SpellName)},
+		}
+	}
+	return &CommandResult{
+		Messages:      []string{fmt.Sprintf("You gesture and cast %s on %s. The %s releases its hold!", spell.Name, target.FirstName, removed.SpellName)},
+		RoomBroadcast: []string{fmt.Sprintf("%s gestures and %s breaks free from the %s.", player.FirstName, target.FirstName, removed.SpellName)},
+		TargetName:    target.FirstName,
+		TargetMsg:     []string{fmt.Sprintf("%s casts %s on you. The %s releases its hold on you!", player.FirstName, spell.Name, removed.SpellName)},
+	}
+}
+
+// applyCamouflageBuff applies or extends the Camouflage (spell 521) timed
+// stealth buff: +10 effective Stealth skill (see effectiveStealthSkill) for 20
+// minutes on first cast. Additional casts before it expires extend the duration
+// by 20 minutes (4-hour cap) rather than stacking the bonus, matching the other
+// single-tier timed buffs (Mystic Armor, Heat/Cold Shield). Returns minutes
+// remaining and whether this was a brand-new application.
+func applyCamouflageBuff(target *Player) (mins int, applied bool) {
+	const bonus = 10
+	const maxDuration = 4 * time.Hour
+	const stackDuration = 20 * time.Minute
+	now := time.Now()
+
+	curActive := target.CamouflageBonus > 0 && !target.CamouflageExpiry.IsZero() && now.Before(target.CamouflageExpiry)
+	if curActive {
+		newExpiry := target.CamouflageExpiry.Add(stackDuration)
+		if cap := now.Add(maxDuration); newExpiry.After(cap) {
+			newExpiry = cap
+		}
+		target.CamouflageExpiry = newExpiry
+		return int(time.Until(target.CamouflageExpiry).Minutes()) + 1, false
+	}
+
+	target.CamouflageBonus = bonus
+	target.CamouflageExpiry = now.Add(stackDuration)
+	return 20, true
+}
+
+// castCamouflageSpell handles Camouflage (521): grants the caster, or a named
+// target in the room, +10 effective Stealth skill for 20 minutes. Repeated
+// casts extend the duration instead of stacking the bonus (see
+// applyCamouflageBuff). The bonus is applied via effectiveStealthSkill rather
+// than written into Skills[33], so it never leaks into SKILLS display or the
+// Disguise skill prerequisite.
+func (e *GameEngine) castCamouflageSpell(player *Player, spell *SpellDef, args []string) *CommandResult {
+	target := player
+	isSelf := true
+	if len(args) > 0 {
+		t := strings.ToLower(strings.Join(args, " "))
+		if t != "me" && t != "myself" && t != "self" {
+			found := e.findPlayerInRoom(player, t)
+			if found == nil {
+				return &CommandResult{Messages: []string{fmt.Sprintf("You don't see '%s' here.", strings.Join(args, " "))}}
+			}
+			target = found
+			isSelf = false
+		}
+	}
+
+	mins, applied := applyCamouflageBuff(target)
+
+	if !applied {
+		if isSelf {
+			return &CommandResult{
+				Messages:      []string{fmt.Sprintf("You gesture and cast %s. Your camouflage strengthens! (%d minutes remaining)", spell.Name, mins)},
+				RoomBroadcast: []string{fmt.Sprintf("%s gestures and blends further into their surroundings.", player.FirstName)},
+			}
+		}
+		e.SavePlayer(context.Background(), target)
+		return &CommandResult{
+			Messages:      []string{fmt.Sprintf("You gesture and cast %s on %s, extending their camouflage. (%d minutes remaining)", spell.Name, target.FirstName, mins)},
+			RoomBroadcast: []string{fmt.Sprintf("%s gestures and %s blends further into their surroundings.", player.FirstName, target.FirstName)},
+			TargetName:    target.FirstName,
+			TargetMsg:     []string{fmt.Sprintf("%s casts %s on you, extending your camouflage. (%d minutes remaining)", player.FirstName, spell.Name, mins)},
+		}
+	}
+
+	if isSelf {
+		return &CommandResult{
+			Messages:      []string{fmt.Sprintf("You gesture and cast %s. Your skin and clothing shift to blend with your surroundings! (+10 Stealth, 20 minutes)", spell.Name)},
+			RoomBroadcast: []string{fmt.Sprintf("%s gestures and blends into their surroundings.", player.FirstName)},
+		}
+	}
+	e.SavePlayer(context.Background(), target)
+	return &CommandResult{
+		Messages:      []string{fmt.Sprintf("You gesture and cast %s on %s.", spell.Name, target.FirstName)},
+		RoomBroadcast: []string{fmt.Sprintf("%s gestures and %s blends into their surroundings.", player.FirstName, target.FirstName)},
+		TargetName:    target.FirstName,
+		TargetMsg:     []string{fmt.Sprintf("%s casts %s on you. Your skin and clothing shift to blend with your surroundings! (+10 Stealth, 20 minutes)", player.FirstName, spell.Name)},
+	}
+}
+
+// nextStormUp returns the next-worse weather state on the storm ladder
+// (0=Sunny .. 8=Hurricane) that Call Storm intensifies toward. Hail/sleet/snow
+// states (9-14) are a separate branch off Overcast (see advanceWeather), not a
+// continuation of the storm ladder, so they're folded straight to Hurricane
+// rather than incremented in place — any hail or snowstorm counts as severe
+// weather already, and Call Storm's wild magic drives it to full fury.
+func nextStormUp(state int) int {
+	if state >= 9 && state <= 14 {
+		return 8
+	}
+	if state >= 8 {
+		return 8
+	}
+	return state + 1
+}
+
+// nextStormDown mirrors nextStormUp for Disperse Storm: calms the storm ladder
+// one step toward Sunny (floor 0), or — for a hail/sleet/snow state — resets to
+// Overcast, the same exit point advanceWeather uses when a snow state can no
+// longer be sustained.
+func nextStormDown(state int) int {
+	if state >= 9 && state <= 14 {
+		return 2
+	}
+	if state <= 0 {
+		return 0
+	}
+	return state - 1
+}
+
+// castCallStormSpell handles Call Storm (501): intensifies the current region's
+// weather by one step on the storm ladder (see nextStormUp), capping at
+// Hurricane. Requires the caster to be outdoors — there's no sky to call a
+// storm from indoors. Reuses broadcastWeatherChange so the transition reads
+// identically to a natural weather shift.
+func (e *GameEngine) castCallStormSpell(player *Player, spell *SpellDef) *CommandResult {
+	room := e.rooms[player.RoomNumber]
+	if room == nil || !isOutdoorTerrain(room.Terrain) {
+		return &CommandResult{Messages: []string{"You must be outdoors, beneath the open sky, to call upon the storm."}}
+	}
+	if e.RegionWeather == nil {
+		e.RegionWeather = make(map[int]int)
+	}
+	region := room.Region
+	oldState := e.RegionWeather[region]
+	newState := nextStormUp(oldState)
+	if newState == oldState {
+		return &CommandResult{
+			Messages:      []string{fmt.Sprintf("You gesture and cast %s, but the storm already rages at its full fury!", spell.Name)},
+			RoomBroadcast: []string{fmt.Sprintf("%s gestures at the sky, but the storm cannot grow any fiercer.", player.FirstName)},
+		}
+	}
+	e.RegionWeather[region] = newState
+	e.broadcastWeatherChange(region, oldState, newState)
+	return &CommandResult{
+		Messages:      []string{fmt.Sprintf("You gesture and cast %s. The sky answers your call! (Weather: %s)", spell.Name, WeatherNames[newState])},
+		RoomBroadcast: []string{fmt.Sprintf("%s raises their arms to the sky, which darkens in response.", player.FirstName)},
+	}
+}
+
+// castDisperseStormSpell handles Disperse Storm (502): calms the current
+// region's weather by one step (see nextStormDown), with a floor of Sunny (0).
+// Requires the caster to be outdoors, same as Call Storm.
+func (e *GameEngine) castDisperseStormSpell(player *Player, spell *SpellDef) *CommandResult {
+	room := e.rooms[player.RoomNumber]
+	if room == nil || !isOutdoorTerrain(room.Terrain) {
+		return &CommandResult{Messages: []string{"You must be outdoors, beneath the open sky, to disperse the storm."}}
+	}
+	if e.RegionWeather == nil {
+		e.RegionWeather = make(map[int]int)
+	}
+	region := room.Region
+	oldState := e.RegionWeather[region]
+	newState := nextStormDown(oldState)
+	if newState == oldState {
+		return &CommandResult{
+			Messages:      []string{fmt.Sprintf("You gesture and cast %s, but the sky is already clear.", spell.Name)},
+			RoomBroadcast: []string{fmt.Sprintf("%s gestures at the sky, but nothing happens.", player.FirstName)},
+		}
+	}
+	e.RegionWeather[region] = newState
+	e.broadcastWeatherChange(region, oldState, newState)
+	return &CommandResult{
+		Messages:      []string{fmt.Sprintf("You gesture and cast %s. The sky begins to calm. (Weather: %s)", spell.Name, WeatherNames[newState])},
+		RoomBroadcast: []string{fmt.Sprintf("%s raises their arms to the sky, which begins to calm.", player.FirstName)},
+	}
+}
+
 // applyTimedDefenseBuff applies or extends a timed defense buff (all "defense"-effect
 // spells except Mystic Armor, which has its own dedicated system below). Shared by
 // CAST (castTimedDefenseSpell) and item-triggered casts (applyItemSpellOnPlayer) so a
@@ -2184,8 +2801,70 @@ func defenseSpellFlavorText(spellID int) string {
 		return "A large white sphere of light encircles you."
 	case 326: // Spectral Shield
 		return "A ghostly shield hovers before you."
+	case 511: // Carapace
+		return "Your skin hardens into a tough, chitinous carapace."
 	}
 	return ""
+}
+
+// castCarapaceSpell handles Carapace (511): per MAGIC.TXT ("+20 defense,
+// caster only"), this is the one defense spell that can never be cast on
+// anyone but the caster. Otherwise identical to the shared timed-defense-buff
+// model (first cast applies +20 defense for 20 minutes; later casts before it
+// expires only extend the duration, up to the usual 4-hour cap).
+func (e *GameEngine) castCarapaceSpell(player *Player, spell *SpellDef, args []string) *CommandResult {
+	if len(args) > 0 {
+		t := strings.ToLower(strings.Join(args, " "))
+		if t != "me" && t != "myself" && t != "self" {
+			return &CommandResult{Messages: []string{"Carapace can only be cast upon yourself."}}
+		}
+	}
+
+	mins, applied := applyTimedDefenseBuff(player, spell)
+
+	if !applied {
+		return &CommandResult{
+			Messages:      []string{fmt.Sprintf("You gesture and cast %s. The carapace around you hardens further! (%d minutes remaining)", spell.Name, mins)},
+			RoomBroadcast: []string{fmt.Sprintf("%s gestures and casts %s.", player.FirstName, spell.Name)},
+		}
+	}
+
+	return &CommandResult{
+		Messages:      []string{"You gesture.", fmt.Sprintf("%s (+%d defense, 20 minutes)", defenseSpellFlavorText(spell.ID), spell.DefBonus)},
+		RoomBroadcast: []string{fmt.Sprintf("%s gestures and casts %s.", player.FirstName, spell.Name)},
+	}
+}
+
+// castClawGrowthSpell handles Claw Growth (518): self-only. Grants natural claws
+// (ITEMWEAP.SCR #279, CLAW_WEAPON) usable when the caster has no weapon wielded —
+// see currentWeaponDef in combat.go, which is what actually makes claws usable in
+// an attack. First cast lasts 20 minutes; re-casting while active adds another 20
+// minutes rather than resetting the timer (matches the Strength/Mystic Armor stacking
+// convention elsewhere in this file).
+func (e *GameEngine) castClawGrowthSpell(player *Player, spell *SpellDef, args []string) *CommandResult {
+	if len(args) > 0 {
+		t := strings.ToLower(strings.Join(args, " "))
+		if t != "me" && t != "myself" && t != "self" {
+			return &CommandResult{Messages: []string{"Claw Growth can only be cast upon yourself."}}
+		}
+	}
+
+	const stackDuration = 20 * time.Minute
+	active := !player.ClawGrowthExpiry.IsZero() && time.Now().Before(player.ClawGrowthExpiry)
+	if active {
+		player.ClawGrowthExpiry = player.ClawGrowthExpiry.Add(stackDuration)
+		mins := int(time.Until(player.ClawGrowthExpiry).Minutes()) + 1
+		return &CommandResult{
+			Messages:      []string{fmt.Sprintf("You gesture and cast %s. Your claws grow sharper still! (%d minutes remaining)", spell.Name, mins)},
+			RoomBroadcast: []string{fmt.Sprintf("%s gestures and casts %s.", player.FirstName, spell.Name)},
+		}
+	}
+
+	player.ClawGrowthExpiry = time.Now().Add(stackDuration)
+	return &CommandResult{
+		Messages:      []string{fmt.Sprintf("You gesture and cast %s. Wicked claws erupt from your fingertips! (20 minutes)", spell.Name)},
+		RoomBroadcast: []string{fmt.Sprintf("%s gestures and casts %s -- claws erupt from %s fingertips!", player.FirstName, spell.Name, player.Possessive())},
+	}
 }
 
 // castMindlink handles Mindlink (403): grants the caster, or a named target in the
@@ -2307,11 +2986,16 @@ func (e *GameEngine) castEnchantmentSpell(player *Player, spell *SpellDef, args 
 		}
 		// Only add the enchantment adjective if there's a free adj slot; an item with
 		// all three slots already occupied keeps its existing adjectives and just
-		// receives the magical bonus (Val2, set above).
-		if c.item.Adj1 == 0 || c.item.Adj2 == 0 || c.item.Adj3 == 0 {
-			c.item.Adj3 = c.item.Adj2
-			c.item.Adj2 = c.item.Adj1
+		// receives the magical bonus (Val2, set above). Fill the first empty slot
+		// in place rather than shifting — store-bought items carry their material/
+		// variety adjective in Adj3 (see doBuy), and a blind shift would clobber it.
+		switch {
+		case c.item.Adj1 == 0:
 			c.item.Adj1 = adjID
+		case c.item.Adj2 == 0:
+			c.item.Adj2 = adjID
+		case c.item.Adj3 == 0:
+			c.item.Adj3 = adjID
 		}
 		newName := e.formatItemName(c.def, c.item.Adj1, c.item.Adj2, c.item.Adj3, c.item.Tail)
 		return &CommandResult{
@@ -2980,7 +3664,7 @@ func (e *GameEngine) castSlumberSpell(player *Player, spell *SpellDef, args []st
 		}
 	}
 
-	if def.MagicResist > 0 && rand.Intn(100) < def.MagicResist {
+	if magicResistRoll(player, def.MagicResist) {
 		return &CommandResult{
 			Messages:      []string{fmt.Sprintf("The %s resists your sleep magic!", name)},
 			RoomBroadcast: []string{fmt.Sprintf("%s gestures at %s%s, but it resists!", player.FirstName, article, name)},
@@ -3030,7 +3714,7 @@ func (e *GameEngine) castWebSpell(player *Player, spell *SpellDef, args []string
 		}
 	}
 
-	if def.MagicResist > 0 && rand.Intn(100) < def.MagicResist {
+	if magicResistRoll(player, def.MagicResist) {
 		return &CommandResult{
 			Messages:      []string{fmt.Sprintf("The %s resists the webs!", name)},
 			RoomBroadcast: []string{fmt.Sprintf("%s casts Web at %s%s, but it resists!", player.FirstName, article, name)},
@@ -3051,6 +3735,49 @@ func (e *GameEngine) castWebSpell(player *Player, spell *SpellDef, args []string
 	return &CommandResult{
 		Messages:      []string{fmt.Sprintf("You gesture and cast %s at %s%s!", spell.Name, article, name), webbedMsg},
 		RoomBroadcast: []string{fmt.Sprintf("%s gestures and casts %s at %s%s!", player.FirstName, spell.Name, article, name), webbedMsg},
+	}
+}
+
+// castSunraySpell stuns the target for 4-6 seconds: two 1-2 rolls summed, plus 2.
+func (e *GameEngine) castSunraySpell(player *Player, spell *SpellDef, args []string) *CommandResult {
+	targetName := strings.Join(args, " ")
+	if targetName == "" {
+		targetName = e.autoTargetMonsterName(player)
+	}
+	if targetName == "" {
+		return &CommandResult{Messages: []string{"Cast Sunray at what?"}}
+	}
+
+	inst, def := e.findMonsterInRoom(player, targetName)
+	if inst == nil {
+		return &CommandResult{Messages: []string{fmt.Sprintf("You don't see '%s' here.", targetName)}}
+	}
+
+	name := strings.ToLower(FormatMonsterName(def, e.monAdjs))
+	article := articleFor(name, def.Unique)
+
+	if magicResistRoll(player, def.MagicResist) {
+		return &CommandResult{
+			Messages:      []string{fmt.Sprintf("The %s resists the blinding light!", name)},
+			RoomBroadcast: []string{fmt.Sprintf("%s casts Sunray at %s%s, but it resists!", player.FirstName, article, name)},
+		}
+	}
+
+	stunSecs := rand.Intn(2) + 1 + rand.Intn(2) + 1 + 2 // 1d2 + 1d2 + 2 = 4-6 seconds
+	e.monsterMgr.mu.Lock()
+	for i := range e.monsterMgr.instances {
+		if e.monsterMgr.instances[i].ID == inst.ID {
+			e.monsterMgr.instances[i].Stunned = true
+			e.monsterMgr.instances[i].StunExpiry = time.Now().Add(time.Duration(stunSecs) * time.Second)
+			break
+		}
+	}
+	e.monsterMgr.mu.Unlock()
+
+	stunMsg := fmt.Sprintf("%s%s is blinded by a searing ray of sunlight and reels, stunned!", capArticle(article), name)
+	return &CommandResult{
+		Messages:      []string{fmt.Sprintf("You gesture and cast %s at %s%s!", spell.Name, article, name), stunMsg, fmt.Sprintf("[Stunned: %d sec]", stunSecs)},
+		RoomBroadcast: []string{fmt.Sprintf("%s gestures and casts %s at %s%s!", player.FirstName, spell.Name, article, name), stunMsg},
 	}
 }
 
@@ -3086,7 +3813,7 @@ func (e *GameEngine) castFearSpell(player *Player, spell *SpellDef, args []strin
 		}
 	}
 
-	if def.MagicResist > 0 && rand.Intn(100) < def.MagicResist {
+	if magicResistRoll(player, def.MagicResist) {
 		return &CommandResult{
 			Messages:      []string{fmt.Sprintf("The %s resists your fear magic!", name)},
 			RoomBroadcast: []string{fmt.Sprintf("%s gestures at %s%s, but it resists!", player.FirstName, article, name)},
@@ -3141,7 +3868,7 @@ func (e *GameEngine) castCharmSpell(player *Player, spell *SpellDef, args []stri
 		}
 	}
 
-	if def.MagicResist > 0 && rand.Intn(100) < def.MagicResist {
+	if magicResistRoll(player, def.MagicResist) {
 		return &CommandResult{
 			Messages:      []string{fmt.Sprintf("The %s resists your charm magic!", name)},
 			RoomBroadcast: []string{fmt.Sprintf("%s gestures at %s%s, but it resists!", player.FirstName, article, name)},

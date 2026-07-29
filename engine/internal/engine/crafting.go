@@ -1186,11 +1186,28 @@ func (e *GameEngine) doCraft(ctx context.Context, player *Player, args []string)
 		// Create the item with the full material name as adjectives.
 		// Oily/oiled metals become iridescent (752) + oiled (684) in the finished piece.
 		finishedAdjs := canonicalizeOilyAdjs([3]int{craftAdj(0), craftAdj(1), craftAdj(2)})
+
+		// Val1 = copper value per GMSCRIPT.DOC; computeSellValue() pays out half of it on
+		// sale. Only metal (Weaponsmithing, skillID 8) items reach this path — scale with
+		// the skill level required, capped at what the raw material actually cost
+		// (matItem.Val1, stamped at purchase in doBuy) so resale can never exceed half the
+		// material's cost. See the identical cap in doWork's weapon-finishing step.
+		itemValue := 0
+		if skillID == 8 {
+			itemValue = skillNeeded * 30
+			if matItem.Val1 > 0 && itemValue > matItem.Val1 {
+				itemValue = matItem.Val1
+			}
+			if itemValue < 1 {
+				itemValue = 1
+			}
+		}
 		item := InventoryItem{
 			Archetype: def.Number,
 			Adj1:      finishedAdjs[0],
 			Adj2:      finishedAdjs[1],
 			Adj3:      finishedAdjs[2],
+			Val1:      itemValue,
 		}
 		player.Inventory = append(player.Inventory, item)
 
@@ -1539,8 +1556,6 @@ func (e *GameEngine) doWork(ctx context.Context, player *Player, args []string) 
 		}
 		// CraftingVal2 held the ore's color (1=purple, 2=indigo, 3=blue) through the
 		// smelt→forge pipeline. Convert it now to a non-magical to-hit bonus (Sharpness).
-		// Val1 is left unset so computeSellValue falls back to the item's weight-based
-		// copper value — Val1 is the item's sale price per GMSCRIPT.DOC, not a quality bonus.
 		// Val2 on the finished weapon means magical enchantment, so it must be zeroed.
 		smithSkill := player.Skills[8]
 		sharpness := weaponSharpnessBonus(player.CraftingVal2, smithSkill)
@@ -1550,11 +1565,33 @@ func (e *GameEngine) doWork(ctx context.Context, player *Player, args []string) 
 		if finishedAdjs != origAdjs {
 			val3 = 0
 		}
+
+		baseSkill := weaponDef.Parameter1
+		if baseSkill < 1 {
+			baseSkill = 1
+		}
+		// Val1 = copper value per GMSCRIPT.DOC; computeSellValue() pays out half of it
+		// when the item is sold, matching the standard shop margin. Scale the value with
+		// the skill level required to craft the weapon, but never let it exceed what the
+		// raw material actually cost (player.CraftingVal1, stamped at purchase in doBuy)
+		// — so the eventual sale (half of Val1) is capped at half the material cost.
+		// Otherwise players could launder cheap material into a profit by forging and
+		// reselling it. Materials with no known purchase price (e.g. mined ore) leave
+		// the level-scaled value uncapped.
+		itemValue := baseSkill * 30
+		if player.CraftingVal1 > 0 && itemValue > player.CraftingVal1 {
+			itemValue = player.CraftingVal1
+		}
+		if itemValue < 1 {
+			itemValue = 1
+		}
+
 		item := InventoryItem{
 			Archetype: weaponDef.Number,
 			Adj1:      finishedAdjs[0],
 			Adj2:      finishedAdjs[1],
 			Adj3:      finishedAdjs[2],
+			Val1:      itemValue,
 			Val2:      0,         // no magical enchantment from forging
 			Val3:      val3,      // elemental crit type (from ore); 0 if oily/oiled
 			Val4:      player.CraftingVal4,
@@ -1564,10 +1601,6 @@ func (e *GameEngine) doWork(ctx context.Context, player *Player, args []string) 
 		player.Inventory = append(player.Inventory, item)
 
 		// Award XP: 25 per skill level required + metal quality bonus + sharpness bonus
-		baseSkill := weaponDef.Parameter1
-		if baseSkill < 1 {
-			baseSkill = 1
-		}
 		sharpnessBonus := 0
 		switch {
 		case sharpness >= 10:
@@ -1653,7 +1686,12 @@ func (e *GameEngine) doRepair(ctx context.Context, player *Player, args []string
 
 	target := strings.ToLower(strings.Join(args, " "))
 
-	// Find the weapon in inventory with DAMAGED state
+	// Find the weapon in inventory with DAMAGED state. Keep scanning past
+	// name-matches that aren't damaged — a player carrying more than one item
+	// with the same name (e.g. two steel stilettos, one damaged, one not)
+	// would otherwise always hit whichever one happens to sit first in the
+	// slice and be wrongly told "That doesn't need repair" even though a
+	// damaged match exists later on.
 	found := false
 	for i, ii := range player.Inventory {
 		def := e.items[ii.Archetype]
@@ -1670,7 +1708,7 @@ func (e *GameEngine) doRepair(ctx context.Context, player *Player, args []string
 		found = true
 
 		if ii.State != "DAMAGED" {
-			return &CommandResult{Messages: []string{"That doesn't need repair."}}
+			continue
 		}
 
 		// Skill check: base 40% + smithSkill*5
@@ -1813,12 +1851,17 @@ func (e *GameEngine) doForageReal(ctx context.Context, player *Player) *CommandR
 				Val5:      fd.Val5,
 			}
 			if fd.AdjNum > 0 {
-				item.Adj1 = fd.AdjNum
+				// Item scripts (e.g. the herb IFVAR ITEMADJ3 = ... blocks in
+				// ITEMNWPN.SCR) check ITEMADJ3 for the variety, same as doBuy's
+				// StoreItem adjective. Adj1 here would leave EAT unable to find
+				// the match, so e.g. foraged Coriam Seed never grants its Empathy
+				// bonus even though the store-bought one does.
+				item.Adj3 = fd.AdjNum
 			}
 			player.Inventory = append(player.Inventory, item)
 			e.SavePlayer(ctx, player)
 
-			itemName := e.formatItemName(itemDef, item.Adj1, 0, 0)
+			itemName := e.formatItemName(itemDef, 0, 0, item.Adj3)
 			return &CommandResult{
 				Messages:      []string{fmt.Sprintf("You search the area and find %s!", itemName), fmt.Sprintf("[Round: %d sec]", rt)},
 				RoomBroadcast: []string{fmt.Sprintf("%s forages in the area.", player.FirstName)},
@@ -1908,6 +1951,24 @@ func (e *GameEngine) doDye(ctx context.Context, player *Player, args []string) *
 	if room == nil || !containsModifier(room.Modifiers, "LOOM") {
 		return &CommandResult{Messages: []string{"You need to be at a loom to dye items."}}
 	}
+	// A LOOM room alone isn't enough — dyeing needs an actual cauldron to soak the
+	// material in (item 1169/1505 in ITEM1.SCR, both named "cauldron"). Most LOOM
+	// rooms (player housing, guild halls, etc.) don't have one; this is what stops
+	// DYE from being usable anywhere a loom happens to be, e.g. out in the woods.
+	hasCauldron := false
+	for _, ri := range room.Items {
+		if ri.IsPut {
+			continue
+		}
+		def := e.items[ri.Archetype]
+		if def != nil && strings.EqualFold(e.getItemNounName(def), "cauldron") {
+			hasCauldron = true
+			break
+		}
+	}
+	if !hasCauldron {
+		return &CommandResult{Messages: []string{"You need a cauldron here to dye items."}}
+	}
 	if player.Skills[15] < 1 {
 		return &CommandResult{Messages: []string{"You have no training in Dyeing/Weaving."}}
 	}
@@ -1921,10 +1982,16 @@ func (e *GameEngine) doDye(ctx context.Context, player *Player, args []string) *
 		return &CommandResult{Messages: []string{"Dye with what? Usage: DYE <item> WITH <dye>"}}
 	}
 
-	// Find the item to dye in inventory (must be DYEABLE)
+	// Find the item to dye (must be DYEABLE): inventory first, then loose on the
+	// ground, then inside any container in the room (e.g. cloth left in the
+	// weaver's cauldron to soak before dyeing).
 	var targetItem *InventoryItem
-	var targetIdx int
 	var targetDef *gameworld.ItemDef
+	var roomTargetRI *gameworld.RoomItem      // matched loose on the ground
+	var containerRef = -1                     // matched inside a container's dynamic (PUT-at-runtime) contents
+	var containerIdx = -1                     // ...at this index within that container's contents
+	var containerTargetRI *gameworld.RoomItem // matched via a script-authored PUT <ref> <archetype> item
+
 	for i, ii := range player.Inventory {
 		def := e.items[ii.Archetype]
 		if def == nil || !containsFlag(def.Flags, "DYEABLE") {
@@ -1933,15 +2000,74 @@ func (e *GameEngine) doDye(ctx context.Context, player *Player, args []string) *
 		name := strings.ToLower(e.getItemNounName(def))
 		if strings.HasPrefix(name, itemTarget) {
 			targetItem = &player.Inventory[i]
-			targetIdx = i
 			targetDef = def
 			break
 		}
 	}
+
 	if targetItem == nil {
+		for i := range room.Items {
+			ri := &room.Items[i]
+			if ri.IsPut {
+				continue // inside something; not loose on the ground
+			}
+			def := e.items[ri.Archetype]
+			if def == nil || !containsFlag(def.Flags, "DYEABLE") {
+				continue
+			}
+			name := strings.ToLower(e.getItemNounName(def))
+			if strings.HasPrefix(name, itemTarget) {
+				roomTargetRI = ri
+				targetDef = def
+				break
+			}
+		}
+	}
+
+	if targetItem == nil && roomTargetRI == nil {
+	searchContainers:
+		for _, ri := range room.Items {
+			if ri.IsPut {
+				continue // this item is itself inside something; not a container to search
+			}
+			cdef := e.items[ri.Archetype]
+			if cdef == nil || !isContainerDef(cdef) {
+				continue
+			}
+			for i, ci := range e.roomContainerGet(room.Number, ri.Ref) {
+				def := e.items[ci.Archetype]
+				if def == nil || !containsFlag(def.Flags, "DYEABLE") {
+					continue
+				}
+				name := strings.ToLower(e.getItemNounName(def))
+				if strings.HasPrefix(name, itemTarget) {
+					containerRef, containerIdx = ri.Ref, i
+					targetDef = def
+					break searchContainers
+				}
+			}
+			for j := range room.Items {
+				ri2 := &room.Items[j]
+				if !ri2.IsPut || ri2.PutIn != ri.Ref {
+					continue
+				}
+				def := e.items[ri2.Archetype]
+				if def == nil || !containsFlag(def.Flags, "DYEABLE") {
+					continue
+				}
+				name := strings.ToLower(e.getItemNounName(def))
+				if strings.HasPrefix(name, itemTarget) {
+					containerTargetRI = ri2
+					targetDef = def
+					break searchContainers
+				}
+			}
+		}
+	}
+
+	if targetItem == nil && roomTargetRI == nil && containerRef == -1 && containerTargetRI == nil {
 		return &CommandResult{Messages: []string{"You don't have a dyeable item matching that."}}
 	}
-	_ = targetIdx
 
 	// Find the dye in inventory (must have DYE flag)
 	for j, ii := range player.Inventory {
@@ -1951,14 +2077,54 @@ func (e *GameEngine) doDye(ctx context.Context, player *Player, args []string) *
 		}
 		name := strings.ToLower(e.getItemNounName(def))
 		if strings.HasPrefix(name, dyeTarget) || strings.Contains(name, dyeTarget) {
-			// Apply dye: color goes to Adj2, preserving material adjective in Adj1
-			// PARAMETER1 = color adjective, PARAMETER3 = optional texture adjective
-			if def.Parameter1 > 0 {
-				targetItem.Adj2 = def.Parameter1
+			// Apply dye, preserving the material adjective in Adj1. Per the DYE-flagged
+			// reagents in ITEM1.SCR (e.g. "Spleen for inky black": PARAMETER2=167 inky,
+			// PARAMETER3=25 black), PARAMETER3 is the base color adjective and PARAMETER2
+			// an optional modifier preceding it ("cobalt blue", "deep brown") — PARAMETER1
+			// is not color data.
+			var dyedName string
+			switch {
+			case targetItem != nil:
+				if def.Parameter2 > 0 {
+					targetItem.Adj2 = def.Parameter2
+				}
+				if def.Parameter3 > 0 {
+					targetItem.Adj3 = def.Parameter3
+				}
+				dyedName = e.formatItemName(targetDef, targetItem.Adj1, targetItem.Adj2, targetItem.Adj3, targetItem.Tail)
+			case roomTargetRI != nil:
+				if def.Parameter2 > 0 {
+					roomTargetRI.Adj2 = def.Parameter2
+				}
+				if def.Parameter3 > 0 {
+					roomTargetRI.Adj3 = def.Parameter3
+				}
+				dyedName = e.formatItemName(targetDef, roomTargetRI.Adj1, roomTargetRI.Adj2, roomTargetRI.Adj3, roomTargetRI.Extend)
+				itemCopy := *roomTargetRI
+				e.notifyRoomChange(RoomChange{RoomNumber: player.RoomNumber, Type: "item_update", ItemRef: roomTargetRI.Ref, Item: &itemCopy})
+			case containerRef != -1:
+				contents := e.roomContainerGet(room.Number, containerRef)
+				ci := &contents[containerIdx]
+				if def.Parameter2 > 0 {
+					ci.Adj2 = def.Parameter2
+				}
+				if def.Parameter3 > 0 {
+					ci.Adj3 = def.Parameter3
+				}
+				e.roomContainerSet(room.Number, containerRef, contents)
+				dyedName = e.formatItemName(targetDef, ci.Adj1, ci.Adj2, ci.Adj3, ci.Tail)
+			case containerTargetRI != nil:
+				if def.Parameter2 > 0 {
+					containerTargetRI.Adj2 = def.Parameter2
+				}
+				if def.Parameter3 > 0 {
+					containerTargetRI.Adj3 = def.Parameter3
+				}
+				dyedName = e.formatItemName(targetDef, containerTargetRI.Adj1, containerTargetRI.Adj2, containerTargetRI.Adj3, containerTargetRI.Extend)
+				itemCopy := *containerTargetRI
+				e.notifyRoomChange(RoomChange{RoomNumber: player.RoomNumber, Type: "item_update", ItemRef: containerTargetRI.Ref, Item: &itemCopy})
 			}
-			if def.Parameter3 > 0 {
-				targetItem.Adj3 = def.Parameter3
-			}
+
 			// Consume the dye
 			player.Inventory = append(player.Inventory[:j], player.Inventory[j+1:]...)
 			dyeRT := applyRoundTime(player, 15)
@@ -1966,7 +2132,6 @@ func (e *GameEngine) doDye(ctx context.Context, player *Player, args []string) *
 			player.RoundTime = dyeRT
 			e.SavePlayer(ctx, player)
 
-			dyedName := e.formatItemName(targetDef, targetItem.Adj1, targetItem.Adj2, targetItem.Adj3, targetItem.Tail)
 			return &CommandResult{
 				Messages:      []string{fmt.Sprintf("You carefully dye the material. It is now %s.", dyedName), "[Round: 15 sec]"},
 				RoomBroadcast: []string{fmt.Sprintf("%s works at the loom, dyeing materials.", player.FirstName)},
@@ -2802,16 +2967,24 @@ func buildCraftAdjs(matItem InventoryItem, matDef *gameworld.ItemDef) (adj1, adj
 // cloth's material type (matDef.Parameter1 — e.g. 72=cotton, 356=wool) is always
 // pinned to Adj3, since FAYDINDR.SCR room 315's garment-finishing contraption
 // checks ITEMADJ3 to decide whether a garment is cotton or wool. Any other
-// adjective on the raw cloth (e.g. a dye color applied before weaving) goes in
-// Adj1 instead of being squeezed out.
+// adjectives on the raw cloth (e.g. a two-word dye color like "olive green"
+// applied before weaving, split across Adj2/Adj3 — see doDye) are carried into
+// Adj1/Adj2 instead of being squeezed out; dyeing with a single-word color
+// still leaves just one.
 func buildWeaveCraftAdjs(matItem InventoryItem, matDef *gameworld.ItemDef) (adj1, adj2, adj3 int) {
+	var dyeAdjs []int
 	for _, a := range []int{matItem.Adj1, matItem.Adj2, matItem.Adj3} {
 		if a > 0 && a != matDef.Parameter1 {
-			adj1 = a
-			break
+			dyeAdjs = append(dyeAdjs, a)
 		}
 	}
-	return adj1, 0, matDef.Parameter1
+	if len(dyeAdjs) > 0 {
+		adj1 = dyeAdjs[0]
+	}
+	if len(dyeAdjs) > 1 {
+		adj2 = dyeAdjs[1]
+	}
+	return adj1, adj2, matDef.Parameter1
 }
 
 // completeCraft creates the finished item for jewelry, weaving, or wood crafts and resets state.
@@ -3090,4 +3263,72 @@ func (e *GameEngine) doWorkWood(ctx context.Context, player *Player, args []stri
 	player.CraftingMetal = ""
 	e.SavePlayer(ctx, player)
 	return &CommandResult{Messages: []string{"Your crafting state was invalid. It has been reset."}}
+}
+
+// doAdviceCrafting gives crafting tips tailored to the player's current room.
+// Away from a workshop, it points the player toward the known crafting guilds.
+// At a forge, loom, or fletcher's bench, a master crafter steps up with advice
+// specific to that trade.
+func (e *GameEngine) doAdviceCrafting(player *Player) *CommandResult {
+	room := e.rooms[player.RoomNumber]
+	var mods []string
+	if room != nil {
+		mods = room.Modifiers
+	}
+	hasForge := containsModifier(mods, "FORGE")
+	hasLoom := containsModifier(mods, "LOOM")
+	hasFletcher := containsModifier(mods, "FLETCHER")
+	isMiningShop := player.RoomNumber == 394
+
+	if !hasForge && !hasLoom && !hasFletcher && !isMiningShop {
+		return &CommandResult{Messages: []string{
+			"You aren't near any crafting workshops right now. Master crafters can be found at:",
+			"- The Foundry, southwest of the Physicians Guild — smithing: smelting ore, forging weapons and armor, repairs",
+			"- The Crafter's Guild, southwest of the Adventurers' Guild — Weaver Workshop and Jeweler Workshop under one roof",
+			"- The Bowyer & Fletcher shop, on First Street — Wood Lore and fletching",
+			"- New Havarth Mining Company, in Bazaar North — train Mining and buy your ore-working supplies",
+			"Foraging isn't tied to a guild — head out to forests, mountains, plains, swamps, or jungles with Wood Lore trained.",
+			"Alchemy needs no workshop either — BREW works with any vial, bottle, or flask.",
+			"Visit one of these and try ADVICE CRAFTING again for advice specific to that trade.",
+		}}
+	}
+
+	var msgs []string
+	if isMiningShop {
+		msgs = append(msgs,
+			"The clerk looks up from his ledger and offers some pointers:",
+			"- MINE requires a mining tool, like a pickaxe or miner's hammer, and some training in Mining",
+			"- Ore has to be carried to a forge and SMELTed before you can work it into anything",
+			"- Higher purity ore smelts more reliably — the deeper and tougher the vein, the better the yield",
+		)
+	}
+	if hasForge {
+		msgs = append(msgs,
+			"A master smith looks up from the forge, wiping soot from her hands, and offers some pointers:",
+			"- SMELT ore into metal bars before you can forge anything with it",
+			"- CRAFT <item> to start shaping metal into a weapon or piece of armor",
+			"- WORK <material> to continue a piece you've already started",
+			"- REPAIR patches up damaged weapons and armor",
+			"- Truesteel and other rare metals are trickier to quench than iron or bronze — expect more failures",
+		)
+	}
+	if hasLoom {
+		msgs = append(msgs,
+			"A master weaver glances over from the loom and offers some pointers:",
+			"- WORK PELT or WORK HIDE prepares skinned materials before you weave or craft with them",
+			"- CRAFT <item> at the loom to weave cloth and leather goods",
+			"- DYE lets you recolor a finished cloth item",
+		)
+	}
+	if hasFletcher {
+		msgs = append(msgs,
+			"The old bowyer sets down his work and offers some pointers:",
+			"- This shop is where you train Wood Lore, the skill behind foraging in the wild",
+			"- CRAFT <item> here to start shaping wood, then WORK <wood name> (e.g. teak, rosewood) to continue it",
+		)
+	}
+	if hasForge || hasLoom {
+		msgs = append(msgs, "- If you've trained as a Jeweler, this workshop doubles as a bench for ENCRUST, INLAY, INSET, and ENGRAVE")
+	}
+	return &CommandResult{Messages: msgs}
 }

@@ -81,6 +81,14 @@ type TimedDefenseBuff struct {
 	Expiry    time.Time `bson:"expiry" json:"expiry"`
 }
 
+// PlayerEntangle tracks one active movement-restricting spell on a player
+// (e.g. Plant Snare) so Freedom (505) can name and remove one at random.
+type PlayerEntangle struct {
+	SpellID   int       `bson:"spellId" json:"spellId"`
+	SpellName string    `bson:"spellName" json:"spellName"`
+	Expiry    time.Time `bson:"expiry" json:"expiry"`
+}
+
 // Player represents a player's current state.
 type Player struct {
 	ID         bson.ObjectID     `bson:"_id,omitempty" json:"id"`
@@ -195,6 +203,40 @@ type Player struct {
 	// while active, damage of that element taken is reduced by 50%.
 	HeatShieldExpiry time.Time `bson:"heatShieldExpiry,omitempty" json:"heatShieldExpiry,omitempty"`
 	ColdShieldExpiry time.Time `bson:"coldShieldExpiry,omitempty" json:"coldShieldExpiry,omitempty"`
+
+	// Temporary Camouflage buff (spell 521): +10 effective Stealth skill (33).
+	// Applied on top of the trained skill level in formulas, never written into
+	// Skills[33] itself, so SKILLS display/prerequisites still reflect real training.
+	CamouflageBonus  int       `bson:"camouflageBonus,omitempty" json:"camouflageBonus,omitempty"`
+	CamouflageExpiry time.Time `bson:"camouflageExpiry,omitempty" json:"camouflageExpiry,omitempty"`
+
+	// Resist Weather (spell 506): while active, ignores the Hurricane knockdown
+	// chance (regen.go) and the weather-based to-hit penalty (combat.go weatherMod).
+	ResistWeatherExpiry time.Time `bson:"resistWeatherExpiry,omitempty" json:"resistWeatherExpiry,omitempty"`
+
+	// Claw Growth (spell 518): while active and the caster has no weapon wielded,
+	// attacks use natural claws (ITEMWEAP.SCR #279, CLAW_WEAPON) instead of bare
+	// hands/Martial Arts — see currentWeaponDef in combat.go. Self-only; re-casting
+	// while active adds another 20 minutes rather than resetting the timer.
+	ClawGrowthExpiry time.Time `bson:"clawGrowthExpiry,omitempty" json:"clawGrowthExpiry,omitempty"`
+
+	// Repel Plants (509) / Repel Plants and Webs (510): grant immunity to being
+	// newly entangled by Plant Snare (500), and — for 510 only — Web (127) as
+	// well. Checked by castPlantSnareSpell before adding an Entangles entry.
+	RepelPlantsExpiry        time.Time `bson:"repelPlantsExpiry,omitempty" json:"repelPlantsExpiry,omitempty"`
+	RepelPlantsAndWebsExpiry time.Time `bson:"repelPlantsAndWebsExpiry,omitempty" json:"repelPlantsAndWebsExpiry,omitempty"`
+
+	// Entangles tracks active movement-restricting spells (Plant Snare, and any
+	// future player-targeting Web/Tentacles) so Freedom (505) can remove one at
+	// random. Distinct from the older, unnamed Immobilized flag below (used by
+	// psi Immobilize and Imprisonment Rune traps), which Freedom does not touch.
+	Entangles []PlayerEntangle `bson:"entangles,omitempty" json:"entangles,omitempty"`
+
+	// Pending summons (e.g. Call the Pack): room to teleport to via ANSWER, and when the
+	// invite lapses. Transient — a short-lived (~1 minute) in-memory invite, not meant to
+	// survive a restart. PendingSummonsRoom == 0 means no active summons.
+	PendingSummonsRoom   int       `bson:"-" json:"-"`
+	PendingSummonsExpiry time.Time `bson:"-" json:"-"`
 
 	// Spell preparation reagent (transient — which item arch was verified at PREPARE time)
 	PreparedSpellReagentArch int `bson:"-" json:"-"`
@@ -344,6 +386,18 @@ type Player struct {
 // FullName returns the player's display name.
 func (p *Player) FullName() string {
 	return p.FirstName + " " + p.LastName
+}
+
+// effectiveStealthSkill returns the player's trained Stealth skill (33) plus
+// any active Camouflage buff bonus (spell 521). Used in hide/sneak/detection
+// formulas instead of Skills[33] directly so the buff never leaks into the
+// persisted skill level shown by SKILLS or checked by Disguise's prerequisite.
+func effectiveStealthSkill(p *Player) int {
+	skill := p.Skills[33]
+	if p.CamouflageBonus > 0 && !p.CamouflageExpiry.IsZero() && time.Now().Before(p.CamouflageExpiry) {
+		skill += p.CamouflageBonus
+	}
+	return skill
 }
 
 // Pronoun returns "he" or "she".

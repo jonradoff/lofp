@@ -757,8 +757,10 @@ func (e *GameEngine) monsterTick(tick int) {
 
 		name := FormatMonsterName(def, e.monAdjs)
 
-		// Hostile monsters without a target — look for players in room (skip summoned creatures)
-		if def.Strategy >= 301 && inst.Target == "" && !inst.IsSummoned {
+		// Hostile monsters without a target — look for players in room (skip summoned
+		// creatures and GUARDIAN-flagged monsters, which never aggro players on sight —
+		// see the Guardian block below instead).
+		if def.Strategy >= 301 && !def.Guardian && inst.Target == "" && !inst.IsSummoned {
 			if e.sessions != nil {
 				for _, p := range e.sessions.OnlinePlayers() {
 					if p.RoomNumber == inst.RoomNumber && !p.Dead && !p.Hidden && !p.GMInvis {
@@ -772,6 +774,35 @@ func (e *GameEngine) monsterTick(tick int) {
 			}
 			if inst.Target != "" {
 				continue // start combat next tick
+			}
+		}
+
+		// Guardian monsters (e.g. the GUARDIAN-flagged large wolf) never aggro players on
+		// sight — they only fight back if attacked (see the unconditional Target
+		// assignment in doAttackMonster) — but they do aggro any other monster in the
+		// room that's currently attacking a player, defending players from hostiles
+		// rather than hunting players themselves.
+		if def.Guardian && inst.Target == "" && inst.MonsterTargetID == 0 {
+			for _, idx2 := range e.monsterMgr.monstersByRoom[inst.RoomNumber] {
+				if idx2 == idx || idx2 >= len(e.monsterMgr.instances) {
+					continue
+				}
+				other := &e.monsterMgr.instances[idx2]
+				if !other.Alive || other.Target == "" {
+					continue
+				}
+				otherDef := e.monsters[other.DefNumber]
+				if otherDef == nil || otherDef.Guardian {
+					continue
+				}
+				inst.MonsterTargetID = other.ID
+				if e.localRoomBroadcast != nil {
+					e.localRoomBroadcast(inst.RoomNumber, []string{fmt.Sprintf("%s snarls and lunges at %s!", capArticle(articleFor(name, def.Unique))+name, FormatMonsterName(otherDef, e.monAdjs))})
+				}
+				break
+			}
+			if inst.MonsterTargetID > 0 {
+				continue // start fighting next tick
 			}
 		}
 

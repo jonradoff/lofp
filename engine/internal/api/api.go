@@ -230,6 +230,26 @@ func NewServer(ge *engine.GameEngine, parsed *gameworld.ParsedData, authSvc *aut
 		s.mu.RUnlock()
 	})
 
+	// Same as above, but skips one named player — used for monster combat's public
+	// room line when that player already received their own private detail message
+	// (e.g. the [ToHit/Roll] breakdown), so they don't see the same hit described twice.
+	ge.SetLocalRoomBroadcastExclude(func(roomNumber int, excludeName string, messages []string) {
+		s.mu.RLock()
+		for _, sess := range s.sessions {
+			if sess.Player == nil || sess.Player.RoomNumber != roomNumber || sess.Player.FirstName == excludeName {
+				continue
+			}
+			if sess.Player.BattleBrief {
+				continue
+			}
+			filtered := filterBroadcastForPlayer(sess.Player, messages)
+			if len(filtered) > 0 {
+				s.sendBroadcast(sess, filtered)
+			}
+		}
+		s.mu.RUnlock()
+	})
+
 	// Set up player-targeted messages for background tasks (combat, etc.)
 	ge.SetSendToPlayer(func(playerName string, messages []string) {
 		s.sendToPlayer(playerName, messages)
@@ -743,6 +763,7 @@ func (s *Server) handleGameWS(w http.ResponseWriter, r *http.Request) {
 				s.sendResult(session, &engine.CommandResult{
 					Messages: []string{
 						fmt.Sprintf("Welcome to the Shattered Realms, %s the %s!", player.FullName(), player.RaceName()),
+						"Type HELP for a full list of commands, or ADVICE to get some tips for getting started.",
 						"",
 					},
 				})
@@ -1074,6 +1095,11 @@ func filterBroadcastForPlayer(player *engine.Player, messages []string) []string
 				strings.Contains(msg, " eats ") {
 				continue
 			}
+		}
+		// ActBrief: ACT command broadcasts always arrive parenthesized "(Name does X)";
+		// strip the parens for viewers who have their own actbrief toggle on.
+		if player.ActBrief && len(msg) >= 2 && msg[0] == '(' && msg[len(msg)-1] == ')' {
+			msg = msg[1 : len(msg)-1]
 		}
 		filtered = append(filtered, msg)
 	}

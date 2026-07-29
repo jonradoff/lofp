@@ -395,6 +395,23 @@ func (e *GameEngine) projectImmobilize(player *Player, args []string) *CommandRe
 	return &CommandResult{Messages: []string{fmt.Sprintf("You don't see %s here.", targetName)}}
 }
 
+// psiResistRoll reports whether a monster resists a psionic attack. Like
+// MagicResist, PSIRESIST is a rating (tens to thousands), not a 0-100
+// percentage — weighed against the caster's psi rating using the same
+// skill+school+Willpower shape as the psi cast-success check above.
+func psiResistRoll(player *Player, disc *PsiDiscipline, resist int) bool {
+	if resist <= 0 {
+		return false
+	}
+	psiSkill := player.Skills[26]
+	schoolSkill := player.Skills[27]
+	if disc.School == "Mind over Matter" {
+		schoolSkill = player.Skills[28]
+	}
+	casterRating := 50 + (psiSkill+schoolSkill)*3 + player.Willpower/5
+	return rand.Intn(100) < calcToHit(casterRating, resist)
+}
+
 func (e *GameEngine) projectDamage(player *Player, disc *PsiDiscipline, args []string) *CommandResult {
 	targetName := ""
 	if len(args) > 0 {
@@ -433,7 +450,7 @@ func (e *GameEngine) projectDamage(player *Player, disc *PsiDiscipline, args []s
 	if resist <= 0 {
 		resist = def.MagicResist
 	}
-	if resist > 0 && rand.Intn(100) < resist {
+	if psiResistRoll(player, disc, resist) {
 		return &CommandResult{
 			Messages:      []string{fmt.Sprintf("You project %s at a %s, but it resists!", disc.Name, name)},
 			RoomBroadcast: []string{fmt.Sprintf("%s concentrates at a %s, but it resists!", player.FirstName, name)},

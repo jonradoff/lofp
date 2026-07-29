@@ -593,6 +593,8 @@ func (sc *ScriptContext) execAction(action gameworld.ScriptAction) {
 		sc.doMod(action.Args)
 	case "GENMON":
 		sc.doGenMon(action.Args)
+	case "CALLPACK":
+		sc.doCallPack()
 	case "ZAPMON":
 		// Remove all monsters from current room
 		if sc.Engine.monsterMgr != nil {
@@ -1151,7 +1153,7 @@ func (sc *ScriptContext) evalIfVar(args []string) bool {
 	expected := sc.resolveScriptArg(args[2])
 
 	switch op {
-	case "=":
+	case "=", "==":
 		return actual == expected
 	case "!":
 		return actual != expected
@@ -1771,6 +1773,30 @@ func (sc *ScriptContext) setVar(name string, val int) {
 		})
 		return
 	}
+	if strings.HasPrefix(name, "ITEMADJ") {
+		idx, err := strconv.Atoi(name[7:])
+		if err != nil || sc.ItemRef == nil {
+			return
+		}
+		switch idx {
+		case 1:
+			sc.ItemRef.Adj1 = val
+		case 2:
+			sc.ItemRef.Adj2 = val
+		case 3:
+			sc.ItemRef.Adj3 = val
+		}
+		if sc.ItemRef.Ref == -1 {
+			sc.syncItemRefToPlayerItem()
+			return
+		}
+		itemCopy2 := *sc.ItemRef
+		sc.Engine.notifyRoomChange(RoomChange{
+			RoomNumber: sc.Room.Number, Type: "item_update",
+			ItemRef: sc.ItemRef.Ref, Item: &itemCopy2,
+		})
+		return
+	}
 	if strings.HasPrefix(name, "FLAG") {
 		idx, _ := strconv.Atoi(name[4:])
 		switch idx {
@@ -1779,6 +1805,7 @@ func (sc *ScriptContext) setVar(name string, val int) {
 		case 3: sc.Player.Flag3 = val
 		case 4: sc.Player.Flag4 = val
 		}
+		sc.NeedsSave = true
 		return
 	}
 	if strings.HasPrefix(name, "PVAL") {
@@ -2237,6 +2264,13 @@ func (sc *ScriptContext) doGenMon(args []string) {
 	}
 }
 
+// doCallPack triggers the Call the Pack effect (see castCallThePack) in the script's
+// room — usable from any item, room, or monster script (the "object or NPC" cast paths;
+// GM casting goes through the separate @callpack command instead).
+func (sc *ScriptContext) doCallPack() {
+	sc.Engine.castCallThePack(sc.Room)
+}
+
 // doNewPut handles NEWPUT ref archetype [key=value...] — places item inside a container in the room.
 func (sc *ScriptContext) doNewPut(args []string) {
 	if len(args) < 2 {
@@ -2489,6 +2523,13 @@ func (sc *ScriptContext) applyItemSpellOnPlayer(spell *SpellDef) {
 		case 347: // Divine Blessing
 			sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s. You feel divinely blessed.", spell.Name))
 			sc.RoomMsgs = append(sc.RoomMsgs, fmt.Sprintf("A warm golden light briefly surrounds %s.", player.FirstName))
+		case 506: // Resist Weather
+			mins, applied := applyElementalShield(&player.ResistWeatherExpiry)
+			if !applied {
+				sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s. Your resistance to the weather strengthens! (%d minutes remaining)", spell.Name, mins))
+			} else {
+				sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s! The weather's fury will no longer trouble you. (20 minutes)", spell.Name))
+			}
 		case 507, 508: // Heat Shield / Cold Shield
 			var expiry *time.Time
 			elementName := "heat"
@@ -2505,6 +2546,21 @@ func (sc *ScriptContext) applyItemSpellOnPlayer(spell *SpellDef) {
 				sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s! You feel protected from %s. (50%% resistance, 20 minutes)", spell.Name, elementName))
 				sc.RoomMsgs = append(sc.RoomMsgs, fmt.Sprintf("A shimmer surrounds %s.", player.FirstName))
 			}
+		case 509, 510: // Repel Plants / Repel Plants and Webs
+			var expiry *time.Time
+			scope := "plant snares"
+			if spell.ID == 510 {
+				expiry = &player.RepelPlantsAndWebsExpiry
+				scope = "plant snares and webs"
+			} else {
+				expiry = &player.RepelPlantsExpiry
+			}
+			mins, applied := applyElementalShield(expiry)
+			if !applied {
+				sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s. Your immunity to %s strengthens! (%d minutes remaining)", spell.Name, scope, mins))
+			} else {
+				sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s! You feel immune to %s. (20 minutes)", spell.Name, scope))
+			}
 		case 512: // True Aim
 			sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s. Your aim feels supernaturally true.", spell.Name))
 			sc.RoomMsgs = append(sc.RoomMsgs, fmt.Sprintf("%s's eyes gleam with unnatural focus.", player.FirstName))
@@ -2518,9 +2574,13 @@ func (sc *ScriptContext) applyItemSpellOnPlayer(spell *SpellDef) {
 				sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s! (+%d AGI, %d minutes)", spell.Name, bonus, mins))
 			}
 		case 521: // Camouflage
-			player.Hidden = true
-			sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s. You blend with your surroundings.", spell.Name))
-			sc.RoomMsgs = append(sc.RoomMsgs, fmt.Sprintf("%s seems to blur into the background.", player.FirstName))
+			mins, applied := applyCamouflageBuff(player)
+			if !applied {
+				sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s. Your camouflage strengthens! (%d minutes remaining)", spell.Name, mins))
+			} else {
+				sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s. Your skin and clothing shift to blend with your surroundings! (+10 Stealth, %d minutes)", spell.Name, mins))
+				sc.RoomMsgs = append(sc.RoomMsgs, fmt.Sprintf("%s seems to blur into the background.", player.FirstName))
+			}
 		default:
 			sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s.", spell.Name))
 			sc.RoomMsgs = append(sc.RoomMsgs, fmt.Sprintf("A shimmer of magical energy surrounds %s.", player.FirstName))
@@ -2542,8 +2602,14 @@ func (sc *ScriptContext) applyItemSpellOnPlayer(spell *SpellDef) {
 		case 405: // See Hidden
 			sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s. You can sense hidden things nearby.", spell.Name))
 		case 505: // Freedom
-			player.Immobilized = false
-			sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s. You feel free from all restraints!", spell.Name))
+			if len(player.Entangles) > 0 {
+				idx := rand.Intn(len(player.Entangles))
+				removed := player.Entangles[idx]
+				player.Entangles = append(player.Entangles[:idx], player.Entangles[idx+1:]...)
+				sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s. The %s releases its hold on you!", spell.Name, removed.SpellName))
+			} else {
+				sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s, but you aren't bound by any such magic.", spell.Name))
+			}
 		case 520: // Night Vision
 			sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s. The darkness retreats from your eyes.", spell.Name))
 		default:
@@ -2566,6 +2632,7 @@ func (sc *ScriptContext) expandScriptText(text string) string {
 	// Item name
 	if sc.ItemRef != nil && sc.ItemDef != nil {
 		itemName := sc.Engine.formatItemName(sc.ItemDef, sc.ItemRef.Adj1, sc.ItemRef.Adj2, sc.ItemRef.Adj3, sc.ItemRef.Extend)
+		text = strings.ReplaceAll(text, "%A", capitalize(itemName))
 		text = strings.ReplaceAll(text, "%a", itemName)
 	}
 	// Monster name (empty for now)

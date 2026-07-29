@@ -41,9 +41,9 @@ type CombatTarget struct {
 // Level increases when total build points reach 20 + 10*(level+1).
 
 var xpPerBP = []int{
-	0,     // level 0 (unused)
-	100, 200, 400, 600, 800, 1000, 1200, 1400, 1600, 2000,       // 1-10
-	2400, 2700, 3200, 4000, 4800, 5600, 6400, 7200, 8000, 8800,  // 11-20
+	0,                                                     // level 0 (unused)
+	100, 200, 400, 600, 800, 1000, 1200, 1400, 1600, 2000, // 1-10
+	2400, 2700, 3200, 4000, 4800, 5600, 6400, 7200, 8000, 8800, // 11-20
 	9600, 10400, 11200, 12000, 12800, 13600, 14400, 15200, 16000, 16800, // 21-30
 	17600, 18400, 19200, 20000, 20800, 21600, 22400, 23200, 24000, 24800, // 31-40
 	25600, 26400, 27200, 28000, 28800, 29600, 30400, 31200, 32000, 32800, // 41-50
@@ -372,6 +372,28 @@ func weaponSkillForType(itemType string) int {
 	default:
 		return 13
 	}
+}
+
+// clawGrowthWeaponArch is ITEMWEAP.SCR #279 ("Claws"), CLAW_WEAPON/PARAMETER1=5 —
+// the natural weapon granted by the Claw Growth spell (518). Used as a virtual
+// weapon def only (never assigned to player.Wielded), so claws automatically get
+// normal weapon-type damage/skill math (see playerDamage, playerAttackRating,
+// weaponSkillForType → skill 4 Natural Weapons) while remaining exempt from
+// wielded-weapon-only effects like weapon clash damage/breaking and Sharpness/Val2
+// enchantment bonuses, since there's no real InventoryItem instance to mutate.
+const clawGrowthWeaponArch = 279
+
+// currentWeaponDef returns the ItemDef for the player's current attack — their
+// actual wielded weapon, or (if unarmed) natural claws while Claw Growth is active,
+// or nil for ordinary bare-handed/Martial Arts combat.
+func (e *GameEngine) currentWeaponDef(player *Player) *gameworld.ItemDef {
+	if player.Wielded != nil {
+		return e.items[player.Wielded.Archetype]
+	}
+	if !player.ClawGrowthExpiry.IsZero() && time.Now().Before(player.ClawGrowthExpiry) {
+		return e.items[clawGrowthWeaponArch]
+	}
+	return nil
 }
 
 // specializableWeaponSkills are the weapon skills a player may pick a
@@ -872,10 +894,7 @@ func (e *GameEngine) doAttackMonster(ctx context.Context, player *Player, target
 	name := FormatMonsterName(def, e.monAdjs)
 	article := articleFor(name, def.Unique)
 
-	var weaponDef *gameworld.ItemDef
-	if player.Wielded != nil {
-		weaponDef = e.items[player.Wielded.Archetype]
-	}
+	weaponDef := e.currentWeaponDef(player)
 
 	// Check ranged weapon is loaded
 	isRangedWeapon := weaponDef != nil && (weaponDef.Type == "BOW_WEAPON" || weaponDef.Type == "HANDGUN" || weaponDef.Type == "RIFLE")
@@ -961,8 +980,11 @@ func (e *GameEngine) doAttackMonster(ctx context.Context, player *Player, target
 		}
 	}
 
-	// Apply weather modifier
+	// Apply weather modifier — Resist Weather (506) cancels it entirely
 	wMod := e.weatherMod(player.RoomNumber)
+	if !player.ResistWeatherExpiry.IsZero() && time.Now().Before(player.ResistWeatherExpiry) {
+		wMod = 0
+	}
 
 	// Fatigue penalty to ToHit
 	fatPenalty := 0
@@ -1000,9 +1022,14 @@ func (e *GameEngine) doAttackMonster(ctx context.Context, player *Player, target
 
 	msgs = append(msgs, fmt.Sprintf("You %s at %s%s with your %s.", selfVerb, article, name, weaponName))
 
-	// Weapon clash on roll < 3 (only vs weapon-wielding monsters)
-	if roll < 3 && weaponDef != nil && len(def.Weapons) > 0 {
-		weaponStr := e.weaponHardness(player.Wielded, weaponDef)
+	// Weapon clash on roll < 3 (only vs weapon-wielding monsters). Requires a real
+	// wielded item — natural weapons (Claw Growth) have no InventoryItem instance to
+	// damage/break, so they're exempt from clash entirely rather than clashing with
+	// no visible effect.
+	if roll < 3 && weaponDef != nil && player.Wielded != nil && len(def.Weapons) > 0 {
+		// Agility helps the player deflect/pull the blow rather than take the clash
+		// full-on, reducing the chance their own weapon takes the damage.
+		weaponStr := e.weaponHardness(player.Wielded, weaponDef) + player.Agility/5
 		clashRoll := rand.Intn(100) + rand.Intn(100) + 2
 		msgs = append(msgs, fmt.Sprintf(" [ToHit: %d, Roll: %d] Weapon Clash! [Strength: %d, 2d100 Roll: %d]", toHit, roll, weaponStr, clashRoll))
 		if clashRoll > weaponStr {
@@ -1030,7 +1057,10 @@ func (e *GameEngine) doAttackMonster(ctx context.Context, player *Player, target
 		rtSec := applyRoundTime(player, 5)
 		player.RoundTimeExpiry = time.Now().Add(time.Duration(rtSec) * time.Second)
 		result.Messages = append(result.Messages, fmt.Sprintf("[Round: %d sec]", rtSec))
-		if player.Hidden { player.Hidden = false; result.Messages = append([]string{"You reveal yourself!"}, result.Messages...) }
+		if player.Hidden {
+			player.Hidden = false
+			result.Messages = append([]string{"You reveal yourself!"}, result.Messages...)
+		}
 		e.SavePlayer(ctx, player)
 		result.PlayerState = player
 		return result
@@ -1720,6 +1750,24 @@ func (e *GameEngine) monsterAttackTargetPool(inst *MonsterInstance) []*Player {
 	return roomPlayers
 }
 
+// broadcastCombatRoom sends a monster combat room-broadcast, excluding defender (who
+// already got their own private detail message via sendToPlayer and would otherwise
+// see the same hit described twice — once in detail, once in the room's simplified
+// recap). Falls back to a plain broadcast if defender is nil or no exclude func is
+// wired up (e.g. in tests).
+func (e *GameEngine) broadcastCombatRoom(roomNum int, defender *Player, messages []string) {
+	if len(messages) == 0 {
+		return
+	}
+	if defender != nil && e.localRoomBroadcastExclude != nil {
+		e.localRoomBroadcastExclude(roomNum, defender.FirstName, messages)
+		return
+	}
+	if e.localRoomBroadcast != nil {
+		e.localRoomBroadcast(roomNum, messages)
+	}
+}
+
 // monsterDodgeChance is the Combat Maneuvering skill's chance to completely avoid a
 // monster's special attack or spell — 2% per rank, capped at 95%, per LEGENDS.DOC.
 func monsterDodgeChance(target *Player) int {
@@ -1735,7 +1783,13 @@ func monsterDodgeChance(target *Player) int {
 // Heat/Cold Shield mitigation, then rolls a body part and applies the wound. Returns the
 // final damage dealt, the body part hit, the wound damage-type noun (for dmgNounForType),
 // and the player's raw (pre-clamp) BodyPoints after the hit, for resolveDirectHitOutcome.
-func (e *GameEngine) applyMonsterElementalDamageToPlayer(player *Player, dmg int, dmgType string) (finalDmg int, part string, dtype string, rawBP int) {
+// applyLocationMult controls whether the rolled body part's hit-location multiplier
+// (100% vitals / 40% limb / 20% extremity) scales the damage down: true for special
+// attacks (the original ported behavior), false for spells — castDamageSpell never
+// reduces a player-cast spell's damage by the monster's body part, only uses it for
+// flavor text, so a monster-cast spell shouldn't reduce the player's damage by it either
+// ("Spell attacks should work like any normal spell casting").
+func (e *GameEngine) applyMonsterElementalDamageToPlayer(player *Player, dmg int, dmgType string, applyLocationMult bool) (finalDmg int, part string, dtype string, rawBP int) {
 	armorPct := playerArmorPercent(player, e.items)
 	dmg = applyArmor(dmg, armorPct)
 	dmg = applyDrakinElementalVulnerability(player, dmgType, dmg)
@@ -1757,8 +1811,11 @@ func (e *GameEngine) applyMonsterElementalDamageToPlayer(player *Player, dmg int
 		dmg /= 2
 	}
 
-	part, locMult := rollBodyPart("HUMAN", 0)
-	dmg = dmg * locMult / 100
+	var locMult int
+	part, locMult = rollBodyPart("HUMAN", 0)
+	if applyLocationMult {
+		dmg = dmg * locMult / 100
+	}
 	if dmg <= 0 {
 		dmg = 1
 	}
@@ -1816,19 +1873,28 @@ func (e *GameEngine) monsterTrySpecialAttack(inst *MonsterInstance, def *gamewor
 	}
 
 	dmg := def.SpecBase + rand.Intn(max(1, def.SpecDmg))
-	finalDmg, part, dtype, rawBP := e.applyMonsterElementalDamageToPlayer(target, dmg, def.SpecDmgType)
+	finalDmg, part, dtype, rawBP := e.applyMonsterElementalDamageToPlayer(target, dmg, def.SpecDmgType, true)
 
-	playerMsgs = append(playerMsgs, specText)
-	playerMsgs = append(playerMsgs, fmt.Sprintf(" %s %s to %s. [%d Damage]", damageSeverity(finalDmg, target.MaxBodyPoints), dmgNounForType(dtype), part, finalDmg))
-	roomMsgs = append(roomMsgs, specText)
+	// The target is excluded from the room broadcast (broadcastCombatRoom) since they
+	// get their own private detail instead, so specText must also go into playerMsgs
+	// (undecorated) or they'd never see their own attack's announcement at all. The
+	// room's copy gets a simplified damage tier too, so an observer sees whether the
+	// special attack actually did anything (the exact [N Damage] stays private).
+	monBroadcast := fmt.Sprintf("%s %s.", specText, simplifiedDamageTier(finalDmg))
+	playerMsgs = append(playerMsgs, specText, fmt.Sprintf(" %s %s to %s. [%d Damage]", damageSeverity(finalDmg, target.MaxBodyPoints), dmgNounForType(dtype), part, finalDmg))
 
 	if rawBP <= 0 {
 		outcomeMsgs, died := e.resolveDirectHitOutcome(target, rawBP, name)
-		playerMsgs = append(playerMsgs, outcomeMsgs...)
-		if !died {
-			roomMsgs = append(roomMsgs, fmt.Sprintf("%s%s knocks %s unconscious!", capArt, name, target.FirstName))
+		if died {
+			playerMsgs = append(playerMsgs, fmt.Sprintf(" %s%s slays %s.", capArt, name, target.FirstName))
+			playerMsgs = append(playerMsgs, outcomeMsgs...)
+			monBroadcast += fmt.Sprintf(" %s%s slays %s!", capArt, name, target.FirstName)
+		} else {
+			playerMsgs = append(playerMsgs, outcomeMsgs...)
+			monBroadcast += fmt.Sprintf(" %s%s knocks %s unconscious!", capArt, name, target.FirstName)
 		}
 	}
+	roomMsgs = append(roomMsgs, monBroadcast)
 	return playerMsgs, roomMsgs, target, true
 }
 
@@ -1863,7 +1929,13 @@ func (e *GameEngine) monsterTryStartCast(inst *MonsterInstance, def *gameworld.M
 	spellID := affordable[rand.Intn(len(affordable))]
 	sp := FindSpellByID(spellID)
 
-	castSeconds := def.CastLevel
+	// Windup uses the spell's own CastTime (matching player PREPARE/CAST timing —
+	// "Spell attacks should work like any normal spell casting"), not CASTLEVEL: despite
+	// GMSCRIPT.DOC's "defines the duration of a creature's spell," testing showed a
+	// black muldragun's Lightning Bolt (CastTime 3) resolving in ~3 seconds, not
+	// CASTLEVEL's 20 — CASTLEVEL appears to govern something else (likely a buff/DoT
+	// spell's effect duration once cast, not yet implemented) rather than windup time.
+	castSeconds := sp.CastTime
 	if castSeconds <= 0 {
 		castSeconds = 3
 	}
@@ -1882,12 +1954,47 @@ func (e *GameEngine) monsterTryStartCast(inst *MonsterInstance, def *gameworld.M
 	return true
 }
 
-// resolveMonsterCast finishes a spell cast begun by monsterTryStartCast once CASTLEVEL
-// seconds have passed: rolls the monster's spellcraft check (SPELLSKILL) and, on
-// success, shows TEXL (the "gestures/casts" line, per GMSCRIPT.DOC) aimed at the stored
-// target followed by the spell's normal damage resolution — reusing the same dice,
-// damage type, and player-side mitigations (armor/Drakin/Endurance/shields) as a player
-// casting the same spell. On failure shows TEXQ ("fails its spellcraft check").
+// monsterSpellHitFlavor returns the "<subject> <verb> ... at <object>!" line for a
+// damage spell — the third-person text mirrors what castDamageSpell shows onlookers
+// when a PLAYER casts the same spell (see the per-damage-type and per-spell-ID switch
+// there), reused here so a monster casting the identical spell at a player reads the
+// same way, e.g. "A black muldragun hurls a bolt of lightning at Moordread!" for spell
+// 103 (matches original/icyranbro.txt). subject should already include its article
+// (e.g. "A black muldragun"); object is just the target's name.
+func monsterSpellHitFlavor(spell *SpellDef, subject, object string) string {
+	flavor := fmt.Sprintf("%s forms a bolt of energy and hurls it at %s!", subject, object)
+	switch spell.DmgType {
+	case "heat":
+		flavor = fmt.Sprintf("%s forms a ball of flame and hurls it at %s!", subject, object)
+	case "cold":
+		flavor = fmt.Sprintf("%s forms a freezing sphere from the air and hurls it at %s!", subject, object)
+	case "electric":
+		flavor = fmt.Sprintf("%s releases a bolt of lightning at %s!", subject, object)
+	case "crushing":
+		flavor = fmt.Sprintf("%s hurls a force blast at %s!", subject, object)
+	}
+	switch spell.ID {
+	case 103: // Lightning Bolt
+		flavor = fmt.Sprintf("%s hurls a bolt of lightning at %s!", subject, object)
+	case 120: // Frost Ray
+		flavor = fmt.Sprintf("%s points a finger at %s and a ray of intense cold shoots forth!", subject, object)
+	case 345: // Spectral Sword
+		flavor = fmt.Sprintf("A ghostly sword materializes before %s and slashes at %s!", subject, object)
+	case 523: // Earth Spike
+		flavor = fmt.Sprintf("As %s beckons to the ground, a horrible spike thrusts up from the earth and impales %s!", subject, object)
+	case 354: // Rorin's Fire
+		flavor = fmt.Sprintf("A wave of red and orange flames erupts from %s's hand and encircles %s, hissing and constricting like a snake!", subject, object)
+	}
+	return flavor
+}
+
+// resolveMonsterCast finishes a spell cast begun by monsterTryStartCast once the
+// windup (the spell's own CastTime) has passed: rolls the monster's spellcraft check
+// (SPELLSKILL) and, on success, shows TEXL (the "gestures/casts" line, per
+// GMSCRIPT.DOC) aimed at the stored target, then the spell's own hit-flavor line
+// (monsterSpellHitFlavor) and damage resolution — reusing the same dice, damage type,
+// and player-side mitigations (armor/Drakin/Endurance/shields) as a player casting the
+// same spell. On failure shows TEXQ ("fails its spellcraft check").
 func (e *GameEngine) resolveMonsterCast(inst *MonsterInstance, def *gameworld.MonsterDef) (playerMsgs, roomMsgs []string, defender *Player) {
 	e.monsterMgr.mu.Lock()
 	spellID := inst.CastSpellID
@@ -1946,8 +2053,21 @@ func (e *GameEngine) resolveMonsterCast(inst *MonsterInstance, def *gameworld.Mo
 		return nil, roomMsgs, nil
 	}
 
+	// hitFlavor is the actual "X hurls a bolt of lightning at Y!" line — mirrors the
+	// third-person text castDamageSpell shows onlookers when a player casts the same
+	// spell (see monsterSpellHitFlavor), matching e.g. original/icyranbro.txt's "A
+	// black muldragun hurls a bolt of lightning at Vaulle!" for spell 103. It's a
+	// separate line from the TEXL gesture above — that only announces the windup.
+	//
+	// The target is excluded from the room broadcast (broadcastCombatRoom) once we
+	// know they're the defender, so gestureMsg/hitFlavor must also go into playerMsgs
+	// (undecorated — no damage tier, since the target gets the exact number instead)
+	// or the target would never see their own spell's announcement at all.
+	hitFlavor := monsterSpellHitFlavor(sp, capArt+name, target.FirstName)
+
 	if dodge := monsterDodgeChance(target); dodge > 0 && rand.Intn(100) < dodge {
-		playerMsgs = append(playerMsgs, fmt.Sprintf("%s%s casts a spell at you, but you dodge it!", capArt, name))
+		roomMsgs = append(roomMsgs, fmt.Sprintf("%s %s dodges out of the way!", hitFlavor, target.FirstName))
+		playerMsgs = append(playerMsgs, gestureMsg, hitFlavor, "You dodge out of the way!")
 		return playerMsgs, roomMsgs, target
 	}
 
@@ -1955,17 +2075,26 @@ func (e *GameEngine) resolveMonsterCast(inst *MonsterInstance, def *gameworld.Mo
 	if dmg <= 0 {
 		dmg = 1
 	}
-	finalDmg, part, dtype, rawBP := e.applyMonsterElementalDamageToPlayer(target, dmg, sp.DmgType)
+	finalDmg, part, dtype, rawBP := e.applyMonsterElementalDamageToPlayer(target, dmg, sp.DmgType, false)
 
-	playerMsgs = append(playerMsgs, fmt.Sprintf(" %s %s to %s. [%d Damage]", damageSeverity(finalDmg, target.MaxBodyPoints), dmgNounForType(dtype), part, finalDmg))
+	// Public room line always gets a simplified damage tier — without this an observer
+	// only sees the spell fired, never whether it did anything (the exact [N Damage]
+	// figure stays private, matching how normal/special attacks report to the room).
+	monBroadcast := fmt.Sprintf("%s %s.", hitFlavor, simplifiedDamageTier(finalDmg))
+	playerMsgs = append(playerMsgs, gestureMsg, hitFlavor, fmt.Sprintf(" %s %s to %s. [%d Damage]", damageSeverity(finalDmg, target.MaxBodyPoints), dmgNounForType(dtype), part, finalDmg))
 
 	if rawBP <= 0 {
 		outcomeMsgs, died := e.resolveDirectHitOutcome(target, rawBP, name)
-		playerMsgs = append(playerMsgs, outcomeMsgs...)
-		if !died {
-			roomMsgs = append(roomMsgs, fmt.Sprintf("%s%s knocks %s unconscious!", capArt, name, target.FirstName))
+		if died {
+			playerMsgs = append(playerMsgs, fmt.Sprintf(" %s%s slays %s.", capArt, name, target.FirstName))
+			playerMsgs = append(playerMsgs, outcomeMsgs...)
+			monBroadcast += fmt.Sprintf(" %s%s slays %s!", capArt, name, target.FirstName)
+		} else {
+			playerMsgs = append(playerMsgs, outcomeMsgs...)
+			monBroadcast += fmt.Sprintf(" %s%s knocks %s unconscious!", capArt, name, target.FirstName)
 		}
 	}
+	roomMsgs = append(roomMsgs, monBroadcast)
 	return playerMsgs, roomMsgs, target
 }
 
@@ -2797,12 +2926,19 @@ func (e *GameEngine) monsterCombatTick(inst *MonsterInstance, def *gameworld.Mon
 		}
 	}
 
-	// Summoned creature attacking a monster
-	if inst.IsSummoned && inst.MonsterTargetID > 0 {
+	// Monster attacking another monster — summoned creatures via COMMAND ATTACK, or a
+	// GUARDIAN-flagged monster (e.g. the large wolf) defending players from a hostile.
+	// summonedAttackMonster itself doesn't require IsSummoned; only its kill-notification
+	// branch checks SummonerName, which is naturally empty for a non-summoned attacker.
+	if inst.MonsterTargetID > 0 {
 		if !inst.Sleeping && !inst.Webbed && !inst.Tentacled && !inst.Stunned && !inst.KnockedDown {
 			e.summonedAttackMonster(inst, def)
 		} else if inst.KnockedDown {
 			inst.KnockedDown = false
+			if e.localRoomBroadcast != nil {
+				name := FormatMonsterName(def, e.monAdjs)
+				e.localRoomBroadcast(inst.RoomNumber, []string{fmt.Sprintf("The %s scrambles back to its feet!", strings.ToLower(name))})
+			}
 		}
 		return
 	}
@@ -2873,11 +3009,13 @@ func (e *GameEngine) monsterCombatTick(inst *MonsterInstance, def *gameworld.Mon
 		e.monsterMgr.mu.Unlock()
 		playerMsgs, roomMsgs, defender := e.resolveMonsterCast(inst, def)
 		e.monsterMgr.mu.Lock()
+		// Public first, then the private outcome detail — roomMsgs carries the
+		// gesture/hit-flavor announcement and playerMsgs the damage/dodge line. The
+		// defender is excluded from the room broadcast since they already got the
+		// private detail; without that they'd see the same hit described twice.
+		e.broadcastCombatRoom(inst.RoomNumber, defender, roomMsgs)
 		if e.sendToPlayer != nil && len(playerMsgs) > 0 && defender != nil {
 			e.sendToPlayer(defender.FirstName, playerMsgs)
-		}
-		if e.localRoomBroadcast != nil && len(roomMsgs) > 0 {
-			e.localRoomBroadcast(inst.RoomNumber, roomMsgs)
 		}
 		if e.db != nil && defender != nil {
 			go e.SavePlayer(context.Background(), defender)
@@ -2922,12 +3060,12 @@ func (e *GameEngine) monsterCombatTick(inst *MonsterInstance, def *gameworld.Mon
 
 	// defender is who actually took the attack — it differs from target when
 	// the attack was redirected to a guard, and the detailed [ToHit/Roll]
-	// message (playerMsgs) must go to them, not the original target.
+	// message (playerMsgs) must go to them, not the original target. Public
+	// broadcast goes first, excluding defender (who gets the private detail
+	// instead of seeing the same hit described twice).
+	e.broadcastCombatRoom(inst.RoomNumber, defender, roomMsgs)
 	if e.sendToPlayer != nil && len(playerMsgs) > 0 && defender != nil {
 		e.sendToPlayer(defender.FirstName, playerMsgs)
-	}
-	if e.localRoomBroadcast != nil && len(roomMsgs) > 0 {
-		e.localRoomBroadcast(inst.RoomNumber, roomMsgs)
 	}
 
 	// Save player state after monster combat (persists HP loss, death, poison, etc.)
@@ -3008,7 +3146,7 @@ func (e *GameEngine) monsterCheckAggro(player *Player, roomNum int) {
 			continue
 		}
 		def := e.monsters[inst.DefNumber]
-		if def == nil || def.Strategy < 301 {
+		if def == nil || def.Strategy < 301 || def.Guardian {
 			continue
 		}
 		inst.Target = player.FirstName
@@ -3048,7 +3186,6 @@ func isNaturalWeapon(itemType string) bool {
 	}
 	return false
 }
-
 
 func (mm *monsterManager) indexOfID(id int) int {
 	for i := range mm.instances {

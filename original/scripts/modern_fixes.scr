@@ -158,3 +158,71 @@ IFPREVERB CONCENTRATE -1
   ENDIF
 ENDIF
 ;
+;I# 9002 : wolfling pack cloak
+INUMBER 9002
+NAME 52
+MISC
+WORN_BACK
+VOLUME 8
+WEIGHT 2
+SUBSTANCE FUR
+*DESCRIPTION_START
+A dark gray fur cloak, heavy and warm, its collar and hem fringed with a
+row of sharp werewolf teeth. Something about it stirs a restless, primal
+energy just beneath the skin.
+*DESCRIPTION_END
+IFPREVERB CONCENTRATE -1
+  IFITEM -1 WORN
+    CLEARVERB
+    ECHO PLAYER You focus your will into the cloak and let loose a long, echoing howl!
+    ECHO OTHERS %N focuses %h will into %a and lets loose a long, echoing howl!
+    CALLPACK
+  ENDIF
+ENDIF
+IFPREVERB PULL -1
+  IFITEM -1 WORN
+    CLEARVERB
+    ECHO OTHERS %n's cloak shifts color to match the surrounding area.
+    ECHO PLAYER Your cloak shifts color to match the surrounding area, allowing you to conceal yourself with greater ease.
+    SPELL 521 40
+  ENDIF
+ENDIF
+IFPREVERB PUSH -1
+  IFITEM -1 WORN
+    CLEARVERB
+    ECHO PLAYER You push the hood of your cloak back.
+    ECHO OTHERS %N pushes the hood of %h cloak back.
+  ENDIF
+ENDIF
+;
+;New monsters
+;
+;wolf
+MADJDEF 178 large
+MNUMBER 400
+NAME wolf
+ADJECTIVE 178
+ANIMAL
+*DESCRIPTION_START
+A large wolf with sharp teeth, vicious looking claws and a dark coat of fur.
+*DESCRIPTION_END
+speed 2
+ATTACK1 125
+DEFENSE 75
+STRENGTH 8
+BODY 120
+WEAPON 280 -1 10
+WEAPONPLUS 20
+STRATEGY 501
+GUARDIAN
+TREASURE 0
+TEXD growls ferociously before falling to the ground, dead.
+TEXE A large wolf runs in.
+TEXG A large wolf runs in.
+TEXM A large wolf runs
+TEXA A large wolf lunges at
+TEX1 A large wolf perks its ears up.
+TEX2 A large wolf stalks around the area.
+TEX3 A large wolf bares its teeth and snarls.
+TEX4 A large wolf sniffs at the air.
+;

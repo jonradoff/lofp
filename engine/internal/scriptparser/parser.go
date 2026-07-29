@@ -488,7 +488,7 @@ func (p *fileParser) parseCEvent(fields []string) {
 			continue
 		}
 		if cc == "ECHO" || cc == "AFFECT" || cc == "RANDOM" || cc == "EQUAL" || cc == "ADD" || cc == "SUB" ||
-			cc == "NEWITEM" || cc == "REMOVEITEM" || cc == "GENMON" || cc == "KILLMON" || cc == "GMMSG" {
+			cc == "NEWITEM" || cc == "REMOVEITEM" || cc == "GENMON" || cc == "KILLMON" || cc == "GMMSG" || cc == "CALLPACK" {
 			ce.Scripts = append(ce.Scripts, gameworld.ScriptBlock{
 				Type: "ACTION", Actions: []gameworld.ScriptAction{{Command: cc, Args: cf[1:]}},
 			})
@@ -536,7 +536,7 @@ func (p *fileParser) parseMacro(fields []string) {
 			continue
 		}
 		if mc == "ECHO" || mc == "AFFECT" || mc == "RANDOM" || mc == "EQUAL" || mc == "ADD" || mc == "SUB" ||
-			mc == "NEWITEM" || mc == "REMOVEITEM" || mc == "GENMON" || mc == "KILLMON" || mc == "GMMSG" {
+			mc == "NEWITEM" || mc == "REMOVEITEM" || mc == "GENMON" || mc == "KILLMON" || mc == "GMMSG" || mc == "CALLPACK" {
 			macro.Scripts = append(macro.Scripts, gameworld.ScriptBlock{
 				Type: "ACTION", Actions: []gameworld.ScriptAction{{Command: mc, Args: mf[1:]}},
 			})
@@ -991,6 +991,8 @@ func (p *fileParser) parseMonster(fields []string) {
 			mon.NonDisruptable = true
 		case "SILENCEIGNORE":
 			mon.SilenceIgnore = true
+		case "GUARDIAN":
+			mon.Guardian = true
 		case "FATIGUE":
 			if len(fields) >= 3 {
 				mon.FatigueChance, _ = strconv.Atoi(fields[1])
@@ -1081,6 +1083,27 @@ func (p *fileParser) parseItemDescArgs(args []string) (string, string) {
 	return "", ""
 }
 
+// isTableRulerLine reports whether line is made up of one or more dash/equals
+// runs and whitespace only (e.g. "----             -----"), the kind of
+// underline used beneath column headers in price lists and signs.
+func isTableRulerLine(line string) bool {
+	trimmed := strings.TrimSpace(line)
+	if len(trimmed) < 2 {
+		return false
+	}
+	hasRule := false
+	for _, r := range trimmed {
+		switch r {
+		case '-', '=':
+			hasRule = true
+		case ' ', '\t':
+		default:
+			return false
+		}
+	}
+	return hasRule
+}
+
 func (p *fileParser) readDescription() string {
 	p.pos++ // skip *DESCRIPTION_START
 	var rawLines []string
@@ -1093,11 +1116,18 @@ func (p *fileParser) readDescription() string {
 		p.pos++
 	}
 
-	// Detect if this is formatted text: any line has leading whitespace or
-	// any line is blank (intentional spacing between stanzas, etc.)
+	// Detect if this is formatted text: any line has leading whitespace,
+	// any line is blank (intentional spacing between stanzas, etc.), or any
+	// line is a table ruler (e.g. "----             -----") — a strong signal
+	// of a column-aligned price list/sign that has no leading whitespace or
+	// blank lines to otherwise flag it as formatted.
 	isFormatted := false
 	for _, line := range rawLines {
 		if line == "" || (len(line) > 0 && (line[0] == ' ' || line[0] == '\t')) {
+			isFormatted = true
+			break
+		}
+		if isTableRulerLine(line) {
 			isFormatted = true
 			break
 		}

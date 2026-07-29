@@ -6,7 +6,6 @@ import (
 	"log"
 	"math/rand"
 	"regexp"
-	"sort"
 	"strconv"
 	"strings"
 	"sync"
@@ -108,46 +107,54 @@ type RoomBroadcastExcludeFunc func(roomNumber int, excludeName string, messages 
 // Used for monster ambient text and combat which is per-machine.
 type LocalRoomBroadcastFunc func(roomNumber int, messages []string)
 
+// LocalRoomBroadcastExcludeFunc is LocalRoomBroadcastFunc's counterpart to
+// RoomBroadcastExcludeFunc: local-only, but skips one named player. Used for monster
+// combat's public room line when that player already got their own private detail
+// message (e.g. the [ToHit/Roll] breakdown or a spell's damage line) and would
+// otherwise see the same event described twice.
+type LocalRoomBroadcastExcludeFunc func(roomNumber int, excludeName string, messages []string)
+
 // PlayerMessageFunc sends messages to a specific player by name (used by background tasks).
 type PlayerMessageFunc func(playerName string, messages []string)
 
 // GameEngine holds the loaded game world and processes commands.
 type GameEngine struct {
-	db                   *mongo.Database
-	nouns                map[int]string
-	adjectives           map[int]string
-	monAdjs              map[int]string
-	breakMods            map[int]int // adjective ID -> weapon hardness modifier (BREAKMOD)
-	items                map[int]*gameworld.ItemDef
-	rooms                map[int]*gameworld.Room
-	monsters             map[int]*gameworld.MonsterDef
-	startRoom            int
-	departRoom           int // safe room for DEPART (bump room)
-	sessions             SessionProvider
-	onRoomChange         RoomChangeCallback
-	roomBroadcast        RoomBroadcastFunc
-	roomBroadcastExclude RoomBroadcastExcludeFunc
-	localRoomBroadcast   LocalRoomBroadcastFunc
-	sendToPlayer         PlayerMessageFunc
-	monsterMgr           *monsterManager
-	RegionWeather        map[int]int                        // region -> weather state
-	monsterLists         []gameworld.MonsterList            // base + current season MLISTs
-	baseMonsterLists     []gameworld.MonsterList            // always-loaded MLISTs
-	seasonalMonsterLists map[string][]gameworld.MonsterList // per-season MLISTs
-	seasonalRooms        map[string][]gameworld.Room        // per-season room overrides
-	currentSeason        string                             // current active season key
-	cevents              []gameworld.CEvent
-	macros               map[int][]gameworld.ScriptBlock // macro# -> scripts, for inline CALL N actions
-	forageDefs           []gameworld.ForageDef
-	regions              map[int]*gameworld.Region
-	PVals                map[int]int               // persistent global values
-	NamedVars            map[string]int            // VARIABLE-defined global named variables (DANWATER, etc.)
-	namedVarNames        map[string]bool           // set of valid named variable names
-	orgDefs              map[int]*gameworld.OrgDef // org# -> OrgDef
-	Events               *EventBus
-	Banner               string // active login banner; in-memory so it works even if MongoDB is down
-	lastAssistName       string // last player who used ASSIST (for @answer)
-	lastAssistRoom       int    // room number of last ASSIST
+	db                        *mongo.Database
+	nouns                     map[int]string
+	adjectives                map[int]string
+	monAdjs                   map[int]string
+	breakMods                 map[int]int // adjective ID -> weapon hardness modifier (BREAKMOD)
+	items                     map[int]*gameworld.ItemDef
+	rooms                     map[int]*gameworld.Room
+	monsters                  map[int]*gameworld.MonsterDef
+	startRoom                 int
+	departRoom                int // safe room for DEPART (bump room)
+	sessions                  SessionProvider
+	onRoomChange              RoomChangeCallback
+	roomBroadcast             RoomBroadcastFunc
+	roomBroadcastExclude      RoomBroadcastExcludeFunc
+	localRoomBroadcast        LocalRoomBroadcastFunc
+	localRoomBroadcastExclude LocalRoomBroadcastExcludeFunc
+	sendToPlayer              PlayerMessageFunc
+	monsterMgr                *monsterManager
+	RegionWeather             map[int]int                        // region -> weather state
+	monsterLists              []gameworld.MonsterList            // base + current season MLISTs
+	baseMonsterLists          []gameworld.MonsterList            // always-loaded MLISTs
+	seasonalMonsterLists      map[string][]gameworld.MonsterList // per-season MLISTs
+	seasonalRooms             map[string][]gameworld.Room        // per-season room overrides
+	currentSeason             string                             // current active season key
+	cevents                   []gameworld.CEvent
+	macros                    map[int][]gameworld.ScriptBlock // macro# -> scripts, for inline CALL N actions
+	forageDefs                []gameworld.ForageDef
+	regions                   map[int]*gameworld.Region
+	PVals                     map[int]int               // persistent global values
+	NamedVars                 map[string]int            // VARIABLE-defined global named variables (DANWATER, etc.)
+	namedVarNames             map[string]bool           // set of valid named variable names
+	orgDefs                   map[int]*gameworld.OrgDef // org# -> OrgDef
+	Events                    *EventBus
+	Banner                    string // active login banner; in-memory so it works even if MongoDB is down
+	lastAssistName            string // last player who used ASSIST (for @answer)
+	lastAssistRoom            int    // room number of last ASSIST
 	// roomContainerContents stores the contents of room-level containers (transient).
 	// Key: "<roomNumber>:<itemRef>"
 	roomContainerContents map[string][]InventoryItem
@@ -181,6 +188,16 @@ func (e *GameEngine) SetRoomBroadcastExclude(fn RoomBroadcastExcludeFunc) {
 func (e *GameEngine) SetLocalRoomBroadcast(fn LocalRoomBroadcastFunc) {
 	e.localRoomBroadcast = func(roomNum int, messages []string) {
 		fn(roomNum, messages)
+		e.forwardToWatchers(roomNum, messages)
+	}
+}
+
+// SetLocalRoomBroadcastExclude sets a local-only broadcast that skips one named player
+// (see LocalRoomBroadcastExcludeFunc). Watchers still get the full message, same as
+// SetLocalRoomBroadcast — the exclusion only applies to the room's live players.
+func (e *GameEngine) SetLocalRoomBroadcastExclude(fn LocalRoomBroadcastExcludeFunc) {
+	e.localRoomBroadcastExclude = func(roomNum int, excludeName string, messages []string) {
+		fn(roomNum, excludeName, messages)
 		e.forwardToWatchers(roomNum, messages)
 	}
 }
@@ -880,42 +897,7 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 	case "WHO":
 		return e.doWho(player)
 	case "SKILLS":
-		var skillMsgs []string
-		skillMsgs = append(skillMsgs, fmt.Sprintf("%-2s %-26s%-10s", "#", "Skill", "Level"))
-		skillMsgs = append(skillMsgs, fmt.Sprintf("%-2s %-26s%-10s", "--", "-----", "-----"))
-		hasSkills := false
-		for id := 0; id <= 35; id++ {
-			lvl := player.Skills[id]
-			if lvl > 0 {
-				name := SkillNames[id]
-				if name == "" {
-					name = fmt.Sprintf("Skill #%d", id)
-				}
-				skillMsgs = append(skillMsgs, fmt.Sprintf("%-2d %-26s%-10d", id, name, lvl))
-				hasSkills = true
-			}
-		}
-		if !hasSkills {
-			skillMsgs = append(skillMsgs, "You have no trained skills yet.")
-		}
-		var specNounIDs []int
-		for nounID, rank := range player.WeaponSpecialization {
-			if rank > 0 {
-				specNounIDs = append(specNounIDs, nounID)
-			}
-		}
-		if len(specNounIDs) > 0 {
-			sort.Ints(specNounIDs)
-			skillMsgs = append(skillMsgs, "")
-			skillMsgs = append(skillMsgs, fmt.Sprintf("%-26s%-10s", "Weapon Specialization", "Level"))
-			skillMsgs = append(skillMsgs, fmt.Sprintf("%-26s%-10s", strings.Repeat("-", len("Weapon Specialization")), "-----"))
-			for _, nounID := range specNounIDs {
-				name := strings.Title(e.nouns[nounID])
-				skillMsgs = append(skillMsgs, fmt.Sprintf("%-26s%-10d", name, player.WeaponSpecialization[nounID]))
-			}
-		}
-		skillMsgs = append(skillMsgs, fmt.Sprintf("Build Points: %d", player.BuildPoints))
-		return &CommandResult{Messages: skillMsgs}
+		return e.doSkillsList(player)
 	case "WEALTH":
 		g := player.Gold
 		s := player.Silver
@@ -974,6 +956,14 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 	case "HELP":
 		return e.doHelp()
 	case "ADVICE":
+		if len(args) > 0 {
+			switch strings.ToUpper(args[0]) {
+			case "HINTS":
+				return &CommandResult{Messages: adviceHints}
+			case "CRAFTING":
+				return e.doAdviceCrafting(player)
+			}
+		}
 		return &CommandResult{Messages: []string{
 			"Welcome, adventurer! Here are some tips:",
 			"- Use LOOK to examine your surroundings",
@@ -981,6 +971,7 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 			"- GET and DROP items, WIELD weapons, WEAR armor",
 			"- Check your STATUS, HEALTH, INVENTORY, and WEALTH",
 			"- Type HELP for a full command list",
+			"- Type ADVICE HINTS for newcomer hints, or ADVICE CRAFTING for crafting tips",
 		}}
 	case "HOLD":
 		// HOLD <player> → group hold; otherwise fallthrough to emote
@@ -1126,13 +1117,16 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 			return &CommandResult{Messages: []string{"Act how?"}}
 		}
 		action := extractOriginalArgs(input)
-		var actMsg string
+		var selfMsg string
 		if player.ActBrief {
-			actMsg = fmt.Sprintf("%s %s", player.FirstName, action)
+			selfMsg = fmt.Sprintf("%s %s", player.FirstName, action)
 		} else {
-			actMsg = fmt.Sprintf("(%s %s)", player.FirstName, action)
+			selfMsg = fmt.Sprintf("(%s %s)", player.FirstName, action)
 		}
-		return &CommandResult{Messages: []string{actMsg}, RoomBroadcast: []string{actMsg}}
+		// RoomBroadcast always uses the parenthesized form; each viewer's own
+		// ActBrief preference strips the parens in filterBroadcastForPlayer.
+		broadcastMsg := fmt.Sprintf("(%s %s)", player.FirstName, action)
+		return &CommandResult{Messages: []string{selfMsg}, RoomBroadcast: []string{broadcastMsg}}
 	case "EMOTE":
 		if player.Race != RaceMechanoid {
 			return &CommandResult{Messages: []string{"Only mechanoids can toggle their emotional state."}}
@@ -1194,13 +1188,13 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 		searchRT := applyRoundTime(player, 5)
 		player.RoundTimeExpiry = time.Now().Add(time.Duration(searchRT) * time.Second)
 		msgs := []string{"You search the area.", fmt.Sprintf("[Round: %d sec]", searchRT)}
-		perceptionCheck := player.Perception + player.Skills[33]*5 // Stealth skill helps detection
+		perceptionCheck := player.Perception + effectiveStealthSkill(player)*5 // Stealth skill helps detection
 		var revealed []string
 		if e.sessions != nil {
 			for _, p := range e.sessions.OnlinePlayers() {
 				if p.RoomNumber == player.RoomNumber && p.Hidden && !p.EtherealActive && p.FirstName != player.FirstName {
 					// Perception vs their stealth
-					stealthRating := p.Agility + p.Skills[33]*5
+					stealthRating := p.Agility + effectiveStealthSkill(p)*5
 					if rand.Intn(100)+perceptionCheck > stealthRating {
 						p.Hidden = false
 						revealed = append(revealed, p.FirstName)
@@ -1415,7 +1409,7 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 		e.SavePlayer(ctx, player)
 		return &CommandResult{Messages: []string{"Prompt indicators off."}}
 	case "VERSION", "NEWS", "NOTES":
-		return &CommandResult{Messages: []string{"Legends of Future Past v11.17.0"}}
+		return &CommandResult{Messages: []string{"Legends of Future Past v11.22.0"}}
 	case "CREDITS":
 		return &CommandResult{Messages: []string{
 			"",
@@ -1704,6 +1698,8 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 			Messages:    []string{"Your request for assistance has been noted. A gamemaster will be with you as soon as possible."},
 			GMBroadcast: []string{fmt.Sprintf("[GM] %s is requesting assistance at %s (room %d). Use @answer to respond.", player.FirstName, roomName, player.RoomNumber)},
 		}
+	case "ANSWER":
+		return e.doAnswer(ctx, player)
 	case "REPORT":
 		if len(args) == 0 {
 			return &CommandResult{Messages: []string{"Report what? Usage: REPORT <message>"}}
@@ -1742,6 +1738,31 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 	}
 }
 
+var adviceHints = []string{
+	"Here are some hints for newcomers:",
+	"1. See the Physicians Guild, southwest side of Fayd — buy some thesnia leaf, eat it, and you're in on the telepathy stuff.",
+	"2. Physicians Guild — just sit in the first room and they'll tend your wounds, cure disease or poison, for a fee but they'll let it slide if you're a little short.",
+	"3. Get over to the Key 'n Anchor, south side of Fayd near the liquor store — say 'lockpick' and they'll sell you one too.",
+	"4. Armorer's Guild, Bazaar West, buys old and damaged weapons and armor off adventurers — there's a manuscript on the table listing what they've got for sale too.",
+	"5. Randolph's, up on Park Avenue in the north end — that's where you unload gems and jewelry for real coin.",
+	"6. The Physicians Guild will also buy skinned animal parts, and some of what you forage in the wild.",
+	"7. The Bowyer Fletcher Shop on First Street — that's where you pick up Wood Lore.",
+	"8. Crafter's Guild, southwest of the Adventurers' Guild — Jewelers, Weavers, and Alchemy all under one roof.",
+	"9. The Foundry, southwest of the Physicians Guild — Weaponsmiths' Union Hall is back there, that's your smithing.",
+	"10. Bazaar North's got Mining — learn it and buy your supplies right there.",
+	"11. Library of Fayd, on Broadway — spend some time there for general knowledge, it's worth your while.",
+	"12. Down the stairs at the Adventurers' Guild, through the arch — that's the Test Tunnels, where you cut your teeth on combat. Fair warning: the arch back out isn't where you came in, it's a few rooms off — north, northeast, then west.",
+	"13. Bank of Fayd, on Main Street — deposit your coin so nobody can rob you blind, and for one gold crown they'll hold actual items in a box for you too. Free to take them back out.",
+	"14. First time you walk into the Adventurers' Guild, type TRAIN — shows you everything you can spend your build points on.",
+	"15. Tower of Silver Arcana, Main Street — that's the wizards' guild, if you're looking to learn spells.",
+	"16. JOIN <name> to fall in with somebody — good way to not die alone out there.",
+	"17. If you've got one of those spells that hits a group — chain lightning, flaming arrows, that sort — TARGET lets you spread it across more than one of them instead of dumping it all on whoever's first.",
+	"18. Forget what a command does? Just type HELP, it's all in there.",
+	"19. Don't just stand around waiting to heal — sit down and you'll mend twice as fast, lay down and it's triple. Standing's the slowest way to do it.",
+	"20. Watch yourself out there — die and you'll lose up to 90% of the experience you've built up toward your next build point. Not worth getting greedy.",
+	"21. Need a map? Check the Facebook group at https://www.facebook.com/groups/706470415857887 or grab the PDF at https://sanburnlab.com/lofp-andor-maps.pdf",
+}
+
 // allVerbs is the canonical list of all recognized command verbs.
 // Abbreviation resolution matches against this list.
 var allVerbs = []string{
@@ -1750,7 +1771,7 @@ var allVerbs = []string{
 	"WIELD", "UNWIELD", "WEAR", "REMOVE",
 	"OPEN", "CLOSE", "SIT", "STAND", "KNEEL", "LAY",
 	"BRIEF", "FULL", "PROMPT", "WHO", "SKILLS", "WEALTH",
-	"QUIT", "HELP", "ADVICE", "ASSIST", "ACT", "EMOTE", "RECITE", "READ", "CLIMB",
+	"QUIT", "HELP", "ADVICE", "ASSIST", "ANSWER", "ACT", "EMOTE", "RECITE", "READ", "CLIMB",
 	"PULL", "PUSH", "TURN", "RUB", "TAP", "TOUCH", "SEARCH", "DIG", "RECALL", "USE", "PRAY",
 	"CAST", "CONCENTRATE", "BUY", "SELL", "PAY",
 	"DRINK", "SIP", "LIGHT", "EXTINGUISH", "DOUSE",

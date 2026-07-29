@@ -729,6 +729,7 @@ func (s *Server) sshCreateCharacter(sc *sshConn, ctx context.Context, accountID 
 
 	player := s.engine.CreateNewPlayer(ctx, firstName, lastName, race, gender, appearance, accountID)
 	sc.writeLine(ansiGreen + fmt.Sprintf("Welcome to the Shattered Realms, %s the %s!", player.FullName(), engine.RaceNameByID(player.Race)) + ansiReset)
+	sc.writeLine(ansiGreen + "Type HELP for a full list of commands, or ADVICE to get some tips for getting started." + ansiReset)
 	return player
 }
 

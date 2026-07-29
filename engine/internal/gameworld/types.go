@@ -138,6 +138,12 @@ type MonsterDef struct {
 	ExtraBody      int               `bson:"extraBody,omitempty" json:"extraBody,omitempty"`
 	NonDisruptable bool              `bson:"nonDisruptable,omitempty" json:"nonDisruptable,omitempty"`
 	SilenceIgnore  bool              `bson:"silenceIgnore,omitempty" json:"silenceIgnore,omitempty"`
+	// Guardian monsters never aggro players on sight regardless of STRATEGY (they still
+	// retaliate if attacked, and still never flee if STRATEGY is 501+) — instead they
+	// aggro any other monster in the room that's currently attacking a player, defending
+	// players from hostiles rather than hunting players themselves. Parsed from the
+	// GUARDIAN token (see original/scripts/modern_fixes.scr mnumber 400, "large wolf").
+	Guardian bool `bson:"guardian,omitempty" json:"guardian,omitempty"`
 	FatigueChance  int               `bson:"fatigueChance,omitempty" json:"fatigueChance,omitempty"`
 	FatigueLevel   int               `bson:"fatigueLevel,omitempty" json:"fatigueLevel,omitempty"`
 	Spells         []int             `bson:"spells,omitempty" json:"spells,omitempty"`
