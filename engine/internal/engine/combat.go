@@ -41,9 +41,9 @@ type CombatTarget struct {
 // Level increases when total build points reach 20 + 10*(level+1).
 
 var xpPerBP = []int{
-	0,     // level 0 (unused)
-	100, 200, 400, 600, 800, 1000, 1200, 1400, 1600, 2000,       // 1-10
-	2400, 2700, 3200, 4000, 4800, 5600, 6400, 7200, 8000, 8800,  // 11-20
+	0,                                                     // level 0 (unused)
+	100, 200, 400, 600, 800, 1000, 1200, 1400, 1600, 2000, // 1-10
+	2400, 2700, 3200, 4000, 4800, 5600, 6400, 7200, 8000, 8800, // 11-20
 	9600, 10400, 11200, 12000, 12800, 13600, 14400, 15200, 16000, 16800, // 21-30
 	17600, 18400, 19200, 20000, 20800, 21600, 22400, 23200, 24000, 24800, // 31-40
 	25600, 26400, 27200, 28000, 28800, 29600, 30400, 31200, 32000, 32800, // 41-50
@@ -293,9 +293,9 @@ func playerAttackRating(player *Player, weaponDef *gameworld.ItemDef) int {
 		rating += player.Skills[24] * 5 // Martial Arts +5 per rank
 	}
 	if weaponDef != nil && (weaponDef.Type == "BOW_WEAPON" || weaponDef.Type == "THROWN_WEAPON") {
-		rating += player.Agility / 5
+		rating += player.EffectiveStat(StatAgility) / 5
 	} else {
-		rating += player.Strength / 5
+		rating += player.EffectiveStat(StatStrength) / 5
 	}
 	switch player.Stance {
 	case StanceOffensive:
@@ -322,7 +322,7 @@ func playerDefenseRating(player *Player) int {
 	rating := 25
 	rating += player.Level * 3
 	rating += player.Skills[6] * 5 // Dodge & Parry: +5 per rank
-	rating += player.Agility / 5
+	rating += player.EffectiveStat(StatAgility) / 5
 	// Martial Arts defense bonus: +2 per rank if unarmed
 	if player.Wielded == nil {
 		rating += player.Skills[24] * 2
@@ -369,11 +369,11 @@ func playerDamage(player *Player, weaponDef *gameworld.ItemDef) int {
 	if weaponDef == nil {
 		if player.WolfForm {
 			// Wolf form: claw/bite — higher base damage
-			return rand.Intn(8) + 3 + player.Strength/10
+			return rand.Intn(8) + 3 + player.EffectiveStat(StatStrength)/10
 		}
 		// Martial Arts: +1 base damage per rank, +1 max damage per 2 ranks
 		maSkill := player.Skills[24]
-		baseDmg := rand.Intn(3+maSkill/2) + 1 + maSkill + player.Strength/20
+		baseDmg := rand.Intn(3+maSkill/2) + 1 + maSkill + player.EffectiveStat(StatStrength)/20
 		return baseDmg
 	}
 	maxDmg := weaponDef.Parameter1
@@ -382,9 +382,9 @@ func playerDamage(player *Player, weaponDef *gameworld.ItemDef) int {
 	}
 	dmg := rand.Intn(maxDmg) + 1
 	if weaponDef.Type == "BOW_WEAPON" || weaponDef.Type == "THROWN_WEAPON" {
-		dmg += player.Agility / 10
+		dmg += player.EffectiveStat(StatAgility) / 10
 	} else {
-		dmg += player.Strength / 10
+		dmg += player.EffectiveStat(StatStrength) / 10
 	}
 	if player.Stance == StanceBerserk {
 		dmg = dmg * 12 / 10
@@ -792,7 +792,10 @@ func (e *GameEngine) doAttackMonster(ctx context.Context, player *Player, target
 		rtSec := 5
 		player.RoundTimeExpiry = time.Now().Add(time.Duration(rtSec) * time.Second)
 		result.Messages = append(result.Messages, fmt.Sprintf("[Round: %d sec]", rtSec))
-		if player.Hidden { player.Hidden = false; result.Messages = append([]string{"You reveal yourself!"}, result.Messages...) }
+		if player.Hidden {
+			player.Hidden = false
+			result.Messages = append([]string{"You reveal yourself!"}, result.Messages...)
+		}
 		e.SavePlayer(ctx, player)
 		result.PlayerState = player
 		return result
@@ -913,9 +916,9 @@ func (e *GameEngine) doAttackMonster(ctx context.Context, player *Player, target
 
 	// Roundtime: base 5, reduced by quickness and Combat Maneuvering
 	rtSeconds := 5
-	if player.Quickness > 80 {
+	if player.EffectiveStat(StatQuickness) > 80 {
 		rtSeconds = 3
-	} else if player.Quickness > 50 {
+	} else if player.EffectiveStat(StatQuickness) > 50 {
 		rtSeconds = 4
 	}
 	// Combat Maneuvering: -1 sec per rank (from skills.txt)
@@ -1003,46 +1006,50 @@ func (e *GameEngine) monsterAttackPlayer(inst *MonsterInstance, def *gameworld.M
 		// Combat Maneuvering: 2% per rank chance to dodge special attack (max 95%)
 		combatManeuver := player.Skills[10]
 		dodgeChance := combatManeuver * 2
-		if dodgeChance > 95 { dodgeChance = 95 }
+		if dodgeChance > 95 {
+			dodgeChance = 95
+		}
 		if dodgeChance > 0 && rand.Intn(100) < dodgeChance {
 			playerMsgs = append(playerMsgs, fmt.Sprintf("%s%s uses a special attack, but you dodge it!", capArt, name))
 		} else {
-		specText := def.TextOverrides["TEXX"]
-		if specText != "" {
-			specText = strings.Replace(specText, "%s", capArt+name, 1)
-			specText = strings.Replace(specText, "%s", player.FirstName, 1)
-		} else {
-			specText = fmt.Sprintf("%s%s uses a special attack on %s!", capArt, name, player.FirstName)
-		}
+			specText := def.TextOverrides["TEXX"]
+			if specText != "" {
+				specText = strings.Replace(specText, "%s", capArt+name, 1)
+				specText = strings.Replace(specText, "%s", player.FirstName, 1)
+			} else {
+				specText = fmt.Sprintf("%s%s uses a special attack on %s!", capArt, name, player.FirstName)
+			}
 
-		armorPct := playerArmorPercent(player, e.items)
-		specDmg = applyArmor(specDmg, armorPct)
+			armorPct := playerArmorPercent(player, e.items)
+			specDmg = applyArmor(specDmg, armorPct)
 
-		// Endurance: 1% elemental damage reduction per rank (max 50%)
-		enduranceSkill := player.Skills[11]
-		if enduranceSkill > 0 && (specType == "Heat" || specType == "Cold" || specType == "Electric") {
-			reduction := enduranceSkill
-			if reduction > 50 { reduction = 50 }
-			specDmg = specDmg * (100 - reduction) / 100
-		}
-		_ = specType
+			// Endurance: 1% elemental damage reduction per rank (max 50%)
+			enduranceSkill := player.Skills[11]
+			if enduranceSkill > 0 && (specType == "Heat" || specType == "Cold" || specType == "Electric") {
+				reduction := enduranceSkill
+				if reduction > 50 {
+					reduction = 50
+				}
+				specDmg = specDmg * (100 - reduction) / 100
+			}
+			_ = specType
 
-		part := randomBodyPart("HUMAN")
-		severity := damageSeverity(specDmg)
-		player.BodyPoints -= specDmg
-		if player.BodyPoints < 0 {
-			player.BodyPoints = 0
-		}
+			part := randomBodyPart("HUMAN")
+			severity := damageSeverity(specDmg)
+			player.BodyPoints -= specDmg
+			if player.BodyPoints < 0 {
+				player.BodyPoints = 0
+			}
 
-		playerMsgs = append(playerMsgs, specText)
-		playerMsgs = append(playerMsgs, fmt.Sprintf(" %s burn to %s. [%d Damage]", severity, part, specDmg))
-		roomMsgs = append(roomMsgs, specText)
+			playerMsgs = append(playerMsgs, specText)
+			playerMsgs = append(playerMsgs, fmt.Sprintf(" %s burn to %s. [%d Damage]", severity, part, specDmg))
+			roomMsgs = append(roomMsgs, specText)
 
-		if player.BodyPoints <= 0 {
-			deathMsgs := e.handlePlayerDeath(player, name)
-			playerMsgs = append(playerMsgs, deathMsgs...)
-			return playerMsgs, roomMsgs
-		}
+			if player.BodyPoints <= 0 {
+				deathMsgs := e.handlePlayerDeath(player, name)
+				playerMsgs = append(playerMsgs, deathMsgs...)
+				return playerMsgs, roomMsgs
+			}
 		} // end else (didn't dodge)
 	}
 
@@ -1367,7 +1374,7 @@ func (e *GameEngine) doFlee(ctx context.Context, player *Player) *CommandResult 
 		return &CommandResult{Messages: []string{"There is nowhere to flee!"}}
 	}
 
-	fleeChance := 50 + player.Quickness/5 + player.Agility/10
+	fleeChance := 50 + player.EffectiveStat(StatQuickness)/5 + player.EffectiveStat(StatAgility)/10
 	if player.Position != 0 {
 		fleeChance -= 20
 	}
