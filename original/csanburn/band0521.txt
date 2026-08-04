@@ -1,0 +1,6684 @@
+rais
+You raise your eyebrow.
+> gaze
+You gaze about the area.
+> 
+Marcolan says, "And no using pastires."
+> look
+[Crimson Band, War Room]
+This well lit area serves as the private meeting area for Crimson Band
+members. Located within the center of the room is a large circular mirmach
+table with fifteen matching chairs. Three ornately carved chairs, for the
+Guildmaster, Lorekeeper and Sergeant at Arms, are located at the northern edge
+of the round table. Assorted sofas, couches and overstuffed arm chairs are
+scattered against the walls of the war room. Enormous maple tables line the
+northern wall, to either side of the hallway entrance, and upon which are
+assorted tankards and glasses filled with a variety of beverages. Apprentice
+warriors scurry to and fro, ensuring that the containers remain full. Upon
+the southern wall, next to a door is an old oaken kiosk.  An open box addressed
+to Garin sits on the table.
+You see Threnody, Marcolan, Emanon, Wolfbane (sitting) and Drizzt. A chair and
+a newsboard are here.
+Obvious exits: north, east, west, southwest.
+> 
+Marcolan tickles you.
+> 
+A tiny bug creeps along the south wall.
+> 
+Emanon muses, " forget it then"
+> 'How do you know I haven't *already* killed him?
+You ask, "How do you know I haven't *already* killed him?"
+> grin
+You grin.
+> gaze
+You gaze about the area.
+> 
+Marcolan furrows his brow.
+> 
+Marcolan says, "Ah..."
+> 'He isn't here is he???
+You ask, "He isn't here is he???"
+> 
+Marcolan says, "That is where he is."
+> snick
+You snicker.
+> 
+Emanon muses, " that s Garin's only weekness"
+> 
+Marcolan nods to you.
+> 
+Marcolan raises a toast to you!
+> 
+Wolfbane salutes you.
+> grin
+You grin.
+> lean wolfb
+You lean on Wolfbane.
+> 'I set him up with Dawn
+You say, "I set him up with Dawn"
+> 
+Marcolan whispers to you, "We are waiting till 9:30 to start, so others can
+show."
+> grin
+You grin.
+> 
+Marcolan laughs.
+> 
+Wolfbane laughs at you!
+> 
+Marcolan says, "And Taylor killed him."
+> 
+Marcolan grins.
+> nod marc
+You nod to Marcolan.
+> nod marc
+You nod to Marcolan.
+> 
+Marcolan says, "Good stragety."
+> 
+Emanon grins.
+> 'She's got a better chance than me
+You say, "She's got a better chance than me"
+> 
+Emanon nods to you.
+> 
+Threnody smiles at Wolfbane.
+> 
+Emanon muses, " can catch him with his pants down"
+> 'Or....I could take him swimming...on the DEEP end of the pool!
+You exclaim, "Or....I could take him swimming...on the DEEP end of the pool!"
+> 
+Wolfbane casts his gaze across the area.
+> grin
+You grin.
+> 
+Marcolan chuckles.
+> 
+Emanon grins.
+> 
+Threnody says, "only need the shallow with all his stuff."
+> pond
+You ponder for a moment.
+> 
+Emanon nods.
+> 'Good point
+You say, "Good point"
+> 
+Marcolan asks, "But doesn't fat help you float?"
+> 
+Marcolan furrows his brow.
+> nod marc
+You nod to Marcolan.
+> 
+Threnody coughs.
+> 
+Emanon grins.
+> 
+Marcolan says, "Wonder how much of him is fat."
+> 
+Marcolan ponders.
+> 'Might be enough to counteract the things he carries
+You say, "Might be enough to counteract the things he carries"
+> 
+Marcolan says, "Hard to tell with Highlanders."
+> 
+Wolfbane ponders.
+> 
+Drizzt furrows his brow.
+> 'Someone will have to hand him a lead filled pastry first
+You say, "Someone will have to hand him a lead filled pastry first"
+> 
+Wolfbane says, "just fill the zany rolls with lead shot in each after he he
+eats the box full he is ready"
+> 
+Marcolan grins.
+> 
+Wolfbane grins.
+> nod
+You nod.
+> 
+Wolfbane ponders.
+> 'The perfect plan
+You say, "The perfect plan"
+> 
+Marcolan says, "Imagine our plans for Garin if we didn't like him."
+> 
+Marcolan chuckles.
+> 
+Wolfbane says, "but then who will i get to keep my sorry ass alive?"
+> 
+You feel the touch of Hyena's mind:
+"Anywhere in town sell spears?"
+> 
+Marcolan says, "Not me, I have enought trouble doing that for myself."
+> 
+Wolfbane nods to Marcolan.
+> 
+Wolfbane says, "see my point?"
+> 
+Marcolan says, "Cyrano would have to come out of retirement."
+> 
+Marcolan smiles at Wolfbane.
+> 
+Wolfbane says, "ok come to order"
+> 
+Wolfbane thumps on a circular mirmach table with a small box sitting on it.
+> 
+Marcolan stands at attention.
+> 
+Emanon stands at attention
+> 
+Wolfbane says, "seeing that much of our membership has not found the time for
+our meeting"
+> act snaps to attention, his heels thumping together.
+Moordread snaps to attention, his heels thumping together.
+> 
+Wolfbane says, "we will just have to go on with out them"
+> 
+Wolfbane says, "first order of business"
+> 
+Wolfbane says, "our lone initiate"
+> 
+Wolfbane ponders.
+> 
+Wolfbane says, "with the deaparting of darkheart from the realms"
+> 
+Wolfbane says, "and the extended journey yourion has taken"
+> 
+Wolfbane says, "we are left with one initiate"
+> 
+Wolfbane says, "so what are we gonna do with him?"
+> 
+Wolfbane listens to his surroundings closely.
+> 
+Marcolan raises his hand.
+> 
+Wolfbane nods to Marcolan.
+> 
+Wolfbane listens carefully to Marcolan.
+> 
+ ** Fafnir has just left the Realms.
+> 
+Marcolan says, "I believe he is ready to become a full member.  If any feel he
+should be put through his final test, I would offer myself to go through it
+with him.  Him acting as the leader for it."
+> 
+Marcolan says, "Ga."
+> 
+Emanon raises his hand.
+> 
+Threnody raises her hand.
+> 
+Wolfbane nods to Threnody.
+> 
+Threnody says, "I feel he should only need the TBC if anything, then full
+rights as a bander."
+> 
+Threnody says, "GA"
+> 
+Wolfbane nods to Threnody.
+> 
+Wolfbane says, "i have thought long on this issue also"
+> 
+Wolfbane says, "in sprites post"
+> 
+Wolfbane says, "she mentions that we must deviate from tradition because of
+only having one initiate left"
+> 
+Wolfbane says, "to keep him busy while we finish up some pending matters i
+believe we send him on a scavenger hunt first"
+> 
+Threnody chuckles.
+> nod
+You nod.
+> 
+Wolfbane says, "to atleast make him feel like something is going on and to make
+him busy untill we can finish"
+> 
+Threnody nods.
+> 
+You feel the touch of Hyena's mind:
+"Anyone been to Karhad?"
+> 
+You feel the touch of Aquanix's mind:
+"hello"
+> 
+Wolfbane says, "'basically we can have him hunt up a few things"
+> 
+You feel the touch of Winter's mind:
+"Noper. Did you find out anything?"
+> 
+Wolfbane says, "skins of course"
+> 
+You feel the touch of Hyena's mind:
+"No, but I was curious if they had shops"
+> 
+Wolfbane says, "and maybe some water from the fountain in the caves"
+> 
+You feel the touch of Winter's mind:
+"i don't remember, there is a clothing shop and a saloon."
+> 
+You feel the touch of Aquanix's mind:
+"I have a coat from there."
+> 
+Wolfbane says, "hows that sound?"
+> 
+Threnody nods.
+> 
+Emanon nods.
+> 
+Wolfbane says, "i will put it to him this way"
+> 
+You feel the touch of Hyena's mind:
+"Ohhh, yeah I bought one from the gypsies myself, just curious as to what goods
+they have for sale"
+> 
+You feel the touch of Sy's mind:
+"Heya everyone"
+> who
+Threnody           Aban               Keera              Marcolan           
+Hyena              Emanon             Wolfbane           Firestar           
+Winter             Durek              Drizzt             Feras              
+Moordread          Brianna            Young              Aquanix            
+Sy                 
+
+
+There are 17 adventurers in the Realms.
+
+> 
+You feel the touch of Hyena's mind:
+"Hiya Sy!"
+> 
+Wolfbane says, "we are going to send you out to collect such and such items"
+> 
+You feel the touch of Winter's mind:
+"Hello Sy"
+> 
+You feel the touch of Sy's mind:
+"Heya Hyena!"
+> 
+You feel the touch of Young's mind:
+"Howdy Sy"
+> 
+You feel the touch of Sy's mind:
+"Heya Winter"
+> 
+You feel the touch of Sy's mind:
+"Youngster"
+> 
+Wolfbane says, "because you will be working alone i trust you on your honer to
+gather these things without help from outsiders"
+> 
+You feel the touch of Sy's mind:
+"Talking fashion again Hyena?"
+> 
+Wolfbane says, "hows that sound?"
+> nod
+You nod.
+> 
+Emanon nods.
+> 
+Threnody nods.
+> look
+[Crimson Band, War Room]
+This well lit area serves as the private meeting area for Crimson Band
+members. Located within the center of the room is a large circular mirmach
+table with fifteen matching chairs. Three ornately carved chairs, for the
+Guildmaster, Lorekeeper and Sergeant at Arms, are located at the northern edge
+of the round table. Assorted sofas, couches and overstuffed arm chairs are
+scattered against the walls of the war room. Enormous maple tables line the
+northern wall, to either side of the hallway entrance, and upon which are
+assorted tankards and glasses filled with a variety of beverages. Apprentice
+warriors scurry to and fro, ensuring that the containers remain full. Upon
+the southern wall, next to a door is an old oaken kiosk.  An open box addressed
+to Garin sits on the table.
+You see Threnody, Marcolan, Emanon, Wolfbane (sitting) and Drizzt. A chair and
+a newsboard are here.
+Obvious exits: north, east, west, southwest.
+> 
+You feel the touch of Hyena's mind:
+"yeah, I never been to Karhad, wondering what is there"
+> nud marc
+You nudge Marcolan.
+> 
+Wolfbane says, "ill just give him one of the old test parchments and let him
+go"
+> 
+ ** Brianna has just disconnected.
+> 
+Wolfbane says, "i think that would be easiest"
+> 
+Threnody nods.
+> 
+You feel the touch of Sy's mind:
+"They have some nice stuff. Its not far really"
+> 
+You feel the touch of Aquanix's mind:
+"Anyone seen Keera lately?"
+> 
+You feel the touch of Hyena's mind:
+"Yeah, like what?"
+> 
+You feel the touch of Hyena's mind:
+"I did, least I think it was her."
+> 
+You feel the touch of Sy's mind:
+"quivers I remember, some other things"
+> 
+You feel the touch of Hyena's mind:
+"Hmm, if anyone knows the way and wants to bring me I'll pay a grand for the
+trouble"
+> 
+You feel the touch of Hyena's mind:
+"Wheee!"
+> 
+You feel the touch of Aquanix's mind:
+"where at Hyena?"
+> 
+You feel the touch of Sy's mind:
+"May as well hit Deep Forge. Not to much further"
+> 
+You feel the touch of Hyena's mind:
+"near the Kvants"
+> 
+Wolfbane says, "it might take me a couple to sift thru it so marcolan can you
+go fetch young to the initiates lounge the rest of you go there also and wait
+for him while i look"
+> nod
+You nod.
+> 
+You feel the touch of Hyena's mind:
+"No he was looking for someone"
+> 
+Threnody nods.
+> 
+Drizzt nods.
+> 
+Emanon nods.
+> 
+Drizzt consults the newsboard.
+> read news
+        ********************************************
+        *         The Crimson Clarion              *
+        ********************************************
+        
+
+**************************************************************
+The Coronation of Queen Moryan D'vena the I will be held on
+Sunday the 23rd of May, (old calendar) at 3:00pm eastern time.
+Immediately following the coronation will be a Park Dedication
+ceremony in the PQ. Also, (at 6pm est) there will be a 
+Tourney for Knight Protector. Competition will involve 
+traditional combat, a bardic recitation by the entrant, and
+a puzzle to demonstrate quick thinking. Details in the
+calendar and forums.
+**************************************************************
+> 
+A guard pulls aside the tapestry allowing Threnody to enter the Hallway of
+Warriors.
+> 
+A guard pulls aside the tapestry allowing Emanon to enter the Hallway of
+Warriors.
+> n
+A guard pulls aside the tapestry allowing Moordread to enter the Hallway of
+Warriors.
+[Hallway of Warriors, South]
+You see Emanon. 
+Obvious exits: n.
+The guards snap to attention as you enter.
+> 
+Emanon goes north.
+> 
+You feel the touch of Hyena's mind:
+"be right there Veronica"
+> n
+[Citadel, Hallway of Warriors]
+You see Threnody and Emanon. 
+Obvious exits: n, s, e.
+> e
+[Citadel, Great Hall]
+Obvious exits: n, w.
+> 
+Emanon arrives.
+> 
+Emanon goes north.
+> pond
+You ponder for a moment.
+> n
+[Citadel of the Crimson Band, Lobby]
+You see Emanon. 
+Obvious exits: s.
+The guards snap to attention as you enter.
+> cli sta
+You climb down a wide stairway.
+[Citadel, Training & Parade Grounds]
+Obvious exits: none.
+> go doo
+What are you referring to?  Please be more specific.
+> look
+[Citadel, Training & Parade Grounds]
+Before you stretches the immense training and parade grounds of the Crimson
+Band. Warriors practice the arts of combat here day-in and day-out, working
+with tireless instructors to keep their fighting edge. Across the grounds to
+the south you can see the stairway entering the Citadel proper, flanked by a
+pair of locked gates. The eastern gate leads to the stables, the western leads
+to the armory. Along the western section you can see many doors that lead to
+the enlisted quarters, and there are a pair of archways in the eastern wall.
+Through the archways you can see skillful craftsmen shoeing horses, repairing
+weapons, and making bows, arrows, and other gear needed to support an Army.
+Lastly you see a spiral stairway leading to the gatehouse and the ramparts.
+Obvious exits: none.
+> cli sta
+You climb up a wide stairway.
+[Citadel of the Crimson Band, Lobby]
+Obvious exits: s.
+The guards snap to attention as you enter.
+> look door
+You see nothing extraordinary.
+[Citadel, Initiates' Lounge]
+You see Emanon and Young. 
+Obvious exits: none.
+> go doo
+[Citadel, Initiates' Lounge]
+You see Emanon and Young. 
+Obvious exits: none.
+> 
+ ** Aquanix has just left the Realms.
+> 
+Young stands at attention.
+> 
+Young salutes you.
+> sal young
+You salute Young.
+> 
+Emanon muses, " Fire and Light Initiate Young"
+> health
+You have 193/231 body points.
+> inv
+You are carrying: 
+  Some steel shoulder guards buffed to a high polish (worn)
+  Some heavy steel thigh guards buffed to a high polish (worn)
+  Some gleaming plasteel gauntlets (worn)
+  A damaged emerald
+  Some rattlesnake skin boots (worn)
+  A porcelain bottle engraved with the writing, "Dr. Jackal's Manago Fizz!"
+(open)
+  A porcelain flask (open)
+  A darakoth eye
+  An icy elkyri broadsword
+  A fiery randar broadsword with the name Moordread scratched on the blade
+  A black crystal necklace (worn)
+  Some eldritch steel-rimmed armor (worn)
+  Your object
+  A light brown tunic (worn)
+  Some dark brown breeches (worn)
+  A magenta crystal pendant (worn)
+  A torch
+  A finely crafted crimson tabard embroidered with the gleaming silver eagle of
+the Crimson Band (worn)
+  An eldritch diamontine shield
+  A quartz talisman (worn)
+  A quartz pendant (worn)
+  A ruby studded silver ring of the Crimson Band (worn)
+> eat bab root
+
+ ** Feras has just left the Realms.
+> What are you referring to?  Please be more specific.
+> open sat
+What are you referring to?  Please be more specific.
+> stat
+
+You are a master of the Crimson Band.
+Level: 37
+Build Points to date: 397
+Unspent Build Points: 2
+Experience Points until next Build Point: 19296
+Quickness: 126    Constitution: 130    Strength:  132    Agility: 50 
+Willpower: 65     Perception:   109    Empathy:   36 
+Age:       37     Height:       5'1    Weight:    167    Load: 125
+
+Current Attack Modifier: 16 [Moderate]
+Current Defend Modifier: 236
+
+Body Points: 196/231
+Mana: 40/40
+Psi: 72/72
+Fatigue: 209/209
+[Type SPELLS or SKILLS for more information.]
+> 
+Young says, "Greeting Arms Masters"
+> 
+You feel the touch of Veronica's mind:
+"Sy, are you coming?"
+> look
+[Citadel, Initiates' Lounge]
+The walls of this room are covered with a well maintained, dark oak paneling.
+The floor is also hard wood, but of a lighter shade. In the center is a large
+rug with a battle scene woven into it. At the far end of the room is a
+massive, fieldstone fireplace, barely containing the roaring fire which has
+taken the chill from the room. Over the fireplace is a large tapestry. To
+the right is a large conference table surrounded by carved wooden chairs.
+Several padded, reclining chairs are arranged in front of the fireplace. An
+oak door leads back into the Citadel lobby.
+You see Emanon and Young. 
+Obvious exits: none.
+> 
+ ** Sy has just disconnected.
+> 
+Threnody arrives through an oak door.
+> smi young
+You smile at Young.
+> 
+Drizzt arrives through an oak door.
+> 
+Young salutes Threnody.
+> 
+Emanon whispers to you, "we're supposed to wait here right?"
+> 
+Threnody salutes Young.
+> 
+Emanon makes a salute.
+> 
+Young salutes Drizzt.
+> 
+Drizzt salutes Young.
+> 
+Threnody says, "Greetings Initiate."
+> whisp eman That's what I think 
+You whisper to Emanon.
+> 
+You feel the touch of Young's mind:
+"Yes"
+> 
+Emanon whispers to you, "wouldnt want to misunderstand anything further;)"
+> 
+Young says, "Greetings Amrs Mistress, Arms Master"
+> 
+Marcolan arrives through an oak door.
+> 
+Marcolan makes a salute.
+> 
+Young salutes Marcolan.
+> 
+Emanon makes a salute.
+> 
+Marcolan salutes Young.
+> 
+You feel the touch of Winter's mind:
+"well I can't cross so I had to fly"
+> 
+You feel the touch of Winter's mind:
+"I am at the east side of Padima bridge"
+> 
+You feel the touch of Veronica's mind:
+"Ok.."
+> 
+You feel the touch of Emanon's mind:
+"m'lady Winter....fire and light!!"
+> 
+Young stands at attention.
+> 
+You feel the touch of Winter's mind:
+"Nope, I am flying!"
+> 
+You feel the touch of Winter's mind:
+"Hello Emanon!"
+> whisp eman Nope, I know what you mean, going to be a while :)
+You whisper to Emanon.
+> 
+You feel the touch of Winter's mind:
+"*blink* I am back in Fayd"
+> 
+You feel the touch of Fafnir's mind:
+"kvaahn rak'kahns and Rak'kashs"
+> 
+You feel the touch of Winter's mind:
+"Or not."
+> 
+Drizzt opens a dusty miner's hide trenchcoat with a starburst pattern
+embroidered on the back.
+> 
+Drizzt closes a dusty miner's hide trenchcoat with a starburst pattern
+embroidered on the back.
+> gaze
+You gaze about the area.
+> 
+Drizzt opens a lavender brocade pouch.
+> look
+[Citadel, Initiates' Lounge]
+The walls of this room are covered with a well maintained, dark oak paneling.
+The floor is also hard wood, but of a lighter shade. In the center is a large
+rug with a battle scene woven into it. At the far end of the room is a
+massive, fieldstone fireplace, barely containing the roaring fire which has
+taken the chill from the room. Over the fireplace is a large tapestry. To
+the right is a large conference table surrounded by carved wooden chairs.
+Several padded, reclining chairs are arranged in front of the fireplace. An
+oak door leads back into the Citadel lobby.
+You see Threnody, Marcolan, Emanon, Drizzt and Young. 
+Obvious exits: none.
+> 
+You feel the touch of Hyena's mind:
+"Okay how to get across?"
+> 
+Marcolan says, "Guildmaster Wolfbane will be here before long."
+> 
+You feel the touch of Veronica's mind:
+"Ascend again"
+> 
+You feel the touch of Winter's mind:
+"fly all the way up and east twice"
+> 
+You feel the touch of Veronica's mind:
+"Then east twice."
+> 
+Emanon whispers to you, "yea exactly...brother, do you think Ive acted
+dishonorably..I mean overall, Ive stuck to what I think is right..and not had
+the chance to really talk with anyone.."
+> 
+Drizzt says, "If he can remember where it is"
+> 
+Drizzt says, "he's old ya know"
+> 
+Threnody chuckles.
+> 
+Threnody says, "Like we found it easy."
+> 
+Threnody winks at Drizzt.
+> 
+Drizzt nods to Threnody.
+> 
+Threnody coughs.
+> 
+Emanon muses, "  I of course, got lost"
+> 
+Drizzt says, "yeah, just followed you"
+> 
+Drizzt grins.
+> 
+Emanon grins.
+> 
+Drizzt says, "never been here before"
+> 
+Marcolan says, "I found it easily.... once I woke up."
+> 
+Threnody chuckles.
+> 
+You feel the touch of Veronica's mind:
+"Track.."
+> 
+Emanon smiles.
+> whisp eman To ask everyone to slow down and evaluate what we do first was a good thing, but I think you could have found a better place to and a better way to word it :)
+You whisper to Emanon.
+> 
+You feel the touch of Fafnir's mind:
+"what is going on V"
+> 
+ ** Firestar has just left the Realms.
+> 'This lounge was downstairs I think, when I was an initiate
+You say, "This lounge was downstairs I think, when I was an initiate"
+> gaze
+You gaze about the area.
+> 
+You feel the touch of Veronica's mind:
+"Just taking a few people to Karhad"
+> 
+Threnody says, "its been remodeled a few times."
+> 
+You feel the touch of Leah's mind:
+"Greetings"
+> 
+Marcolan asks, "They were still building the citadel then weren't they?"
+> 
+Wolfbane arrives through an oak door.
+> 
+Wolfbane makes a salute.
+> 
+Marcolan stands at attention.
+> 
+Young salutes Wolfbane.
+> 
+Young says, "Greetings Guildmaster Wolfbane"
+> 
+Young stands at attention.
+> 
+Wolfbane says, "greetingsinitiate"
+> think Greetings Leah
+You project your thoughts.
+> gaze marc
+You gaze at Marcolan.
+> sal wolfb
+You salute Wolfbane.
+> 
+Emanon whispers to you, "true  but the time was so short and it loked like a
+decision had be made for the band..did you know, prior to the announcement that
+we were supporting this queen by Wolfies accepting the post from her"
+> 
+Wolfbane whispers to you, "check you mail"
+> 
+Emanon salutes Wolfbane.
+> whisp marc Was mostly a tent back then :)
+You whisper to Marcolan.
+> 
+Wolfbane nods to Drizzt.
+> 
+Marcolan whispers to you, "*chuckle*"
+> 
+Drizzt says, "er, brb"
+> 
+Drizzt goes through an oak door.
+> 
+Wolfbane reclines his chair and puts his feet up.
+> 
+ ** Raningeth has just left the Realms.
+> whisp wolfb Uhm...I have to disconnect to check that particular mail..it's at work :)
+You whisper to Wolfbane.
+> 
+Wolfbane says, "young"
+> 
+Young stands at attention.
+> 
+Wolfbane whispers to you, "dont worry then"
+> 
+Young says, "Sir, yes sir"
+> 
+The glowing outline of armor fades from around Young.
+> 
+Wolfbane says, "you will have an hour to collect the things from that list"
+> whisp eman No, I didn't think we were until we agreed to her oath
+You whisper to Emanon.
+> 
+Wolfbane says, "usually"
+> 
+Wolfbane says, "it is meant for a group"
+> 
+Emanon whispers to you, "which is my entire point really"
+> 
+Drizzt arrives through an oak door.
+> 
+Wolfbane says, "but seeing we have lost the rest of your class well"
+> 
+Wolfbane shrugs.
+> 
+Wolfbane says, "i am trusting you on your honer to do this alone and tell the
+truth as always"
+> 
+Young nods.
+> 
+Emanon whispers to you, "but Wolfie, accepting it publically said the Band
+supports her, and I sure wasnt asked..."
+> 
+Wolfbane says, "you can tell no one of what you seek"
+> 
+ ** Firestar has just left the Realms.
+> 
+Wolfbane says, "you must colloect all you can in said amount of time"
+> 
+ ** Raningeth has just left the Realms.
+> 
+Emanon whispers to you, "by the action I mean, not in so many words"
+> 
+Wolfbane says, "you will not get them al"
+> 
+Young says, "I can answer the qestion about of Guildmaster Bergerron now"
+> 
+Wolfbane says, "wait till the hour has ended"
+> 
+Wolfbane says, "like i said it was set up for a group"
+> 
+You feel the touch of Prudence's mind:
+"Hello :)"
+> 
+You feel the touch of Sy's mind:
+"Heya Pru"
+> 
+You feel the touch of Leah's mind:
+"Hello, Prudence! Hi Sy!"
+> 
+You feel the touch of Fafnir's mind:
+"Kvaahn Prudence"
+> 
+Wolfbane says, "get what you feel is the most important"
+> 
+Wolfbane says, "first"
+> 
+Young nods.
+> 
+You feel the touch of Sy's mind:
+"Heya Leah"
+> 
+You feel the touch of Young's mind:
+"Howdy Prudence"
+> 
+You feel the touch of Prudence's mind:
+"Hi Leah, Hello Fafnir, Hiya Young."
+> whisp eman I may not look close enough but I guess it didn't appear to be a problem to me
+You whisper to Emanon.
+> 
+You feel the touch of Emanon's mind:
+"peace sister Leah, m'lady Prudence..Hail Sy"
+> 
+You feel the touch of Sy's mind:
+"Peace Em"
+> 
+You feel the touch of Prudence's mind:
+"Hello Emanon."
+> 
+You feel the touch of Leah's mind:
+"Greetings, Emanon"
+> 
+Two initates in a corner seem to be whispering about something. You hear
+Guildmaster, kilt, blue ribbon and Dirk's.
+> 
+Wolfbane mutters something you can't quite make out.
+> 
+Threnody stiffles a cough.
+> 
+Marcolan gazes at the initiates closely.
+> 
+The initiates quickly leave.
+> 
+Wolfbane says, "remind me to make em clean the stables"
+> 
+Young glances at his watch.
+> 
+Wolfbane says, "now"
+> 
+Wolfbane says, "like i have stated"
+> 
+Wolfbane says, "get what you feel is most important on that list"
+> 
+Emanon whispers to you, "I took our oath to keep the K family safe meant 
+keeping them on the throne, any king would want that, and 2  Kentarus live.."
+> 
+Young nods.
+> 
+Wolfbane says, "and report back here within the hour"
+> 
+Young salutes Wolfbane.
+> 
+Wolfbane salutes Young.
+> 
+Young says, "Sir, yes sir"
+> 
+Wolfbane says, "you may begin"
+> 
+Young goes through an oak door.
+> 
+Wolfbane smiles y
+> 
+Marcolan checks the time on an antique gold pocketwatch.
+> 
+Marcolan smiles.
+> 
+Marcolan is now following Wolfbane.
+> 
+Threnody is now following Wolfbane.
+> 
+Emanon is now following Wolfbane.
+> fol wolfb
+You are now following Wolfbane.
+J> 
+Drizzt is now following Wolfbane.
+J> 
+Wolfbane says, "ok im given him 10 more minutes cause he had an appointment"
+J> 
+Marcolan nods.
+J> 
+Drizzt returns to normal.
+J> 
+Wolfbane says, "it is the last talk the one that includes the skins and the
+most technolical thing in fayd"
+J> 
+Wolfbane says, "err task"
+J> 
+Threnody chuckles.
+J> 
+Emanon raises his hand.
+J> 
+Wolfbane says, "thats what i gave him"
+J> 
+You feel the touch of Cypress's mind:
+"Hi!"
+J> 
+Wolfbane's group goes through an oak door.
+J> 
+You follow Wolfbane.
+[Citadel of the Crimson Band, Lobby]
+You see Threnody, Marcolan, Emanon, Wolfbane and Drizzt. 
+Obvious exits: s.
+J> 
+The guards snap to attention as Wolfbane enters.
+J> 
+Wolfbane's group goes south.
+J> 
+You follow Wolfbane.
+[Citadel, Great Hall]
+You see Threnody, Marcolan, Emanon, Wolfbane and Drizzt. 
+Obvious exits: n, w.
+J> 
+Wolfbane's group goes west.
+J> 
+You follow Wolfbane.
+[Citadel, Hallway of Warriors]
+You see Threnody, Marcolan, Emanon, Wolfbane and Drizzt. 
+Obvious exits: n, s, e.
+J> 
+Marcolan nods.
+J> 
+Wolfbane's group goes south.
+J> 
+You follow Wolfbane.
+[Hallway of Warriors, South]
+You see Threnody, Marcolan, Emanon, Wolfbane and Drizzt. 
+Obvious exits: n.
+J> 
+The guards snap to attention as Wolfbane enters.
+J> 
+The guards whisper quietly to each other, then return to attention.
+J> 
+A guard holds aside the tapestry and allows Wolfbane to pass through to the
+room beyond.
+J> go tap
+A guard holds aside the tapestry and admits you to the War Room.
+[Crimson Band, War Room]
+You see Wolfbane. A chair and a newsboard are here.
+Obvious exits: n, e, w, sw.
+> 
+The guards snap to attention as Emanon is admited to the War Room.
+> 
+The guards snap to attention as Drizzt is admited to the War Room.
+> 
+You feel the touch of Sy's mind:
+"Heya Cypress"
+> 
+The guards snap to attention as Marcolan is admited to the War Room.
+> 
+Emanon raises his hand.
+> 
+A guard pulls aside the tapestry allowing Marcolan to enter the Hallway of
+Warriors.
+> 
+You feel the touch of Prudence's mind:
+"Hi Cypress!"
+> 
+The guards snap to attention as Marcolan's group is admited to the War Room.
+> 
+Wolfbane says, "now let us continue"
+> 
+Marcolan disbands his group.
+> 
+Wolfbane paces back and forth.
+> 
+Emanon raises his hand.
+> 
+You feel the touch of Cypress's mind:
+"Hi! Sy, Prudence"
+> contact cypress Hey :)
+You contact Cypress with your thoughts.
+ [Round: 2 sec]
+R> 
+Wolfbane says, "i am still very upset at your accusations thats why i am still
+ignoring you"
+> 
+You feel a tingle in your mind. Cypress thinks to you, "Hi!."
+> 
+Wolfbane gazes at Emanon.
+> 
+Wolfbane says, "i have not figured out what to do with you yet"
+> 
+Wolfbane says, "my honer as a Crimson Band member"
+> 
+Emanon muses, " may I ask something relevant to Young's quest?"
+> 
+Wolfbane says, "no"
+> 
+Wolfbane says, "as i was saying"
+> contact cypres Can you break into the Crimson Band Citadel and save me from a meeting?
+You contact Cypress with your thoughts.
+ [Round: 2 sec]
+R> 
+Wolfbane says, "my honer as a Crimson band member"
+> 
+Wolfbane says, "will not just let me kill you in cold blood for questioning my
+honer let alone the bands"
+> 
+Wolfbane says, "but that does not mean there will be no punishment"
+> 
+You feel a tingle in your mind. Cypress thinks to you, "*giggle* not even sure
+how to get there."
+> 
+Wolfbane says, "i jsut have not figured out what that should be yet"
+> contact cypress *sigh* Pray for me then...
+You contact Cypress with your thoughts.
+ [Round: 2 sec]
+R> 
+Emanon gazes at Wolfbane.
+> 
+Wolfbane says, "and your post was a sorry excuse to regain my trust and respect
+for you"
+> 
+Wolfbane says, "so you was pissed off"
+> 
+You feel a tingle in your mind. Cypress thinks to you, "Cypress kneels and
+prays for you to make through the meeting!."
+> 
+Wolfbane says, "you dont question the honer of hundreads of years of tradition
+in public"
+> 
+Wolfbane says, "that is not the way its done"
+> contact cypress Moordread is bathed in Holy Light that protects him from the iminent boredom!
+You contact Cypress with your thoughts.
+ [Round: 2 sec]
+R> 
+Wolfbane says, "now i will take comments from your peers on this matter into
+consideration"
+> 
+You feel a tingle in your mind. Cypress thinks to you, "*giggle*."
+> 
+Wolfbane says, "but ultimitly i will deside what the punishment will be"
+> 
+Marcolan raises his hand.
+> 
+Wolfbane says, "im not done yet"
+> 
+Wolfbane smiles at Marcolan.
+> 
+Marcolan nods.
+> 
+Wolfbane says, "your place within the band is in jepordy"
+> 
+Emanon gazes at Wolfbane.
+> 
+Wolfbane says, "so you best think on what you will say in your defence"
+> 
+Wolfbane gazes at Emanon.
+> 
+Wolfbane says, "with that said"
+> 
+Wolfbane says, "marcolan you may begin"
+> 
+Marcolan nods.
+> 
+You feel the touch of Aban's mind:
+"anyone seen Jasmine lately or gots any clue when she usually about?"
+> 
+Marcolan says, "I would like to begin by saying that Emanon did what you have
+always asked of us.  He said his feelings on a subject that was dear to him and
+he felt strongly about."
+> 
+Marcolan says, "I do agree strongly however that it should not have been
+publicly."
+> 
+Wolfbane listens carefully to Marcolan.
+> 
+You feel the touch of Fafnir's mind:
+"I think she was around last night not sure though"
+> 
+Marcolan says, "I think the punishment chosen should be treated as we would
+expect.  As a internal matter.  I don't think any decision made should go
+beyond any of the Band."
+> 
+ ** Durek has just left the Realms.
+> 
+You feel the touch of Jasmine's mind:
+"Hiyas, Aban."
+> 
+You feel the touch of Aban's mind:
+"Priestess!!"
+> 
+You feel the touch of Aban's mind:
+"just da person I needed to see!"
+> 
+You feel the touch of Wolfbane's mind:
+"ask and ye shall recieve"
+> 
+You feel the touch of Aban's mind:
+"where ya at?"
+> 
+You feel the touch of Prudence's mind:
+"Hi Wolfbane."
+> 
+Marcolan says, "It should also be a manner that allows you to regain your
+honor, without dishonoring him in return.  It was a terrible thing to be done
+in public, but to humiliate him will not resolve the problem.  Honor, returns
+honor."
+> 
+Marcolan says, "Ga."
+> 
+You feel the touch of Jasmine's mind:
+"In the temple."
+> 
+You feel the touch of Cypress's mind:
+"Hi! Wolfie"
+> 
+Wolfbane nods to Marcolan.
+> 
+Threnody ponders.
+> 
+You feel the touch of Wolfbane's mind:
+"heya prudence and cypress"
+> 
+Wolfbane says, "next?"
+> 
+Wolfbane listens to his surroundings closely.
+> 
+Threnody says, "still thinking."
+> 
+Wolfbane says, "moordread?"
+> 
+Wolfbane listens carefully to you.
+> 
+You feel the touch of Fafnir's mind:
+"wolfie can you meet me at the T'kasta temple"
+> 
+Threnody raises her hand.
+> 
+You feel the touch of Wolfbane's mind:
+"i am in an important meeting right now is it important?"
+> 
+Wolfbane nods to Threnody.
+> 
+You feel the touch of Winter's mind:
+"Aquanix?"
+> 
+You feel the touch of Fafnir's mind:
+"no i will talk to later"
+> 
+You feel the touch of Aquanix's mind:
+"yes?"
+> 
+Threnody says, "I agree with Marcolan, we should keep it internal."
+> 
+You feel the touch of Wolfbane's mind:
+"ok"
+> 
+Threnody says, "Two wrongs don't make a right. ..."
+> 
+Wolfbane says, "i intended to"
+> 
+Threnody says, "Also.."
+> 
+Wolfbane nods to Threnody.
+> 
+Threnody ponders.
+> 
+You feel the touch of Winter's mind:
+"Are you near contact range?"
+> 
+You feel the touch of Aquanix's mind:
+"I am, but not in two-leg form"
+> 
+You feel the touch of Winter's mind:
+"Ahh... Okay."
+> 
+Threnody says, "I think we are having a hard enough time of things, and Emanon
+has served well for years. We all have known hes a bit.."
+> 
+You feel the touch of Aquanix's mind:
+"need me?"
+> 
+Threnody gazes at Emanon.
+> 
+Threnody grins.
+> 
+Threnody says, "fanatical.."
+> 
+You feel the touch of Winter's mind:
+"No, just had a question to ask"
+> 
+Threnody says, "at times."
+> 
+You feel the touch of Aquanix's mind:
+"ah"
+> 
+Threnody asks, "Whatever is decided should be aimed to curb that perhaps?"
+> 
+Wolfbane nods to Threnody.
+> 
+Threnody says, "GA"
+> 
+Wolfbane nods.
+> 
+Wolfbane says, "drizzt would you like to make a comment?"
+> 
+Wolfbane listens carefully to Drizzt.
+> 
+Wolfbane whispers to you, "you gonna comment?"
+> 
+Drizzt says, "Well, I've been out of touch for a long time, so I don't feel it
+would be right without complete knowledge of the events....In other words..no
+thankyou"
+> 
+Drizzt says, "at this time"
+> 
+Drizzt says, "GA"
+> 
+Wolfbane nods to Drizzt.
+> 
+Wolfbane says, "that is acceptable"
+> 
+Wolfbane says, "moordread?"
+> 
+Wolfbane listens carefully to you.
+> 
+Wolfbane ponders.
+> 
+Wolfbane says, "is he alive?"
+> 
+Wolfbane nudges you.
+> 
+Wolfbane sighs.
+> 
+Wolfbane says, "well then"
+> 
+Wolfbane ponders.
+> 
+Wolfbane says, "anyone know speak with dead for our brother?"
+> 
+You feel the touch of Fafnir's mind:
+"three Myth are here tonight Aban,Elriss and Drizzt"
+> 
+Drizzt says, "magic...bad"
+> 
+Drizzt winks.
+> 
+Wolfbane nods to Drizzt.
+> 
+Drizzt says, "fire...goood"
+> 
+You feel the touch of Elriss's mind:
+"Myth? Ouch."
+> 
+Emanon grins.
+> 
+Wolfbane says, "now you have the right to speak in your defence so choose your
+words wisly"
+> 
+Wolfbane nods to Emanon.
+> 
+Emanon nods to Wolfbane.
+> 
+You feel the touch of Prudence's mind:
+"I actually saw Aban with my own eyes :)"
+> 
+You feel the touch of Aban's mind:
+"no ya only tink we is around"
+> whisp wolfb sorry, afk...unexpected company :(
+You whisper to Wolfbane.
+> 
+You feel the touch of Wolfbane's mind:
+"its all a wrinkled mushroom flashback"
+> 
+You feel the touch of Marcolan's mind:
+"Drizzt isn't a Myth, he just smells that way."
+> 
+You feel the touch of Fafnir's mind:
+"just figments of are Imagiation yea that it"
+> 
+Wolfbane whispers to you, "no problem if ya wanna speak after emanon fisnishes"
+> 
+Wolfbane sits in an elaborately carved wooden chair at the head of the table
+and checks his notes.
+> 
+Emanon muses, " my defense...well Wolfbane, the one thing youve been right
+about so far is that it was to much to post this on the BC board..as for
+attempting to regain you trust and such, well, that remains to be seen...I
+posted innapproriatly its true."
+> 
+You feel a tingle in your mind. Cypress thinks to you, "WAKE UP!."
+> 
+You feel the touch of Young's mind:
+"Guldmaster Wolfbane, may I see you a moment?"
+> 
+Emanon muses, " and for the embarassment Ive caused the Band as a whole I am
+sorry.. but I belived there to be an urgantcy...Wolfbane, did you know about
+your appointment before the announcement was made?"
+> 
+You feel the touch of Winter's mind:
+"Aren't you supposed to be at the meeting, Young?"
+> 
+You feel the touch of Young's mind:
+"Yes"
+> 
+Wolfbane nods to Marcolan.
+> 
+Emanon listens carefully to Wolfbane.
+> 
+Wolfbane says, "go"
+> 
+A guard pulls aside the tapestry allowing Marcolan to enter the Hallway of
+Warriors.
+> 
+Wolfbane says, "which appointment/"
+> 
+Wolfbane listens carefully to Emanon.
+> 
+Emanon muses, " the Field Marshellship.."
+> 
+Wolfbane says, "i believe it was before yes"
+> 
+ ** Fafnir has just left the Realms.
+> 
+Emanon muses, " true Ive been away and maybe you didnt get to talk to me, but
+did you discuss your appointment with the Band, or any of the  Banders
+privatly?"
+> 
+Wolfbane nods.
+> 
+Wolfbane says, "yes"
+> 
+ ** Genevra has just left the Realms.
+> 
+Emanon muses, " did you post it, maybe I missed that.."
+> 
+Wolfbane says, "no i did not"
+> 
+Wolfbane says, "it was not for me to post"
+> 
+The guards snap to attention as Garin is admited to the War Room.
+> 
+Threnody salutes Garin.
+> 
+Garin makes a salute.
+> 
+Wolfbane salutes Garin.
+> 
+Garin's sword begins to glow softly with a white light.
+> 
+Garin says, "Howdy."
+> 
+Drizzt gazes at Garin.
+> 
+Garin says, "Wow, you all are really evil."
+> 
+Drizzt snickers.
+> 
+Emanon muses, " who did you talk it over with..allot of people?"
+> 
+Drizzt salutes Garin.
+> 
+Threnody chuckles.
+> 
+Emanon salutes Garin.
+> 
+Wolfbane says, "actually that has no bearing on this matter"
+> 
+The guards snap to attention as Marcolan is admited to the War Room.
+> 
+Garin salutes Marcolan.
+> 
+Marcolan salutes Garin.
+> 
+Marcolan smiles at Garin.
+> 
+Emanon muses, " yes it dxoes...your talking if punishments as if the original
+matter is over.."
+> 
+Emanon muses, "er of.."
+> 
+Wolfbane says, "as far as the membership is concerned it is"
+> 
+Marcolan whispers to you, "Garin says he is afraid of you, i think you can take
+him."
+> 
+Emanon muses, " how can it be? Has the Band then sworn loyalty to lady Moryan?"
+> 
+Wolfbane nods to Emanon.
+> 
+Wolfbane says, "along with the rest of the guilds and churches of fayd"
+> 
+Emanon muses, " and thats that...the hieres are ignored and you speak for the
+Band"
+> 
+Wolfbane says, "actually i did not speak for the band"
+> 
+Garin says, "The final decision goes with the Guildmaster. As always."
+> 
+Emanon muses, " not all Wolfie"
+> 
+Marcolan raises his hand.
+> 
+Wolfbane says, "i gave moordread the choise to swear loyalty or not to it was
+totally his decision"
+> 
+Emanon muses, " ok...but what Im saying is you acxcepted the Queen for the Band
+when you accepted the post, we , as the Band had not even had a chance to
+discuss accepting this queen"
+> 
+Wolfbane whispers to you, "now is the time to pay attention"
+> 
+Marcolan raises his hand.
+> 
+Wolfbane says, "wrong i did nothing concerning the band with accepting the
+position"
+> 
+Marcolan whispers to you, "I am going to ask you to repeat the oath, find your
+notes. ;)"
+> 
+Emanon muses, " that was my reason for the public post, you said, by taking
+this post, the Band supports this queen, when in fact, we hadnt yet.."
+> 
+Wolfbane says, "as it is the band has not ratified this as of yet only
+verbally"
+> 
+Emanon muses, " another point, you wernt thinking of the Band when you did
+this"
+> 
+Wolfbane raises an eyebrow towards Emanon.
+> 
+Wolfbane says, "how do you figure"
+> 
+Wolfbane says, "you know not what goes on in my head"
+> 
+Wolfbane says, "dont even go there"
+> 
+Garin chuckles at Wolfbane.
+> 
+Garin withholds several rude comments.
+> 
+Drizzt whispers several more to Garin
+> 
+Emanon muses, " your the Guildmaster Wolfie...a damn good one too, if it had
+been anyone else in the Band there wouldnt be a problem..but you had too, and
+will continue to have to keep secrets from the Band..who did you discuss this
+with before I'd like"
+> 
+Threnody frowns.
+> 
+Wolfbane says, "why would i have to keep secrets"
+> 
+Wolfbane says, "that has nothing to do with your actions of late"
+> 
+Wolfbane says, "for one i have never kept anything from the band"
+> 
+Emanon muses, " who did you tell of the Fieldmarshellship..who did you tell
+Lady Moryan was to be  queen?"
+> 
+You feel the touch of Winter's mind:
+"Anyone wish to go to Ravyin keep?"
+> 
+Wolfbane says, "and i believe the queen wouldnt ask me to do such a thing for
+it goes against my honer itself"
+> 
+Emanon muses, " these are very important Band issues"
+> 
+Wolfbane says, "only for you they are"
+> 
+Wolfbane says, "no one else seem to give a rats ass"
+> 
+Emanon muses, " Wolfbane you said you talked it over with other Band
+members..I'd like to know who.."
+> 
+Wolfbane says, "or atleast aint said anything to me"
+> 
+Emanon listens carefully to Wolfbane.
+> 
+Wolfbane says, "what the hell has this gotta do with you bein an ass?"
+> 
+Wolfbane listens carefully to Emanon.
+> 
+Emanon muses, " can you answear the question..I'll be sure to make more of an
+ass of myself soon enough"
+> 
+Threnody rubs her temples with her fingertips.
+> 
+Emanon muses, "  anybody in this room?"
+> 
+Garin smiles at Emanon.
+> 
+Emanon listens carefully to Garin.
+> 
+Wolfbane says, "well lets see i spoke with cyrano after the fact"
+> 
+Emanon listens carefully to Wolfbane.
+> 
+ ** Durek has just left the Realms.
+> 
+Wolfbane says, "i spoke with marcolan also so whats that got to do with
+anything"
+> 
+Wolfbane says, "plus the position was not asked of me is was placed upon me"
+> 
+Wolfbane says, "i wasnt asked i was pretty much told"
+> 
+Wolfbane shrugs.
+> 
+Emanon muses, " dont you think it was important enough to hold off accepting
+until you talked it over with the whole band?  by accepting this queen Wolfie,
+I still say  we're violating the oath we took.."
+> 
+Wolfbane says, "and in that i felt it best for the city to do so"
+> 
+Emanon muses, " and Ive recently been reminded Fred the II may still live...no
+one has even bothered to find out"
+> 
+Wolfbane says, "actually not really i have done what i feel in my heart to be
+our oath as a Crimson Band member nothing more"
+> 
+Wolfbane says, "he doesnt want anything to do with ruling"
+> 
+Wolfbane says, "i have posed that wuestion before"
+> 
+Threnody raises her hand.
+> 
+Emanon muses, " and so have I Wolfbane...dont ever say I havent"
+> 
+Wolfbane says, "you about done interagating me cause there are other that want
+to make comments?"
+> 
+ ** Jasmine has just disconnected.
+> 
+Wolfbane listens carefully to Emanon.
+> 
+Emanon muses, " and before you even consider 'punishing' me before the lineage
+is resolved , you'll have my papers first"
+> 
+Emanon muses, "GA"
+> 
+Wolfbane nods to Marcolan.
+> 
+Wolfbane says, "i believe you are first"
+> 
+Marcolan says, "I was going to ask if Moordread could repeat his wording on the
+oath.  My impression is it was to the city, not to the queen.  And she said
+"good enough".  THough I may be incorrect."
+> 
+Marcolan says, "Ga."
+> 
+Wolfbane says, "well before i get to that"
+> 
+Wolfbane whispers to you, "wait a sec"
+> 
+Wolfbane says, "threnody you had something to say?"
+> 
+Wolfbane listens carefully to Threnody.
+> 
+Threnody nods.
+> 
+Threnody says, "Yes Guildmaster I do."
+> 
+Threnody says, "First, I think we did, even if Emanon doesnt agree, resolve the
+issue of the oath."
+> 
+Threnody says, "Even if you don't agree Emanon, the majority did."
+> 
+Threnody says, "So its not right bringing that back into things."
+> 
+Emanon listens carefully to Threnody.
+> 
+Threnody says, "Wolfbanes appointment has nothing to do with the band in
+reality. At least in my mind."
+> 
+Threnody says, "Simply because he accepted doesn't mean the band was
+automatically in support of Queen Moryan."
+> 
+Threnody asks, "Or why would we have had to swear the oath?"
+> 
+Emanon nods to Threnody.
+> 
+Threnody says, "I think we get the same opportunty to swear to the oath as all
+the other guilds. Now MOordread might have jumped a little, but I think we can
+work that out."
+> 
+Threnody says, "Basically, its down to what you are doing I think."
+> 
+Emanon listens carefully to Threnody.
+> 
+Threnody says, "You just said you won't let Wolfbane punish you, you'll leave
+first."
+> 
+Threnody says, "Are you going to stay in the Band, or are you going to leave?
+the rest is just wasting all of our time."
+> 
+Threnody says, "the matter was decided at the last vote."
+> 
+Emanon slides a ruby studded silver ring of the Crimson Band off of his finger.
+> 
+Threnody says, "all that was left was deciding if we are following Queen moryan
+or not."
+> 
+Threnody says, "GA"
+> 
+Wolfbane says, "thing very carfully before you do that"
+> 
+Wolfbane gasps.
+> 
+Wolfbane gazes at Emanon.
+> 
+Emanon muses, " think carefully about presuming so much...Wolfie, what I saying
+and what peole seem to  miss is that your the Guildmster...your actions speak
+for the whole Band all the time..no?"
+> 
+Wolfbane says, "and what have i done so awful to bring any shame to the band?"
+> 
+Wolfbane listens carefully to Emanon.
+> 
+Garin growls.
+> 
+Garin raises his hand.
+> 
+Wolfbane says, "please garin one minute"
+> 
+Garin nods to Wolfbane.
+> 
+Wolfbane says, "i beg you"
+> 
+Wolfbane smiles at Garin.
+> 
+Emanon muses, "  did you say you already had King Fred II opinion on all
+this..he doenst want his family on the throne at all?"
+> 
+Wolfbane says, "man id love to be able to know what others think that must be a
+gift from the gods and i aint got it"
+> exp
+Level: 37
+Build Points to date: 397
+Unspent Build Points: 2
+Experience Points until next Build Point: 19296
+> 
+Emanon listens carefully to Wolfbane.
+> 
+Wolfbane says, "i reasearched asked around if you will about fred 2 and ya know
+everyone cept you said the same thing so it matter not"
+> 
+Wolfbane says, "basically it coems down to this"
+> 
+Emanon listens carefully to Wolfbane.
+> 
+Wolfbane says, "i have made my decision,the band has made their decision now it
+is up to you"
+> 
+Emanon nods to Wolfbane.
+> 
+Wolfbane says, "youre either gonna stay or resign the rest of it is a waste of
+time"
+> 
+Wolfbane says, "make your choice and live with it"
+> 
+Emanon gives a ruby studded silver ring of the Crimson Band to Threnody.
+> 
+Threnody gazes at Emanon.
+> 
+Wolfbane says, "id like to say its been nice but i cannot"
+> 
+Marcolan sighs.
+> 
+Wolfbane says, "could someone escort this man out of here please"
+> 
+Wolfbane gestures at Emanon.
+> 
+Emanon muses, " be well...I ve done what I believed...it would be dishonorable
+to recant, I wish you all the best.."
+> 
+Marcolan sighs.
+> 
+Marcolan takes Emanon by the hand.
+> 
+Drizzt beams at Emanon.
+> 
+Marcolan nods to Wolfbane.
+> 
+Emanon muses, " no need.."
+> 
+Marcolan nods to Emanon.
+> 
+Drizzt says, "Be well Emanon"
+> 
+Marcolan makes a salute.
+> 
+Wolfbane says, "im sorry garin for putting you off"
+> 
+Threnody gives a fiery platinum wedding ring inset with bits of gold
+intricately binding the metals together to Wolfbane.
+> 
+Threnody rolls her eyes.
+> 
+Emanon shakes hands with Drizzt.
+> 
+Drizzt shakes hands with Emanon.
+> 
+Wolfbane smiles at Threnody.
+> 
+Threnody coughs.
+> 
+Emanon stops following Marcolan.
+> 
+Wolfbane taps a fiery platinum wedding ring inset with bits of gold intricately
+binding the metals together.
+> 
+Wolfbane gives a fiery platinum wedding ring inset with bits of gold
+intricately binding the metals together to Threnody.
+> 
+Marcolan shakes hands with Emanon.
+> 
+Marcolan gazes at Emanon.
+> 
+Threnody taps a ruby studded silver ring of the Crimson Band.
+> 
+Emanon muses, " locked"
+> 
+Emanon thumps on a door.
+> 
+Threnody furrows her brow.
+> 
+Emanon muses, " sorry lost again"
+> 
+Wolfbane raises an eyebrow towards Emanon.
+> 
+A guard pulls aside the tapestry allowing Emanon to enter the Hallway of
+Warriors.
+> 
+ ** Garin has just disconnected.
+> 
+Garin disconnects.
+> 
+Garin arrives.
+> 
+Marcolan sighs.
+> 
+Garin mutters something you can't quite make out.
+> 
+Wolfbane gazes at Garin.
+> 
+Wolfbane says, "sorry gain"
+> 
+Garin says, "Sorry."
+> 
+Wolfbane says, "err garin"
+> 
+ ** Prudence has just left the Realms.
+> 
+Threnody sighs.
+> 
+Garin says, "Ahhh, well."
+> 
+Wolfbane says, "i tried to hold it off as long as i could for you to make your
+comment"
+> 
+Wolfbane says, "marcolan can you go get young"
+> 
+Garin says, "i was going to say something that would have made everything all
+better, and everyone happy, but too late."
+> 
+Marcolan nods to Wolfbane.
+> 
+You hear a tapping sound from the Hallway of Warriors moments before a squad of
+soldiers trot by to toss out an interloper.
+> 
+Wolfbane says, "first"
+> 
+A guard pulls aside the tapestry allowing Marcolan to enter the Hallway of
+Warriors.
+> 
+The guards snap to attention as Marcolan's group is admited to the War Room.
+> 
+Wolfbane says, "i am sure you were but i couldnt listen to that drivle much
+longer"
+> 
+Marcolan makes a salute.
+> 
+Emanon goes southwest.
+> 
+You feel the touch of Tobias's mind:
+"Any friendly druids out there care to teach me a bit?"
+> 
+Emanon arrives.
+> 
+You feel the touch of Hyena's mind:
+"<laugh>"
+> 
+Emanon nods.
+> 
+Emanon muses, " peace everyone"
+> 
+A guard pulls aside the tapestry allowing Emanon to enter the Hallway of
+Warriors.
+> 
+Marcolan says, "I will get Young now."
+> 
+You feel the touch of Tobias's mind:
+"If I didn't know better, that sounded like laughter."
+> 
+Wolfbane nods to Marcolan.
+> 
+A guard pulls aside the tapestry allowing Marcolan to enter the Hallway of
+Warriors.
+> 
+You feel the touch of Hyena's mind:
+"That was funny!"
+> look
+[Crimson Band, War Room]
+This well lit area serves as the private meeting area for Crimson Band
+members. Located within the center of the room is a large circular mirmach
+table with fifteen matching chairs. Three ornately carved chairs, for the
+Guildmaster, Lorekeeper and Sergeant at Arms, are located at the northern edge
+of the round table. Assorted sofas, couches and overstuffed arm chairs are
+scattered against the walls of the war room. Enormous maple tables line the
+northern wall, to either side of the hallway entrance, and upon which are
+assorted tankards and glasses filled with a variety of beverages. Apprentice
+warriors scurry to and fro, ensuring that the containers remain full. Upon
+the southern wall, next to a door is an old oaken kiosk.  An open box addressed
+to Garin sits on the table.
+You see Threnody, Wolfbane (sitting), Garin and Drizzt. A chair and a newsboard
+are here.
+Obvious exits: north, east, west, southwest.
+> 
+You feel the touch of Wolfbane's mind:
+"you are a slow learner aint ya"
+> 
+The guards snap to attention as Marcolan's group is admited to the War Room.
+> 
+Wolfbane salutes Young.
+> 
+Marcolan stands at attention.
+> 
+Young stands at attention.
+> 
+Drizzt salutes Young.
+> 
+Young salutes Marcolan.
+> 
+Garin salutes Young.
+> 
+Young makes a salute.
+> 
+Young says, "Mission completed sir."
+> 
+Wolfbane says, "i swear you made record time"
+> 
+Wolfbane gazes at Young.
+> 
+You feel the touch of Hyena's mind:
+"Maybe one of them can show you the mistletoe trick"
+> 
+Wolfbane says, "you a super warrior and i didnt know about it/"
+> 
+Wolfbane listens carefully to Young.
+> 
+You feel the touch of Hyena's mind:
+"But make sure you get a sprig of mint first."
+> 
+Young stands at attention.
+> 
+Wolfbane says, "ok then"
+> 
+Young listens carefully to Wolfbane.
+> 
+Wolfbane says, "Each of Fayd's guilds treasures one thing above all else. For"
+> 'How many people did you kill?
+You ask, "How many people did you kill?"
+> list young
+You listen carefully to Young.
+> 
+Young asks, "Counting creatures sir?"
+> 
+Young listens carefully to you.
+> pond
+You ponder for a moment.
+> heads
+You shake your head.
+> 
+Wolfbane says, "what did ya collect from the guilds"
+> 
+Wolfbane listens carefully to Young.
+> 
+Young says, "Sir, none killed sir."
+> 
+Young nods.
+> pond
+You ponder for a moment.
+> 
+Wolfbane says, "i believe i got the floor guys"
+> 
+Wolfbane says, "what did you get to show what each guild hold dear"
+> 
+Young says, "The band's treasure is the standard, and I am the standard bearer,
+so I did not have to get that."
+> 
+Wolfbane listens carefully to Young.
+> 
+Wolfbane says, "go on"
+> 
+Young says, "From the techs"
+> 
+You feel the touch of Veronica's mind:
+"get out of town, Tobias."
+> 
+You feel the touch of Winter's mind:
+"You are not welcome, Tobias."
+> 
+Young taps an old technological rifle with a black scope mounted to it.
+> 
+You feel the touch of Veronica's mind:
+"Get out of Fayd."
+> whisp wolfb Sorry, just got back and didn't hear you take the floor :(
+You whisper to Wolfbane.
+> 
+Young taps a troll hide.
+> 
+Young drops a troll hide.
+> 
+Young says, "Fromn Shemris"
+> 
+ ** Garin has just disconnected.
+> 
+Garin disconnects.
+> 
+Young makes a toast. Cheers!
+> 
+Young drinks some shemrite ale.
+> 
+Young smiles.
+> 
+Wolfbane smiles at Young.
+> 
+Young taps some mirmach.
+> 
+Young drops some mirmach.
+> 
+Wolfbane nods.
+> 
+Young says, "the home is the hill of heros"
+> 
+Wolfbane nods to Young.
+> look
+[Crimson Band, War Room]
+This well lit area serves as the private meeting area for Crimson Band
+members. Located within the center of the room is a large circular mirmach
+table with fifteen matching chairs. Three ornately carved chairs, for the
+Guildmaster, Lorekeeper and Sergeant at Arms, are located at the northern edge
+of the round table. Assorted sofas, couches and overstuffed arm chairs are
+scattered against the walls of the war room. Enormous maple tables line the
+northern wall, to either side of the hallway entrance, and upon which are
+assorted tankards and glasses filled with a variety of beverages. Apprentice
+warriors scurry to and fro, ensuring that the containers remain full. Upon
+the southern wall, next to a door is an old oaken kiosk.  An open box addressed
+to Garin sits on the table.
+You see Threnody, Marcolan, Wolfbane (sitting), Drizzt and Young. A chair, a
+newsboard, some mirmach and a troll hide are here.
+Obvious exits: north, east, west, southwest.
+> 
+Young says, "Orlin Thinvar, Tilvaen Treegrower, Rarg Windrunner, Strom O'Berin,
+Princess Solaria, Korazon Mountainmover, Aeyria Hiehthu, Ria Sheehe and
+Vastenio Solaris"
+> 
+Young says, "live ther"
+> 
+Wolfbane says, "anything else you would like to add?"
+> 
+Wolfbane listens carefully to Young.
+> 
+Young says, "Guildmaster Bergerron was killed by Pthar's army"
+> 
+Wolfbane nods.
+> 
+Young says, "And that is all"
+> 
+Young salutes Wolfbane.
+> 
+Wolfbane nods.
+> 
+Wolfbane says, "could you please step outside for a moment"
+> 
+Wolfbane smiles at Young.
+> 
+A scout runs in, "Sorry to interupt sirs, but General Grullan is in the
+bazaar."
+> 
+Wolfbane says, "great"
+> 
+Young casts his gaze across the area.
+> 
+Marcolan salutes the scout.
+> 
+Marcolan says, "Well done."
+> 
+Wolfbane says, "we will continue this shortly"
+> 
+Young is now following Wolfbane.
+> 
+Marcolan says, "Too bad Garin was called away."
+> 
+Drizzt wields a randar reinforced wooden staff with fiery steel spikes at the
+end.
+> 
+Wolfbane says, "please excuse me i best see whats up with grullan"
+> 
+Garin arrives.
+> 
+Garin babbles a few nonsensical phrases.
+> 
+Drizzt chuckles.
+> 
+Wolfbane says, "garin grullan is said to be in bc"
+> 
+Garin asks, "Who's that?"
+> 
+Garin furrows his brow.
+> 
+Wolfbane says, "lets go pay Grullan a visit"
+> 
+Garin is now following Wolfbane.
+> 
+Marcolan is now following Wolfbane.
+> 
+Drizzt is now following Wolfbane.
+> 
+Garin says, "Oh, right."
+> 
+Young asks, "Did he not retire as General?"
+> lookfol wolfbv
+"lookfol" is not understood.
+> 
+Garin nods to Young.
+> lookfol wolfb
+"lookfol" is not understood.
+> fol wolfb
+You are now following Wolfbane.
+J> 
+Wolfbane says, "used to be general of the fayden army"
+J> 
+Wolfbane says, "resigned"
+J> 
+Wolfbane shrugs.
+J> 
+A guard pulls aside the tapestry allowing Wolfbane's group to enter the Hallway
+of Warriors.
+J> 
+You follow Wolfbane.
+[Hallway of Warriors, South]
+You see Marcolan, Wolfbane (sitting), Garin, Drizzt and Young. 
+Obvious exits: n.
+J> 
+The guards snap to attention as Wolfbane enters.
+J> 
+The glow from Garin's sword fades to a soft white light.
+J> 
+Marcolan says, "He also called you stumpy."
+J> 
+Marcolan gazes at Garin.
+J> 
+Garin blinks.
+J> 
+Garin mutters something you can't quite make out.
+J> 
+Drizzt says, "wow, he must know you well"
+J> 
+A gold badge of the Lawkeepers glows with a soft silver light.
+J> 
+Garin furrows his brow.
+J> 'He mentioned putting lead shot in your pastries
+You say, "He mentioned putting lead shot in your pastries"
+J> 
+Wolfbane struggles to his feet.
+J> 
+Marcolan nods to you.
+J> 
+Wolfbane's group goes north.
+J> 
+You follow Wolfbane.
+[Citadel, Hallway of Warriors]
+You see Marcolan, Wolfbane, Garin, Drizzt and Young. 
+Obvious exits: n, s, e.
+J> 
+The glow from Garin's sword fades to a soft white light.
+J> 
+Wolfbane's group goes east.
+J> 
+You follow Wolfbane.
+[Citadel, Great Hall]
+You see Marcolan, Wolfbane, Garin, Drizzt and Young. 
+Obvious exits: n, w.
+J> 
+Wolfbane's group goes north.
+J> 
+You follow Wolfbane.
+[Citadel of the Crimson Band, Lobby]
+You see Marcolan, Wolfbane, Garin, Drizzt and Young. 
+Obvious exits: s.
+J> 
+The guards snap to attention as Wolfbane enters.
+J> 
+Garin says, "Wow, that's not very nice."
+J> 
+Wolfbane's group climbs down a wide stairway.
+J> 
+You climb down a wide stairway.
+J> 
+You follow Wolfbane.
+[Citadel, Training & Parade Grounds]
+You see Marcolan, Wolfbane, Garin, Drizzt and Young. 
+Obvious exits: none.
+J> heads
+You shake your head.
+J> 
+The glow from Garin's sword fades to a soft white light.
+J> 
+Wolfbane says, "then take ya swimmin"
+J> 
+Wolfbane's group goes through an iron gate.
+J> 
+You follow Wolfbane.
+[Broadway]
+You see Marcolan, Wolfbane, Garin, Drizzt and Young. An iron gate is here.
+Obvious exits: e, w.
+J> nod wolfb
+You nod to Wolfbane.
+J> 
+The glow from Garin's sword fades to a soft white light.
+J> 
+Wolfbane's group goes east.
+J> 
+You follow Wolfbane.
+[Broadway]
+You see Marcolan, Wolfbane, Garin, Drizzt and Young. A ramshackle building is
+here.
+Obvious exits: e, w.
+J> 
+Wolfbane's group goes east.
+J> 
+You follow Wolfbane.
+[Broadway & Pleasant]
+You see Marcolan, Wolfbane, Garin, Drizzt and Young. Some rubble is here.
+Obvious exits: n, e, w.
+J> 
+Garin furrows his brow.
+J> 
+Wolfbane's group goes east.
+J> 
+You follow Wolfbane.
+[Broadway]
+You see Marcolan, Wolfbane, Garin, Drizzt and Young. 
+Obvious exits: e, w.
+J> 
+Wolfbane's group goes east.
+J> 
+You follow Wolfbane.
+[Broadway]
+You see Marcolan, Wolfbane, Garin, Drizzt and Young. A stone gate is here.
+Obvious exits: e, w.
+J> 
+Wolfbane's group goes east.
+J> 
+You follow Wolfbane.
+[Broadway & Church]
+You see Marcolan, Wolfbane, Garin, Drizzt and Young. 
+Obvious exits: n, e, w.
+J> 
+Wolfbane's group goes east.
+J> 
+You follow Wolfbane.
+[Broadway]
+You see Marcolan, Wolfbane, Garin, Drizzt and Young. 
+Obvious exits: e, w.
+J> 
+Wolfbane's group goes east.
+J> 
+You follow Wolfbane.
+[Broadway]
+You see Marcolan, Wolfbane, Garin, Drizzt and Young. Some rubble and a wooden
+bin are here.
+Obvious exits: w, ne.
+J> 
+Wolfbane's group goes northeast.
+J> 
+You follow Wolfbane.
+[Broadway]
+You see Marcolan, Wolfbane, Garin, Drizzt and Young. A horse-drawn carriage is
+here.
+Obvious exits: n, sw.
+J> 
+Wolfbane's group goes north.
+J> 
+You follow Wolfbane.
+[Broadway]
+You see Marcolan, Wolfbane, Garin, Drizzt and Young. An ancient building is
+here.
+Obvious exits: n, s.
+J> 
+The steady clopping of hooves precedes a carriage arriving from the south.
+J> 
+Wolfbane's group goes north.
+J> 
+You follow Wolfbane.
+[Bazaar South]
+You see Marcolan, Wolfbane, Garin, Drizzt and Young. 
+Obvious exits: n, s, e, w, ne, nw.
+J> 
+Wolfbane's group goes north.
+J> 
+You follow Wolfbane.
+[Bazaar Center]
+You see Grullan, Aban, Marcolan, Hyena, Chevin, Wolfbane, Piper, Winter, Garin,
+Drizzt, Veronica, Young, Sy, Jasmine, a trader, a lawkeeper and a merchant. A
+large marble fountain, a wooden bin and a newsboard are here.
+Obvious exits: n, s, e, w, ne, nw, se, sw.
+J> 
+Chevin says, "Oh? Is that so?"
+J> 
+Chevin gazes at Grullan.
+J> 
+Hyena nods to Chevin.
+J> 
+Young gives an old technological rifle with a black scope mounted to it to Sy.
+J> 
+Your thoughts are jarred as you sense the death of Tyldak.
+J> 
+Chevin says, "I suggest you leave town then General."
+J> 
+Winter looks deep into a ravager eye.
+J> 
+Wolfbane looks deep into a darakoth eye.
+J> 
+Hyena snickers, "nifty!"
+J> 
+Marcolan looks deep into an alligator eye.
+J> 
+Chevin says, "Before I make you leave."
+J> 
+A lawkeeper goes east.
+J> 
+Garin looks deep into a newt eye.
+J> 
+The eye crumbles.
+J> 
+Veronica looks deep into an alligator eye.
+J> 
+The eye crumbles.
+J> 
+Grullan asks, "And why is that Major?"
+J> 
+Winter looks deep into a ravager eye.
+J> 
+The eye crumbles.
+J> 
+Marcolan furrows his brow.
+J> 
+A trader arrives.
+J> 
+Piper arches her eyebrow.
+J> 
+Veronica ponders.
+J> 
+Hyena smiles at Sy.
+J> 
+Sy nods to Young.
+J> 
+A lawkeeper arrives.
+J> 
+Winter shrugs.
+J> 
+Veronica mutters something you can't quite make out.
+J> 
+Grullan asks, "You?"
+J> 
+With a steady clip clop of hooves, and a quiet jingling of harness bells, a
+charming horse-drawn carriage arrives from the south.
+J> 
+Grullan laughs at Chevin!
+J> 
+Winter incants a spell.
+J> act stands at ready.
+
+Garin salutes Chevin.
+J> Moordread stands at ready.
+J> 
+A lawkeeper goes north.
+J> 
+Winter gestures at a sharkhor eye.
+J> 
+Chevin says, "Aetheon is a wanted criminal in Fayd."
+J> 
+Chevin salutes Garin.
+J> 
+Chevin salutes Wolfbane.
+J> 
+Sy slings his rifle over his shoulder.
+J> 
+Marcolan salutes Chevin.
+J> 
+Winter incants a spell.
+J> 
+Wolfbane salutes Chevin.
+J> 
+A lawkeeper arrives.
+J> 
+A trader goes northwest.
+J> 
+Aban leans on a wooden bin.
+J> 
+As Winter gestures at a sharkhor eye, it becomes cloudy.
+J> 
+Winter incants a spell.
+J> 
+Grullan says, "Aye, that he is, but I am not."
+J> sal chev
+
+Winter gestures at a sharkhor eye.
+J> You salute Chevin.
+J> 
+With a jingle of harness bells, a regal looking horse pulls a carriage to the
+north.
+J> 
+Chevin says, "He has stolen property belonging to the crown."
+J> 
+Young salutes Chevin.
+J> 
+Grullan smiles at Chevin.
+J> 
+A lawkeeper goes north.
+J> 
+Chevin says, "That can quickly be changed."
+J> 
+A lawkeeper arrives.
+J> 
+Winter says, "he stole the crown itself"
+J> 
+A lawkeeper goes northwest.
+J> 
+A trader arrives.
+J> 
+Veronica furrows her brow.
+J> 
+Grullan says, "That is some peoples interpretation."
+J> 
+Hyena snickers, "You don't think as his Field Marshal that counts, sir?"
+J> 
+Chevin nods to Winter.
+J> 
+Aban says, "lads how bout we don't turn dis into bloodshed"
+J> 
+A lawkeeper arrives.
+J> 
+A lawkeeper goes east.
+J> 
+Veronica nods to Aban.
+J> 
+Chevin says, "I'm trying to prevent that sir."
+J> 
+A merchant goes southwest.
+J> 
+Chevin bows towards Aban.
+J> 
+Garin incants a spell.
+J> 
+As Garin gestures at a newt eye, it becomes cloudy.
+J> 
+Garin incants a spell.
+J> 
+Winter says, "Better do as told, Sir"
+J> 
+Garin gestures at a newt eye.
+J> 
+Chevin says, "Field Marshal, what do you wish done with the former General?"
+J> 
+Chevin listens carefully to Wolfbane.
+J> 
+Winter says, "You are outnumbered."
+J> 
+You have a brief yet distinct feeling that you are being watched.
+J> 
+A gold badge of the Lawkeepers glows with a soft silver light.
+J> 
+A lawkeeper arrives.
+J> 
+Grullan gazes at Wolfbane.
+J> 
+A lost kitten energetically bounds in.
+J> 
+A lawkeeper goes south.
+J> 
+A lawkeeper arrives.
+J> look grul
+A deeply tanned and weathered face surrounds eyes the color of the sky. Though
+he has seen the hardships of many a battle, his eyes retain a twinkle and his
+smile comes easy to his face.
+He is wearing a brown leather tunic with black trim along the sleeves, some
+loose-fitting black cotton breeches and some sturdy black leather boots
+decorated with a fringe of fur at the top.
+He appears to be healthy.
+J> 
+Piper rolls her eyes.
+J> 
+Wolfbane says, "well if he has broken no laws....."
+J> 
+Chevin incants a spell.
+J> 
+Chevin narrows his eyes and gazes intently about the area.
+J> 
+Winter nods to Marcolan.
+J> look chev
+You see Major Chevin Storm of the Faydian Army. His blonde hair is cropped
+short and his face is clean shaven. Deep blue eyes, aware with inner authority,
+gaze out of his finely chisled face. His left hand is missing the index finger.
+He is wearing some thick dark blue gloves of fine leather, some highly polished
+black boots with silver clasps, a dark blue leather belt with a silver buckle,
+some deep blue plate armor emblazoned on the breast with a snow-white lily
+accented with silver, a blue and silver tabard of the Royal Army emblazoned
+with a stylized snow-white lily and a dark silver signet ring emblazoned with a
+red shield.
+He appears to be healthy.
+J> 
+Piper says, "this is ridicules."
+J> 
+You have a brief yet distinct feeling that you are being watched.
+J> 
+Hyena appears to become weaker.
+J> 
+Garin nods to Wolfbane.
+J> 
+A lawkeeper goes north.
+J> look
+[Bazaar Center]
+You revel in the tumult as the center of the bazaar overwhelms your senses
+with its smell and sizzle of roast mutton, its cries of hawkers and cajoling
+merchants. Street dancers, minstrels, and half-clad jugglers amuse the
+crowds near a large marble fountain.  A large statue is almost as formidable
+a presence as the fountain.
+You see Grullan, Aban, Marcolan, Hyena, Chevin, Wolfbane, Piper, Winter, Garin,
+Drizzt, Veronica, Young, Sy, Jasmine, a lost kitten, a trader and a trader. A
+wooden bin and a newsboard are here.
+Obvious exits: north, south, east, west, northeast, northwest, southeast,
+southwest.
+J> 
+A merchant arrives.
+J> 
+Chevin says, "Hes claimed alliegance with Baron Aetheon."
+J> 
+Grullan asks, "Aye, what laws did I break?"
+J> 
+A merchant goes southwest.
+J> 
+Chevin says, "he commands his forces."
+J> 
+Garin says, "That breaks now law."
+J> 
+Garin shrugs.
+J> 
+Grullan says, "I command *my* forces Chevin."
+J> 
+Chevin gazes at Grullan.
+J> 
+Wolfbane says, "he did resign"
+J> 
+Winter says, "Hello Lord Stumpy"
+J> 
+A trader goes south.
+J> 
+Garin smiles at Winter.
+J> 
+Drizzt gazes at Garin.
+J> 
+Garin exclaims, "Hello!"
+J> 
+Grullan says, "The forces loyal to me."
+J> 
+Piper chuckles at Winter.
+J> 
+Drizzt snickers.
+J> 
+A trader arrives.
+J> 
+A priest arrives.
+J> 
+Young says, "As long as he aint comaandin em to attacj Fayd"
+J> 
+A lost kitten energetically bounds northwest.
+J> 
+Young asks, "Are you?"
+J> 
+Chevin says, "That will come as soon as the Baron beefs up his courage."
+J> 
+Garin says, "Oh, true."
+J> 
+Young raises an eyebrow towards Grullan.
+J> 
+Garin nods to Young.
+J> 
+A priest goes northwest.
+J> 
+Piper says, "all this fighting is starting to give me a headache."
+J> 
+A trader arrives.
+J> 
+Winter says, "Didn't know the Banders had another highlander"
+J> 
+Wolfbane says, "why do you visit fayd Grullan?"
+J> 
+Winter gazes at Drizzt.
+J> 'Are there laws about aiding enemies of Fayd?
+You ask, "Are there laws about aiding enemies of Fayd?"
+J> 
+Wolfbane listens carefully to Grullan.
+J> 
+Chevin says, "Then I suggest you leave miss."
+J> 
+Hyena snickers, "Field Marshal Grullan, would the Baron allow Field Marshal
+Crag free tours of his lands ?"
+J> 
+Chevin nods to you.
+J> 
+Drizzt blinks.
+J> 
+Hyena snickers, "Just for a visit or two?"
+J> 
+Piper gazes at Chevin.
+J> 
+A merchant arrives.
+J> 
+Piper asks, "who me?"
+J> 
+Drizzt says, "I've kinda been absent"
+J> 
+Chevin says, "You are the one complaining of a headache."
+J> 
+A merchant goes west.
+J> 
+Grullan asks, "Why not? It *is* still a free city no? Or did marshall law start
+until the coronation?"
+J> 
+Winter smiles.
+J> 
+A lawkeeper arrives.
+J> 
+Piper says, "Last time i checked I was still a citizen here."
+J> 
+Garin says, "Enemies, yes... but just because someone believes he deserves to
+be on the throne does not automatically mean the Queen wants his head."
+J> 
+Grullan smiles at Wolfbane.
+J> 
+Piper ponders.
+J> 
+A lawkeeper goes northwest.
+J> 
+A lawkeeper arrives.
+J> 
+Chevin says, "I meant leave the bazaar miss."
+J> 
+Wolfbane says, "you are right it is"
+J> 
+A lawkeeper goes northeast.
+J> 
+A trader goes south.
+J> 
+A trader goes northeast.
+J> 
+Garin says, "Until some overt action is taken, no law is broken."
+J> 'I thought she wanted his head for stealing property of the crown
+You say, "I thought she wanted his head for stealing property of the crown"
+J> 
+Winter says, "he hasn't done any harm since he arrived in BC"
+J> 
+Winter says, "We were just talking"
+J> 
+A trader arrives.
+J> 
+Aban nods to Winter.
+J> 
+Wolfbane nods to Winter.
+J> 
+Garin says, "If the Queen wishes to declare him outlaw, that is her right."
+J> 
+A trader arrives.
+J> 
+Grullan says, "Then why question why I am here, surely public enemy number one,
+who was just here, should be the one hunted down."
+J> 
+Wolfbane nods to Garin.
+J> 
+Marcolan says, "She wants the Baron.  No warrants or other issues have been
+placed on his associates."
+J> 
+Young nods to Garin.
+J> 
+ ** Aquanix has just disconnected.
+J> 
+A trader goes southwest.
+J> 'Ah
+You say, "Ah"
+J> nod marc
+You nod to Marcolan.
+J> 
+Sy grins.
+J> 
+Chevin clasps his hands behind his back.
+J> 
+A trader arrives.
+J> 
+Hyena shakes his head back and forth.
+J> 
+Piper nods to Hyena.
+J> 
+Grullan says, "But then, Major Chevin always did have trouble with his duties."
+J> 
+Veronica counts her money.
+J> 
+Grullan smiles at Wolfbane.
+J> 
+A merchant arrives.
+J> 
+Veronica goes west.
+J> 
+A lawkeeper arrives.
+J> 
+Chevin says, "Then the _former_ general won't mind if I tag along with you."
+J> 
+A lawkeeper goes north.
+J> 
+A lawkeeper arrives.
+J> 
+Marcolan says, "While we might not like the general of his armies in town,
+there is nothing I can do as a lawkeep."
+J> 
+A merchant goes southwest.
+J> 
+Young says, "I don't know of any reason you cant have an escrot on him at all
+times"
+J> 
+Chevin says, "I have no problem following my orders."
+J> 
+Veronica phases in.
+J> 
+A lawkeeper goes east.
+J> 
+A trader goes east.
+J> 
+Garin says, "Grullan, you seem much pettier and insulting than i recall you
+being."
+J> 
+Garin ponders.
+J> 
+A merchant arrives.
+J> 
+Grullan says, "No, only problems completing them Chevin."
+J> 
+A lawkeeper arrives.
+J> 
+Winter nods to Veronica.
+J> 
+Chevin says, "So you say."
+J> 
+Veronica gives a newt eye to Winter.
+J> 
+Veronica gives a newt eye to Winter.
+J> 
+Wolfbane says, "major he is not warranted in any way he has the same right as
+any law abiding citizren to be here"
+J> 
+Grullan smiles at Garin.
+J> 
+A lawkeeper goes north.
+J> 
+Winter incants a spell.
+J> 
+As Winter gestures at a newt eye, it becomes cloudy.
+J> 
+Winter incants a spell.
+J> 
+A lawkeeper arrives.
+J> 
+As Winter gestures at a newt eye, it becomes cloudy.
+J> 
+Winter incants a spell.
+J> 
+Winter gestures at a newt eye.
+J> 
+Winter incants a spell.
+J> 
+Winter gestures at a newt eye.
+J> 
+Aban says, "ok how bout ya both just go yer own ways befer I take ya both
+across me knee fer actin like children"
+J> 
+Winter gives a newt eye to Veronica.
+J> 
+Winter gives a newt eye to Veronica.
+J> 
+Chevin says, "Until he breaks a law, Field Marshal."
+J> 
+Wolfbane says, "as long as he follows the laws he is welcom"
+J> 
+Veronica beams at Winter.
+J> 
+Garin asks, "No law against that, but may I ask why you seem intent on picking
+a fight?"
+J> 
+Hyena ponders.
+J> 
+Grullan says, "Unfortunately Mayor, I am no longer a general."
+J> 
+Winter nods to Veronica.
+J> 
+Winter says, "You are welcome V"
+J> 
+A lawkeeper goes northeast.
+J> 
+Piper asks, "So your solution is to follow people now?"
+J> 
+Piper gazes at Chevin.
+J> 
+A merchant goes east.
+J> 
+Tobias arrives.
+J> 
+A lawkeeper arrives.
+J> 
+Tobias goes north.
+J> 
+Marcolan smiles at Aban.
+J> 
+Veronica rolls her eyes.
+J> 
+The glow from Garin's sword fades to a soft white light.
+J> 
+Winter says, "now that is the real porlbme"
+J> 
+Chevin opens a finely engraved leather harness with silver buckles.
+J> 
+Grullan gazes at Garin.
+J> 
+Winter says, "problem"
+J> 
+Chevin removes an enormous fiery randar greatsword with the symbol of Kaliban
+engraved on the cross-guard from the harness.
+J> 
+A wolf arrives.
+J> 
+Winter says, "TOBIAS"
+J> 
+Chevin wields an enormous fiery randar greatsword with the symbol of Kaliban
+engraved on the cross-guard.
+J> 
+Young incants a spell.
+J> 
+A trader goes southeast.
+J> 
+Wolfbane nods to Winter.
+J> 
+Chevin goes north.
+J> 
+Marcolan goes north.
+J> 
+Garin wields a gleaming white alzyron longsword inlaid with ancient puresilver
+runes.
+J> 
+Garin taps a randar highlander battleaxe with a notched blade attached to a
+uquart shaft wrapped in worn leather.
+J> 
+A wolf sniffs about the area.
+J> look n
+[Bazaar North]
+Burly highlanders and rugged humans brush past you going to and from a
+weather-beaten wooden building which is has been painted dark green. Above its
+wide door, a new sign hangs from two-penny nails.
+A weatherbeaten wooden building is there.
+J> 
+Jasmine incants a spell.
+J> 
+A wolf wags her tail.
+J> 
+Young gestures.
+J> 
+Grullan says, "I believe your major is the one intent on trouble here"
+J> wie 2 bro
+You wield a fiery randar broadsword with the name Moordread scratched on the
+blade.
+J> 
+Veronica narrows her eyes and gazes intently about the area.
+J> wie shie
+You wield an eldritch diamontine shield.
+ [Round: 3 sec]
+RJ> 
+A merchant arrives.
+J> 
+Young incants a spell.
+J> 
+Garin smiles.
+J> 
+A wolf sits down.
+J> 
+Garin taps a randar highlander battleaxe with a notched blade attached to a
+uquart shaft wrapped in worn leather.
+J> 
+Young narrows his eyes and gazes intently about the area.
+J> 
+Winter says, "no, Tobias Throne is"
+J> bers
+Combat strategy now berserk.
+J> 
+Young incants a spell.
+J> 
+Piper nods to Winter.
+J> 
+A merchant goes southwest.
+J> 
+Young gestures.
+J> 
+Veronica goes south.
+J> 
+A trader arrives.
+J> 
+Young incants a spell.
+J> 
+A merchant arrives.
+J> 
+Young gestures.
+J> 
+Veronica arrives.
+J> 
+A lawkeeper goes east.
+J> 
+You feel the touch of Winter's mind:
+"Tobias, I'll teach you in BC."
+J> 
+Garin wields a finely crafted albescent papenheimer etched with gold-filled
+fiery runes and set with star sapphires.
+J> 
+A lawkeeper arrives.
+J> 
+With a steady clip clop of hooves, and a quiet jingling of harness bells, a
+charming horse-drawn carriage arrives from the south.
+J> 
+A lawkeeper goes southwest.
+J> 
+A wolf gets back on all fours.
+J> 
+Garin chuckles at Winter.
+J> 
+A wolf wags her tail.
+J> who
+Threnody           Aban               Keera              Marcolan           
+Hyena              Emanon             Wolfbane           Piper              
+Winter             Genevra            Garin              Drizzt             
+Leah               Moordread          Veronica           Young              
+Sy                 Cypress            Jasmine            Elriss             
+Nord               Feras              Tobias             Tyldak             
+
+
+
+There are 24 adventurers in the Realms.
+
+J> 
+You feel the touch of Winter's mind:
+"since you are in town anyway"
+J> 
+A wolf sniffs Veronica.
+J> 
+Marcolan's group arrives.
+J> 
+A gold badge of the Lawkeepers glows with a soft silver light.
+J> 
+Marcolan ponders.
+J> 
+With a jingle of harness bells, a regal looking horse pulls a carriage to the
+north.
+J> 
+Veronica gazes at a wolf.
+J> 
+Wolfbane says, "how would you react?"
+J> 
+A trader arrives.
+J> 
+A wolf wags her tail.
+J> 
+Wolfbane listens carefully to Grullan.
+J> 
+Veronica says, "Hi, Keera."
+J> 
+You feel the touch of Tobias's mind:
+"Sorry, I am currently banished, maybe when it is lifted again I can meet you
+there"
+J> 
+Veronica beams at a wolf.
+J> 
+A wolf sloppily licks Veronica.
+J> 
+A trader goes northeast.
+J> 
+Grullan asks, "I'm sorry, how would I react to what?"
+J> 
+A lawkeeper arrives.
+J> 
+You feel the touch of Marcolan's mind:
+"Leave town Tobias."
+J> 
+Aban consults the newsboard.
+J> 
+Grullan smiles at Wolfbane.
+J> 
+Aban consults the newsboard.
+J> 
+Aban consults the newsboard.
+J> 
+A lawkeeper goes north.
+J> 
+A trader goes east.
+J> 
+You feel the touch of Winter's mind:
+"I think it's permanent."
+J> 
+You feel the touch of Veronica's mind:
+"It will never be lifted, and since you understand yuo are banished, why then
+are you in town?"
+J> 
+Aban consults the newsboard.
+J> 
+Hyena snickers, "Grullan, is there any peace to be had in this stalemate with
+the Crown and the Baron?"
+J> 
+A wolf sits down.
+J> 
+Hyena snickers, "Is there room for negotiation for a peace?"
+J> 
+Grullan says, "Undoubtably."
+J> 
+Grullan smiles at Hyena.
+J> 
+You feel the touch of Tobias's mind:
+"Nothing is permanent except Shin-Jah's grace of death"
+J> 
+A trader arrives.
+J> exp
+Level: 37
+Build Points to date: 397
+Unspent Build Points: 2
+Experience Points until next Build Point: 19296
+J> 
+You feel the touch of Marcolan's mind:
+"Your banishment is."
+J> 
+Winter asks, "so you wouldn't think if Lord Crag goes to Aetheon's keep and
+take a look around that Aetheon wouldn't mind?"
+J> 
+Wolfbane says, "well if your commanding officer resigned and his last words
+were there is someone that would pay well for my experience and then that
+person returned to town"
+J> 
+A merchant goes northeast.
+J> 
+You feel the touch of Marcolan's mind:
+"As is your lack of wit."
+J> 
+Hyena snickers, "I am no agent of the Crown, but if a go between is needed, I
+would be happy to help bring peace to this issue."
+J> 
+A merchant arrives.
+J> 
+Grullan says, "I believe Aetheon is rather tired of people traipsing thru his
+rooms, Moryan has sent enough to do so already."
+J> 
+Hyena snickers, "Backbiting will get us nowhere."
+J> 
+Wolfbane says, "how woudl you react to that"
+J> 
+Chevin chuckles at Grullan.
+J> 
+A merchant goes northwest.
+J> 
+Piper nods to Hyena.
+J> 
+Piper says, "I agree."
+J> 
+A trader goes north.
+J> 
+A priest arrives.
+J> 
+Veronica smiles at Grullan.
+J> 
+A trader arrives.
+J> 
+Winter says, "Perhaps it is best that you leave now"
+J> 
+Winter gazes at Grullan.
+J> 
+Grullan asks, "Are you looking for my professional opinion Lord Crag?"
+J> 
+A merchant arrives.
+J> 
+Winter says, "Before it's getting out of hand"
+J> 
+Grullan asks, "Why?"
+J> 
+Grullan gazes at Winter.
+J> 
+A trader arrives.
+J> 
+Piper furrows her brow.
+J> 
+Wolfbane says, "not at all just justifying my majors actions"
+J> 
+A priest goes east.
+J> 
+Winter says, "Because it seems these people are not agreeing with you"
+J> 
+Aban says, "folks what does it matter if he stands in BC, da Queen ain't said
+she wants him we don't get to just make up our own lawas as we go along ya
+know"
+J> 
+Veronica nods to Aban.
+J> 
+A merchant goes west.
+J> 
+A priest arrives.
+J> 
+Piper nods to Aban.
+J> 
+A trader goes north.
+J> 
+Young nods to Aban.
+J> 
+A wolf cocks her head to one side.
+J> 
+Grullan asks, "Ah, so the great city of Fayd would turn a man out because they
+do not agree with someone now?"
+J> 
+Young glances at his watch.
+J> 
+Marcolan smiles at Aban.
+J> 
+Grullan smiles at Winter.
+J> 
+A priest goes northwest.
+J> 
+Young gazes at a wolf.
+J> 
+Young gazes at Wolfbane.
+J> 
+Marcolan shakes his head at Grullan.
+J> 
+Garin asks, "You think Winter speaks for all of fayd?"
+J> 
+Winter says, "Ahh no, I just didn't want something bad happened because things
+start to get out of hand"
+J> 
+Marcolan says, "As a Lawkeep I cannot allow that."
+J> 
+Garin says, "you are more confused than I thoughtr."
+J> 
+Marcolan smiles at Grullan.
+J> 
+A trader goes northwest.
+J> 
+A trader arrives.
+J> 
+Garin comforts Grullan.
+J> 
+Winter grins.
+J> 
+A merchant arrives.
+J> 
+Hyena furrows his brow.
+J> 
+Winter nods to Garin.
+J> 
+Grullan says, "So it would seem Mayor, I simply am in town to enjoy the
+sights."
+J> 
+A wolf gets back on all fours.
+J> 
+A gold badge of the Lawkeepers glows with a soft silver light.
+J> 
+A trader arrives.
+J> 
+Garin says, "I'm not mayor."
+J> 
+Winter laughs.
+J> 
+Hyena chuckles.
+J> 
+A wolf sloppily licks Veronica.
+J> 
+Winter says, "He is Lord Garin"
+J> 
+Veronica concentrates intently.
+Veronica phases out of view.
+J> 
+A wolf wags her tail.
+J> 
+A wolf barks!
+J> 
+Sy blinks at Garin.
+J> 
+A wolf goes west.
+J> 
+A merchant goes north.
+J> 
+Garin says, "I'm just Garin."
+J> 
+Grullan asks, "Pity, did Moryan find someone to move ahead of you too?"
+J> 
+Grullan smiles at Garin.
+J> 
+Veronica phases in.
+J> 
+Winter says, "Lord too"
+J> 
+Drizzt says, "or Stumpie"
+J> 
+Garin chuckles at Grullan.
+J> 
+An urchin arrives.
+J> 
+Winter nods to Drizzt.
+J> 
+Sy says, "You mean all those donut contributions were.."
+J> 
+A merchant arrives.
+J> 
+Marcolan disbands his group.
+J> 
+Marcolan goes northeast.
+J> 
+Garin says, "If she had, I wouldn't be whining about it."
+J> 
+Garin smiles at Grullan.
+J> 
+Grullan says, "Lord Garin."
+J> 
+An urchin goes south.
+J> 
+Grullan smiles at Garin.
+J> 
+A merchant goes west.
+J> 
+Grullan bows towards Garin.
+J> 
+Fluffy clouds move into the sky.
+J> 
+Grullan asks, "Lord of??"
+J> 
+You have a brief yet distinct feeling that you are being watched.
+J> 
+An urchin arrives.
+J> 
+A trader goes southeast.
+J> 
+Chevin casts his gaze across the area.
+J> 
+Chevin puts away an enormous fiery randar greatsword with the symbol of Kaliban
+engraved on the cross-guard.
+J> 
+A lost kitten energetically bounds in.
+J> look e
+look ne
+look se
+[Bazaar East]
+Here at the eastern edge of the bazaar, street merchants of wares both mundane
+and fantastic set up their booths daily to catch your eye. From The Sojourner's
+Hospice, a run-down yet cozy inn on the corner, comes singing and the smell of
+spiced wine. A door with a holly wreath in its center leads in.
+You see an urchin. A comfortable building that houses the Sojourner's Hospice
+is there.
+J> [Bazaar Northeast]
+Normally this is the drabbest corner of the whole bazaar. A stone building,
+entirely colorless, displays only the words "TARINTH'S ETERNITY, INC." engraved
+above the single door leading in. Work crews walk in and out of this area;
+their efforts focus on the apparent development of a new street to the north.
+A colorless building is there.
+J> [Bazaar Southeast]
+Once this corner of the bazaar held only stray animals and empty stalls. Now
+piles of wood and brick dwindle as workers hasten to construct new buildings
+and patch the street before bad weather sets in. A newly painted arch with a
+bronze plaque leads into a courtyard.
+You see a trader. A large wooden building is there.
+J> 
+Chevin incants a spell.
+J> 
+Garin says, "Oh, just of my garden."
+J> 
+Chevin narrows his eyes and gazes intently about the area.
+J> 
+Hyena chuckles.
+J> 
+Veronica chuckles.
+J> 
+Grullan chuckles.
+J> 
+Winter says, "donut garden"
+J> look e
+look ne
+look se
+[Bazaar East]
+Here at the eastern edge of the bazaar, street merchants of wares both mundane
+and fantastic set up their booths daily to catch your eye. From The Sojourner's
+Hospice, a run-down yet cozy inn on the corner, comes singing and the smell of
+spiced wine. A door with a holly wreath in its center leads in.
+You see a trader. A comfortable building that houses the Sojourner's Hospice is
+there.
+J> [Bazaar Northeast]
+Normally this is the drabbest corner of the whole bazaar. A stone building,
+entirely colorless, displays only the words "TARINTH'S ETERNITY, INC." engraved
+above the single door leading in. Work crews walk in and out of this area;
+their efforts focus on the apparent development of a new street to the north.
+You see an urchin. A colorless building is there.
+J> [Bazaar Southeast]
+Once this corner of the bazaar held only stray animals and empty stalls. Now
+piles of wood and brick dwindle as workers hasten to construct new buildings
+and patch the street before bad weather sets in. A newly painted arch with a
+bronze plaque leads into a courtyard.
+A large wooden building is there.
+J> 
+Winter nods to Garin.
+J> 
+An urchin goes northwest.
+J> 
+A trader arrives.
+J> 
+Drizzt nods to Winter.
+J> 
+Garin says, "And I'm not sure taylor even believes that."
+J> look e
+look ne
+look se
+[Bazaar East]
+Here at the eastern edge of the bazaar, street merchants of wares both mundane
+and fantastic set up their booths daily to catch your eye. From The Sojourner's
+Hospice, a run-down yet cozy inn on the corner, comes singing and the smell of
+spiced wine. A door with a holly wreath in its center leads in.
+A comfortable building that houses the Sojourner's Hospice is there.
+J> [Bazaar Northeast]
+Normally this is the drabbest corner of the whole bazaar. A stone building,
+entirely colorless, displays only the words "TARINTH'S ETERNITY, INC." engraved
+above the single door leading in. Work crews walk in and out of this area;
+their efforts focus on the apparent development of a new street to the north.
+A colorless building is there.
+J> [Bazaar Southeast]
+Once this corner of the bazaar held only stray animals and empty stalls. Now
+piles of wood and brick dwindle as workers hasten to construct new buildings
+and patch the street before bad weather sets in. A newly painted arch with a
+bronze plaque leads into a courtyard.
+A large wooden building is there.
+J> 
+Chevin incants a spell.
+J> 
+A trader goes north.
+J> 
+Chevin narrows his eyes and gazes intently about the area.
+J> 
+ ** Tobias has just left the Realms.
+J> 
+A trader goes east.
+J> who
+Threnody           Aban               Keera              Marcolan           
+Hyena              Emanon             Wolfbane           Piper              
+Winter             Genevra            Garin              Drizzt             
+Leah               Moordread          Veronica           Young              
+Sy                 Cypress            Jasmine            Elriss             
+Nord               Feras              Tyldak             
+
+
+There are 23 adventurers in the Realms.
+
+J> 
+Garin says, "But then, I've always placed more emphasis on doing my duty than
+on titles."
+J> 
+A lost kitten energetically bounds north.
+J> 
+Grullan asks, "So tell me, have all the guilds procalaimed their loyalty to the
+new crown?"
+J> 
+A lost kitten energetically bounds in.
+J> 
+A trader goes north.
+J> 
+A merchant arrives.
+J> 
+Garin says, "Nearly all, yes."
+J> 
+Piper sighs.
+J> 
+A merchant goes east.
+J> 
+Garin says, "Not sure about the technologists."
+J> 
+A lost kitten energetically bounds west.
+J> 
+A trader arrives.
+J> 
+Aban shakes his head at Garin.
+J> 
+Sy says, "Last I heard, no"
+J> 
+Aban says, "dey havn't"
+J> 
+Veronica shakes her head back and forth.
+J> 
+Grullan arches his eyebrow.
+J> 
+A trader arrives.
+J> 
+Veronica says, "No, they haven't."
+J> 
+Wolfbane says, "they did but retracted"
+J> 
+A trader goes north.
+J> 
+Marcolan arrives.
+J> 
+Winter says, "Alpe did"
+J> 
+Winter says, "The guild didn't meet before"
+J> 
+Marcolan is now following Wolfbane.
+J> 
+Drizzt consults the newsboard.
+J> 
+You have been awarded 100000 experience points.
+J> 
+Winter nods to Wolfbane.
+J> exp
+Level: 38
+Build Points to date: 401
+Unspent Build Points: 6
+Experience Points until next Build Point: 10496
+J> 
+A trader arrives.
+J> exp
+Level: 38
+Build Points to date: 401
+Unspent Build Points: 6
+Experience Points until next Build Point: 10496
+J> exp
+Level: 38
+Build Points to date: 401
+Unspent Build Points: 6
+Experience Points until next Build Point: 10496
+J> 
+A trader goes west.
+J> 
+Grullan casts his gaze across the area.
+J> fat
+Mana: 41/41
+Psi: 66/74
+Fatigue: 213/213
+J> 
+Grullan smiles.
+J> 
+Hyena furrows his brow.
+J> 
+A trader arrives.
+J> 
+A gold badge of the Lawkeepers glows with a soft silver light.
+J> 
+With a steady clip clop of hooves, and a quiet jingling of harness bells, a
+charming horse-drawn carriage arrives from the south.
+J> 
+A lost mutt wanders in.
+J> 
+A trader goes northeast.
+J> 
+Aban says, "dere now, everyone is calmer, much better"
+J> 
+With a jingle of harness bells, a regal looking horse pulls a carriage to the
+north.
+J> 
+Grullan asks, "And the PQ, the work there continues?"
+J> 
+Chevin gazes at Grullan.
+J> 
+A trader arrives.
+J> 
+You feel the touch of Shankara's mind:
+"Greetings..."
+J> 
+Winter nods to Grullan.
+J> 
+Garin says, "Of course."
+J> 
+Piper nods to Aban.
+J> 
+A lost mutt busily sniffs the ground.
+J> 
+ ** Threnody has just left the Realms.
+J> 
+ ** Veronica has just disconnected.
+J> 
+Veronica disconnects.
+J> 
+You feel the touch of Sy's mind:
+"Heya Shankara"
+J> 
+Garin says, "Lots of work to do."
+J> 
+Garin sighs.
+J> 
+Wolfbane says, "so grullan how does aetheon fare these  days?"
+J> 
+A lost mutt wanders southeast.
+J> 
+something suddenly appears!
+J> 
+Grullan smiles at Wolfbane.
+J> 
+You feel the touch of Young's mind:
+"Howdy Shankara"
+J> 
+A lost mutt wanders in.
+J> 
+Chevin incants a spell.
+J> 
+Chevin narrows his eyes and gazes intently about the area.
+J> 
+You feel the touch of Leah's mind:
+"Greetings, Shankara"
+J> 
+The air before you shimmers and congeals into Shankara!
+J> 
+Shankara removes a hood from his head, the warm gold glow from his eyes fading
+as the light touches his face.
+J> 
+A silver badge engraved with a small crown on it glows with a soft silver
+light.
+J> 
+Aban says, "ya know it is bad times when I'm tryin to play peacemaker"
+J> 
+You feel the touch of Piper's mind:
+"Hello Shankara."
+J> 
+Aban shakes his head back and forth.
+J> 
+Garin smiles at Shankara.
+J> 
+A trader goes north.
+J> 
+Young smiles at Shankara.
+J> 
+Chevin chuckles at Aban.
+J> 
+Shankara bows.
+J> 
+Shankara becomes more ethereal.
+J> 
+A commoner arrives.
+J> 
+Piper smiles at Aban.
+J> 
+Shankara says, "Greetings..."
+J> 
+Grullan says, "Very well actually Lord Crag."
+J> 
+Sy waves to Shankara.
+J> 
+A trader goes southwest.
+J> 
+Winter says, "Hello Shankara"
+J> 
+Wolfbane nods to Grullan.
+J> 
+A lost mutt wanders east.
+J> 
+Garin says, "That wacky Aetheon."
+J> 
+Piper smiles at Shankara.
+J> 
+A lawkeeper arrives.
+J> 
+A trader arrives.
+J> 
+Sy says, "Lost his head didnt he"
+J> 
+Winter ponders.
+J> 
+Sy nods to Garin.
+J> 
+A lawkeeper goes south.
+J> 
+Grullan chuckles at Sy.
+J> 
+Piper arches her eyebrow.
+J> 
+Aban asks, "so Grullan will ya ask Aetheon if he will meet wit me so I can hear
+his side of da stortory?"
+J> 
+Garin says, "he has very quick hands... makes you wonder what his original
+profession was."
+J> 
+Garin furrows his brow.
+J> 
+A commoner goes south.
+J> 
+Grullan smiles at Aban.
+J> 
+Wolfbane says, "garin please there is no reason to berate him here"
+J> 
+Shankara furrows his brow.
+J> 
+A trader arrives.
+J> 
+A lawkeeper arrives.
+J> 
+A trader goes southwest.
+J> 
+Shankara asks, "what did Aetheon do now?"
+J> 
+Grullan asks, "Of course Lord Dug, when would be a good time for you?"
+J> 
+Shankara sighs.
+J> 
+Marcolan says, "I hopw his quarters are better, his keeps seemed rather run
+down when I was there last."
+J> 
+A lawkeeper goes north.
+J> 
+A lost mutt wanders in.
+J> 
+A commoner arrives.
+J> 
+A trader arrives.
+J> 
+A lawkeeper arrives.
+J> 
+Aban says, "whenever he can fit me in, da wife is away so me schedule is pretty
+open"
+J> 
+A lawkeeper goes north.
+J> 
+Grullan nods to Aban.
+J> 
+Piper says, "You know I wouldn't mind talking to him either."
+J> 
+A trader goes west.
+J> 
+Wolfbane says, "so i take it you work for aetheon now?"
+J> 
+A lost mutt wanders southwest.
+J> 
+Winter chuckles at Wolfbane.
+J> 
+Wolfbane listens carefully to Grullan.
+J> 
+A trader goes southeast.
+J> 
+Wolfbane says, "well i missed a lottle here and there"
+J> 
+Winter nods to Sy.
+J> 
+Grullan says, "As always Lord Dug, you speak before taking sides, or action."
+J> 
+Wolfbane shrugs.
+J> 
+Piper smiles at Grullan.
+J> 
+Grullan smiles at Piper.
+J> 
+Grullan asks, "And you represent who?"
+J> 
+Winter says, "he is the Field marshal of Aetheon"
+J> 
+Winter nods to Wolfbane.
+J> 
+Piper says, "Myself."
+J> 
+Wolfbane says, "ah"
+J> 
+Piper grins.
+J> 
+Wolfbane nods to Winter.
+J> 
+Grullan chuckles at Piper.
+J> 
+A lost mutt wanders in.
+J> 
+An urchin arrives.
+J> 
+A trader arrives.
+J> 
+A lost mutt wanders southeast.
+J> 
+The glowing outline of armor fades from around Young.
+J> 
+Garin says, "Grullan, if you are going to attack us or something, could you let
+us know?  I'll need to get my boots polished."
+J> 
+Grullan says, "I command my own forces Lord Crag, those loyal to me who came
+with me."
+J> 
+A lost mutt wanders in.
+J> 
+Wolfbane says, "well i am glad you find work befitting your stature Grullan"
+J> 
+Grullan smiles at Wolfbane.
+J> 
+Hyena snickers, "MY offer still stands, Grullan, as much as that means."
+J> 
+Chevin says, "A shame for them."
+J> 
+An urchin goes northeast.
+J> 
+Young incants a spell.
+J> 
+Grullan gazes at Garin.
+J> 
+Young gestures.
+The glowing outline of armor appears around Young.
+J> 
+Garin gazes at some deeplander boots bearing intricate silver clasps formed
+into the shapes of flying eagles.
+J> 
+Hyena smiles at Garin.
+J> 
+Garin stamps the dust from his boots.
+J> 
+An urchin arrives.
+J> 
+A commoner goes southwest.
+J> 
+A trader goes west.
+J> 
+Winter exclaims, "You got donut jelly on them!"
+J> 
+Grullan says, "A pity in matters of state, you have no respect."
+J> 
+Winter gazes at Garin.
+J> 
+A trader arrives.
+J> 
+Jasmine goes south.
+J> 
+Garin says, "True, true."
+J> 
+Garin nods to Grullan.
+J> 
+Grullan says, "I had thought much better of you."
+J> 
+Grullan smiles at Garin.
+J> 
+An urchin goes north.
+J> 
+A commoner arrives.
+J> 
+Garin says, "I am known for it."
+J> 
+A lost mutt busily sniffs the ground.
+J> 
+Wolfbane says, "i just hope you have the good sence not to do rash things"
+J> 
+Garin asks, "You did?"
+J> 
+Garin furrows his brow.
+J> 
+Wolfbane smiles at Grullan.
+J> 
+Chevin says, "Some had thought the same of you."
+J> 
+Chevin gazes at Grullan.
+J> 
+An urchin arrives.
+J> 
+Garin says, "You must be the first."
+J> 
+Garin ponders.
+J> 
+Grullan chuckles at Chevin.
+J> 
+Winter says, "Come guys."
+J> 
+A trader goes south.
+J> 
+Winter says, "He didn't break any law"
+J> 
+A commoner runs by.
+J> 
+Hyena places a green hat with a wide brim, that covers the face in a cloak of
+mysterious shadows onto his head.
+J> 
+Garin smiles at Winter.
+J> 
+Winter says, "if he leaves now he can always come back when you aren't here"
+J> 
+A commoner goes north.
+J> 
+Garin says, "Indeed he has not."
+J> 
+A lost mutt wags its tail.
+J> 
+A trader arrives.
+J> 
+Grullan says, "I wish I could tell you what the men think of you Chevin,
+unfortunately, we are in mixed company."
+J> 
+An urchin goes east.
+J> 
+Grullan smiles at Chevin.
+J> 
+Marcolan says, "Winter, they can spar words all they want, as long as no law is
+broken."
+J> 
+A trader returns to normal.
+J> 
+Marcolan smiles at Winter.
+J> 
+Chevin smirks at Grullan.
+J> 
+A trader flees north.
+J> 
+Hyena bows.
+J> 
+Garin says, "And we are merely engaging in casual good-natured banter."
+J> 
+Hyena pushes a green hat with a wide brim, that covers the face in a cloak of
+mysterious shadows.
+J> 
+Hyena tips his hat politely.
+J> 
+Winter nods to Marcolan.
+J> 
+A trader arrives.
+J> 
+ ** Jasmine has just left the Realms.
+J> 
+Chevin says, "so you say."
+J> 
+A commoner arrives.
+J> 
+Winter says, "but some people are stubborn"
+J> 
+Wolfbane smiles at Garin.
+J> 
+Sy chuckles.
+J> 
+A trader flees northeast.
+J> 
+Piper smiles at Hyena.
+J> 
+A trader arrives.
+J> 
+A trader arrives.
+J> 
+Veronica arrives.
+J> 
+Chevin says, "I know my worth, and I don't have to sell it to the highest
+bidder."
+J> look e
+look ne
+look se
+[Bazaar East]
+Here at the eastern edge of the bazaar, street merchants of wares both mundane
+and fantastic set up their booths daily to catch your eye. From The Sojourner's
+Hospice, a run-down yet cozy inn on the corner, comes singing and the smell of
+spiced wine. A door with a holly wreath in its center leads in.
+You see a merchant. A comfortable building that houses the Sojourner's Hospice
+is there.
+J> [Bazaar Northeast]
+Normally this is the drabbest corner of the whole bazaar. A stone building,
+entirely colorless, displays only the words "TARINTH'S ETERNITY, INC." engraved
+above the single door leading in. Work crews walk in and out of this area;
+their efforts focus on the apparent development of a new street to the north.
+You see a crimson-band guard and a trader. A colorless building is there.
+J> [Bazaar Southeast]
+Once this corner of the bazaar held only stray animals and empty stalls. Now
+piles of wood and brick dwindle as workers hasten to construct new buildings
+and patch the street before bad weather sets in. A newly painted arch with a
+bronze plaque leads into a courtyard.
+A large wooden building is there.
+J> 
+Hyena sighs.
+J> 
+Veronica looks less confident.
+J> 
+Hyena goes west.
+J> 
+Grullan chuckles at Chevin.
+J> 
+Marcolan says, "Some people are short too, but that doesn't mean much."
+J> 
+Marcolan smiles at Winter.
+J> look w
+[Bazaar West]
+The Armorer's Guild buys a surprising variety of old and damaged weapons from
+local adventurers and melts them down to make the new weaponry and armor on
+display. Would be owners may examine the manuscript on the table to see what
+new equipment can be afforded. Main Street continues west behind the stalls.
+A table is there.
+J> 
+A trader goes north.
+J> look nw
+[Bazaar Northwest]
+Grand Avenue, leaving behind its suburban lawns, winds into the bazaar from
+the north, fetching you up by the dome-shaped structure owned by CyberTech,
+Ltd. In their labor to recover those arts known to humankind before the
+Cataclysm, experts craft technological implants to improve or replace natural
+parts of the anatomy for those who can afford them. A glass enclosed opening
+allows entry to the building.
+A large domed structure is there.
+J> 
+Garin nods to Marcolan.
+J> 
+Winter grins.
+J> look sw
+[Bazaar Southwest]
+The last of the season's foreign merchants from desert-city of Shamradur and
+the isles of the Inner Sea have arrived to trade exotic goods in this corner of
+the bazaar. The scent of unfamiliar spices warms the cooling air. The strange
+silks hanging in the crowded stalls will become a rare luxury in winter.
+Various signs indicate the goods available.
+J> look w
+[Bazaar West]
+The Armorer's Guild buys a surprising variety of old and damaged weapons from
+local adventurers and melts them down to make the new weaponry and armor on
+display. Would be owners may examine the manuscript on the table to see what
+new equipment can be afforded. Main Street continues west behind the stalls.
+A table is there.
+J> 
+Garin grunts.
+J> 
+A trader arrives.
+J> look n
+[Bazaar North]
+Burly highlanders and rugged humans brush past you going to and from a
+weather-beaten wooden building which is has been painted dark green. Above its
+wide door, a new sign hangs from two-penny nails.
+You see a trader. A weatherbeaten wooden building is there.
+J> 
+Winter says, "You know I wonder if I can silence them all"
+J> 
+A trader arrives.
+J> 
+A commoner goes southeast.
+J> 
+A trader goes north.
+J> 
+Piper says, "Hey watch it I'm short."
+J> 
+Grullan says, "Chevin, you always did speak before you knew any facts."
+J> 
+Piper grins.
+J> 
+A trader flees west.
+J> 
+Winter says, "but then the swords would be singing"
+J> 
+Chevin says, "Forgive me ladies."
+J> 
+A commoner arrives.
+J> 
+A lost mutt busily sniffs the ground.
+J> 
+Chevin bows.
+J> 
+A lost kitten energetically bounds in.
+J> 
+Garin puts away a finely crafted albescent papenheimer etched with gold-filled
+fiery runes and set with star sapphires.
+J> 
+Garin puts away a gleaming white alzyron longsword inlaid with ancient
+puresilver runes.
+J> 
+A large cart loaded with barrels lumbers by.
+J> 
+A lost mutt wanders northeast.
+J> 
+Garin incants a spell.
+J> 
+Garin gestures.
+A raven flies into the room as if out of nowhere and lands on Garin's shoulder.
+J> 
+A lost kitten energetically bounds northwest.
+J> 
+Marcolan says, "Just stand next to Garin or Aban then."
+J> 
+Winter shines and polishes her meep's gears.
+J> 
+You feel the touch of Hyena's mind:
+"Have a good morning friends!"
+J> 
+Marcolan winks at Piper.
+J> 
+An urchin arrives.
+J> 
+Grullan says, "well, enough of this, a pity a citizen of this city can't wander
+the streets without being berated by the militia."
+J> 
+Garin says, "Excuse me a moment."
+J> 
+Garin incants a spell.
+J> 
+Garin gestures.
+Garin gradually fades from view.
+J> 
+Piper chuckles at Marcolan.
+J> 
+Aban says, "look on da bright side winter its helpin me realize I shouldn't
+take either side and instead work towards finding a pea eful resolution da
+unites fayd"
+J> 
+You feel the touch of Cypress's mind:
+"you too!"
+J> 
+You feel the touch of Young's mind:
+"See ya Hyena"
+J> 
+Chevin says, "You are hardly an ordinary citizen."
+J> 
+You feel the touch of Hyena's mind:
+"<beam>"
+J> 
+You feel the touch of Genevra's mind:
+"Bye bye!"
+J> 
+A commoner goes southeast.
+J> 
+Winter raises an eyebrow towards Aban.
+J> 
+You feel the touch of Feras's mind:
+"Burnt out?"
+J> 
+Grullan says, "Lord Dug, I will see to it the Baron gets your message."
+J> 
+Shankara sighs.
+J> 
+Grullan bows towards Aban.
+J> 
+Aban nods to Grullan.
+J> 
+You feel the touch of Hyena's mind:
+"I need a noon nap"
+J> 
+Aban says, "thank ya"
+J> 
+You feel the touch of Sy's mind:
+"Seeya Hyena"
+J> 
+Aban bows towards Grullan.
+J> 
+With a sharp salute, Major Storm takes his leave.
+J> 
+A trader goes south.
+J> 
+A commoner arrives.
+J> 
+Grullan chuckles.
+J> 
+Marcolan says, "Be well Grullan."
+J> 
+You feel the touch of Hyena's mind:
+"Later gators"
+J> 
+Winter says, "Good Luck to you Lord Dug"
+J> 
+ ** Hyena has just left the Realms.
+J> 
+An urchin goes south.
+J> 
+A commoner goes north.
+J> 
+With a steady clip clop of hooves, and a quiet jingling of harness bells, a
+charming horse-drawn carriage arrives from the south.
+J> 
+A trader arrives.
+J> 
+A trader arrives.
+J> 
+Aban says, "last ting we need is another war"
+J> 
+A trader flees northwest.
+J> 
+Winter nods to Aban.
+J> 
+Grullan smiles at Aban.
+J> 
+Piper nods to Aban.
+J> 
+With a jingle of harness bells, a regal looking horse pulls a carriage to the
+north.
+J> 
+Grullan says, "Or the wrong heir on the throne."
+J> 
+A trader arrives.
+J> 
+Wolfbane says, "heed those words wisely Grullan"
+J> 
+Wolfbane smiles at Grullan.
+J> 
+Grullan gazes at Wolfbane.
+J> 
+Winter says, "I get the worst part of war, rezzing the dead"
+J> 
+Winter mutters something you can't quite make out.
+J> 
+A trader flees north.
+J> 
+Veronica sighs.
+J> 
+Piper comforts Winter.
+J> 
+Grullan says, "You too Lord Crag."
+J> 
+With a quick glance around, Grullan strides away.
+J> 
+Piper narrows her eyes and gazes intently about the area.
+J> sigh
+You sigh.
+J> 
+Shankara closes his eyes.
+J> 
+Marcolan ponders.
+J> 
+Wolfbane says, "please excuse us"
+J> 
+Wolfbane's group goes west.
+J> 
+You follow Wolfbane.
+[Bazaar West]
+You see Marcolan, Wolfbane, Drizzt, Young, a trader and a commoner. A table is
+here.
+Obvious exits: n, s, e, w, ne, se.
+J> 
+Marcolan is now following Wolfbane.
+J> 
+Wolfbane's group goes west.
+J> 
+You follow Wolfbane.
+[Main Street]
+You see Marcolan, Wolfbane, Drizzt and Young. 
+Obvious exits: e, w.
+J> 
+Wolfbane's group goes west.
+J> 
+You follow Wolfbane.
+[Main Street]
+You see Marcolan, Wolfbane, Drizzt and Young. 
+Obvious exits: e, w.
+J> 
+Wolfbane's group goes west.
+J> 
+You follow Wolfbane.
+[Main Street]
+You see Marcolan, Wolfbane, Drizzt and Young. A huge stone building and a small
+building are here.
+Obvious exits: e, w.
+J> 
+Wolfbane's group goes west.
+J> 
+You follow Wolfbane.
+[Main Street & Elm]
+You see Marcolan, Wolfbane, Drizzt and Young. 
+Obvious exits: n, e, w.
+J> 'Pretty full of himself
+You say, "Pretty full of himself"
+J> 
+Wolfbane's group goes west.
+J> 
+You follow Wolfbane.
+[Kai's Corner]
+You see Marcolan, Wolfbane, Drizzt and Young. A simple gray townhouse and a
+building are here.
+Obvious exits: s, e, w, sw.
+J> 
+Wolfbane's group goes south.
+J> 
+You follow Wolfbane.
+[Pleasant Street]
+You see Marcolan, Wolfbane, Drizzt and Young. A reinforced steel structure is
+here.
+Obvious exits: n, s.
+J> 
+Wolfbane's group goes south.
+J> 
+You follow Wolfbane.
+[Pleasant Street]
+You see Marcolan, Wolfbane, Drizzt and Young. 
+Obvious exits: n, s.
+J> 
+Wolfbane's group goes south.
+J> 
+You follow Wolfbane.
+[Pleasant Street]
+You see Marcolan, Wolfbane, Drizzt and Young. 
+Obvious exits: n, s.
+J> 
+Wolfbane's group goes south.
+J> 
+You follow Wolfbane.
+[Pleasant Street]
+You see Marcolan, Wolfbane, Drizzt and Young. A granite house with a
+porticullis over its front door is here.
+Obvious exits: n, s.
+J> 
+Wolfbane's group goes south.
+J> 
+You follow Wolfbane.
+[Broadway & Pleasant]
+You see Marcolan, Wolfbane, Drizzt and Young. Some rubble is here.
+Obvious exits: n, e, w.
+J> 
+Wolfbane's group goes west.
+J> 
+You follow Wolfbane.
+[Broadway]
+You see Marcolan, Wolfbane, Drizzt and Young. A ramshackle building is here.
+Obvious exits: e, w.
+J> 
+Wolfbane's group goes west.
+J> 
+You follow Wolfbane.
+[Broadway]
+You see Marcolan, Wolfbane, Drizzt and Young. An iron gate is here.
+Obvious exits: e, w.
+J> 
+Wolfbane's group goes through an iron gate.
+J> 
+You follow Wolfbane.
+[Citadel, Training & Parade Grounds]
+You see Marcolan, Wolfbane, Drizzt and Young. 
+Obvious exits: none.
+J> 
+Drizzt says, "or something"
+J> 
+Drizzt winks.
+J> 
+Wolfbane's group climbs up a wide stairway.
+J> 
+You climb up a wide stairway.
+J> 
+You follow Wolfbane.
+[Citadel of the Crimson Band, Lobby]
+You see Marcolan, Wolfbane, Drizzt and Young. 
+Obvious exits: s.
+J> 
+The guards snap to attention as Wolfbane enters.
+J> 
+Wolfbane's group goes south.
+J> 
+You follow Wolfbane.
+[Citadel, Great Hall]
+You see Marcolan, Wolfbane, Drizzt and Young. 
+Obvious exits: n, w.
+J> 
+Wolfbane's group goes west.
+J> 
+You follow Wolfbane.
+[Citadel, Hallway of Warriors]
+You see Marcolan, Wolfbane, Drizzt and Young. 
+Obvious exits: n, s, e.
+J> 
+Wolfbane's group goes south.
+J> 
+You follow Wolfbane.
+[Hallway of Warriors, South]
+You see Marcolan, Wolfbane, Drizzt and Young. 
+Obvious exits: n.
+J> 
+The guards snap to attention as Wolfbane enters.
+J> nod driz
+You nod to Drizzt.
+J> 
+A guard holds aside the tapestry and allows Wolfbane to pass through to the
+room beyond.
+J> 
+A guard holds aside the tapestry and allows Drizzt to pass through to the room
+beyond.
+> go tap
+A guard holds aside the tapestry and admits you to the War Room.
+[Crimson Band, War Room]
+You see Wolfbane and Drizzt. A chair, a newsboard, some mirmach and a troll
+hide are here.
+Obvious exits: n, e, w, sw.
+> 
+The guards snap to attention as Marcolan's group is admited to the War Room.
+> 
+A gold badge of the Lawkeepers glows with a soft silver light.
+> 'something is more likely
+You say, "something is more likely"
+> 
+Marcolan disbands his group.
+> 
+Drizzt grins.
+> 
+Marcolan stands at attention.
+> 
+Young consults the newsboard.
+> 
+Young consults the newsboard.
+> 
+Young consults the newsboard.
+> 
+Young consults the newsboard.
+> 
+Wolfbane says, "ok how ya feel young did?"
+> 
+Young consults the newsboard.
+> 
+You feel the touch of Marcolan's mind:
+"Garin?"
+> 
+Young consults the newsboard.
+> who
+
+You feel the touch of Garin's mind:
+"Aye?"
+> Aban               Keera              Marcolan           Emanon             
+Wolfbane           Piper              Winter             Genevra            
+Garin              Drizzt             Leah               Moordread          
+Young              Shankara           Veronica           Sy                 
+Cypress            Elriss             Nord               Feras              
+Tyldak             
+
+
+There are 21 adventurers in the Realms.
+
+> 
+Wolfbane says, "well i guess we cant discuss him with him here huh"
+> 
+Wolfbane leans on Young.
+> 
+Young stands at attention.
+> 
+You feel the touch of Marcolan's mind:
+"Can I contact you a moment?"
+> 
+Drizzt chuckles.
+> 'We could
+You say, "We could"
+> 
+Wolfbane smiles at you.
+> 
+The guards snap to attention as Garin is admited to the War Room.
+> 
+Wolfbane says, "you please wait in the hall for a moment"
+> 
+Marcolan says, "I brought him in, my apologies."
+> 
+Marcolan takes Young by the hand.
+> 
+Wolfbane smiles at Young.
+> 
+A guard pulls aside the tapestry allowing Marcolan's group to enter the Hallway
+of Warriors.
+> 
+A silver badge engraved with a small crown on it glows with a soft silver
+light.
+> 
+The guards snap to attention as Marcolan is admited to the War Room.
+> 
+Wolfbane casts his gaze across the area.
+> 
+Wolfbane nods.
+> 
+Marcolan stands at attention.
+> 
+Wolfbane says, "ok how ya think he did?"
+> 
+Wolfbane listens to his surroundings closely.
+> pond
+You ponder for a moment.
+> look
+[Crimson Band, War Room]
+This well lit area serves as the private meeting area for Crimson Band
+members. Located within the center of the room is a large circular mirmach
+table with fifteen matching chairs. Three ornately carved chairs, for the
+Guildmaster, Lorekeeper and Sergeant at Arms, are located at the northern edge
+of the round table. Assorted sofas, couches and overstuffed arm chairs are
+scattered against the walls of the war room. Enormous maple tables line the
+northern wall, to either side of the hallway entrance, and upon which are
+assorted tankards and glasses filled with a variety of beverages. Apprentice
+warriors scurry to and fro, ensuring that the containers remain full. Upon
+the southern wall, next to a door is an old oaken kiosk.  An open box addressed
+to Garin sits on the table.
+You see Marcolan, Wolfbane, Garin and Drizzt. A chair, a newsboard, some
+mirmach and a troll hide are here.
+Obvious exits: north, east, west, southwest.
+> gaze
+You gaze about the area.
+> 
+Wolfbane says, "well for one the thing we hold most dear is our honer is it
+not?"
+> 
+Garin says, "Remember to give all of your cards to Garin."
+> 
+Wolfbane tickles Garin.
+> 
+Marcolan says, "He did well alone, I do know working as a group is slower and
+harder.  But I have seen him fight in a group often and he works well with
+others."
+> 
+Garin grins.
+> 
+Garin coughs.
+> 
+Wolfbane nods to Marcolan.
+> 
+Marcolan opens a large crimson suede satchel clasped with a fierce golden
+eagles-head clasp with glaring ruby eyes.
+> 
+Marcolan furrows his brow.
+> 
+Wolfbane says, "he has fought well by my side many times"
+> 
+Garin gazes into the distance.
+Garin says, "I command you to begone!"
+> 
+Marcolan says, "Sorry, my Garin card is in storage."
+> 
+Marcolan closes a large crimson suede satchel clasped with a fierce golden
+eagles-head clasp with glaring ruby eyes.
+> 
+Garin sighs.
+> 'I like his attitude, and he seems skilled, knowledgable and honorable
+You say, "I like his attitude, and he seems skilled, knowledgable and
+honorable"
+> 
+Wolfbane says, "now"
+> 
+Marcolan nods to you.
+> 
+Wolfbane says, "the most tech thing in fayd is a mech"
+> 
+Drizzt nods to Wolfbane.
+> 
+Marcolan says, "Or a enforcer."
+> 
+Wolfbane nods to Marcolan.
+> 
+ ** Emanon has just left the Realms.
+> 
+Garin says, "Same thing, nearly."
+> 
+Wolfbane says, "he bought in a gun i think i twas"
+> 
+Drizzt says, "that's what I thought but I've been gone so I thought that
+changed"
+> 
+Drizzt grins.
+> 
+Marcolan says, "Enforcers follow orders."
+> 
+Marcolan leans on Garin.
+> 
+Garin grins.
+> 
+Garin says, "Gun is OK."
+> 
+Garin says, "better than bringing in the subway."
+> shud
+You shudder.
+> 
+Wolfbane says, "anyway for following orders and he did believe what he got was
+true to form"
+> 
+Wolfbane shudders.
+> 
+Wolfbane says, "easier too"
+> 
+Wolfbane nods to Garin.
+> 
+Drizzt says, "but not as much fun"
+> who
+Aban               Keera              Marcolan           Wolfbane           
+Piper              Winter             Genevra            Garin              
+Drizzt             Leah               Moordread          Young              
+Shankara           Veronica           Sy                 Cypress            
+Elriss             Nord               Feras              Tyldak             
+
+
+
+There are 20 adventurers in the Realms.
+
+> 
+Wolfbane says, "i beleve he should go to the next step all in favor?"
+> 
+Garin nods to Wolfbane.
+> 
+Drizzt nods to Wolfbane.
+> 
+Wolfbane says, "against?"
+> 
+Wolfbane listens to his surroundings closely.
+> 
+Wolfbane gazes at you.
+> act votes in favor.
+Moordread votes in favor.
+> 
+Marcolan says, "I am in favor, sorry I was slow."
+> 
+Wolfbane nods.
+> 
+Drizzt chuckles.
+> 
+Drizzt says, "better you than me"
+> 
+Wolfbane says, "then that is what we will do"
+> 
+Wolfbane smiles.
+> 
+Marcolan asks, "Shall I get him sir?"
+> 
+Wolfbane nods to Marcolan.
+> 
+A guard pulls aside the tapestry allowing Marcolan to enter the Hallway of
+Warriors.
+> 
+The guards snap to attention as Marcolan's group is admited to the War Room.
+> 
+Young stands at attention.
+> 
+Marcolan disbands his group.
+> 
+Drizzt gazes at Young.
+> 
+Garin says, "Gah."
+> 
+Drizzt listens carefully to Garin.
+> 
+Wolfbane gazes at Young.
+> 
+Garin fidgets nervously.
+> 
+Drizzt says, "stop eating raddishs"
+> 
+You feel the touch of Aban's mind:
+"otw"
+> 
+Wolfbane says, "well i am worried about a few things"
+> 
+Wolfbane gazes at Young.
+> 
+Wolfbane ponders.
+> 
+Young blinks.
+> 
+Wolfbane says, "altho we do hold the standard very dear"
+> 
+Wolfbane says, "it is not what we hold most sacred"
+> 
+Wolfbane gazes at Young.
+> 
+Wolfbane says, "what we hold most sacred is our honer"
+> 
+Wolfbane says, "and you should have that with you at all times"
+> 
+Wolfbane smiles at Young.
+> 
+Wolfbane says, "especially when you represent the band"
+> 
+Young stands at attention.
+> 
+Wolfbane takes a ruby studded silver ring of the Crimson Band.
+> 
+Wolfbane says, "secondly"
+> 
+Young listens carefully to Wolfbane.
+> 
+Wolfbane says, "the most tech thing in fayd would be a mechanoid"
+> 
+Wolfbane says, "you cant get much more tech then that"
+> 
+Wolfbane says, "now if you would all follow me"
+> fol wolfb
+You are now following Wolfbane.
+J> 
+Drizzt is now following Wolfbane.
+J> whisp wolfb Later we'll have to let Emanon hear that Young failed every test miserably but we let him in anyway since he still knew more than Emanon
+You whisper to Wolfbane.
+J> 
+Young is now following Wolfbane.
+J> 
+Garin is now following Wolfbane.
+J> 
+Marcolan is now following Wolfbane.
+J> 
+Wolfbane whispers to you, "laugh"
+J> 
+A guard pulls aside the tapestry allowing Wolfbane's group to enter the Hallway
+of Warriors.
+J> 
+You follow Wolfbane.
+[Hallway of Warriors, South]
+You see Marcolan, Wolfbane, Garin, Drizzt and Young. 
+Obvious exits: n.
+J> 
+The guards snap to attention as Wolfbane enters.
+J> 
+The glow from Garin's sword fades to a soft white light.
+J> 
+Wolfbane's group goes north.
+J> 
+You follow Wolfbane.
+[Citadel, Hallway of Warriors]
+You see Marcolan, Wolfbane, Garin, Drizzt and Young. 
+Obvious exits: n, s, e.
+J> 
+Wolfbane's group goes north.
+J> 
+You follow Wolfbane.
+[Hallway of Warriors, North]
+You see Marcolan, Wolfbane, Garin, Drizzt and Young. 
+Obvious exits: s, w.
+J> 
+Wolfbane's group goes west.
+J> 
+You follow Wolfbane.
+[Citadel, Arena Entrance]
+You see Marcolan, Wolfbane, Garin, Drizzt and Young. 
+Obvious exits: e, sw.
+J> 
+Wolfbane's group goes southwest.
+J> 
+You follow Wolfbane.
+[Citadel, Arena Seating]
+You see Marcolan, Wolfbane, Garin, Drizzt and Young. 
+Obvious exits: ne.
+J> 
+Wolfbane disbands his group.
+> 
+Wolfbane takes Marcolan by the hand.
+> 
+Wolfbane takes Young by the hand.
+> 
+ ** Nord has just left the Realms.
+> 
+Young is now following Wolfbane.
+> 
+Wolfbane's group goes northeast.
+> 
+Wolfbane's group arrives through an iron double door.
+> 
+Drizzt furrows his brow.
+> 
+Wolfbane disbands his group.
+> 
+Wolfbane mutters something you can't quite make out.
+> 
+Drizzt casts his gaze across the area.
+> look
+[Citadel, Arena Seating]
+Four rows of solid oak chairs are situated on a balcony which provides an
+excellent view of the arena, below. In the center of the first row is a
+slightly larger chair, reserved for the Guildmaster of the Crimson Band. On
+either side of the Guildmaster's chair are chairs for the Lorekeeper and the
+Sergeant at Arms. A row of guards stands towards the back of the room.
+You see Garin and Drizzt. 
+Obvious exits: northeast.
+> lean ben
+What are you referring to?  Please be more specific.
+> 
+Wolfbane says, "young can ya make it another time for your last test?"
+> lean chair
+You lean on a chair of the Guildmaster.
+> 
+Young gazes at Marcolan.
+> 
+Marcolan says, "I'm a wimp."
+> 
+Marcolan smiles at Young.
+> 
+Young asks, "Mayhaps tomorrow afternoon?"
+> 
+Wolfbane says, "ok then"
+> 
+Marcolan nods.
+> 
+Young nods.
+> 
+Drizzt asks, "where's that 'rat-on-a-stick' vendor?"
+> gaze
+You gaze about the area.
+> 
+Garin asks, "All he has to do is beat each of the current Band members, right?"
+> 
+Drizzt casts his gaze across the area.
+> 
+Wolfbane says, "tomorrow afternoon if i cannot make it you know what to do and
+look for?"
+> 
+Wolfbane listens carefully to Marcolan.
+> 'I thought we were going to dust off Herark
+You say, "I thought we were going to dust off Herark"
+> 
+Young listens carefully to Marcolan.
+> 
+Drizzt says, "except me. I forgot how to fight"
+> 
+Marcolan nods.
+> 
+Wolfbane nods to Marcolan.
+> 
+Wolfbane goes through an iron double door.
+> 
+Garin nods to you.
+> 
+Wolfbane arrives through an iron double door.
+> 
+Wolfbane takes Young by the hand.
+> 
+Marcolan is now following Wolfbane.
+> 
+Wolfbane's group goes through an iron double door.
+> 
+Wolfbane's group arrives.
+> look
+[Citadel, Arena Seating]
+Four rows of solid oak chairs are situated on a balcony which provides an
+excellent view of the arena, below. In the center of the first row is a
+slightly larger chair, reserved for the Guildmaster of the Crimson Band. On
+either side of the Guildmaster's chair are chairs for the Lorekeeper and the
+Sergeant at Arms. A row of guards stands towards the back of the room.
+You see Marcolan, Wolfbane, Garin, Drizzt and Young. 
+Obvious exits: northeast.
+> 
+Wolfbane says, "it seems we have run outta time"
+> rais
+You raise your eyebrow.
+> 
+Wolfbane says, "the last test will be tomorrow afternoon"
+> 
+Drizzt listens carefully to Wolfbane.
+> 
+Garin sighs.
+> 
+Garin nods to Wolfbane.
+> 
+Drizzt asks, "time?"
+> 
+Wolfbane says, "what time young?"
+> 
+Wolfbane listens carefully to Young.
+> 
+Young asks, "2 ish?"
+> 
+Wolfbane says, "2 ish?"
+> 
+Garin asks, "est?"
+> 
+Wolfbane nods.
+> 
+Young nods.
+> 
+Drizzt says, "maybe the rat-on-a-stick' vendor will be here then"
+> 
+Garin nods.
+> nod driz
+You nod to Drizzt.
+> time
+It is Folster 22, 1045 (Year of the Wyrm).
+It is late morning.
+> 
+Wolfbane says, "just take your terminal to bed garin"
+> 
+Garin gazes at Drizzt.
+> 
+Wolfbane smiles at Garin.
+> 
+Garin says, "Heh."
+> 
+Garin says, "I'll be at work."
+> 
+Garin snickers.
+> 
+Wolfbane says, "so you cannot make it?"
+> 
+Wolfbane listens carefully to Garin.
+> 
+Drizzt asks, "yhou know how to work?"
+> 
+Drizzt listens carefully to Garin.
+> 
+Garin says, "Probably not."
+> 
+Young chuckles.
+> 
+Wolfbane nods to Garin.
+> 
+Garin says, "I'll try."
+> 
+Marcolan asks, "Which question did he just answer?"
+> 
+Marcolan listens carefully to Drizzt.
+> 
+Wolfbane says, "if ya cant dont worry bout it"
+> 
+Drizzt chuckles.
+> 
+Garin smiles at Wolfbane.
+> 
+Wolfbane says, "i will do my best"
+> 
+Young nods.
+> 
+Garin says, "I'd like to see Young make it... he's been patient long enough."
+> 
+Wolfbane says, "seein i gotta be here for somethings"
+> 
+Drizzt thought they ran the freak-show out of town but guesses not
+> 
+Wolfbane nods to Garin.
+> 
+Young says, "Better get the jups"
+> 
+Young nods to Wolfbane.
+> 
+Marcolan cracks his knuckles.
+> 
+Drizzt asks, "who's he fighting?"
+> 
+Drizzt listens to his surroundings closely.
+> 
+Garin ponders.
+> 
+Young leans on Marcolan.
+> 
+Wolfbane says, "me and you"
+> 
+Wolfbane smiles at Drizzt.
+> 
+Drizzt blinks.
+> 
+Garin says, "Ooooh./"
+> 
+Drizzt says, "hey, I forgot how"
+> 'If the idea is for him to win you better pick me, but I don't think I can be here either
+You say, "If the idea is for him to win you better pick me, but I don't think I
+can be here either"
+> 
+Wolfbane chuckles at you.
+> 
+Marcolan says, "I'll use a weapon, should even it up."
+> 
+Wolfbane says, "that is not the whole thing"
+> 
+Wolfbane says, "oh and young"
+> 'I am usually pretty drunk by 2ish on Saturdays
+You say, "I am usually pretty drunk by 2ish on Saturdays"
+> 
+Young listens carefully to Wolfbane.
+> 
+Drizzt whispers to Young, to beat Wolfie thought, hold up a shinny object and
+he'll never know what hit him
+> 
+Wolfbane says, "do not mention any of this to anyone"
+> 
+Young says, "Of course not sir"
+> 
+Young salutes Wolfbane.
+> 
+Marcolan smiles at Young.
+> 
+Young asks, "May I take me leave?"
+> 
+Wolfbane salutes Young.
+> 
+Wolfbane says, "dismissed"
+> 
+Garin salutes Young.
+> 
+Young makes a salute.
+> sal young
+You salute Young.
+> 
+Young salutes everyone in turn.
+> 
+Drizzt salutes Young.
+> 
+Young goes northeast.
+> look
+[Citadel, Arena Seating]
+Four rows of solid oak chairs are situated on a balcony which provides an
+excellent view of the arena, below. In the center of the first row is a
+slightly larger chair, reserved for the Guildmaster of the Crimson Band. On
+either side of the Guildmaster's chair are chairs for the Lorekeeper and the
+Sergeant at Arms. A row of guards stands towards the back of the room.
+You see Marcolan, Wolfbane, Garin and Drizzt. 
+Obvious exits: northeast.
+> 
+ ** Young has just left the Realms.
+> 
+Garin bounces up and down.
+> 
+Garin bounces up and down.
+> 
+Drizzt asks, "er, you really didn't mean me did ya?"
+> 
+Garin nods to Drizzt.
+> 
+Garin nods to Drizzt.
+> 
+Marcolan gazes at Garin.
+> 
+Wolfbane says, "anyone that cannot make it dont worry about it we are all in
+agreement anyway"
+> nod
+You nod.
+> 
+Wolfbane smiles at Drizzt.
+> 
+Wolfbane wields a finely crafted albescent longsword with fiery randar forming
+a pommel shaped into a screaming eagle's head.
+> 
+Wolfbane wields a finely crafted randar longsword with an eagle on the blade,
+firing lightning bolts from its outstretched talons.
+> 
+Garin sings, "If I only had a brain!"
+> 
+Wolfbane smiles at Drizzt.
+> 
+Marcolan says, "I think he should fight Garin."
+> 
+Garin concentrates intently.
+Garin creates a force field encircling his body.
+> 
+Garin does a little jig!
+> 
+Garin's force field vanishes.
+> 
+Drizzt asks, "Who'd I hide behind in that kinda situation?"
+> 
+Drizzt shudders.
+> 
+Marcolan nods to Garin.
+> 
+Wolfbane says, "hey cgarin"
+> 
+Wolfbane says, "teach me some edged please"
+> 
+Garin says, "babababababab"
+> 
+Wolfbane smiles at Garin.
+> skil
+
+#  Skill                     Level     
+-- -----                     -----     
+6  Dodging & Parrying        26        
+13 Edged Weapons             29        
+26 Psionics                  1         
+27 Mind over Mind            2         
+28 Mind over Matter          12        
+32 Sagecraft                 1         
+
+Weapon Specialization     Level
+---------------------     -----
+Broadsword                5    
+> 
+Garin listens carefully to Wolfbane.
+> 
+Garin is now teaching Edged Weapons (skill #13, up to level 233).
+> 
+Marcolan says, "Then teach me some MA."
+> 
+Wolfbane trains in Edged Weapons.
+> 
+Marcolan nudges Garin.
+> 
+Drizzt says, "my god"
+> 
+Wolfbane says, "ok thanks"
+> 
+Garin nods to Marcolan.
+> 
+Garin nods to Marcolan.
+> 
+Garin is now teaching Mining (skill #35, up to level 34).
+> 
+Marcolan furrows his brow.
+> 
+Marcolan says, "No no no."
+> 
+Garin drools all over himself.
+> 
+Garin furrows his brow.
+> 
+Wolfbane chuckles at Garin.
+> 
+Drizzt asks, "yhou guys were ragging me when I said I didn't have a chance?"
+> 'MA equals Mining Ability?
+You ask, "MA equals Mining Ability?"
+> 
+Garin nods to you.
+> 
+Garin nods to you.
+> 
+Wolfbane nods to you.
+> 
+Garin beams happily.
+> nod
+You nod.
+> 
+Wolfbane says, "he its a job he is best suited for"
+> 
+Drizzt says, "good thing I have plenty of donuts"
+> 
+Garin says, "bababababa"
+> 
+Wolfbane says, "seein he is so close to the ground"
+> 
+Wolfbane leans on Garin.
+> 
+Garin nods.
+> 
+Garin nods.
+> 
+Garin surveys the area.
+> 
+Marcolan says, "I thought Marital ability."
+> 
+Marcolan ponders.
+> surv
+You do not know enough about mining to survey this area.
+> 
+Garin recites, "I need to learn more dodge and parry."
+> 'Marital Affair?
+You ask, "Marital Affair?"
+> 
+Wolfbane says, "well yall i gotta go to bed im whipped"
+> 
+Garin salutes Wolfbane.
+> 
+Marcolan says, "I can teach ya."
+> 
+Drizzt removes a half empty beer from the top of Garin's head
+> 
+Marcolan smiles at Garin.
+> 
+Garin beams at Marcolan.
+> 
+Garin gives Drizzt a swift kick!
+> 
+Garin gives Drizzt a swift kick!
+> 
+Marcolan salutes Wolfbane.
+> 
+Garin is now teaching Dodging & Parrying (skill #6, up to level 255).
+> 
+Drizzt chuckles.
+> 
+Garin does a little jig!
+> 
+Garin does a little jig!
+> 
+Marcolan nods to Garin.
+> sal wolfb
+You salute Wolfbane.
+> 
+Garin exclaims, "I am binary!"
+> 
+Marcolan says, "Only 254 lessons more than me..."
+> 
+Marcolan says, "Wimp."
+> 
+Wolfbane says, "stayin up 19 hours doin this and no sex sucks"
+> 
+Marcolan snorts.
+> 
+Drizzt asks, "can anyone even hit you?"
+> 
+Wolfbane smirks.
+> 
+ ** Piper has just left the Realms.
+> 
+Garin furrows his brow.
+> 
+Garin ponders.
+> 
+Marcolan comforts Wolfbane.
+> 
+Garin says, "Not sure."
+> 
+Wolfbane says, "i cant"
+> 'I'm going to go look for women
+You say, "I'm going to go look for women"
+> 
+Wolfbane nods to you.
+> gaze
+You gaze about the area.
+> 
+Drizzt shudders.
+> look
+[Citadel, Arena Seating]
+Four rows of solid oak chairs are situated on a balcony which provides an
+excellent view of the arena, below. In the center of the first row is a
+slightly larger chair, reserved for the Guildmaster of the Crimson Band. On
+either side of the Guildmaster's chair are chairs for the Lorekeeper and the
+Sergeant at Arms. A row of guards stands towards the back of the room.
+You see Marcolan, Wolfbane, Garin and Drizzt. 
+Obvious exits: northeast.
+> 
+Wolfbane says, "you need it more then me"
+> 
+Marcolan says, "Sprite could, maybe Tandar."
+> 
+Wolfbane nods to you.
+> 
+Garin says, "Got around an 1800-1900 dmod with my defenses up."
+> nod marc
+You nod to Marcolan.
+> 'I do
+You say, "I do"
+> 
+Marcolan says, "Cornelius could... Silence is close."
+> 
+Drizzt shakes his head back and forth.
+> 
+Wolfbane says, "im too far away"
+> 
+Wolfbane leans on Garin.
+> 
+Drizzt says, "man, I've been gone too long"
+> look
+[Citadel, Arena Seating]
+Four rows of solid oak chairs are situated on a balcony which provides an
+excellent view of the arena, below. In the center of the first row is a
+slightly larger chair, reserved for the Guildmaster of the Crimson Band. On
+either side of the Guildmaster's chair are chairs for the Lorekeeper and the
+Sergeant at Arms. A row of guards stands towards the back of the room.
+You see Marcolan, Wolfbane, Garin and Drizzt. 
+Obvious exits: northeast.
+> 
+Drizzt sighs.
+> 
+Wolfbane tickles Drizzt.
+> 
+Drizzt grins.
+> 
+Garin says, "I doubt either Cornie or Silence could."
+> 'See you all later on
+You say, "See you all later on"
+> sal
+You salute.
+> 
+Drizzt nods to you.
+> look doo
+What are you referring to?  Please be more specific.
+> 
+Garin says, "Actually, i doubt anyone could."
+> 
+Drizzt salutes you.
+> look ne
+
+Garin makes a salute.
+> [Citadel, Arena Entrance]
+This bare room is the vestibule to the Crimson Band arena. The stone walls
+are bare of any trappings and are cool to the touch. To the northwest is a
+stairway, above which is a sign labeled "Combatant waiting area."  To the
+west are immense iron double doors which lead into the arena itself. To the
+southwest is the seating for Crimson Band members and their dignified guests.
+The Hallway of Warriors lies to the east of this corridor.
+> 
+Marcolan says, "Cornie couldn't if your dmod is that high."
+> ne
+[Citadel, Arena Entrance]
+Obvious exits: e, sw.
+> e
+[Hallway of Warriors, North]
+Obvious exits: s, w.
+> s
+[Citadel, Hallway of Warriors]
+Obvious exits: n, s, e.
+> e
+[Citadel, Great Hall]
+Obvious exits: n, w.
+> n
+[Citadel of the Crimson Band, Lobby]
+Obvious exits: s.
+The guards snap to attention as you enter.
+> cli sta
+You climb down a wide stairway.
+[Citadel, Training & Parade Grounds]
+Obvious exits: none.
+> go arc
+[Citadel, Forge - North]
+Obvious exits: s.
+> go arc
+[Citadel, Training & Parade Grounds]
+Obvious exits: none.
+> go gate
+[Broadway]
+An iron gate is here.
+Obvious exits: e, w.
+You get a few suspicious glances cast in your direction.
+> e
+[Broadway]
+A ramshackle building is here.
+Obvious exits: e, w.
+> e
+[Broadway & Pleasant]
+Some rubble is here.
+Obvious exits: n, e, w.
+> e
+[Broadway]
+Obvious exits: e, w.
+You get a few suspicious glances cast in your direction.
+> e
+[Broadway]
+A stone gate is here.
+Obvious exits: e, w.
+You get a few suspicious glances cast in your direction.
+> e
+[Broadway & Church]
+You see a merchant. 
+Obvious exits: n, e, w.
+You get a few suspicious glances cast in your direction.
+> e
+[Broadway]
+Obvious exits: e, w.
+You get a few suspicious glances cast in your direction.
+> e
+[Broadway]
+Some rubble and a wooden bin are here.
+Obvious exits: w, ne.
+> ne
+[Broadway]
+Obvious exits: n, sw.
+> n
+[Broadway]
+An ancient building is here.
+Obvious exits: n, s.
+> n
+[Bazaar South]
+You see Rufio and a merchant. 
+Obvious exits: n, s, e, w, ne, nw.
+You get a few suspicious glances cast in your direction.
+> n
+[Bazaar Center]
+You see Winter, Leah, Veronica, Sy and a lost mutt. A large marble fountain, a
+wooden bin and a newsboard are here.
+Obvious exits: n, s, e, w, ne, nw, se, sw.
+> bow
+You bow.
+> pant
+
+Veronica says, "Hi, Leah."
+> You pant.
+> 
+A lost mutt wanders north.
+> 
+Veronica smiles at Leah.
+> 
+Leah says, "hi..."
+> 
+Rufio arrives.
+> health
+You have 231/231 body points.
+> 
+You feel a tingle in your mind. Wolfbane thinks to you, "comeback."
+> 
+Leah fidgets nervously.
+> 
+Rufio goes west.
+> 
+Winter exclaims, "Rufio!"
+> 
+A priest arrives.
+> 
+Winter furrows her brow.
+> 
+Veronica asks, "What's wrong?"
+> 
+Veronica raises an eyebrow towards Leah.
+> contact wolfb On the way
+You contact Wolfbane with your thoughts.
+ [Round: 2 sec]
+R> 
+Leah says, "I don't know..."
+R> s
+[Wait 2 seconds...]
+R> 
+A merchant arrives.
+R> s
+[Bazaar South]
+Obvious exits: n, s, e, w, ne, nw.
+> s
+[Broadway]
+An ancient building is here.
+Obvious exits: n, s.
+You get a few suspicious glances cast in your direction.
+> s
+[Broadway]
+Obvious exits: n, sw.
+> 
+A merchant arrives.
+> fur
+You furrow your brow.
+> gaze
+You gaze about the area.
+> 'what are you lookin gat?
+You ask, "what are you lookin gat?"
+> fur
+You furrow your brow.
+> sw
+[Broadway]
+Some rubble and a wooden bin are here.
+Obvious exits: w, ne.
+> w
+[Broadway]
+Obvious exits: e, w.
+> w
+[Broadway & Church]
+Obvious exits: n, e, w.
+You get a few suspicious glances cast in your direction.
+> gaze
+You gaze about the area.
+> w
+[Broadway]
+A stone gate is here.
+Obvious exits: e, w.
+You get a few suspicious glances cast in your direction.
+> w
+[Broadway]
+A horse-drawn carriage is here.
+Obvious exits: e, w.
+You get a few suspicious glances cast in your direction.
+> w
+
+ ** Drizzt has just left the Realms.
+> [Broadway & Pleasant]
+Some rubble is here.
+Obvious exits: n, e, w.
+> w
+[Broadway]
+A ramshackle building is here.
+Obvious exits: e, w.
+> w
+[Broadway]
+An iron gate is here.
+Obvious exits: e, w.
+> go gate
+[Citadel, Training & Parade Grounds]
+You see Wolfbane. 
+Obvious exits: none.
+> frow
+You frown.
+> 'Everyone is looking suspicious like at me
+You say, "Everyone is looking suspicious like at me"
+> gaze
+You gaze about the area.
+> 
+Wolfbane gives you a dented and rusty helm pitted and scarred with years of
+use.
+> 'What did I do?
+You ask, "What did I do?"
+> beam
+You beam happily.
+> 'Head armor!
+You exclaim, "Head armor!"
+> wear helm
+You'll have to unwield to do that.
+> unwie 2 bro
+You put away a fiery randar broadsword with the name Moordread scratched on the
+blade.
+> unwie shie
+You put away an eldritch diamontine shield.
+> wear helm
+You place a dented and rusty helm pitted and scarred with years of use onto
+your head.
+> wie 2 bro
+You wield a fiery randar broadsword with the name Moordread scratched on the
+blade.
+> wie shie
+You wield an eldritch diamontine shield.
+ [Round: 3 sec]
+R> 
+Wolfbane says, "ok make sure i get that stuff back if you go on another fact
+finding mission"
+R> nod
+You nod.
+> 'Can do
+You say, "Can do"
+> 
+Wolfbane smiles at you.
+> 'But none are planned
+You say, "But none are planned"
+> 
+Wolfbane says, "been loosin to much dmode stuff"
+> 'in the immediate future
+You say, "in the immediate future"
+> 
+Wolfbane nods.
+> 'Do people in town look at you funny too?
+You ask, "Do people in town look at you funny too?"
+> gaze
+You gaze about the area.
+> 
+Wolfbane says, "well good night im bushed"
+> nod
+You nod.
+> 
+Wolfbane says, "all the time then i hug em"
+> 
+Wolfbane nods.
+> 'I'm back looking for women then
+You say, "I'm back looking for women then"
+> nod wolf
+You nod to Wolfbane.
+> 'I will try that
+You say, "I will try that"
+> sal wolfb
+
+You feel the touch of Tyldak's mind:
+"i'm out of there."
+> You salute Wolfbane.
+> 
+Wolfbane chuckles.
+> 
+Wolfbane says, "gotta learn to heal first"
+> 
+Wolfbane tickles you.
+> grin
+You grin.
+> 'maybe later
+You say, "maybe later"
+> 
+Wolfbane says, "healers get all the chicks did ya learn that from brook"
+> pond
+You ponder for a moment.
+> 
+Wolfbane winks at you.
+> 'But he got alot more too
+You say, "But he got alot more too"
+> 
+Wolfbane nods.
+> 
+Wolfbane waves.
+> 'Too much of a good thing
+You say, "Too much of a good thing"
+> wave
+You wave.
+> go gate
+
+Wolfbane says, "night"
+> [Broadway]
+An iron gate is here.
+Obvious exits: e, w.
+You get a few suspicious glances cast in your direction.
+> e
+[Broadway]
+A ramshackle building is here.
+Obvious exits: e, w.
+> e
+[Broadway & Pleasant]
+Some rubble is here.
+Obvious exits: n, e, w.
+You get a few suspicious glances cast in your direction.
+> e
+[Broadway]
+Obvious exits: e, w.
+You get a few suspicious glances cast in your direction.
+> e
+[Broadway]
+A stone gate is here.
+Obvious exits: e, w.
+You get a few suspicious glances cast in your direction.
+> e
+[Broadway & Church]
+Obvious exits: n, e, w.
+> e
+[Broadway]
+Obvious exits: e, w.
+You get a few suspicious glances cast in your direction.
+> e
+[Broadway]
+Some rubble and a wooden bin are here.
+Obvious exits: w, ne.
+You get a few suspicious glances cast in your direction.
+> ne
+[Broadway]
+Obvious exits: n, sw.
+> n
+[Broadway]
+An ancient building is here.
+Obvious exits: n, s.
+> n
+
+ ** Wolfbane has just disconnected.
+> [Bazaar South]
+Obvious exits: n, s, e, w, ne, nw.
+You get a few suspicious glances cast in your direction.
+> n
+[Bazaar Center]
+You see Rufio, Winter, Leah, Veronica, Sy, a merchant, a merchant and a priest.
+A large marble fountain, a wooden bin and a newsboard are here.
+Obvious exits: n, s, e, w, ne, nw, se, sw.
+> sal
+You salute.
+> 
+Sy's globe glows with a pure white light as he rubs it.
+> 
+A merchant goes southeast.
+> look ruf
+Short of stature and good size paunch lend an air of comical appearance to him.
+Tufts of wild red hair frame a bald top, and a long curling mustache droops
+below a bulbous shnozz.
+He is wearing some striped trousers, a paisley blue vest and some bright red
+sneakers.
+He appears to be healthy.
+> 
+Rufio says, "I try and keep her spirits up"
+> 
+Sy waves to you.
+> who
+Aban               Keera              Marcolan           Prudence           
+Tobias             Winter             Genevra            Garin              
+Leah               Moordread          Shankara           Veronica           
+Sy                 Cypress            Elriss             Feras              
+Tyldak             
+
+
+There are 17 adventurers in the Realms.
+
+> 
+Rufio waves to you.
+> 
+Winter nods to Rufio.
+> 
+Sy gazes at a white globe.
+> 
+Winter says, "Best think you can do"
+> 
+Rufio asks, "By a globe good sir?"
+> 
+Rufio listens carefully to you.
+> 
+Sy's globe turns a deep black color.
+> 
+A priest goes west.
+> 
+Sy says, "Oooo"
+> 
+Leah ponders.
+> 
+Winter gazes at a blue globe.
+> 
+Sy gazes at a black globe.
+> contact cypr Gods be praised, I lived :)
+You contact Cypress with your thoughts.
+ [Round: 2 sec]
+R> 
+Winter giggles.
+> 
+Purple rays of light burst forth from the globe as she rubs it.
+> pond
+You ponder for a moment.
+> 'How much?
+You ask, "How much?"
+> 
+You feel a tingle in your mind. Cypress thinks to you, "I was wondering
+*smile*."
+> 
+Rufio says, "only 500 gold"
+> 
+Sy says, "Black is my color so..."
+> wealth
+You have 10 gold crowns, 8 silver shillings and 1 copper pennies.
+> 
+Sy thumps on the globe shattering it into a billion particles of light as
+something hits the ground with a thud!
+> 'BRB
+You say, "BRB"
+> w
+w
+[Bazaar West]
+A table is here.
+Obvious exits: n, s, e, w, ne, se.
+You get a few suspicious glances cast in your direction.
+> [Main Street]
+Obvious exits: e, w.
+> w
+[Main Street]
+Obvious exits: e, w.
+> w
+[Main Street]
+A huge stone building and a small building are here.
+Obvious exits: e, w.
+> w
+[Main Street & Elm]
+You see Prudence. 
+Obvious exits: n, e, w.
+You get a few suspicious glances cast in your direction.
+> w
+[Kai's Corner]
+A simple gray townhouse and a building are here.
+Obvious exits: s, e, w, sw.
+You get a few suspicious glances cast in your direction.
+> s
+[Pleasant Street]
+A reinforced steel structure is here.
+Obvious exits: n, s.
+> go doo
+[Bank of Fayd]
+Obvious exits: o.
+> withd 100000
+You withdraw your money.
+A clerk shuffles through some documents and then informs you that
+your account now contains 2124 gold crowns, 2 silver shillings, 2 copper
+pennies.
+> o
+[Pleasant Street]
+A reinforced steel structure is here.
+Obvious exits: n, s.
+> n
+[Kai's Corner]
+A simple gray townhouse and a building are here.
+Obvious exits: s, e, w, sw.
+You get a few suspicious glances cast in your direction.
+> e
+e
+[Main Street & Elm]
+You see Prudence. 
+Obvious exits: n, e, w.
+> [Main Street]
+A huge stone building and a small building are here.
+Obvious exits: e, w.
+> e
+e
+[Main Street]
+Obvious exits: e, w.
+You get a few suspicious glances cast in your direction.
+> [Main Street]
+Obvious exits: e, w.
+> e
+[Bazaar West]
+A table is here.
+Obvious exits: n, s, e, w, ne, se.
+You get a few suspicious glances cast in your direction.
+> e
+[Bazaar Center]
+You see Rufio, Winter, Leah, Veronica, Sy and a merchant. A large marble
+fountain, a wooden bin and a newsboard are here.
+Obvious exits: n, s, e, w, ne, nw, se, sw.
+> 
+Leah says, "oh my"
+> 
+Sy inhales deeply of the chocolate pastry.
+> 
+Rufio chuckles.
+> 
+Leah says, "chocolate..."
+> 
+A beggar arrives.
+> 
+Leah gulps.
+> 
+A priest arrives.
+> 
+Sy licks his lips.
+> 
+Veronica says, "Don't show that to Garin."
+> 
+Veronica shakes her head at Sy.
+> 
+Winter grins.
+> 
+Leah fidgets nervously.
+> 
+Veronica grins.
+> 
+Rufio says, "My inventory is baren at the moment"
+> 'Can I buy two? or is one the limit?
+You ask, "Can I buy two? or is one the limit?"
+> 
+Winter says, "500 crowns pastry"
+> 
+Rufio says, "only one"
+> 
+Sy exclaims, "The powers granted me by the globe!"
+> 
+Sy waves a chocolate pastry.
+> 
+A beggar goes northwest.
+> nod
+You nod.
+> 
+Leah chuckles at Sy.
+> give 500 gold coi to ruf
+You give Rufio 500 gold.
+> 
+Rufio gives you a globe.
+> 
+A beggar arrives.
+> exam glob
+Inside the transluscent globe you can see a rainbow-colored mist.
+> gaze glob
+You gaze at a globe.
+> 
+A trader arrives.
+> 'Now what?
+You ask, "Now what?"
+> 
+Leah says, "they are all very pretty. You could all have a light show."
+> 
+Winter asks, "what do you put in them?"
+> 
+ ** Sy has just disconnected.
+> 
+Sy disconnects.
+> 
+Winter raises an eyebrow towards Rufio.
+> 
+Rufio says, "polish it up good sir"
+> 
+A merchant arrives.
+> 
+A trader flees southwest.
+> nod
+You nod.
+> rub globe
+The globe glows with a pure white light.
+> 
+Veronica chuckles.
+> 
+An urchin arrives.
+> 
+Veronica nods to Leah.
+> 
+Rufio says, "Me...nothing to be sure"
+> 
+A priest goes north.
+> exam glob
+Inside the transluscent globe you can see a rainbow-colored mist.
+> 
+Leah smiles at Veronica.
+> 
+Rufio says, "I found them floating in the river, in a sack"
+> 
+Purple rays of light burst forth from the globe as she rubs it.
+> 
+A beggar goes east.
+> 
+Veronica arches her eyebrow.
+> 
+A merchant goes north.
+> 
+Rufio exclaims, "My lucky day!"
+> 
+Rufio winks.
+> 
+Veronica asks, "I thought you found them in a bush, Rufio?"
+> 
+The small orb of light floating beside Leah winks out.
+> nod ruf
+
+Winter says, "not a bad gain for 500 a piece"
+> You nod to Rufio.
+> 
+Winter winks at Rufio.
+> 
+A merchant arrives.
+> 
+Rufio says, "um...you could be right..."
+> 
+Winter rubs her globe and it suddenly pulses with a bright blue color.
+> 'I need to scour the river more
+You say, "I need to scour the river more"
+> rub globe
+The globe shines with a bright red light.
+> 
+Winter laughs.
+> 
+A merchant goes south.
+> 
+Rufio says, "what does it matter...only that you get enjoyment from them"
+> 
+Veronica asks, "Any globes left, Rufio?"
+> 
+Rufio grins.
+> 
+A trader arrives.
+> 
+Prudence arrives.
+> 
+Prudence goes east.
+> 
+A commoner arrives.
+> 
+A merchant arrives.
+> 
+A commoner goes northwest.
+> who
+Aban               Keera              Marcolan           Prudence           
+Tobias             Winter             Genevra            Garin              
+Leah               Moordread          Shankara           Veronica           
+Cypress            Elriss             Feras              Tyldak             
+
+
+
+There are 16 adventurers in the Realms.
+
+> 
+Leah asks, "Rufio, do you have a globe left?"
+> 
+A trader flees north.
+> 
+Rufio says, "Only one per person my dear"
+> 
+Winter says, "just don't know the truth of your words"
+> 
+Veronica nods.
+> 
+Rufio nods to Leah.
+> 
+Leah smiles.
+> 
+Veronica says, "I mean for Leah."
+> 
+Rufio says, "2 left in fact"
+> 
+An urchin goes west.
+> 
+A merchant goes north.
+> 
+A priest arrives.
+> 
+Leah asks, "I"ll be right back, will you hold one for me?"
+> 
+Rufio counts his money.
+> 'What about buying one for someone else?
+You ask, "What about buying one for someone else?"
+> 
+Leah asks, "please?"
+> 
+Rufio says, "surely"
+> 
+A merchant arrives.
+> 
+Prudence arrives.
+> 
+Leah says, "thank you."
+> 
+A trader arrives.
+> 
+Leah goes west.
+> 
+Prudence smiles.
+> 
+Prudence goes southeast.
+> 
+A merchant goes south.
+> 
+Rufio ponders.
+> rub globe
+A bright blue color now pulses inside the globe.
+> 
+A beggar arrives.
+> pond
+You ponder for a moment.
+> 
+A merchant goes south.
+> 
+A priest goes south.
+> 
+A trader flees north.
+> 
+Rufio says, "If noboby comes by in the next few momemts...."
+> 
+Veronica's blending effect wears off.
+> 
+A commoner arrives.
+> 
+A beggar goes southwest.
+> rub globe
+A pretty pink glow surrounds the globe.
+> 
+Winter says, "when you thump it, you'll find something"
+> 
+Leah arrives.
+> 'Does it break when you thump it?
+You ask, "Does it break when you thump it?"
+> 
+Leah furrows her brow.
+> 
+Rufio says, "and you swear on that ring you wear that it is for another."
+> 
+Veronica nods to you.
+> 
+Winter nods to you.
+> 
+Rufio exclaims, "Why then ...it would be perfectly alright!"
+> 
+A commoner goes southeast.
+> 
+Rufio smiles.
+> 'I could swear that
+You say, "I could swear that"
+> 
+Rufio nods to you.
+> 
+A commoner arrives.
+> 
+Leah gives Rufio some money.
+> 
+Rufio says, "They seem to"
+> 
+Leah smiles at Rufio.
+> 
+Rufio gives a globe to Leah.
+> 'I should make sure they don't have one already though
+You say, "I should make sure they don't have one already though"
+> 
+A merchant arrives.
+> 
+Leah says, "thank you very much."
+> 
+Leah gazes at a globe.
+> 
+A trader arrives.
+> 
+Rufio says, "Your quite welcome"
+> 
+Rufio smiles.
+> 
+Prudence arrives.
+> 
+A beggar arrives.
+> 
+Prudence goes west.
+> contact cypr Did you buy a globe from Rufio?
+You contact Cypress with your thoughts.
+ [Round: 2 sec]
+R> 
+A commoner goes southwest.
+> 
+Leah says, "I still don't understand why people are looking at me so oddly
+though..."
+> 
+A trader goes north.
+> 
+Rufio gazes at a white duck with a yellow bill.
+> 
+With a steady clip clop of hooves, and a quiet jingling of harness bells, a
+charming horse-drawn carriage arrives from the south.
+> 
+Rufio exclaims, "hey ducky!"
+> 'Is the object worth thumping for or are you better off with a globe that changes color?
+You ask, "Is the object worth thumping for or are you better off with a globe
+that changes color?"
+> 
+Rufio touches a white duck with a yellow bill.
+> 
+Leah rubs her globe making it shine with a brilliant red light.
+> look
+[Bazaar Center]
+You revel in the tumult as the center of the bazaar overwhelms your senses
+with its smell and sizzle of roast mutton, its cries of hawkers and cajoling
+merchants. Street dancers, minstrels, and half-clad jugglers amuse the
+crowds near a large marble fountain.  A large statue is almost as formidable
+a presence as the fountain.
+You see Rufio, Winter, Leah, Veronica, a merchant and a beggar. A horse-drawn
+carriage, a wooden bin and a newsboard are here.
+Obvious exits: north, south, east, west, northeast, northwest, southeast,
+southwest.
+> 
+You feel a tingle in your mind. Cypress thinks to you, "no I didn't get
+anything from him."
+> 
+With a jingle of harness bells, a regal looking horse pulls a carriage to the
+north.
+> 
+Leah beams happily.
+> 
+Winter gazes at a blue globe.
+> 
+Winter's globe glows with a pure white light as she rubs it.
+> 
+Leah exclaims, "red!"
+> 
+A beggar goes northeast.
+> 
+You feel a tingle in your mind. Cypress thinks to you, "I wanted a dress they
+had but they gave it to Keera."
+> 
+Winter gazes at a white globe.
+> 
+Rufio says, "Now that is a question that has puzzled philosophers since the
+dawn of time."
+> 
+Veronica blinks.
+> 
+Rufio chuckles.
+> 
+Winter laughs.
+> 
+A commoner arrives.
+> 
+A priest arrives.
+> 
+You feel the touch of Veronica's mind:
+"No, not at all!"
+> nod ruf
+You nod to Rufio.
+> 
+A trader arrives.
+> 
+A merchant goes east.
+> 
+You feel the touch of Veronica's mind:
+"Of course, I'll be there right away."
+> 
+Veronica says, "Excuse me."
+> 
+Veronica waves.
+> 
+Veronica goes south.
+> 
+Winter waves.
+> 
+A trader goes north.
+> 
+A priest arrives.
+> gaze
+You gaze about the area.
+> 
+A trader arrives.
+> look in fount
+In the fountain you see some water and a white duck with a yellow bill.
+> 
+Leah returns to normal.
+> 
+A commoner goes south.
+> 
+Leah ponders.
+> pet duck
+
+Leah takes a bite of a thesnia leaf.
+> 
+Leah seems changed.
+> You touch a white duck with a yellow bill.
+> 
+Marcolan's group arrives.
+> 
+A trader flees southwest.
+> 
+A gold badge of the Lawkeepers glows with a soft silver light.
+> 
+Winter chuckles.
+> 
+Marcolan's group goes northeast.
+> look
+[Bazaar Center]
+You revel in the tumult as the center of the bazaar overwhelms your senses
+with its smell and sizzle of roast mutton, its cries of hawkers and cajoling
+merchants. Street dancers, minstrels, and half-clad jugglers amuse the
+crowds near a large marble fountain.  A large statue is almost as formidable
+a presence as the fountain.
+You see Rufio, Winter, Leah, a priest and a priest. A wooden bin and a
+newsboard are here.
+Obvious exits: north, south, east, west, northeast, northwest, southeast,
+southwest.
+> 
+Rufio says, "l"
+> 
+Winter says, "Lawkeeps"
+> 
+A priest goes northeast.
+> list ruf
+You listen carefully to Rufio.
+> 
+Leah asks, "nice little duckie. What is his name again?"
+> 
+A trader arrives.
+> 
+Leah smiles at Rufio.
+> 'There was a frog in there the other day
+You say, "There was a frog in there the other day"
+> 
+A priest arrives.
+> 
+Rufio says, "he's quackers"
+> 
+ ** Tyldak has just left the Realms.
+> 
+Leah giggles.
+> 
+Rufio grins.
+> 
+A priest goes southwest.
+> 
+Winter thumps on the globe shattering it into a billion particles of light as
+something hits the ground with a thud!
+> 
+Leah says, "quackers is a nice name. Very fitting."
+> 
+Winter takes a slick yellow umbrella.
+> look
+[Bazaar Center]
+You revel in the tumult as the center of the bazaar overwhelms your senses
+with its smell and sizzle of roast mutton, its cries of hawkers and cajoling
+merchants. Street dancers, minstrels, and half-clad jugglers amuse the
+crowds near a large marble fountain.  A large statue is almost as formidable
+a presence as the fountain.
+You see Rufio, Winter, Leah, a priest and a trader. A wooden bin and a
+newsboard are here.
+Obvious exits: north, south, east, west, northeast, northwest, southeast,
+southwest.
+> 
+Winter gazes at a slick yellow umbrella.
+> 
+A trader goes north.
+> 
+Winter exclaims, "woohoo!"
+> 
+Leah says, "ooh, winter"
+> rais
+You raise your eyebrow.
+> 
+A priest goes northeast.
+> 
+ ** Winter has just left the Realms.
+> 
+Winter exits.
+> 
+Winter arrives.
+> 
+Leah tugs on Winter.
+> 
+Rufio says, "Oh well...ok Mr. Moordread it's yours...or for your friend"
+> 
+Leah says, "that's nice"
+> 'I used to have an umbrella like that
+You say, "I used to have an umbrella like that"
+> 
+Leah giggles.
+> 
+Winter nods to Leah.
+> nod ruf
+You nod to Rufio.
+> give 500 gold coi to ruf
+
+Winter giggles.
+> You give Rufio 500 gold.
+> 
+Winter opens a slick yellow umbrella.
+> 
+A glistening blue glow surrounds Winter.
+> 
+A beggar arrives.
+> 
+Winter blinks.
+> 
+Leah beams at Winter.
+> 
+Winter closes a slick yellow umbrella.
+> 
+A commoner arrives.
+> 
+A beggar arrives.
+> 
+Garin's group arrives.
+> stat
+
+You are a master of the Crimson Band.
+Level: 38
+Build Points to date: 401
+Unspent Build Points: 6
+Experience Points until next Build Point: 10496
+Quickness: 126    Constitution: 130    Strength:  132    Agility: 50 
+Willpower: 65     Perception:   109    Empathy:   36 
+Age:       37     Height:       5'1    Weight:    167    Load: 150
+
+Current Attack Modifier: 220 (26) [Berserk]
+Current Defend Modifier: 281
+
+Body Points: 231/231
+Mana: 41/41
+Psi: 67/74
+Fatigue: 213/213
+[Type SPELLS or SKILLS for more information.]
+> 
+Leah appears to become weaker.
+> 
+A merchant arrives.
+> 
+Winter incants a spell.
+> 
+Winter gestures at a slick yellow umbrella.
+> 
+A gold badge of the Lawkeepers glows with a soft silver light.
+> 
+Garin bows.
+> 
+Marcolan raises an eyebrow towards Winter.
+> 
+A priest arrives.
+> 
+Winter exclaims, "resist weather too!"
+> 
+Winter gazes at a slick yellow umbrella.
+> 
+Leah beams at Winter.
+> 
+Marcolan asks, "For rainy season?"
+> 
+Rufio asks, "As a Bander you swear it's not for you?"
+> 
+A priest arrives.
+> 
+Rufio listens carefully to you.
+> 
+Winter nods to Marcolan.
+> 
+A beggar goes south.
+> 
+A beggar goes east.
+> 'I swear it is not for me, as a Bander
+You say, "I swear it is not for me, as a Bander"
+> 
+A priest goes southwest.
+> 
+Rufio ponders.
+> 
+Rufio gives you a globe.
+> 
+Garin furrows his brow.
+> 
+Marcolan asks, "What is that Rufio?"
+> 
+Rufio grins.
+> 
+Winter says, "a globe"
+> 'I'll give it to Cypress, you can ask her to make sure
+You say, "I'll give it to Cypress, you can ask her to make sure"
+> 
+A merchant arrives.
+> 
+A priest goes southeast.
+> 
+Winter says, "changes color"
+> 
+Marcolan asks, "Selling more globes?"
+> 
+Rufio says, "magic globe"
+> 
+A merchant goes east.
+> 
+Rufio shakes his head back and forth.
+> 
+Rufio says, "all out"
+> 
+Rufio beams happily.
+> 
+Winter comforts Marcolan.
+> 
+Prudence arrives.
+> 
+Garin says, "Awwww."
+> 
+A merchant arrives.
+> 
+A merchant goes north.
+> 
+Marcolan shrugs.
+> 
+Prudence furrows her brow.
+> 
+Leah furrows her brow.
+> 
+Marcolan rubs globe which now emanates a soft green light.
+> 
+A merchant arrives.
+> 
+Marcolan says, "Still got mine."
+> 
+Garin asks, "Do you have any fabulous edged weapons, Rufio?"
+> 
+Prudence asks, "Is anyone else getting suspious looks?"
+> contact cypr I bought you the last globe, are you in town?
+You contact Cypress with your thoughts.
+ [Round: 2 sec]
+R> 
+A commoner goes east.
+R> 
+Prudence listens to her surroundings closely.
+R> 
+Garin nods to Prudence.
+> 
+Leah nods to Prudence.
+> 
+A priest arrives.
+> 
+Marcolan nods to Prudence.
+> 
+Garin says, "Everyone seems to be."
+> 
+Marcolan says, "But I was with Garin."
+> 
+Marcolan shrugs.
+> 
+Prudence says, "good I thought I had done something stupid."
+> 
+Garin snickers.
+> 
+Rufio says, "No but I can do a pretty nifty tap dance"
+> 
+ ** Seger has just left the Realms.
+> 
+Rufio winks.
+> grin
+You grin.
+> 
+Prudence gazes at Rufio.
+> 
+Garin beams at Rufio.
+> 
+A commoner arrives.
+> 
+A beggar arrives.
+> 
+You feel a tingle in your mind. Cypress thinks to you, "on my way back
+now...I'm with Feras."
+> 
+ ** Vyrm has just left the Realms.
+> 
+Garin exclaims, "Cool!"
+> 
+A merchant goes southeast.
+> 
+Leah ponders.
+> 
+Winter asks, "will you perform then?"
+> 
+Prudence says, "Hey you're the guy that had the cool stuff."
+> 
+Garin nods.
+> 
+Garin nods.
+> 
+Prudence grins.
+> contact cypr Ok, we're still in BC
+You contact Cypress with your thoughts.
+ [Round: 2 sec]
+R> 
+Winter says, "Musta been better than Garin's Goat dance"
+R> 
+Leah asks, "tap dance?"
+> 
+A commoner goes southwest.
+> 
+Garin furrows his brow.
+> 
+Leah beams at Rufio.
+> 
+A lawkeeper arrives.
+> 
+Marcolan rubs his globe making it shimmering with a sparkling golden light.
+> 'That goat dance is pretty good
+You say, "That goat dance is pretty good"
+> 
+A merchant goes east.
+> 
+A commoner arrives.
+> 
+Feras flies in.
+> 
+Marcolan rubs his globe making it shimmering with a sparkling golden light.
+> 
+Cypress flies in.
+> 
+Feras lands on the ground.
+> 
+Garin says, "Goat dance?  Never heard of such a thing."
+> 
+Marcolan rubs his globe and it is immediately surrounded with a pretty pink
+glow.
+> 
+Prudence says, "I got a nose from that."
+> 
+Cypress lands on the ground.
+> 
+To prove his point Rufio tap dances his away...out the city gates.
+> 
+Rufio waves.
+> 
+A lawkeeper goes north.
+> 
+A beggar goes west.
+> 
+Feras is now following Cypress.
+> 
+Rufio goes east.
+> 
+A merchant arrives.
+> 
+Prudence smiles at Marcolan.
+> whist
+You whistle.
+> 
+Leah giggles.
+> appl
+You applaud.
+> 
+Cypress smiles.
+> 
+Garin babbles a few nonsensical phrases.
+> 
+A lawkeeper arrives.
+> 
+Marcolan rubs his globe making it shine with a brilliant red light.
+> 
+Leah applauds.
+> smi
+You smile.
+> 
+A commoner goes west.
+> 
+A lawkeeper goes southwest.
+> 
+A lawkeeper arrives.
+> give globe to cypr
+
+Marcolan nods to Winter.
+> You'll have to unwield to do that.
+> 
+Prudence hugs Cypress.
+> 
+Prudence smiles.
+> 
+Marcolan rubs his globe making it shine with a brilliant red light.
+> unwie 2 bro
+
+Cypress hugs Prudence.
+> You put away a fiery randar broadsword with the name Moordread scratched on the
+blade.
+> unwie shie
+You put away an eldritch diamontine shield.
+> 
+Winter laughs.
+> give second globe to cypr
+You give a globe to Cypress.
+> 
+Prudence says, "I'm serious."
+> 
+Cypress puts away an eldritch red titanium shield emblazoned with a snarling
+wolf locked in combat with a black serpent.
+> 
+Winter nods to Marcolan.
+> 
+Cypress smiles at you.
+> 
+Feras opens a wooden bin.
+> 
+A lawkeeper goes south.
+> 
+Marcolan rubs his globe and it suddenly pulses with a bright blue color.
+> 
+Feras closes a wooden bin.
+> 'Rub it to change colors
+You say, "Rub it to change colors"
+> 
+Cypress gazes at a globe.
+> 
+A priest arrives.
+> 
+Prudence says, "but don't thump it."
+> 
+Cypress rubs her globe and it is immediately surrounded with a pretty pink
+glow.
+> 
+Prudence opens a backpack.
+> 
+A lawkeeper arrives.
+> 
+Winter says, "thum it to break it,  something will appear"
+> 
+Prudence opens a rainbow colored pouch.
+> 
+Winter gazes at a slick yellow umbrella.
+> 
+A lawkeeper goes west.
+> whisp cypr If you tap it then it shatters and you get some random object
+You whisper to Cypress.
+> 
+Cypress says, "cool"
+> 
+Prudence removes a rainbow colored pouch from the backpack.
+> 
+Feras says, "Make sure you like the color"
+> 
+A beggar arrives.
+> 
+Prudence gazes at a nose.
+> 
+Winter chuckles at Prudence.
+> 
+Prudence exclaims, "that's what I got!"
+> rub globe
+A bright blue color now pulses inside the globe.
+> 
+Prudence rolls her eyes.
+> 
+A commoner arrives.
+> 
+Cypress says, "thank you"
+> 
+Prudence closes a rainbow colored pouch.
+> 
+A merchant goes south.
+> 
+Leah rubs her globe and it suddenly pulses with a bright blue color.
+> 
+Cypress's globe glows with a pure white light as she rubs it.
+> 
+Prudence puts a rainbow colored pouch in the backpack.
+> 
+Leah rubs her globe and it turns a brilliant yellow color.
+> 
+A priest goes north.
+> 
+Purple rays of light burst forth from the globe as she rubs it.
+> 
+Leah rubs her globe and it turns a brilliant yellow color.
+> 
+Garin recites, "bakabakabakabaka!"
+> 
+Leah rubs her globe and it is immediately surrounded with a pretty pink glow.
+> 
+A commoner goes north.
+> 
+Prudence closes a backpack.
+> 'Is it neat or what?
+You ask, "Is it neat or what?"
+> 
+Winter gazes at Garin.
+> rub globe
+
+Cypress says, "cool purple"
+> 
+Leah's globe glows with a pure white light as she rubs it.
+> The globe turns a deep black color.
+> 
+Winter asks, "what is it Lord Stumpy?"
+> 
+A beggar goes east.
+> 
+Leah rubs her globe and it turns a brilliant yellow color.
+> 
+Cypress asks, "did you see Feras?"
+> 
+Marcolan raises an eyebrow towards Garin.
+> 
+Garin fidgets nervously.
+> 
+Leah rubs globe which now emanates a soft green light.
+> 
+With a steady clip clop of hooves, and a quiet jingling of harness bells, a
+charming horse-drawn carriage arrives from the south.
+> 
+A beggar arrives.
+> 
+Garin recites, "Nothing! i am fine!"
+> 
+Feras taps Cypress on the shoulder.
+> 
+A gold badge of the Lawkeepers glows with a soft silver light.
+> 
+Winter nods to Garin.
+> 
+Purple rays of light burst forth from the globe as she rubs it.
+> 
+With a jingle of harness bells, a regal looking horse pulls a carriage to the
+north.
+> rub globe
+The globe glows with a brilliant yellow light.
+> 
+Prudence smiles at Cypress.
+> 
+Winter says, "Sure, if I hadn't hunted with you before I'd be worried"
+> 
+Prudence is now following Cypress.
+> 
+A commoner arrives.
+> 
+A priest arrives.
+> rub globe
+The globe shimmers with a sparkling golden light.
+> 
+Cypress says, "excuse us"
+> 
+Feras returns to normal speed.
+> 
+Winter says, "it's been a long time since you last guarded me"
+> 
+Garin recites, "I am a gardener, not a hunter!"
+> 
+A passing priest draws his robes in closer about him.
+> 
+A commoner goes northwest.
+> 
+A beggar goes east.
+> 
+Purple rays of light burst forth from the globe as she rubs it.
+> 
+Cypress returns to normal speed.
+> 
+Garin nods to Winter.
+> 
+Garin nods to Winter.
+> 
+Cypress says, "thanks Moordread"
+> 
+Cypress's group goes west.
+> 
+A trader arrives.
+> 
+Leah's globe turns a deep black color.
+> 
+Winter nods to Garin.
+> hug cyp
+What are you referring to?  Please be more specific.
+> 
+Marcolan asks, "I thought you were a miner?"
+> 
+ ** Tobias has just left the Realms.
+> 
+Leah's globe glows with a pure white light as she rubs it.
+> 
+Marcolan listens carefully to Garin.
+> 
+A priest goes north.
+> 
+A trader flees southwest.
+> 
+Winter says, "Garin does everything"
+> contact cypr Your welcome *hug*
+You contact Cypress with your thoughts.
+ [Round: 2 sec]
+R> 
+Leah rubs her globe and it is immediately surrounded with a pretty pink glow.
+R> 
+A merchant arrives.
+R> 
+Leah's globe glows with a pure white light as she rubs it.
+> 
+Garin says, "gagagagagagag"
+> 
+A merchant arrives.
+> 
+A priest goes northwest.
+> comf gar
+You comfort Garin.
+> rub globe
+The globe shimmers with a sparkling golden light.
+> 
+Garin sniffs a large marble fountain.
+> 
+Leah's globe glows with a pure white light as she rubs it.
+> 
+You feel a tingle in your mind. Cypress thinks to you, "*hugs."
+> 
+Winter says, "You know he is mumbling like a toddler"
+> 
+Purple rays of light burst forth from the globe as she rubs it.
+> 
+Leah ponders.
+> smi
+You smile.
+> 
+Garin says, "Toddly woddly woo."
+> 
+Garin nods to Winter.
+> time
+It is Folster 22, 1045 (Year of the Wyrm).
+It is midafternoon.
+> sip toddy
+What are you referring to?  Please be more specific.
+> 
+Winter nods to Garin.
+> 
+A merchant goes north.
+> 'Afternoon all
+You say, "Afternoon all"
+> wave
+You wave.
+> sal gar
+You salute Garin.
+> 
+Garin salutes you.
+> 
+The smell of garbage wafts by.
+> s
+[Bazaar South]
+Obvious exits: n, s, e, w, ne, nw.
+You get a few suspicious glances cast in your direction.
+> x
+
+ ** Moordread has just left the Realms.
+> 
+
+Character Manager V1.00
+
+ 1 => Moordread
+ 2 => Morti
+ 3 => Bubba
+
+ C => Create new character
+ D => Delete current character
+ P => Play Legends of Future Past
+ X => Exit to NovaLink
+
+
+Active character: Moordread (#1)
+
+Select: /bye
+
+
+Thank you for using NovaLink.
+
+Connect time this session: 184 minutes.
+
+Have a nice evening!
+
+NovaLink is an online service of NovaLink USA Corporation,
+200 Friberg Parkway, Suite 4003, Westborough, MA 01581. Service: 800-274-2814.
+
+
+
+
+
+
+
+
+
+Invalid selection.
+
+Character Manager V1.00
+
+ 1 => Moordread
+ 2 => Morti
+ 3 => Bubba
+
+ C => Create new character
+ D => Delete current character
+ P => Play Legends of Future Past
+ X => Exit to NovaLink
+
+
+Active character: Moordread (#1)
+

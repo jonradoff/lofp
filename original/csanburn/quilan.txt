@@ -1,0 +1,5747 @@
+
+Khalil's group goes down.
+J> 
+You follow Khalil.
+[Teeth of Shartan, streambed]
+You see Canis, Kylie, Stolar, a wolf, Khalil, Feras, Cypress and Young. 
+Obvious exits: n, u.
+J> 
+A wolf follows along closely beside Khalil.
+J> 
+You feel the touch of Young's mind:
+"well, get back to the landslide ;)"
+J> 
+A wolf sniffs about the area.
+J> 
+Feras gazes about the area through some icy silver sunglasses.
+J> 
+A wolf bares her fangs and growls!
+J> 
+A wolf returns to normal.
+J> 
+Khalil chuckles.
+J> 
+Khalil arches his eyebrow.
+J> 
+A wolf sniffs about the area.
+J> 
+Khalil gestures.
+Nothing happens.
+J> 
+Khalil incants a spell.
+J> 
+Khalil narrows his eyes and gazes intently about the area.
+J> 
+Khalil incants a spell.
+J> 
+You feel the touch of Sun's mind:
+"I am there"
+J> 
+Canis incants a spell.
+J> 
+Khalil incants a spell.
+J> 
+Young says, "Ill get her"
+J> 
+Canis gestures.
+Canis seems changed.
+J> 
+You feel the touch of Sierron's mind:
+"alright, find me before ya leave will ya Stolar?"
+J> 
+Young goes north.
+J> 
+An ursine lumbers in, hackles raised.
+J> 
+An ursine stands erect and closes with a wolf.
+J> 
+An ursine slashes at a wolf. Hit! Good damage.
+J> 
+A wolf retreats.
+J> 
+Stolar concentrates intently on an ursine.
+J> 
+Energy arcs around an ursine.
+ Minor damage.
+J> 
+Khalil is now guarding a wolf.
+J> 
+Stolar concentrates intently on an ursine.
+J> 
+Energy arcs around an ursine.
+ Massive damage.
+J> 
+A frost giant arrives.
+J> 
+An ursine lurches forward and blows at Canis with its corrosive fetid breath.
+ Minor burn to head. [21 Damage]
+J> 
+A frost giant emanates cold.
+J> 
+Stolar concentrates intently on an ursine.
+J> 
+Energy arcs around an ursine.
+ Massive damage.
+J> 
+Feras is now guarding Kylie.
+J> 
+Stolar concentrates intently on an ursine.
+J> 
+Energy arcs around an ursine.
+ Major damage.
+J> 
+A wolf growls at an ursine.
+J> 
+Canis incants a spell.
+J> pre 318
+
+Stolar concentrates intently on an ursine.
+J> 
+Energy arcs around an ursine.
+ Good damage.
+J> You prepare the Body Restoration III spell.
+ [Round: 3 sec]
+RJ> 
+An ursine stands erect and closes with Canis.
+RJ> 
+An ursine slashes at Canis. Hit! Major damage.
+RJ> 
+A frost giant points at a wolf.
+Magic begins to form but then fizzles.
+RJ> 
+Canis retreats.
+RJ> 
+Stolar concentrates intently on an ursine.
+RJ> 
+Energy arcs around an ursine.
+ Minor damage.
+RJ> 
+Cypress concentrates intently on an ursine.
+RJ> 
+Energy arcs around an ursine.
+ Good damage.
+RJ> 
+Stolar concentrates intently on an ursine.
+J> 
+Energy arcs around an ursine.
+ Good damage.
+J> 
+Cypress concentrates intently on an ursine.
+J> 
+Energy arcs around an ursine.
+ Good damage.
+J> rel
+You release your prepared spell.
+J> 
+Stolar concentrates intently on an ursine.
+J> 
+Lightning crackles over an ursine!
+ Major damage.
+J> 
+Khalil is now guarding Canis.
+J> 
+An ursine begins to charge but stops in a feinted swipe.
+J> 
+A frost giant advances towards Stolar.
+J> 
+A frost giant swings at Stolar. Miss.
+J> pre 218
+You prepare the Slumber III spell.
+ [Round: 3 sec]
+RJ> 
+Stolar concentrates intently on an ursine.
+RJ> 
+Energy arcs around an ursine.
+ Major damage.
+RJ> 
+Cypress concentrates intently on an ursine.
+RJ> 
+Energy arcs around an ursine.
+ Good damage.
+RJ> cast urs
+You gesture at an ursine.
+[Success: 95%, Roll 80] Success!
+An ursine falls asleep.
+J> 
+Canis incants a spell.
+J> 
+The sun sets in the west.
+J> 
+An ursine wakes up.
+J> 
+An ursine stands up.
+J> 
+A frost giant swings at Stolar. Miss.
+J> 
+Cypress concentrates intently on an ursine.
+J> 
+Energy arcs around an ursine.
+ Major damage.
+J> 
+Feras advances towards a frost giant.
+J> 
+Canis gestures at an ursine.
+Canis forms a freezing sphere from the air and
+hurls it at an ursine!
+ Massive damage.
+J> 
+Stolar retreats.
+J> pre 134
+
+Stolar is now guarding Cypress.
+J> You prepare the Siryx's Terrible Tentacles spell.
+ [Round: 3 sec]
+RJ> 
+An ursine stands erect and closes with Feras.
+RJ> 
+An ursine slashes at Feras. Miss.
+RJ> 
+A frost giant swings at Feras. Miss.
+RJ> tar urs
+Targets now include:
+An ursine
+RJ> pre 134
+
+Stolar concentrates intently on an ursine.
+J> 
+Energy arcs around an ursine.
+ Good damage.
+J> You have already prepared a spell.
+J> 
+Feras swings at a frost giant. Hit! Minor damage.
+J> 
+Feras swings at a frost giant. Hit! Good damage, stun.
+J> 
+An ursine slashes at Feras. Miss.
+J> 
+ ** Elarin has just disconnected.
+J> 
+Stolar concentrates intently on an ursine.
+J> 
+Energy arcs around an ursine.
+ Good damage.
+J> 
+Feras thrusts at a frost giant. Hit! Good damage.
+J> 
+Feras swings at a frost giant. Hit! Minor damage.
+J> 
+Canis incants a spell.
+J> tar giant
+Targets now include:
+An ursine
+A frost giant
+J> 
+Stolar concentrates intently on an ursine.
+J> 
+Energy arcs around an ursine.
+ Minor damage.
+J> tar 2 urs
+What are you referring to?  Please be more specific.
+J> 
+Feras thrusts at a frost giant. Hit! Minor damage.
+J> 
+Feras swings at a frost giant. Hit! Good damage.
+J> 
+Stolar concentrates intently on an ursine.
+J> 
+Lightning crackles over an ursine!
+ Massive damage.
+J> cast urs
+
+An ursine bellows a deafening challenge.
+J> You gesture at an ursine.
+[Success: 95%, Roll 47] Success!
+Black tentacles burst forth from the ground!
+Tentacles grab hold of an ursine!
+Tentacles grab hold of a giant!
+J> 
+Stolar concentrates intently on an ursine.
+J> 
+Energy arcs around an ursine.
+ Good damage.
+J> 
+Canis gestures at a giant.
+Canis hurls a bolt of lightning at a giant!
+ Good damage.
+J> 
+Feras swings at a frost giant. Hit! Good damage.
+J> 
+Feras thrusts at a frost giant. Hit! Minor damage.
+J> pre 218
+You prepare the Slumber III spell.
+ [Round: 3 sec]
+RJ> 
+Stolar concentrates intently on an ursine.
+RJ> 
+Lightning crackles over an ursine!
+ Massive damage.
+RJ> 
+Cypress concentrates intently on a giant.
+RJ> 
+Static crackles around a frost giant.
+ Good damage.
+RJ> cas urs
+[Wait 2 seconds...]
+RJ> 
+Stolar concentrates intently on an ursine.
+RJ> 
+Energy arcs around an ursine.
+ Good damage.
+RJ> cas urs
+
+Feras swings at a frost giant. Hit! Minor damage.
+RJ> 
+Feras thrusts at a frost giant. Hit! Minor damage.
+RJ> You gesture at an ursine.
+[Success: 95%, Roll 96] Failure.
+J> 
+An ursine slashes at Feras. Miss.
+J> 
+A frost giant swings at Feras. Miss.
+J> 
+Stolar concentrates intently on an ursine.
+J> 
+Lightning crackles over an ursine!
+ Massive damage.
+J> 
+Feras swings at a frost giant. Hit! Good damage.
+J> 
+Feras thrusts at a frost giant. Hit! Good damage.
+J> pre 218
+You prepare the Slumber III spell.
+ [Round: 3 sec]
+RJ> 
+A frost giant is being crushed by the tentacles!
+ Solid blow to body. [7 Damage]
+RJ> 
+Stolar concentrates intently on an ursine.
+RJ> 
+Energy arcs around an ursine.
+ Minor damage.
+RJ> cas urs
+
+Cypress concentrates intently on a giant.
+RJ> 
+Energy arcs around a frost giant.
+ Minor damage.
+RJ> [Wait 2 seconds...]
+RJ> 
+Feras thrusts at a frost giant. Hit! Good damage.
+RJ> 
+Feras swings at a frost giant. Hit! Minor damage.
+RJ> cas urs
+
+Cypress concentrates intently on a giant.
+J> 
+Static crackles around a frost giant.
+ Good damage.
+J> 
+An ursine slashes at Feras. Miss.
+J> 
+A frost giant emanates cold.
+J> 
+Stolar concentrates intently on an ursine.
+J> 
+Energy arcs around an ursine.
+
+ Powerful energy flux overloads synaptic control centers.
+
+ It stumbles and gasps its last breath in one final attempt to slay.
+J> An ursine is dead!
+J> 
+Feras swings at a frost giant. Hit! Good damage.
+J> 
+Feras swings at a frost giant. Hit! Minor damage.
+J> 
+The tentacles release an ursine and boil away into ichor.
+J> 
+Cypress concentrates intently on a giant.
+J> 
+Energy arcs around a frost giant.
+ Major damage.
+J> 
+Feras thrusts at a frost giant. Hit!
+ Powerful sideswipe removes top of skull from ears up.
+
+ It falls to the ground with a thud.
+J> 
+The tentacles release a giant and boil away into ichor.
+J> look
+[Teeth of Shartan, streambed]
+A frothing mountain stream surges down the mountains, rolling over the mossy
+rocks and debris in its bed with reckless abandon. Downstream from here, the
+massive rock walls of the valley close tightly around the stream. To the north,
+however, the valley widens somewhat. Countless eons of traffic by all sorts of
+travellers have worn a fine trail which winds northward through the the valley
+towards towering mountain peaks. Another path of loose rubble leads up the
+steep valley wall.
+You see Canis, Kylie, Stolar, a wolf, Khalil, Feras, Cypress, an ursine (dead)
+and a frost giant (dead). 
+Obvious exits: north, up.
+J> fat
+Mana: 314/357
+Psi: 259/259
+Fatigue: 232/232
+J> 
+A wolf pierces the air with a resounding howl!
+J> 
+A wolf pierces the air with a resounding howl!
+J> 
+A wolf pierces the air with a resounding howl!
+J> beam
+You beam happily.
+J> 
+Khalil pets a wolf.
+J> 
+A wolf wags her tail.
+J> 
+Canis incants a spell.
+J> 
+Canis gestures.
+Canis looks a little better.
+J> 
+Canis incants a spell.
+J> 
+Stolar wields an eldritch diamontine shield bearing a raging storm at sea.
+J> 
+ ** Moire has just left the Realms.
+J> 
+Canis gestures.
+Canis looks a little better.
+J> 
+Canis incants a spell.
+J> 
+Canis gestures.
+Canis looks a little better.
+J> 
+Young's group arrives.
+J> 
+Sun says, "diased"
+J> 
+A wolf sniffs about the area.
+J> 
+Canis incants a spell.
+J> 
+Feras wipes his swords on the giant
+J> 
+Kylie returns to normal speed.
+J> 
+Canis gestures.
+Canis looks a little better.
+J> 
+Young says, "We found a were"
+J> 
+Young puts away a fiery steel greatsword with a polished diamond inset into the
+hilt and engraved "DIE! DIE! DIE!".
+J> 
+A wolf suddenly howls, writhing in pain. It transforms into Mariella!
+J> 
+Stolar removes a maufra lichen from the satchel.
+J> 
+Young disbands his group.
+J> 
+Young is now following Khalil.
+J> 
+Sun incants a spell.
+J> 'Anyone need lichen?
+You ask, "Anyone need lichen?"
+J> 
+Khalil incants a spell.
+J> 
+Sun gestures.
+A purple light flashes around Sun.
+J> 
+Canis is now following Khalil.
+J> 
+Khalil gestures at Sun.
+A purple light flashes around Sun.
+J> 
+Khalil incants a spell.
+J> 
+Young shakes his head back and forth.
+J> 
+Khalil incants a spell.
+J> 
+Sun is now following Khalil.
+J> 
+Young gestures.
+Young seems disconcerted for a moment.
+J> 
+Canis asks, "lichen|?"
+J> 
+Young incants a spell.
+J> 
+Mariella incants a spell.
+J> 'for disease
+
+Young shakes his head back and forth.
+J> 
+Sun opens a shimmering gold silk pouch that shines with the light of the a
+thousand sunbeams.
+J> You say, "for disease"
+J> 
+Mariella gestures at Sun.
+A purple light flashes around Sun.
+J> 
+Sun takes a bite of a riyong mushroom.
+J> 
+Sun looks a little better.
+J> 
+Young gestures.
+The glowing outline of armor appears around Young.
+J> 
+Young incants a spell.
+J> 
+Sun says, "wow"
+J> 
+Khalil gestures.
+Nothing happens.
+J> 
+Khalil incants a spell.
+J> 
+Canis says, "I do not have any"
+J> 
+Young gestures.
+A prismatic globe encircles Young.
+J> 
+Sun takes a bite of a riyong mushroom.
+J> 
+Sun looks a little better.
+J> get lich
+You remove a maufra lichen from the case.
+J> 
+Young incants a spell.
+J> give lich to can
+You give a maufra lichen to Canis.
+J> 
+Young gestures.
+A prismatic globe encircles Young.
+J> 
+Canis says, "i will try to avoid gettin gdiseased"
+J> 
+Canis giggles.
+J> 
+Sun incants a spell.
+J> 
+Sun gestures.
+Sun moves with blurring speed.
+J> 'Now you have one
+You say, "Now you have one"
+J> 
+Canis says, "my thanks"
+J> 
+Canis smiles at you.
+J> beam
+You beam happily.
+J> 
+Sun takes a bite of a riyong mushroom.
+J> 
+Sun looks a little better.
+J> 
+Sun takes a bite of a riyong mushroom.
+J> 
+Sun looks a little better.
+J> 'Sure, I got more if you need it
+You say, "Sure, I got more if you need it"
+J> 
+Sun says, "ok"
+J> 
+Sun sighs.
+J> 
+Sun incants a spell.
+J> 
+Young opens a dark green leather satchel.
+J> 
+Sun gestures.
+Sun gradually fades from view.
+J> tick sun
+That's silly.
+J> 
+Young removes a ragged scroll from the satchel.
+J> gig
+You giggle.
+J> 
+Young closes a dark green leather satchel.
+J> 
+Without warning, Mariella howls and collapses to the ground, shaking.
+Undergoing a terrible transformation, she changes shape into that of a wolf!
+J> fat
+Mana: 357/357
+Psi: 259/259
+Fatigue: 232/232
+J> 
+Feras asks, "Someone enhance my strength?"
+J> look
+[Teeth of Shartan, streambed]
+A frothing mountain stream surges down the mountains, rolling over the mossy
+rocks and debris in its bed with reckless abandon. Downstream from here, the
+massive rock walls of the valley close tightly around the stream. To the north,
+however, the valley widens somewhat. Countless eons of traffic by all sorts of
+travellers have worn a fine trail which winds northward through the the valley
+towards towering mountain peaks. Another path of loose rubble leads up the
+steep valley wall.
+You see Canis, Kylie, Stolar, a wolf, Khalil, Feras, Cypress, Young, an ursine
+(dead) and a frost giant (dead). 
+Obvious exits: north, up.
+J> pre 209
+You prepare the Strength III spell.
+ [Round: 3 sec]
+RJ> cast fer
+
+You hear something say, "those were's are terrible"
+RJ> [Wait 2 seconds...]
+RJ> 
+Young opens a dark green leather satchel.
+RJ> cast fer
+You gesture at Feras.
+[Success: 95%, Roll 8] Success!
+Feras radiates with magical strength.
+J> 
+A wolf is now following Khalil.
+J> 
+Young removes a cocooned larva from the satchel.
+J> 
+Khalil nods.
+J> 
+Khalil sighs.
+J> 
+Canis is now following Khalil.
+J> 
+You hear something say, "they disjuncted me already"
+J> 
+Young gives a cocooned larva to Feras.
+J> 
+Feras smiles at you.
+J> 
+A wolf suddenly howls, writhing in pain. It transforms into Mariella!
+J> 
+Khalil's group goes north.
+J> 
+You follow Khalil.
+[Teeth of Shartan, streambed]
+You see Canis, Kylie, Stolar, Khalil, Feras, Cypress and Young. Some white
+penetine blossoms are here.
+Obvious exits: s, ne.
+J> 
+Canis asks, "they are well trained like the other Khalil spoke of?"
+J> 
+Stolar softly says, "we left mari"
+J> 
+Khalil's group goes northeast.
+J> 
+You follow Khalil.
+[Teeth of Shartan, valley]
+You see Canis, Kylie, Stolar, Khalil, Feras, Cypress, Young and an ursine
+magician. 
+Obvious exits: ne, sw.
+J> 
+Kylie incants a spell.
+J> 
+An ursine magician growls some arcane syllables.
+J> 
+You hear something say, "seemed it"
+J> 
+An ursine magician opens its arms wide and roars at Feras.
+An ursine magician growls deep in its throat.
+J> 
+An ursine magician growls some arcane syllables.
+J> 
+Young incants a spell.
+J> 
+An ursine magician opens its arms wide and roars.
+An ursine magician growls deep in its throat.
+J> pre 112
+You prepare the Call Meteor spell.
+ [Round: 2 sec]
+RJ> 
+Young gestures at a magician.
+Webs form around a magician but they are brushed aside!
+RJ> 
+An ursine magician growls some arcane syllables.
+J> 
+Feras growls at an ursine magician.
+J> 
+Mariella arrives.
+J> cas magic
+pre 112
+You gesture at a magician.
+[Success: 95%, Roll 37] Success!
+Chandra points to the sky. A moment later, a meteor
+screeches from the heavens and hammers a magician!
+ Minor burn to left paw. [15 Damage]
+ Devastating blow to head. [57 Damage]
+J> You prepare the Call Meteor spell.
+ [Round: 2 sec]
+RJ> 
+An ursine magician snaps its teeth and shakes its head, sending foam flying.
+RJ> cas magic
+pre 112
+[Wait 1 seconds...]
+RJ> [Wait 1 seconds...]
+RJ> cas magic
+pre 112
+You gesture at a magician.
+[Success: 95%, Roll 46] Success!
+Chandra points to the sky. A moment later, a meteor
+screeches from the heavens and hammers a magician!
+ Serious burn to tail. [10 Damage]
+ Blow to body ruptures internal organs!
+ It slumps to the ground in a bloody heap, slathered in sweaty foam.
+J> You prepare the Call Meteor spell.
+ [Round: 2 sec]
+RJ> 
+a magician's skin appears to become less rigid.
+RJ> 
+Khalil takes Mariella by the hand.
+J> 
+Young skins an ursine magician.
+J> rel
+You release your prepared spell.
+J> 
+Something applauds.
+J> 
+Khalil smiles.
+J> 
+Something giggles.
+J> 
+Kylie searches an ursine magician.
+J> 
+A fire giant crackles in.
+J> gaze gia
+
+Young incants a spell.
+J> You gaze at a fire giant.
+J> 
+A fire giant glows brightly.
+J> 
+Young gestures at a giant.
+Young forms a freezing sphere from the air and
+hurls it at a giant!
+ Massive damage, knockdown.
+J> 
+Khalil's group goes northeast.
+J> 
+You follow Khalil.
+[Teeth of Shartan, valley]
+You see Canis, Kylie, Stolar, Mariella, Khalil, Feras, Cypress, Young, Revenge
+and a frost giant. 
+Obvious exits: n, sw.
+J> 
+Revenge swings at a frost giant. Hit!
+ Flame strike superheats lungs, exploding chest!
+
+ It falls to the ground with a thud.
+J> 
+Revenge advances towards a frost giant.
+J> 
+Revenge concentrates intently.
+Revenge phases out of view.
+J> 
+Young skins a frost giant.
+J> 
+Young searches a frost giant.
+J> 
+Khalil arches his eyebrow.
+J> 
+A fire giant crackles in.
+J> 
+Young smiles rev
+J> pre 121
+You prepare the Freezing Sphere spell.
+ [Round: 2 sec]
+RJ> 
+A fire giant points at Feras.
+Magic begins to form but then fizzles.
+J> 
+Feras says, "Hmm"
+J> cast fro gia
+pre 121
+What are you referring to?  Please be more specific.
+J> You have already prepared a spell.
+J> 
+Khalil's group goes north.
+J> 
+You follow Khalil.
+[Teeth of Shartan, valley]
+You see Canis, Kylie, Stolar, Mariella, Khalil, Feras, Cypress and Young. A
+massive boulder is here.
+Obvious exits: n, s.
+J> 
+Mariella appears to become weaker.
+J> 
+Young says, "I jes saw a jewlere, Im syre"
+J> 
+You hear something ask, "what was the jeweler doing here?"
+J> 
+A frost giant stomps in.
+J> 
+Mariella incants a spell.
+J> 
+You hear something say, "me too"
+J> 
+A fire giant crackles in.
+J> nod
+You nod.
+J> 
+Khalil says, "nt sure"
+J> 
+You hear the sound of a spell being prepared.
+J> 
+An ursine lumbers in, hackles raised.
+J> 
+A frost giant emanates cold.
+J> rel
+You release your prepared spell.
+J> 
+Mariella gestures.
+Mariella seems changed.
+J> 
+Feras points at a fire giant.
+J> pre 112
+
+A fire giant glows brightly.
+J> You prepare the Call Meteor spell.
+ [Round: 2 sec]
+RJ> 
+The air before you shimmers and congeals into Sun!
+J> 
+Sun gestures at a giant.
+Sun points to the sky. A moment later, a meteor
+screeches from the heavens and hammers a giant!
+ Good damage.
+J> 
+Sun incants a spell.
+J> 
+An ursine stands erect and closes with Feras.
+J> 
+An ursine slashes at Feras. Miss.
+J> 
+Khalil's group goes north.
+J> 
+You follow Khalil.
+[Teeth of Shartan, valley]
+You see Canis, Kylie, Stolar, Mariella, Sun, Khalil, Feras, Cypress and Young. 
+Obvious exits: s, nw.
+J> cast fros gia
+pre 112
+What are you referring to?  Please be more specific.
+J> You have already prepared a spell.
+J> 
+A fire giant crackles in.
+J> 
+A frost giant stomps in.
+J> cast fros gia
+pre 112
+You gesture at a giant.
+[Success: 95%, Roll 51] Success!
+Chandra points to the sky. A moment later, a meteor
+screeches from the heavens and hammers a giant!
+ Serious burn to right arm. [37 Damage]
+ Brutal blow to body. [52 Damage]
+J> You prepare the Call Meteor spell.
+ [Round: 2 sec]
+RJ> 
+A fire giant points at Kylie.
+A fire giant shapes a flaming sphere from the ether and
+hurls it at Kylie!
+ Good damage.
+RJ> 
+Sun gestures at a giant.
+Sun points to the sky. A moment later, a meteor
+screeches from the heavens and hammers a giant!
+ Minor damage.
+J> 
+Sun incants a spell.
+J> cast fros gia
+pre 112
+You gesture at a giant.
+[Success: 95%, Roll 65] Success!
+Chandra points to the sky. A moment later, a meteor
+screeches from the heavens and hammers a giant!
+ Severe burn to right leg. [38 Damage]
+ Solid blow to left hand. [11 Damage]
+J> You prepare the Call Meteor spell.
+ [Round: 2 sec]
+RJ> 
+Canis incants a spell.
+RJ> nod
+You nod.
+RJ> 
+A frost giant points at Khalil.
+Magic begins to form but then fizzles.
+RJ> 
+Sun gestures at a giant.
+Sun points to the sky. A moment later, a meteor
+screeches from the heavens and hammers a giant!
+ Major damage.
+RJ> 
+Sun incants a spell.
+RJ> 
+Canis gestures at a giant.
+Canis forms a freezing sphere from the air and
+hurls it at a giant!
+ Massive damage.
+J> cast fros gia
+pre 112
+You gesture at a giant.
+[Success: 95%, Roll 81] Success!
+Chandra points to the sky. A moment later, a meteor
+screeches from the heavens and hammers a giant!
+ Internal organs stew in their own juices. Throw another on the barbe', mate.
+ It falls to the ground with a thud.
+J> You prepare the Call Meteor spell.
+ [Round: 2 sec]
+RJ> 
+Sun gestures at a giant.
+Sun points to the sky. A moment later, a meteor
+screeches from the heavens and hammers a giant!
+ Massive damage.
+RJ> 
+Sun incants a spell.
+RJ> 
+A fire giant advances towards Stolar.
+RJ> 
+A fire giant swings at Stolar. Miss.
+RJ> 
+Sun gestures at a giant.
+Sun points to the sky. A moment later, a meteor
+screeches from the heavens and hammers a giant!
+ Major damage.
+J> 
+Sun incants a spell.
+J> 
+Sun gestures at a giant.
+Sun points to the sky. A moment later, a meteor
+screeches from the heavens and hammers a giant!
+
+ Awesome blow to body breaks opponent's ribs, spraying internal body fluids!
+
+ It falls to the ground with a thud.
+J> 
+Sun incants a spell.
+J> 
+Young skins a fire giant.
+J> 
+Young searches a fire giant.
+J> rel
+You release your prepared spell.
+J> look
+[Teeth of Shartan, valley]
+The gentle curve of the mountain stream has obscured the opening in the valley
+behind the mountains to the south, increasing the feeling of closeness. In
+every direction lie rocky ridges and lofty peaks. Their summits still hold
+small caps of snow even this late in the year. Further down the slope, grasses
+and wildflowers have decorated the mountainsides with a rich tapestry of
+colors. Despite their serenity, the mountains seem to press downward with
+tremendous force.
+You see Canis, Kylie, Stolar, Mariella, Sun, Khalil, Feras, Cypress, Young and
+a frost giant (dead). A huge greatsword, some silver coins, some copper coins
+and a giant tooth are here.
+Obvious exits: south, northwest.
+J> 
+Khalil's group goes northwest.
+J> 
+You follow Khalil.
+[Teeth of Shartan, uquart grove]
+You see Canis, Kylie, Stolar, Mariella, Sun, Khalil, Feras, Cypress and Young. 
+Obvious exits: n, w, se.
+J> 
+Sun incants a spell.
+J> 'A few giants and ursines
+You say, "A few giants and ursines"
+J> gaze
+You gaze about the area.
+J> 
+Sun incants a spell.
+J> 
+Sun gestures.
+A brilliant prismatic globe encircles Sun.
+J> 
+Sun incants a spell.
+J> 
+Sun gestures.
+A brilliant prismatic globe encircles Sun.
+J> 
+An ursine magician shambles in, trembling with fury.
+J> 
+Sun incants a spell.
+J> 
+Sun gestures.
+A brilliant prismatic globe encircles Sun.
+J> 
+An ursine magician growls some arcane syllables.
+J> 
+An ursine magician opens its arms wide and roars.
+A magician's skin appears to become more rigid.
+J> 
+Sun incants a spell.
+J> pre 112
+You prepare the Call Meteor spell.
+ [Round: 2 sec]
+RJ> 
+Young incants a spell.
+RJ> 
+An ursine magician growls some arcane syllables.
+RJ> 
+Young gestures at a magician.
+Young forms a freezing sphere from the air and
+hurls it at a magician!
+ Minor damage.
+J> 
+And ursine lurches in, snarling.
+J> 
+An ursine magician opens its arms wide and roars at Stolar.
+An ursine magician growls deep in its throat.
+J> 
+An ursine is now guarding a magician.
+J> 
+Canis incants a spell.
+J> cast magic
+pre 112
+You gesture at a magician.
+[Success: 95%, Roll 51] Success!
+Chandra points to the sky. A moment later, a meteor
+screeches from the heavens and hammers a magician!
+ Insignificant burn to tail. [12 Damage]
+ Solid blow to head. [46 Damage]
+J> You prepare the Call Meteor spell.
+ [Round: 2 sec]
+RJ> 
+An ursine magician growls some arcane syllables.
+J> 
+Young incants a spell.
+J> 
+An ursine magician snaps its teeth and shakes its head, sending foam flying.
+J> 
+An ursine stands erect and closes with Stolar.
+J> 
+An ursine slashes at Stolar. Miss.
+J> 
+Stolar concentrates intently on a magician.
+J> 
+Energy arcs around an ursine magician.
+ Massive damage.
+J> 
+Young gestures at an ursine.
+Young forms a freezing sphere from the air and
+hurls it at an ursine!
+ Good damage.
+J> 
+Feras cocks his head to the side.
+J> 
+An ursine magician opens its arms wide and roars at Mariella.
+An ursine magician growls deep in its throat.
+J> 
+Stolar concentrates intently on a magician.
+J> 
+Lightning crackles over an ursine magician!
+ Massive damage.
+J> 
+Young incants a spell.
+J> cast magic
+pre 112
+You gesture at a magician.
+[Success: 95%, Roll 21] Success!
+Chandra points to the sky. A moment later, a meteor
+screeches from the heavens and hammers a magician!
+ Serious burn to body. [44 Damage]
+ Brutal blow to head. [50 Damage]
+J> You prepare the Call Meteor spell.
+ [Round: 2 sec]
+RJ> nod
+You nod.
+RJ> nod
+You nod.
+RJ> 
+An ursine magician thrusts at Khalil. Miss.
+RJ> 
+An ursine slashes at Stolar. Miss.
+RJ> 
+Stolar concentrates intently on a magician.
+J> 
+Energy arcs around an ursine magician.
+ Massive damage.
+J> 
+Mariella incants a spell.
+J> 
+An ursine magician thrusts at Kylie. Hit! Good damage.
+J> 
+Young gestures at an ursine.
+Young forms a freezing sphere from the air and
+hurls it at an ursine!
+ Good damage.
+J> 
+Stolar concentrates intently on a magician.
+J> 
+Energy arcs around an ursine magician.
+ Good damage.
+J> 
+Sun incants a spell.
+J> 
+Young incants a spell.
+J> 
+An ursine magician thrusts at Khalil. Miss.
+J> 
+An ursine slashes at Stolar. Miss.
+J> 
+Mariella gestures at an ursine.
+Mariella shapes a flaming sphere from the ether and
+hurls it at an ursine!
+ Devastating damage.
+J> 
+Stolar concentrates intently on a magician.
+J> 
+Energy arcs around an ursine magician.
+ Devastating damage.
+J> 
+Sun gestures at an ursine.
+Sun points to the sky. A moment later, a meteor
+screeches from the heavens and hammers an ursine!
+ Devastating damage.
+J> 
+Sun incants a spell.
+J> 
+Young gestures at an ursine.
+Young forms a freezing sphere from the air and
+hurls it at an ursine!
+ Minor damage.
+J> 
+Mariella incants a spell.
+J> 
+Stolar concentrates intently on a magician.
+J> 
+Energy arcs around an ursine magician.
+ Major damage.
+J> 
+Khalil returns to normal speed.
+J> 
+An ursine magician thrusts at Canis. Hit! Major damage.
+J> cas ursine
+
+Sun gestures at an ursine.
+Sun points to the sky. A moment later, a meteor
+screeches from the heavens and hammers an ursine!
+ Devastating damage.
+J> 
+Sun incants a spell.
+J> 
+Kylie incants a spell.
+J> You gesture at an ursine.
+[Success: 95%, Roll 45] Success!
+Chandra points to the sky. A moment later, a meteor
+screeches from the heavens and hammers an ursine!
+ Minor burn to head. [43 Damage]
+ Feeble blow to tail. [14 Damage]
+J> 
+Mariella gestures at an ursine.
+Mariella shapes a flaming sphere from the ether and
+hurls it at an ursine!
+ Good damage.
+J> 
+Stolar concentrates intently on a magician.
+J> 
+Energy arcs around an ursine magician.
+
+ It slumps to the ground in a bloody heap, slathered in sweaty foam.
+J> 
+Sun gestures at an ursine.
+Sun points to the sky. A moment later, a meteor
+screeches from the heavens and hammers an ursine!
+ Devastating damage.
+J> 
+Khalil appears to become less nimble.
+J> 
+a magician's skin appears to become less rigid.
+J> 
+An ursine slashes at Stolar. Miss.
+J> 
+Sun incants a spell.
+J> 
+Mariella incants a spell.
+J> 
+Sun gestures at an ursine.
+Sun points to the sky. A moment later, a meteor
+screeches from the heavens and hammers an ursine!
+ Awesome damage.
+J> 
+Sun incants a spell.
+J> 
+Kylie gestures.
+Kylie moves with blurring speed.
+J> 
+Young skins an ursine magician.
+J> pre 112
+
+Mariella gestures at an ursine.
+Mariella shapes a flaming sphere from the ether and
+hurls it at an ursine!
+ Major damage.
+J> You prepare the Call Meteor spell.
+ [Round: 2 sec]
+RJ> 
+Sun gestures at an ursine.
+Sun points to the sky. A moment later, a meteor
+screeches from the heavens and hammers an ursine!
+
+ Blow to body ruptures internal organs!
+
+ It stumbles and gasps its last breath in one final attempt to slay.
+RJ> 
+Sun incants a spell.
+RJ> 
+Mariella incants a spell.
+RJ> 
+Young searches an ursine magician.
+J> 
+Kylie incants a spell.
+J> 
+Kylie gestures at Mariella.
+Mariella looks a little better.
+J> 
+Feras nods.
+J> 
+Kylie incants a spell.
+J> 
+Kylie gestures at Mariella.
+Nothing happens.
+J> 
+Sun searches an ursine.
+J> 
+Mariella sniffs.
+J> 
+Khalil's group goes north.
+J> 
+You follow Khalil.
+[Teeth of Shartan, uquart grove]
+You see Canis, Kylie, Stolar, Mariella, Sun, Khalil, Feras, Cypress and Young.
+An ursine tooth is here.
+Obvious exits: n, s, ne, sw.
+J> 
+Sun returns to normal speed.
+J> 
+Kylie incants a spell.
+J> 
+Kylie gestures at Feras.
+Nothing happens.
+J> 
+Kylie incants a spell.
+J> 
+Sun incants a spell.
+J> fat
+
+Kylie gestures at Chandra.
+Nothing happens.
+J> Mana: 347/357
+Psi: 259/259
+Fatigue: 232/232
+J> 
+An ursine lumbers in, hackles raised.
+J> 
+Sun gestures.
+Sun moves with blurring speed.
+J> 
+Khalil's group goes northeast.
+J> 
+You follow Khalil.
+[Teeth of Shartan, landslide]
+You see Canis, Kylie, Stolar, Mariella, Sun, Khalil, Feras, Cypress and Young.
+A narrow track is here.
+Obvious exits: sw.
+J> 
+Kylie incants a spell.
+J> 
+Kylie gestures at Sun.
+Nothing happens.
+J> 
+Khalil searches the area.
+J> 
+Sun incants a spell.
+J> 
+Young points at a narrow track.
+J> 
+Khalil gestures.
+Khalil moves with blurring speed.
+J> 
+Khalil incants a spell.
+J> 
+Khalil nods.
+J> 
+Canis taps a narrow track.
+J> 
+And ursine lurches in, snarling.
+J> 
+An ursine stands erect and closes with Sun.
+J> 
+An ursine slashes at Sun. Miss.
+J> 
+Khalil says, "that's the one"
+J> 
+An ursine slashes at Sun. Miss.
+J> 
+Sun gestures at an ursine.
+Magic begins to form around Sun but then fizzles.
+J> rel
+You release your prepared spell.
+J> 
+Joel wades cautiously up the narrow track, through the swirling waters of the
+stream.
+J> 
+Sun incants a spell.
+J> pre 231
+You prepare the Imprison spell.
+ [Round: 3 sec]
+RJ> 
+Sun gestures at an ursine.
+Sun points to the sky. A moment later, a meteor
+screeches from the heavens and hammers an ursine!
+ Devastating damage.
+RJ> 
+An ursine slashes at Sun. Miss.
+RJ> 
+Sun incants a spell.
+J> 
+Young blinks.
+J> 
+Sun gestures at an ursine.
+Sun points to the sky. A moment later, a meteor
+screeches from the heavens and hammers an ursine!
+ Awesome damage.
+J> 
+Sun incants a spell.
+J> 
+Khalil arches his eyebrow.
+J> 
+Sun gestures at an ursine.
+Sun points to the sky. A moment later, a meteor
+screeches from the heavens and hammers an ursine!
+ Massive damage.
+J> 
+Sun incants a spell.
+J> 
+An ursine slashes at Sun. Miss.
+J> 
+Kylie arches her eyebrow.
+J> 
+Sun gestures at an ursine.
+Sun points to the sky. A moment later, a meteor
+screeches from the heavens and hammers an ursine!
+ Major damage.
+J> 
+Sun incants a spell.
+J> look
+
+Stolar concentrates intently on an ursine.
+J> 
+Energy arcs around an ursine.
+ Good damage.
+J> [Teeth of Shartan, landslide]
+A rubble pile of gigantic proportions stretches westward in an unbroken line
+to the summit of the closest peak of the ridge. A few naked uquart trees jut
+out of the rocks at unnatural angles, their branches and needles stripped by
+the tremendous force of the falling rocks. What was previously a hillside has
+now become the home to a colony of small rodents, who dart in and out of the
+holes in the broken jumble of rock. Turbulent waves from the mountain stream
+lap at the base of the rubble, threatening to wash away what little remains
+of the road. Only a narrow track between the end of the landslide and the
+western bank of the stream continues up the valley.
+You see Canis, Kylie, Stolar, Mariella, Sun, Khalil, Feras, Cypress, Young and
+an ursine. 
+Obvious exits: southwest.
+J> 
+Sun gestures at an ursine.
+Sun points to the sky. A moment later, a meteor
+screeches from the heavens and hammers an ursine!
+ Devastating damage.
+J> 
+Sun incants a spell.
+J> 
+Stolar concentrates intently on an ursine.
+J> 
+Energy arcs around an ursine.
+ Major damage.
+J> 
+Sun gestures at an ursine.
+Sun points to the sky. A moment later, a meteor
+screeches from the heavens and hammers an ursine!
+ Massive damage.
+J> 
+Sun incants a spell.
+J> 
+Sun gestures at an ursine.
+Sun points to the sky. A moment later, a meteor
+screeches from the heavens and hammers an ursine!
+ Major damage.
+J> 
+An ursine slashes at Sun. Miss.
+J> 
+Sun incants a spell.
+J> 
+Sun gestures at an ursine.
+Sun points to the sky. A moment later, a meteor
+screeches from the heavens and hammers an ursine!
+ Devastating damage.
+J> 
+Sun incants a spell.
+J> 
+Kylie wades cautiously up the narrow track, through the swirling waters of the
+stream.
+J> 
+Stolar concentrates intently on an ursine.
+J> 
+Energy arcs around an ursine.
+ Massive damage.
+J> 
+An ursine slashes at Sun. Miss.
+J> 
+Stolar concentrates intently on an ursine.
+J> 
+Lightning crackles over an ursine!
+ Good damage.
+J> 
+Young steps forward in defense of Sun!
+J> 
+Stolar concentrates intently on an ursine.
+J> 
+Lightning crackles over an ursine!
+ Massive damage.
+J> 
+An ursine slashes at Young. Miss.
+J> rel
+
+Feras asks, "Just how many are on this trip?"
+J> 
+ ** Yourion has just disconnected.
+J> You release your prepared spell.
+J> 
+Kylie wades cautiously down the narrow track, through the swirling waters of
+the stream.
+J> 
+Stolar concentrates intently on an ursine.
+J> 
+Energy arcs around an ursine.
+
+ Spectacular charge electrolyzes water in body.
+
+ It stumbles and gasps its last breath in one final attempt to slay.
+J> 
+Sun wades cautiously up the narrow track, through the swirling waters of the
+stream.
+J> 
+ ** Airgid has just disconnected.
+J> 
+Kylie is now following Khalil.
+J> 
+Canis wades cautiously up the narrow track, through the swirling waters of the
+stream.
+J> 
+Feras wades cautiously up the narrow track, through the swirling waters of the
+stream.
+J> 
+Young wades cautiously up the narrow track, through the swirling waters of the
+stream.
+J> 
+Mariella wades cautiously up the narrow track, through the swirling waters of
+the stream.
+J> look track
+You see nothing extraordinary.
+J> 
+Khalil wades cautiously up the narrow track, through the swirling waters of the
+stream.
+J> look
+[Teeth of Shartan, landslide]
+A rubble pile of gigantic proportions stretches westward in an unbroken line
+to the summit of the closest peak of the ridge. A few naked uquart trees jut
+out of the rocks at unnatural angles, their branches and needles stripped by
+the tremendous force of the falling rocks. What was previously a hillside has
+now become the home to a colony of small rodents, who dart in and out of the
+holes in the broken jumble of rock. Turbulent waves from the mountain stream
+lap at the base of the rubble, threatening to wash away what little remains
+of the road. Only a narrow track between the end of the landslide and the
+western bank of the stream continues up the valley.
+You see Kylie, Stolar, Cypress and an ursine (dead). 
+Obvious exits: southwest.
+> go tra
+You wade cautiously up the narrow track, through the swirling waters of the
+stream.
+[Teeth of Shartan, landslide]
+You see Canis, Mariella, Sun, Khalil, Feras and Young. A narrow track is here.
+Obvious exits: nw.
+> 
+Feras is now following Khalil.
+> fol khal
+You are now following Khalil.
+J> 
+Canis is now following Khalil.
+J> 
+Sun is now following Khalil.
+J> 
+Mariella is now following Khalil.
+J> 
+Young is now following Khalil.
+J> 
+Mariella incants a spell.
+J> 
+Mariella gestures.
+Mariella moves with blurring speed.
+J> exp
+Level: 90
+Build Points to date: 923
+Unspent Build Points: 14
+Experience Points until next Build Point: 34547
+J> 
+Without warning, Mariella howls and collapses to the ground, shaking.
+Undergoing a terrible transformation, she changes shape into that of a wolf!
+J> 
+Young says, "Dont fall in now"
+J> look
+[Teeth of Shartan, landslide]
+The path ends abruptly here as it disappears beneath a huge pile of rubble, the
+remains of a recent landslide. A narrow track leads around the end of the
+rubble, very close to the stream. So close, in fact, that much of it is covered
+by its frothing waves. The air here is moist with spray and the noise of the
+flowing water drowns out all other sounds.
+You see Canis, a wolf, Sun, Khalil, Feras and Young. 
+Obvious exits: northwest.
+J> 
+A wolf is now following Khalil.
+J> 
+A wolf sniffs about the area.
+J> 
+Stolar wades cautiously up the narrow track, through the swirling waters of the
+stream.
+J> 
+Cypress wades cautiously up the narrow track, through the swirling waters of
+the stream.
+J> 
+Khalil says, "missing 3 more"
+J> 
+Kylie wades cautiously up the narrow track, through the swirling waters of the
+stream.
+J> 
+Young says, "Here they are"
+J> 
+Young smiles.
+J> 
+You feel the touch of Immanuel's mind:
+"saryon"
+J> 
+Khalil smiles.
+J> 
+Stolar is now following Khalil.
+J> 
+Khalil gestures.
+Magic begins to form around Khalil but then fizzles.
+J> 
+Khalil incants a spell.
+J> 
+You feel the touch of Immanuel's mind:
+"?"
+J> 
+You feel the strength leave you.
+J> 
+You feel the touch of Saryon's mind:
+"Yes?"
+J> 
+Kylie is now following Khalil.
+J> 
+Cypress is now following Khalil.
+J> 
+something wades cautiously up the narrow track, through the swirling waters of
+the stream.
+J> 
+Khalil narrows his eyes and gazes intently about the area.
+J> 
+Khalil incants a spell.
+J> 
+Khalil incants a spell.
+J> 
+A wolf sniffs about the area.
+J> 
+You feel the touch of Immanuel's mind:
+"can we meet about that matter?"
+J> 
+Khalil's group goes northwest.
+J> 
+You follow Khalil.
+[Teeth of Shartan, landslide]
+You see Canis, Kylie, Stolar, a wolf, Sun, Khalil, Feras, Cypress and Young. A
+huge boulder is here.
+Obvious exits: w, nw, se.
+J> 
+A wolf sniffs about the area.
+J> look
+[Teeth of Shartan, landslide]
+This well worn path skirts the edge of several large boulders on the leading
+edge of the landslide. One huge boulder rests just on the edge of the path,
+supported over less than half its width by soil. Atop the boulder is a
+haphazard collection of sticks and grasses which would pass unnoticed except
+for the tiny songbird stitting proudly on it. A solid uquart branch has been
+wedged under the boulder in a desperate attempt to keep it in place. From the
+branch hangs a small sign.
+You see Canis, Kylie, Stolar, a wolf, Sun, Khalil, Feras, Cypress and Young. 
+Obvious exits: west, northwest, southeast.
+J> 
+You feel the touch of Saryon's mind:
+"Sure."
+J> 
+Khalil searches the area.
+J> 
+A wolf perks up her ears.
+J> 
+Sun asks, "Mariella?"
+J> 
+Kylie returns to normal speed.
+J> 
+You feel the touch of Immanuel's mind:
+"where?"
+J> 
+Young taps a small sign.
+J> 
+Sun casts her gaze across the area.
+J> read sign
+The sign reads:  PLEASE DO NOT REMOVE!
+J> gaze sign
+You gaze at a small sign.
+J> 
+A wolf sniffs about the area.
+J> 
+Khalil's group goes west.
+J> 
+You follow Khalil.
+[Teeth of Shartan, landslide]
+You see Canis, Kylie, Stolar, a wolf, Sun, Khalil, Feras, Cypress and Young. 
+Obvious exits: n, e.
+J> 
+Khalil searches the area.
+J> look
+[Teeth of Shartan, landslide]
+Tons of rock and rubble have buried the road here, blocking further travel to
+the south. Bits of cloth and metal beneath the landslide seem to suggest that
+this spot may have been the end for a previous adventuring party. A path leads
+eastward through the scattered rock and debris, and the road continues more or
+less unimpeded to the north.
+You see Canis, Kylie, Stolar, a wolf, Sun, Khalil, Feras, Cypress and Young. 
+Obvious exits: north, east.
+J> 
+Sun asks, "Mariella, is she with us?"
+J> 
+Sun listens to her surroundings closely.
+J> 
+Sun ponders.
+J> 
+A wolf growls, "The scent grows thinner here."
+J> 
+Stolar softly says, "we need to know of a safe place that we can run to if
+things go funky"
+J> 
+Canis gestures at a wolf.
+J> 
+Khalil's group goes east.
+J> 
+You follow Khalil.
+[Teeth of Shartan, landslide]
+You see Canis, Kylie, Stolar, a wolf, Sun, Khalil, Feras, Cypress and Young. A
+huge boulder is here.
+Obvious exits: w, nw, se.
+J> 
+A wolf sniffs about the area.
+J> 
+Sun nods.
+J> 
+Sun smiles.
+J> 
+Young says, "read sign"
+J> read sign
+The sign reads:  PLEASE DO NOT REMOVE!
+J> 
+Sun laughs.
+J> look
+[Teeth of Shartan, landslide]
+This well worn path skirts the edge of several large boulders on the leading
+edge of the landslide. One huge boulder rests just on the edge of the path,
+supported over less than half its width by soil. Atop the boulder is a
+haphazard collection of sticks and grasses which would pass unnoticed except
+for the tiny songbird stitting proudly on it. A solid uquart branch has been
+wedged under the boulder in a desperate attempt to keep it in place. From the
+branch hangs a small sign.
+You see Canis, Kylie, Stolar, a wolf, Sun, Khalil, Feras, Cypress and Young. 
+Obvious exits: west, northwest, southeast.
+J> 
+Khalil nods to Young.
+J> 
+You feel the touch of Immanuel's mind:
+"where are you, Saryon?"
+J> 
+Young nods.
+J> 
+You feel the touch of Saryon's mind:
+"Meet you on the child."
+J> 
+You feel the touch of Immanuel's mind:
+"I'd hate to do that to a kid."
+J> 
+ ** Dismis has just left the Realms.
+J> 
+A wolf sniffs about the area.
+J> look
+[Teeth of Shartan, landslide]
+This well worn path skirts the edge of several large boulders on the leading
+edge of the landslide. One huge boulder rests just on the edge of the path,
+supported over less than half its width by soil. Atop the boulder is a
+haphazard collection of sticks and grasses which would pass unnoticed except
+for the tiny songbird stitting proudly on it. A solid uquart branch has been
+wedged under the boulder in a desperate attempt to keep it in place. From the
+branch hangs a small sign.
+You see Canis, Kylie, Stolar, a wolf, Sun, Khalil, Feras, Cypress and Young. 
+Obvious exits: west, northwest, southeast.
+J> 
+Young says, "Northwest from here, ore west then north I think"
+J> 
+Sun returns to normal speed.
+J> 
+Khalil's group goes west.
+J> 
+You follow Khalil.
+[Teeth of Shartan, landslide]
+You see Canis, Kylie, Stolar, a wolf, Sun, Khalil, Feras, Cypress and Young. 
+Obvious exits: n, e.
+J> 
+Khalil returns to normal speed.
+J> look nw
+That way is blocked.
+J> 
+Khalil's group goes north.
+J> 
+You follow Khalil.
+[Teeth of Shartan, Valley Road]
+You see Canis, Kylie, Stolar, a wolf, Sun, Khalil, Feras, Cypress and Young. 
+Obvious exits: n, s, se.
+J> look
+
+A wolf sniffs about the area.
+J> [Teeth of Shartan, Valley Road]
+The stream side path runs north-south here, and is in remarkably good repair.
+Fine stonework lines the sides of the road, and the surface itself is paved in
+smooth, flat rocks from the streambed. Who would have built such a fine road in
+such a remote location is hard to fathom. A far less impressive dirt track
+leads southeast through the scattered uquart trees.
+You see Canis, Kylie, Stolar, a wolf, Sun, Khalil, Feras, Cypress and Young. 
+Obvious exits: north, south, southeast.
+J> 
+Khalil searches the area.
+J> 
+A frost giant arrives.
+J> 
+A frost giant emanates cold.
+J> look track
+What are you referring to?  Please be more specific.
+J> 
+Khalil gestures.
+Khalil moves with blurring speed.
+J> 
+Khalil incants a spell.
+J> 
+A frost giant points at Kylie.
+Magic begins to form but then fizzles.
+J> pre 112
+You prepare the Call Meteor spell.
+ [Round: 2 sec]
+RJ> 
+A frost giant advances towards Sun.
+J> 
+A frost giant swings at Sun. Miss.
+J> cast fros gia
+pre 112
+You gesture at a giant.
+[Success: 95%, Roll 79] Success!
+Chandra points to the sky. A moment later, a meteor
+screeches from the heavens and hammers a giant!
+ Minor burn to left arm. [33 Damage]
+ Solid blow to left leg. [21 Damage]
+J> You prepare the Call Meteor spell.
+ [Round: 2 sec]
+RJ> nod
+You nod.
+RJ> 
+Sun incants a spell.
+RJ> cast fros gia
+pre 112
+You gesture at a giant.
+[Success: 95%, Roll 44] Success!
+Chandra points to the sky. A moment later, a meteor
+screeches from the heavens and hammers a giant!
+ Severe burn to body. [64 Damage]
+ Devastating blow to body. [57 Damage]
+J> You prepare the Call Meteor spell.
+ [Round: 2 sec]
+RJ> nod
+You nod.
+RJ> 
+A frost giant swings at Sun. Miss.
+J> 
+Sun gestures.
+A flaming arrow flies from Sun and strikes a giant!
+
+ Flame strike superheats lungs, exploding chest!
+
+ It falls to the ground with a thud.
+J> 
+Sun incants a spell.
+J> 
+Feras wrinkles up his nose.
+J> 
+Young skins a frost giant.
+J> 
+Young searches a frost giant.
+J> 
+A fire giant arrives.
+J> 
+A fire giant advances towards Sun.
+J> 
+A fire giant swings at Sun. Miss.
+J> 
+Sun gestures at a giant.
+J> 
+A wolf sniffs about the area.
+J> 
+A fire giant glows brightly.
+J> 
+Young takes a giant warhammer.
+J> 
+As Young places a giant warhammer into a slime mold, it dissolves away!
+J> 
+Sun incants a spell.
+J> 
+Young's slime belches and bubbles before coming to rest.
+J> 
+A fire giant points at Kylie.
+A fire giant shapes a flaming sphere from the ether and
+hurls it at Kylie!
+ Major damage.
+J> 
+Sun gestures at a giant.
+A flaming arrow flies from Sun and strikes a giant!
+ No effect.
+J> 
+Sun incants a spell.
+J> 
+Sun gestures at a giant.
+A flaming arrow flies from Sun and strikes a giant!
+ No effect.
+J> 
+Sun incants a spell.
+J> 
+Feras is now guarding Kylie.
+J> 
+A fire giant swings at Sun. Miss.
+J> 
+Canis incants a spell.
+J> 
+Sun incants a spell.
+J> 
+Canis gestures at a giant.
+Magic begins to form around Canis but then fizzles.
+J> 
+Cypress concentrates intently on a giant.
+J> 
+Energy arcs around a fire giant.
+ Major damage.
+J> 
+Sun gestures at a giant.
+Sun points to the sky. A moment later, a meteor
+screeches from the heavens and hammers a giant!
+ Awesome damage.
+J> 
+Sun incants a spell.
+J> 
+A fire giant glows brightly.
+J> 
+Sun gestures at a giant.
+Sun points to the sky. A moment later, a meteor
+screeches from the heavens and hammers a giant!
+ Devastating damage.
+J> 
+Sun incants a spell.
+J> 
+Sun gestures at a giant.
+Sun points to the sky. A moment later, a meteor
+screeches from the heavens and hammers a giant!
+
+ Awesome blow to body breaks opponent's ribs, spraying internal body fluids!
+
+ It falls to the ground with a thud.
+J> 
+Sun incants a spell.
+J> 
+Kylie incants a spell.
+J> 
+A fire giant arrives.
+J> 
+A fire giant glows brightly.
+J> 
+Kylie gestures.
+Kylie moves with blurring speed.
+J> rel
+
+Stolar concentrates intently.
+J> You release your prepared spell.
+J> 
+Young skins a fire giant.
+J> pre 121
+
+Feras advances towards a fire giant.
+J> You prepare the Freezing Sphere spell.
+ [Round: 2 sec]
+RJ> 
+Sun incants a spell.
+RJ> 
+Kylie incants a spell.
+RJ> 
+Stolar concentrates intently on a giant.
+RJ> 
+An intense freezing blast supercools soft matter on a fire giant brittle.
+ Devastating damage.
+RJ> 
+A fire giant points at Stolar.
+Magic begins to form but then fizzles.
+RJ> 
+Sun incants a spell.
+J> 
+Feras swings at a fire giant. Hit! Good damage, stun.
+J> 
+Feras swings at a fire giant. Hit! Good damage, stun.
+J> 
+Cypress concentrates intently on a giant.
+J> 
+Energy arcs around a fire giant.
+ Major damage.
+J> 
+Stolar concentrates intently on a giant.
+J> 
+An intense freezing blast supercools soft matter on a fire giant brittle.
+ Major damage.
+J> 
+Kylie gestures at Cypress.
+Nothing happens.
+J> 
+Young searches a fire giant.
+J> 
+Sun gestures at a giant.
+Sun points to the sky. A moment later, a meteor
+screeches from the heavens and hammers a giant!
+ Massive damage.
+J> 
+Sun incants a spell.
+J> 
+Feras swings at a fire giant. Hit! Good damage.
+J> 
+Feras swings at a fire giant. Hit! Minor damage.
+J> 
+Stolar concentrates intently on a giant.
+J> 
+Frost crystalizes on Stolar.
+ Good damage.
+J> cas fire gia
+You gesture at a giant.
+[Success: 95%, Roll 57] Success!
+Chandra forms a freezing sphere from the air and
+hurls it at a giant!
+ Torso frozen. Body shatters as it hits the ground.
+ It falls to the ground with a thud.
+J> 
+A wolf returns to normal speed.
+J> 
+Kylie incants a spell.
+J> 
+Sun incants a spell.
+J> 
+Kylie gestures at Stolar.
+Stolar looks a little better.
+J> 
+Young skins a fire giant.
+J> 
+Young searches a fire giant.
+J> 
+Kylie incants a spell.
+J> 
+Kylie gestures at Stolar.
+Nothing happens.
+J> look
+[Teeth of Shartan, Valley Road]
+The stream side path runs north-south here, and is in remarkably good repair.
+Fine stonework lines the sides of the road, and the surface itself is paved in
+smooth, flat rocks from the streambed. Who would have built such a fine road in
+such a remote location is hard to fathom. A far less impressive dirt track
+leads southeast through the scattered uquart trees.
+You see Canis, Kylie, Stolar, a wolf, Sun, Khalil, Feras, Cypress and Young.
+Some gold coins, a silver coin, a huge greatsword, some gold coins, a giant
+beard, a silver coin, a huge greatsword, some silver coins, some copper coins,
+some copper coins, a giant tooth and a giant tooth are here.
+Obvious exits: north, south, southeast.
+J> 
+Kylie incants a spell.
+J> 
+Young takes a huge greatsword.
+J> 
+As Young places a huge greatsword into a slime mold, it dissolves away!
+J> 
+Kylie gestures at Young.
+Nothing happens.
+J> 
+Young takes a huge greatsword.
+J> 
+As Young places a huge greatsword into a slime mold, it dissolves away!
+J> 
+Khalil searches the area.
+J> 
+Sun ponders.
+J> 
+You feel the touch of Jarvus's mind:
+"Need any quarrels Sy?"
+J> 
+As Feras taps a mirmach leaf medallion it flares with a brilliant green light,
+and his eyes flash.
+J> 
+Feras's pupils alter to those of a cat.
+J> 
+Stolar concentrates intently.
+J> 
+Young's slime belches and bubbles before coming to rest.
+J> 
+A fire giant crackles in.
+J> 
+Kylie incants a spell.
+J> pre 121
+You prepare the Freezing Sphere spell.
+ [Round: 2 sec]
+RJ> 
+Kylie gestures at Feras.
+Nothing happens.
+RJ> 
+A fire giant advances towards Canis.
+J> 
+A fire giant thrusts at Canis. Hit! Minor damage.
+J> 
+Feras advances towards a fire giant.
+J> cas fire gia
+pre 121
+You gesture at a giant.
+[Success: 95%, Roll 98] Failure.
+J> You prepare the Freezing Sphere spell.
+ [Round: 2 sec]
+RJ> 
+Sun incants a spell.
+RJ> 
+Canis retreats.
+RJ> 
+Feras thrusts at a fire giant. Hit! Devastating damage.
+RJ> 
+Feras thrusts at a fire giant. Hit! Major damage.
+RJ> 
+Sun gestures at a giant.
+Sun seems disconcerted for a moment.
+Sun points to the sky. A moment later, a meteor
+screeches from the heavens and hammers Sun!
+ Devastating damage.
+J> 
+Sun incants a spell.
+J> cas fire gia
+pre 121
+You gesture at a giant.
+[Success: 95%, Roll 78] Success!
+Chandra forms a freezing sphere from the air and
+hurls it at a giant!
+ Ghastly burn to back. [64 Damage]
+J> You prepare the Freezing Sphere spell.
+ [Round: 2 sec]
+RJ> 
+Kylie incants a spell.
+RJ> 
+Sun gestures at a giant.
+Sun points to the sky. A moment later, a meteor
+screeches from the heavens and hammers a giant!
+ Good damage.
+J> 
+Sun incants a spell.
+J> cas fire gia
+pre 121
+You gesture at a giant.
+[Success: 95%, Roll 18] Success!
+Chandra forms a freezing sphere from the air and
+hurls it at a giant!
+ Ghastly burn to right leg. [33 Damage]
+ It falls to the ground with a thud.
+J> You prepare the Freezing Sphere spell.
+ [Round: 2 sec]
+RJ> 
+Sun incants a spell.
+J> 
+Kylie gestures at Chandra.
+Nothing happens.
+J> 
+Young skins a fire giant.
+J> 
+Young searches a fire giant.
+J> look
+[Teeth of Shartan, Valley Road]
+The stream side path runs north-south here, and is in remarkably good repair.
+Fine stonework lines the sides of the road, and the surface itself is paved in
+smooth, flat rocks from the streambed. Who would have built such a fine road in
+such a remote location is hard to fathom. A far less impressive dirt track
+leads southeast through the scattered uquart trees.
+You see Canis, Kylie, Stolar, a wolf, Sun, Khalil, Feras, Cypress and Young.
+Some gold coins, a silver coin, a huge greatsword, some gold coins, a giant
+beard, a silver coin, some silver coins, some copper coins, some copper coins,
+a giant tooth, a giant tooth, some gold coins, some silver coins, some copper
+coins and a giant tooth are here.
+Obvious exits: north, south, southeast.
+J> beam
+You beam happily.
+J> 
+Stolar softly says, "ok  are we trying to find the way?"
+J> 
+Sun takes a bite of a riyong mushroom.
+J> 
+Sun looks a little better.
+J> 
+Young takes a huge greatsword.
+J> 
+As Young places a huge greatsword into a slime mold, it dissolves away!
+J> 
+A frost giant arrives.
+J> 
+A frost giant advances towards Feras.
+J> 
+A frost giant swings at Feras. Miss.
+J> 
+Khalil's group goes southeast.
+J> 
+You follow Khalil.
+[Teeth of Shartan, landslide]
+You see Canis, Kylie, Stolar, a wolf, Khalil, Feras, Cypress and Young. A huge
+boulder is here.
+Obvious exits: w, nw, se.
+J> rel
+
+You feel the touch of Sy's mind:
+"Heya Jarvus. Sure, how many have you got?"
+J> You release your prepared spell.
+J> 
+Kylie nods to Stolar.
+J> 
+Sun arrives.
+J> 
+A wolf sniffs about the area.
+J> 
+Khalil's group goes southeast.
+J> 
+You follow Khalil.
+[Teeth of Shartan, landslide]
+You see Canis, Kylie, Stolar, Khalil, Feras, Cypress and Young. A narrow track
+is here.
+Obvious exits: nw.
+J> 
+Young says, "I thought more north"
+J> 
+Sun arrives.
+J> 
+Khalil nods.
+J> 
+A wolf arrives.
+J> 
+Sun is now following Khalil.
+J> 
+Stolar softly says, "we are losing people"
+J> pull sun
+You tug on Sun.
+J> 
+A wolf is now following Khalil.
+J> 
+ ** Moire has just left the Realms.
+J> look
+[Teeth of Shartan, landslide]
+The path ends abruptly here as it disappears beneath a huge pile of rubble, the
+remains of a recent landslide. A narrow track leads around the end of the
+rubble, very close to the stream. So close, in fact, that much of it is covered
+by its frothing waves. The air here is moist with spray and the noise of the
+flowing water drowns out all other sounds.
+You see Canis, Kylie, Stolar, a wolf, Sun, Khalil, Feras, Cypress and Young. 
+Obvious exits: northwest.
+J> 
+A wolf follows closely beside Khalil.
+J> 
+You feel the touch of Jarvus's mind:
+"Got several in the fletcher shop, 40 bundles I think."
+J> 
+A wolf perks up her ears.
+J> exp
+Level: 90
+Build Points to date: 923
+Unspent Build Points: 14
+Experience Points until next Build Point: 33623
+J> look
+[Teeth of Shartan, landslide]
+The path ends abruptly here as it disappears beneath a huge pile of rubble, the
+remains of a recent landslide. A narrow track leads around the end of the
+rubble, very close to the stream. So close, in fact, that much of it is covered
+by its frothing waves. The air here is moist with spray and the noise of the
+flowing water drowns out all other sounds.
+You see Canis, Kylie, Stolar, a wolf, Sun, Khalil, Feras, Cypress and Young. 
+Obvious exits: northwest.
+J> time
+It is Banamea 17, 1044 (Year of the Butterfly).
+It is night.
+The Great Moon is gibbous waxing and Phulcrus is gibbous waning.
+J> 
+Khalil says, "wait here a sec"
+J> 
+Sun incants a spell.
+J> 
+Sun gestures.
+Sun looks a little better.
+J> 
+Canis stops following Khalil.
+J> 
+Stolar nods.
+J> 
+Khalil disbands his group.
+> 
+A wolf sits down.
+> 
+Sun ponders.
+> 
+Khalil gestures.
+Nothing happens.
+> 
+Khalil incants a spell.
+> 
+Khalil goes northwest.
+> 
+Sun appears to be waiting.
+> 
+A wolf scratches behind her ear vigorously.
+> 
+Cypress says, "I think we are lost"
+> lean sun
+You lean on Sun.
+> 
+Canis incants a spell.
+> 
+Sun casts her gaze across the area.
+> gaze
+You gaze about the area.
+> 
+Stolar softly says, "well that isnt new"
+> 
+Sun says, "no"
+> 
+Stolar leans on Cypress.
+> 
+Young says, "Nahm just mislocated"
+> 
+Sun says, "we are at the landslide"
+> 
+Sun nods.
+> 
+Sun giggles.
+> 
+A wolf suddenly howls, writhing in pain. It transforms into Mariella!
+> nod sun
+You nod to Sun.
+> 
+Khalil arrives.
+> 
+Cypress hides behind Stolar
+> 'Yeah, lanslide
+You say, "Yeah, lanslide"
+> 
+Canis gestures.
+Canis looks a little better.
+> 
+Sun is now following Khalil.
+> look
+[Teeth of Shartan, landslide]
+The path ends abruptly here as it disappears beneath a huge pile of rubble, the
+remains of a recent landslide. A narrow track leads around the end of the
+rubble, very close to the stream. So close, in fact, that much of it is covered
+by its frothing waves. The air here is moist with spray and the noise of the
+flowing water drowns out all other sounds.
+You see Canis, Kylie, Stolar, Mariella (sitting), Sun, Khalil, Feras, Cypress
+and Young. 
+Obvious exits: northwest.
+> 
+Feras is now following Khalil.
+> 
+You feel the touch of Sy's mind:
+"Ok, on my way. Meet you in the fletchers?"
+> 
+Mariella is now following Khalil.
+> fol khal
+You are now following Khalil.
+J> 
+Young says, "North of the landslideo on a track that keeps goin north axshully"
+J> 
+Young is now following Khalil.
+J> 
+Stolar is now following Khalil.
+J> 
+Canis is now following Khalil.
+J> 
+Cypress is now following Khalil.
+J> 
+Kylie returns to normal speed.
+J> 'Kind of a nondescript track?
+You ask, "Kind of a nondescript track?"
+J> 
+ ** Ika has just left the Realms.
+J> 
+Sun asks, "axshully?"
+J> 
+Sun ponders.
+J> 
+Sun asks, "which way is that?"
+J> 
+Kylie is now following Khalil.
+J> 
+Khalil says, "brb"
+J> 
+Khalil wades cautiously down the narrow track, through the swirling waters of
+the stream.
+J> 
+You feel the touch of Jarvus's mind:
+"Ok, sounds good."
+> look
+[Teeth of Shartan, landslide]
+The path ends abruptly here as it disappears beneath a huge pile of rubble, the
+remains of a recent landslide. A narrow track leads around the end of the
+rubble, very close to the stream. So close, in fact, that much of it is covered
+by its frothing waves. The air here is moist with spray and the noise of the
+flowing water drowns out all other sounds.
+You see Canis, Kylie, Stolar, Mariella (sitting), Sun, Feras, Cypress and
+Young. 
+Obvious exits: northwest.
+> 
+Young chuckles.
+> 
+Young listens to his surroundings closely.
+> 
+Young sniffs.
+> 
+Stolar stretches his arms lazily.
+> 
+Sun says, "giant nw"
+> 
+Mariella struggles to her feet.
+> 
+Sun nods.
+> 
+Cypress casts her gaze across the area.
+> 
+Khalil wades cautiously up the narrow track, through the swirling waters of the
+stream.
+> look nw
+[Teeth of Shartan, landslide]
+This well worn path skirts the edge of several large boulders on the leading
+edge of the landslide. One huge boulder rests just on the edge of the path,
+supported over less than half its width by soil. Atop the boulder is a
+haphazard collection of sticks and grasses which would pass unnoticed except
+for the tiny songbird stitting proudly on it. A solid uquart branch has been
+wedged under the boulder in a desperate attempt to keep it in place. From the
+branch hangs a small sign.
+You see a frost giant and a frost giant. A huge boulder is there.
+> 
+Khalil coughs.
+> 
+Sun says, "two"
+> 
+Khalil says, "back this way"
+> 
+Feras says, "Two of 'em"
+> 
+Sun nods.
+> nod
+You nod.
+> 
+Khalil gazes at a narrow track.
+> 'They look cold
+You say, "They look cold"
+> 
+Young wades cautiously down the narrow track, through the swirling waters of
+the stream.
+> 
+Feras wades cautiously down the narrow track, through the swirling waters of
+the stream.
+> 
+Sun nods to you.
+> 
+Cypress is now following Khalil.
+> 
+Canis wades cautiously down the narrow track, through the swirling waters of
+the stream.
+> 
+Mariella wades cautiously down the narrow track, through the swirling waters of
+the stream.
+> 
+Khalil wades cautiously down the narrow track, through the swirling waters of
+the stream.
+> wear glove
+You slip some shadow fur gloves onto your hands.
+> 
+Cypress wades cautiously down the narrow track, through the swirling waters of
+the stream.
+> 
+Kylie wades cautiously down the narrow track, through the swirling waters of
+the stream.
+> 
+Sun wades cautiously down the narrow track, through the swirling waters of the
+stream.
+> 
+Stolar wades cautiously down the narrow track, through the swirling waters of
+the stream.
+> go track
+You wade cautiously down the narrow track, through the swirling waters of the
+stream.
+[Teeth of Shartan, landslide]
+You see Canis, Kylie, Stolar, Mariella, Sun, Khalil, Feras, Cypress, Young and
+an ursine. A narrow track is here.
+Obvious exits: sw.
+> 
+Mariella is now following Khalil.
+> 
+Canis is now following Khalil.
+> 
+An ursine stands erect and closes with Khalil.
+> 
+An ursine slashes at Khalil. Hit! Minor damage.
+> 
+Sun is now following Khalil.
+> 
+Kylie is now following Khalil.
+> 
+Khalil incants a spell.
+> 
+Cypress is now following Khalil.
+> 
+An ursine slashes at Khalil. Miss.
+> pre 112
+
+Stolar is now following Khalil.
+> You prepare the Call Meteor spell.
+ [Round: 2 sec]
+R> fol khal
+You are now following Khalil.
+J> 
+Sun incants a spell.
+J> 
+An ursine slashes at Khalil. Miss.
+J> 
+Sun gestures at an ursine.
+Magic begins to form around Sun but then fizzles.
+J> 
+Canis incants a spell.
+J> 
+Feras is now guarding Kylie.
+J> 
+Khalil retreats.
+J> 
+Khalil's group goes southwest.
+J> 
+You follow Khalil.
+[Teeth of Shartan, uquart grove]
+You see Canis, Kylie, Stolar, Mariella, Sun, Khalil, Cypress, Young and an
+ursine. An ursine tooth and an ursine tooth are here.
+Obvious exits: n, s, ne, sw.
+J> 
+Sun incants a spell.
+J> 
+Canis gestures at an ursine.
+Canis forms a freezing sphere from the air and
+hurls it at an ursine!
+ Major damage.
+J> 
+An ursine begins to charge but stops in a feinted swipe.
+J> 
+Feras arrives.
+J> 
+Sun gestures at an ursine.
+A blue force bubble envelops an ursine!
+J> 
+An ursine lumbers in, hackles raised.
+J> 
+A lesser werewolf lopes in.
+J> nod sun
+
+Feras is now following Khalil.
+J> You nod to Sun.
+J> 
+Young incants a spell.
+J> 
+Sun incants a spell.
+J> 
+Khalil's group goes north.
+J> 
+You follow Khalil.
+[Teeth of Shartan, landslide]
+You see Canis, Kylie, Stolar, Mariella, Khalil, Feras and Cypress. A werewolf
+claw is here.
+Obvious exits: s.
+J> cas were
+What are you referring to?  Please be more specific.
+J> 
+Mariella incants a spell.
+J> 
+Khalil gazes at a winding trail.
+J> 
+Sun arrives.
+J> 
+Khalil says, "that one"
+J> 
+And ursine lurches in, snarling.
+J> 
+An ursine stands erect and closes with Mariella.
+J> 
+An ursine slashes at Mariella. Hit! Massive damage.
+J> 
+Khalil gestures.
+Nothing happens.
+J> 
+Khalil incants a spell.
+J> 
+Sun is now following Kylie.
+J> look trail
+You see nothing extraordinary.
+J> 
+Sun incants a spell.
+J> 
+Mariella incants a spell.
+J> rel
+You release your prepared spell.
+J> 
+Young arrives.
+J> 
+An ursine lurches forward and blows at Kylie with its corrosive fetid breath.
+ Insignificant burn to right leg. [11 Damage]
+J> 
+Khalil opens a leather harness.
+J> 
+Khalil removes some black ietain shoulder bracers from the harness.
+J> 
+Khalil slips some black ietain shoulder bracers onto his wrist.
+J> 
+Khalil removes some black ietain shoulder bracers from the harness.
+J> pre 318
+
+Khalil slips some black ietain shoulder bracers onto his wrist.
+J> 
+Khalil removes some forest green archer's gloves made from werewolf fur from
+the harness.
+J> You prepare the Body Restoration III spell.
+ [Round: 3 sec]
+RJ> 
+Khalil slips some forest green archer's gloves made from werewolf fur onto his
+hands.
+RJ> 
+Khalil removes a silver greatbow with a gently curving shaft and an ivory
+handle carved into a wolf's head from the harness.
+RJ> 
+Khalil removes some forester arrows from the harness.
+RJ> 
+Khalil closes a leather harness.
+RJ> 
+Khalil wields a silver greatbow with a gently curving shaft and an ivory handle
+carved into a wolf's head.
+RJ> 
+Sun gestures at an ursine.
+A blue force bubble envelops an ursine!
+RJ> 
+An ursine lumbers in, hackles raised.
+RJ> cast mari
+You gesture at Mariella.
+[Success: 95%, Roll 44] Success!
+Mariella looks a little better.
+J> pre 318
+You prepare the Body Restoration III spell.
+ [Round: 3 sec]
+RJ> 
+Sun incants a spell.
+RJ> 
+An ursine stands erect and closes with Chandra.
+RJ> 
+An ursine slashes at Chandra with its ivory claws.
+ [ToHit: 5, Roll: 84] Hit!
+ Chandra's spell is disrupted!
+ Puny slash to left hand. [7 Damage]
+ Chandra is diseased!
+RDJ> 
+A greater werewolf springs towards Kylie.
+RDJ> 
+A greater werewolf slashes at Kylie. Hit! Major damage.
+RDJ> cast mari
+
+Sun gestures at an ursine.
+Magic begins to form around Sun but then fizzles.
+DJ> You have not prepared a spell.
+DJ> 
+Young is now following Khalil.
+DJ> 'Ow
+You say, "Ow"
+DJ> 
+Khalil fires at a greater werewolf. Miss.
+DJ> 
+Khalil loads a silver greatbow with a gently curving shaft and an ivory handle
+carved into a wolf's head.
+DJ> 
+An ursine slashes at Chandra with its ivory claws.
+ [ToHit: 5, Roll: 94] Hit!
+ Puny slash to left hand. [7 Damage]
+DJ> ret
+
+Stolar concentrates intently on a werewolf.
+DJ> You retreat.
+DJ> 
+Sun incants a spell.
+DJ> 
+Stolar concentrates intently on a werewolf.
+DJ> 
+Energy arcs around a greater werewolf.
+ Good damage.
+DJ> 
+Khalil fires at a greater werewolf. Miss.
+DJ> 
+Khalil loads a silver greatbow with a gently curving shaft and an ivory handle
+carved into a wolf's head.
+DJ> 
+A greater werewolf springs towards Cypress.
+DJ> 
+A greater werewolf slashes at Cypress. Hit! Good damage.
+DJ> 
+A greater werewolf gazes off into the distance briefly.
+DJ> rel
+
+ ** Airgid has just left the Realms.
+DJ> You have not prepared a spell.
+DJ> 
+Young wields a fiery steel greatsword with a polished diamond inset into the
+hilt and engraved "DIE! DIE! DIE!".
+DJ> 
+Cypress concentrates intently on a werewolf.
+DJ> 
+Khalil fires at a greater werewolf. Miss.
+DJ> 
+Khalil loads a silver greatbow with a gently curving shaft and an ivory handle
+carved into a wolf's head.
+DJ> 
+Mariella incants a spell.
+DJ> 
+Stolar concentrates intently on a werewolf.
+DJ> 
+Energy arcs around a greater werewolf.
+ Major damage.
+DJ> pre 319
+
+An ursine stands erect and closes with Cypress.
+DJ> 
+An ursine slashes at Cypress. Hit! Major damage.
+DJ> 
+Young advances towards an ursine.
+DJ> You prepare the Cure Disease spell.
+ [Round: 3 sec]
+RDJ> 
+Cypress concentrates intently on a werewolf.
+RDJ> 
+Stolar concentrates intently on a werewolf.
+RDJ> 
+Energy arcs around a greater werewolf.
+ Good damage.
+RDJ> 
+Mariella gestures at Kylie.
+A purple light flashes around Kylie.
+RDJ> cast
+[Wait 1 seconds...]
+RDJ> cast
+You gesture.
+[Success: 95%, Roll 72] Success!
+Chandra gestures.
+A purple light flashes around Chandra.
+The disease leaves you.
+J> 
+Stolar concentrates intently on a werewolf.
+J> 
+Energy arcs around a greater werewolf.
+ Devastating damage.
+J> 
+Cypress concentrates intently on a werewolf.
+J> 
+Khalil puts away a silver greatbow with a gently curving shaft and an ivory
+handle carved into a wolf's head.
+J> 
+Khalil gestures.
+Nothing happens.
+J> 
+Khalil incants a spell.
+J> health
+
+Khalil wields a silver greatbow with a gently curving shaft and an ivory handle
+carved into a wolf's head.
+J> 
+Stolar concentrates intently on a werewolf.
+J> 
+Lightning crackles over a greater werewolf!
+ Massive damage.
+J> You have 262/276 body points.
+You have a grazed and singed head, a grazed and singed back, a grazed right
+arm, a grazed left arm, a singed right leg, a bludgeoned, grazed and singed
+left leg, a banged-up, grazed and singed right hand and a nicked, banged-up and
+singed left hand.
+J> 
+An ursine slashes at Cypress. Hit! Minor damage.
+J> 
+A greater werewolf slashes at Cypress. Hit! Major damage.
+J> 
+A greater werewolf gestures with one humanlike hand at Feras.
+A wave of deep red light emanates from a werewolf.
+J> 
+Mariella incants a spell.
+J> 
+Khalil puts away a silver greatbow with a gently curving shaft and an ivory
+handle carved into a wolf's head.
+J> 
+Khalil gestures.
+A gleam appears in Khalil's eyes.
+J> 
+Khalil incants a spell.
+J> 
+Stolar concentrates intently on a werewolf.
+J> 
+Lightning crackles over a greater werewolf!
+ Major damage.
+J> 
+Cypress concentrates intently on a werewolf.
+J> pre 112
+You prepare the Call Meteor spell.
+ [Round: 2 sec]
+RJ> 
+Canis returns to normal.
+RJ> 
+The brilliant prismatic globe around Stolar vanishes.
+RJ> 
+The brilliant prismatic globe around Mariella vanishes.
+RJ> 
+The glowing outline of armor fades from around Mariella.
+RJ> 
+Mariella returns to normal.
+RJ> 
+The ghostly shield protecting Mariella slowly fades.
+RJ> 
+You are starting to feel heavier.
+RJ> 
+The brilliant prismatic globe vanishes from around you.
+RJ> 
+Your mind returns to normal.
+RJ> 
+The brilliant prismatic globe around Sun vanishes.
+RJ> 
+Khalil returns to normal speed.
+RJ> 
+The ghostly shield protecting Khalil slowly fades.
+RJ> 
+The bright orange aura leaves Khalil.
+RJ> 
+Khalil's skin appears to become less rigid.
+RJ> 
+Feras appears to become weaker.
+RJ> 
+The brilliant prismatic globe around Feras vanishes.
+RJ> 
+The glowing outline of armor fades from around Feras.
+RJ> 
+Feras returns to normal.
+RJ> 
+The ghostly shield protecting Feras slowly fades.
+RJ> 
+The bright orange aura leaves Feras.
+RJ> 
+The prismatic globe around Young vanishes.
+RJ> 
+The glowing outline of armor fades from around Young.
+RJ> 
+The blue force bubble vanishes from around an ursine.
+RJ> 
+An ursine slashes at Young. Miss.
+RJ> 
+Khalil wields a silver greatbow with a gently curving shaft and an ivory handle
+carved into a wolf's head.
+RJ> 
+Stolar concentrates intently on a werewolf.
+RJ> 
+Energy arcs around a greater werewolf.
+ Massive damage.
+RJ> 
+Mariella gestures at a werewolf.
+Mariella shapes a flaming sphere from the ether and
+hurls it at a werewolf!
+ Massive damage.
+RJ> 
+Canis incants a spell.
+RJ> 
+Khalil fires at a greater werewolf. Hit! Major damage.
+J> 
+Khalil loads a silver greatbow with a gently curving shaft and an ivory handle
+carved into a wolf's head.
+J> 
+Cypress concentrates intently on a werewolf.
+J> 
+Young advances towards an ursine.
+J> 
+Mariella incants a spell.
+J> cast were
+pre 112
+
+Feras spits at a greater werewolf.
+J> 
+An ursine slashes at Young. Miss.
+J> You gesture at a werewolf.
+[Success: 78%, Roll 82] Failure.
+J> You prepare the Call Meteor spell.
+ [Round: 2 sec]
+RJ> 
+Sun incants a spell.
+RJ> 
+Young swings at an ursine. Hit! Good damage.
+RJ> 
+Canis gestures at a werewolf.
+Magic begins to form around Canis but then fizzles.
+RJ> 
+Mariella gestures at a werewolf.
+Mariella shapes a flaming sphere from the ether and
+hurls it at a werewolf!
+ Good damage.
+RJ> 
+Stolar steps forward in defense of Cypress!
+RJ> 
+Canis incants a spell.
+RJ> 
+Khalil fires at a greater werewolf. Hit! Good damage.
+RJ> 
+Khalil loads a silver greatbow with a gently curving shaft and an ivory handle
+carved into a wolf's head.
+RJ> cast were
+pre 112
+You gesture at a werewolf.
+[Success: 78%, Roll 58] Success!
+Chandra points to the sky. A moment later, a meteor
+screeches from the heavens and hammers a werewolf!
+ Insignificant burn to right leg. [25 Damage]
+ Feeble blow to head. [24 Damage]
+J> You prepare the Call Meteor spell.
+ [Round: 2 sec]
+RJ> 
+Mariella incants a spell.
+RJ> 
+An ursine slashes at Mariella. Hit! Massive damage.
+RJ> 
+A greater werewolf springs towards Stolar.
+RJ> 
+A greater werewolf slashes at Stolar. Hit! Massive damage.
+RJ> 
+A greater werewolf slashes at Kylie. Hit! Devastating damage.
+RJ> 
+Cypress concentrates intently on a werewolf.
+RJ> 
+Young thrusts at an ursine. Hit! Massive damage.
+RJ> 
+Stolar concentrates intently on a werewolf.
+RJ> 
+Lightning crackles over a greater werewolf!
+ Awesome damage.
+RJ> 
+Sun gestures.
+Sun gradually fades from view.
+RJ> tar were
+tar 2 were
+tar 3 were
+tar 4 were
+tar 5 were
+
+Canis gestures at a werewolf.
+Magic begins to form around Canis but then fizzles.
+J> Targets now include:
+A greater werewolf
+J> 
+Mariella gestures at a werewolf.
+Mariella shapes a flaming sphere from the ether and
+hurls it at a werewolf!
+ Good damage.
+J> Targets now include:
+A greater werewolf
+A greater werewolf
+J> What are you referring to?  Please be more specific.
+J> What are you referring to?  Please be more specific.
+J> What are you referring to?  Please be more specific.
+J> 
+Stolar concentrates intently on a werewolf.
+J> 
+Energy arcs around a greater werewolf.
+ Devastating damage.
+J> 
+Canis incants a spell.
+J> 
+An ursine slashes at Stolar. Miss.
+J> 
+Young swings at an ursine. Hit! Massive damage.
+J> 
+Mariella incants a spell.
+J> 
+Khalil puts away a silver greatbow with a gently curving shaft and an ivory
+handle carved into a wolf's head.
+J> 
+Khalil gestures.
+A gleam appears in Khalil's eyes.
+J> 
+Khalil incants a spell.
+J> 
+Stolar concentrates intently on a werewolf.
+J> 
+Lightning crackles over a greater werewolf!
+ Massive damage.
+J> 
+Cypress concentrates intently on a werewolf.
+J> rel
+You release your prepared spell.
+J> 
+Mariella gestures at a werewolf.
+Mariella shapes a flaming sphere from the ether and
+hurls it at a werewolf!
+ Massive damage.
+J> 
+Canis gestures at a werewolf.
+Magic begins to form around Canis but then fizzles.
+J> 
+An ursine slashes at Mariella. Hit! Massive damage.
+J> pre 131
+
+Stolar concentrates intently on a werewolf.
+J> 
+Energy arcs around a greater werewolf.
+ Good damage.
+J> 
+Canis incants a spell.
+J> You prepare the Flaming Arrows spell.
+ [Round: 3 sec]
+RJ> 
+Young swings at an ursine. Hit! Massive damage.
+RJ> 
+Feras steps forward in defense of Kylie!
+RJ> 
+Mariella incants a spell.
+RJ> 
+Khalil gestures.
+Khalil moves with blurring speed.
+RJ> 
+Khalil incants a spell.
+RJ> 
+An ursine slashes at Stolar. Miss.
+RJ> 
+A greater werewolf gazes off into the distance briefly.
+RJ> 
+Canis gestures at a werewolf.
+Magic begins to form around Canis but then fizzles.
+J> 
+Stolar takes a bite of a maufra lichen.
+J> 
+A purple light flashes around Stolar.
+J> 
+Young swings at an ursine. Hit! Major damage.
+J> 
+Canis incants a spell.
+J> rel
+You release your prepared spell.
+J> 
+Mariella gestures.
+Mariella looks a little better.
+J> 
+Khalil wields a silver greatbow with a gently curving shaft and an ivory handle
+carved into a wolf's head.
+J> pre 132
+
+An ursine slashes at Mariella. Hit! Good damage, knockdown.
+J> 
+Young swings at an ursine. Hit! Major damage.
+J> 
+Cypress concentrates intently on a werewolf.
+J> You prepare the Chain Lightning spell.
+ [Round: 3 sec]
+RJ> 
+Khalil fires at a greater werewolf. Hit! Major damage.
+RJ> 
+Khalil loads a silver greatbow with a gently curving shaft and an ivory handle
+carved into a wolf's head.
+RJ> 
+Canis gestures at a werewolf.
+Magic begins to form around Canis but then fizzles.
+RJ> 
+Stolar concentrates intently on a werewolf.
+RJ> 
+Energy arcs around a greater werewolf.
+ Major damage.
+RJ> 
+Canis incants a spell.
+RJ> cas were
+pre 132
+[Wait 1 seconds...]
+RJ> [Wait 1 seconds...]
+RJ> 
+An ursine slashes at Stolar. Miss.
+RJ> cas were
+pre 132
+
+Khalil fires at a greater werewolf. Hit! Good damage.
+J> You gesture at a werewolf.
+[Success: 78%, Roll 4] Success!
+Lightning arcs from Chandra to a werewolf!
+ Insignificant burn to left paw. [7 Damage]
+J> You prepare the Chain Lightning spell.
+ [Round: 3 sec]
+RJ> 
+Khalil loads a silver greatbow with a gently curving shaft and an ivory handle
+carved into a wolf's head.
+RJ> 
+Mariella struggles to her feet.
+RJ> 
+Stolar concentrates intently on a werewolf.
+RJ> 
+Lightning crackles over a greater werewolf!
+ Massive damage.
+RJ> cas were
+pre 132
+[Wait 1 seconds...]
+RJ> [Wait 1 seconds...]
+RJ> 
+The gleam leaves Khalil's eyes.
+RJ> 
+An ursine slashes at Mariella. Hit! Good damage.
+RJ> 
+A greater werewolf gestures with one humanlike hand at Chandra.
+A wave of deep red light emanates from a werewolf.
+RJ> 
+Young swings at an ursine. Hit! Good damage.
+J> 
+Stolar concentrates intently on a werewolf.
+J> 
+Lightning crackles over a greater werewolf!
+ Massive damage.
+J> cas were
+pre 132
+You gesture at a werewolf.
+[Success: 78%, Roll 44] Success!
+Lightning arcs from Chandra to a werewolf!
+ Insignificant burn to left arm. [15 Damage]
+J> You prepare the Chain Lightning spell.
+ [Round: 3 sec]
+RJ> 
+Khalil fires at a greater werewolf. Miss.
+RJ> 
+Khalil loads a silver greatbow with a gently curving shaft and an ivory handle
+carved into a wolf's head.
+RJ> 
+Khalil returns to normal speed.
+RJ> 
+An ursine slashes at Stolar. Miss.
+RJ> 
+Young swings at an ursine. Hit! Massive damage.
+RJ> 
+Stolar concentrates intently on a werewolf.
+RJ> 
+Lightning crackles over a greater werewolf!
+ Awesome damage.
+RJ> 
+Mariella looks a little better.
+RJ> 
+Mariella taps some leather bound titanium bracers scratched and dented from
+much use.
+RJ> cas were
+pre 132
+You gesture at a werewolf.
+[Success: 78%, Roll 63] Success!
+Lightning arcs from Chandra to a werewolf!
+ Insignificant burn to right paw. [8 Damage]
+J> You prepare the Chain Lightning spell.
+ [Round: 3 sec]
+RJ> 
+Khalil puts away a silver greatbow with a gently curving shaft and an ivory
+handle carved into a wolf's head.
+RJ> 
+Khalil gestures.
+Khalil moves with blurring speed.
+RJ> 
+Cypress concentrates intently on a werewolf.
+RJ> 
+Khalil incants a spell.
+RJ> 
+An ursine slashes at Mariella. Hit! Minor damage.
+RJ> 
+Young swings at an ursine. Hit! Devastating damage.
+RJ> 
+Stolar concentrates intently on a werewolf.
+RJ> 
+Energy arcs around a greater werewolf.
+ Good damage.
+RJ> 
+Cypress concentrates intently on a werewolf.
+J> 
+Stolar concentrates intently on a werewolf.
+J> 
+Energy arcs around a greater werewolf.
+ Devastating damage.
+J> rel
+You release your prepared spell.
+J> 
+An ursine slashes at Stolar. Miss.
+J> 
+A greater werewolf slashes at Feras. Hit! Minor damage.
+J> 
+Khalil gestures.
+Nothing happens.
+J> 
+Khalil incants a spell.
+J> 
+Mariella incants a spell.
+J> pre 112
+
+Cypress concentrates intently on a werewolf.
+J> 
+Young swings at an ursine. Hit! Devastating damage.
+J> You prepare the Call Meteor spell.
+ [Round: 2 sec]
+RJ> 
+Khalil wields a silver greatbow with a gently curving shaft and an ivory handle
+carved into a wolf's head.
+RJ> 
+Stolar concentrates intently on a werewolf.
+RJ> 
+Lightning crackles over a greater werewolf!
+ Awesome damage.
+RJ> 
+Khalil puts away a silver greatbow with a gently curving shaft and an ivory
+handle carved into a wolf's head.
+RJ> 
+Khalil gestures.
+A gleam appears in Khalil's eyes.
+RJ> 
+Khalil incants a spell.
+RJ> 
+An ursine slashes at Mariella. Hit! Massive damage.
+RJ> 
+Stolar concentrates intently on a werewolf.
+J> 
+Lightning crackles over a greater werewolf!
+ Awesome damage.
+J> 
+Khalil wields a silver greatbow with a gently curving shaft and an ivory handle
+carved into a wolf's head.
+J> 
+Cypress concentrates intently on a werewolf.
+J> cas were
+pre 112
+You gesture at a werewolf.
+[Success: 78%, Roll 44] Success!
+Chandra points to the sky. A moment later, a meteor
+screeches from the heavens and hammers a werewolf!
+ Insignificant burn to right leg. [21 Damage]
+ Solid blow to head. [27 Damage]
+J> You prepare the Call Meteor spell.
+ [Round: 2 sec]
+RJ> 
+Feras spits.
+RJ> 
+Young thrusts at an ursine. Hit! Major damage.
+RJ> 
+Khalil fires at a greater werewolf. Miss.
+RJ> 
+Khalil loads a silver greatbow with a gently curving shaft and an ivory handle
+carved into a wolf's head.
+RJ> 
+Mariella incants a spell.
+RJ> 
+An ursine slashes at Stolar. Miss.
+RJ> 
+Stolar concentrates intently on a werewolf.
+J> 
+Lightning crackles over a greater werewolf!
+ Massive damage.
+J> cas were
+pre 112
+You gesture at a werewolf.
+[Success: 78%, Roll 82] Failure.
+J> You prepare the Call Meteor spell.
+ [Round: 2 sec]
+RJ> 
+Cypress concentrates intently on a werewolf.
+RJ> 
+Mariella gestures at a werewolf.
+Mariella shapes a flaming sphere from the ether and
+hurls it at a werewolf!
+ Massive damage.
+RJ> 
+The air before you shimmers and congeals into Sun!
+RJ> 
+Sun incants a spell.
+RJ> 
+Young swings at an ursine. Miss.
+J> 
+Khalil fires at a greater werewolf. Hit! Good damage.
+J> 
+Khalil loads a silver greatbow with a gently curving shaft and an ivory handle
+carved into a wolf's head.
+J> 
+Stolar concentrates intently on a werewolf.
+J> 
+Lightning crackles over a greater werewolf!
+ Awesome damage.
+J> cas were
+You gesture at a werewolf.
+[Success: 78%, Roll 97] Failure.
+J> pre 112
+You prepare the Call Meteor spell.
+ [Round: 2 sec]
+RJ> 
+An ursine slashes at Mariella. Hit! Massive damage.
+RJ> 
+Stolar concentrates intently on a werewolf.
+J> 
+Khalil fires at a greater werewolf. Hit! Minor damage.
+J> 
+Khalil loads a silver greatbow with a gently curving shaft and an ivory handle
+carved into a wolf's head.
+J> 
+Cypress concentrates intently on a werewolf.
+J> cas were
+pre 112
+
+Young swings at an ursine. Hit! Massive damage.
+J> You gesture at a werewolf.
+[Success: 78%, Roll 22] Success!
+Chandra points to the sky. A moment later, a meteor
+screeches from the heavens and hammers a werewolf!
+ Minor burn to right leg. [24 Damage]
+ Solid blow to right arm. [10 Damage]
+J> You prepare the Call Meteor spell.
+ [Round: 2 sec]
+RJ> 
+An ursine slashes at Stolar. Hit! Good damage.
+RJ> 
+Sun gestures.
+A flaming arrow flies from Sun and strikes an ursine!
+ Major damage.
+A flaming arrow flies from Sun and strikes an ursine!
+ Good damage.
+A flaming arrow flies from Sun and strikes a werewolf!
+ Massive damage.
+RJ> 
+Sun incants a spell.
+RJ> 
+Cypress concentrates intently on a werewolf.
+J> 
+Stolar concentrates intently on a werewolf.
+J> 
+Energy arcs around a greater werewolf.
+ Good damage.
+J> cas were
+pre 112
+
+Khalil fires at a greater werewolf. Hit! Major damage.
+J> 
+Khalil loads a silver greatbow with a gently curving shaft and an ivory handle
+carved into a wolf's head.
+J> You gesture at a werewolf.
+[Success: 78%, Roll 9] Success!
+Chandra points to the sky. A moment later, a meteor
+screeches from the heavens and hammers a werewolf!
+ Ghastly burn to left arm. [26 Damage]
+ Devastating blow to tail. [5 Damage]
+ He collapses, dead.
+J> 
+Sun gestures.
+A flaming arrow flies from Sun and strikes an ursine!
+ Major damage.
+A flaming arrow flies from Sun and strikes an ursine!
+ Good damage.
+J> You prepare the Call Meteor spell.
+ [Round: 2 sec]
+RJ> 
+Sun incants a spell.
+RJ> 
+The gleam leaves Khalil's eyes.
+RJ> 
+An ursine slashes at Mariella. Hit! Good damage.
+RJ> 
+Young swings at an ursine. Hit! Massive damage.
+RJ> 
+Sun gestures.
+A flaming arrow flies from Sun and strikes an ursine!
+ Devastating damage.
+A flaming arrow flies from Sun and strikes an ursine!
+
+ It stumbles and gasps its last breath in one final attempt to slay.
+J> 
+Sun incants a spell.
+J> cas were
+pre 112
+A werewolf is dead!
+J> You prepare the Call Meteor spell.
+ [Round: 2 sec]
+RJ> 
+Sun gestures.
+A flaming arrow flies from Sun and strikes an ursine!
+ Massive damage.
+RJ> 
+Sun incants a spell.
+RJ> 
+Mariella retreats.
+RJ> 
+Feras rubs the a mirmach leaf medallion and it flares with a brilliant green
+light.
+RJ> 
+Feras looks a little better.
+RJ> 
+Mariella goes south.
+J> 
+Sun gestures.
+A flaming arrow flies from Sun and strikes an ursine!
+ Massive damage.
+J> 
+Sun incants a spell.
+J> 
+An ursine stands erect and closes with Chandra.
+J> 
+An ursine slashes at Chandra with its ivory claws.
+ [ToHit: 5, Roll: 13] Hit!
+ Chandra's spell is disrupted!
+ Puny slash to left leg. [15 Damage]
+J> sear were
+You search a greater werewolf.
+You find nothing.
+ [Round: 5 sec]
+RJ> 
+Feras rubs the a mirmach leaf medallion and it flares with a brilliant green
+light.
+RJ> 
+Feras looks a little better.
+RJ> 
+Sun gestures.
+A flaming arrow flies from Sun and strikes an ursine!
+ Good damage.
+RJ> 
+Sun incants a spell.
+RJ> ret
+[Wait 3 seconds...]
+RJ> 
+Sun gestures.
+A flaming arrow flies from Sun and strikes an ursine!
+ Massive damage.
+RJ> 
+Sun incants a spell.
+RJ> ret
+[Wait 2 seconds...]
+RJ> ret
+[Wait 1 seconds...]
+RJ> ret
+
+Feras rubs the a mirmach leaf medallion and it flares with a brilliant green
+light.
+J> 
+Feras looks a little better.
+J> You retreat.
+J> 
+Sun gestures.
+A flaming arrow flies from Sun and strikes an ursine!
+ Major damage.
+J> 
+Sun incants a spell.
+J> 
+An ursine stands erect and closes with Canis.
+J> 
+An ursine slashes at Canis. Hit! Good damage.
+J> 
+Young advances towards an ursine.
+J> 
+Cypress concentrates intently on an ursine.
+J> 
+Energy arcs around an ursine.
+ Major damage.
+J> 
+Sun gestures.
+A flaming arrow flies from Sun and strikes an ursine!
+ Good damage.
+J> 
+Sun incants a spell.
+J> 
+Cypress concentrates intently on an ursine.
+J> 
+Static crackles around Cypress.
+ Good damage.
+J> 'ack
+
+Young swings at an ursine. Hit! Massive damage.
+J> 
+Sun gestures.
+A flaming arrow flies from Sun and strikes an ursine!
+ Massive damage.
+J> 
+Sun incants a spell.
+J> You say, "ack"
+J> 
+Feras rubs the a mirmach leaf medallion and it flares with a brilliant green
+light.
+J> 
+Feras looks a little better.
+J> health
+You have 250/276 body points.
+You have a grazed and singed head, a grazed and singed back, a grazed right
+arm, a grazed left arm, a singed right leg, a nicked, bludgeoned, grazed and
+singed left leg, a banged-up, grazed and singed right hand and a nicked,
+banged-up and singed left hand.
+J> 
+Sun gestures.
+A flaming arrow flies from Sun and strikes an ursine!
+ Devastating damage.
+J> 
+Sun incants a spell.
+J> 
+An ursine slashes at Young. Miss.
+J> 
+Young thrusts at an ursine. Hit!
+ It stumbles and gasps its last breath in one final attempt to slay.
+J> 
+Feras rubs the a mirmach leaf medallion and it flares with a brilliant green
+light.
+J> 
+Feras looks a little better.
+J> 
+Sun gestures.
+J> 
+Sun incants a spell.
+J> rel
+You have not prepared a spell.
+J> 
+Stolar softly says, "no one said anything about ursines"
+J> pre 112
+You prepare the Call Meteor spell.
+ [Round: 2 sec]
+RJ> 
+Feras rubs the a mirmach leaf medallion and it flares with a brilliant green
+light.
+RJ> 
+Feras looks a little better.
+RJ> 
+Khalil is now guarding Canis.
+J> 
+ ** Canis has just disconnected.
+J> 
+Canis disconnects.
+J> cas urs
+pre 112
+An ursine is dead!
+J> 
+Feras rubs the a mirmach leaf medallion and it flares with a brilliant green
+light.
+J> 
+Feras looks a little better.
+J> You prepare the Call Meteor spell.
+ [Round: 2 sec]
+RJ> 
+Young skins an ursine.
+J> 
+Sun incants a spell.
+J> 
+Young skins an ursine.
+J> look
+[Teeth of Shartan, landslide]
+The old road is buried here beneath a massive pile of rocks and rubble,
+dramatic evidence of a recent landslide. A wide swath has been scraped bare of
+soil and trees nearly to the peak of the western ridge. Ancient uquarts, their
+limbless trunks larger around than the stoutest innkeeper, lay scattered about
+like straw cast from a child's hand. Atop the rubble, a glorious array of
+wildflowers bloom in the newly open space.
+You see Kylie, Stolar, Sun, Khalil, Feras, Cypress, Young, an ursine (dead) and
+an ursine (dead). An ursine ear, an ursine ear and a werewolf claw are here.
+Obvious exits: south.
+J> 
+Sun gestures.
+A brilliant prismatic globe encircles Sun.
+J> 
+Young puts away a fiery steel greatsword with a polished diamond inset into the
+hilt and engraved "DIE! DIE! DIE!".
+J> 
+Kylie incants a spell.
+J> 
+Mariella arrives.
+J> 
+Young searches an ursine.
+J> 
+Sun incants a spell.
+J> 
+Khalil asks, "can someone invis and check up the trail?"
+J> 
+Kylie gestures.
+Kylie moves with blurring speed.
+J> 
+Sun gestures.
+A brilliant prismatic globe encircles Sun.
+J> 
+Khalil puts away a silver greatbow with a gently curving shaft and an ivory
+handle carved into a wolf's head.
+J> 
+Khalil gestures.
+A gleam appears in Khalil's eyes.
+J> 
+Khalil incants a spell.
+J> 
+Kylie incants a spell.
+J> pre 318
+You have already prepared a spell.
+J> 
+Stolar nods.
+J> 
+Mariella incants a spell.
+J> 
+Feras says, "Freakin disease"
+J> 
+Young searches an ursine.
+J> rel
+
+Sun says, "lag lag"
+J> You release your prepared spell.
+J> 
+Mariella gestures.
+Mariella seems changed.
+J> 
+Stolar concentrates intently.
+Stolar phases out of view.
+J> 
+Kylie gestures.
+A blue light flashes around Kylie.
+J> pre 319
+You prepare the Cure Disease spell.
+ [Round: 3 sec]
+RJ> 
+Khalil gestures at Feras.
+Feras moves with blurring speed.
+RJ> 
+Khalil incants a spell.
+RJ> cast fer
+You gesture at Feras.
+[Success: 95%, Roll 43] Success!
+Chandra gestures at Feras.
+A purple light flashes around Feras.
+You sense the pleasure of the gods as you call upon the forces of life.
+J> 
+Mariella incants a spell.
+J> 
+Khalil gestures at Feras.
+A purple light flashes around Feras.
+J> 
+Khalil incants a spell.
+J> 
+You hear something softly say, "i will be back"
+J> 
+Kylie incants a spell.
+J> 
+Kylie gestures.
+A blue light flashes around Kylie.
+J> 
+The gleam leaves Khalil's eyes.
+J> 
+Feras says, "Thanks"
+J> 
+Sun incants a spell.
+J> 
+Khalil incants a spell.
+J> 
+Kylie incants a spell.
+J> 
+Kylie gestures at Khalil.
+A blue light flashes around Khalil.
+J> 
+Sun gestures.
+The glowing outline of armor appears around Sun.
+J> 
+Sun incants a spell.
+J> beam
+You beam happily.
+J> 
+Kylie incants a spell.
+J> 
+Sun gestures.
+The glowing outline of armor appears around Sun.
+J> pre 318
+
+Khalil wields a silver greatbow with a gently curving shaft and an ivory handle
+carved into a wolf's head.
+J> You prepare the Body Restoration III spell.
+ [Round: 3 sec]
+RJ> cast
+[Wait 2 seconds...]
+RJ> 
+Kylie gestures at Chandra.
+Magic begins to form around Kylie but then fizzles.
+RJ> cast
+You gesture.
+[Success: 95%, Roll 41] Success!
+Chandra looks a little better.
+J> 
+Sun incants a spell.
+J> fat
+Mana: 246/357
+Psi: 259/259
+Fatigue: 232/232
+J> 
+Kylie incants a spell.
+J> 
+Sun gestures.
+A ghostly shield hovers before Sun.
+J> pre 318
+You prepare the Body Restoration III spell.
+ [Round: 3 sec]
+RJ> 
+Feras rubs the a mirmach leaf medallion and it flares with a brilliant green
+light.
+RJ> 
+Feras looks a little better.
+RJ> 
+Sun incants a spell.
+RJ> cas fer
+[Wait 1 seconds...]
+RJ> cas fer
+
+Kylie gestures at Cypress.
+A blue light flashes around Cypress.
+J> You gesture at Feras.
+[Success: 95%, Roll 60] Success!
+Feras looks a little better.
+J> 
+Feras rubs the a mirmach leaf medallion and it flares with a brilliant green
+light.
+J> 
+Feras looks a little better.
+J> 
+Sun gestures.
+Sun radiates with magical strength.
+J> 
+Feras rubs the a mirmach leaf medallion and it flares with a brilliant green
+light.
+J> 
+Feras looks a little better.
+J> 
+Sun incants a spell.
+J> fat
+
+Feras rubs the a mirmach leaf medallion and it flares with a brilliant green
+light.
+J> 
+Nothing happens.
+J> Mana: 272/357
+Psi: 259/259
+Fatigue: 232/232
+J> 
+Sun rubs her hand over the surface of her skin.
+Sun's skin appears to become more rigid.
+J> look
+[Teeth of Shartan, landslide]
+The old road is buried here beneath a massive pile of rocks and rubble,
+dramatic evidence of a recent landslide. A wide swath has been scraped bare of
+soil and trees nearly to the peak of the western ridge. Ancient uquarts, their
+limbless trunks larger around than the stoutest innkeeper, lay scattered about
+like straw cast from a child's hand. Atop the rubble, a glorious array of
+wildflowers bloom in the newly open space.
+You see Kylie, Mariella, Sun, Khalil, Feras, Cypress and Young. An ursine ear,
+an ursine ear, a citrine, some gold coins, a werewolf claw, some silver coins
+and some copper coins are here.
+Obvious exits: south.
+J> 
+Kylie incants a spell.
+J> 
+Kylie gestures.
+Kylie looks a little better.
+J> look trail
+You see nothing extraordinary.
+J> 
+Khalil says, "head on up when you're ready"
+J> 
+Young nods.
+J> 
+Feras arches his eyebrow.
+J> 
+Kylie incants a spell.
+J> 
+Sun incants a spell.
+J> 
+Kylie gestures.
+Kylie looks a little better.
+J> 
+Kylie incants a spell.
+J> 
+Sun gestures.
+A scintillating curtain of light surrounds Sun.
+J> 
+Khalil says, "wait"
+J> 
+Kylie gestures.
+Kylie looks a little better.
+J> 
+Young climbs a winding trail.
+J> 
+Sun incants a spell.
+J> 
+Kylie incants a spell.
+J> 
+Kylie gestures.
+Kylie looks a little better.
+J> 
+Khalil says, "2 greaters"
+J> 
+Sun gestures.
+Sun gradually fades from view.
+J> 
+Khalil says, "careful"
+J> pre 225
+
+Kylie incants a spell.
+J> You prepare the Invisibility spell.
+ [Round: 3 sec]
+RJ> 
+Kylie gestures.
+Kylie looks a little better.
+RJ> cast
+[Wait 2 seconds...]
+RJ> cast
+You gesture.
+[Success: 95%, Roll 27] Success!
+You feel a tingling sensation.
+JH> 
+Kylie incants a spell.
+JH> 
+Kylie gestures.
+Kylie looks a little better.
+JH> go trail
+You will have to climb that.
+JH> 
+Khalil's group climbs a winding trail.
+JH> 
+You follow Khalil.
+[Darsett Commons]
+You see Kylie, Khalil, Feras, Cypress, Young, a lesser werewolf (dead), a
+lesser werewolf, a lesser werewolf, a lesser werewolf, a lesser werewolf, a
+lesser werewolf, a greater werewolf and a greater werewolf. A trail is here.
+Obvious exits: n, e.
+JH> 
+Something concentrates intently.
+JH> 
+The air before you shimmers and congeals into Stolar!
+JH> 
+A lesser werewolf snaps at Young. Miss.
+JH> tar were
+tar 2 were
+tar 3 were
+
+Young swings at a lesser werewolf. Hit! Massive damage.
+JH> tar 4 were
+tar 5 were
+Targets now include:
+A lesser werewolf
+JH> Targets now include:
+A lesser werewolf
+A lesser werewolf
+JH> Targets now include:
+A lesser werewolf
+A lesser werewolf
+A lesser werewolf
+JH> Targets now include:
+A lesser werewolf
+A lesser werewolf
+A lesser werewolf
+A lesser werewolf
+JH> Targets now include:
+A lesser werewolf
+A lesser werewolf
+A lesser werewolf
+A lesser werewolf
+A lesser werewolf
+JH> 
+Khalil puts away a silver greatbow with a gently curving shaft and an ivory
+handle carved into a wolf's head.
+JH> 
+Khalil gestures.
+Nothing happens.
+JH> 
+A lesser werewolf snaps at Young. Miss.
+JH> 
+A greater werewolf springs towards Stolar.
+JH> 
+A greater werewolf slashes at Stolar. Hit! Good damage.
+JH> 
+A greater werewolf slashes at Young. Hit! Major damage.
+JH> 
+Khalil incants a spell.
+JH> 
+Khalil wields a silver greatbow with a gently curving shaft and an ivory handle
+carved into a wolf's head.
+JH> 
+Stolar concentrates intently on a werewolf.
+JH> 
+Energy arcs around a greater werewolf.
+ Awesome damage.
+JH> 
+Young swings at a lesser werewolf. Hit!
+ It collapses, dead.
+JH> 
+Feras advances towards a lesser werewolf.
+JH> 
+Khalil puts away a silver greatbow with a gently curving shaft and an ivory
+handle carved into a wolf's head.
+JH> 
+Khalil gestures.
+Khalil seems disconcerted for a moment.
+JH> 
+Khalil incants a spell.
+JH> 
+A lesser werewolf snaps at Young. Miss.
+JH> 
+A lesser werewolf snaps at Young. Miss.
+JH> pre 132
+
+Stolar concentrates intently on a werewolf.
+JH> 
+Energy arcs around a greater werewolf.
+ Devastating damage.
+JH> You prepare the Chain Lightning spell.
+ [Round: 3 sec]
+RJH> 
+Khalil wields a silver greatbow with a gently curving shaft and an ivory handle
+carved into a wolf's head.
+RJH> 
+Stolar takes a bite of a maufra lichen.
+RJH> 
+A purple light flashes around Stolar.
+RJH> 
+Young swings at a lesser werewolf. Hit! Devastating damage.
+RJH> 
+A lesser werewolf snaps at Young. Miss.
+RJH> cast were
+pre 132
+You suddenly fade into view.
+You gesture at a werewolf.
+[Success: 95%, Roll 98] Failure.
+J> 
+A lesser werewolf snaps at Young. Miss.
+J> 
+A greater werewolf slashes at Stolar. Hit! Minor damage.
+J> 
+A greater werewolf slashes at Young. Hit! Massive damage.
+J> You prepare the Chain Lightning spell.
+ [Round: 3 sec]
+RJ> 
+Young thrusts at a lesser werewolf. Hit!
+ Powerful sideswipe removes top of skull from ears up.
+
+ It collapses, dead.
+RJ> 
+Kylie incants a spell.
+RJ> 
+Stolar concentrates intently on a werewolf.
+RJ> 
+Lightning crackles over a greater werewolf!
+ Awesome damage.
+RJ> 
+Feras searches a lesser werewolf.
+RJ> 
+A lesser werewolf snaps at Young. Miss.
+RJ> 
+Stolar concentrates intently on a werewolf.
+J> 
+Energy arcs around a greater werewolf.
+ Devastating damage.
+J> cast were
+pre 132
+
+Young swings at a lesser werewolf. Hit! Massive damage.
+J> 
+Kylie gestures at Young.
+A purple light flashes around Young.
+J> You gesture at a werewolf.
+[Success: 95%, Roll 57] Success!
+Lightning arcs from Chandra to a werewolf!
+ Minor burn to tail. [4 Damage]
+Lightning arcs from a lesser werewolf to a werewolf!
+ Serious burn to body. [17 Damage]
+J> You prepare the Chain Lightning spell.
+ [Round: 3 sec]
+RJ> 
+Feras searches a lesser werewolf.
+RJ> 
+Stolar takes a bite of a maufra lichen.
+RJ> 
+A purple light flashes around Stolar.
+RJ> 
+A lesser werewolf snaps at Young. Miss.
+RJ> cast were
+pre 132
+You gesture at a werewolf.
+[Success: 95%, Roll 87] Success!
+Lightning arcs from Chandra to a werewolf!
+ Ghastly burn to back. [19 Damage]
+Lightning arcs from a lesser werewolf to a werewolf!
+ Insignificant burn to left paw. [3 Damage]
+J> 
+Young thrusts at a lesser werewolf. Hit!
+ Expert horizontal slash severs spine.
+
+ It collapses, dead.
+J> You prepare the Chain Lightning spell.
+ [Round: 3 sec]
+RJ> 
+Feras searches a lesser werewolf.
+RJ> 
+A lesser werewolf snaps at Young. Miss.
+RJ> 
+A greater werewolf slashes at Stolar. Hit! Good damage.
+RJ> 
+A greater werewolf gazes off into the distance briefly.
+RJ> cast were
+pre 132
+You gesture at a werewolf.
+[Success: 95%, Roll 68] Success!
+Lightning arcs from Chandra to a werewolf!
+ Severe burn to head. [14 Damage]
+J> You prepare the Chain Lightning spell.
+ [Round: 3 sec]
+RJ> 
+Young swings at a lesser werewolf. Hit!
+ Cruel downward cut splits body in twain.
+
+ It collapses, dead.
+RJ> 
+Stolar concentrates intently on a werewolf.
+RJ> 
+Energy arcs around a greater werewolf.
+ Major damage.
+RJ> 
+Feras searches a lesser werewolf.
+RJ> rel
+You release your prepared spell.
+J> 
+Young swings at a lesser werewolf. Hit! Devastating damage.
+J> 
+Feras searches a lesser werewolf.
+J> pre 112
+
+Cypress concentrates intently on a werewolf.
+J> 
+Static crackles around a lesser werewolf.
+
+ Searing shock overloads central nervous system.
+
+ It collapses, dead.
+J> You prepare the Call Meteor spell.
+ [Round: 2 sec]
+RJ> 
+Stolar takes a bite of a rowik berry.
+RJ> 
+A blue light flashes around Stolar.
+RJ> 
+Kylie incants a spell.
+RJ> 
+Feras searches a lesser werewolf.
+J> 
+Kylie gestures at Stolar.
+A purple light flashes around Stolar.
+J> 
+Young swings at a greater werewolf. Miss.
+J> cast 3 were
+pre 112
+
+A greater werewolf slashes at Stolar. Hit! Massive damage, knockdown.
+J> 
+A greater werewolf gestures with one humanlike hand at Kylie.
+A wave of deep red light emanates from a werewolf.
+J> What are you referring to?  Please be more specific.
+J> You have already prepared a spell.
+J> 
+Cypress concentrates intently on a werewolf.
+J> 
+Static crackles around Cypress.
+ Major damage.
+J> 
+Stolar concentrates intently on a werewolf.
+J> 
+Energy arcs around a greater werewolf.
+ Major damage.
+J> 
+Young swings at a greater werewolf. Miss.
+J> 
+ ** Kylie has just disconnected.
+J> 
+Kylie disconnects.
+J> 
+Khalil returns to normal speed.
+J> 
+Feras returns to normal speed.
+J> 
+Cypress concentrates intently on a werewolf.
+J> cas great were
+pre 112
+
+Stolar struggles to his feet.
+J> You gesture at a werewolf.
+[Success: 78%, Roll 27] Success!
+Chandra points to the sky. A moment later, a meteor
+screeches from the heavens and hammers a werewolf!
+ Insignificant burn to back. [41 Damage]
+ Feeble blow to left paw. [6 Damage]
+J> 
+Feras spits at a greater werewolf.
+J> You prepare the Call Meteor spell.
+ [Round: 2 sec]
+RJ> 
+Young swings at a greater werewolf. Miss.
+RJ> 
+Khalil puts away a silver greatbow with a gently curving shaft and an ivory
+handle carved into a wolf's head.
+RJ> 
+Khalil gestures.
+Magic begins to form around Khalil but then fizzles.
+RJ> 
+Khalil incants a spell.
+RJ> cas great were
+pre 112
+You gesture at a werewolf.
+[Success: 78%, Roll 52] Success!
+Chandra points to the sky. A moment later, a meteor
+screeches from the heavens and hammers a werewolf!
+ Insignificant burn to right leg. [21 Damage]
+ Feeble blow to left arm. [13 Damage]
+J> You prepare the Call Meteor spell.
+ [Round: 2 sec]
+RJ> 
+A greater werewolf slashes at Stolar. Hit! Minor damage.
+RJ> 
+A greater werewolf slashes at Young. Hit! Major damage.
+RJ> 
+Cypress concentrates intently on a werewolf.
+RJ> cas great were
+pre 112
+You gesture at a werewolf.
+[Success: 78%, Roll 81] Failure.
+J> You prepare the Call Meteor spell.
+ [Round: 2 sec]
+RJ> 
+Cypress concentrates intently on a werewolf.
+J> 
+Young retreats.
+J> 
+A greater werewolf slashes at Stolar. Hit! Major damage.
+J> 
+A greater werewolf springs towards Cypress.
+J> 
+A greater werewolf slashes at Cypress. Hit! Devastating damage.
+J> 
+Khalil gestures.
+Khalil moves with blurring speed.
+J> 
+Khalil incants a spell.
+J> 
+Stolar concentrates intently on a werewolf.
+J> 
+Energy arcs around a greater werewolf.
+ Devastating damage.
+J> 
+Cypress concentrates intently on a werewolf.
+J> 
+You hear the sound of a spell being prepared.
+J> cas great were
+
+Young removes a maufra lichen from the satchel.
+J> 
+Stolar concentrates intently on a werewolf.
+J> 
+Energy arcs around a greater werewolf.
+ Massive damage.
+J> 
+Khalil steps forward in defense of Cypress!
+J> 
+Stolar concentrates intently on a werewolf.
+J> 
+The air before you shimmers and congeals into Mariella!
+J> 
+Mariella gestures.
+Lightning arcs from Mariella to a werewolf!
+ Major damage.
+Lightning arcs from a greater werewolf to a werewolf!
+ Major damage.
+J> 
+Young takes a bite of a maufra lichen.
+J> 
+A purple light flashes around Young.
+J> 
+A greater werewolf slashes at Stolar. Hit! Minor damage.
+J> 
+A greater werewolf slashes at Khalil. Hit! Good damage.
+J> 
+The air before you shimmers and congeals into Sun!
+J> 
+Sun incants a spell.
+J> 
+Mariella incants a spell.
+J> 
+Khalil punches a greater werewolf Miss.
+J> 
+Sun gestures.
+A flaming arrow flies from Sun and strikes a werewolf!
+ Good damage.
+A flaming arrow flies from Sun and strikes a werewolf!
+ Minor damage.
+J> 
+Sun incants a spell.
+J> 
+Mariella gestures at Cypress.
+A purple light flashes around Cypress.
+J> 
+Sun gestures.
+A flaming arrow flies from Sun and strikes a werewolf!
+ Massive damage.
+A flaming arrow flies from Sun and strikes a werewolf!
+ Devastating damage.
+J> 
+Sun incants a spell.
+J> 
+Stolar takes a bite of a maufra lichen.
+J> 
+A purple light flashes around Stolar.
+J> 
+Khalil wields a silver greatbow with a gently curving shaft and an ivory handle
+carved into a wolf's head.
+J> 
+Sun gestures.
+A flaming arrow flies from Sun and strikes a werewolf!
+ Major damage.
+A flaming arrow flies from Sun and strikes a werewolf!
+ Massive damage.
+J> 
+Sun incants a spell.
+J> 
+Khalil puts away a silver greatbow with a gently curving shaft and an ivory
+handle carved into a wolf's head.
+J> 
+Sun gestures.
+A flaming arrow flies from Sun and strikes a werewolf!
+ Good damage.
+A flaming arrow flies from Sun and strikes a werewolf!
+ Massive damage.
+J> 
+Khalil incants a spell.
+J> 
+Sun incants a spell.
+J> 
+A greater werewolf slashes at Stolar. Hit! Good damage.
+J> 
+A greater werewolf gazes off into the distance briefly.
+J> 
+Young puts away a fiery steel greatsword with a polished diamond inset into the
+hilt and engraved "DIE! DIE! DIE!".
+J> 
+Stolar concentrates intently on a werewolf.
+J> 
+Energy arcs around a greater werewolf.
+ Devastating damage.
+J> 
+Sun gestures.
+A flaming arrow flies from Sun and strikes a werewolf!
+ Good damage.
+A flaming arrow flies from Sun and strikes a werewolf!
+ Devastating damage.
+J> 
+Sun incants a spell.
+J> 
+Young incants a spell.
+J> You gesture at a werewolf.
+[Success: 78%, Roll 92] Failure.
+J> 
+Sun gestures.
+A flaming arrow flies from Sun and strikes a werewolf!
+ Massive damage.
+A flaming arrow flies from Sun and strikes a werewolf!
+ Major damage.
+J> 
+Stolar concentrates intently on a werewolf.
+J> 
+Energy arcs around a greater werewolf.
+ Devastating damage.
+J> 
+Sun incants a spell.
+J> 
+Cypress concentrates intently on a werewolf.
+J> pre 112
+
+Stolar concentrates intently on a werewolf.
+J> 
+Lightning crackles over a greater werewolf!
+ Massive damage.
+J> 
+Sun gestures.
+A flaming arrow flies from Sun and strikes a werewolf!
+ Good damage.
+A flaming arrow flies from Sun and strikes a werewolf!
+ Good damage.
+J> 
+Sun incants a spell.
+J> 
+Cypress concentrates intently on a werewolf.
+J> 
+Young gestures at a werewolf.
+Magic begins to form around Young but then fizzles.
+J> 
+Stolar concentrates intently on a werewolf.
+J> 
+Sun gestures.
+A flaming arrow flies from Sun and strikes a werewolf!
+ Good damage.
+A flaming arrow flies from Sun and strikes a werewolf!
+ Good damage.
+J> 
+Sun incants a spell.
+J> 
+Khalil gestures.
+A gleam appears in Khalil's eyes.
+J> 
+Khalil incants a spell.
+J> 
+Khalil wields a silver greatbow with a gently curving shaft and an ivory handle
+carved into a wolf's head.
+J> 
+Khalil fires at a greater werewolf. Hit! Good damage.
+J> 
+Khalil loads a silver greatbow with a gently curving shaft and an ivory handle
+carved into a wolf's head.
+J> 
+Cypress concentrates intently on a werewolf.
+J> 
+Young incants a spell.
+J> 
+A greater werewolf slashes at Stolar. Hit! Massive damage.
+J> 
+A greater werewolf gestures with one humanlike hand at Khalil.
+A wave of deep red light emanates from a werewolf.
+J> 
+Mariella incants a spell.
+J> 
+Sun gestures.
+A flaming arrow flies from Sun and strikes a werewolf!
+ Major damage.
+A flaming arrow flies from Sun and strikes a werewolf!
+ Good damage.
+J> 
+Sun incants a spell.
+J> 
+Cypress concentrates intently on a werewolf.
+J> 
+Stolar concentrates intently on a werewolf.
+J> 
+Energy arcs around a greater werewolf.
+ Good damage.
+J> 
+Khalil returns to normal speed.
+J> 
+The gleam leaves Khalil's eyes.
+J> 
+Mariella gestures at Young.
+Young looks a little better.
+J> 
+Sun gestures.
+A flaming arrow flies from Sun and strikes a werewolf!
+ Massive damage.
+A flaming arrow flies from Sun and strikes a werewolf!
+ Major damage.
+J> 
+Sun incants a spell.
+J> 
+Young gestures at a werewolf.
+Magic begins to form around Young but then fizzles.
+J> 
+Cypress concentrates intently on a werewolf.
+J> You prepare the Call Meteor spell.
+ [Round: 2 sec]
+RJ> 
+Stolar concentrates intently on a werewolf.
+RJ> 
+Lightning crackles over a greater werewolf!
+ Major damage.
+RJ> 
+Khalil fires at a greater werewolf. Hit! Minor damage.
+RJ> 
+Khalil loads a silver greatbow with a gently curving shaft and an ivory handle
+carved into a wolf's head.
+RJ> 
+Young incants a spell.
+RJ> 
+Sun gestures.
+A flaming arrow flies from Sun and strikes a werewolf!
+ Good damage.
+A flaming arrow flies from Sun and strikes a werewolf!
+ Major damage.
+RJ> 
+Sun incants a spell.
+RJ> 
+Mariella incants a spell.
+J> 
+Sun gestures.
+A flaming arrow flies from Sun and strikes a werewolf!
+
+ Internal organs stew in their own juices. Throw another on the barbe', mate.
+
+ He collapses, dead.
+A flaming arrow flies from Sun and strikes a werewolf!
+ Massive damage.
+J> 
+Sun incants a spell.
+J> 
+A greater werewolf slashes at Khalil. Hit! Major damage.
+J> 
+Mariella gestures at Young.
+Mariella seems disconcerted for a moment.
+Mariella looks a little better.
+J> 
+Sun gestures.
+A flaming arrow flies from Sun and strikes a werewolf!
+ Massive damage.
+J> 
+Sun incants a spell.
+J> 
+Khalil puts away a silver greatbow with a gently curving shaft and an ivory
+handle carved into a wolf's head.
+J> 
+Khalil incants a spell.
+J> rel
+You release your prepared spell.
+J> 
+Sun gestures.
+A flaming arrow flies from Sun and strikes a werewolf!
+ Massive damage.
+J> 
+Sun incants a spell.
+J> 
+Stolar concentrates intently on a werewolf.
+J> 
+Energy arcs around a greater werewolf.
+ Devastating damage.
+J> health
+You have 276/276 body points.
+You have a grazed and singed head, a grazed and singed back, a grazed right
+arm, a grazed left arm, a singed right leg, a nicked, bludgeoned, grazed and
+singed left leg, a banged-up, grazed and singed right hand and a nicked,
+banged-up and singed left hand.
+J> 
+Feras searches a greater werewolf.
+J> 
+Sun gestures.
+A flaming arrow flies from Sun and strikes a werewolf!
+ Massive damage.
+J> 
+Sun incants a spell.
+J> look cypr
+You see Cypress Starslayer, a young female wolfling.
+She is short, light weight and incredibly muscular.
+She has green eyes, tan skin and long, flowing golden blond hair.
+She is wearing an owl feather, a silver-edged white shroud, a glowing albescent
+pin carved in the shape of a spruce pine, a white gold engagement ring with a
+brilliant clear-white diamond, a gulivira lizardskin cape, some eldritch
+titanium mail, some white gold earrings, a sparkling emerald necklace with
+dozens of deep green stones that match the color of her eyes, some werewolf
+hide boots, an eldritch helm, an obsidian ring and a delicate icy silver
+bracelet of several woven bands inset with colorful gems in a wildflower
+pattern.
+She is wielding an eldritch diamontine shield.
+She is being guarded by Khalil.
+She looks half dead.
+She has a seriously gashed head, a scorched back, a lacerated right arm, a
+burnt left leg, a nicked right hand and a nicked and banged-up left hand.
+J> 
+Sun gestures.
+A flaming arrow flies from Sun and strikes a werewolf!
+ Good damage.
+J> 
+Sun incants a spell.
+J> 
+Cypress concentrates intently on a werewolf.
+J> pre 318
+You prepare the Body Restoration III spell.
+ [Round: 3 sec]
+RJ> 
+Sun gestures.
+A flaming arrow flies from Sun and strikes a werewolf!
+ Massive damage.
+RJ> 
+Sun incants a spell.
+RJ> 
+A greater werewolf gazes off into the distance briefly.
+RJ> 
+Khalil gestures.
+Khalil moves with blurring speed.
+RJ> 
+Khalil incants a spell.
+RJ> 
+A scroll crumbles to dust as Young chants its contents.
+RJ> 
+Cypress concentrates intently on a werewolf.
+RJ> 
+Sun gestures.
+A flaming arrow flies from Sun and strikes a werewolf!
+ Devastating damage.
+RJ> 
+Sun incants a spell.
+RJ> cast cypre
+pre 318
+[Wait 1 seconds...]
+RJ> [Wait 1 seconds...]
+RJ> cast cypre
+pre 318
+
+Stolar concentrates intently on a werewolf.
+J> 
+Lightning crackles over a greater werewolf!
+ Major damage.
+J> 
+Young gestures.
+Young moves with blurring speed.
+J> You gesture at Cypress.
+[Success: 95%, Roll 54] Success!
+Cypress looks a little better.
+You sense the pleasure of the gods as you call upon the forces of life.
+J> You prepare the Body Restoration III spell.
+ [Round: 3 sec]
+RJ> 
+Sun gestures.
+A flaming arrow flies from Sun and strikes a werewolf!
+ Good damage.
+RJ> 
+Sun incants a spell.
+RJ> 
+Mariella incants a spell.
+RJ> 
+Stolar concentrates intently on a werewolf.
+RJ> 
+Energy arcs around a greater werewolf.
+ Devastating damage.
+RJ> 
+Khalil gestures.
+Khalil looks a little better.
+RJ> 
+Khalil incants a spell.
+RJ> 
+Cypress concentrates intently on a werewolf.
+RJ> 
+Young wields a fiery steel greatsword with a polished diamond inset into the
+hilt and engraved "DIE! DIE! DIE!".
+RJ> cast cypre
+pre 318
+
+Sun gestures.
+A flaming arrow flies from Sun and strikes a werewolf!
+ Massive damage.
+J> 
+Sun incants a spell.
+J> 
+Mariella gestures at Young.
+Young looks a little better.
+J> You gesture at Cypress.
+[Success: 95%, Roll 77] Success!
+Cypress looks a little better.
+J> 
+Stolar concentrates intently on a werewolf.
+J> 
+Energy arcs around a greater werewolf.
+ Devastating damage.
+J> You prepare the Body Restoration III spell.
+ [Round: 3 sec]
+RJ> 
+Cypress concentrates intently on a werewolf.
+RJ> 
+Stolar concentrates intently on a werewolf.
+RJ> 
+Energy arcs around a greater werewolf.
+ Good damage.
+RJ> 
+Young advances towards a greater werewolf.
+RJ> 
+Sun gestures.
+A flaming arrow flies from Sun and strikes a werewolf!
+ Massive damage.
+RJ> 
+Sun incants a spell.
+RJ> 
+A greater werewolf gestures with one humanlike hand at Young.
+A wave of deep red light emanates from a werewolf.
+RJ> cast cypre
+pre 318
+You gesture at Cypress.
+[Success: 95%, Roll 92] Success!
+Cypress looks a little better.
+J> You prepare the Body Restoration III spell.
+ [Round: 3 sec]
+RJ> 
+Cypress concentrates intently on a werewolf.
+RJ> 
+Sun gestures.
+A flaming arrow flies from Sun and strikes a werewolf!
+ Major damage.
+RJ> 
+Sun incants a spell.
+RJ> 
+Stolar concentrates intently on a werewolf.
+RJ> 
+Energy arcs around a greater werewolf.
+ Good damage.
+RJ> 
+Cypress concentrates intently on a werewolf.
+RJ> 
+Khalil returns to normal speed.
+RJ> 
+Young returns to normal speed.
+RJ> 
+Stolar concentrates intently on a werewolf.
+J> 
+Lightning crackles over a greater werewolf!
+ Awesome damage.
+J> 
+Young thrusts at a greater werewolf. Miss.
+J> 
+Sun gestures.
+A flaming arrow flies from Sun and strikes a werewolf!
+ Good damage.
+J> 
+Khalil wields a silver greatbow with a gently curving shaft and an ivory handle
+carved into a wolf's head.
+J> 
+Sun incants a spell.
+J> cast cypre
+pre 318
+You gesture at Cypress.
+[Success: 95%, Roll 15] Success!
+Cypress looks a little better.
+J> You prepare the Body Restoration III spell.
+ [Round: 3 sec]
+RJ> 
+Khalil puts away a silver greatbow with a gently curving shaft and an ivory
+handle carved into a wolf's head.
+RJ> 
+Stolar concentrates intently on a werewolf.
+RJ> 
+Energy arcs around a greater werewolf.
+
+ He collapses, dead.
+RJ> 
+Khalil gestures.
+Nothing happens.
+RJ> 
+Khalil incants a spell.
+RJ> 
+Feras advances towards a greater werewolf.
+RJ> 
+Sun gestures at a werewolf.
+J> look cypr
+You see Cypress Starslayer, a young female wolfling.
+She is short, light weight and incredibly muscular.
+She has green eyes, tan skin and long, flowing golden blond hair.
+She is wearing an owl feather, a silver-edged white shroud, a glowing albescent
+pin carved in the shape of a spruce pine, a white gold engagement ring with a
+brilliant clear-white diamond, a gulivira lizardskin cape, some eldritch
+titanium mail, some white gold earrings, a sparkling emerald necklace with
+dozens of deep green stones that match the color of her eyes, some werewolf
+hide boots, an eldritch helm, an obsidian ring and a delicate icy silver
+bracelet of several woven bands inset with colorful gems in a wildflower
+pattern.
+She is wielding an eldritch diamontine shield.
+She is being guarded by Khalil.
+She appears to be healthy.
+She has a seriously gashed head, a scorched back, a lacerated right arm, a
+burnt left leg, a nicked right hand and a nicked and banged-up left hand.
+J> 
+Young puts away a fiery steel greatsword with a polished diamond inset into the
+hilt and engraved "DIE! DIE! DIE!".
+J> 
+Sun incants a spell.
+J> rel
+You release your prepared spell.
+J> 
+Young smiles.
+J> 
+Sun incants a spell.
+J> pre 112
+
+Khalil gestures.
+Khalil moves with blurring speed.
+J> 
+Khalil incants a spell.
+J> You prepare the Call Meteor spell.
+ [Round: 2 sec]
+RJ> look
+
+Khalil wields a silver greatbow with a gently curving shaft and an ivory handle
+carved into a wolf's head.
+J> [Darsett Commons]
+Simply a cleared out area surrounded by a few scattered huts, this seems to be
+the meeting area for the hamlet of Darsett. A fire pit in the center lays cold
+and unused, its ashes scattered in the winds. A trail leads back down the
+hillside.
+You see Stolar, Mariella, Sun, Khalil, Feras, Cypress, Young and a greater
+werewolf (dead). 
+Obvious exits: north, east.
+J> 
+Stolar softly says, "is everyone ok?"
+J> 
+Sun nods.
+J> health
+You have 276/276 body points.
+You have a grazed and singed head, a grazed and singed back, a grazed right
+arm, a grazed left arm, a singed right leg, a nicked, bludgeoned, grazed and
+singed left leg, a banged-up, grazed and singed right hand and a nicked,
+banged-up and singed left hand.
+J> nod
+You nod.
+J> 
+You hear a voice yell, "Is it safe to come out yet?"
+J> 
+Sun fails to skin a greater werewolf.
+J> 
+Young takes a bite of a riyong mushroom.
+J> 
+Young looks a little better.
+J> 
+Sun searches a greater werewolf.
+J> 
+Cypress says, "ummm...I'm bleeding"
+J> look
+[Darsett Commons]
+Simply a cleared out area surrounded by a few scattered huts, this seems to be
+the meeting area for the hamlet of Darsett. A fire pit in the center lays cold
+and unused, its ashes scattered in the winds. A trail leads back down the
+hillside.
+You see Stolar, Mariella, Sun, Khalil, Feras, Cypress and Young. 
+Obvious exits: north, east.
+J> 
+Sun incants a spell.
+J> 
+Young takes a bite of a riyong mushroom.
+J> 
+Young looks a little better.
+J> 
+Sun gestures.
+Sun gradually fades from view.
+J> 
+Stolar softly says, "where is kylie?"
+J> 
+You hear a voice yell, "Is it safe to come out yet?"
+J> 
+You hear something say, "no"
+J> 
+Mariella casts her gaze across the area.
+J> 
+Young casts his gaze across the area.
+J> 
+Stolar softly says, "can anyone stop bleeding?"
+J> 
+Khalil puts away a silver greatbow with a gently curving shaft and an ivory
+handle carved into a wolf's head.
+J> yell Looks like it, but maybe not
+
+You hear something say, "not me"
+J> You yell, "Looks like it, but maybe not"
+J> 
+Khalil gestures.
+A gleam appears in Khalil's eyes.
+J> 
+Khalil incants a spell.
+J> 
+Mariella says, "I can't."
+J> 
+Khalil narrows his eyes and gazes intently about the area.
+J> 
+Khalil incants a spell.
+J> 
+ ** Revenge has just left the Realms.
+J> 
+Feras asks, "So those scat for brains can disjunct I take it?"
+J> 
+Feras gazes about the area through some icy silver sunglasses.
+J> nod fer
+You nod to Feras.
+J> 
+Khalil nods to Feras.
+J> 
+Mariella says, "Yes they can."
+J> 
+The gleam leaves Khalil's eyes.
+J> 
+Stolar softly says, "how badly are you bledding Cypress?"
+J> 
+You hear something say, "yeah"
+J> 
+ ** Sy has just disconnected.
+J> 
+A door opens a crack, then wider, and a man steps out of one of the huts.
+J> 
+Young says, "Looks safe fer now"
+J> 
+Khalil opens a leather harness.
+J> 
+Khalil puts some forester arrows in the harness.
+J> 
+Khalil puts a silver greatbow with a gently curving shaft and an ivory handle
+carved into a wolf's head in the harness.
+J> 
+Stolar concentrates intently.
+Stolar looks drained!
+J> 
+Khalil slips some forest green archer's gloves made from werewolf fur from his
+hands.
+J> 
+Khalil puts some forest green archer's gloves made from werewolf fur in the
+harness.
+J> 
+Khalil slips some black ietain shoulder bracers off of his wrist.
+J> 
+Khalil puts some black ietain shoulder bracers in the harness.
+J> 
+Khalil slips some black ietain shoulder bracers off of his wrist.
+J> 
+Khalil puts some black ietain shoulder bracers in the harness.
+J> 
+Khalil closes a leather harness.
+J> 
+Cypress says, "2/min"
+J> 
+Joel casts his gaze across the area.
+J> 
+Young smiles at Joel.
+J> 
+Stolar concentrates intently.
+Stolar looks drained!
+J> 
+Young says, "Howdy"
+J> 
+Joel says, "Wow."
+J> curts joel
+You curtsy towards Joel.
+J> 
+Khalil nods to Joel.
+J> look
+[Darsett Commons]
+Simply a cleared out area surrounded by a few scattered huts, this seems to be
+the meeting area for the hamlet of Darsett. A fire pit in the center lays cold
+and unused, its ashes scattered in the winds. A trail leads back down the
+hillside.
+You see Joel, Stolar, Mariella, Khalil, Feras, Cypress and Young. 
+Obvious exits: north, east.
+J> 
+You hear something ask, "you should be ok then huh?"
+J> look joel
+A tall man with a bushy beard stares back at you with bloodshot tired eyes.
+Years outdoors in the woods has turned him into somewhat an imposing figure.
+J> 
+Joel asks, "You killed them all?"
+J> 
+Young nods.
+J> 
+Joel casts his gaze across the area.
+J> 'All we saw
+You say, "All we saw"
+J> 
+Joel asks, "Who are you people?"
+J> 
+Khalil says, "all taht we saw"
+J> 
+You hear something say, "of course"
+J> 
+Khalil nods to you.
+J> 
+Mariella says, "We hope so."
+J> 
+Khalil smiles.
+J> 
+Mariella casts her gaze across the area.
+J> 
+Mariella sniffs the air.
+J> 
+Stolar softly says, "let us know if you get low love, we can keep you going
+until we get back"
+J> 
+You hear something say, "we are the were killers"
+J> 
+Joel frowns.
+J> 'I'm Chandra McFearless
+You say, "I'm Chandra McFearless"
+J> curts joel
+You curtsy towards Joel.
+J> 
+Joel asks, "Who's saying that?"
+J> 
+Joel casts his gaze across the area.
+J> 
+The air before you shimmers and congeals into Sun!
+J> 
+Sun smiles.
+J> 
+Sun says, "me"
+J> 
+Joel smiles at you.
+J> 
+Mariella says, "Mariella Silverleaf."
+J> 
+Sun smiles.
+J> 
+Mariella bows towards Joel.
+J> 
+Sun says, "I am Sun Crag"
+J> 
+Sun curtsies.
+J> 
+Joel says, "My name's Joel, pleased to meet you."
+J> beam
+
+Cypress says, "I'm Cypress"
+J> You beam happily.
+J> 
+Khalil says, "we are the second wave from the Church of Shemri, Brisby came and
+got us"
+J> 'Very nice to meet you, sir
+
+Joel asks, "Shemri!?"
+J> You say, "Very nice to meet you, sir"
+J> 
+Feras cocks his head to the side.
+J> 
+Sun nods to Joel.
+J> 
+Mariella touches an old gold ring engraved with the symbol of Shemri.
+J> 
+Young shakes hands with Joel.
+J> 
+Young says, "Dey calls me Young Evsise, glad to meetcha"
+J> 
+Joel stares warilly at you all.
+J> 
+Mariella nods to Joel.
+J> 
+ ** Greythan has just disconnected.
+J> 'We are *real* Shemrites
+You say, "We are *real* Shemrites"
+J> 
+Stolar softly says, "you say that as though you wished we were someone else
+sir?"
+J> 
+Khalil nods to you.
+J> 
+Joel says, "Well, least ways you guys did something, not like them others."
+J> 
+Sun asks, "what did they do?"
+J> 
+ ** Revenge has just left the Realms.
+J> 
+Sun listens carefully to Joel.
+J> 
+Mariella leans on a white oak staff carved with wolves circling upward to a
+silver figure of Shemri on top.
+J> 'nothing it sounds like
+You say, "nothing it sounds like"
+J> 
+Mariella listens carefully to Joel.
+J> 
+Khalil says, "yes Joel... that is why we came, to put right... what they did
+not"
+J> 
+Khalil sighs.
+J> 
+Joel says, "Ain't heard hide nor hair of em since they went chasing that way."
+J> 
+Stolar softly says, "chasing what way?"
+J> 
+Joel says, "Well sirs and ladies, its a good thing you came by when ya did."
+J> 
+Cypress listens carefully to Joel.
+J> 
+Khalil returns to normal speed.
+J> 
+Khalil narrows his eyes and gazes intently about the area.
+J> 
+Khalil incants a spell.
+J> 'We're in time for the bake sale?
+You ask, "We're in time for the bake sale?"
+J> 
+Khalil gestures.
+Khalil moves with blurring speed.
+J> 
+Khalil incants a spell.
+J> eat obj
+Your stomach growls.
+J> 
+Joel says, "Dunno whats going on, can't get a lick a work done around here no
+more."
+J> nod
+You nod.
+J> 
+Sun asks, "why not?"
+J> 
+Young asks, "How long thes weres showin up?"
+J> 
+Mariella says, "Why is that/"
+J> 
+Joel says, "Ain't gonna be no baking iffen we can't cut us down some timber."
+J> 'Oh?
+You ask, "Oh?"
+J> 
+Stolar softly says, "ahh wood"
+J> 
+Khalil nods.
+J> 
+Stolar smiles.
+J> 
+Sun nods.
+J> 'What are you building?
+You ask, "What are you building?"
+J> 
+Sun says, "well chop away now"
+J> 
+Sun nods.
+J> 
+Feras sniffs.
+J> 
+Joel says, "Aye, everytime we go off ta be cutting, them beasties show up."
+J> 
+Feras looks up.
+J> 
+Stolar softly says, "hmm do they show up when you stay in town?"
+J> 
+Sun asks, "them tinsey bitty were's?"
+J> 
+Sun ponders.
+J> 
+Joel says, "Ain't buildin nothing, we sell it ta Fayd."
+J> 
+Mariella incants a spell.
+J> 'Oh, exporting
+You say, "Oh, exporting"
+J> nod
+You nod.
+J> 
+Mariella gestures.
+Mariella moves with blurring speed.
+J> 
+Joel shakes his head at Stolar.
+J> 
+Young says, "Yeah, yer woodcutters"
+J> 
+Young nods to Joel.
+J> 
+Mariella goes north.
+J> 
+Joel says, "Only whens we get a work party up ta go chop down some trees."
+J> 
+A wolf arrives.
+J> 
+Feras gazes about the area through some icy silver sunglasses.
+J> 
+Stolar nods to Joel.
+J> 
+Sun searches the area.
+J> 
+A wolf sits down.
+J> 
+Sun ponders.
+J> 
+A wolf gets back on all fours.
+J> 
+A wolf sniffs about the area.
+J> time
+It is Banamea 17, 1044 (Year of the Butterfly).
+It is night.
+The Great Moon is gibbous waxing and Phulcrus is gibbous waning.
+J> 
+Khalil pets a wolf.
+J> 
+Khalil gestures.
+Nothing happens.
+J> 
+Khalil incants a spell.
+J> 
+Khalil narrows his eyes and gazes intently about the area.
+J> 
+Khalil incants a spell.
+J> 
+Joel says, "You all gonna stick around some, yer welcome to."
+J> 
+Young asks, "So how long haf the beasties been showin up?"
+J> nod
+
+Joel ponders.
+J> You nod.
+J> 
+Sun nods to Joel.
+J> 
+Sun smiles.
+J> 'At least for supper
+You say, "At least for supper"
+J> 
+Joel says, "Well, bout 6 months now."
+J> eat obj
+Your stomach growls.
+J> 
+A wolf stands beside Khalil.
+J> 
+Sun tickles you.
+J> 
+Stolar softly says, "and did you notice anyone....strange hanging around before
+or since?"
+J> 
+A wolf perks up her ears.
+J> 
+Joel ponders.
+J> 
+Khalil pets a wolf.
+J> 
+Joel says, "Nope, can't say as I have, we gets a few travellers now and again,
+but nobody strange."
+J> 
+The scintillating curtain of light surrounding Sun fades.
+J> 
+A wolf gazes at Joel listening intently.
+J> 
+Stolar softly says, "anyone have any strange stories they told beofre this all
+started?"
+J> whisp sun He can't say that now that we showed up
+You whisper to Sun.
+J> 
+Stolar puts away an eldritch diamontine shield bearing a raging storm at sea.
+J> 
+Stolar removes an eldritch helm from his head.
+J> 
+Cypress taps a glowing albescent pin carved in the shape of a spruce pine.
+J> 
+Joel says, "Well, did have one fellow round about told us a pretty nice story
+bout how wolflings got their start"
+J> 
+Joel smiles.
+J> 
+Cypress asks, "have you seen one of these before?"
+J> 
+Stolar softly says, "do you remember his name?"
+J> 'That is a good story
+You say, "That is a good story"
+J> 
+A wolf perks up her ears.
+J> 
+Khalil nods to Joel.
+J> 
+Feras asks, "Spring?"
+J> 
+Feras sniffs.
+J> 
+Joel says, "Nope, don't know he said his name."
+J> 
+Stolar nods.
+J> 
+Cypress taps a glowing albescent pin carved in the shape of a spruce pine.
+J> 
+A wolf wanders off and sniffs around the Common.
+J> 
+Joel says, "Sure did lady, seen that someplace, don't reckon I remember where."
+J> 
+Cypress ponders.
+J> 
+Cypress asks, "on someone?"
+J> 
+Stolar softly says, "these other followers of shemri, did they head out towards
+where you chop wood?"
+J> 
+Joel says, "Well, don't be letting me keep ya, sure do preciate the help and
+all, maybe I can be rounding me up some fellows ta work."
+J> 
+Young gazes east.
+J> 
+Young asks, "So ya cut them hardwoods over der?"
+J> 
+Joel nods to Stolar.
+J> 
+A wolf returns to normal speed.
+J> 
+Joel says, "Sure did."
+J> 
+Khalil gestures at a wolf.
+Khalil seems disconcerted for a moment.
+J> 
+Khalil incants a spell.
+J> 
+Stolar softly says, "and they never came back?"
+J> 
+Khalil gestures at a wolf.
+A wolf moves with blurring speed.
+J> 
+Khalil incants a spell.
+J> 
+Joel shakes his head back and forth.
+J> 
+A wolf goes north.
+J> 
+Joel says, "Nope, ain't seen em."
+J> 
+Cypress asks, "What did they look like?"
+J> 'Yep, we'll play tag with the weres while you chop
+You say, "Yep, we'll play tag with the weres while you chop"
+J> 
+Stolar softly says, "hmm"
+J> 
+Joel exclaims, "thanks again!"
+J> 
+Joel waves.
+J> 
+Young waves to Joel.
+J> wave joel
+
+Young is now following Khalil.
+J> You wave to Joel.
+J> 
+Cypress says, "wait"
+J> 
+Sun incants a spell.
+J> fol khal
+You are now following Khalil.
+J> 
+Young points east
+J> 
+Stolar softly says, "is there a leader around?"
+J> 
+The man walks back into his shed
+J> 
+Sun is now following Khalil.
+J> 
+Khalil returns to normal speed.
+J> 
+Sun gestures.
+Sun gradually fades from view.
+J> 
+Stolar softly says, "someone we can talk to?"
+J> 
+Khalil gestures.
+Khalil moves with blurring speed.
+J> 
+Khalil incants a spell.
+J> 
+Young says, "Lets check that trail"
+J> 
+Khalil says, "one sec"
+J> pre 225
+You have already prepared a spell.
+J> rel
+You release your prepared spell.
+J> pre 225
+You prepare the Invisibility spell.
+ [Round: 3 sec]
+RJ> 
+Young nods.
+RJ> 
+Stolar softly says, "hmm well that wasent much info"
+RJ> 
+Khalil's group goes north.
+RJ> cast
+You gesture.
+[Success: 95%, Roll 66] Success!
+You feel a tingling sensation.
+H> n
+[Darsett North]
+You see Mariella, Khalil, Feras, Cypress and Young. 
+Obvious exits: s.
+H> fol khal
+You are now following Khalil.
+JH> 
+Stolar arrives.
+JH> 
+Khalil's group goes through a door.
+JH> 
+You follow Khalil.
+[Inside Hut]
+You see Khalil, Feras, Cypress and Young. 
+Obvious exits: none.
+JH> 
+Mariella arrives through a door.
+JH> look
+[Inside Hut]
+Overturned furniture lays strewn about the room giving silent witness to the
+horror that happened. Dark red stains are splattered on the walls and ceiling,
+obviously dried blood.
+You see Mariella, Khalil, Feras, Cypress and Young. 
+Obvious exits: none.
+JH> 
+Khalil casts his gaze across the area.
+JH> 
+Without warning, Mariella howls and collapses to the ground, shaking.
+Undergoing a terrible transformation, she changes shape into that of a wolf!
+JH> 
+You hear something say, "wow"
+JH> 
+Young searches the area.
+JH> 
+Khalil searches the area.
+JH> 
+You hear something say, "look at the blood"
+JH> 'gross
+You say, "gross"
+JH> 
+ ** Lexa has just disconnected.
+JH> 
+Cypress says, "yuck"
+JH> 
+Feras sniffs.
+JH> 
+Khalil sighs.
+JH> 
+Khalil casts his gaze across the area.
+JH> 
+You hear something say, "odd isn'tit"
+JH> 
+Young asks, "What?"
+JH> 
+You hear something say, "the blood on the walls"
+JH> 
+Khalil sniffs about the area in an attempt to catch a scent in the air.
+JH> 
+Feras puts away an icy titanium broadsword.
+JH> 
+The air before you shimmers and congeals into Sun!
+JH> 
+Sun smiles.
+JH> 
+Feras puts away an icy steel sabre.
+JH> 
+A wolf sniffs about the area.
+JH> 
+Sun ponders.
+JH> 
+Young shrugs.
+JH> 
+Khalil says, "its just dried blood"
+JH> 
+A wolf sniffs about the area.
+JH> 
+A wolf snarls.
+JH> 
+Young says, "Looks like someone got torn up, it can happen"
+JH> 
+Khalil says, "apparently this hut didn't keep them out"
+JH> 
+Khalil sighs.
+JH> 
+Cypress concentrates intently.
+JH> 
+Feras removes some icy silver sunglasses.
+JH> 
+Feras casts his gaze across the area.
+JH> 
+Khalil gestures.
+Nothing happens.
+JH> 
+Khalil incants a spell.
+JH> 'Straw doesn't do much to deter a werewolf
+You say, "Straw doesn't do much to deter a werewolf"
+JH> 
+Khalil narrows his eyes and gazes intently about the area.
+JH> 
+Khalil incants a spell.
+JH> 
+Cypress concentrates intently.
+JH> 
+Sun incants a spell.
+JH> 
+A wolf sniffs over the furniture.
+JH> 'unless you stick it in their mouth and light it on fire maybe
+You say, "unless you stick it in their mouth and light it on fire maybe"
+JH> 
+Khalil asks, "anyone know where Stolar went?"
+JH> 
+Young says, "Pretty empty"
+JH> look
+[Inside Hut]
+Overturned furniture lays strewn about the room giving silent witness to the
+horror that happened. Dark red stains are splattered on the walls and ceiling,
+obviously dried blood.
+You see a wolf, Sun, Khalil, Feras, Cypress and Young. 
+Obvious exits: none.
+JH> 
+Cypress says, "no"
+JH> 
+Khalil nods to Young.
+JH> 
+Khalil's group goes through a door.
+JH> 
+You follow Khalil.
+[Darsett North]
+You see Angelica, Stolar, Sun, Khalil, Feras, Cypress and Young. 
+Obvious exits: s.
+JH> 
+Sun says, "not me"
+JH> 
+Sun says, "there"
+JH> look angel
+A cute girl stares up at you with wide blue eyes the color of the sky. Her
+dimpled cheeks are rosy, her smile bright. Long pigtails of blonde hard fall
+to the small of her back and swing wildly as she moves her head.
+She is wearing a pastel blue dress with kittens embroidered at the hem.
+She appears to be healthy.
+JH> 
+Young points at Stolar.
+JH> 
+Feras points at Stolar.
+JH> 
+A wolf arrives through a door.
+JH> 
+Sun points at Stolar.
+JH> 
+Angelica pulls you down to her level.
+JH> 
+Sun points at Stolar.
+JH> smi
+You suddenly fade into view.
+You smile.
+J> 
+Khalil listens carefully to Angelica.
+J> 
+Angelica tugs on Stolar.
+J> 
+Feras gazes at Angelica.
+J> curts angel
+You curtsy towards Angelica.
+J> 
+Angelica tugs on Stolar.
+J> 
+Stolar listens carefully to Angelica.
+J> 
+Young smiles at Angelica.
+J> 
+Cypress listens carefully to Angelica.
+J> 
+Sun curtsies.
+J> 
+Khalil kneels.
+J> 
+A wolf sniffs about the area.
+J> 
+Angelica says, "I seen em before."
+J> 
+Stolar softly says, "see these are my friends"
+J> 
+Angelica giggles.
+J> 
+Khalil says, "hello little one"
+J> 
+Angelica casts her gaze across the area.
+J> 
+Feras cocks his head to the side.
+J> 
+Sun says, "hello little girl"
+J> 
+Sun smiles.
+J> 
+Angelica exclaims, "Wowsers!"
+J> 
+Cypress smiles at Angelica.
+J> 
+Stolar softly says, "you have seen the bad doggies before?"
+J> gig
+You giggle.
+J> 
+A wolf sniffs Angelica.
+J> 
+Angelica asks, "You all came to get the bad doggies?"
+J> 
+Sun nods to Angelica.
+J> 
+Young nods to Angelica.
+J> 
+Khalil nods to Angelica.
+J> nod
+You nod.
+J> 
+Stolar smiles at Angelica.
+J> 
+Young smiles.
+J> 
+A wolf wags her tail.
+J> 
+Sun says, "if you show us where they are"
+J> 
+Cypress bends down to listen to Angelica
+J> 
+Sun nods.
+J> 
+Angelica asks, "How come?"
+J> 'So the workers can cut wood
+You say, "So the workers can cut wood"
+J> 
+A wolf returns to normal speed.
+J> 
+Stolar softly says, "we dont like them to hurt you or your family"
+J> 
+Young says, "So dey dont bother ya no more"
+J> 
+Angelica blinks at you.
+J> 
+Angelica asks, "You mean chop down trees?"
+J> nod angel
+You nod to Angelica.
+J> 'That too
+You say, "That too"
+J> 
+A lesser werewolf pounces at Chandra.
+J> 
+A lesser werewolf snaps at Chandra with its teeth.
+ [ToHit: 38, Roll: 63] Hit!
+ Puny slash to head. [9 Damage]
+J> 'eek
+You say, "eek"
+J> 
+Khalil struggles to his feet.
+J> ret
+
+Angelica screams!
+J> You retreat.
+J> 
+Young advances towards a lesser werewolf.
+J> 
+Young wields a fiery steel greatsword with a polished diamond inset into the
+hilt and engraved "DIE! DIE! DIE!".
+J> 
+Khalil is now guarding Angelica.
+J> 
+Angelica screams!
+J> 
+Young swings at a lesser werewolf. Miss.
+J> 
+A lesser werewolf's eyes glow with a deep red light.
+J> 
+Stolar concentrates intently.
+J> 
+A wolf goes south.
+J> pre 112
+You prepare the Call Meteor spell.
+ [Round: 2 sec]
+RJ> 
+Young swings at a lesser werewolf. Miss.
+RJ> 
+Khalil is now guarding Cypress.
+J> 
+Stolar concentrates intently on a werewolf.
+J> 
+Energy arcs around a lesser werewolf.
+ Good damage.
+J> 
+Cypress concentrates intently on a werewolf.
+J> 
+An invisible blow pounds a lesser werewolf.
+ Minor damage.
+J> 
+Feras wields an icy steel sabre.
+J> cast were
+pre 12
+You gesture at a werewolf.
+[Success: 95%, Roll 89] Success!
+Chandra points to the sky. A moment later, a meteor
+screeches from the heavens and hammers a werewolf!
+ Heart melts. Opponent exhales boiling blood.
+ It collapses, dead.
+J> You do not know that spell.
+J> 
+Feras advances towards a lesser werewolf.
+J> 
+Angelica blinks.
+J> 
+Stolar frowns.
+J> 
+Angelica says, "Wowsers."
+J> 
+Feras pokes a lesser werewolf.
+J> 
+Young skins a lesser werewolf.
+J> 
+Mariella arrives.
+J> 'dumb ol were
+You say, "dumb ol were"
+J> 
+Young searches a lesser werewolf.
+J> 
+Cypress asks, "are you alright Angelica?"
+J> 
+Khalil is now guarding Mariella.
+J> 
+Angelica exclaims, "Bad doggie!"
+J> 
+Angelica giggles.
+J> 
+Young smiles at Angelica.
+J> 
+Khalil smiles at Angelica.
+J> 
+Feras takes a werewolf pelt.
+J> 
+Young says, "Dead doggie"
+J> ret
+You are not currently engaging any opponents.
+J> 
+Feras sniffs a werewolf pelt.
+J> pre 112
+You prepare the Call Meteor spell.
+ [Round: 2 sec]
+RJ> 
+Feras wrinkles up his nose.
+J> 
+Young grins.
+J> health
+You have 269/276 body points.
+You have a nicked, grazed and singed head, a grazed and singed back, a grazed
+right arm, a grazed left arm, a singed right leg, a nicked, bludgeoned, grazed
+and singed left leg, a banged-up, grazed and singed right hand and a nicked,
+banged-up and singed left hand.
+J> 
+Feras casts his gaze across the area.
+J> 
+Feras drops a werewolf pelt.
+J> look
+[Darsett North]
+With huts backing up against the hillside, this area of the hamlet forms a
+natural cul-de-sac. While fairly new in construction, the homes are boarded up,
+long deep scars across the boards giving testimony to the recent were attacks.
+One of the doors lays partially open, an eerie silence inside the hut.
+You see Angelica, Stolar, Mariella, Sun, Khalil, Feras, Cypress and Young. A
+werewolf pelt is here.
+Obvious exits: south.
+J> 
+Angelica asks, "Why you want to let everyone cut trees?"
+J> 
+ ** Raningeth has just disconnected.
+J> 
+Stolar softly says, "where did you see them before angelica?"
+J> 
+Feras ponders.
+J> 'So they can sell them to fayd, and get money to eat
+You say, "So they can sell them to fayd, and get money to eat"
+J> 
+Angelica frowns.
+J> 
+Khalil says, "well, I don't really Angelica, but the people here do need to be
+safe"
+J> 
+Stolar softly says, "there are people who need the trees so that they dont
+freeze in the winter and so they can cook there food"
+J> 'Cut down the old big trees, so the little ones can keep growing
+You say, "Cut down the old big trees, so the little ones can keep growing"
+J> 
+Cypress nods to Stolar.
+J> 
+Angelica asks, "But why them trees?"
+J> 
+Angelica sniffs.
+J> 
+Khalil returns to normal speed.
+J> 
+Sun asks, "why not?"
+J> 
+Khalil narrows his eyes and gazes intently about the area.
+J> 
+Khalil incants a spell.
+J> 
+Sun listens carefully to Angelica.
+J> 
+Khalil gestures.
+Khalil moves with blurring speed.
+J> 
+Khalil incants a spell.
+J> 
+Stolar softly says, "is there something special about those trees angelica?"
+J> 
+Young asks, "Why, are they special trees somehow?"
+J> 'I don't know why they pick the ones they do
+You say, "I don't know why they pick the ones they do"
+J> 
+Khalil listens carefully to Angelica.
+J> 
+Angelica says, "I just like to play there and nobody can find me is all."
+J> 
+Angelica giggles.
+J> 
+Young smiles.
+J> 
+Sun nods.
+J> 
+Khalil chuckles.
+J> 
+Sun giggles.
+J> beam
+You beam happily.
+J> 
+Angelica tugs on Mariella.
+J> 
+Angelica tugs on Mariella.
+J> 
+You feel a tingle in your mind. Rion thinks to you, "where ya at?."
+J> 
+Stolar softly says, "i see, do you still go out there even with the bad doggies
+around?"
+J> 
+Young says, "A smart little girl like you kin always find places to hide, Im
+sure"
+J> 
+Young nods to Angelica.
+J> 
+Mariella smiles at Angelica.
+J> think We're at Darsett
+You think to yourself.
+J> pre 403
+You have already prepared a spell.
+J> rel
+You release your prepared spell.
+J> 
+Sun asks, "where do you hide at?"
+J> pre 403
+You prepare the Mindlink spell.
+ [Round: 3 sec]
+RJ> cast
+[Wait 2 seconds...]
+RJ> 
+Sun listens to her surroundings closely.
+RJ> cast
+[Wait 1 seconds...]
+RJ> 
+Sun smiles.
+RJ> cast
+You gesture.
+[Success: 95%, Roll 100] Extreme failure!
+J> pre 403
+You prepare the Mindlink spell.
+ [Round: 3 sec]
+RJ> 
+Mariella says, "It's nice to have a special place."
+RJ> cast
+[Wait 2 seconds...]
+RJ> cast
+[Wait 1 seconds...]
+RJ> cast
+You gesture.
+[Success: 95%, Roll 59] Success!
+You feel the power of your mind expanding.
+J> 
+Angelica pulls Marriella down and whispers in her ear.
+J> 
+Angelica giggles.
+J> think We're at Darsett, Rion
+You project your thoughts.
+J> 
+Mariella smiles at Angelica.
+J> 
+Mariella asks, "Really?"
+J> 
+Angelica shakes her head at Stolar.
+J> 
+Mariella gazes at Angelica.
+J> 
+Angelica says, "mom don't like me playing outside when the bad doggies come."
+J> 
+Stolar softly says, "good girl, we dont want you to be hurt by them"
+J> 
+Khalil nods.
+J> 
+Feras raises an eyebrow towards Mariella.
+J> 
+Khalil smiles at Angelica.
+J> exp
+Level: 90
+Build Points to date: 923
+Unspent Build Points: 14
+Experience Points until next Build Point: 30601
+J> 
+Cypress asks, "Where is your Mom?"
+J> time
+It is Banamea 17, 1044 (Year of the Butterfly).
+It is night.
+The Great Moon is gibbous waxing and Phulcrus is gibbous waning.
+J> 
+Angelica asks, "Please don't let them cut down them trees?"
+J> 
+Stolar softly says, "have you ever seen them when you were out in the woods,
+the bad doggies i mean?"
+J> 
+Young casts his gaze across the area.
+J> 
+Feras ponders.
+J> 
+Angelica shakes her head at Stolar.
+J> 
+Khalil says, "we're here to stop the doggies"
+J> 
+Angelica says, "No way"
+J> 
+Angelica smiles at Stolar.
+J> act notes the time, "Oh darn, I have to meet Frederick". She hurries back towards Fayd.
+Chandra notes the time, "Oh darn, I have to meet Frederick". She hurries back
+towards Fayd.
+J> x
+
+ ** Chandra has just left the Realms.
+J> 
+
+Character Manager V1.00
+
+ 1 => Moordread
+ 2 => Morti
+ 3 => Bubba
+
+ C => Create new character
+ D => Delete current character
+ P => Play Legends of Future Past
+ X => Exit to NovaLink
+
+
+Active character: Bubba (#3)
+
+Select: /bye
+
+
+Thank you for using NovaLink.
+
+Connect time this session: 130 minutes.
+
+Have a nice evening!
+
+NovaLink is an online service of NovaLink USA Corporation,
+200 Friberg Parkway, Suite 4003, Westborough, MA 01581. Service: 800-274-2814.
+
+
+
+
+
+
+
+
+
+Invalid selection.
+
+Character Manager V1.00
+
+ 1 => Moordread
+ 2 => Morti
+ 3 => Bubba
+
+ C => Create new character
+ D => Delete current character
+ P => Play Legends of Future Past
+ X => Exit to NovaLink
+
+
+Active character: Bubba (#3)
+
+Select: Connection terminated by remote host

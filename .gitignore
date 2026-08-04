@@ -9,3 +9,4 @@ frontend/node_modules/
 engine/lofp
 engine/cmd/lofp/lofp.exe
 *.bak
+VIBECTL.md

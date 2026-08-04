@@ -1,0 +1,5300 @@
+
+A wolf wags his tail.
+> look mory
+Before you is the Baroness Moryan D'vena. Sparkling hazel eyes reveal quick wit
+and intelligence. Braided down her back is long blonde hair, with only a hint
+of silver. She is a formidable force for her slight size and youth.
+She is wearing some gray suede boots with low heels and trimmed with touches of
+icy silver, a long tight-fitting gray skirt clinging to her hips and swirling
+at the floor around her boots, a soft ivory silk blouse with thin stripes of
+faded silver running through the material, a delicate white albescent circlet
+and a white albescent signet ring with a channel of deep blue sapphires.
+She appears to be healthy.
+> loo stef
+You behold the noble Stefan Rullon, Marquis of Fayd and swordmaster. He lives
+his life based upon a strict code of honor. Revealed in the depths of rich
+brown eyes are hints of the royal frigil blood that flows through his veins.
+He is wearing a fiery silver badge engraved with the image of a blazing sun
+gripped within a gleaming golden hand, some fiery randar gauntlets with raised
+studs along the knuckles, some steel bracers whose polished surface has been
+carefully ridged to deflect incoming blades, a plated steel scarf with small
+lead weights at each end instead of fringe, some battered silver bracers barely
+concealing a wrist sheath, some long shin guards that look a lot like the arms
+of a metal devil, some black fiery titanium armor which radiates a faint nimbus
+of orange flame with an eye on the chest, a gold sheath embroidered with the
+phoenix emblem intertwined with the initials "SR", a brilliant gold wedding
+ring forming two hands symbolizing love and trust cradling a tiny heart shaped
+ruby, some black leather boots with a red rose curling from toe to knee on the
+left one, some worn brown leather gloves bearing the faded image of a golden
+lion across the backs of the hands, some brilliant white shoulder guards with
+veins of blue alzyron running through them, an iron necklace decorated with an
+insignia of two crossed daggers and a gulivira skin cape.
+He radiates with magical strength.
+He is protected by a ghostly, hovering shield.
+He is surrounded by a scintillating curtain of light.
+He appears to be healthy.
+He has a nicked, slightly punctured and scorched head, a lacerated and grazed
+body, a lacerated, grazed and scorched back, a nicked, banged-up, grazed and
+singed right arm, a nicked, grazed and singed left arm, a nicked, grazed and
+singed right leg, a singed left leg, a nicked, grazed and singed right hand and
+a nicked, grazed and singed left hand.
+> 
+Moryan says, "Please, take a seat."
+> 
+Moryan says, "There are refreshements on the table."
+> 
+Donnald says, "thanks"
+> 
+Gwydion casts his gaze across the area.
+> 
+ ** Burne has just disconnected.
+> 
+Burne disconnects.
+> 
+A wolf uses his keen eyes to look about the area.
+> 
+A wolf sits down.
+> 
+Cypress sits down.
+> 
+A wolf sniffs about the area.
+> 
+Moryan sits and gently smoothes out her skirt.
+> 
+Stefan incants a spell.
+> 
+Saxon gazes at a long table.
+> 
+Donnald sits on an intricately carved chair.
+> 
+Gwydion sits on an intricately carved chair.
+> look on tab
+On the table you see a glass, a glass, a glass, a glass, a glass, a glass, a
+glass, a glass, a glass, a sweet pastry, a sweet pastry, a sweet pastry, a
+glass, a sweet pastry, a glass, a sweet pastry, a sweet pastry, a sweet pastry,
+a sweet pastry, a sweet pastry, a sweet pastry, a sweet pastry, a sweet pastry,
+a sweet pastry, a sweet pastry, a glass, a glass, a glass and a sweet pastry.
+> 
+Khalil narrows his eyes and gazes intently about the area.
+> 
+Khalil incants a spell.
+> 
+Prudence sits on an intricately carved chair.
+> 
+Khalil gestures.
+Nothing happens.
+> 
+Khalil incants a spell.
+> 
+Khalil pulls up an intricately carved chair and takes a load off.
+> 
+Saxon sniffs a sweet pastry.
+> 
+You return to normal speed.
+> get glas
+It is too heavy to carry that in addition to what you already have.
+> 
+A wolf growls, "Hello Baroness D'vena...."
+> 
+Prudence smiles at Saxon.
+> 
+Burne arrives.
+> 
+A wolf growls, "Maruis Rullon."
+> look in glas
+There is nothing in that.
+> 
+Moryan says, "Would you please transform? I'm afraid I can't tell one wolf from
+the other."
+> 
+Burne pulls up an intricately carved chair and takes a load off.
+> look in 2 glas
+In the glass you see some coffee.
+> 
+Kylie is now following Gwydion.
+> 
+Burne mutters something you can't quite make out.
+> 
+A wolf suddenly howls, writhing in pain. It transforms into Rion!
+> 
+Stefan says, "Aye, my nose isn't waht it used to be."
+> 
+Rion says, "sorry"
+> 
+Stefan smiles.
+> 
+Rion bows towards Moryan.
+> 
+Prudence smiles at Rion.
+> 
+A wolf growls, "Well I am this wolf."
+> 
+Moryan smiles.
+> 
+A wolf growls, "I think."
+> 
+Moryan gazes at a wolf.
+> 
+Gwydion struggles to his feet.
+> 
+Rion smiles at Prudence.
+> look
+[Thistlewood Deep, Dining]
+This is a large, formal banquet hall. A long table, with a dozen chairs
+lining its sides sits central to the room. Low buffets rest against the
+pale, silk covered walls. Candles rest along the table, and overhead
+are numerous chandeliers, creating a brightly lit room. A door leads
+back to the foyer.
+You see Moryan (sitting), Burne (sitting), Kylie, Donnald (sitting), Stefan,
+Prudence (sitting), a wolf, Gwydion, Rion (sitting), Saxon, Khalil (sitting)
+and Cypress (sitting). 
+Obvious exits: none.
+> 
+Donnald grins.
+> 
+A wolf suddenly howls, writhing in pain. It transforms into Graul!
+> 
+Moryan nods.
+> 
+Rion nudges Graul.
+> 
+Graul bows towards Moryan.
+> 
+Stefan returns to normal speed.
+> 
+Gwydion says, "I'll be back directly. I'd hate to bleed all over the
+furniture."
+> 
+Graul bows towards Stefan.
+> 
+Gwydion bows.
+> 
+Stefan gestures.
+Stefan moves with blurring speed.
+> 
+Gwydion is interposed by Stefan.
+> 
+Stefan bows towards Graul.
+> 
+Rion waves to Stefan.
+> 
+Rion ponders.
+> 
+Rion struggles to his feet.
+> 
+Stefan smiles at Rion.
+> 
+Gwydion asks, "Stefan, if I might step out for a moment, please?"
+> 
+Graul says, "May I present to you a representation of the pack."
+> 
+Rion is now guarding Kylie.
+> 
+Stefan nods.
+> 
+Stefan says, "of course."
+> 
+Stefan opens a door.
+> 
+Moryan smiles.
+> 
+Gwydion's group goes through a door.
+> 
+Stefan closes a door.
+> 
+Graul looks into a small device.
+> 
+Stefan incants a spell.
+> 
+Stefan narrows his eyes and gazes intently about the area.
+> 
+Khalil gestures.
+Nothing happens.
+> 
+Khalil struggles to his feet.
+> 
+Graul says, "Just us."
+> 
+Khalil incants a spell.
+> 
+Graul shrugs.
+> 
+Khalil incants a spell.
+> 
+Moryan says, "I welcome you to my home, Thistlewood Deep."
+> 
+Moryan smiles.
+> 
+Donnald smiles at Moryan.
+> 
+Burne nods to Moryan.
+> 
+Moryan says, "There has been a great many happenings as of late in the lands of
+Fayd."
+> 
+Prudence smiles at Moryan.
+> 'Thank you for the invitation
+You say, "Thank you for the invitation"
+> 
+Cypress listens carefully to Moryan.
+> 
+Graul says, "Thank you for the invitation, though why is somewhat curious for
+us."
+> 
+Graul smiles at Moryan.
+> 
+Khalil nods to Graul.
+> 
+Moryan chuckles.
+> 
+Rion ponders.
+> 
+Moryan says, "I'd think it would be quite obvious."
+> 
+Moryan gazes at you.
+> 
+Graul smiles at Moryan.
+> 'Not to some perhaps
+You say, "Not to some perhaps"
+> 
+Graul pats Chandra on the shoulder.
+> 
+Moryan chuckles.
+> 
+Rion says, "excuse me..do we call you Lady Moran, Baroness, or what..i'm not so
+good with royal noble names and titles"
+> 
+Rion gazes at Moryan.
+> 
+Moryan smiles at Rion.
+> 
+Stefan grins.
+> 
+Moryan says, "Lady Moryan is just fine."
+> 
+Rion says, "'kay"
+> 
+Rion smiles.
+> 
+Moryan asks, "and you all are?"
+> 
+Moryan casts her gaze across the area.
+> 
+Rion casts his gaze across the area.
+> look
+[Thistlewood Deep, Dining]
+This is a large, formal banquet hall. A long table, with a dozen chairs
+lining its sides sits central to the room. Low buffets rest against the
+pale, silk covered walls. Candles rest along the table, and overhead
+are numerous chandeliers, creating a brightly lit room. A door leads
+back to the foyer.
+You see Moryan (sitting), Burne (sitting), Donnald (sitting), Stefan, Prudence
+(sitting), Graul, Rion, Saxon, Khalil and Cypress (sitting). 
+Obvious exits: none.
+> 
+Moryan asks, "Perhaps if someone makes some introductions?"
+> 
+Graul says, "She is one of the pack, and as such politics are beyond us."
+> 'Perhaps the packleader can introduce his pack?
+You ask, "Perhaps the packleader can introduce his pack?"
+> 
+The scintillating curtain of light surrounding Stefan fades.
+> list grau
+You listen carefully to Graul.
+> 
+Graul smiles.
+> 
+Moryan says, "I know who Chandra is, and I know you are the Packleader."
+> 
+Moryan smiles at Graul.
+> 
+Graul says, "Let me present Rion one of the council."
+> 
+Graul gestures at Rion.
+> 
+Moryan nods to Rion.
+> 
+Rion bows towards Moryan.
+> 
+Rion says, "hello"
+> 
+Graul says, "Saxon another of the council."
+> 
+You hear knocking at a door.
+> 
+Saxon nods.
+> 
+Stefan returns to normal speed.
+> 
+Moryan asks, "Stefan, would you?"
+> 
+Khalil gestures.
+Nothing happens.
+> 
+Khalil incants a spell.
+> 
+Moryan gestures towards a door.
+Connected to host novalink.com
+                              
+
+[Establishing connection]
+
+ 
+
+  NovaLink Interactive Networks (R)
+
+  "new" to open a new account
+  "info" for more information
+
+
+login: csanburn
+Password: ********
+
+
+          NovaLink (R)
+(C)1995 NovaLink USA Corporation
+
+Good evening, CSanburn.
+You are the 2,414,675tth login to date.
+It is now 20:57:56 EST.
+
+Your last recorded login was on 04/05/99 at 19:59:56 EST.
+NOTE: It has been 521 days since your last password change.  Changing
+      your password frequently is essential to your account's security.
+
+
+You are accessing NovaLink via Autonet.
+Your account is exempt from these hourly charges.
+
+   #      Bulletin                                                /Go Page
+
+   R  ... Read your waiting mail
+   Q  ... Quickscan
+
+
+Select a bulletin to display, '?' to relist, or 'E' to enter NovaLink/exit> /go legends
+
+
+Page: LEGENDS
+20:58:02 EST, 05-APR-99
+
+   A ... About Legends of Future Past
+   C ... Legends Calendar of Events
+   P ... Play Legends of Future Past   
+   T ... Legends Teleconference (OOC)  
+   V ... Version Notes                 
+
+Menu choice, or 'X' to exit> p
+
+
+
+Welcome back to Legends of Future Past!
+
+
+Character Manager V1.00
+
+ 1 => Moordread
+ 2 => Morti
+ 3 => Bubba
+
+ C => Create new character
+ D => Delete current character
+ P => Play Legends of Future Past
+ X => Exit to NovaLink
+
+
+Active character: Moordread (#1)
+
+Select: 3
+
+Character Manager V1.00
+
+ 1 => Moordread
+ 2 => Morti
+ 3 => Bubba
+
+ C => Create new character
+ D => Delete current character
+ P => Play Legends of Future Past
+ X => Exit to NovaLink
+
+
+Active character: Bubba (#3)
+
+Select: p
+
+Interactive Entertainment OS V6.10 [Legends of Future Past]
+(c)1991-1995 Inner Circle Technologies, Inc. Revision dated Apr 13 1995.
+
+URLs of web components are:
+
+Webpage: www.lofp.com
+Boards: www.lofp.com/forums
+Boards (avoids Timeouts): www.lofp.com/forums/?RequestTimeout=500
+Calendar: www.lofp.com/calendar
+Rate Plan: www.lofp.com/newrate.htm
+Rate FAQ: www.lofp.com/ratefaq.htm
+Scripting policy: www.lofp.com/script.htm
+Policies: www.lofp.com/basic/policies.htm
+GAME STATUS: www.lofp.com/status.htm
+
+EMail Addresses:
+Any GM: gmname@lofp.com (like chanatahe@lofp.com)
+Manager: druid@lofp.com   His ICQ is 5730609
+King Frederick IV: kingfred@lofp.com
+Baron Emails are as follows: Baron-Aetheon@lofp.com,
+Baron-Beoford@lofp.com, Baroness-Moryan@lofp.com,
+Baroness-Charette@lofp.com, Baron-Nikoli@lofp.com
+
+Please see the website for the rateplan and the scripting policy.  The
+URLS are listed above.
+
+Eprise Corporation
+1671 Worcester Rd, 4th Floor
+Framingham, MA 01701
+Send checks Attn: Gary Whitten
+
+** LATEST MESSAGE **
+
+From Chanatahe:  Reminder: The start of a new quarter approaches.  To
+enable me to bill better a slight change has been made to the billing
+policy.  Rather than the billing being done between the 20th and the
+last day of the month previous, it'll now be anytime from the 3rd
+weekend of the month to the end of the month.  It just gives me 2
+guaranteed weekends to process the billing.  If you have any questions,
+please email.
+
+From Chyme: The Barons now all have an email address. Please look above
+to see how to word it. Have a great day!
+
+                                    
+[Thistlewood Deep, Dining]
+You see Moryan (sitting), Burne (sitting), Kylie, Donnald (sitting), Stefan,
+Prudence (sitting), Graul, Gwydion, Rion, Saxon, Khalil and Cypress (sitting). 
+Obvious exits: none.
+It is Alabea 5, 1045 (Year of the Wyrm).
+It is midnight.
+The Great Moon is crescent waning and Phulcrus is new.
+> 
+Donnald shakes his head back and forth.
+> 
+Gwydion sits on an intricately carved chair.
+> 
+Khalil is now guarding you.
+> 
+Graul says, "Burne, a new wolfling."
+> time
+It is Alabea 5, 1045 (Year of the Wyrm).
+It is midnight.
+The Great Moon is crescent waning and Phulcrus is new.
+> 
+Burne nods to Moryan.
+> 
+Moryan smiles at Burne.
+
+Graul says, "Donnald a good friend and member of the pack."
+> look
+[Thistlewood Deep, Dining]
+This is a large, formal banquet hall. A long table, with a dozen chairs
+lining its sides sits central to the room. Low buffets rest against the
+pale, silk covered walls. Candles rest along the table, and overhead
+are numerous chandeliers, creating a brightly lit room. A door leads
+back to the foyer.
+You see Moryan (sitting), Burne (sitting), Kylie, Donnald (sitting), Stefan,
+Prudence (sitting), Graul, Gwydion (sitting), Rion, Saxon, Khalil and Cypress
+(sitting). 
+Obvious exits: none.
+> 
+Moryan smiles at Donnald.
+> 
+Graul says, "And Gwydion a great hunter and pack member."
+> 
+Donnald says, "Greetings Lady Moryan"
+> 
+Gwydion struggles to his feet.
+> 
+Gwydion bows towards Moryan.
+> 
+Moryan says, "Ah, Gwydion, I've heard mention of your musical talents. I have a
+fine music room."
+> 
+Gwydion says, "Ah! I would be pleased and honoured to see it sometime, milady."
+> 
+Moryan smiles.
+> 
+Gwydion smiles at Moryan.
+> 
+Gwydion sits on an intricately carved chair.
+> 
+Kylie leans on an intricately carved chair.
+> 
+You feel the touch of A servant's mind:
+"M'lady!"
+> 
+Moryan frowns.
+> pond
+You ponder for a moment.
+> 
+Gwydion cocks his head to the side.
+> list
+You listen.
+> 
+Stefan arches his eyebrow.
+> 
+Stefan gestures.
+Nothing happens.
+> 
+You hear knocking at a door.
+> 
+You see a door open.
+> 
+Stefan incants a spell.
+> 
+A servant arrives through a door.
+> 
+Gwydion struggles to his feet.
+> 
+Stefan narrows his eyes and gazes intently about the area.
+Stefan seems disconcerted for a moment.
+> 
+A servant blinks.
+> 
+A servant blinks.
+> 
+Stefan closes a door.
+> 
+Graul is interposed by Stefan.
+> 
+a servant exclaims, "I was attacked!"
+> 
+Stefan incants a spell.
+> 
+Khalil gestures.
+Nothing happens.
+> 
+Khalil incants a spell.
+> 
+Stefan narrows his eyes and gazes intently about the area.
+> 
+Moryan frowns.
+> 
+Khalil narrows his eyes and gazes intently about the area.
+> 
+Khalil incants a spell.
+> 
+Prudence blinks.
+> frow
+You frown.
+> 
+Prudence struggles to her feet.
+> 
+Graul looks into a small device.
+> 
+Khalil is interposed by Stefan.
+> 
+Burne stands up.
+> 
+Burne opens a dark leather sheath.
+> 
+Moryan scowls.
+> 
+Gwydion is now guarding Moryan.
+> 
+Cypress struggles to her feet.
+> 
+Burne removes an ensorcelled katana from the sheath.
+> 
+Gwydion wields a polished urimar greatbow with slender intertwining branches
+and oak leaves the color of autumn.
+> 
+Donnald stands up.
+> 
+Without warning, Graul howls and collapses to the ground, shaking. Undergoing a
+terrible transformation, he changes shape into that of a wolf!
+> 
+Khalil narrows his eyes and gazes intently about the area.
+Khalil seems disconcerted for a moment.
+> 
+Khalil incants a spell.
+> 
+Kylie incants a spell.
+> 
+Khalil narrows his eyes and gazes intently about the area.
+> 
+Khalil incants a spell.
+> 
+A wolf sniffs about the area.
+> 
+Stefan says, "already done."
+> 
+Donnald places an eldritch helm onto his head.
+> 
+Burne closes a dark leather sheath.
+> 
+A wolf sniffs about the area.
+> 
+Kylie gestures.
+Kylie moves with blurring speed.
+> 
+Cypress moves considerably faster.
+> 
+Cypress concentrates intently.
+> 
+A wolf sniffs a servant.
+> 
+Burne wields an ensorcelled katana.
+> 
+Cypress concentrates intently.
+> 
+Moryan says, "Think you can remove him from my house Stefan"
+> 
+Moryan gazes at Stefan.
+> look door
+You see nothing extraordinary.
+> 
+Rion asks, "him who?"
+> 
+Rion furrows his brow.
+> 
+A wolf growls, "Tobias."
+> 
+Stefan says, "He's very good at hiding my lady, I could probably chase him all
+over the orchards, but he'd just run and hide."
+> 
+Prudence sighs.
+> whisp rio Weedo
+
+Moryan says, "I won't have him terrorizing my other household staff."
+> You whisper to Rion.
+> 
+Burne growls.
+> 
+Donnald mutters something you can't quite make out.
+> 
+Rion mutters something you can't quite make out.
+> 
+Moryan says, "I only care about the house itself. I can lock the door once he
+is out"
+> 
+Donnald says, "let me talk with him"
+> 
+Moryan gazes at Donnald.
+> 
+Gwydion arches his eyebrow.
+> 
+Stefan says, "then I shall try of course."
+> 
+Stefan incants a spell.
+> 
+Stefan gestures.
+Nothing happens.
+> 
+Prudence gazes at Donnald.
+> 
+A wolf is now following Stefan.
+> 
+Stefan opens a door.
+> 
+Stefan's group goes through a door.
+> 
+You see a door close.
+> 
+Donnald says, "we talk a lot"
+> 
+Gwydion puts away a polished urimar greatbow with slender intertwining branches
+and oak leaves the color of autumn.
+> 
+Moryan says, "Be my guest."
+> 
+Burne opens a dark leather sheath.
+> 
+Donnald bows.
+> 'He is talkative isn't he
+You say, "He is talkative isn't he"
+> 
+Donnald opens a door.
+> 
+Burne puts away an ensorcelled katana.
+> 
+a servant says, "i'll leave through the kitchen ma'am."
+> 
+Gwydion incants a spell.
+> 
+Donnald goes through a door.
+> 
+Gwydion narrows his eyes and gazes intently about the area.
+Magic begins to form around Gwydion but then fizzles.
+> 
+A servant bows.
+> 
+A servant bows, and takes his leave.
+> 
+Burne puts an ensorcelled katana in the sheath.
+> 
+Cypress casts her gaze across the area.
+> 
+Burne closes a dark leather sheath.
+> 
+Kylie incants a spell.
+> 
+Kylie narrows her eyes and gazes intently about the area.
+> 
+Kylie closes a door.
+> 
+Burne ponders.
+> 
+Saxon leans on a long table.
+> 
+Moryan sighs.
+> 
+Kylie leans on a door.
+> 
+Khalil narrows his eyes and gazes intently about the area.
+Khalil seems disconcerted for a moment.
+> 
+Khalil incants a spell.
+> 
+Khalil narrows his eyes and gazes intently about the area.
+> 
+Khalil incants a spell.
+> 
+ ** Scalper has just disconnected.
+> 
+Khalil incants a spell.
+> 'Perhaps a pastry while we wait
+You say, "Perhaps a pastry while we wait"
+> pre 209
+You prepare the Strength III spell.
+ [Round: 3 sec]
+R> cast
+[Wait 2 seconds...]
+R> cast
+You gesture.
+[Success: 95%, Roll 23] Success!
+You feel incredibly strong.
+> get past
+You remove a sweet pastry from the table.
+> 
+Saxon sniffs a sweet pastry.
+> 
+Moryan says, "Well. my intentions for bringing you here were not to worry you."
+> 
+You feel the touch of Donnald's mind:
+"tobias can i talk with you"
+> 
+Moryan smiles at you.
+> 
+Rion is now guarding Kylie.
+> 
+Moryan says, "Aye my dear."
+> 
+Rion is now guarding Cypress.
+> 
+Burne pulls up an intricately carved chair and takes a load off.
+> 
+Saxon asks, "Any of these have meat?"
+> 
+You feel the touch of Tobias's mind:
+"I am far far away, too far to talk to you."
+> 
+Saxon gazes at a sweet pastry.
+> 
+Moryan says, "some have some sweet meats."
+> 
+You feel the touch of Donnald's mind:
+"ok"
+> 
+Gwydion chuckles.
+> 
+Saxon asks, "brains?"
+> 
+Burne removes a glass from the table.
+> 
+Prudence sits on an intricately carved chair.
+> 
+Saxon gazes at a long table.
+> 
+Cypress pokes Saxon.
+> 'You have not worried me
+
+Moryan frowns.
+> You say, "You have not worried me"
+> 
+Prudence chuckles at Saxon.
+> 
+Burne frowns at Saxon.
+> 
+Gwydion returns to normal.
+> eat past
+You take a bite of the pastry.
+> 
+Burne drinks some coffee.
+> 
+Kylie returns to normal speed.
+> 
+Prudence removes a sweet pastry from the table.
+> 
+Saxon gazes at you.
+> 
+Prudence removes a glass from the table.
+> 
+ ** Jasmine has just left the Realms.
+> 
+Prudence takes a bite of a sweet pastry.
+> 
+Burne drinks some coffee.
+> 
+Prudence drinks some coffee.
+> 
+Rion listens quietly
+> eat past
+You take a bite of the pastry.
+> 
+Gwydion casts his gaze across the area.
+> 
+ ** Scalper has just disconnected.
+> 
+Khalil returns to normal speed.
+> 
+Burne swirls the coffee around in the glass
+> 
+Khalil gestures.
+Khalil moves with blurring speed.
+> 
+Khalil incants a spell.
+> 
+Gwydion's eyes return to normal.
+> 
+Burne drinks some coffee.
+> 'Your baker has done a fine job
+You say, "Your baker has done a fine job"
+> smi
+You smile.
+> eat past
+You take a bite of the pastry.
+There is one bite left.
+> 
+Kylie removes a glass from the table.
+> 
+Prudence nods to you.
+> 
+Kylie drinks some coffee.
+> 
+Burne drinks some coffee.
+> 
+Prudence smiles.
+> 
+Moryan smiles at you.
+> 
+You see a door open.
+> 
+Donnald arrives through a door.
+> 
+Stefan's group arrives through a door.
+> 
+A wolf growls, "Tobias is around also."
+> look door
+You see nothing extraordinary.
+[Thistlewood Deep Manor]
+Obvious exits: none.
+> 
+Prudence gazes at Saxon.
+> 
+A wolf sniffs about the area.
+> 
+Stefan closes a door.
+> 
+A wolf sniffs about the area.
+> 
+Khalil gestures.
+Nothing happens.
+> 
+Khalil incants a spell.
+> 
+You see a door open.
+> 
+Khalil narrows his eyes and gazes intently about the area.
+> 
+Khalil incants a spell.
+> 
+A wolf shakes his head back and forth.
+> 
+Donnald sits on an intricately carved chair.
+> 
+Kylie incants a spell.
+> 
+Moryan gazes at Stefan.
+> 
+Burne shrugs.
+> 
+Stefan maneuvers by Rion!
+> 
+Stefan closes a door.
+> 
+Kylie narrows her eyes and gazes intently about the area.
+> 
+Stefan says, "Saryon."
+> 
+Moryan asks, "any luck?"
+> 
+Khalil narrows his eyes and gazes intently about the area.
+> 
+Khalil incants a spell.
+> 
+Donnald sighs.
+> 
+Stefan incants a spell.
+> 
+Moryan frowns.
+> 
+Kylie nods.
+> 
+Stefan gestures.
+Nothing happens.
+> 
+Khalil furrows his brow.
+> 
+A wolf sniffs about the area.
+> 
+Gwydion incants a spell.
+> 
+A wolf growls, "SOmeone is here."
+> 
+Stefan incants a spell.
+> 
+Moryan furrows her brow.
+> 
+Donnald removes an eldritch helm from his head.
+> 
+Stefan narrows his eyes and gazes intently about the area.
+> 
+Gwydion narrows his eyes and gazes intently about the area.
+> 
+Prudence blinks.
+> 
+Khalil says, "Saryon"
+> 
+Khalil narrows his eyes and gazes intently about the area.
+> 
+Khalil incants a spell.
+> 
+Burne sighs.
+> 
+A wolf sniffs about the area.
+> 
+Cypress shivers.
+> 
+A wolf growls, "Smells like stinky."
+> 
+Stefan says, "Saryon, your not welcome here."
+> 
+Burne puts a glass on the table.
+> 
+Moryan asks, "Excuse me?"
+> 
+Stefan incants a spell.
+> 
+Moryan stands up.
+> 
+Kylie says, "Quite the party we're having.."
+> 
+Stefan gestures.
+Nothing happens.
+> 
+Burne grins.
+> 
+Donnald smiles klyl
+> 
+A wolf sniffs about the area.
+> 
+Donnald smiles kly
+> 
+Moryan frowns at Stefan.
+> 
+Stefan incants a spell.
+> 
+Stefan narrows his eyes and gazes intently about the area.
+> 
+Stefan says, "Saryon, please leave."
+> 
+Stefan gestures towards a door.
+> 
+Moryan says, "If you are here, you might as well show your face."
+> 
+Donnald smiles at Kylie.
+> 'The pastries are worth the trip, but still
+You say, "The pastries are worth the trip, but still"
+> 
+A wolf sniffs about the area.
+> 
+Khalil whispers to you, "join me, in case we have to run?"
+> 
+Burne opens a dark leather sheath.
+> 
+Stefan nods.
+> fol khal
+
+Burne removes an ensorcelled katana from the sheath.
+> You are now following Khalil.
+J> 
+A wolf sniffs about the area.
+J> 
+Moryan whispers to you, "my dear, you should please turn invisible."
+J> 
+Burne wields an ensorcelled katana.
+J> 
+Burne closes a dark leather sheath.
+J> 
+Moryan whispers to you, "you are the one in danger here."
+J> pre 225
+You prepare the Invisibility spell.
+ [Round: 3 sec]
+RJ> 
+Rion gazes at Saxon.
+RJ> cast
+You gesture.
+[Success: 95%, Roll 38] Success!
+You feel a tingling sensation.
+JH> 
+Khalil narrows his eyes and gazes intently about the area.
+JH> 
+Khalil incants a spell.
+JH> 
+Burne stands up.
+JH> 
+Saxon raises an eyebrow towards Rion.
+JH> 
+A wolf sniffs about the area.
+JH> 
+Gwydion taps his foot.
+JH> whisp khal I'm still following
+You whisper to Khalil.
+JH> 
+Burne asks, "Is he still here?"
+JH> 
+Khalil nods.
+JH> 
+Khalil narrows his eyes and gazes intently about the area.
+JH> 
+Khalil incants a spell.
+JH> 
+Prudence casts her gaze across the area.
+JH> 
+You see a door open.
+JH> 
+A wolf growls, "Then I guess this meeting waits."
+JH> 
+Prudence mutters something you can't quite make out.
+JH> look door
+You see nothing extraordinary.
+[Thistlewood Deep Manor]
+Obvious exits: none.
+JH> 
+A wolf sniffs about the area.
+JH> 
+Khalil narrows his eyes and gazes intently about the area.
+JH> 
+Khalil incants a spell.
+JH> 
+Stefan incants a spell.
+JH> 
+Rion ponders.
+JH> 
+A wolf growls, "Lets return to town."
+JH> 
+Saxon nods.
+JH> 
+Prudence struggles to her feet.
+JH> 
+Burne exclaims, "I'm gonna rip out your spine and use it as a charm bracelet!"
+JH> 
+Donnald shakes his head back and forth.
+JH> 
+Saxon coughs.
+JH> 
+Moryan gazes at Burne.
+JH> 
+Cypress is now following a wolf.
+JH> 
+A wolf sniffs about the area.
+JH> 
+Saxon smirks.
+JH> 
+Stefan says, "interesting jewelery idea."
+JH> 
+Khalil narrows his eyes and gazes intently about the area.
+JH> 
+Khalil incants a spell.
+JH> 
+Saxon is now following a wolf.
+JH> 
+Burne growls.
+JH> 
+Prudence nods to Stefan.
+JH> 
+Kylie nods to Stefan.
+JH> 
+Rion is now following a wolf.
+JH> 
+Prudence is now following a wolf.
+JH> 
+Burne says, "Honour unto my pack"
+JH> 
+You feel the touch of Rion's mind:
+"Chandra?"
+JH> 
+Stefan gestures.
+Nothing happens.
+JH> 
+ ** Scalper has just disconnected.
+JH> 
+Stefan incants a spell.
+JH> think Yep?
+
+Stefan narrows his eyes and gazes intently about the area.
+JH> You project your thoughts.
+JH> 
+A wolf growls, "We will return when the vermine are no longer here Lady
+Moryan."
+JH> 
+A wolf sniffs about the area.
+JH> 
+Moryan nods to a wolf.
+JH> 
+Kylie says, "I wish you luck fulfilling it. .if you do.. I'll happily wear it."
+JH> 
+Kylie smiles at Burne.
+JH> 
+Donnald stands up.
+JH> 
+A wolf seems to bow to Moryan.
+JH> 
+Burne grins.
+JH> 
+Donnald is now following a wolf.
+JH> 
+Khalil narrows his eyes and gazes intently about the area.
+JH> 
+Khalil incants a spell.
+JH> 
+Moryan shakes her head at Rion.
+JH> 
+Rion sighs.
+JH> 
+A wolf growls, "Everyone ready to go?"
+JH> 
+A wolf sniffs about the area.
+JH> 
+ ** Gwydion has just disconnected.
+JH> 
+Gwydion disconnects.
+JH> 
+Burne nods.
+JH> 
+Moryan nods to Stefan.
+JH> 
+Kylie is now following a wolf.
+JH> 
+Burne is now following a wolf.
+JH> 
+Stefan incants a spell.
+JH> 
+A wolf nods.
+JH> 
+Khalil smiles at Kylie.
+JH> 
+Khalil narrows his eyes and gazes intently about the area.
+JH> 
+Khalil incants a spell.
+JH> 
+Kylie says, "Let's wait a moment.."
+JH> 
+Burne is now following a wolf.
+JH> 
+A wolf perks up his ears.
+JH> 
+Stefan nods.
+JH> 
+ ** Genevra has just left the Realms.
+JH> 
+A wolf sniffs about the area.
+JH> 
+Burne listens to his surroundings closely.
+JH> 
+A wolf growls, "Why, he wont leave."
+JH> 
+Stefan says, "same to you."
+JH> 
+Saxon says, "lets not"
+JH> 
+Stefan gestures.
+Nothing happens.
+JH> 
+The brilliant prismatic globe around Donnald vanishes.
+JH> 
+Stefan incants a spell.
+JH> 
+Stefan narrows his eyes and gazes intently about the area.
+JH> 
+Saxon nudges a wolf.
+JH> 
+Khalil incants a spell.
+JH> 
+A wolf growls, "He is a coward with nothing else to do."
+JH> 
+Moryan sighs.
+JH> 
+A wolf seems to shrug.
+JH> 
+A wolf sniffs about the area.
+JH> inv
+You are carrying: 
+  A sweet pastry
+  A worm scale
+  A polished bloodstone
+  A carrot
+  A huge moonstone
+  Some mandrake root
+  A glowing white crystal amulet (worn)
+  A worm scale
+  A termite eye
+  Some copper metal
+  A termite eye
+  A bloodstone
+  A small white gold locket with a slender chain (open)
+  A damaged tourmaline stone
+  A flowing deep blue cape embroiderd with a stunning serpentine gold and blue
+dragon (worn)
+  A large chipped sapphire
+  A delicate white alzyron ring masterfully set with a brilliant icy white
+diamond (worn)
+  A fiery platinum idol with a glowing sunburst depicted on the front.
+  A creod staff
+  A tiny white gold case (open)
+  A damaged yellow diamond
+  Some bunnies
+  Some exquisite blue diamond earrings encased in a thin sheath of pure white
+gold polished to a high sheen (worn)
+  A delicate white silver case covered in soft blue silk embroidered with tiny
+gold and blue butterflies (open)
+  A gleaming rosewood violin with a snow-white feather from an owl attached to
+the bow
+  A delicate white alzyron necklace with a shimmering rose pendant cut from a
+flawless white diamond (worn)
+  A sterling silver pin shaped like a wolf with topaz yellow eyes (worn)
+  A bright blue blouse with an embroidered wolf across the back (worn)
+  Some midnight blue pants (worn)
+  A black silk pouch with a flowing 'C' embroidered in silver thread (open)
+  A devil scalp
+  Some mandrake root (open)
+  Some mandrake root
+  Some chocolate covered strawberries dipped in whipped cream
+  Some black framed violet sunglasses with silver starbursts on each lens
+  A tiny crystal fountain with a rainbow of colors emanating from deep within
+its essence
+  A blue and gray cloak with a silver wolf head clasp (open)
+  A white gold medallion embossed with the McFearless family walking in the
+peaceful forest of Grymwood
+  A delicate gold comb fashioned in the shape of a hunting wolf with ruby eyes
+(worn)
+  An elegant white leather case with the crest of King Frederick IV embossed in
+gold leaf (open)
+  Some shadow fur gloves
+  A shimmering snow-white satin gown with a delicate lace bodice trimmed with
+icy blue silk and sapphires (worn)
+  Some soft snow-white satin slippers with laces of icy blue silk twining up
+her delicate ankles (worn)
+  A delicate white gold circlet inset with a single deep blue icy sapphire
+(worn) (open)
+  Some delicate white lace gloves lined with palest pink silk (worn)
+  A lens
+  A slender gray cat (open)
+  Some shadow fur panties (worn)
+  Some pink sneakers with a wave emblazoned on the tongues
+  Some shadow fur socks
+  Your object
+  A delicate white gold bracelet engraved with a beautiful butterfly inlaid
+with four perfect sapphires for wings (worn)
+  A pink ribbon
+  A small brown leather book
+  Some diamond studded leather armor reinforced with gleaming white bands of
+albescent
+  Some copper metal
+  A silvery blue bottle engraved with the writing, "Regeneration"
+  A termite eye
+  An indigo rose
+  A glass (open)
+  A tourmaline stone
+  A polished moonstone
+  A worm scale
+  A large damaged sapphire
+  A worm scale
+JH> 
+A wolf is interposed by Stefan.
+JH> 
+Khalil gestures.
+Nothing happens.
+JH> 
+Khalil incants a spell.
+JH> 
+Khalil narrows his eyes and gazes intently about the area.
+JH> 
+Khalil incants a spell.
+JH> 
+Moryan says, "Would be nice to at least see the person."
+JH> 
+Burne says, "He has no honour"
+JH> 
+Moryan casts her gaze across the area.
+JH> 
+Stefan incants a spell.
+JH> 
+Saryon suddenly fades into view.
+JH> 
+Saryon suddenly becomes visible.
+JH> 
+Stefan gestures.
+JH> 
+Burne growls.
+JH> 
+Stefan gestures at Saryon.
+JH> 
+Donnald is interposed by Stefan.
+JH> 
+Moryan chuckles.
+JH> 
+Burne exclaims, "You!"
+JH> 
+Moryan gazes at Saryon.
+JH> 
+Saryon casts his gaze across the area.
+JH> 
+Something maneuvers by Stefan!
+JH> 
+Something maneuvers by Rion!
+JH> 
+Prudence gazes at Saryon.
+JH> 
+Burne says, "Aw crap"
+JH> 
+Stefan says, "that's the easy part."
+JH> 
+Saryon chuckles.
+JH> 
+Moryan asks, "Sir, why have you come uninvited into my home?"
+JH> 
+Khalil narrows his eyes and gazes intently about the area.
+JH> 
+Khalil incants a spell.
+JH> 
+Burne mutters something you can't quite make out.
+JH> 
+A wolf nods to Kylie.
+JH> 
+ ** Scalper has just disconnected.
+JH> 
+Stefan incants a spell.
+JH> look
+[Thistlewood Deep, Dining]
+This is a large, formal banquet hall. A long table, with a dozen chairs
+lining its sides sits central to the room. Low buffets rest against the
+pale, silk covered walls. Candles rest along the table, and overhead
+are numerous chandeliers, creating a brightly lit room. A door leads
+back to the foyer.
+You see Moryan, Saryon, Burne, Kylie, Donnald, Stefan, Prudence, a wolf, Rion,
+Saxon, Khalil and Cypress. 
+Obvious exits: none.
+JH> 
+Stefan gestures.
+Nothing happens.
+JH> 
+A wolf growls, "Tobias sure ran fast."
+JH> 
+Stefan incants a spell.
+JH> 
+Donnald is now guarding Kylie.
+JH> 
+Stefan incants a spell.
+JH> 
+Moryan says, "If you wish a meeting with me, please request one. But I ask you
+leave when I have other guests."
+JH> 
+Burne opens a backpack.
+JH> 
+Burne removes an ensorcelled diamontine shield from the backpack.
+JH> 
+A wolf sniffs about the area.
+JH> 
+Burne wields an ensorcelled diamontine shield.
+JH> 
+Moryan gazes at Saryon.
+JH> 
+Saryon smiles at Moryan.
+JH> look
+[Thistlewood Deep, Dining]
+This is a large, formal banquet hall. A long table, with a dozen chairs
+lining its sides sits central to the room. Low buffets rest against the
+pale, silk covered walls. Candles rest along the table, and overhead
+are numerous chandeliers, creating a brightly lit room. A door leads
+back to the foyer.
+You see Moryan, Saryon, Burne, Kylie, Donnald, Stefan, Prudence, a wolf, Rion,
+Saxon, Khalil and Cypress. 
+Obvious exits: none.
+JH> 
+Burne closes a backpack.
+JH> 
+A wolf growls, "Call us when you are ready for a meeting."
+JH> 
+Donnald wields a randar greatsword.
+JH> 
+A wolf nods to Moryan.
+JH> 
+A wolf is interposed by Rion.
+JH> 
+A wolf is interposed by Rion.
+JH> 
+Burne rubs a gold amulet.
+JH> 
+The glowing outline of armor appears around Burne.
+JH> 
+A wolf is interposed by Rion.
+JH> 
+Moryan asks, "Will you leave?"
+JH> 
+A wolf maneuvers by Rion!
+JH> 
+A wolf's group goes through a door.
+JH> 
+A wolf's group arrives through a door.
+JH> 
+Prudence blinks.
+JH> 
+Khalil narrows his eyes and gazes intently about the area.
+JH> 
+A wolf's group goes through a door.
+JH> 
+Khalil incants a spell.
+JH> 
+Khalil narrows his eyes and gazes intently about the area.
+JH> 
+Khalil incants a spell.
+JH> 
+Khalil goes through a door.
+JH> 
+You follow Khalil.
+[Thistlewood Deep Manor]
+You see Saryon and Khalil. 
+Obvious exits: none.
+JH> 
+Saryon goes through a door.
+JH> 
+The air before you shimmers and congeals into Tobias!
+JH> 
+Tobias smiles.
+JH> 
+Tobias incants a spell.
+JH> go door
+[Thistlewood Deep, Dining]
+You see Moryan, Saryon and Stefan. 
+Obvious exits: none.
+H> 
+Khalil arrives through a door.
+H> 
+Moryan asks, "Is my own home not even safe?"
+H> 
+Khalil narrows his eyes and gazes intently about the area.
+H> 
+Khalil incants a spell.
+H> 
+Saryon gazes at Stefan.
+H> 
+Saryon rasps, "You seem quite safe to me."
+H> 
+Stefan says, "Not from the likes of him."
+H> 
+Moryan gazes at Saryon.
+H> whisp stef Tobias waiting outside the door, I'm here following you, it's Chandra
+You whisper to Stefan.
+H> fol stef
+You are now following Stefan.
+JH> 
+Moryan says, "Sir, if you wish any accord at all from me, you'll respect my
+home and leave."
+JH> 
+Stefan nods.
+JH> 
+You feel the touch of Graul's mind:
+"Chandra?"
+JH> think Yes?
+You project your thoughts.
+JH> 
+Saryon rasps, "tsk."
+JH> 
+Moryan says, "Otherwise you'll have a worse time than any of the Kentarus line
+ever gave you, and I don't die only once."
+JH> 
+Khalil incants a spell.
+JH> 
+You see a door close.
+JH> 
+Khalil gestures.
+Nothing happens.
+JH> 
+Khalil incants a spell.
+JH> spel
+
+Spell      Level      Name                          
+-----      -----      ----                          
+100        1          Flame Bolt                    
+101        3          Force Blade ()*               
+102        5          Mystic Armor                  
+103        7          Lightning Bolt                
+105        15         Globe of Protection           
+106        12         Summon Fire Elemental         
+107        12         Summon Air Elemental          
+108        12         Summon Water Elemental        
+109        16         Summon Gargoyle               
+112        20         Call Meteor ()***********     
+113        1          Light                         
+114        2          Mystic Key                    
+115        4          Shockwave                     
+116        21         Thunder Call                  
+117        8          Call Fire                     
+118        13         Flaming Sphere                
+119        3          Ice Bolt                      
+120        6          Frost Ray                     
+121        9          Freezing Sphere ()**********  
+122        2          Summon Familiar               
+123        12         Summon Earth Elemental        
+124        20         Inferno Glyph                 
+125        10         Thunder Glyph                 
+126        15         Ice Glyph                     
+127        10         Web                           
+130        23         Mass Protection               
+131        18         Flaming Arrows                
+132        23         Chain Lightning               
+133        30         Globe of Protection II        
+134        25         Siryx's Terrible Tentacles    
+135        24         Storm Blade                   
+136        19         Inferno Blade                 
+137        22         Winter Blade                  
+138        31         Energy Maelstrom              
+139        20         Sorcerous Summons I           
+141        17         Pyrotechnics                  
+144        28         Tindarath's Chaotic Summons   
+200        1          Fear                          
+201        3          Charm                         
+202        4          Enchantment I                 
+203        15         Enchantment II                
+205        6          Command                       
+206        12         Domination I                  
+207        4          Strength I                    
+208        8          Strength II                   
+209        16         Strength III                  
+210        5          Haste                         
+211        5          Slow                          
+213        17         Bend Space I                  
+215        10         Scry                          
+216        2          Slumber I                     
+217        6          Slumber II                    
+218        18         Slumber III                   
+219        7          Silence                       
+220        1          Dancing Blade                 
+222        23         Bend Space II                 
+224        11         Fly                           
+225        14         Invisibility                  
+226        3          Paranoia                      
+227        13         Imprisonment Rune             
+228        7          Identify                      
+229        9          Wizard's Armor                
+230        21         Disjunction                   
+231        19         Imprison                      
+232        20         Mist Form                     
+234        13         Spell Shield                  
+235        22         Cloak Mind                    
+245        13         Slime Form                    
+301        2          Turn Undead I                 
+302        8          Turn Undead II                
+303        11         Cure Poison                   
+305        14         Breath of Life                
+306        6          Animate Skeleton              
+311        3          Speak With Dead               
+313        1          Body Destruction I            
+314        5          Body Destruction II           
+316        1          Body Restoration I            
+317        5          Body Restoration II           
+318        10         Body Restoration III          
+319        12         Cure Disease                  
+323        3          Spectral Fist                 
+326        9          Spectral Shield               
+334        2          Invigoration I                
+335        9          Invigoration II               
+338        9          Unstun                        
+339        3          Destroy Undead I              
+340        8          Destroy Undead II             
+341        13         Destroy Undead III ()******** 
+345        7          Spectral Sword                
+400        1          Detect Magic                  
+401        5          Dispel Lesser Magic           
+403        9          Mindlink                      
+404        14         Aura Sense                    
+405        3          See Hidden                    
+406        8          Dispel Invisibility           
+407        3          Analyze Ore                   
+408        18         Truename                      
+412        9          Rite of Preparation           
+500        4          Plant Snare                   
+504        1          Call Animal                   
+506        3          Resist Weather                
+507        7          Heat Shield                   
+508        6          Cold Shield                   
+513        4          Agility I                     
+517        5          Stick to Snake                
+518        2          Claw Growth                   
+520        1          Night Vision                  
+521        7          Camouflage                    
+523        5          Earth Spike                   
+JH> 
+You feel the touch of Graul's mind:
+"Come contactible please?"
+JH> 
+Saryon rasps, "I'm sure."
+JH> 
+Moryan folds her arms.
+JH> 
+Khalil gestures.
+Nothing happens.
+JH> 
+Khalil incants a spell.
+JH> 
+Khalil narrows his eyes and gazes intently about the area.
+JH> 
+Khalil incants a spell.
+JH> 
+Saryon bows towards Moryan.
+JH> 
+ ** Durek has just disconnected.
+JH> 
+Moryan gazes at Saryon.
+JH> 
+Saryon rasps, "I'll be sure to remember your kindness next time I come
+calling."
+JH> 
+You see a door open.
+JH> 
+Saryon smiles at Moryan.
+JH> 
+You see a door close.
+JH> look door
+You see nothing extraordinary.
+JH> 
+Khalil narrows his eyes and gazes intently about the area.
+JH> 
+Khalil incants a spell.
+JH> 
+You feel the touch of Saxon's mind:
+"Where ya at Chandra?"
+JH> think Just a sec
+You project your thoughts.
+JH> 
+Saryon opens a door.
+JH> 
+Moryan says, "My kindness has nothing to do with it. YOu are unwelcome and in
+my home."
+JH> look door
+You see nothing extraordinary.
+[Thistlewood Deep Manor]
+Obvious exits: none.
+JH> 
+Saryon chuckles at Moryan.
+JH> 
+Saryon goes through a door.
+JH> 
+Khalil narrows his eyes and gazes intently about the area.
+JH> 
+Khalil incants a spell.
+JH> look
+[Thistlewood Deep, Dining]
+This is a large, formal banquet hall. A long table, with a dozen chairs
+lining its sides sits central to the room. Low buffets rest against the
+pale, silk covered walls. Candles rest along the table, and overhead
+are numerous chandeliers, creating a brightly lit room. A door leads
+back to the foyer.
+You see Moryan, Stefan and Khalil. 
+Obvious exits: none.
+JH> 
+Khalil closes a door.
+JH> 
+Khalil narrows his eyes and gazes intently about the area.
+JH> 
+Khalil incants a spell.
+JH> 
+Khalil incants a spell.
+JH> 
+Stefan frowns.
+JH> 
+Stefan incants a spell.
+JH> 
+Stefan gestures.
+Nothing happens.
+JH> 
+Stefan incants a spell.
+JH> 
+Stefan narrows his eyes and gazes intently about the area.
+JH> 
+Moryan mutters something you can't quite make out.
+JH> 
+Khalil says, "how annoying"
+JH> 
+Stefan says, "annoying is an understatement."
+JH> 
+Moryan sighs.
+JH> 
+Khalil says, "sorry your home was invaded in such a manner"
+JH> 
+Moryan says, "I truly need to meet with young Chandra."
+JH> 
+Khalil nods to Moryan.
+JH> pre 210
+You prepare the Haste spell.
+ [Round: 3 sec]
+RJH> cast
+[Wait 3 seconds...]
+RJH> 
+You feel the touch of Rion's mind:
+"Chandra, you alright?"
+RJH> cast
+You suddenly fade into view.
+You gesture.
+[Success: 95%, Roll 89] Success!
+You find yourself able to move incredibly fast.
+J> 
+Stefan smiles.
+J> think Just fine
+You project your thoughts.
+J> 
+You feel the touch of A servant's mind:
+"M'lady.. they are still in the foyer..."
+J> 
+Moryan smiles at you.
+J> 
+Stefan whispers to you, "Do you have enchantment magics up to 14?"
+J> 
+Stefan incants a spell.
+J> whisp stef Yes
+You whisper to Stefan.
+J> 
+Stefan narrows his eyes and gazes intently about the area.
+J> 
+You see a door open.
+J> skil
+
+#  Skill                     Level     
+-- -----                     -----     
+5  Climbing                  5         
+7  Conjuration               31        
+11 Endurance                 10        
+14 Enchantment               23        
+17 Druidic Magic             7         
+18 Wood Lore                 1         
+23 Spellcraft                53        
+29 Transcendence             39        
+30 Necromancy                14        
+J> 
+Khalil is now guarding you.
+J> 
+Khalil gestures.
+Nothing happens.
+J> 
+Khalil incants a spell.
+J> 
+Khalil closes a door.
+J> pre 232
+You prepare the Mist Form spell.
+ [Round: 1 sec]
+RJ> 
+Khalil narrows his eyes and gazes intently about the area.
+J> 
+Khalil incants a spell.
+J> 
+Stefan whispers to you, "if the pack ever goes at it with him...cast 234 on
+him...it'll lower his spell shield and they'll actually have a chance."
+J> 
+Khalil leans on the door holding it closed.
+J> rel
+You release your prepared spell.
+J> pre 234
+You prepare the Spell Shield spell.
+ [Round: 1 sec]
+RJ> rel
+You release your prepared spell.
+J> 
+Moryan says, "I'm afraid I didn't install locks"
+J> 
+Stefan incants a spell.
+J> 
+Stefan gestures.
+Nothing happens.
+J> 
+Stefan incants a spell.
+J> 
+Stefan narrows his eyes and gazes intently about the area.
+J> 
+Khalil narrows his eyes and gazes intently about the area.
+J> 
+Khalil incants a spell.
+J> 'It's a shame they are needed at all
+You say, "It's a shame they are needed at all"
+J> 
+You see a door open.
+J> rel
+You have not prepared a spell.
+J> pre 232
+You prepare the Mist Form spell.
+ [Round: 1 sec]
+RJ> 
+Khalil nods to you.
+J> look
+[Thistlewood Deep, Dining]
+This is a large, formal banquet hall. A long table, with a dozen chairs
+lining its sides sits central to the room. Low buffets rest against the
+pale, silk covered walls. Candles rest along the table, and overhead
+are numerous chandeliers, creating a brightly lit room. A door leads
+back to the foyer.
+You see Moryan, Stefan and Khalil. 
+Obvious exits: none.
+J> 
+You see a door close.
+J> 
+Moryan scowls.
+J> 
+Stefan says, "Aye."
+J> 
+Khalil narrows his eyes and gazes intently about the area.
+Magic begins to form around Khalil but then fizzles.
+J> 
+Khalil incants a spell.
+J> 
+Stefan incants a spell.
+J> 
+Khalil narrows his eyes and gazes intently about the area.
+J> 
+Khalil incants a spell.
+J> 
+Stefan narrows his eyes and gazes intently about the area.
+J> 
+You feel the touch of Moryan's mind:
+"My home is not a tourist attraction!"
+J> 
+You feel the touch of Saryon's mind:
+"Then it should be, its quite nice."
+J> 
+Stefan says, "This is why Lady Veronica made Tomas her champion...he makes a
+good bouncer."
+J> 
+You feel the touch of Prudence's mind:
+"Um I'm alone and don't know where to go."
+J> 
+You feel the touch of Graul's mind:
+"Stinky can't help it, he has nothing so wants to see what everyone else has."
+J> 
+Moryan sighs.
+J> 
+Khalil narrows his eyes and gazes intently about the area.
+J> 
+Khalil incants a spell.
+J> 
+Moryan says, "I need a champion."
+J> 
+You feel the touch of Kylie's mind:
+"i have her"
+J> 
+You feel the touch of Graul's mind:
+"Leave the den Tobias."
+J> 
+Khalil says, "you won't find many that can take on Saryon"
+J> 
+Moryan says, "Aye, I know this."
+J> 'Perhaps a couple
+You say, "Perhaps a couple"
+J> 
+Stefan says, "no fighter can do it alone."
+J> 
+Khalil nods to Stefan.
+J> 
+Stefan says, "thou, there are a few tricks to give them a shot."
+J> 
+Stefan incants a spell.
+J> 
+Stefan gestures.
+Nothing happens.
+J> 
+Stefan incants a spell.
+J> 
+Stefan narrows his eyes and gazes intently about the area.
+J> 
+Khalil narrows his eyes and gazes intently about the area.
+J> 
+Khalil incants a spell.
+J> 
+Stefan is now teaching the spell "Spell Shield." (Number 234, level 13).
+J> 
+Stefan incants a spell.
+J> 
+Stefan gestures.
+Stefan gradually fades from view.
+> 
+The air before you shimmers and congeals into Stefan!
+> 
+Stefan smiles.
+> 
+Moryan chuckles at Stefan.
+> 
+You see a door open.
+> 
+Khalil narrows his eyes and gazes intently about the area.
+> 
+Khalil incants a spell.
+> look door
+
+Moryan sighs.
+> You see nothing extraordinary.
+[Thistlewood Deep Manor]
+Obvious exits: none.
+> 
+Khalil closes a door.
+> 
+Moryan flails her arms about wildly.
+> 
+Khalil narrows his eyes and gazes intently about the area.
+> 
+Khalil incants a spell.
+> 
+Khalil says, "rtl would be nice too"
+> 
+Khalil smiles at Stefan.
+> 
+You return to normal speed.
+> pre 210
+
+Moryan asks, "Is the room empty?"
+> You have already prepared a spell.
+> rel
+You release your prepared spell.
+> 
+Khalil nods.
+> pre 210
+You prepare the Haste spell.
+ [Round: 3 sec]
+R> cast
+[Wait 2 seconds...]
+R> cast
+[Wait 1 seconds...]
+R> 
+Moryan nods.
+> cast
+You gesture.
+[Success: 95%, Roll 53] Success!
+You find yourself able to move incredibly fast.
+> 
+Khalil incants a spell.
+> 
+Khalil gestures.
+Magic begins to form around Khalil but then fizzles.
+> 
+Khalil incants a spell.
+> 
+Khalil gestures.
+Nothing happens.
+> 
+Khalil incants a spell.
+> 
+Stefan incants a spell.
+> 
+Khalil incants a spell.
+> 
+Stefan narrows his eyes and gazes intently about the area.
+> 
+Stefan says, "can't hurt."
+> look
+
+Stefan smiles.
+> [Thistlewood Deep, Dining]
+This is a large, formal banquet hall. A long table, with a dozen chairs
+lining its sides sits central to the room. Low buffets rest against the
+pale, silk covered walls. Candles rest along the table, and overhead
+are numerous chandeliers, creating a brightly lit room. A door leads
+back to the foyer.
+You see Moryan, Stefan and Khalil. 
+Obvious exits: none.
+> 
+Moryan says, "Chandra my dear."
+> list mory
+You listen carefully to Moryan.
+> 
+Moryan asks, "Are you with child?"
+> 
+Moryan gazes at you.
+> pond
+You ponder for a moment.
+> 'It does appear so
+You say, "It does appear so"
+> nod
+You nod.
+> 
+You feel the touch of A servant's mind:
+"M'lady! hes wandering your house and leaving fingerprints!"
+> 
+Moryan nods.
+> 
+You feel the touch of Cypress's mind:
+"I'll alright Kylie"
+> 
+Moryan says, "You have the blush about your face."
+> nod mory
+You nod to Moryan.
+> 
+Moryan looks a bit flustered herself.
+> 
+ ** Scalper has just disconnected.
+> 
+You feel the touch of Kylie's mind:
+"oh, merciful mother! Cut off the offending digits, of course."
+> 
+You feel the touch of Cypress's mind:
+"Thanks anyway"
+> 'Many of the ladies at the den and Sheris are positive
+You say, "Many of the ladies at the den and Sheris are positive"
+> 
+Moryan says, "We need to present you to the Queen Mother then. Along with the
+priest that married you."
+> 
+Khalil ponders.
+> nod
+You nod.
+> 
+Khalil whispers to you, "um... did you tell her about this?"
+> 
+Moryan says, "More proof cannot be offered than that."
+> 'The Lady Charette said likewise
+You say, "The Lady Charette said likewise"
+> 
+Moryan nods.
+> 
+Moryan says, "it is up to the Queen mother to decide.. but.."
+> whisp khal Zorha? No, I haven't been able to see her
+You whisper to Khalil.
+> 
+Moryan says, "the reason I asked you all here.."
+> 
+Moryan mutters something you can't quite make out.
+> 
+Khalil whispers to you, "I meant Moryan..."
+> 
+Stefan places a tarnished deep silvery helm onto his head.
+> 
+Stefan shakes his head back and forth.
+> 
+Moryan says, "was to say that your pack's support, and your church's can be
+vital"
+> whisp khal Oh, Charette spoke with her
+You whisper to Khalil.
+> 
+Khalil whispers to you, "okay"
+> 
+Moryan says, "the more support you have now, the less you have to fight for
+later."
+> 
+You feel the strength leave you.
+> nod
+You nod.
+> 
+Moryan says, "You also have a burden."
+> 
+Moryan gazes at you.
+> 'Some of the foresters have offered support
+You say, "Some of the foresters have offered support"
+> 
+Stefan returns to normal speed.
+> 
+Stefan says, "There is one important question to be asked however Chandra."
+> 
+Khalil nods to you.
+> 
+You feel the touch of Kylie's mind:
+"want to send Abner back when you're done with him, Graul?"
+> 
+Moryan gestures at Stefan.
+> 
+You feel the touch of Graul's mind:
+"Just did."
+> list stef
+You listen carefully to Stefan.
+> 
+Stefan asks, "Do you want to go through this?  And do you want your child to go
+through this?"
+> 
+Moryan nods.
+> 
+Moryan says, "Aye, exactly what I was going to say."
+> 
+Moryan says, "You will not be queen my dear."
+> 'I've thought of it, and I feel to give my husbands life meaning, I must
+You say, "I've thought of it, and I feel to give my husbands life meaning, I
+must"
+> 
+Moryan says, "You will be at most Queen Mother."
+> 
+You feel the touch of Prudence's mind:
+"it's dark I can't see."
+> 
+ ** Graul has just disconnected.
+> 
+Stefan nods.
+> 
+You return to normal speed.
+> 
+Khalil returns to normal speed.
+> 
+Khalil narrows his eyes and gazes intently about the area.
+> 
+Khalil incants a spell.
+> 
+Khalil gestures.
+Khalil moves with blurring speed.
+> 
+Khalil incants a spell.
+> 
+Khalil incants a spell.
+> 
+Moryan says, "your child will be a Kentuarus ... you know what else that
+means."
+> sigh
+You sigh.
+> 
+Moryan gazes at you.
+> 
+Stefan says, "weight both ends my dear, be very sure."
+> nod mory
+You nod to Moryan.
+> 
+Stefan nods to Moryan.
+> 
+Khalil arches his eyebrow.
+> 'He lives and dies as my love did, but once
+You say, "He lives and dies as my love did, but once"
+> 
+Moryan says, "Do you wish your child to die the same way your ..husband did."
+> 
+Moryan nods.
+> 
+Moryan says, "Aye."
+> 'No I do not wish it, but I love him too much, it is the Kentaurus line that shall rule Fayd, Frederick would wish it I believe
+You say, "No I do not wish it, but I love him too much, it is the Kentaurus
+line that shall rule Fayd, Frederick would wish it I believe"
+> 
+You feel a tingle in your mind. Rion thinks to you, "why did graul want us at
+the sleeping den?."
+> 
+Moryan says, "Ruling families come and go, there is no shame in that either."
+> think Dunno
+You project your thoughts.
+> 
+You feel a tingle in your mind. Rion thinks to you, "<sigh>."
+> 
+You feel the touch of Prudence's mind:
+"Saxon which way?"
+> 'I do not believe it is time for this one to go, not yet
+You say, "I do not believe it is time for this one to go, not yet"
+> 
+Moryan smiles at you.
+> 'For that is what those who killed my husband wish
+You say, "For that is what those who killed my husband wish"
+> 
+ ** Silence has just disconnected.
+> 
+Moryan says, "I wish you the best of luck then my dear. I fear you'll need it
+and more."
+> 
+Moryan says, "I think you take far too many risks with your life."
+> 
+Moryan says, "and your child's."
+> 'I am due a fair amount of luck
+You say, "I am due a fair amount of luck"
+> 
+Khalil nods to Moryan.
+> 
+ ** Graul has just disconnected.
+> 
+Stefan silently watches the conversation between the two ladies.
+> 
+You feel the touch of Airgid's mind:
+"Kvaahn, All right, Be well"
+> 'Perhaps it is a decision I will later regret, but I cannot see into the future, I only follow my heart
+You say, "Perhaps it is a decision I will later regret, but I cannot see into
+the future, I only follow my heart"
+> 
+Khalil smiles at you.
+> 
+Moryan says, "This is not a time to follow your heart."
+> 
+Moryan says, "Forgive me for sounding cold."
+> 
+Moryan says, "This is bigger than any one person."
+> 
+Khalil returns to normal speed.
+> 
+Khalil incants a spell.
+> 
+Khalil gestures.
+Khalil moves with blurring speed.
+> 
+Khalil incants a spell.
+> 'I do not make the decision in haste, but I can do nothing else
+You say, "I do not make the decision in haste, but I can do nothing else"
+> 
+Moryan nods.
+> 
+Moryan says, "Well, since things are in such a disarray, i've lost the rest of
+my train of thought."
+> sigh
+You sigh.
+> 
+You feel the touch of Saxon's mind:
+"Chandra?"
+> 
+Stefan says, "remember that you also make a decsion that will effect the lives
+of every citizen within the city."
+> think Yep?
+You project your thoughts.
+> 
+Moryan says, "I'll speak with Charette and set up a meeting with the Queen
+Mother."
+> 
+You feel the touch of Saxon's mind:
+"Where ya at?"
+> 
+Moryan says, "Also.."
+> 
+Moryan says, "this should happen before the funeral."
+> 
+Moryan says, "if she does not accept your claim.."
+> think Busy just now
+You project your thoughts.
+> 
+Moryan gazes at you.
+> nod mory
+You nod to Moryan.
+> 
+Moryan says, "She might not accept the claim"
+> 'We must wait and see I suppose
+You say, "We must wait and see I suppose"
+> 
+Moryan says, "I just want you to be prepared for everything."
+> nod
+You nod.
+> 
+ ** Firestar has just left the Realms.
+> 
+Moryan sighs.
+> 
+ ** Graul has just disconnected.
+> 
+Stefan ponders.
+> 
+Moryan says, "Stefan dear, can you see the girl safely to her dens? I'm afraid
+I need to calm my servants."
+> 
+Stefan says, "aye my lady, I shall do so."
+> look
+[Thistlewood Deep, Dining]
+This is a large, formal banquet hall. A long table, with a dozen chairs
+lining its sides sits central to the room. Low buffets rest against the
+pale, silk covered walls. Candles rest along the table, and overhead
+are numerous chandeliers, creating a brightly lit room. A door leads
+back to the foyer.
+You see Moryan, Stefan and Khalil. 
+Obvious exits: none.
+> 
+Moryan gazes at you.
+> curts mory
+You curtsy towards Moryan.
+> 
+Stefan asks, "if you will both follow me?"
+> 
+Moryan nods to Stefan.
+> 
+Stefan smiles at you.
+> 
+Stefan smiles at Khalil.
+> 'Thank you for your honest words and hospitatlity
+You say, "Thank you for your honest words and hospitatlity"
+> 
+You feel the touch of Saxon's mind:
+"hey Rion?"
+> 
+ ** Rion has just disconnected.
+> 
+Moryan smiles.
+> 
+ ** Kylie has just disconnected.
+> 
+Khalil returns to normal speed.
+> 
+Khalil nods to Moryan.
+> pre 225
+You prepare the Invisibility spell.
+ [Round: 3 sec]
+R> 
+Moryan says, "You are welcome here anytime my dear."
+R> 
+Khalil incants a spell.
+> cast
+You gesture.
+[Success: 95%, Roll 75] Success!
+You feel a tingling sensation.
+H> 
+Khalil gestures.
+Khalil moves with blurring speed.
+H> 
+Khalil incants a spell.
+H> 
+Moryan opens a door.
+H> fol stef
+You are now following Stefan.
+JH> 
+ ** Burne has just disconnected.
+JH> 
+Khalil is now following Stefan.
+JH> 
+Stefan incants a spell.
+JH> 
+Stefan gestures.
+Stefan moves with blurring speed.
+JH> 
+Stefan incants a spell.
+JH> 
+Stefan's group goes through a door.
+JH> 
+You follow Stefan.
+[Thistlewood Deep Manor]
+You see Stefan and Khalil. 
+Obvious exits: none.
+JH> 'I will try not to bring such trouble next time
+You say, "I will try not to bring such trouble next time"
+JH> 
+Stefan narrows his eyes and gazes intently about the area.
+JH> 
+Stefan smiles.
+JH> 
+Khalil gestures.
+Nothing happens.
+JH> 
+Khalil incants a spell.
+JH> 
+Stefan says, "nonsense, he turns up everywhere."
+JH> 
+Khalil narrows his eyes and gazes intently about the area.
+JH> 
+Khalil incants a spell.
+JH> 
+Stefan's group goes through an arch.
+JH> 
+You follow Stefan.
+[Thistlewood Deep, Music Room]
+You see Stefan. An elegant polished ebony piano, an intricately carved lyre and
+a beautiful harp are here.
+Obvious exits: none.
+JH> 
+Stefan goes through a door.
+JH> 
+You follow Stefan.
+[Thistlewood Deep, Drawing Room]
+You see Stefan. 
+Obvious exits: none.
+JH> 
+Stefan goes through a door.
+JH> 
+You follow Stefan.
+[Thistlewood Deep, Music Room]
+You see Stefan and Khalil. An elegant polished ebony piano, an intricately
+carved lyre and a beautiful harp are here.
+Obvious exits: none.
+JH> 
+Would any wolflings on the event please report up your level?
+JH> whisp stef True
+You whisper to Stefan.
+JH> 
+Stefan goes through a door.
+JH> 
+You follow Stefan.
+[Thistlewood Deep, Drawing Room]
+You see Stefan. 
+Obvious exits: none.
+JH> 
+Khalil arrives through a door.
+JH> 
+Khalil is now following Stefan.
+JH> 
+Stefan's group goes through a door.
+JH> 
+You follow Stefan.
+[Thistlewood Deep, Music Room]
+You see Stefan and Khalil. An elegant polished ebony piano, an intricately
+carved lyre and a beautiful harp are here.
+Obvious exits: none.
+JH> 
+Stefan says, "a tour of the manor."
+JH> 
+Stefan smiles.
+JH> 
+Stefan's group goes through an arch.
+JH> 
+You follow Stefan.
+[Thistlewood Deep Manor]
+You see Stefan and Khalil. 
+Obvious exits: none.
+JH> 
+Khalil chuckles.
+JH> 
+Khalil smiles.
+JH> 
+Stefan's group goes through a door.
+JH> 
+You follow Stefan.
+[Thistlewood Deep, Dining]
+You see Moryan, Stefan and Khalil. 
+Obvious exits: none.
+JH> 
+Moryan raises an eyebrow towards Stefan.
+JH> 
+Stefan's group goes through a door.
+JH> 
+You follow Stefan.
+[Thistlewood Deep Manor]
+You see Stefan and Khalil. 
+Obvious exits: none.
+JH> exp
+Level: 95
+Build Points to date: 972
+Unspent Build Points: 5
+Experience Points until next Build Point: 74459
+JH> 
+Stefan's group goes through a door.
+JH> 
+You follow Stefan.
+[Thistlewood Deep, Courtyard]
+You see Stefan and Khalil. 
+Obvious exits: s, e, w.
+JH> 
+Stefan smiles.
+JH> 
+Stefan's group goes south.
+JH> 
+You follow Stefan.
+[Thistlewood Deep Gatehouse]
+You see Stefan and Khalil. A massive iron wrought gate is here.
+Obvious exits: n.
+JH> report Level 95
+Your message has been reported to the online GameMaster staff.
+JH> 
+Stefan's group goes through a massive iron wrought gate.
+JH> 
+You follow Stefan.
+[Thistlewood Road]
+You see Stefan and Khalil. A massive iron wrought gate is here.
+Obvious exits: sw.
+JH> 
+Stefan's group goes southwest.
+JH> 
+You follow Stefan.
+[Erirt Road, Southeast]
+You see Stefan and Khalil. 
+Obvious exits: ne, nw, se.
+JH> 
+Stefan's group goes northwest.
+JH> 
+You follow Stefan.
+[Foothills, Intersection]
+You see Stefan and Khalil. 
+Obvious exits: nw, se, sw.
+JH> 
+Stefan's group goes northwest.
+JH> 
+You follow Stefan.
+[Erirt Road, Northwest]
+You see Stefan and Khalil. 
+Obvious exits: nw, se.
+JH> 
+Stefan's group goes northwest.
+JH> 
+You follow Stefan.
+[Erirt Road, Northwest]
+You see Stefan and Khalil. 
+Obvious exits: w, se.
+JH> 
+Stefan's group goes west.
+JH> 
+You follow Stefan.
+[Erirt Road, Bend]
+You see Stefan and Khalil. 
+Obvious exits: e, sw.
+JH> 
+Stefan's group goes southwest.
+JH> 
+You follow Stefan.
+[Erirt Road, Foothills]
+You see Stefan and Khalil. An iridescent feather is here.
+Obvious exits: ne, sw.
+JH> 
+Stefan's group goes southwest.
+JH> 
+You follow Stefan.
+[Erirt Bridge, East]
+You see Stefan and Khalil. A heavy old stone bridge is here.
+Obvious exits: ne.
+JH> 
+You have been awarded 396000 experience points.
+JH> 
+Stefan's group goes over a heavy old stone bridge.
+JH> 
+You follow Stefan.
+[Erirt Bridge, West]
+You see Stefan and Khalil. A heavy old stone bridge is here.
+Obvious exits: s.
+JH> 
+Stefan's group goes south.
+JH> 
+You follow Stefan.
+[Mountain Trail]
+You see Stefan and Khalil. 
+Obvious exits: n, e, nw.
+JH> 
+Stefan's group goes east.
+JH> 
+You follow Stefan.
+[Mountain Trail, peak view]
+You see Stefan and Khalil. 
+Obvious exits: w, se.
+JH> 
+Stefan's group goes southeast.
+JH> 
+You follow Stefan.
+[Trail head]
+You see Stefan and Khalil. A small bridge is here.
+Obvious exits: ne, nw.
+JH> exp
+Level: 95
+Build Points to date: 976
+Unspent Build Points: 9
+Experience Points until next Build Point: 102459
+JH> 
+Stefan's group goes northeast.
+JH> 
+You follow Stefan.
+[Foothills, squat tower]
+You see Stefan and Khalil. A round stone tower is here.
+Obvious exits: sw.
+JH> 
+The sun begins to rise in the east.
+JH> 
+Stefan's group goes southwest.
+JH> 
+You follow Stefan.
+[Trail head]
+You see Stefan and Khalil. A small bridge is here.
+Obvious exits: ne, nw.
+JH> 
+Stefan's group goes over a small bridge.
+JH> 
+You follow Stefan.
+[Foothills, river crossing]
+You see Stefan and Khalil. A small bridge is here.
+Obvious exits: s.
+JH> 
+Stefan's group goes south.
+JH> 
+You follow Stefan.
+[Foothills, stream]
+You see Stefan and Khalil. A bush is here.
+Obvious exits: n, sw.
+JH> 
+Stefan's group goes southwest.
+JH> 
+You follow Stefan.
+[Grasslands]
+You see Stefan and Khalil. 
+Obvious exits: e, ne, nw, se.
+JH> 
+Stefan's group goes southeast.
+JH> 
+You follow Stefan.
+[Foothills, scrub growth]
+You see Stefan and Khalil. 
+Obvious exits: s, nw.
+JH> 
+Stefan's group goes south.
+JH> 
+You follow Stefan.
+[Foothills, grass]
+You see Stefan and Khalil. 
+Obvious exits: n, se.
+JH> 
+Stefan's group goes southeast.
+JH> 
+You follow Stefan.
+[Outside Fayd, northern wall]
+You see Stefan and Khalil. 
+Obvious exits: n, w, nw, se.
+JH> 
+Stefan's group goes southeast.
+JH> 
+You follow Stefan.
+[Fayd Gate, exterior]
+You see Stefan and Khalil. A large iron gate is here.
+Obvious exits: s, e, nw.
+JH> 
+Stefan's group goes through a large iron gate.
+JH> 
+You follow Stefan.
+[Main Street, Gatehouse]
+You see Stefan and Khalil. 
+Obvious exits: w.
+JH> 
+Stefan's group goes west.
+JH> 
+You follow Stefan.
+[Main Street]
+You see Stefan and Khalil. 
+Obvious exits: e, w.
+JH> 
+Stefan's group goes west.
+JH> 
+You follow Stefan.
+[Bazaar East]
+You see Stefan and Khalil. A comfortable building that houses the Sojourner's
+Hospice is here.
+Obvious exits: n, s, e, w, nw, sw.
+JH> 
+Stefan's group goes west.
+JH> 
+You follow Stefan.
+[Bazaar Center]
+You see Stefan, Airgid and Khalil. A large marble fountain, a wooden bin and a
+newsboard are here.
+Obvious exits: n, s, e, w, ne, nw, se, sw.
+JH> 
+Stefan incants a spell.
+JH> 
+Stefan narrows his eyes and gazes intently about the area.
+JH> 
+A commoner arrives.
+JH> 
+You hear something say, "other than that I need nothing but edged"
+JH> 
+Stefan nods.
+JH> 
+Khalil narrows his eyes and gazes intently about the area.
+JH> 
+Khalil incants a spell.
+JH> 
+You hear something say, "Hello Marquis"
+JH> 
+Stefan says, "greetings."
+JH> 
+Airgid says, "Kvaahn"
+JH> pre 215
+You prepare the Scry spell.
+ [Round: 3 sec]
+RJH> cast 6
+You gesture into the air.
+[Success: 95%, Roll 24] Success!
+You have a vision...
+[Wolfling Den]
+A silver lined stone basin full of sparkling fresh water and a newsboard are
+here.
+Obvious exits: none.
+JH> 
+Khalil incants a spell.
+JH> 
+Khalil places an archer's helm with an image of a brilliant full moon on a
+cloudless night onto his head.
+JH> 
+Stefan disbands his group.
+H> 
+Stefan bows with a flourish.
+H> 
+You feel the touch of Saxon's mind:
+"Hey Chandra, we're in the sleeping den, come fill us in?"
+H> 
+Stefan says, "be safe."
+H> 
+Stefan goes south.
+H> think Ok, hang on
+You project your thoughts.
+H> think Thank you Marquis
+You project your thoughts.
+H> pre 213
+You prepare the Bend Space I spell.
+ [Round: 3 sec]
+RH> 
+Khalil goes east.
+H> hug khal
+What are you referring to?  Please be more specific.
+H> 
+A commoner goes west.
+H> 
+A guard arrives.
+H> cast 7
+You gesture into the air.
+[Success: 95%, Roll 1] Spectacular success!
+The color and detail of your surroundings swirl together. After a brief
+moment...
+[Ria's Cloud- Great Room]
+Obvious exits: none.
+H> pre 210
+You prepare the Haste spell.
+ [Round: 3 sec]
+RH> cast
+[Wait 1 seconds...]
+RH> cast
+You suddenly fade into view.
+You gesture.
+[Success: 95%, Roll 93] Success!
+You find yourself able to move incredibly fast.
+> pre 225
+You prepare the Invisibility spell.
+ [Round: 1 sec]
+R> cast
+You gesture.
+[Success: 95%, Roll 53] Success!
+You feel a tingling sensation.
+H> pre 213
+You prepare the Bend Space I spell.
+ [Round: 1 sec]
+RH> 
+A shroud of mist passes in front of the moon creating a silvery halo.
+H> cast 6
+You gesture into the air.
+[Success: 95%, Roll 74] Success!
+The color and detail of your surroundings swirl together. After a brief
+moment...
+[Wolfling Den]
+You see a wolf. A silver lined stone basin full of sparkling fresh water and a
+newsboard are here.
+Obvious exits: none.
+The wolf guarding the door nods to you and growls, "Greetings Sister".
+H> report
+Usage: REPORT <Message>
+This command should only be used for reporting technical difficulties or bugs
+to the online GameMaster staff.
+H> 
+ ** Raningeth has just left the Realms.
+H> 'report
+You say, "report"
+H> 
+A wolf arrives through a small stone arch.
+H> 
+The wolf guarding the door nods to a wolf and growls, "Greetings Brother".
+H> 
+The wolf guarding the opening growls, "The snows of this winter have been
+heavy, most of the den is shrouded in snow."
+H> 
+A wolf sniffs about the area.
+H> trans
+You suddenly fade into view.
+You groan in pain as your body undergoes a metamorphosis and assumes
+the form of a wolf.
+ [Round: 7 sec]
+R> 
+A wolf suddenly howls, writhing in pain. It transforms into Rion!
+R> look
+[Wolfling Den]
+This large, roomy area has walls with old cracks covered over with
+soft furs. A large, silver-lined basin of water flowing into it 
+rests in a back corner. A fire pit sits near a grouping of stones
+for sitting. A lone wolf stands guard at the entrance, his eyes 
+battle wary. Near the back of the dens, an excavation has begun to
+clear out the individual rooms of the pack. The brisk scent of winter
+snow fills your nose with every breath
+You see Rion and a wolf. A newsboard is here.
+Obvious exits: none.
+R> 
+Rion sighs.
+R> lick rio
+You sloppily lick Rion.
+> 
+Rion asks, "what did i miss?"
+> look
+[Wolfling Den]
+This large, roomy area has walls with old cracks covered over with
+soft furs. A large, silver-lined basin of water flowing into it 
+rests in a back corner. A fire pit sits near a grouping of stones
+for sitting. A lone wolf stands guard at the entrance, his eyes 
+battle wary. Near the back of the dens, an excavation has begun to
+clear out the individual rooms of the pack. The brisk scent of winter
+snow fills your nose with every breath
+You see Rion and a wolf. A newsboard is here.
+Obvious exits: none.
+> trans
+You howl in pain as your body undergoes a metamorphosis and resumes
+humanoid form.
+ [Round: 7 sec]
+R> 
+A wolf suddenly howls, writhing in pain. It transforms into Khalil!
+R> 'Meeting with Stefan, Khalil, Moryan and I
+You say, "Meeting with Stefan, Khalil, Moryan and I"
+> pre 405
+You prepare the See Hidden spell.
+ [Round: 1 sec]
+R> 
+Rion sighs.
+R> cast
+You narrow your eyes and gaze about the area.
+[Success: 95%, Roll 41] Success!
+> 
+Khalil gestures.
+Magic begins to form around Khalil but then fizzles.
+> 
+Khalil incants a spell.
+> 
+Khalil narrows his eyes and gazes intently about the area.
+> 
+Khalil incants a spell.
+> 
+The fire shifts slightly as it consumes another piece of wood.
+> 'About what I should or shouldn't do
+You say, "About what I should or shouldn't do"
+> fid
+You fidget nervously.
+> 
+Rion says, "i think we are going to need to start a policy of secret meetings"
+> nod rio
+You nod to Rion.
+> nod rio
+You nod to Rion.
+> 
+Rion says, "no announcements over the net"
+> 
+Khalil says, "it would be safer to talk in one of the other dens"
+> 
+Rion mutters something you can't quite make out.
+> 
+Khalil returns to normal speed.
+> 
+Khalil incants a spell.
+> pre 210
+You prepare the Haste spell.
+ [Round: 1 sec]
+R> cast
+You gesture.
+[Success: 95%, Roll 10] Success!
+Nothing happens.
+> 
+Khalil gestures.
+Khalil moves with blurring speed.
+> 
+Khalil incants a spell.
+> 
+Without warning, Rion howls and collapses to the ground, shaking. Undergoing a
+terrible transformation, he changes shape into that of a wolf!
+> 'The others back there?
+You ask, "The others back there?"
+> trans
+You groan in pain as your body undergoes a metamorphosis and assumes
+the form of a wolf.
+ [Round: 7 sec]
+R> 
+Khalil nods.
+R> 
+Without warning, Khalil howls and collapses to the ground, shaking. Undergoing
+a terrible transformation, he changes shape into that of a wolf!
+R> 
+A wolf sniffs about the area.
+R> look
+[Wolfling Den]
+This large, roomy area has walls with old cracks covered over with
+soft furs. A large, silver-lined basin of water flowing into it 
+rests in a back corner. A fire pit sits near a grouping of stones
+for sitting. A lone wolf stands guard at the entrance, his eyes 
+battle wary. Near the back of the dens, an excavation has begun to
+clear out the individual rooms of the pack. The brisk scent of winter
+snow fills your nose with every breath
+You see a wolf and a wolf. A newsboard is here.
+Obvious exits: none.
+R> 
+A wolf goes through a small stone arch.
+R> 
+A wolf goes through a small stone arch.
+> go arc
+[Long Narrow Tunnel]
+You see a wolf and a wolf. 
+Obvious exits: none.
+> look
+[Long Narrow Tunnel]
+This narrow tunnel opens onto the large wolfling den area at one end 
+through a peculiar shaped arch. All along its lengths small openings 
+with identifying marks etched into the wall beside each give access to 
+individual dens. The tunnel twists and turns in the darkness, confusing 
+you to the point that you realize only a wolf could find their way along 
+it. The tunnel has been recently dug out of the back of the den. A larger
+opening sits near the back, leading to a much larger den.
+You see a wolf and a wolf. 
+Obvious exits: none.
+> 
+A wolf goes through an opening leading to a large den.
+> look open
+You see nothing extraordinary.
+[Adian's Den]
+A colorful crystal that seems to emulate a prism in any given light and a stone
+ledge are here.
+Obvious exits: none.
+> 
+A wolf goes through an opening leading to a large den.
+> look 2 open
+You see nothing extraordinary.
+[A Tracker's Den]
+Obvious exits: none.
+> look 3 open
+You see nothing extraordinary.
+[Packleader's Den]
+Obvious exits: none.
+> tap open
+You scratch behind your ear.
+> go 3 open
+[Packleader's Den]
+Obvious exits: none.
+> go open
+[Long Narrow Tunnel]
+Obvious exits: none.
+> look 4 open
+You see nothing extraordinary.
+[Feras' Den]
+A chest made of rosewood is here.
+Obvious exits: none.
+> look 5 open
+You see nothing extraordinary.
+[A Sleeping Den]
+You see Rion, Donnald (sitting), Prudence, Saxon, a wolf and Cypress. A small
+stone fountain is here.
+Obvious exits: none.
+> go 5 open
+[A Sleeping Den]
+You see Rion, Donnald (sitting), Prudence, Saxon, a wolf and Cypress. A small
+stone fountain is here.
+Obvious exits: none.
+> trans
+You howl in pain as your body undergoes a metamorphosis and resumes
+humanoid form.
+ [Round: 7 sec]
+R> 
+Cypress says, "did stay in one place long enough for me to give you a hug"
+R> 
+Cypress gazes at Rion.
+R> 
+A wolf suddenly howls, writhing in pain. It transforms into Khalil!
+> 
+Donnald smiles at you.
+> pre 210
+
+Prudence hugs Rion.
+> You prepare the Haste spell.
+ [Round: 1 sec]
+R> cast
+You gesture.
+[Success: 95%, Roll 94] Success!
+Nothing happens.
+> 
+Prudence hugs you.
+> hug prud
+You hug Prudence.
+> 'Everyone is well?
+You ask, "Everyone is well?"
+> 
+Donnald nods.
+> 
+Saxon asks, "You lead your own guild?"
+> look
+[A Sleeping Den]
+This large roomy den has been dug out of the hard clay and rock. Bits of
+soft moss grow along the walls and floor, smoothing the harsh corners
+of rock. Numerous pallets line the walls, covered over with werewolf 
+pelts and other sturdy silks and furs. A small fountain tumbles fresh 
+water into a large copper bowl at the far end of the den. To the north
+side, an opening leads back into the main passageway.
+You see Rion, Donnald (sitting), Prudence, Saxon, Khalil and Cypress. 
+Obvious exits: none.
+> 
+Saxon gazes at Khalil.
+> 
+Rion says, "we all want to propose a new rule about meetings.."
+> 
+Khalil says, "with Gwydion and Hyena"
+> 
+Prudence nods to you.
+> 
+Khalil nods to Saxon.
+> 
+Donnald listens carefully to Rion.
+> 
+Khalil touches a forest green cloak embroidered with the emblem of a large
+silver oak.
+> 
+Saxon asks, "And thats more imnportant than the pack?"
+> 
+Rion says, "we need to not meet in bc ever.."
+> 'I'm afraid that may have been just a start to the trouble they'll be causing
+You say, "I'm afraid that may have been just a start to the trouble they'll be
+causing"
+> 
+Prudence nods to Rion.
+> 
+Prudence sighs.
+> 
+Rion says, "and no announcements made over the net so weedos can follow us
+around"
+> 
+Rion mutters something you can't quite make out.
+> 
+A wolf arrives through an opening leading to a large den.
+> 
+A wolf sits down.
+> 
+ ** Firestar has just left the Realms.
+> 'They just sit arounding waiting to hear stuff like that
+You say, "They just sit arounding waiting to hear stuff like that"
+> 
+ ** Scalper has just disconnected.
+> 
+Rion nods.
+> 
+Rion says, "just a thought"
+> 
+Rion shrugs.
+> 
+Prudence nods to Rion.
+> 
+Donnald pets a wolf.
+> 
+A wolf barks!
+> 
+Donnald sighs.
+> 
+A wolf bares her fangs and growls!
+> look
+
+ ** Graul has just disconnected.
+> [A Sleeping Den]
+This large roomy den has been dug out of the hard clay and rock. Bits of
+soft moss grow along the walls and floor, smoothing the harsh corners
+of rock. Numerous pallets line the walls, covered over with werewolf 
+pelts and other sturdy silks and furs. A small fountain tumbles fresh 
+water into a large copper bowl at the far end of the den. To the north
+side, an opening leads back into the main passageway.
+You see a wolf (sitting), Rion, Donnald (sitting), Prudence, Saxon, Khalil and
+Cypress. 
+Obvious exits: none.
+> look wolf
+You see a young female wolf with brown eyes and silvery fur.
+She appears to be healthy.
+> 
+Khalil arches his eyebrow.
+> 
+Donnald glares at a wolf.
+> 
+Rion says, "you don't ever hear evils yelling out across the net where they are
+meeting to discuss their plans.."
+> heads
+You shake your head.
+> 'I never have
+You say, "I never have"
+> 
+Saxon gazes at you.
+> act sits down heavily.
+Chandra sits down heavily.
+> sit
+You sit.
+s> 
+Khalil comforts you.
+s> 
+Khalil returns to normal speed.
+s> 
+Khalil gestures.
+Khalil moves with blurring speed.
+s> 
+Khalil incants a spell.
+s> 
+Saxon says, "yanno, we can't be a pack when everyone does whatever they want,
+geez Chandra, you coulda been hurt"
+s> 'Hope I'm not making a mistake
+You say, "Hope I'm not making a mistake"
+s> 
+Prudence says, "I need haste."
+s> 
+Khalil gestures at Prudence.
+Prudence moves with blurring speed.
+s> 
+Khalil incants a spell.
+s> 
+Saxon murmers, "junkie"
+s> health
+
+Prudence says, "thanks."
+s> You have 276/276 body points.
+You have a nicked, fractured and slightly punctured head, a bludgeoned, grazed
+and scorched body, a singed back, a banged-up right arm, a nicked left arm, a
+singed right leg, a singed right hand and a banged-up and singed left hand.
+s> 
+Prudence thumps Saxon on the head!
+s> 
+Rion nods to Saxon.
+s> 
+Cypress giggles.
+s> 
+Prudence tends to your wounds.
+Your right arm looks better.
+ [Round: 1 sec]
+Rs> 
+Rion says, "yep.."
+Rs> 
+Cypress pokes Saxon.
+Rs> 
+Donnald stands up.
+s> 
+Prudence thumps Rion on the head!
+s> 'Was kinda scary there for a bit
+
+Prudence tends to your wounds.
+Your left arm looks better.
+ [Round: 1 sec]
+Rs> You say, "Was kinda scary there for a bit"
+Rs> 
+Rion says, "we gotta try to stick together more"
+Rs> nod sax
+You nod to Saxon.
+s> 
+Prudence tends to your wounds.
+Your right leg looks better.
+ [Round: 1 sec]
+Rs> 
+Rion exclaims, "hey!"
+s> 
+Rion frowns.
+s> 
+Prudence tends to your wounds.
+Your right hand looks better.
+ [Round: 1 sec]
+Rs> 
+Donnald says, "agreed Rion"
+Rs> 
+A wolf suddenly howls, writhing in pain. It transforms into Kylie!
+s> 
+Rion rubs his head
+s> look
+[A Sleeping Den]
+This large roomy den has been dug out of the hard clay and rock. Bits of
+soft moss grow along the walls and floor, smoothing the harsh corners
+of rock. Numerous pallets line the walls, covered over with werewolf 
+pelts and other sturdy silks and furs. A small fountain tumbles fresh 
+water into a large copper bowl at the far end of the den. To the north
+side, an opening leads back into the main passageway.
+You see Kylie (sitting), Rion, Donnald, Prudence, Saxon, Khalil and Cypress. 
+Obvious exits: none.
+s> 
+Prudence says, "sorry I thought you were agreeing with saxon."
+s> 
+Rion asks, "what was that for?"
+s> 
+Prudence smiles at Rion.
+s> 
+Kylie says, "yeah, it would be nice."
+s> 
+Donnald smiles at Kylie.
+s> 
+Rion says, "i was.."
+s> 
+Prudence tends to your wounds.
+Your left hand looks better.
+ [Round: 1 sec]
+Rs> 
+Cypress says, "I thought with Graul being the leader I was to follow him"
+s> 
+Prudence tends to your wounds.
+Your left hand looks better.
+ [Round: 1 sec]
+Rs> 
+Cypress shrugs.
+Rs> 
+Rion says, "about staying together"
+Rs> 
+You return to normal speed.
+Rs> 
+Prudence tends to your wounds.
+Your body looks better.
+ [Round: 2 sec]
+Rs> 'Didn't we have a packleader earlier?
+You ask, "Didn't we have a packleader earlier?"
+Rs> gaze
+You gaze about the area.
+Rs> 
+Prudence shakes her head at Rion.
+Rs> 
+Rion nods to you.
+Rs> 
+Saxon says, "We had like 4 different groups, easy pickings if they wanted us,
+just cause nobody stayed together, yanno we DO have a leader, even if nobody
+listens to him."
+Rs> 
+Prudence tends to your wounds.
+Your back looks better.
+ [Round: 2 sec]
+Rs> 
+Prudence tends to your wounds.
+Your head looks better.
+ [Round: 3 sec]
+Rs> 
+Prudence tends to your wounds.
+Your body looks better.
+ [Round: 4 sec]
+Rs> 
+Rion says, "he said to meet here.."
+Rs> 
+Kylie stands up.
+s> 
+Prudence tends to your wounds.
+Your body looks better.
+ [Round: 4 sec]
+Rs> 
+Kylie says, "This group.."
+Rs> 
+Kylie gestures toward herself.
+Rs> who
+Scalper            Tobias             Saryon             Kylie              
+Rion               Chandra            Donnald            Stefan             
+Prudence           Airgid             Miria              Saxon              
+Khalil             Cypress            
+
+
+There are 14 adventurers in the Realms.
+
+Rs> 
+Prudence tends to your wounds.
+Your head looks better.
+ [Round: 6 sec]
+Rs> 
+Prudence tends to your wounds.
+Your head looks better.
+ [Round: 9 sec]
+Rs> 'Then he left?
+You ask, "Then he left?"
+Rs> 
+Kylie says, "was picking up the strays that no one waited for.."
+Rs> list rio
+You listen carefully to Rion.
+Rs> 
+Cypress nods to Kylie.
+s> 
+Donnald nods to Kylie.
+s> 
+Rion says, "i think he got pulled away by something important"
+s> 
+Rion shrugs.
+s> 
+Kylie says, "and got left behind when one held the ferrry."
+s> 
+Cypress says, "yes Kylie was checking on me once or twice"
+s> 
+Cypress says, "I got somewhat confussed"
+s> 
+Saxon says, "Instead, me and Rion and Donnald are staring in the face of Tobias
+here in the den, the others were wandering around with who knows who on their
+heels, and you two stayed behind and ignored what the packleader said ta do."
+s> 
+Saxon nods to Khalil.
+s> 
+Kylie shrugs.
+s> 
+Prudence nods to Cypress.
+s> 
+Cypress comforts Prudence.
+s> 
+Saxon asks, "So what did this lady have so important ta say?"
+s> 
+Kylie returns to normal.
+s> 
+Khalil gestures.
+Nothing happens.
+s> 
+Donnald shrugs.
+s> 
+Khalil incants a spell.
+s> 'She had questions more than things to say
+You say, "She had questions more than things to say"
+s> 
+Khalil sits down.
+s> 
+Cypress says, "don't let this upset you Prudence..this isn't normal"
+s> 
+Prudence nods to Cypress.
+s> nod cypr
+You nod to Cypress.
+s> 
+Prudence says, "Ok thanks."
+s> 
+Prudence smiles.
+s> 
+Khalil comforts you.
+s> 
+Donnald says, "normaly we sit and talk a lot"
+s> 
+Kylie stifles a cough.
+s> 
+Cypress comforts Prudence.
+s> 'Things are usually calm
+You say, "Things are usually calm"
+s> 
+Saxon says, "Yeah well, she prolly got all kinds of answers bout this pack now"
+s> 
+Saxon mutters something you can't quite make out.
+s> 
+Prudence returns to normal speed.
+s> 
+Donnald says, "and it is nice to see you here Kylie"
+s> 
+Khalil whispers to you, "Saxon's only upset cause he's worried..."
+s> 
+Khalil whispers to you, "don't take it personally"
+s> 
+Rion ponders.
+s> 'Firstly, Moryan wished to know if I am carrying Fredericks child
+You say, "Firstly, Moryan wished to know if I am carrying Fredericks child"
+s> 
+Saxon gazes at you.
+s> whisp khal He's my brother, I'm used to it :)
+You whisper to Khalil.
+s> 
+Rion nudges Saxon.
+s> 
+Cypress listens carefully to you.
+s> 
+Prudence gazes at you.
+s> 
+Khalil smiles at you.
+s> 
+Rion whispers to Saxon, "told ya"
+s> 
+Cypress blinks.
+s> 'Which, over the last few days it seems I am
+You say, "Which, over the last few days it seems I am"
+s> 
+ ** Scalper has just disconnected.
+s> 
+Donnald nods to you.
+s> 
+Kylie raises an eyebrow towards you.
+s> 
+Saxon mutters something you can't quite make out.
+s> 
+Kylie murmurs, "Mother's mercy..."
+s> 'Then she told me I could keep quiet about it, let no one know
+You say, "Then she told me I could keep quiet about it, let no one know"
+s> 
+Cypress sighs.
+s> 'And avoid the whole mess
+You say, "And avoid the whole mess"
+s> 
+Donnald grins.
+s> 
+Kylie says, "Well, you're certainly following that instruction well."
+s> 'Keep me, and the child safe
+You say, "Keep me, and the child safe"
+s> 
+Kylie coughs.
+s> 
+Rion says, "yeah, thats prolly not something to many should know"
+s> 
+Khalil tickles Kylie.
+s> 
+Donnald nods to Rion.
+s> 
+Prudence sighs.
+s> 
+Rion says, "and.."
+s> 
+Saxon sits down.
+s> 
+Kylie bats Khalil's hand away, growling.
+s> 
+Rion lets his voice get very serious and loud
+s> 'Well, I don't like the idea, I mean, it's like turning my back on my husbands memory
+You say, "Well, I don't like the idea, I mean, it's like turning my back on my
+husbands memory"
+s> 
+Cypress says, "put the pack is here to help you Chandra"
+s> 
+Rion exclaims, "you can't go anywhere alone..ANYMORE!!"
+s> 
+Rion gazes at you.
+s> 
+Cypress says, "err but"
+s> 
+Khalil nods to Rion.
+s> 
+Prudence nods to Rion.
+s> 
+Donnald nods to Rion.
+s> act looks sadly at Rion.
+Chandra looks sadly at Rion.
+s> 
+Rion says, "or Saxon and I will thump you soundly"
+s> 
+Donnald says, "Chandra you need to be rotected at all times"
+s> 
+Khalil returns to normal speed.
+s> 
+Rion smiles.
+s> 
+Rion leans on Saxon.
+s> 
+ ** Miria has just left the Realms.
+s> act rubs her head, thinking of past thumpings.
+Chandra rubs her head, thinking of past thumpings.
+s> nod
+You nod.
+s> 
+Rion says, "honest Chandra, you have to be extra careful"
+s> 
+Donnald says, "or do you want the fate of the child to be that of its father"
+s> 
+Saxon glares at Donnald.
+s> 'That is what Moryan asked Donnald, and it is not my wish
+You say, "That is what Moryan asked Donnald, and it is not my wish"
+s> 
+You feel the touch of Therin's mind:
+"tobias hello"
+s> 
+Donnald says, "hey she needs to face that hard truth so iit sinks in"
+s> 
+Kylie says, "You're carrying the heir to the throne, Chandra. Now you're a
+target."
+s> 
+Rion says, "well..we aren't going to let that happen.."
+s> 
+Rion says, "because.."
+s> 
+Saxon says, "She don't need ta hear it, she ain't stupid."
+s> 
+Rion says, "we are going to start behaving like a pack again"
+s> 
+Kylie asks, "Again?"
+s> nod rio
+
+Rion says, "just like Saxon said.."
+s> You nod to Rion.
+s> 
+Rion nudges Kylie.
+s> 
+Rion says, "we are family"
+s> 'And many others have offered their help as well
+You say, "And many others have offered their help as well"
+s> 
+Rion says, "we will protect Chandra.."
+s> 
+Donnald says, "agreed"
+s> 
+You feel the touch of Therin's mind:
+"tobias whats going on"
+s> 
+Prudence casts her gaze across the area.
+s> 
+Rion says, "and I fully expect to see a troop of wolflings following Chandra
+wherever she goes"
+s> 
+Rion grins.
+s> 
+Cypress nods to Rion.
+s> 
+Donnald nods.
+s> 
+Khalil smiles.
+s> 'Until the child is born, who knows, if it's a girl...
+You say, "Until the child is born, who knows, if it's a girl..."
+s> shr
+You shrug.
+s> 
+Prudence nods.
+s> 
+Kylie says, "She'll be in line for the throne."
+s> 
+Kylie shrugs.
+s> 
+Donnald says, "the  she wil become queen"
+s> 
+Rion gazes at you.
+s> 
+Cypress says, "she's my niece of course I want her safe"
+s> 'Queens do not rule Fayd
+You say, "Queens do not rule Fayd"
+s> 
+Donnald says, "that may change"
+s> 
+Rion whispers to you, "wolflings almost always have more than one"
+s> 
+Prudence says, "that's dumb."
+s> 
+Kylie says, "Only because there hasn't been one in the line of succession
+before."
+s> 
+Rion nods to Donnald.
+s> whisp rion Yeah, I thought of that, but who knows with Frederick as a father
+You whisper to Rion.
+s> 
+Kylie says, "No one else had a daughter who was eldest child."
+s> pond
+You ponder for a moment.
+s> 
+ ** Linnaeus has just disconnected.
+s> 
+Donnald says, "if it is a daughter and can be proven the rightful heir then
+what other choice doe sthe land have"
+s> 'True, there is no telling what may occur
+You say, "True, there is no telling what may occur"
+s> 
+Rion whispers to you, "but with you as a mother :)"
+s> 
+Khalil sighs.
+s> 
+Donnald says, "keep going without a ruler till she has amale child"
+s> 
+Rion ponders.
+s> 
+Saxon gazes at Donnald.
+s> 
+Rion says, "so really.."
+s> 
+Rion gets an odd look
+s> 
+Rion gazes at you.
+s> pond
+You ponder for a moment.
+s> 
+Prudence gazes at Saxon.
+s> 'In the past, a council ruled until Frederick was of age
+You say, "In the past, a council ruled until Frederick was of age"
+s> 
+Rion says, "you are the Queen of Fayd..."
+s> 'But that doesn't seem to be likely to happen
+You say, "But that doesn't seem to be likely to happen"
+s> gaze rio
+You gaze at Rion.
+s> 
+Donnald says, "but there was a Fredrick there"
+s> 'The Queen Mother
+You say, "The Queen Mother"
+s> 
+Rion says, "and are probably its regent until the baby comes of age"
+s> 'It's different than an actual Queen
+You say, "It's different than an actual Queen"
+s> 
+Rion shakes his head back and forth.
+s> 
+Rion says, "Zorha is the Queen Mother.."
+s> 
+Rion says, "you are the Queen"
+s> 
+Donnald nods to Rion.
+s> 
+Kylie says, "The regents were elected.. Zorha didn't assume that by right.. she
+was one of those chosen to be regent."
+s> 'I can't explain it, Moryan said I wouldn't be Queen, you'd have to ask her why
+You say, "I can't explain it, Moryan said I wouldn't be Queen, you'd have to
+ask her why"
+s> shr
+You shrug.
+s> 
+Kylie says, "Because you aren't a Kentaurus by blood."
+s> 
+Rion says, "but Chandra would surely be on the regents council if not the
+regent herself"
+s> 
+Your thoughts are jarred as you sense the death of Airgid.
+s> look in eye
+You gaze deep into the eye...
+[Bazaar Center]
+You see Saryon, Therin, Airgid (dead), a trader, a commoner, a merchant and a
+lawkeeper. A horse-drawn carriage, a large marble fountain, a wooden bin and a
+newsboard are here.
+Obvious exits: n, s, e, w, ne, nw, se, sw.
+There is nothing in that.
+s> 'Airgid dead in Bc, with Saryon and Therin
+
+Rion says, "you couldn't be Fayd's ruler permanently.."
+s> You say, "Airgid dead in Bc, with Saryon and Therin"
+s> frow
+You frown.
+s> 
+Saxon says, "Hey, yanno in some places, him marrying a commoner would make him
+stop being king."
+s> 
+Rion says, "but you are Quen"
+s> 
+Khalil says, "I'll get him"
+s> 
+Kylie nods to Saxon.
+s> 
+Khalil struggles to his feet.
+s> 
+Kylie says, "She's is Queen Consort..."
+s> 
+Saxon says, "So that would make the kid not king too"
+s> 
+Khalil gestures.
+Khalil moves with blurring speed.
+s> 
+Khalil incants a spell.
+s> 
+Prudence sighs.
+s> 'I don't think it works like that here
+You say, "I don't think it works like that here"
+s> 
+Without warning, Khalil howls and collapses to the ground, shaking. Undergoing
+a terrible transformation, he changes shape into that of a wolf!
+s> 
+A wolf goes through an opening.
+s> 
+Donnald asks, "what were to happen of no heir comes forth?"
+s> 
+Saxon says, "yeah well, who would know cept someone like maybe Zorha, lots of
+places the king abdicated the throne by default for marrying outside royalty"
+s> 
+Kylie says, "and usually regents are chosen for their proven abilities to lead
+a kingdom and keep it safe until the ruler is of age to rule."
+s> 
+Prudence gazes at Saxon.
+s> nod kyl
+You nod to Kylie.
+s> 
+Donnald asks, "would the regents continue to rule?"
+s> 
+Kylie says, "They had it drawn out on diagrams beside the chessboards in
+Ysarda.."
+s> 
+Kylie shudders as she says the word.
+s> 'If no Kentaurus was able to continue, a new family would take it's place I suppose
+You say, "If no Kentaurus was able to continue, a new family would take it's
+place I suppose"
+s> 
+Rion comforts Kylie.
+s> 
+Kylie nods to you.
+s> 
+Kylie says, "Some of the barons are from ruling families from long ago.."
+s> 
+The air before you shimmers and congeals into a wolf!
+s> 
+A wolf yawns.
+s> 
+A wolf curls up on the ground.
+s> 
+Donnald asks, "what aobut fredericks sister?"
+s> 'Many of the Barons, and I suppose Stefan, the Marquis
+You say, "Many of the Barons, and I suppose Stefan, the Marquis"
+s> 
+Kylie says, "and there are at least two heirs in the Kentaurus line with
+distant ties.."
+s> 
+A wolf arrives through an opening leading to a large den.
+s> 
+A wolf suddenly howls, writhing in pain. It transforms into Khalil!
+s> 
+A wolf sloppily licks Khalil.
+s> 
+Khalil pets a wolf.
+s> 
+You feel the touch of Burne's mind:
+"Saxon, are you out there?"
+s> 
+Donnald says, "is not stefan in with our hostess"
+s> 
+Khalil sits down.
+s> 
+Rion asks, "but any child of Fredericks would first be chosen, wouldn't they?"
+s> 
+Cypress leans on a wolf.
+s> 'He knows many of the Lady's, I don't know if he favors one in particular
+
+A wolf growls, "So are you preggy?"
+s> You say, "He knows many of the Lady's, I don't know if he favors one in
+particular"
+s> 
+A wolf listens carefully to you.
+s> roll
+You roll your eyes.
+s> 
+Cypress sits down.
+s> 'I suppose that's one way to put it
+You say, "I suppose that's one way to put it"
+s> 
+A wolf growls, "Congrads Chandra."
+s> 
+Rion says, "first progeny of a ruler, then progeny of others of the same
+line.."
+s> 
+Donnald says, "so if no heir comes foward then he would be one in line to rule
+then"
+s> 
+Kylie closes her eyes.
+s> 
+You feel the touch of Burne's mind:
+"Does anyone know where Saxon is?"
+s> 
+Rion says, "i think i read that in a book at the library"
+s> 
+You feel the touch of Therin's mind:
+"chandra Greetings madam, i hope you are well"
+s> 
+You feel the touch of Prudence's mind:
+"yeah."
+s> 
+You feel the touch of Saxon's mind:
+"I'm in the dens"
+s> 
+Donnald says, "well need to get going"
+s> think Thank you Therin, I am fine and hope you are likewise
+You project your thoughts.
+s> 
+Donnald waves.
+s> 
+Without warning, Donnald howls and collapses to the ground, shaking. Undergoing
+a terrible transformation, he changes shape into that of a wolf!
+s> 
+Kylie's eyes return to normal.
+s> 'Anyone know Burne well? He seemed rather outspoken
+You say, "Anyone know Burne well? He seemed rather outspoken"
+s> 
+A wolf goes through an opening.
+s> 
+Cypress asks, "leaving Donnald?"
+s> 
+Kylie recites, "The line of succession in the land of Fayd on the planet Andor
+is as follows: Frederick Kentaurus, IV. Liriama Kentaurus.."
+s> 
+Prudence shakes her head at you.
+s> 
+You feel a tingle in your mind. Graul thinks to you, "You realize when anyone
+finds out then I am sure Saryon and his drones will try and kidnap you till
+after the birth, so they could control the child.."
+s> hug donn
+What are you referring to?  Please be more specific.
+s> 
+Prudence says, "he gives me the creeps."
+s> 
+Rion whispers to you, "he rubs me the wrong way.."
+s> 
+Prudence shivers.
+s> 
+You feel the touch of Therin's mind:
+"chandra Things have improved sence last we meet, i even died once, oops"
+s> 
+Khalil returns to normal speed.
+s> 
+Kylie recites, "Any progeny of Frederick, eldest to youngest, and theirs,
+unless he die without heir.."
+s> 
+Kylie opens her eyes.
+s> 
+Kylie shudders.
+s> 
+Rion comforts Kylie.
+s> think Since I hear you now I assume you are fine once again :)
+You project your thoughts.
+s> 
+ ** Donnald has just left the Realms.
+s> nod
+You nod.
+s> 
+A wolf nods to you.
+s> 'Saryon shouldn't know anything for sure just yet
+You say, "Saryon shouldn't know anything for sure just yet"
+s> 
+Prudence nods to you.
+s> 
+You feel a tingle in your mind. Graul thinks to you, "If that was meant for me,
+then I am fine.."
+s> 'Unless he hears from someone
+You say, "Unless he hears from someone"
+s> 
+Khalil says, "hopefully"
+s> 
+You feel the touch of Therin's mind:
+"Chandra Yes, new and improved....were are you at..I might come by to say
+hello"
+s> 
+Rion whispers to you, "don't tell where you are"
+s> 
+Rion gazes at you.
+s> 
+You feel a tingle in your mind. Graul thinks to you, "Unfortunately some
+wolflings seem very close to those of the dark guard.  I am getting curious
+about Donnald.."
+s> 
+Prudence gazes at you.
+s> 
+Kylie folds her arms across her chest, looking pale.
+s> think I'm rather far away at the moment, I will look you up when I am in Fayd next
+You project your thoughts.
+s> 
+Rion touches Kylie.
+s> 
+Rion asks, "you alright?"
+s> 
+Rion beams at you.
+s> gaze rio
+You gaze at Rion.
+s> 'Me?
+You ask, "Me?"
+s> 
+Khalil whispers to you, "wasn't paying attention, but he was talking with
+Tobias earlier"
+s> 
+Rion shakes his head back and forth.
+s> 
+Rion points at Kylie.
+s> nod khal
+You nod to Khalil.
+s> 
+Kylie nods to Rion, fingers tracing a long scar on her forearm.
+s> 'That's why I didn't say too much to him
+You say, "That's why I didn't say too much to him"
+s> 
+Khalil nods to you.
+s> 
+Khalil smiles.
+s> 
+Rion winces.
+s> 
+You feel the touch of Therin's mind:
+"chandra I would ask nothing more than that of you...be safe and shall fate
+guide our paths to cross again"
+s> think Most surely, travel safe
+You project your thoughts.
+s> 'New guy in town, a shame to hear him talking friendly like with Tobias
+You say, "New guy in town, a shame to hear him talking friendly like with
+Tobias"
+s> 
+You feel a tingle in your mind. Graul thinks to you, "And it isn't like you can
+hide it for that long.."
+s> look wolf
+You see a mature male wolf with lavender eyes and silvery fur.
+He appears to be healthy.
+s> nod wolf
+You nod to a wolf.
+s> 
+Kylie ponders.
+s> 'I need to get a weaver to make me some loose fitting clothes
+You say, "I need to get a weaver to make me some loose fitting clothes"
+s> 
+Kylie says, "Get Hyena to make you some clothes.. if you carry small.."
+s> 
+Kylie nods to you.
+s> 
+You feel the touch of Krystian's mind:
+"Hello"
+s> 
+Khalil nods to you.
+s> 
+Prudence nods to you.
+s> 'But not ones that are obviously loose fitting
+You say, "But not ones that are obviously loose fitting"
+s> 
+You feel the touch of Tobias's mind:
+"Hello Krystian"
+s> 
+You feel the touch of Therin's mind:
+"krystian Hello"
+s> 
+Kylie says, "he's clever.. I'll bet he could disguise your pregnancy for most
+of it."
+s> 
+Your thoughts are jarred as you sense the death of Burne.
+s> nod ky
+You nod to Kylie.
+s> look in eye
+
+Khalil looks deep into an alligator eye.
+s> You gaze deep into the eye...
+[Deep Forest]
+You see Scalper, Burne (dead) and a greater werewolf. A werewolf claw is here.
+Obvious exits: sw.
+There is nothing in that.
+s> 
+Kylie looks deep into a termite eye.
+s> 
+Rion winces.
+s> 
+Prudence nods to Kylie.
+s> 
+A wolf perks up his ears.
+s> 
+Khalil says, "deep forest"
+s> 
+Rion blinks.
+s> 
+Saxon says, "There's a suprise"
+s> 
+Kylie says, "Oh ducky.."
+s> 'Hmm, scalper and burne in the deep forest?
+You ask, "Hmm, scalper and burne in the deep forest?"
+s> 
+Rion asks, "whats he doin there?"
+s> 
+Kylie asks, "You got him, or want me to?"
+s> 
+Kylie says, "Probably got lost looking for the den.."
+s> 
+Khalil asks, "can you bs2 Kylie?"
+s> 
+You feel the touch of Krystian's mind:
+"Nicely done Scalper, Shin-Jah thanks you."
+s> 
+Kylie says, "those trails are tricky."
+s> 
+Kylie shakes her head at Khalil.
+s> 
+You feel the touch of Scalper's mind:
+"I didn"
+s> ndo kyl
+"ndo" is not understood.
+s> nod ky
+You nod to Kylie.
+s> 
+Khalil says, "I'll go with you Kylie, and guard you for as long as I can"
+s> 
+Rion says, "i need to go"
+s> 'I need rest as well
+You say, "I need rest as well"
+s> 
+Khalil struggles to his feet.
+s> 
+Rion ponders.
+s> lean rio
+You lean on Rion.
+s> 
+Kylie says, "Came close to getting killed there myself.. if scalper hadn't
+guarded me."
+s> 
+A wolf suddenly howls, writhing in pain. It transforms into Graul!
+s> 
+Graul taps a jagged mirror.
+s> stand
+You struggle to your feet under the weight of all your equipment.
+ [Round: 11 sec]
+R> 
+Graul says, "I can guard."
+R> 
+Kylie incants a spell.
+R> 
+Khalil gestures.
+Khalil moves with blurring speed.
+R> 
+Khalil incants a spell.
+R> 
+Kylie gestures.
+Magic begins to form around Kylie but then fizzles.
+R> 
+Rion says, "lets do this rescue as a pack before we all leave"
+R> 
+Kylie incants a spell.
+R> 
+Without warning, Graul howls and collapses to the ground, shaking. Undergoing a
+terrible transformation, he changes shape into that of a wolf!
+> 
+Kylie gestures.
+Kylie moves with blurring speed.
+> 
+Rion says, "so everyone gets out"
+> 'Spells anyone, before I retire?
+You ask, "Spells anyone, before I retire?"
+> 
+Kylie shakes her head back and forth.
+> 
+You feel the touch of Scalper's mind:
+"any rezzers here?"
+> 
+A wolf growls, "Depends on who shows to annoy him."
+> 
+You feel the touch of Kylie's mind:
+"on my way, Scalper.."
+> 
+A wolf gets back on all fours.
+> 
+Cypress struggles to her feet.
+> 
+A wolf is now following Kylie.
+> 
+Without warning, Rion howls and collapses to the ground, shaking. Undergoing a
+terrible transformation, he changes shape into that of a wolf!
+> 
+Khalil says, "I'm going to tree door in, so I dont' have to change"
+> pre 210
+You prepare the Haste spell.
+ [Round: 3 sec]
+R> 
+A wolf goes through an opening.
+R> 
+Without warning, Cypress howls and collapses to the ground, shaking. Undergoing
+a terrible transformation, she changes shape into that of a wolf!
+R> 
+Without warning, Khalil howls and collapses to the ground, shaking. Undergoing
+a terrible transformation, he changes shape into that of a wolf!
+> 
+A wolf goes through an opening.
+> 
+Kylie rolls her eyes.
+> 
+Without warning, Prudence howls and collapses to the ground, shaking.
+Undergoing a terrible transformation, she changes shape into that of a wolf!
+> cast
+You gesture.
+[Success: 95%, Roll 83] Success!
+You find yourself able to move incredibly fast.
+> trans
+You groan in pain as your body undergoes a metamorphosis and assumes
+the form of a wolf.
+ [Round: 7 sec]
+R> 
+A wolf goes through an opening.
+R> look
+[A Sleeping Den]
+This large roomy den has been dug out of the hard clay and rock. Bits of
+soft moss grow along the walls and floor, smoothing the harsh corners
+of rock. Numerous pallets line the walls, covered over with werewolf 
+pelts and other sturdy silks and furs. A small fountain tumbles fresh 
+water into a large copper bowl at the far end of the den. To the north
+side, an opening leads back into the main passageway.
+You see Kylie, a wolf, Saxon (sitting) and a wolf. 
+Obvious exits: none.
+R> 
+A wolf concentrates intently.
+> 
+You feel the touch of Scalper's mind:
+"some one just rezz him unead"
+> lick sax
+You sloppily lick Saxon.
+> trans
+You howl in pain as your body undergoes a metamorphosis and resumes
+humanoid form.
+ [Round: 7 sec]
+R> 
+Saxon frowns.
+R> 
+A wolf concentrates.
+R> 
+A wolf phases out.
+R> 
+Saxon struggles to his feet.
+R> 
+Kylie whispers a prayer for patience and sanity.
+> 
+You feel the touch of Graul's mind:
+"Stinky most likely."
+> 
+Your thoughts are jarred as you sense the death of Burne.
+> 
+Without warning, Kylie howls and collapses to the ground, shaking. Undergoing a
+terrible transformation, she changes shape into that of a wolf!
+> 'I suppose I'l wait here
+You say, "I suppose I'l wait here"
+> 
+A wolf goes through an opening.
+> 
+A wolf suddenly howls, writhing in pain. It transforms into Prudence!
+> 
+You feel the touch of Graul's mind:
+"He is such a lonely smelly old thing."
+> 
+Saxon says, "I'll stay here with ya sis"
+> smi sax
+You smile at Saxon.
+> 
+Prudence says, "i can't do anything anyway except die."
+> 
+Prudence smiles.
+> nuz sax
+You nuzzle Saxon affectionately.
+> 
+Saxon says, "Hey umm, you can just stay in the bedroom from now on sis"
+> 'Sometimes a smaller group works best
+You say, "Sometimes a smaller group works best"
+> 
+Prudence sighs.
+> list sax
+You listen carefully to Saxon.
+> 
+Saxon says, "I can sleep on the sofa and all, and umm, Eylia won't be back"
+> comf sax
+You comfort Saxon.
+> 
+Saxon asks, "So keep staying there where its safe, ok?"
+> 
+You feel the touch of Cypress's mind:
+"don't go to the BC!!!"
+> 
+You feel the touch of Scalper's mind:
+"did someone rezz him?"
+> pre 215
+You prepare the Scry spell.
+ [Round: 1 sec]
+R> cast 1
+You gesture into the air.
+[Success: 95%, Roll 54] Success!
+You have a vision...
+[Bazaar Center]
+You see Tobias, Saryon, a trader, a trader, a commoner and a lawkeeper. A large
+marble fountain, a wooden bin and a newsboard are here.
+Obvious exits: n, s, e, w, ne, nw, se, sw.
+> 
+You feel the touch of Prudence's mind:
+"Cypress what's wrong?"
+> 
+You feel the touch of Khalil's mind:
+"yes, he's fine"
+> 
+Saxon concentrates intently.
+> 
+Saxon concentrates.
+> 
+Saxon gets a far-off look for a moment.
+> nod sax
+You nod to Saxon.
+> 
+You feel the touch of Prudence's mind:
+"Ok thanks."
+> 
+You feel the touch of Airgid's mind:
+"I could tell you not to go to BC"
+> 
+ ** Firestar has just left the Realms.
+> fid
+You fidget nervously.
+> 'Hope everyone is alright
+You say, "Hope everyone is alright"
+> 
+Prudence sighs.
+> 
+Prudence nods to you.
+> 
+Saxon says, "This place is getting a lot less fun ta be around."
+> 
+Prudence says, "me too."
+> 
+Prudence nods to Saxon.
+> 'Which place?
+You ask, "Which place?"
+> 
+You feel the touch of Cypress's mind:
+"I'll alright now was just stunned"
+> 
+Saxon says, "Fayd"
+> 'It's chaotic at the moment
+You say, "It's chaotic at the moment"
+> 'But hopefully that can be changed
+You say, "But hopefully that can be changed"
+> who
+Scalper            Tobias             Miria              Saryon             
+Kylie              Rion               Chandra            Therin             
+Krystian           Stefan             Raningeth          Graul              
+Burne              Prudence           Airgid             Saxon              
+Khalil             Cypress            
+
+
+There are 18 adventurers in the Realms.
+
+> 
+You feel the touch of Cypress's mind:
+"yes"
+> pre 215
+You prepare the Scry spell.
+ [Round: 1 sec]
+R> cast 4
+You gesture into the air.
+[Success: 95%, Roll 75] Success!
+You have a vision...
+[Deep Forest]
+You see Scalper, a greater werewolf, a greater werewolf, a werebear and a
+greater werewolf. A werewolf claw is here.
+Obvious exits: sw.
+> 
+You return to normal speed.
+> 'Scalper by himself now
+You say, "Scalper by himself now"
+> pre 210
+You prepare the Haste spell.
+ [Round: 3 sec]
+R> cast
+You gesture.
+[Success: 95%, Roll 50] Success!
+You find yourself able to move incredibly fast.
+> 
+Saxon taps an ensorcelled wakizashi with a hilt formed by two crossed serpents,
+intertwined to form a circle.
+> 
+Saxon taps a fiery steel katana with a hilt formed by two crossed serpents,
+intertwined to form a circle.
+> 
+Prudence says, "unless they are invis."
+> nod prud
+You nod to Prudence.
+> 
+Prudence says, "nice work."
+> 
+Prudence smiles at Saxon.
+> 
+You feel the touch of Graul's mind:
+"Aw... poor slow stinky and junior."
+> 
+ ** Vissick has just left the Realms.
+> 
+Saxon shrugs.
+> nod sax
+You nod to Saxon.
+> 
+Saxon says, "its ok"
+> 'Those are Drakin aren't they?
+
+You feel the touch of Tobias's mind:
+"I choose to ignore you and I am therefore slow?"
+> You ask, "Those are Drakin aren't they?"
+> 
+Saxon says, "I dunno how I feel about handing them over ta him, he's wierd"
+> 
+You feel the touch of Shankara's mind:
+"Greetings...."
+> 'Who they for?
+You ask, "Who they for?"
+> think Hello Shankara
+You project your thoughts.
+> 
+Saxon says, "Burne"
+> pond
+You ponder for a moment.
+> 
+A wolf arrives through an opening leading to a large den.
+> 
+A wolf suddenly howls, writhing in pain. It transforms into Khalil!
+> 'He is different
+You say, "He is different"
+> 
+You feel the touch of Khalil's mind:
+"hello Shankara"
+> 
+Prudence nods to Saxon.
+> 
+The air before you shimmers and congeals into a wolf!
+> 
+A wolf stretches.
+> 
+You feel the touch of Shankara's mind:
+"someone said you were slow Tobias?"
+> 
+A wolf yawns.
+> 
+You feel the touch of Cypress's mind:
+"Hi! Snakeman"
+> 
+A wolf curls up on the ground.
+> pet wolf
+
+You feel the touch of Tobias's mind:
+"Insinuated it"
+> You pet a wolf.
+> 
+Khalil pets a wolf.
+> 
+You feel the touch of Rion's mind:
+"see ya all later"
+> 
+You feel the touch of Shankara's mind:
+"ah...."
+> think Night Rion
+You project your thoughts.
+> 
+You feel the touch of Khalil's mind:
+"later, Rion :)"
+> 
+You feel the touch of Prudence's mind:
+"Bye"
+> 
+You feel the touch of Cypress's mind:
+"Night Rion!"
+> 
+You feel the touch of Shankara's mind:
+"take care..."
+> 
+You feel the touch of Graul's mind:
+"Actually I said Stinky and Junior... guess now I need to wonder if he knows
+which one he is."
+> 
+ ** Rion has just disconnected.
+> 
+Khalil chuckles.
+> look
+[A Sleeping Den]
+This large roomy den has been dug out of the hard clay and rock. Bits of
+soft moss grow along the walls and floor, smoothing the harsh corners
+of rock. Numerous pallets line the walls, covered over with werewolf 
+pelts and other sturdy silks and furs. A small fountain tumbles fresh 
+water into a large copper bowl at the far end of the den. To the north
+side, an opening leads back into the main passageway.
+You see a wolf (laying), Prudence, Saxon and Khalil. 
+Obvious exits: none.
+> 
+ ** Airgid has just disconnected.
+> 
+Prudence giggles.
+> 
+Khalil pets a wolf.
+> look wolf
+You see a mature male wolf with lavender eyes and silvery fur.
+He appears to be healthy.
+> 'The rescue go off ok?
+You ask, "The rescue go off ok?"
+> 
+A wolf wags his tail.
+> list khal
+You listen carefully to Khalil.
+> 
+Khalil nods.
+> 
+Khalil says, "he was looking for the dens, to talk with Saxon"
+> 
+Khalil says, "and went the wrong way"
+> 
+Saxon mutters something you can't quite make out.
+> 
+Khalil smiles at Saxon.
+> nod
+You nod.
+> 
+ ** Raningeth has just left the Realms.
+> 
+Saxon says, "He just wants his weapons"
+> 
+You feel the touch of Kylie's mind:
+"stop peeking while I'm changing!"
+> 
+Prudence nods to Saxon.
+> 
+Khalil says, "yep"
+> pre 215
+You prepare the Scry spell.
+ [Round: 1 sec]
+R> cast 1
+You gesture into the air.
+[Success: 95%, Roll 87] Success!
+You have a vision...
+[Bazaar Center]
+You see Tobias, Vladmir, Krystian, Stefan, Shankara, a crimson-band guard and a
+lawkeeper. A large marble fountain, a wooden bin and a newsboard are here.
+Obvious exits: n, s, e, w, ne, nw, se, sw.
+> 
+Khalil says, "that's what he said"
+> 'Big crowd in BC now
+You say, "Big crowd in BC now"
+> 
+Khalil returns to normal speed.
+> 
+A wolf's group arrives through an opening leading to a large den.
+> 
+Khalil gestures.
+Khalil moves with blurring speed.
+> 
+Khalil incants a spell.
+> look
+[A Sleeping Den]
+This large roomy den has been dug out of the hard clay and rock. Bits of
+soft moss grow along the walls and floor, smoothing the harsh corners
+of rock. Numerous pallets line the walls, covered over with werewolf 
+pelts and other sturdy silks and furs. A small fountain tumbles fresh 
+water into a large copper bowl at the far end of the den. To the north
+side, an opening leads back into the main passageway.
+You see a wolf, a wolf (laying), a wolf, Prudence, Saxon and Khalil. 
+Obvious exits: none.
+> 
+A wolf curls up on the ground.
+> 
+A wolf growls, "Be a good time for Jayd to pay a visit to town."
+> nod
+You nod.
+> 
+Prudence nods.
+> exp
+Level: 95
+Build Points to date: 976
+Unspent Build Points: 9
+Experience Points until next Build Point: 102343
+> 
+You return to normal speed.
+> pre 210
+You prepare the Haste spell.
+ [Round: 3 sec]
+R> 
+Khalil pets a wolf.
+R> 
+Saxon nods to Prudence.
+R> cast
+You gesture.
+[Success: 95%, Roll 49] Success!
+You find yourself able to move incredibly fast.
+> 
+Saxon says, "Sure Prudence."
+> 
+A wolf stops following a wolf.
+> 'Pardon me, but I just need to take a nap here for a bit
+You say, "Pardon me, but I just need to take a nap here for a bit"
+> 
+Prudence smiles at Saxon.
+> lay
+You lay down.
+L> 
+Prudence says, "thanks."
+L> 
+A wolf growls, "Did the Baroness ask to reschedule?"
+L> 
+Prudence nods to you.
+L> 'We had the meeting
+You say, "We had the meeting"
+L> 
+A wolf arrives through an opening leading to a large den.
+L> 
+A wolf sits down.
+L> act leans on one elbow.
+Chandra leans on one elbow.
+L> 
+Prudence says, "you should get your rest."
+L> 
+Khalil comforts you.
+L> 
+A wolf growls, "Ah, what was discussed?"
+L> 
+A wolf growls, "What did she have to talk about?"
+L> 
+A wolf growls, "I was busy distracting Saryon."
+L> 
+Khalil whisper to Chandra, "rest well, let me know if my kids come through and
+bug you..."
+L> 
+A wolf scratches behind her ear vigorously, growling softly.
+L> 'My pregnancy, and that I'm not going to deny who's child it is
+You say, "My pregnancy, and that I'm not going to deny who's child it is"
+L> smi khal
+You smile at Khalil.
+L> 'They won't
+You say, "They won't"
+L> 
+Khalil scratches behind the wolves ear.
+L> 
+You feel the touch of Shankara's mind:
+"anyone able to teach me some d and p?"
+L> 
+A wolf growls, "Your of the pack, they have no right the child unless you wish
+it."
+L> 
+A wolf nudges Khalil.
+L> 
+A wolf growls, "They will make no demands of you."
+L> 
+A wolf leans on you.
+L> smi
+You smile.
+L> 
+Khalil smiles at the wolf that nudged him.
+L> 'I doubt they will try and demand anything
+You say, "I doubt they will try and demand anything"
+L> 
+A wolf growls, "What did the meeting entail?"
+L> 
+Saxon sits down.
+L> 
+A wolf curls up on the ground.
+L> 'Just a short one, but Moryan is to arrange for me to meet with Zorha
+You say, "Just a short one, but Moryan is to arrange for me to meet with Zorha"
+L> 
+A wolf snorts.
+L> 
+A wolf growls, "Never trusted Zorha."
+L> 'It should be interesting
+You say, "It should be interesting"
+L> 
+You feel the touch of Tobias's mind:
+"been taking lessons from the bioroids Firestar?"
+L> 'I never talked much with her
+You say, "I never talked much with her"
+L> 
+A wolf growls, "Do you wish it that I be there?"
+L> 
+ ** Vladmir has just left the Realms.
+L> 
+A wolf gets back on all fours.
+L> 
+A wolf suddenly howls, writhing in pain. It transforms into Burne!
+L> 
+A wolf goes through an opening.
+L> 
+Burne asks, "Chandra?"
+L> 
+You feel the touch of Firestar's mind:
+"no avoiding getting backstabbed, but I will pay back all debts"
+L> 'I don't think it's necessary, but I will get ahold of you if need be
+You say, "I don't think it's necessary, but I will get ahold of you if need be"
+L> 
+Prudence gazes at Burne.
+L> 
+Khalil returns to normal speed.
+L> smi burn
+You smile at Burne.
+L> 
+You feel the touch of Cypress's mind:
+"takecare everyone"
+L> list burn
+You listen carefully to Burne.
+L> 'Yes?
+You ask, "Yes?"
+L> 
+You feel the touch of Prudence's mind:
+"bye Cypress."
+L> 
+You feel the touch of Khalil's mind:
+"you also, Cypress"
+L> 
+Khalil gestures.
+Khalil moves with blurring speed.
+L> 
+Khalil incants a spell.
+L> 
+You feel the touch of Tobias's mind:
+"You attack me first, without provocation...and you call that a debt that needs
+repaying?"
+L> 
+Burne says, "I enjoy the company of this pack"
+L> 
+ ** Cypress has just disconnected.
+L> 
+You return to normal speed.
+L> 
+Burne says, "The duration of the time I am here I will try my utmost"
+L> 
+You feel the touch of Graul's mind:
+"No attack against you is without provocation."
+L> 'The pack is made strong by the sum of all it's brave members
+You say, "The pack is made strong by the sum of all it's brave members"
+L> 
+You feel the touch of Graul's mind:
+"Just that some don't have to hide like you and your master, before they
+attack."
+L> 
+Burne chuckles.
+L> 
+You feel the touch of Tobias's mind:
+"Much like both you and Firestar have done to me in the past?"
+L> 'Should you need anything, please ask
+You say, "Should you need anything, please ask"
+L> smi burn
+You smile at Burne.
+L> 
+A wolf paws at one ear, pulling it down and gazing up at Chandra.
+L> 
+You feel the touch of Graul's mind:
+"Oh, I never attacked you from being hidden Tobias, until you had done so to
+me."
+L> 
+Burne says, "I should say that of you, as I will not be here much longer than a
+week or two"
+L> 
+Saxon arches his eyebrow.
+L> 
+A wolf suddenly howls, writhing in pain. It transforms into Kylie!
+L> rais
+You raise your eyebrow.
+L> 'So short a time?
+You ask, "So short a time?"
+L> sit
+You sit.
+s> 
+Prudence blinks.
+s> 
+You feel the touch of Tobias's mind:
+"No you just waited until I was stunned so you didnt have to hide"
+s> 
+Kylie stands up.
+s> 
+Burne says, "It is my way. I am a vagabond wanderer"
+s> 'May I ask why?
+You ask, "May I ask why?"
+s> 'There's alot of land here to wander
+You say, "There's alot of land here to wander"
+s> 
+Burne says, "I stay no where and ask not much of anyone"
+s> 
+ ** Firestar has just left the Realms.
+s> 
+You feel the touch of Graul's mind:
+"Your memory is as short as your, well this is a public net I guess."
+s> grin
+You grin.
+s> 
+Burne says, "Mayhaps I will stay longer"
+s> 
+You feel the touch of Therin's mind:
+"I must go for  bit"
+s> 
+You feel the touch of Tobias's mind:
+"as short as my patience with people like you"
+s> 
+ ** Saryon has just left the Realms.
+s> 
+Burne says, "Your pregnancy might deem it that I remain"
+s> 'We may be related, I've family who wanders alot
+You say, "We may be related, I've family who wanders alot"
+s> 
+A wolf growls, "Heart wandered a way lot."
+s> 
+A wolf seems to chuckle.
+s> 
+Saxon nods to Kylie.
+s> nod
+You nod.
+s> grin
+You grin.
+s> 
+Kylie smiles slightly.
+s> 
+Burne says, "I come from faraway. I doubt it, althought it is an interesting
+concept"
+s> 
+ ** Therin has just left the Realms.
+s> 
+Kylie says, "And thank Shemri he did."
+s> 
+A wolf leans on Kylie.
+s> 
+Kylie shrugs.
+s> 'You are welcome, for so long as your stay merits
+You say, "You are welcome, for so long as your stay merits"
+s> 
+Kylie says, "if he hadn't..."
+s> 
+Khalil chuckles at Kylie.
+s> 
+Kylie nods to Burne.
+s> 
+Khalil returns to normal speed.
+s> 'My family would be 10 times it size
+You say, "My family would be 10 times it size"
+s> nod kyl
+You nod to Kylie.
+s> 
+Khalil nods to you.
+s> 
+Burne says, "I plan to maintain the honour of the pack, as it is my rightful
+duty"
+s> 
+Khalil gestures.
+Khalil moves with blurring speed.
+s> 
+Khalil incants a spell.
+s> 
+ ** Tobias has just left the Realms.
+s> 
+Kylie says, "As I said to you earlier.. the wolfpack sticks together.. sorta."
+s> 
+Kylie chuckles at you.
+s> 
+A wolf growls, "Sorta?"
+s> 
+Kylie says, "Well, that too.."
+s> 
+Saxon struggles to his feet.
+s> 
+A wolf cocks his head to one side.
+s> 
+Saxon stretches his arms lazily.
+s> 'May the pack honor you as you honor the pack
+You say, "May the pack honor you as you honor the pack"
+s> 
+Burne opens a backpack.
+s> 
+Burne removes a black crystal necklace from the backpack.
+s> 
+Kylie says, "I certainly wouldn't ever have made it back from Ysarda without
+him.."
+s> 
+Burne closes a backpack.
+s> 
+Saxon gazes at Kylie.
+s> 'But I really must rest now, all of you be safe
+You say, "But I really must rest now, all of you be safe"
+s> 
+Kylie hugs you.
+s> 
+Burne asks, "I looted this from a dead goblin. Anyone want it?"
+s> hug kyl
+You hug Kylie.
+s> 
+A wolf sloppily licks you.
+s> 
+Burne taps a black crystal necklace.
+s> 
+Saxon hugs you.
+s> 
+Khalil says, "come on everyone, lets let Chandra sleep"
+s> hug sax
+You hug Saxon.
+s> 
+Khalil hugs you.
+s> 
+Burne nods to you.
+s> 
+Saxon says, "See ya sis"
+s> 
+Kylie says, "Take extra care, Chandra..."
+s> 
+Burne says, "Sleep well"
+s> act tucks under a fur and dozes off.
+Chandra tucks under a fur and dozes off.
+s> 
+Kylie asks, "Ri's den?"
+s> 
+Prudence hugs you.
+s> lay
+You lay down.
+L> x
+
+ ** Chandra has just left the Realms.
+L> 
+
+Character Manager V1.00
+
+ 1 => Moordread
+ 2 => Morti
+ 3 => Bubba
+
+ C => Create new character
+ D => Delete current character
+ P => Play Legends of Future Past
+ X => Exit to NovaLink
+
+
+Active character: Bubba (#3)
+
+Select: x
+
+
+Page: LEGENDS
+22:31:48 EST, 05-APR-99
+
+   A ... About Legends of Future Past
+   C ... Legends Calendar of Events
+   P ... Play Legends of Future Past   
+   T ... Legends Teleconference (OOC)  
+   V ... Version Notes                 
+
+Menu choice, or 'X' to exit> /bye
+
+
+Thank you for using NovaLink.
+
+Connect time this session: 94 minutes.
+
+Have a nice evening!
+
+NovaLink is an online service of NovaLink USA Corporation,
+200 Friberg Parkway, Suite 4003, Westborough, MA 01581. Service: 800-274-2814.
+
+
+
+
+
+
+
+
+
+Stefan says, "Aye Baroness."
+s> think Hi Cypress
+You project your thoughts.
+s> 
+You feel the touch of Prudence's mind:
+"Hi Cypress."
+s> 
+Stefan says, "What we propose is this my lady..."
+s> 
+You feel the touch of Wolfbane's mind:
+"heya cypress"
+s> 
+Wolfbane leans on a soft wildflower velvet sofa.
+s> 
+Stefan says, "We propose that your child be adopted as a ward of the crown, to
+our next monarch...most likely Baroness Moryan here."
+s> act leans back in her chair, listening intently.
+Chandra leans back in her chair, listening intently.
+s> 
+Stefan says, "In doing so, the child would be in the direct bloodline to the
+crown, and carry every right deserved it as such."
+s> 
+Stefan says, "You would be a lady of the crown, a status befitting the mother
+of a crowned prince."
+s> 
+Moryan smiles at you.
+s> rais
+You raise your eyebrow.
+s> 
+ ** Irienne has just left the Realms.
+s> 
+Wolfbane listens to his surroundings closely.
+s> 
+Stefan listens carefully to you.
+s> 'I'm not entirely sure how this is different, well, from what else we would have done?
+You ask, "I'm not entirely sure how this is different, well, from what else we
+would have done?"
+s> 
+Moryan says, "The child will not be heir apparant."
+s> 
+You feel the touch of Cypress's mind:
+"Hi! Chandra, Prudence, Saxon"
+s> 
+Moryan says, "waiting for the assissin in every corner."
+s> pond
+You ponder for a moment.
+s> 'I certainly like the sounds of that
+You say, "I certainly like the sounds of that"
+s> pond
+You ponder for a moment.
+s> 
+Moryan smiles at you.
+s> 
+Moryan says, "but the child will still be royal."
+s> 'Why exactly would no one care to assassinate him this way?
+You ask, "Why exactly would no one care to assassinate him this way?"
+s> 
+Stefan says, "Your child would be the third in line for the crown, should
+Moryan take the throne."
+s> 
+You feel the touch of Cypress's mind:
+"Hi! Wolfie"
+s> 
+You feel the touch of Wolfbane's mind:
+"thought ya forgot bout me"
+s> 
+Stefan says, "he would not be a king, merely awaiting the age of corronation."
+s> 
+Moryan nods.
+s> 
+You feel the touch of Cypress's mind:
+"*hugs* how could I do that!"
+s> 
+You are starting to feel heavier.
+s> 
+You feel the touch of Wolfbane's mind:
+"thats what i was tryin to figure out ;)"
+s> 
+You feel the touch of Cypress's mind:
+"*tickle*"
+s> 'So they wouldn't know ahead of time whether he was to be King or not
+You say, "So they wouldn't know ahead of time whether he was to be King or not"
+s> 
+You feel a tingle in your mind. Cypress thinks to you, "where is everyone?."
+s> 
+Moryan says, "There would be no real reason to slay the child."
+s> 
+Moryan says, "No stronger than any other."
+s> think Not sure exactly
+You project your thoughts.
+s> nod
+You nod.
+s> 
+Moryan says, "merely, your child can only live once."
+s> 'And this solution goes along the lines I was already thinking..
+You say, "And this solution goes along the lines I was already thinking.."
+s> 
+Moryan says, "so we much protect that life."
+s> 
+Wolfbane nods to Moryan.
+s> 'Which is to raise the child as though Frederick and I were both here to care for him
+You say, "Which is to raise the child as though Frederick and I were both here
+to care for him"
+s> 
+Moryan smiles at you.
+s> 
+Moryan says, "Do you agree? you would give up no rights as his mother."
+s> 'I do like the idea, but only if the child is to be Moryan's ward, I'm not inclined to trust many others
+You say, "I do like the idea, but only if the child is to be Moryan's ward, I'm
+not inclined to trust many others"
+s> 
+Moryan says, "the child will bear the name of Kentaurus if you choose."
+s> nod mor
+You nod to Moryan.
+s> 
+Moryan smiles softly at Chandra.
+s> 
+Moryan says, "It seems..that that is what will happen."
+s> 'If you are positive this is ok with you?
+You ask, "If you are positive this is ok with you?"
+s> list mor
+
+Stefan asks, "So, then Aetheon is not prefered?"
+s> You listen carefully to Moryan.
+s> 
+Stefan smiles at you.
+s> 
+Moryan chuckles at Stefan.
+s> gaze stef
+You gaze at Stefan.
+s> 
+Stefan winces.
+s> 'He most certainly is not
+You say, "He most certainly is not"
+s> 
+Stefan winks at you.
+s> 
+Wolfbane says, "only if i get to keep him in line like the last time"
+s> 
+Moryan says, "You could probably smack him and get away with it."
+s> 
+Moryan ponders.
+s> 
+Moryan gazes at Stefan.
+s> 
+Wolfbane smiles sweetly at Stefan
+s> 
+ ** Marcolan has just left the Realms.
+s> 
+Moryan says, "I certainly won't tell his wife you did."
+s> 
+Stefan chuckles.
+s> 
+Moryan winks at you.
+s> smi
+You smile.
+s> 
+Stefan says, "Perhaps, if you had done so quickly."
+s> 
+Stefan chuckles.
+s> 'I'm more the thumping type
+You say, "I'm more the thumping type"
+s> 
+Moryan says, "Chandra, I would gladly accept your child."
+s> act hefts a staff.
+
+Stefan ducks.
+s> Chandra hefts a staff.
+s> 
+Moryan chuckles.
+s> 
+Wolfbane mutters something you can't quite make out.
+s> 'And one other thing
+You say, "And one other thing"
+s> 
+Moryan says, "and you would have a place to stay here at Thistlewood Deep."
+s> 'We live together, my child and I
+You say, "We live together, my child and I"
+s> 
+Wolfbane says, "hey i had to wait till the queen mother said it was ok"
+s> 
+Moryan says, "if you so wished."
+s> 
+Wolfbane sighs.
+s> nod
+You nod.
+s> 
+Wolfbane ponders.
+s> 
+Wolfbane says, "hey would i haveta call her lady?"
+s> 'Thistlewood deep is a lovely place, I would very much enjoy it here
+You say, "Thistlewood deep is a lovely place, I would very much enjoy it here"
+s> 
+Moryan says, "Your child would be a ward, not adopted. Merely stating
+officially that he or she is in the line of succession"
+s> 
+Stefan nods to Wolfbane.
+s> nod mor
+You nod to Moryan.
+s> 
+Wolfbane sighs.
+s> 
+Wolfbane says, "she'll always be chandra to me tho"
+s> 
+Stefan says, "Wolfbane will be made available to cart your luggage up here as
+well."
+s> 
+Stefan smiles innocently.
+s> 
+Moryan grins.
+s> smi stef
+You smile at Stefan.
+s> 'Oh good, I have lots
+You say, "Oh good, I have lots"
+s> 
+Wolfbane raises an eyebrow towards Stefan.
+s> 
+Stefan snickers.
+s> 
+Stefan asks, "what?"
+s> 
+Stefan listens carefully to Wolfbane.
+s> 
+Wolfbane mutters something you can't quite make out.
+s> 
+Stefan grins.
+s> 
+Wolfbane says, "i didnt know i was a packhorse also"
+s> 'My collection of lead bars is a very prized possession
+You say, "My collection of lead bars is a very prized possession"
+s> 
+Wolfbane sighs.
+s> 
+Wolfbane raises an eyebrow towards you.
+s> 
+Wolfbane shudders.
+s> 
+Stefan asks, "Well, the rumor has it, the band does everything.  So, a
+packhorse would qualify, no?"
+s> 
+Stefan listens carefully to Wolfbane.
+s> act smiles wryly at Wolfbane.
+Chandra smiles wryly at Wolfbane.
+s> 
+Wolfbane says, "oh sure paybacks for askin to many questions"
+s> 
+Moryan chuckles.
+s> 
+Stefan chuckles.
+s> 
+Stefan asks, "he's onto me I think Baroness?"
+s> 
+Stefan grins.
+s> 
+Wolfbane says, "i play bass"
+s> 
+Moryan says, "Aye, I think so."
+s> 
+Wolfbane nods to Stefan.
+s> 
+The glowing outline of armor fades from around you.
+s> 
+Moryan says, "How do we propose to do the rest of this gentlemen? the first was
+the easy one."
+s> 
+Wolfbane thinks of how castle Rullan would look as a band training post
+s> 
+Wolfbane nods to Moryan.
+s> 
+Wolfbane says, "true"
+s> 
+Stefan chuckles.
+s> 'The rest?
+You ask, "The rest?"
+s> 
+Wolfbane says, "now its where it get sticky"
+s> 
+Moryan smiles.
+s> 
+Wolfbane nods to you.
+s> rais wolfb
+You raise an eyebrow towards Wolfbane.
+s> 
+Stefan asks, "Perhaps, those would be matters we do not need to concern lady
+Chandra with?"
+s> 
+Stefan smiles.
+s> 
+Moryan says, "Perhaps you should go look over your rooms my dear."
+s> 
+Stefan says, "Matters of state."
+s> 
+Moryan says, "Ask one of the servants to show you the west wing, those rooms
+were recently redone."
+s> 
+Stefan nods.
+s> 
+Moryan whispers to you, "they dont realy exist *cough*"
+s> smi
+You smile.
+s> 
+ ** Linnaeus has just disconnected.
+s> 'Well, don't be fooled, I was ambassador before marrying Frederick
+You say, "Well, don't be fooled, I was ambassador before marrying Frederick"
+s> stand
+You struggle to your feet under the weight of all your equipment.
+ [Round: 11 sec]
+R> 
+Moryan smiles.
+R> 
+Wolfbane says, "check out the kitchen you look hungry and the baroness has a
+kick butt cook"
+R> 
+Wolfbane winks at you.
+R> 
+Stefan chuckles.
+R> 'I'm not completely ignorant of state affairs
+You say, "I'm not completely ignorant of state affairs"
+> smi
+You smile.
+> 
+Moryan chuckles at Wolfbane.
+> time
+It is Banamea 13, 1045 (Year of the Wyrm).
+It is evening.
+> 'But it's getting late, so I should get settled in a room
+You say, "But it's getting late, so I should get settled in a room"
+> 
+Moryan smiles.
+> 
+Stefan smiles.
+> 
+ ** Marcolan has just left the Realms.
+> 
+Moryan says, "Lessi will show you around."
+> 
+Wolfbane says, "ill fetch your bags shortly"
+> 
+Wolfbane mutters something you can't quite make out.
+> act smiles politely to Lessi.
+Chandra smiles politely to Lessi.
+> nod wolfb
+You nod to Wolfbane.
+> 
+ ** Tobias has just left the Realms.
+> 'Careful, some are magic and slightly, er, volatile
+You say, "Careful, some are magic and slightly, er, volatile"
+> 
+Wolfbane mutters thanks Stef
+> smi wolfb
+You smile at Wolfbane.
+> 
+Wolfbane gazes at you.
+> curts mory
+You curtsy towards Moryan.
+> curts stef
+You curtsy towards Stefan.
+> 
+Moryan smiles at you.
+> 
+Wolfbane fidgets nervously.
+> curts wolfb
+You curtsy towards Wolfbane.
+> 
+Wolfbane says, "you been hangin out with linn?"
+> 'Don't talk away the entire night
+You say, "Don't talk away the entire night"
+> nod wolfb
+You nod to Wolfbane.
+> smi
+You smile.
+> 
+Wolfbane shivers.
+> open door
+You open a door.
+> 
+Wolfbane says, "ill send a horse"
+> 
+Stefan smiles at you.
+> 
+Moryan smiles.
+> act follows Lessi out.
+Chandra follows Lessi out.
+> 
+Moryan says, "Rest well dear."
+> go doo
+[Thistlewood Deep, Music Room]
+An elegant polished ebony piano, an intricately carved lyre and a beautiful
+harp are here.
+Obvious exits: none.
+> close door
+You close a door.
+> look
+[Thistlewood Deep, Music Room]
+This room is large and circular, the walls bare of decoration, allowing
+the music to resonate perfectly. Great care was taken in the placement
+of everything. A large piano is nestled against one wall, and opposite
+is an elegant lyre. A large harp is situated in almost the exact middle
+of the room. A few chairs are scattered about, but bare of covering to
+avoid muffling the sound. The floor is polished mirmach. A door rests
+against one wall, while an archway leads to the foyer.
+An elegant polished ebony piano, an intricately carved lyre and a beautiful
+harp are here.
+Obvious exits: none.
+> pre 225
+You prepare the Invisibility spell.
+ [Round: 3 sec]
+R> cast
+
+You feel a tingle in your mind. Stefan thinks to you, "Good Night Chandra, or
+should I say, my lady.."
+> You gesture.
+[Success: 95%, Roll 57] Success!
+You feel a tingling sensation.
+H> 
+You have been awarded 100000 experience points.
+H> think :)
+You project your thoughts.
+H> exp
+Level: 99
+Build Points to date: 1010
+Unspent Build Points: 8
+Experience Points until next Build Point: 88112
+H> x
+
+ ** Chandra has just left the Realms.
+H> 
+
+Character Manager V1.00
+
+ 1 => Moordread
+ 2 => Morti
+ 3 => Bubba
+
+ C => Create new character
+ D => Delete current character
+ P => Play Legends of Future Past
+ X => Exit to NovaLink
+
+
+Active character: Bubba (#3)
+
+Select: /bye
+
+
+Thank you for using NovaLink.
+
+Connect time this session: 63 minutes.
+
+Have a nice evening!
+
+NovaLink is an online service of NovaLink USA Corporation,
+200 Friberg Parkway, Suite 4003, Westborough, MA 01581. Service: 800-274-2814.
+
+
+
+
+
+
+
+
+
+Invalid selection.
+
+Character Manager V1.00
+
+ 1 => Moordread
+ 2 => Morti
+ 3 => Bubba
+
+ C => Create new character
+ D => Delete current character
+ P => Play Legends of Future Past
+ X => Exit to NovaLink
+
+
+Active character: Bubba (#3)
+
+Select: Connection terminated by remote host

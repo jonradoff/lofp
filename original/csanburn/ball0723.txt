@@ -1,0 +1,4556 @@
+
+Moryan says, "A pleasure."
+> look lia
+You see Lianna Larksong, a free-spirited aelven wizard whose emerald eyes flash
+with magical highlights. Her willowy form is thin and curvacious under long
+golden blonde hair. A black handprint marks the delicate skin of her left cheek
+She is wearing a gray crystal torc bearing the mark of the T'Kasta, a flowing
+emerald green gown that shimmers with thousands of sequins and bares her silky
+shoulders, some sequined emerald green slippers with delicate silk ribbons that
+wrap around her shapely ankles, a fiery silver tiara with teardrop shaped
+diamonds that shimmer yellow in the light, a white silk wristlet sewn with
+hundreds of clear crystal chips that shimmer in the light, some elegant green
+satin gloves and a sparkling faceted collar carved from a single massive yellow
+diamond and etched with sunbursts.
+She radiates with magical strength.
+She has distinctly feline eyes.
+She appears to be healthy.
+> 
+Bethesdan casts his gaze across the area.
+> look mory
+Before you is Queen Moryan D'vena. Sparkling hazel eyes reveal quick wit
+and intelligence. Flowing down her back is long blonde hair, with only a hint
+of silver. She is a formidable force for her slight size and youth.
+She is wearing a slender white alzyron crown inset with twin blue and white
+diamonds, a white albescent signet ring with a channel of deep blue sapphires,
+a pale copper medallion engraved with the image of an open hand clasping a
+wooden bowl, a delicate pale lace gown over soft blue satin skirts that flare
+pleasingly at the hip, some soft deep blue slippers with slender heels and a
+slender carved ebony bracelet of a single, spinning snowflake, set in the
+center with a small white diamond.
+She is being guarded by Young.
+She appears to be healthy.
+> 
+Lisanne's group arrives.
+> 
+Elarin smiles.
+> look arin
+You see a very young woman, with large green eyes, and layers of curling blonde
+hair stroking the valley of her back. Her figure is tiny, and her features
+perfectly. Tiny freckles trace the curve of her cheeks.
+She is wearing a delicate icy white gown with a soft blue-green lace bodice and
+touches of icy gold in the sleeves, a slender white gold circlet carved in the
+shape of lilies lain end to end, some delicate icy white slippers with straps
+twining up her ankles and a tiny deep blue ring in the shape of a small,
+sleeping leopard.
+She is being guarded by Young.
+She appears to be healthy.
+> 
+Moryan smiles at Wolfbane.
+> 
+Elarin nods to Moryan.
+> 
+Leah removes a long fine crystal glass fashioned into the shape of a flower
+just opening it's petals from the table.
+> 
+Young casts his gaze across the area.
+> look lis
+You see Lisanne Miscayne, a petite highlander lass whose silken silver hair
+flows over her shapely body past her knees. Her mysterious sea-green eyes
+hold a hint of mischief and a spark of determination.
+She is wearing an emerald anklet, a coral brooch, some coral earrings, an onyx
+comb, a small round silver talisman inscribed on one side with the wave of
+Amilor, a well-worn silver locket edged in golden tiger-eye and inset with a
+deep scarlet garnet starburst, a delicate ring, a shimmering silvery white
+sheath dress barely showing beneath the shining waves of her hair, a small
+round silver amulet inscribed with the symbol of a stylized ocean wave and a
+randar talisman.
+A slim braid woven with azure stones and an eagle feather catches your eye.
+She appears to be healthy.
+> 
+Elarin says, "Leah"
+> 
+Lisanne beams at Torrinakus.
+> 
+ ** Elriss has just left the Realms.
+> 
+Valkov says, "Queen Moryan this is a beautiful gathering"
+> 
+Sierron bows towards Lisanne.
+> 
+Elarin says, "lets not have your clans crash"
+> 
+Klone nudges Torrinakus.
+> 
+Klone points at Lisanne.
+> 
+Valkov bows towards Moryan.
+> 
+Arin plucks at her gown, then wanders over to a group of people her own age.
+> 
+Torrinakus gazes at Lisanne.
+> 
+Leah furrows her brow.
+> 
+Vladmir says, "Perhps Murg Priest will attend"
+> 
+Moryan smiles.
+> 
+Vladmir chuckles.
+> 
+Wolfbane says, "well maybe i will dance a bit"
+> 
+Wolfbane ponders.
+> 
+Moryan says, "Thank you very much."
+> 
+Wolfbane casts his gaze across the area.
+> 
+Valkov drinks some sparkling gold champagne.
+> 
+Donnald sits on a carved chair.
+> 
+Moryan says, "Its truly simply an excuse for a gathering."
+> 
+Elarin smiles.
+> 
+Wolfbane says, "but only if the birthday girl will allow me a dance"
+> 
+Donnald continues to demolish his lobster.
+> 
+Moryan says, "And also for Arin to meet people her own age."
+> act stands closely to Lianna, whispering to her on occasion.
+Moordread stands closely to Lianna, whispering to her on occasion.
+> 
+Wolfbane smiles at Arin.
+> nuz lia
+You nuzzle Lianna affectionately.
+> 
+Vladmir says, "of course if he did, we would all be married to each other...
+would get  very confusing"
+> 
+Arin blinks at Wolfbane.
+> 
+Gwydion removes a plate of lobster with a side of drawn butter and garnished
+with parsley potatoes from the table.
+> 
+Vladmir chuckles.
+> 
+Arin asks, "Umm... dance?"
+> 
+Vladmir sniffs a plate of lobster with a side of drawn butter and garnished
+with parsley potatoes.
+> 
+Wolfbane says, "i promiss to keep my clothes on"
+> 
+Klone continues to demolish his lobster.
+> 
+Vladmir makes an absolute mess as he rips into the lobster.
+> 
+Wolfbane nods to Arin.
+> 
+Lianna smiles at you.
+> 
+Moryan gazes at Wolfbane.
+> 
+Gwydion sniffs a plate of lobster with a side of drawn butter and garnished
+with parsley potatoes.
+> 
+Arin giggles.
+> 
+Sierron pokes Wolfbane.
+> 
+Klone licks his fingers.
+> 
+Gwydion gazes at a plate of lobster with a side of drawn butter and garnished
+with parsley potatoes.
+> 
+Valkov drinks some sparkling gold champagne.
+> 
+Young raises an eyebrow towards Wolfbane.
+> 
+Bethesdan smiles at Wolfbane.
+> 
+Gwydion cocks his head to the side.
+> 
+Torrinakus removes a plate of lobster with a side of drawn butter and garnished
+with parsley potatoes from the table.
+> 
+Wolfbane grins.
+> 
+Klone smiles.
+> 
+Donnald takes a bite of a small pastry covered in a glaze of sweet honey and
+topped with a ripe strawberry.
+> 
+Elarin says, "beware Arin"
+> 
+Vladmir continues to demolish his lobster.
+> 
+Arin raises an eyebrow towards Elarin.
+> 
+Klone removes a pastry covered in a glaze of sweet honey and topped with a ripe
+blueberry from the table.
+> 
+Fafnir removes a small pastry covered in a glaze of sweet honey and topped with
+a ripe strawberry from the table.
+> 
+Elarin says, "them Wolflings are dangerous"
+> 
+Valkov drinks some sparkling gold champagne.
+> 
+Lisanne disbands her group.
+> 
+Lisanne is now following Torrinakus.
+> 
+Arin grins.
+> 
+Wolfbane pokes Elarin.
+> 
+Torrinakus offers some lobster to Lisanne
+> 
+Vladmir continues to demolish his lobster.
+> 
+Lisanne leans on Torrinakus.
+> 
+Bethesdan says, "I've seen him dance."
+> 
+Klone takes a bite of a pastry covered in a glaze of sweet honey and topped
+with a ripe blueberry.
+> 
+Elarin chuckles.
+> 
+Bethesdan chuckles at Wolfbane.
+> 
+Fafnir takes a bite of a small pastry covered in a glaze of sweet honey and
+topped with a ripe strawberry.
+> 
+Arin says, "I like Lady Chandra alot."
+> 
+Gwydion watches Vladmir to see how to eat the lobster.
+> 
+Wolfbane says, "remember i do hae a daughter"
+> 
+Vladmir takes a bite of some shimmering tarokka blossoms.
+> 
+Nothing happens.
+> 
+Klone ponders.
+> 
+Wolfbane smiles at Elarin.
+> smi
+
+Valkov puts a long fine crystal glass fashioned into the shape of a flower just
+opening it's petals on the table.
+> You smile.
+> 
+Elarin ponders.
+> 
+Wolfbane says, "i know how to act right"
+> 
+Vladmir continues to demolish his lobster.
+> 
+Wolfbane nods.
+> 
+Elarin says, "who?"
+> 
+Valkov removes a gleaming silver plate with the herald of Queen Moryan engraved
+on it's center from the table.
+> 
+Elarin listens carefully to Wolfbane.
+> 
+Donnald licks his fingers.
+> 
+Moryan says, "please, do feel free to mingle."
+> 
+Wolfbane says, "prudence"
+> 
+Torrinakus removes a long fine crystal glass fashioned into the shape of a
+flower just opening it's petals from the table.
+> 
+Klone removes a gleaming silver plate with the herald of Queen Moryan engraved
+on it's center from the table.
+> 
+Gwydion gazes at a plate of lobster with a side of drawn butter and garnished
+with parsley potatoes.
+> 
+Wolfbane ponders.
+> 
+Gwydion makes an absolute mess as he rips into the lobster.
+> 
+Vladmir says, "Prudence is the best"
+> 
+The glowing outline of armor fades from around Bethesdan.
+> 
+Klone smiles.
+> 
+Vladmir licks his fingers.
+> 
+Moryan chuckles at Gwydion.
+> 
+Klone takes a bite of some prime rib.
+> 
+Vladmir exclaims, "ah!"
+> 
+Wolfbane asks, "i thought thats what i was doin am i doin it wrong?"
+> 
+Wolfbane listens carefully to Moryan.
+> 
+Sierron chuckles.
+> 
+Vladmir exclaims, "wonderful food!"
+> 
+Bethesdan goes through an arch.
+> 
+Bethesdan arrives through an arch.
+> 
+Valkov puts a gleaming silver plate with the herald of Queen Moryan engraved on
+it's center on the table.
+> 
+Klone nods to Vladmir.
+> 
+Moryan chuckles.
+> 
+Gwydion continues to demolish his lobster.
+> 
+Linnaeus arrives through an arch.
+> 
+Torrinakus gives a long fine crystal glass fashioned into the shape of a flower
+just opening it's petals to Lisanne.
+> 
+Moryan says, "I shall refrain from comment."
+> 
+Klone takes a bite of a pastry covered in a glaze of sweet honey and topped
+with a ripe blueberry.
+> 
+Linnaeus smiles.
+> 
+Moryan drinks some sparkling gold champagne.
+> 
+Wolfbane sighs.
+> 
+Wolfbane says, "great"
+> 
+Moryan smiles at Linnaeus.
+> 
+Klone exclaims, "Linnaeus!"
+> 
+Linnaeus bows towards Moryan.
+> 
+Gwydion says, "I see this is food to experience, not just eat."
+> 
+Gwydion grins.
+> 
+Linnaeus says, "your majesty"
+> 
+Linnaeus winks at Klone.
+> 
+Gwydion continues to demolish his lobster.
+> look
+[Palace, banquet hall]
+Gleaming silverware and beautiful china sit on top of a polished table 
+in the center of this large hall. The table is enormous with enough room 
+to seat fifty people comfortably in the intricately carved chairs placed 
+around the table. Above the table, a crystal chandelier sparkles with light
+and loveliness. Streamers of every imaginable color swirl through the air,
+sparkling with glittering glass beads. A grand arch leads into a large
+ballroom, with a gathering of musicians and a large dance floor.
+You see Moryan, Gwydion, Valkov, Elarin, Torrinakus, Arin, Fafnir, Leah, Klone,
+Lianna, Sierron, Wolfbane, Durek, Donnald (sitting), Vladmir, Bethesdan,
+Lisanne, Linnaeus and Young. 
+Obvious exits: south, west.
+> 
+Moryan inclines her head respectfully to Linnaeus.
+> 
+Wolfbane hugs Linnaeus.
+> 
+Vladmir nods to Gwydion.
+> 
+Linnaeus nuzzles Wolfbane affectionately.
+> 
+Linnaeus grins.
+> 
+Young gazes at Linnaeus.
+> 
+Wolfbane swoons.
+> 
+Linnaeus raises a toast to Young!
+> 
+Linnaeus smiles at Arin.
+> 
+Arin smiles at Linnaeus.
+> 
+Elarin chuckles.
+> 
+Valkov takes a bite of a pastry covered in a glaze of sweet honey and topped
+with a ripe blueberry.
+> 
+Linnaeus says, "and congratulations young princess."
+> 
+Elarin shakes his head back and forth.
+> 
+Arin blushes.
+> 
+Young returns to normal speed.
+> 
+Arin says, "Thank you."
+> 
+Torrinakus slips his arm around Lisannes waist
+> 
+Arin removes a pastry covered in a glaze of sweet honey and topped with a ripe
+blueberry from the table.
+> 
+Gwydion continues to demolish his lobster.
+> 
+Young incants a spell.
+> 
+Gwydion drinks some sparkling gold champagne.
+> 
+Arin takes a bite of a pastry covered in a glaze of sweet honey and topped with
+a ripe blueberry.
+> 
+Valkov makes an absolute mess as he rips into the lobster.
+> 
+Young gestures.
+Young moves with blurring speed.
+> 
+Torrinakus makes an absolute mess as he rips into the lobster.
+> 
+Klone takes a bite of some prime rib.
+> 
+Linnaeus chuckles at Torrinakus.
+> 
+Sierron casts his gaze across the area.
+> 
+Fafnir takes a bite of a small pastry covered in a glaze of sweet honey and
+topped with a ripe strawberry.
+> 
+Klone takes a bite of a pastry covered in a glaze of sweet honey and topped
+with a ripe blueberry.
+> 
+Linnaeus nods to Sierron.
+> 
+Klone takes a bite of a pastry covered in a glaze of sweet honey and topped
+with a ripe blueberry.
+> 
+Wolfbane asks, "so does that mean you are not gonna grace me with a dance?"
+> 
+Wolfbane listens carefully to Arin.
+> 
+ ** Pariah has just left the Realms.
+> 
+Sierron nods to Linnaeus.
+> 
+Arin grins.
+> 
+Valkov continues to demolish his lobster.
+> 
+Arin says, "I might."
+> 
+Klone takes a bite of some prime rib.
+> 
+Arin says, "I gotta think about it."
+> 
+Elarin drinks some sparkling gold champagne.
+> 
+Klone drinks some sparkling gold champagne.
+> 
+Arin grins.
+> 
+Wolfbane beams at Arin.
+> look rib
+What are you referring to?  Please be more specific.
+> look prime
+What are you referring to?  Please be more specific.
+> 
+Durek appears to become weaker.
+> 
+Wolfbane says, "ok"
+> 
+Sierron chuckles.
+> 
+Valkov continues to demolish his lobster.
+> 
+Elarin nods to Arin.
+> look on tab
+There is nothing on that.
+> 
+Vladmir goes through an arch.
+> 
+Young incants a spell.
+> 
+Young gestures.
+Nothing happens.
+> 
+Linnaeus says, "Wolfbane is known far and wide as an excellent dancer, I'm
+told."
+> 
+Elarin whispers to Arin "dangerous".
+> 
+Vladmir arrives through an arch.
+> 
+Elarin nods to Arin.
+> 
+Wolfbane says, "and dont listen to elarin he is upset i wouldnt be his date for
+tonight"
+> 
+Klone removes some white chocolate birthday cake with blue frosting and tiny
+balls of silver candy decorating it from the table.
+> 
+Arin giggles.
+> 
+Wolfbane smiles at Arin.
+> 
+Elarin gazes at Wolfbane.
+> 
+Donnald stands up.
+> 
+Donnald goes south.
+> 
+Gwydion asks, "Heh. Where's Garin?"
+> 
+Gwydion whistles innocently.
+> 
+Elarin chuckles.
+> 
+Klone asks, "He asked you first?"
+> 
+Wolfbane nods to Sierron.
+> 
+Klone raises an eyebrow towards Wolfbane.
+> 
+Valkov takes a bite of some white chocolate birthday cake with blue frosting
+and tiny balls of silver candy decorating it.
+> 
+Wolfbane nods to Klone.
+> 
+Vladmir removes a small pastry covered in a glaze of sweet honey and topped
+with a ripe strawberry from the table.
+> 
+Vladmir licks a small pastry covered in a glaze of sweet honey and topped with
+a ripe strawberry.
+> 
+Klone pouts.
+> 
+Vladmir takes a bite of a small pastry covered in a glaze of sweet honey and
+topped with a ripe strawberry.
+> 
+Wolfbane comforts Klone.
+> 
+Moryan casts her gaze across the area.
+> 
+Gwydion licks his fingers.
+> 
+Valkov takes a bite of some white chocolate birthday cake with blue frosting
+and tiny balls of silver candy decorating it.
+> 
+Elarin gives Wolfbane a little pinch.
+> 
+Klone takes a bite of some white chocolate birthday cake with blue frosting and
+tiny balls of silver candy decorating it.
+> rais wolfb
+You raise an eyebrow towards Wolfbane.
+> 
+Vladmir takes a bite of a small pastry covered in a glaze of sweet honey and
+topped with a ripe strawberry.
+> 
+Fafnir takes a bite of a small pastry covered in a glaze of sweet honey and
+topped with a ripe strawberry.
+> 
+Sierron icily states, "Queen Moryan, will you honor me with a dance? Perhaps
+others would join in?"
+> 
+Valkov takes a bite of some white chocolate birthday cake with blue frosting
+and tiny balls of silver candy decorating it.
+> 
+Sierron smiles at Moryan.
+> 
+Wolfbane says, "but i didnt take him up in my arms either"
+> 
+Wolfbane smiles at Klone.
+> 
+Moryan smiles at Sierron.
+> 
+Vladmir takes a bite of a small pastry covered in a glaze of sweet honey and
+topped with a ripe strawberry.
+> 'Will the Countess Sun make it?
+You ask, "Will the Countess Sun make it?"
+> 
+Fafnir drinks some sparkling gold champagne.
+> list wolfb
+You listen carefully to Wolfbane.
+> 
+Klone nods.
+> 
+Klone smiles.
+> 
+Vladmir takes a bite of a small pastry covered in a glaze of sweet honey and
+topped with a ripe strawberry.
+> 
+Valkov continues to demolish his lobster.
+> 
+Klone takes a bite of some white chocolate birthday cake with blue frosting and
+tiny balls of silver candy decorating it.
+> 
+Leah removes a small pastry covered in a glaze of sweet honey and topped with a
+ripe strawberry from the table.
+> 
+Gwydion removes a pastry covered in a glaze of sweet honey and topped with a
+ripe blueberry from the table.
+> 
+Klone takes a bite of some prime rib.
+> 
+Moryan says, "I shall have to beg off dancing. I'm quite rusty I'm afraid."
+> 
+Wolfbane says, "i doubt it granny is feelin under the weather again"
+> 
+Wolfbane says, "i wish that old bat would drop off already"
+> 
+Wolfbane mutters something you can't quite make out.
+> 
+Klone ponders.
+> 
+Valkov licks his fingers.
+> 
+Torrinakus continues to demolish his lobster.
+> 
+Young raises an eyebrow towards Wolfbane.
+> 
+Moryan says, "But thank you for asking."
+> 
+Moryan smiles at Sierron.
+> 'Please give her my best wishes
+You say, "Please give her my best wishes"
+> 
+Vladmir chuckles.
+> 
+Linnaeus coughs.
+> smi wolfb
+You smile at Wolfbane.
+> 
+Sierron nods to Moryan.
+> 
+Gwydion takes a bite of a pastry covered in a glaze of sweet honey and topped
+with a ripe blueberry.
+> 
+Wolfbane says, "oh i sure will"
+> 
+Torrinakus continues to demolish his lobster.
+> 
+Gwydion drinks some sparkling gold champagne.
+> 
+Wolfbane smiles at you.
+> 
+Elarin chuckles.
+> 
+Gwydion takes a bite of a pastry covered in a glaze of sweet honey and topped
+with a ripe blueberry.
+> 
+Linnaeus says, "marriage can be such a complicated thing"
+> 
+Moryan chuckles at Elarin.
+> 
+Linnaeus sighs.
+> 
+Fafnir drinks some sparkling gold champagne.
+> 
+Young incants a spell.
+> 
+Young gestures.
+Nothing happens.
+> 
+Young appears to become weaker.
+> 
+Gwydion takes a bite of a pastry covered in a glaze of sweet honey and topped
+with a ripe blueberry.
+> 
+Bethesdan goes through an arch.
+> 
+Gwydion takes a bite of a pastry covered in a glaze of sweet honey and topped
+with a ripe blueberry.
+> 
+The strains of music echo out from the ballroom.
+> 
+Lisanne chuckles at Linnaeus.
+> 
+Vladmir goes through an arch.
+> 
+Elarin goes through an arch.
+> 
+Valkov goes through an arch.
+> 
+Gwydion says, "Oh good, they made it."
+> 
+Linnaeus says, "it should make things more simple, but they always just end up
+more complicated"
+> 
+Gwydion smiles.
+> 
+Moryan nods to Gwydion.
+> 
+Torrinakus says, "my Loed Elriss bade me t send 'is sinc'rist 'pologies fer not
+bein here"
+> 
+Fafnir goes through an arch.
+> 
+You feel the touch of Rion's mind:
+"hihey"
+> 
+You feel the touch of Young's mind:
+"Howdy Rion"
+> 
+Linnaeus tickles Lianna.
+> 
+You feel the touch of Leah's mind:
+"Hi, Rion"
+> 
+You feel the touch of Wolfbane's mind:
+"heya sir rion"
+> 
+Moryan smiles tightly.
+> 
+Fafnir arrives through an arch.
+> 
+Lisanne smiles at Torrinakus.
+> think Hello Sir Rion
+You project your thoughts.
+> 
+Lianna raises an eyebrow towards Linnaeus.
+> 
+Vladmir arrives through an arch.
+> 
+Moryan nods to Torrinakus.
+> 
+You feel the touch of Rion's mind:
+"Hiya Young, Leah, Count Gilnaerd"
+> 
+Wolfbane says, "excuse me"
+> 
+Wolfbane bows.
+> 
+ ** Donnald has just left the Realms.
+> 
+Vladmir whistles.
+> 
+Valkov arrives through an arch.
+> 
+You feel the touch of Rion's mind:
+"Hi Sir Moordread"
+> 
+Wolfbane's group goes through an arch.
+> 
+Lianna sips her champagne nervously.
+> 
+Sierron arrives through an arch.
+> 
+Moryan's group goes through an arch.
+> 
+Lianna drinks some sparkling gold champagne.
+> 
+Young goes through an arch.
+> 
+Gwydion goes through an arch.
+> 
+Leah smiles at Lianna.
+> 
+Vladmir tickles Leah.
+> 
+Vladmir smiles.
+> 
+Vladmir asks, "Are you ok>?"
+> 
+Leah smiles.
+> 
+Vladmir listens carefully to Leah.
+> 
+Leah nods.
+> 
+Vladmir nods.
+> smi leah
+You smile at Leah.
+> 
+Linnaeus casts his gaze across the area.
+> 
+Vladmir says, "I am glad"
+> 
+Leah ponders.
+> 
+Linnaeus nods to Lianna.
+> 'She was so quiet I didn't see her
+You say, "She was so quiet I didn't see her"
+> 
+Vladmir grins.
+> kiss leah hand
+You kiss Leah on the hand.
+> 
+Sierron goes through an arch.
+> 
+Leah blushes.
+> 
+Linnaeus fires up his pipe.
+> look
+[Palace, banquet hall]
+Gleaming silverware and beautiful china sit on top of a polished table 
+in the center of this large hall. The table is enormous with enough room 
+to seat fifty people comfortably in the intricately carved chairs placed 
+around the table. Above the table, a crystal chandelier sparkles with light
+and loveliness. Streamers of every imaginable color swirl through the air,
+sparkling with glittering glass beads. A grand arch leads into a large
+ballroom, with a gathering of musicians and a large dance floor.
+You see Valkov, Torrinakus, Fafnir, Leah, Lianna, Durek, Vladmir, Lisanne and
+Linnaeus. 
+Obvious exits: south, west.
+> 
+Linnaeus wields a carved rosewood pipe with a scene of satyrs and nymphs
+cavorting in a meadow beneath a sunlit sky.
+> 
+Linnaeus clenches the pipe between his teeth and takes a puff.
+> look on table
+On the table you see a lace tablecloth, a plate of lobster with a side of drawn
+butter and garnished with parsley potatoes, a plate of lobster with a side of
+drawn butter and garnished with parsley potatoes, a plate of lobster with a
+side of drawn butter and garnished with parsley potatoes, a plate of lobster
+with a side of drawn butter and garnished with parsley potatoes, a plate of
+lobster with a side of drawn butter and garnished with parsley potatoes, a
+plate of lobster with a side of drawn butter and garnished with parsley
+potatoes, a plate of lobster with a side of drawn butter and garnished with
+parsley potatoes, a plate of lobster with a side of drawn butter and garnished
+with parsley potatoes, a plate of lobster with a side of drawn butter and
+garnished with parsley potatoes, a plate of lobster with a side of drawn butter
+and garnished with parsley potatoes, a plate of lobster with a side of drawn
+butter and garnished with parsley potatoes, a plate of lobster with a side of
+drawn butter and garnished with parsley potatoes, a plate of lobster with a
+side of drawn butter and garnished with parsley potatoes, a plate of lobster
+with a side of drawn butter and garnished with parsley potatoes, a plate of
+lobster with a side of drawn butter and garnished with parsley potatoes, a
+plate of lobster with a side of drawn butter and garnished with parsley
+potatoes, a plate of lobster with a side of drawn butter and garnished with
+parsley potatoes, a plate of lobster with a side of drawn butter and garnished
+with parsley potatoes, a plate of lobster with a side of drawn butter and
+garnished with parsley potatoes, a gleaming silver plate with the herald of
+Queen Moryan engraved on it's center, some white chocolate birthday cake with
+blue frosting and tiny balls of silver candy decorating it, a gleaming silver
+plate with the herald of Queen Moryan engraved on it's center, some white
+chocolate birthday cake with blue frosting and tiny balls of silver candy
+decorating it, a gleaming silver plate with the herald of Queen Moryan engraved
+on it's center, a pastry covered in a glaze of sweet honey and topped with a
+ripe blueberry, a small pastry covered in a glaze of sweet honey and topped
+with a ripe strawberry, some white chocolate birthday cake with blue frosting
+and tiny balls of silver candy decorating it, a gleaming silver plate with the
+herald of Queen Moryan engraved on it's center, a pastry covered in a glaze of
+sweet honey and topped with a ripe blueberry, a small pastry covered in a glaze
+of sweet honey and topped with a ripe strawberry, a small pastry covered in a
+glaze of sweet honey and topped with a ripe strawberry, some white chocolate
+birthday cake with blue frosting and tiny balls of silver candy decorating it,
+a gleaming silver plate with the herald of Queen Moryan engraved on it's
+center, a pastry covered in a glaze of sweet honey and topped with a ripe
+blueberry, some white chocolate birthday cake with blue frosting and tiny balls
+of silver candy decorating it, a gleaming silver plate with the herald of Queen
+Moryan engraved on it's center, a pastry covered in a glaze of sweet honey and
+topped with a ripe blueberry, a small pastry covered in a glaze of sweet honey
+and topped with a ripe strawberry, some white chocolate birthday cake with blue
+frosting and tiny balls of silver candy decorating it, a gleaming silver plate
+with the herald of Queen Moryan engraved on it's center, a pastry covered in a
+glaze of sweet honey and topped with a ripe blueberry, a small pastry covered
+in a glaze of sweet honey and topped with a ripe strawberry, some white
+chocolate birthday cake with blue frosting and tiny balls of silver candy
+decorating it, a gleaming silver plate with the herald of Queen Moryan engraved
+on it's center, a pastry covered in a glaze of sweet honey and topped with a
+ripe blueberry, a small pastry covered in a glaze of sweet honey and topped
+with a ripe strawberry, some white chocolate birthday cake with blue frosting
+and tiny balls of silver candy decorating it, a gleaming silver plate with the
+herald of Queen Moryan engraved on it's center, a pastry covered in a glaze of
+sweet honey and topped with a ripe blueberry, a small pastry covered in a glaze
+of sweet honey and topped with a ripe strawberry, some white chocolate birthday
+cake with blue frosting and tiny balls of silver candy decorating it, a
+gleaming silver plate with the herald of Queen Moryan engraved on it's center,
+a pastry covered in a glaze of sweet honey and topped with a ripe blueberry, a
+small pastry covered in a glaze of sweet honey and topped with a ripe
+strawberry, some white chocolate birthday cake with blue frosting and tiny
+balls of silver candy decorating it, a gleaming silver plate with the herald of
+Queen Moryan engraved on it's center and a pastry covered in a glaze of sweet
+honey and topped with a ripe blueberry.
+> 
+Vladmir asks, "How could you miss the Fair One!?"
+> 
+Leah says, "I was just a little dumfounded at all the food and drink."
+> 
+Vladmir smiles.
+> 
+Leah gazes at an enormous table.
+> 
+Leah says, "sort of take one aback a bit."
+> 
+Linnaeus nods to Leah.
+> 
+Leah smiles.
+> 
+Linnaeus says, "they've always put on quite a spread here"
+> look arch
+You see nothing extraordinary.
+[Palace Ballroom]
+You see Moryan, Gwydion, Elarin, Arin, Klone, Sierron, Wolfbane, Bethesdan and
+Young. 
+Obvious exits: none.
+> 
+Fafnir goes through an arch.
+> 
+Leah asks, "I wonder how many people it took to make all of the fine dishes?"
+> 
+Vladmir goes through an arch.
+> 
+Leah ponders.
+> 
+Linnaeus says, "always wise to bring a doggy bag"
+> 
+Leah says, "must have been quite a crowd in the kitchen"
+> 
+Lisanne nods to Leah.
+> 
+Linnaeus says, "I always bring home enough to feed myself for a week or two"
+> 
+Valkov says, "Our even to wash all of these dishes"
+> 
+Sierron arrives through an arch.
+> 
+Leah smiles.
+> whisp lia Are you doing ok love? Need anything to eat?
+You whisper to Lianna.
+> 
+Sierron icily states, "ah well, i guess I am going to go."
+> 
+Sierron hugs Leah.
+> 
+Leah says, "sure looks like it can be easily done."
+> 
+Lisanne takes a step closer to Torrinakus.
+> 
+Leah smiles at Sierron.
+> 
+Linnaeus raises an eyebrow towards Sierron.
+> 
+Leah asks, "why so soon?"
+> look lisa
+You see Lisanne Miscayne, a petite highlander lass whose silken silver hair
+flows over her shapely body past her knees. Her mysterious sea-green eyes
+hold a hint of mischief and a spark of determination.
+She is wearing an emerald anklet, a coral brooch, some coral earrings, an onyx
+comb, a small round silver talisman inscribed on one side with the wave of
+Amilor, a well-worn silver locket edged in golden tiger-eye and inset with a
+deep scarlet garnet starburst, a delicate ring, a shimmering silvery white
+sheath dress barely showing beneath the shining waves of her hair, a small
+round silver amulet inscribed with the symbol of a stylized ocean wave and a
+randar talisman.
+A slim braid woven with azure stones and an eagle feather catches your eye.
+She appears to be healthy.
+> 
+Lianna gazes at the food then back at Moordread.
+> 
+Linnaeus nods to Leah.
+> 
+Lianna fidgets nervously.
+> 
+Linnaeus says, "there was one time I got here before anybody else..."
+> smi lia
+You smile at Lianna.
+> 
+Leah smiles at Linnaeus.
+> 
+Torrinakus pulls Lisanne a bit closer to him
+> 
+Fafnir arrives through an arch.
+> 
+Linnaeus says, "I think they were rather confused when all that food was
+missing"
+> 
+Leah giggles.
+> 
+Linnaeus nods to Sierron.
+> 
+Sierron shrugs.
+> 
+Fafnir goes through an arch.
+> 
+Leah removes a pastry covered in a glaze of sweet honey and topped with a ripe
+blueberry from the table.
+> 
+Linnaeus says, "it was funny watcing all the poor children eating chocolate
+covered strawberries for a week"
+> 'Perhaps we could share a piece of cake?
+You ask, "Perhaps we could share a piece of cake?"
+> list lia
+You listen carefully to Lianna.
+> 
+Linnaeus raises an eyebrow towards Sierron.
+> 
+Lianna whispers to you, "I don't belong here."
+> 
+Leah asks, "not the best of things to eat for sustenance is it?"
+> 
+Leah furrows her brow.
+> kiss lian cheek
+You kiss Lianna on the cheek.
+> 
+Leah ponders.
+> 
+Leah says, "but strawberries are good"
+> 
+Leah beams happily.
+> whisp lia Don't be silly, why not?
+You whisper to Lianna.
+> 
+Sierron nods to Linnaeus.
+> get cake
+You remove some white chocolate birthday cake with blue frosting and tiny balls
+of silver candy decorating it from the table.
+> 
+Fafnir arrives through an arch.
+> 
+Linnaeus says, "well, when you are hungry enough, even the meanest fare seems a
+banquet"
+> act holds the cake out for Lianna to take a bite.
+Moordread holds the cake out for Lianna to take a bite.
+> smi lia
+You smile at Lianna.
+> 
+Fafnir says, " come on join the rest of the party"
+> 
+Lianna smiles at you.
+> 
+Klone arrives through an arch.
+> 
+Wolfbane's group arrives through an arch.
+> 
+Linnaeus blows a series of smoke rings.
+> 
+Wolfbane tugs on Lianna.
+> 
+Linnaeus nods.
+> 
+Wolfbane tugs on Lianna.
+> 
+Fafnir takes Leah by the hand.
+> 
+Wolfbane tugs on Lianna.
+> 
+Fafnir's group goes through an arch.
+> 
+Lianna takes a small bite of cake and licks her lips.
+> smi
+You smile.
+> 
+Valkov goes through an arch.
+> kiss lian lips
+
+Linnaeus puts away a carved rosewood pipe with a scene of satyrs and nymphs
+cavorting in a meadow beneath a sunlit sky.
+> You kiss Lianna upon the lips.
+> eat cake
+You take a bite of the cake.
+The combination of cake and frosting literally melts in your mouth -- like a
+slice of heaven.
+> 
+Arin goes through an arch.
+> 
+Lianna kisses you upon the lips.
+> 
+Durek goes south.
+> 
+Linnaeus goes through an arch.
+> 
+Wolfbane says, "put down the fatnin stuff and come dance with me"
+> beam lia
+You beam at Lianna.
+> 
+Wolfbane smiles at Lianna.
+> 
+Sierron goes through an arch.
+> 
+Lianna asks, "Me??"
+> 
+Wolfbane nods.
+> 
+Wolfbane says, "why not"
+> 
+Wolfbane listens carefully to Lianna.
+> 
+Torrinakus asks, "Shall we love?"
+> 
+Lianna says, "I haven't danced in so long..."
+> 
+Torrinakus gazes at Lisanne.
+> beam lia
+You beam at Lianna.
+> 
+Lianna gazes at you.
+> 'You got alot of time to make up
+You say, "You got alot of time to make up"
+> 
+Wolfbane says, "its ok ill lead"
+> 
+Wolfbane nods.
+> 
+Wolfbane grins.
+> 
+Klone takes a bite of some prime rib.
+> act holds cake in one hand and deftly spins Lianna with the other.
+Moordread holds cake in one hand and deftly spins Lianna with the other.
+> 
+Wolfbane says, "aw come on already"
+> 
+ ** Elriss has just disconnected.
+> 
+Wolfbane tugs on Lianna.
+> smi
+You smile.
+> put cake on table
+You put some white chocolate birthday cake with blue frosting and tiny balls of
+silver candy decorating it on the table.
+> 
+Lianna asks, "Should I?"
+> 
+Wolfbane says, "im tired of dancin with klone"
+> 
+Lianna gazes at you.
+> smi
+You smile.
+> 
+Klone nods.
+> 'Sure, give him a dance...I've got a special dance for you later
+
+Wolfbane says, "before ya answer remember im your boss"
+> You say, "Sure, give him a dance...I've got a special dance for you later"
+> smi
+You smile.
+> 
+Wolfbane smiles at you.
+> 
+Klone says, "You keep steping on my tail"
+> 
+Wolfbane comforts Klone.
+> wink lia
+
+Lianna is now following Wolfbane.
+> You wink at Lianna.
+> 
+Wolfbane's group goes through an arch.
+> get past
+You remove a small pastry covered in a glaze of sweet honey and topped with a
+ripe strawberry from the table.
+> 
+Torrinakus's group goes through an arch.
+> 'Mmm....calories!
+You exclaim, "Mmm....calories!"
+> eat past
+You take a bite of the pastry.
+> 
+Klone nods to you.
+> 
+Klone takes a bite of some white chocolate birthday cake with blue frosting and
+tiny balls of silver candy decorating it.
+> 'Maybe it will help in the black tower
+You say, "Maybe it will help in the black tower"
+> 
+Klone says, "Gwood twoo"
+> nod klo
+You nod to Klone.
+> eat past
+You take a bite of the pastry.
+> go arc
+[Palace Ballroom]
+You see Moryan (sitting), Gwydion, Valkov (sitting), Elarin (sitting),
+Torrinakus, Arin (sitting), Fafnir, Leah (sitting), Lianna, Sierron (sitting),
+Wolfbane, Vladmir, Bethesdan, Lisanne, Linnaeus (sitting) and Young. 
+Obvious exits: none.
+> 
+Gwydion sings, "It's beat and bind and cut and thrust.
+                It's eye and arm and breath.
+                It's nerve and brain and steel and blood...
+                The swordsman's dance of death."
+> eat past
+
+Wolfbane says, "i didnt drop ya"
+> You take a bite of the pastry.
+There is one bite left.
+> 
+Wolfbane tickles Lianna.
+> 
+The music stops and Wolfbane bows and leads him partner off the floor.
+> 
+Gwydion again reprises the chords, and pauses briefly.
+> 
+Young returns to normal speed.
+> 
+Gwydion sings, "You think your youthful speed and zeal will be the death of me?
+                My head holds far more deadly tricks than you would live to
+see!"
+> 
+Moryan toys with the medallion at her throat while listening.
+> 
+Lianna pants.
+> 
+Young incants a spell.
+> 
+Gwydion sings, "My wrist and arm are tempered steel, while yours are forming
+clay.
+                I killed my first before your birth! I'll kill YOU, if you
+stay."
+> 
+Young gestures.
+Young moves with blurring speed.
+> 
+Fafnir smiles.
+> 
+Lianna asks, "Did I step on your toes, Wolfie?"
+> 
+Arin shivers.
+> 
+Gwydion sings, "It's beat and bind and cut and thrust.
+                It's eye and arm and breath.
+                It's nerve and brain and steel and blood...
+                The swordsman's dance of death."
+> 
+Wolfbane shakes his head at Lianna.
+> 
+Gwydion flows immediately into the verse, the lonriset speaking now with more
+authority as it follows his voice, accenting the words with a cocky arrogance.
+> 
+Wolfbane says, "fine a silk"
+> 
+Wolfbane smiles at Lianna.
+> 
+Gwydion sings, "It's all for naught. Your sword leaps out. Mine follows in
+reply.
+                It's sad, for I know what you don't... I know that you can
+die."
+> 
+Lianna smiles at Wolfbane.
+> 
+Lianna listens carefully to Gwydion.
+> 
+Gwydion sings, "No time for words, but ponder this, while choking on your
+blood...
+                Old swordsmen get to BE that way...
+                    ...by being VERY good!"
+> 
+Linnaeus cringes.
+> 
+Leah furrows her brow.
+> 
+Gwydion sings, "It's beat and bind and cut and thrust.
+                It's eye and arm and breath.
+                It's nerve and brain and steel and blood...
+                The swordsman's dance of death."
+> act takes a sip of champagne, his sparkling gray eyes reflect the merriment around him.
+Moordread takes a sip of champagne, his sparkling gray eyes reflect the
+merriment around him.
+> 
+Moryan smiles.
+> sip champ
+You drink the champagne from a long fine crystal glass fashioned into the shape
+of a flower just opening it's petals.
+Ah, that was good.
+> 
+Gwydion reprises the final chords, let's them ring, and bows with a grin.
+> 
+Arin looks entranced.
+> 
+Fafnir bows.
+> 
+Arin beams at Gwydion.
+> 
+Sierron listens carefully to Gwydion.
+> 
+Young applauds.
+> 
+Arin exclaims, "That was so beautiful!!"
+> 
+Bethesdan applauds.
+> 
+Lianna applauds.
+> 
+Moryan smiles.
+> 
+Valkov applauds.
+> 
+Young applauds.
+> 
+Moryan applauds.
+> 
+Wolfbane says, "i know it well"
+> 
+Wolfbane winks at Gwydion.
+> 
+Leah applauds.
+> 
+Linnaeus applauds.
+> 
+Torrinakus applauds.
+> 
+Elarin applauds.
+> 
+Moryan says, "Well done Gwydion."
+> 
+Gwydion chuckles.
+> 
+Fafnir applauds.
+> 
+Valkov says, "Well done"
+> 
+Gwydion bows.
+> 
+Elarin says, "its Klone's song"
+> 
+Valkov applauds.
+> 
+Sierron applauds.
+> 
+Sierron applauds.
+> 
+Elarin says, "l"
+> 
+Elarin coughs.
+> 
+Bethesdan tickles Elarin.
+> 
+Sierron leans on Leah.
+> 
+Wolfbane says, "you picked well moryan"
+> 
+Wolfbane gestures at Gwydion.
+> 
+Moryan smiles at Wolfbane.
+> 
+Moryan nods.
+> 
+Gwydion ponders.
+> 
+Elarin gazes at an arch.
+> 
+Klone arrives through an arch.
+> 
+Moryan says, "Aye, I realized that the moment I heard him sing."
+> 
+Gwydion lays down a solid foundation on the bass strings, a thumping,
+repetitive phrase that forces you to move with the beat. After a few
+repetitions, he launches into the song.
+> 
+Elarin says, "he's in there eating alone"
+> 
+Klone nods to Elarin.
+> 
+Gwydion sings, "Ooh, I bet you wonder how I knew
+                All about the secret rendezvous.
+                A weaver is in, yes there is a smith.
+                Elarin got squashed by a Monolith.
+                And it took me by surprise, I must say,
+                To get adverts for lingerie."
+> 
+Fafnir's group goes through an arch.
+> 
+Elarin gazes at Klone.
+> 
+Fafnir arrives through an arch.
+> 
+Leah giggles.
+> 
+Gwydion sings, "Ooh, I heard it on the leaf net.
+                Just one bite and it's a sure bet.
+                Ooh, I heard it on the leaf net.
+                There's a special sale on flannelette.
+                Honey, honey, yeah..."
+> 
+Young smiles.
+> 
+Lianna walks back over to Moordread after kissing Wolfbane on the cheek and
+thanking him.
+> 
+Moryan chuckles.
+> 
+Wolfbane smiles.
+> 
+Wolfbane nods.
+> 
+Lianna kisses Wolfbane on the cheek.
+> 
+Lianna is now following Moordread.
+> 
+Arin giggles.
+> 
+Wolfbane smiles at Lianna.
+> 
+Linnaeus laughs at Gwydion!
+> 
+Gwydion repeats the strutting bass riff, stamping his foot in time with the
+backbeat.
+> beam lian
+You beam at Lianna.
+> 
+Gwydion sings, "Well you know, Brookie loves only one and true.
+                Hyena's made yet another brew.
+                Tobias is back, hidin' out in BC.
+                Somebody wants to train in archery.
+                And you can hear it for yourself,
+                'Cause you can buy it off the shelf."
+> 
+Sierron listens carefully to Gwydion.
+> 
+Lisanne leans on Torrinakus.
+> 
+Gwydion sings, "Ooh, I heard it on the leaf net.
+                Want to buy this magic statuette?
+                Ooh, I heard it on the leaf net.
+                Help! I'm stuck inside an oubliette!
+                Honey, honey, yeah..."
+> 
+Linnaeus laughs.
+> 
+Moryan grins.
+> 
+Leah merrily taps her foot to the beat of the music.
+> 
+Sierron laughs.
+> 
+Leah grins.
+> 
+Gwydion pounds out the thrumming bass notes, slowly getting softer and softer
+until, finally, you can no longer hear them.
+> 
+Gwydion bows with a flourish.
+> 
+Linnaeus sighs.
+> 
+Moryan smiles.
+> 
+Klone applauds.
+> 
+Moryan applauds.
+> 
+Young applauds.
+> 
+Young applauds.
+> 
+Arin applauds.
+> 
+Valkov applauds.
+> 
+Leah applauds.
+> 
+Bethesdan applauds.
+> 
+Sierron applauds.
+> 
+Arin grins.
+> 
+Young whistles.
+> 
+Fafnir applauds.
+> 
+Arin drinks some sparkling gold champagne.
+> 
+Elarin applauds.
+> 
+Klone continues to demolish his lobster.
+> 
+Young whistles.
+> 
+Linnaeus says, "by the gods that was well sung"
+> 
+Elarin chuckles.
+> 
+Valkov says, "Well done, again"
+> 
+Elarin says, "good one!"
+> 
+Gwydion grins.
+> 
+Vladmir laughs.
+> 
+Linnaeus says, "Valier himself would be proud"
+> 
+Vladmir exclaims, "Very well done!"
+> act wraps one arm tightly around Lianna's waist, smiling so happily he seems ready to laugh.
+Moordread wraps one arm tightly around Lianna's waist, smiling so happily he
+seems ready to laugh.
+> nuz lia
+You nuzzle Lianna affectionately.
+> 
+Young says, "Well wrote too"
+> 
+Lianna nuzzles you affectionately.
+> 
+Young shakes hands with Gwydion.
+> toast gwyd
+You raise a toast to Gwydion!
+> 
+Fafnir smiles.
+> 
+Moryan reaches over and smoothes some of her daughter's stray hairs, smiling
+tenderly at her.
+> 
+Elarin says, "a Monolith"
+> 
+Elarin shudders.
+> 
+Gwydion says, "Now if I may, I'd like to turn the stage over to the only person
+who responded to the advert."
+> 
+Young returns to normal speed.
+> 
+Gwydion chuckles.
+> 
+Fafnir shivers.
+> 
+Young incants a spell.
+> 
+Young gestures.
+Young moves with blurring speed.
+> 
+Gwydion smiles at Leah.
+> 
+Leah blinks.
+> 
+Leah asks, "oh me?"
+> 
+Leah blushes.
+> 
+Gwydion grins.
+> 
+Leah struggles to her feet.
+> 
+Moryan smiles at Leah.
+> 
+Elarin says, "woo hoo! go Mrs priest!"
+> 
+Vladmir applauds.
+> 
+Vladmir exclaims, "You can do it Leah!"
+> 
+Leah moves her chair in front of the group.
+> 
+Vladmir sits down.
+> 
+Vladmir stands up.
+> 
+Vladmir pulls up a chair and takes a load off.
+> 
+Sierron listens to his surroundings closely.
+> 
+Leah sits on a chair.
+> 
+Lianna's eyes return to normal.
+> 
+Fafnir listens carefully to Leah.
+> 
+Leah says, "you'll have to forgive me...this is the first time and I'm a bit
+nervous."
+> 
+Moryan smiles.
+> 
+Moryan says, "Take your time."
+> 
+Sierron smiles at Leah.
+> 
+Leah says, "thank you"
+> 
+Klone continues to demolish his lobster.
+> 
+Wolfbane says, "i am not gonna comment"
+> 
+Vladmir giggles.
+> 
+Gwydion whispers to Leah, "It's a good crowd, you'll do just fine."
+> 
+Wolfbane grins.
+> 
+Klone smiles at Wolfbane.
+> 
+Elarin nods to Vladmir.
+> 
+Leah clears her throat.
+> 
+Elarin chuckles.
+> 
+Wolfbane listens carefully to Leah.
+> 
+Leah says, "I would like to tell you a story that happened to me when I had no
+more than eleven or twelve summers behind me."
+> 
+Linnaeus rubs his hand along the staff.
+> 
+Leah smiles softly and neatly folds her hands in her lap.
+> 
+Arin grins.
+> 
+Sierron listens carefully to Leah.
+> 
+Elarin says, "got married too?"
+> 
+Elarin chuckles.
+> 
+Leah winks at Arin.
+> 
+Leah says, "Eight summers had passed since the day of awakening when mama found
+me and brought me to live with them on the farm."
+> 
+Klone chuckles.
+> 
+Leah says, "Eight summers of memories to finally call my own and learn of the
+hillsides and forests that lay claim to the first three summers of my life,
+lost and gone."
+> 
+Leah says, "There was one such woodland near our home, that papa called the
+Murmuring Woods."
+> 
+Leah says, "It was named for its uncanny quietness and the way the wind
+whispered through the trees."
+> 
+Leah says, "A weary traveler passing through might mistake the sound of the
+wind for voices."
+> 
+Moryan listens carefully to Leah.
+> 
+Fafnir listens carefully to Leah.
+> 
+Leah says, "Many were the nights that frightened strangers sought refuge in our
+home with tales of being chased by unknown phantoms whispering their name."
+> 
+Leah smiles with ease. Her voice is clear and her eyes bright.
+> 
+Leah says, "Often, when our chores were finished and owl-light crept over the
+trees, mama would walk with me in the wood teaching me how to find the small
+treasures the forest kept secret in her fold."
+> 
+Torrinakus steps behind Lisanne and wraps his arms around her
+> 
+The glistening blue glow surrounding Gwydion fades.
+> 
+Lisanne leans on Torrinakus.
+> 
+Arin blinks at Elarin.
+> 
+The glowing outline of armor fades from around Sierron.
+> 
+Leah says, "On the eve of the eighth anniversay of the awakening, Mama gave me
+the precious gift of being able to walk alone in the forest come eventide."
+> 
+Leah looks upward with her gaze for a moment and says, 'As the stars' first
+flickers touched the sky, I hurried out the door for my first walk alone in the
+moonlight under the canopy of the Murmuring woods.
+> 
+Elarin chuckles at Arin.
+> 
+Elarin nods to Arin.
+> 
+Lisanne slips both hands into Torrinakus', resting her head on his shoulder.
+> 
+Arin frowns slightly at Elarin, and then listens to the rest of the story.
+> 
+Leah says, "As I walked, all the marvels of the forest came alive to my senses
+as if seeing it for the first time."
+> 
+Vladmir thumps his tail against the ground.
+> 
+Leah says, "With the twinkling starlight as my guide I seached among the leaves
+and branches when I thought I heard a the soft coo of a dove whispering in my
+ear."
+> 
+Leah listens to her surroundings closely.
+> 
+Fafnir listens carefully to Leah.
+> 
+Leah says, "I listened for a moment but heard only the rustling of the wind in
+the trees"
+> 
+Leah says, "Thinking it had been my imagination, which mama always said took me
+to places that only the wind could visit,  I continued my search for
+treasures."
+> 
+Wolfbane listens carefully to Leah.
+> 
+Leah smiles with the gentleness of remembrence as she says, 'A flower for mama,
+some strong wood for papa, some flax for Kellah. All the treasures one would
+need to be happy.
+> 
+Sierron listens carefully to Leah.
+> 
+Leah 's eyes sparkle with delight as she speaks.
+> 
+Young returns to normal speed.
+> 
+Leah says, "As I searched  in the twilight, I was suddenly aware of a glimmer
+of light coming from the trees in the distance."
+> 
+Leah says, "I looked up but saw only the twinkling stars and rays of silver
+moonlight reaching through the canopy above my head."
+> 
+Leah says, "It was soft and comforting so I wasn't afraid."
+> 
+Fafnir smiles at Leah.
+> 
+Wolfbane nods.
+> 
+Elarin appears to become weaker.
+> 
+Leah says, "Turning back my attention to the soft bed of leaves upon the
+ground, the whisper touched the tip of my ear again. Only this time I thought I
+heard my name."
+> 
+Leah says, ""
+> 
+Arin listens carefully to Leah.
+> 
+Wolfbane listens carefully to Leah.
+> 
+Fafnir listens carefully to Leah.
+> 
+Bethesdan jots down a few notes in one of his pamphlets, listening ever so
+diligently.
+> 
+Leah says, "I looked up and to my wonder, a small figure stepped out from
+behind a tree into the moonlight."
+> 
+Leah says, "Before me stood a frail, old woman, stooped over so that she
+appeared smaller than me."
+> 
+Elarin spills some champagne on Bethesdan's lap.
+> 
+Wolfbane gazes at Leah.
+> 
+Leah says, "upon her face she wore the lines and marks of one who held great
+age and wisdom."
+> 
+Bethesdan sighs.
+> 
+Leah smiles thoughtfully and briefly brushes the back of her fingers to her
+cheek.
+> 
+Elarin leans on Bethesdan.
+> 
+Leah says, "she smiled at me and her lips curled upward which made the lines
+around her eyes seem like starbursts."
+> 
+Bethesdan pokes Elarin.
+> 
+Moryan smiles at Leah.
+> 
+Leah smiles.
+> 
+Fafnir listens carefully to Leah.
+> 
+Sierron listens carefully to Leah.
+> 
+Leah says, "Then I noticed her ears came to a soft point."
+> 
+Vladmir smiles at Leah.
+> 
+Leah says, "In awe of her, I quite forgot the manners mama taught me and
+reached out touching her ear, hardly able to speak a sound."
+> 
+Leah rubs the point of her ear.
+> 
+Sierron listens carefully to Leah.
+> 
+Bethesdan listens carefully to Leah.
+> 
+Leah says, "it was the first time I could remember ever having seen someone
+with ears like mine."
+> 
+Leah smiles with a sparkle in her eye as she brings her hand back to her lap.
+> 
+Lisanne tilts her head up to whisper something to Torrinakus.
+> 
+Leah says, "She spoke and I could not take my sight from her warm grey eyes"
+> whisp lian I love you dear
+
+Bethesdan continues to jot down a few notes here and there.
+> You whisper to Lianna.
+> 
+Arin slips her hand into her mother's, smiling up at her.
+> 
+Vladmir cranes his neck to get a better view
+> 
+Leah says, "She motioned for me to come closer."
+> 
+Lianna puts both her arms around Moordread's waist, resting her burned cheek
+against his chest.
+> 
+Leah says, "dutifully, almost as if by instinct, I moved toward her."
+> 
+Fafnir smiles at Leah.
+> 
+Lianna hugs you.
+> 
+Lianna whispers to you, "I love you more."
+> 
+Torrinakus lowers his lips to Lisannes ear to whisper to her
+> 
+Leah says, "As I did, she sat down upon the soft leaves in front of the tree.
+Her bones creaked and a small huff of breath came from her mouth as she lowered
+herself to the ground."
+> 
+Klone licks his fingers.
+> 
+Leah says, "She placed a soft, cool hand to my cheek as I too sat before her,
+my gaze firmly fixed upon her eyes that seemed to shine like the moon."
+> 
+Vladmir clenches the pipe between his teeth and takes a puff.
+> 
+Bethesdan kneels.
+> 
+Leah says, "She gestured to a small leather pouch hung on a leather cord around
+her neck. From it she removed a soft white petal which she held before me in
+her hands."
+> 
+Fafnir listens carefully to Leah.
+> 
+Sierron appears to become weaker.
+> 
+Leah cups her hands in front of her and gazes into them as if looking at
+something of great beauty. When she looks back up her eyes seem alit with
+wonder.
+> act smiles down at Lianna warmly and rests a hand on her slender shoulder.
+Moordread smiles down at Lianna warmly and rests a hand on her slender
+shoulder.
+> 
+Leah says, "the petal seemed to reflect the moonlight and glowed strangely in
+her hand."
+> 
+Leah says, "The old woman looked right into my eyes and began to speak, telling
+a tale I have not forgotten to this day."
+> 
+Melee arrives through an arch.
+> 
+Melee bows.
+> 
+Melee sits down.
+> 
+Leah smiles gently, shifting her position lightly and smoothing her skirt. Her
+words flow true and sure.
+> 
+Arin looks enthralled.
+> 
+Leah says, "Once, long ago, before the time of darkness, there existed a great
+Aelven kingdom."
+> 
+Klone takes a bite of some prime rib.
+> 
+Leah says, "In one of the small villages, there lived a young aelven girl whose
+face was so homely that few could look upon her without turning their heads in
+pity at the sight.  Her name was Ustana."
+> 
+Leah says, "But as most things that are touched infirmity, she was also blessed
+with a unique and wonderful gift."
+> 
+Leah says, "She had the voice of a nightingale and with each new song she sang,
+flowers and blossoms of every kind and variety fell from her lips like dew from
+a leave."
+> 
+Lianna appears to become weaker.
+> 
+Arin sighs.
+> 
+Leah says, "She was able to sing into existance blossoms that would heal, both
+body and spirit."
+> 
+Sierron listens carefully to Leah.
+> 
+Melee returns to normal speed.
+> 
+Lisanne smiles.
+> 
+Leah says, "her days were spent alone, for none could bear to see her in the
+daylight. She would walk the countryside dotting the landscape with blossoms of
+heavenly scent and beauty."
+> 
+Bethesdan turns to his notepad and jots down a phrase.
+> 
+Leah says, "but at night, people from all over came to her with requests for
+blossoms of healing, or unique flowers to give to those dear to thier hearts."
+> 
+Elarin stands up.
+> 
+Leah says, "She could refuse no one for her heart was as beautiful as her song,
+and soon her reputation touched the ears of kingdoms far and away."
+> 
+Elarin sits down.
+> 
+The glowing outline of armor fades from around Torrinakus.
+> 
+Leah says, "One dark night, Ustana recieved a message from the kind and
+faithful King that she should come immediately on a matter of grave concern."
+> 
+Bethesdan returns to Leah's story.
+> 
+Bethesdan listens carefully to Leah.
+> 
+Sierron hugs Melee.
+> 
+Melee hugs Sierron.
+> 
+Vladmir listens carefully to Leah.
+> 
+Leah says, "Ustana donned a veil and traveled to see the King alone the next
+day."
+> 
+Fafnir listens carefully to Leah.
+> 
+Leah says, "She arrived to see great sorrow and tribulation amongst the
+servants and noblemen."
+> 
+Leah says, "Ustana, in her hurry to see the king let the veil fall from her
+face. She moved quickly to meet the King in his chambers."
+> 
+Leah 's voice lowers gently and her expression grows dim.
+> 
+Leah says, "Ustana', the King spoke wearily, 'I seek your help to help save my
+small daughter who became lost in the great dark woods days ago while on a
+hunting trip'"
+> 
+Wolfbane listens carefully to Leah.
+> 
+Leah says, "The King was beset with emotion as he continued, 'I have seen her
+in my dreams, calling out to me in the dark and I can bear it no longer. I beg
+of you to help."
+> 
+Leah says, "He said, 'I have been visited by a creature of the Fay who spoke of
+a flower that when placed in darkness would reflect the moonlight and light a
+path of saftey for those who are lost."
+> 
+Melee ponders.
+> 
+Leah 's voice softens again.
+> 
+Leah says, "The Kings pleading eyes lifted to meet hers but he was overcome
+with her ugliness and quickly, in shame, looked away."
+> 
+Bethesdan is now transfixed into Leah's storytelling.
+> 
+Fafnir listens carefully to Leah.
+> 
+Valkov listens carefully to Leah.
+> 
+Leah says, "Ustana could not bear to see his pain and covered her face. She
+somberly agreed to help in any way she could."
+> 
+Leah says, "The King, two of his advisors and Ustana left as soon as the horses
+were saddled. The entire trip Ustana rode without uttering a sound and when
+they arrived she began to sing almost before her feet touched the ground as she
+dismounted."
+> 
+Wolfbane listens carefully to Leah.
+> 
+Leah says, "It was as if she were possessed by some strange mission."
+> 
+Leah starts to sing, her voice pleasant and soft.
+> 
+Sierron listens carefully to Leah.
+> 
+Fafnir smiles at Leah.
+> 
+Leah sings, "Mornings glory, darkness' bane,
+             forever will your beauty reign,
+             Petal silk of softest hue,
+             Seeks the spark of nighttime's dew."
+> 
+Torrinakus sits down and pulls Lisanne down onto his lap
+> 
+Torrinakus sits down.
+> 
+Leah says, "The advisors and the King were awed by the soft tones of her voice.
+Tension and expectation filled the air as the songs magick surrounded her and
+crackled brightly."
+> 
+Wolfbane listens carefully to Leah.
+> 
+Arin leans forward, intent on every word.
+> 
+ ** Durek has just disconnected.
+> 
+Leah 's expression grows more somber and the quality of her voice becomes laced
+with a sense of purpose.
+> 
+Sierron listens carefully to Leah.
+> 
+Leah sings, "Blossoms white of Mother's toil,
+             plant your roots in richest soil,
+             draw from heaven light  of life,
+             and lead the lost from wretched strife."
+> 
+Torrinakus tugs on Lisanne.
+> 
+Leah says, "The air around Ustana began to shimmer magickally. Her face
+strained with the quality of the song. Her heart pounded in her chest. Those
+around her were awestruck and even chanced a look upon her face."
+> 
+Lisanne sits down.
+> 
+Leah sings, "Gentle flower of the night,
+             glean from darkness precious light,
+             harness moonlight from the skies,
+             and show the path to paradise."
+> 
+Leah lets the last of the notes fade away into the air. Sorrow seems to spill
+from the light in her eyes.
+> 
+Lisanne slides back t oo sit against'  Torrinakus' shoulder.
+> 
+Leah says, "With the last verse the air suddenly brightened. Sharp moonbeams
+swirled wildly about her and Ustana dropped to the ground, her life spent from
+the strain of the song.  All was quiet."
+> 
+Tears roll down Bethesdan's cheeks.
+> 
+Leah closes her eyes and sighs, pausing momentarily as if to collect herself
+then opens them again to continue.
+> 
+Moryan sighs.
+> 
+Moryan touches Arin.
+> 
+Melee drawls, "awww"
+> 
+Arin blinks.
+> 
+Arin blinks.
+> 
+Wolfbane sighs.
+> 
+Sierron listens carefully to Leah.
+> 
+Fafnir listens carefully to Leah.
+> 
+Vladmir ponders.
+> 
+Lisanne sighs.
+> 
+Vladmir nods to Leah.
+> 
+Leah says, "In desperation the king searched for some sign of a blossom but
+found none. Overcome and bereaved, he knelt before the dead girl and lowered
+his head."
+> 
+Klone Stops eating to listen.
+> 
+Leah says, "As he did he noticed clutched in her hand, one shimmering white
+seed. He gently took it from her hand."
+> 
+Wolfbane listens carefully to Leah.
+> 
+Leah says, "Under the nearest tree he planted the seed and immediately from the
+ground, a vine grew twining the the trunk of the tree."
+> 
+Leah says, "Soft white flowers grew quickly from each wispy tendril of vine and
+as the moons light touched the flowers the entire forest was alit with soft
+white light."
+> 
+Leah says, "To the Kings joy, a small figure emerged from the woods who was
+none other than the kings daughter."
+> 
+Leah says, "He ran to her and embraced her with all of the love he had to give.
+She wept tears of relief and joy upon seeing her father and he swept her up in
+his arms."
+> 
+Valkov applauds.
+> 
+Melee grins.
+> 
+Valkov says, "ohh sorry"
+> 
+Vladmir smiles broadly
+> 
+Leah says, "As he held her close the King asked, 'how did you find your way, my
+precious one."
+> 
+Lisanne smiles.
+> 
+Leah smiles and her voice becomes most animated and light. Her face softens as
+the tension melts away.
+> 
+Leah says, "Oh father!', she lit, 'what I have seen! I wandered for days in the
+dark when all of a sudden I saw a beacon of light shining in the distance."
+> 
+Leah says, "The child went on, 'I ran to it hoping it was you and saw instead a
+shimmering figure standing before me."
+> 
+Bethesdan smiles at Leah.
+> 
+Leah says, "The little girl continued, 'I looked closely and saw a young aelven
+girl whose face was a beautiful and soft as the flowers that bloom the
+countryside in spring."
+> 
+Fafnir listens carefully to Leah.
+> 
+Leah says, "The little girl touched her fathers cheek tenderly and said with
+wide eyes, 'the girl was singing a song unlike any other I have ever heard and
+as she sang flowers seemed to come from nowhere."
+> 
+Moryan smiles.
+> 
+Leah says, "Then', the Kings daughter continued, 'she looked right at me and
+pointed to a hidden space in the trees.. When I stepped through I saw you.""
+> 
+Sierron smiles.
+> 
+Leah says, "The King gazed upon the cold, still body of the young aelven girl.
+Compassion and sorrow filled his heart as he realized her sacrifice. He wept
+for her and held his daughter close."
+> 
+Valkov beams happily.
+> 
+Wolfbane wipes a tear from his cheek.
+> 
+Leah says, "The King looked up in the direction of where he planted the seed
+but the flower was gone and the light which filled the forest was now dim."
+> 
+Valkov cries.
+> 
+Valkov beams happily.
+> 
+Elarin comforts Wolfbane.
+> 
+Leah says, "He then stood up strong and tall, his daughter by his side and
+proclaimed that Ustana be given a place in the stars that would be  named The
+Blossom of the Night."
+> 
+Elarin nuzzles Wolfbane affectionately.
+> 
+Moryan smiles.
+> 
+ ** Graul has just disconnected.
+> 
+Moryan kisses Arin on the top of the head.
+> 
+Leah says, "Stories came to reach the kings ears of travelers lost in woods
+near and far being led to safety by a shimmering young aelven woman bearing
+flowers, whose song never left their hearts."
+> 
+Leah says, "with each new story heard over the years, he would look to the
+heavens and whisper a word of thanks to Ustana."
+> 
+Lisanne leans on Torrinakus.
+> 
+Leah smiles and pauses reflectively. She lowers her eyes for a moment then
+looks back up.
+> 
+Lisanne smiles.
+> 
+Sierron smiles at Leah.
+> 
+Fafnir smiles at Leah.
+> 
+Leah says, "The old woman finished her story and did something that too this
+day I don't know if it was a real or a dream."
+> 
+Torrinakus smiles at Lisanne.
+> 
+Leah says, "She took my hand in hers and pressed the soft petal into the palm
+of my hand. She spoke an unfamilar tongue and the petal shimmered for a moment
+then sunk into my skin."
+> 
+Wolfbane listens carefully to Leah.
+> 
+Leah turns the palm of her hand upward gazing at it for a moment.
+> 
+Moryan arches her eyebrow.
+> 
+Melee drawls, "hmmm"
+> 
+Leah says, "When I looked up the woman had disappeared into the night and the
+forest was quiet and still."
+> 
+Leah says, "I listened for a moment trying to hear a sound that would tell me I
+was not in a dream."
+> 
+Leah smiles quietly, letting her gaze drift as she says, 'and then I thought
+heard the whisper of my name upon the wind, through the trees of the Murmuring
+Forest.'
+> 
+Leah 's voice trails off as she finishes and there is a gentle stillness in the
+air that permeates your senses. She lifts her eyes and smiles.
+> 
+Leah smiles.
+> 
+Moryan smiles at Leah.
+> 
+Fafnir smiles at Leah.
+> 
+Sierron smiles at Leah.
+> 
+Bethesdan finishes up his last note and puts away his parchment.
+> 
+Vladmir grins.
+> 
+Bethesdan smiles at Leah.
+> 
+Leah blushes.
+> 
+Gwydion says, "wow."
+> 
+Sierron applauds.
+> 
+Fafnir applauds.
+> 
+Wolfbane nods to Gwydion.
+> 
+Valkov applauds.
+> 
+Leah struggles to her feet.
+> 
+Melee applauds.
+> 
+Gwydion applauds.
+> 
+Young smiles at Leah.
+> 
+Arin says, "Wow, that was so pretty."
+> 
+Lisanne applauds.
+> 
+Young applauds.
+> 
+Vladmir stands up.
+> 
+Gwydion applauds.
+> 
+Young applauds.
+> 
+Moryan applauds.
+> 
+Young applauds.
+> 
+Vladmir applauds.
+> 
+Gwydion exclaims, "Bravo!"
+> 
+Elarin applauds.
+> 
+Bethesdan applauds.
+> 
+Wolfbane says, "my sentiments exactly"
+> 
+Leah moves her chair back to where it was before.
+> 
+Melee struggles to his feet.
+> 
+Melee applauds.
+> 
+Sierron icily states, "very nice Leah."
+> 
+Leah sits on a chair.
+> 
+Vladmir pulls up a chair and takes a load off.
+> 
+Sierron smiles at Melee.
+> 
+The rest of the party goers stand and give Leah a hearty round of applause.
+> 
+Bethesdan stands up.
+> 
+Elarin smiles at Leah.
+> 
+Fafnir says, " that was a wonderful story"
+> 
+Leah blushes.
+> 
+Torrinakus applauds.
+> 
+Young says, "Most excellent tale Leah"
+> 
+Arin says, "i've never heard something so pretty."
+> 
+Wolfbane asks, "bet your glad she didnt tell that story in the competition
+huh?"
+> 
+Young smiles at Leah.
+> 
+Valkov exclaims, "That was the most beautiful story that thy word have ever
+pressed upon me!"
+> 
+Wolfbane leans on Gwydion.
+> 
+Sierron icily states, "havn't seen you in a while bro, how are you?"
+> 
+Sierron listens carefully to Melee.
+> 
+Moryan chuckles.
+> 
+Gwydion chuckles.
+> 
+Wolfbane says, "very well told leah"
+> 
+Melee drawls, "been out hunting and foragin"
+> 
+Sierron nods to Leah.
+> 
+Sierron nods to Melee.
+> 
+Wolfbane smiles at Leah.
+> 
+Moryan drinks some sparkling gold champagne.
+> 
+Vladmir drinks the dark coffee, causing him to instantly perk up as the
+powerful liquid sends jolts of adrenalin coursing through his system.
+> 
+Vladmir drains the last of the coffee from the container.
+> sip champ
+You drink the champagne from a long fine crystal glass fashioned into the shape
+of a flower just opening it's petals.
+Ah, that was good.
+> 
+Sierron nods to Melee.
+> 
+The musicians take up the music again.
+> 
+Vladmir exclaims, "this Coff-ee is good stuff!"
+> 
+Vladmir beams happily.
+> 
+Valkov struggles to his feet.
+> 
+Wolfbane smiles at Vladmir.
+> 
+Valkov goes through an arch.
+> 
+Vladmir flicks his tongue in and out several times.
+> 
+Sierron chuckles.
+> 
+Bethesdan listens to the playing of the music.
+> 
+Arin takes a bite of a pastry covered in a glaze of sweet honey and topped with
+a ripe blueberry.
+> look
+[Palace Ballroom]
+This is a large rectangular chamber, the entire western half is occupied by
+a large, polished wood dance floor. People move about, drinking and gossiping
+about current events. Liveried servants, wearing the blue and silver of the 
+D'vena's carry trays of food and drink. Lavish decorations, full of stunning
+beauty, yet carefully tasteful decorate every bit of the massive hall.
+An arch leads to the banquet hall. White and glass doors lead out to the
+terrace.
+You see Moryan (sitting), Gwydion, Elarin (sitting), Torrinakus (sitting), Arin
+(sitting), Fafnir, Leah (sitting), Klone, Lianna, Sierron (sitting), Wolfbane,
+Melee, Vladmir (sitting), Bethesdan, Lisanne (sitting), Linnaeus (sitting) and
+Young. 
+Obvious exits: none.
+> 
+Arin casts her gaze across the area.
+> smi
+You smile.
+> 
+Bethesdan humms softly to himself.
+> 
+Fafnir smiles at Arin.
+> 
+Moryan nods to Wolfbane.
+> 
+Valkov arrives through an arch.
+> 
+Leah asks, "oh, I wish to give you something if it is okay, Princess Arin?"
+> 
+Leah struggles to her feet.
+> 
+Valkov sits down.
+> 
+Arin arches her eyebrow.
+> 
+Leah smiles.
+> 
+Arin grins.
+> 
+Gwydion idly plays along with the band.
+> 
+Leah gives a sack to Arin.
+> 
+Arin gazes at a sack.
+> 
+Arin opens a sack.
+> 
+Arin says, "oooh"
+> look arin
+You see a very young woman, with large green eyes, and layers of curling blonde
+hair stroking the valley of her back. Her figure is tiny, and her features
+perfectly. Tiny freckles trace the curve of her cheeks.
+She is wearing a delicate icy white gown with a soft blue-green lace bodice and
+touches of icy gold in the sleeves, a slender white gold circlet carved in the
+shape of lilies lain end to end, some delicate icy white slippers with straps
+twining up her ankles and a tiny deep blue ring in the shape of a small,
+sleeping leopard.
+She appears to be healthy.
+> 
+Arin beams at Leah.
+> 
+Arin stands up.
+> 
+Arin hugs Leah.
+> 
+Arin exclaims, "They are so pretty!"
+> 
+Leah says, "it's not much but it is from my heart to you."
+> 
+Bethesdan asks, "What is it , princess?"
+> 
+Arin says, "Flowers."
+> 
+Arin touches a dragonslayer bromeliad.
+> 
+Arin touches a pale azurine orchid.
+> 
+Bethesdan beams happily.
+> 
+Melee drawls, "pretty"
+> 
+Wolfbane smiles.
+> 
+Arin touches some nashimi blossoms.
+> 
+Arin touches some vindalar blossoms.
+> look brace
+Turning the bracelet, the sparkles of light off the silver remind you of the
+stars in the heavens. Engraved along the inside of the bracelet are the words ,
+"Together or apart, your laughter echoes in my heart."
+> 
+Valkov says, "There beautiful"
+> 
+Arin touches some yellow blossoms.
+> 
+Sierron sighs.
+> 
+Leah says, "I hope you like them."
+> 
+Gwydion smiles.
+> 
+Arin touches some honey blossoms.
+> 
+Leah smiles at Arin.
+> 
+Sierron leans on Leah.
+> inv
+You are carrying: 
+  A long fine crystal glass fashioned into the shape of a flower just opening
+it's petals (open)
+  A porcelain vial
+  A manango pit
+  An icy randar broadsword
+  An iridescent oiled knife
+  A manango fruit
+  A maufra lichen
+  A faceted jasper
+  A porcelain vial (open)
+  A spider skin
+  A marble flask (open)
+  A manango pit
+  A pearl
+  A finely crafted silver bracelet gleaming with twin green moons of emerald
+and garnet
+  Some fragrant sori
+  A cocooned larva
+  A manango pit
+  A rowik berry
+  A tricana seedling
+  A tricana seedling
+  A tricana seedling
+  A tiny silvery manango berry
+  A tiny silvery manango berry
+  An iron amulet
+  Some chan'chalta
+  Some sheer pink silk panties cut high at the hip and saying, "Knight me!"
+  Some fragrant sori
+  Some fragrant sori
+  A simple key
+  Some mandrake root
+  A glimmering silver talisman of a fist sheathed in a nimbus of fire. (worn)
+  Some eldritch titanium armor (worn)
+  A shiny elkyri shield
+  A long twisted tattoo of a thorny vine wrapped seductively around his thigh
+from knee to hip (worn)
+  A small dark gold key emblazoned with the crest of Count Wolfbane Crag
+  A ruby studded silver earring (worn)
+  An ivory medallion
+  A finely drawn tattoo of a faintly luminescent green moon silhouetting the
+form of a silvery wolf (worn)
+  Some worn black leather boots (worn)
+  Some steel shoulder guards buffed to a high polish
+  Some heavy steel thigh guards buffed to a high polish
+  Your object
+  Some dark brown breeches (worn)
+  A dented and rusty helm pitted and scarred with years of use
+  A torch
+  A finely crafted crimson tabard embroidered with the gleaming silver eagle of
+the Crimson Band (worn)
+  A ruby studded silver ring of the Crimson Band (worn)
+  An embroidered tunic of cloth-of-gold (worn)
+  A broom
+  Some black gauntlets coated with tiny scales of near transparent silver
+  A sterling silver pin in the shape of a flight of dragons (worn)
+  A lens
+  A huge emerald
+  A golden amulet shaped in the image of the T'Kasta symbol (worn)
+  A riyong mushroom
+  A riyong mushroom
+  A tricana seedling
+  A small pastry covered in a glaze of sweet honey and topped with a ripe
+strawberry
+> 
+Vladmir says, "they taste good too"
+> 
+Arin touches a delicate red blossom.
+> 
+Arin touches a red rose.
+> 
+Arin grins.
+> 
+Arin beams at Leah.
+> 
+Wolfbane chuckles at Vladmir.
+> 
+Leah says, "happy birthday"
+> 
+Arin says, "Thanks so much.. they'll remind me of your story."
+> 
+Leah beams at Arin.
+> 
+Arin grins.
+> 
+Moryan smiles at Leah.
+> 
+Moryan says, "Thank you very much."
+> 
+Moryan smiles at Leah.
+> 
+Wolfbane asks, "how can ya tell after eatin that chal whatever stuff?"
+> 
+Leah smiles at Moryan.
+> 
+Young says, "Quite a colorful bouquet"
+> 
+Wolfbane listens carefully to Vladmir.
+> 
+Vladmir grins.
+> 
+Leah sits on a chair.
+> 
+Valkov opens a black sharkhor hide cape that pulses with unearthly power.
+> 
+Valkov puts a glass in the cape.
+> 
+Valkov closes a black sharkhor hide cape that pulses with unearthly power.
+> 
+Several couples move out onto the dance floor.
+> 
+Vladmir says, "you can two or three days later after the burn subsides"
+> 
+Wolfbane laughs.
+> 
+Klone takes a bite of some prime rib.
+> 
+Wolfbane nods to Vladmir.
+> 
+Melee giggles.
+> 
+Vladmir chuckles.
+> 
+Wolfbane says, "at least that long"
+> 
+Elarin taps Fafnir on the shoulder.
+> 
+Wolfbane grins.
+> gaze lian
+You gaze at Lianna.
+> 
+Vladmir says, "true, very true"
+> 
+Melee looks around for ika
+> 'Once across the dance floor dear?
+You ask, "Once across the dance floor dear?"
+> 
+Melee ponders.
+> list lian
+You listen carefully to Lianna.
+> 
+Bethesdan casts his gaze across the area.
+> 
+Klone leans on Melee.
+> 
+Melee grins.
+> 
+Moryan taps her foot, and seems to be enjoying watching the party goers.
+> 
+Wolfbane says, "and if ya wash it down with fafnirs medicine forget tastin for
+a month or so"
+> 
+Lianna looks up into Moordread's eyes.
+> 
+Wolfbane grins.
+> 
+Vladmir asks, "Gwydion, do you plan on writing the words of your song for us to
+read at a later date?"
+> smi lia
+You smile at Lianna.
+> 
+Lianna smiles at you.
+> 
+Klone nods to Wolfbane.
+> 
+Elarin nods to Fafnir.
+> 
+Vladmir nods to Wolfbane.
+> 
+Vladmir says, "without a doubt"
+> 
+Wolfbane nods.
+> 
+Sierron sighs.
+> 
+Sierron leans on Leah.
+> 
+Wolfbane says, "glad i drink water mild and lemonaide"
+> 
+Wolfbane grins.
+> 
+Wolfbane says, "err milk"
+> 
+Leah smiles at Sierron.
+> 
+Sierron chuckles at Wolfbane.
+> 
+Gwydion says, "I hadn't considered it, Vladmir, but I could make a copy I
+suppose."
+> act moves in sweeping dance steps with Lianna as they dance in time with the music.
+Moordread moves in sweeping dance steps with Lianna as they dance in time with
+the music.
+> 
+Fafnir says, "Little Princess the t'kasta  has something you may wish to add to
+ your collection of Flowers"
+> 
+Vladmir nods to Gwydion.
+> 
+Arin raises an eyebrow towards Fafnir.
+> 
+Vladmir raises an eyebrow towards Fafnir.
+> 
+Fafnir gives some shimmering tarokka blossoms to Arin.
+> 
+Arin asks, "oh?"
+> 
+Arin says, "ooh"
+> 
+Leah shakes her head at Elarin.
+> 
+Leah pokes Elarin.
+> 
+Arin grins.
+> 
+Leah beams at Elarin.
+> 
+Arin exclaims, "They are so pretty!"
+> 
+Bethesdan smiles at Fafnir.
+> 
+Arin hugs Fafnir.
+> 
+Elarin leans on Leah.
+> 
+Wolfbane says, "them are good bloosoms"
+> 
+Vladmir says, "and a rarer flower you will not find"
+> 
+Moryan smiles.
+> 
+Wolfbane nods.
+> 
+Fafnir hugs Arin.
+> 
+Arin beams happily.
+> 
+Arin says, "Thank you so much"
+> 
+Elarin bows towards Arin.
+> 
+Elarin smiles.
+> 
+Arin curtsies.
+> 
+Moryan smiles proudly at Arin.
+> 
+Fafnir says, "You Are welcome little one"
+> 
+Sierron opens a glimmering rainbow satin pouch.
+> 
+Fafnir bows towards Arin.
+> 
+Sierron closes a glimmering rainbow satin pouch.
+> 
+Lianna holds Moordread close as they dance, her eyes closing with contentment.
+> 
+Arin beams at Elarin.
+> 
+Sierron opens a bright gold gypsy pouch.
+> 
+Lianna closes her eyes.
+> 
+Sierron closes a bright gold gypsy pouch.
+> 
+Elarin smiles at Arin.
+> 
+Vladmir stands up.
+> 
+Vladmir stretches his arms lazily.
+> 
+Klone goes through an arch.
+> 
+Moryan asks, "Has everyone had plenty to eat?"
+> 
+Vladmir spreads his wings.
+> 
+Vladmir nods to Moryan.
+> 
+Gwydion asks, "Leah, may I have the honour of a dance?"
+> 
+Leah nods to Moryan.
+> 
+Gwydion fidgets nervously.
+> 
+Moryan smiles.
+> 
+Wolfbane says, "now princess if you press them between the pages of a book they
+will keep forever"
+> 
+Leah says, "yes thank you, Queen Moryan."
+> 
+Wolfbane smiles at Arin.
+> 
+Leah smiles at Gwydion.
+> 
+Leah says, "okay"
+> 
+Fafnir says, "now if leah would do me the honor of one dance"
+> 
+Elarin drinks some sparkling gold champagne.
+> 
+Vladmir says, "My Queen, a feast to be sure"
+> 
+Arin smiles at Wolfbane.
+> 
+Vladmir chuckles.
+> 
+Arin nods.
+> 
+Elarin says, "yes your magesty"
+> 
+Valkov says, "A lovely feast you have, and yes thy belly is very quiet"
+> 
+Gwydion smiles.
+> 
+Elarin smiles at Moryan.
+> 
+Arin says, "I have a couple my papa gave me."
+> 
+Moryan smiles.
+> 
+Wolfbane nods to Arin.
+> 
+Leah struggles to her feet.
+> 
+Vladmir folds his wings.
+> 
+As Elarin places a long fine crystal glass fashioned into the shape of a flower
+just opening it's petals into a slime mold, it dissolves away!
+> 
+Elarin's slime belches and bubbles before coming to rest.
+> 
+Gwydion ponders.
+> 
+Moryan smiles at Melee.
+> 
+Klone arrives through an arch.
+> 
+Gwydion says, "It's been a while..."
+> 
+Elarin stands up.
+> 
+Elarin goes through an arch.
+> 
+Vladmir says, "The hour gets late and I must study"
+> act continues to dance with Lianna as the move with fluid grace from one side of the dance floor to the other.
+Moordread continues to dance with Lianna as the move with fluid grace from one
+side of the dance floor to the other.
+> 
+Moryan smiles at Vladmir.
+> 
+Elarin arrives through an arch.
+> 
+Sierron icily states, "the food looks good, i wish i could eat it."
+> 
+Sierron smiles at Moryan.
+> 
+Wolfbane smiles at Vladmir.
+> 
+Wolfbane says, "be well vladmir"
+> 
+Moryan says, "I'm so very glad you came"
+> 
+Klone says, "I'll eat for you"
+> 
+Bethesdan says, "I agree with Sierron."
+> 
+Sierron icily states, "though perhaps soon I will be able to eat normal food."
+> 
+Leah says, "I'm used to dancing in a barn...this is so pretty here"
+> 
+Sierron sighs.
+> 
+Leah casts her gaze across the area.
+> 
+Elarin waves to Vladmir.
+> 
+Vladmir says, "It was an honor"
+> 
+Leah is now following Gwydion.
+> 
+Vladmir bows towards Moryan.
+> 
+Vladmir bows towards Arin.
+> 
+Gwydion smiles.
+> 
+Melee drawls, "through the golden arches to the dishes."
+> 
+Vladmir says, "May the ancestors watch over you both"
+> 
+Melee beams happily.
+> 
+Moryan smiles.
+> 
+Arin curtsies towards Vladmir.
+> 
+Vladmir goes through an arch.
+> 
+Melee goes through an arch.
+> 
+Gwydion's group steps onto the polished dance floor.
+> 
+Klone goes through an arch.
+> 
+ ** Vladmir has just left the Realms.
+> 
+Gwydion twirls him partner gracefully around the floor.
+> 
+Leah beams at Gwydion.
+> 
+Gwydion spins him partner with a flourish, cutting a dashing figure on the
+floor.
+> 
+The brilliant prismatic globe around Young vanishes.
+> 
+Torrinakus kisses Lisanne on the top of the head.
+> 
+The music stops and Gwydion bows and leads him partner off the floor.
+> 
+Moryan smiles.
+> 
+ ** Vladmir has just left the Realms.
+> 
+Wolfbane ponders.
+> 
+A pair of men clad in motley and azure leap through the arch, somersaulting
+across the floor and landing one on the others shoulders.
+> 
+Leah asks, "where did you learn to dance, Gwydion?"
+> 
+Wolfbane says, "i wonder"
+> 
+Young arches his eyebrow.
+> 
+Arin beams happily.
+> 
+Arin applauds.
+> 
+Bethesdan exclaims, "Wow !"
+> 
+Lisanne smiles up at Torrinakus.
+> 
+Wolfbane ponders.
+> 
+Gwydion smiles at Leah.
+> 
+Elarin says, "geez"
+> 
+Bethesdan applauds.
+> 
+Bethesdan applauds.
+> 
+Moryan smiles.
+> 
+Lisanne grins.
+> 
+Leah applauds.
+> 
+Lisanne applauds.
+> 
+Valkov applauds.
+> 
+Torrinakus applauds.
+> 
+Sierron applauds.
+> 
+Valkov says, "Wonderful"
+> 
+Wolfbane gazes at the polished floor.
+> 
+Leah says, "thank you, Gwydion."
+> 
+Leah curtsies towards Gwydion.
+> 
+Elarin chuckles.
+> 
+Leah smiles.
+> 
+Leah stops following Gwydion.
+> 
+Wolfbane nods to Elarin.
+> 
+Gwydion says, "Thank you, milady."
+> 
+Gwydion smiles.
+> act and Lianna finish their dance and return to edge of the dance floor to stand together.
+Moordread and Lianna finish their dance and return to edge of the dance floor
+to stand together.
+> 
+Wolfbane chuckles at Fafnir.
+> 
+Lianna nuzzles you affectionately.
+> 
+The acrobat on top arches his back, turning and bowing, then executes a triple
+flip and lands on his feet.
+> 
+Leah beams happily.
+> 
+Leah applauds.
+> 
+Moryan applauds.
+> 
+Fafnir leans on a fiery randar bo-stick encased in a sheath of gleaming silver
+and engraved with the mark of the T'kasta.
+> 
+Gwydion applauds.
+> 
+Arin grins.
+> 
+Wolfbane applauds.
+> 
+Bethesdan walks over to the acrobatics to get a better look.
+> 
+Elarin leans on Fafnir.
+> 
+Leah says softly to Fafnir,'how do they do that without falling?
+> 
+Sierron grins.
+> 
+Fafnir smiles.
+> 
+Elarin says, "levitation"
+> 
+Elarin nods to Leah.
+> 
+Gwydion chuckles.
+> 
+Wolfbane says, "very carefully Leah"
+> 
+Wolfbane winks at Leah.
+> 
+Leah grins.
+> 
+An acrobat turns and bows to the Queen and Princess, a low sweeping bow. As he
+stands he seems to pluck a golden flower from the air and hands it to the young
+Arin.
+> 
+Arin giggles.
+> 
+Fafnir whisper to leah, with style little one with style
+> 
+Arin beams happily.
+> 
+Gwydion grins.
+> 
+Arin exclaims, "Thank you!"
+> 
+Lisanne giggles.
+> 
+Valkov smiles.
+> 
+Leah beams happily.
+> 
+Sierron chuckles.
+> 
+Bethesdan applauds the acrobatics.
+> 
+Wolfbane says, "i guess from this day forth you should be known as the flower
+princess"
+> 
+Elarin incants a spell.
+> 
+Wolfbane smiles at Arin.
+> 
+Gwydion applauds.
+> 
+Elarin gestures.
+Elarin moves with blurring speed.
+> 
+Arin blushes.
+> 
+The acrobat smiles with a twinkle in his eyes, and leans forward to whisper to
+the Princess.
+> 
+Elarin chuckles.
+> 
+Elarin smiles at Arin.
+> 
+Arin listens to her surroundings closely.
+> 
+Leah beams happily.
+> 
+Seeker's group arrives through an arch.
+> 
+Wolfbane raises an eyebrow towards Seeker.
+> 
+Young is now guarding Moryan.
+> 
+Valkov says, "The flowers are very becomming of a handsome princess"
+> 
+Moryan raises an eyebrow towards a sea panther.
+> 
+Gwydion raises an eyebrow towards a sea panther.
+> 
+Wolfbane is now guarding Arin.
+> 
+Elarin gazes at a sea panther.
+> 
+With a wicked grin, he reaches behind her ear and pulls out... a yellow ball!
+> 
+Linnaeus stands up.
+> 
+Seeker says, "It won't hurt anyone"
+> 
+Young incants a spell.
+> 
+Young gestures.
+Young moves with blurring speed.
+> 
+Wolfbane says, "might you take that thing outta here"
+> 
+Leah says, "hello, Seeker."
+> 
+Lisanne gazes at a sea panther.
+> 
+Wolfbane gestures at a sea panther.
+> 
+Seeker is now guarding a panther.
+> 
+Arin grins.
+> 
+Lisanne growls.
+> 
+Arin blinks at a sea panther.
+> 
+Wolfbane says, "ill go thru you boy"
+> 
+Wolfbane gazes at Seeker.
+> 
+Linnaeus says, "yes, but they make an awful mess without a very large litter
+box"
+> 
+Seeker asks, "Has it attacked anyone Wolf?"
+> 
+Moryan says, "I won't have my daughter's birthday disrupted."
+> 
+Lisanne says, "'ell, it won't. One o' those killed Torri t'other day."
+> 
+Linnaeus shudders.
+> 
+Gwydion says, "Peace, it hasn't attacked anyone."
+> 
+Elarin pokes Wolfbane.
+> 
+Lisanne struggles to her feet.
+> 
+Wolfbane says, "please take it away from this celebration"
+> 
+Leah reaches out at pets the seapanther on it's head.
+> 
+Torrinakus reaches for his sheath, but it is not there
+> 
+Wolfbane says, "it has no place here"
+> 
+The acrobats turn to look.
+> 
+Seeker says, "Fine. I see I am indeed not welcomed in Fayd."
+> 
+Young gazes at a sea panther.
+> 
+Young says, "No, jes yer pet, yer ok"
+> 
+Wolfbane says, "you are it isnt"
+> 
+Seeker's group goes through an arch.
+> 
+The panther softly nuzzles Leah's hand.
+> 
+Leah says, "oh it won't hurt anyone."
+> 
+Leah beams happily.
+> 
+Young smiles.
+> 
+Leah asks, "see?"
+> look
+[Palace Ballroom]
+This is a large rectangular chamber, the entire western half is occupied by
+a large, polished wood dance floor. People move about, drinking and gossiping
+about current events. Liveried servants, wearing the blue and silver of the 
+D'vena's carry trays of food and drink. Lavish decorations, full of stunning
+beauty, yet carefully tasteful decorate every bit of the massive hall.
+An arch leads to the banquet hall. White and glass doors lead out to the
+terrace.
+You see Moryan (sitting), Gwydion, Valkov (sitting), Elarin, Torrinakus
+(sitting), Arin, Fafnir, Leah, Lianna, Sierron (sitting), Wolfbane, Bethesdan,
+Lisanne, Linnaeus and Young. 
+Obvious exits: none.
+> 
+It looks back over its shoulder sadly as Seeker leaves, then pads out after
+him.
+> 
+The crowd whispers to each other.
+> 
+Wolfbane says, "fromthe stories ive heard i dont care what the thing acts like"
+> 
+Leah sighs.
+> 
+Young nods to the acrobats.
+> 
+Gwydion sighs.
+> 
+Lisanne nods to Wolfbane.
+> 
+ ** Elriss has just left the Realms.
+> 
+Bethesdan returns to the acrobats.
+> 
+Sierron frowns.
+> 
+Bethesdan casts his gaze across the area.
+> 
+Gwydion says, "That was ill done, my lord."
+> 
+Torrinakus says, "Bout half dozen o them critters jump'd me in th cem'tary"
+> 
+Young raises an eyebrow towards Torrinakus.
+> 
+Wolfbane says, "i am sorry for the outburst my queen and princess"
+> 
+Elarin says, "what were you doing in the cementary?"
+> 
+Elarin chuckles.
+> 
+Moryan shakes her head at Wolfbane.
+> 
+Moryan says, "You did rightly."
+> 
+Torrinakus says, "Killin undead"
+> 
+Elarin says, "how"
+> 
+Torrinakus glares at Elarin.
+> 
+Elarin says, "they already dead"
+> 
+Elarin pokes Torrinakus.
+> 
+Young giggles.
+> 
+Leah ponders.
+> 
+Moryan says, "please, this is nto the place for that conversation."
+> 
+Torrinakus says, "Choppin up inta ity bity pieces"
+> 
+One acrobat turns to the other with a shrug. He turns to the Queen.
+> 
+Sierron nods to Moryan.
+> 
+Elarin returns to normal speed.
+> 
+Moryan gazes at Torrinakus.
+> 
+Elarin bows towards Moryan.
+> 
+Wolfbane says, "i worry more of what created those things"
+> 
+Sierron icily states, "this is a time to have fun, not talk about this."
+> 
+Arin gulps.
+> 
+Torrinakus says, "Me apologies yer highness"
+> 
+An acrobat says, "Shall we continue, Your Highness?
+> 
+Elarin says, "I appologize your magesty"
+> 
+Lisanne leans on Torrinakus.
+> 
+Moryan nods to the acrobat. "Please do."
+> 
+Wolfbane turns his attention back to the Acrobats
+> 
+Young returns to normal speed.
+> 
+Leah smiles.
+> 
+The acrobat claps his hands, then leaps into the air, spinning twice.
+> 
+Bethesdan smiles.
+> 
+Wolfbane leans on a chair.
+> 
+Torrinakus nuzzles Lisanne affectionately.
+> 
+Fafnir says, "I must be off for the night it has been a lovly party"
+> 
+Suddenly three silver balls are in the air, arcing through the light.
+> 
+Fafnir bows.
+> 
+ ** Otto has just left the Realms.
+> 
+Sierron waves to Fafnir.
+> 
+Bethesdan ducks.
+> 
+ ** Seeker has just left the Realms.
+> 
+Wolfbane hugs Fafnir.
+> 
+Lianna hugs Fafnir.
+> 
+Leah says quietly to Sierron, 'wonder if they do triple spins?'
+> 
+Fafnir hugs Wolfbane.
+> 
+Valkov struggles to his feet.
+> 
+Leah ponders.
+> 
+Young smiles at Fafnir.
+> 
+Fafnir hugs Lianna.
+> 
+Sierron smiles at Leah.
+> bow faf
+
+Elarin says, "goodnight Synachi"
+> You bow towards Fafnir.
+> 
+Sierron icily states, "probably."
+> 
+Sierron's skin appears to become less rigid.
+> 
+Wolfbane says, "be well synachi"
+> 
+Arin watches, her eyes big and round.
+> 
+Fafnir dips Leah.
+> 
+Wolfbane smiles at Fafnir.
+> 
+Leah hugs Fafnir.
+> 
+Leah beams at Fafnir.
+> 
+Leah waves to Fafnir.
+> 
+Fafnir goes through an arch.
+> 
+The second man flips onto his hands, walking forward three steps...
+> 
+Wolfbane asks, "good corridination huh?"
+> 
+Wolfbane smiles at Arin.
+> 
+Leah blinks.
+> 
+Valkov says, "Excuse me your Grace, but I must take thy leave to care for thy
+patients"
+> 
+Arin nods.
+> 
+Arin nods.
+> 
+ ** Lisanne has just disconnected.
+> 
+Lisanne disconnects.
+> 
+Bethesdan steps back a bit.
+> 
+Valkov bows towards Moryan.
+> 
+Leah gazes at her hands.
+> 
+Valkov bows towards Arin.
+> 
+Wolfbane waves to Valkov.
+> 
+Arin smiles.
+> 
+Leah waves to Valkov.
+> 
+Moryan says, "Thank you for attending."
+> 
+Lianna tugs on you.
+> 
+Young smiles at Valkov.
+> 
+Sierron chuckles.
+> 
+Lianna goes through an arch.
+> smi lia
+Moordread smiles lia
+> 
+Sierron leans on Leah.
+> 
+Torrinakus stands up.
+> go arc
+[Palace, banquet hall]
+You see Klone, Lianna and Melee. 
+Obvious exits: s, w.
+> 
+Klone takes a bite of some prime rib.
+> rais lia
+You raise an eyebrow towards Lianna.
+> 
+Lianna says, "Food."
+> 
+Anyone having to leave the ball before normal experience awards, please report
+up so I don't miss you.
+> 
+Klone nods.
+> grin
+You grin.
+> 
+Melee removes a small pastry covered in a glaze of sweet honey and topped with
+a ripe strawberry from the table.
+> 
+Lianna gazes at an enormous table.
+> 'Hungry dear?
+You ask, "Hungry dear?"
+> nuz lia
+You nuzzle Lianna affectionately.
+> 
+Melee drools
+> eat past
+
+ ** Fafnir has just left the Realms.
+> You take a bite of the pastry.
+That was the last of it.
+> 
+Melee giggles.
+> 
+Klone takes a bite of some prime rib.
+> 
+Klone takes a bite of some prime rib.
+> 
+Lianna incants a spell.
+> 
+Klone drinks some sparkling ale.
+> 
+Lianna gestures.
+Magic begins to form around Lianna but then fizzles.
+> 
+Lianna incants a spell.
+> 
+Lianna gestures.
+Lianna radiates with magical strength.
+> 'What is your pleasure love?
+You ask, "What is your pleasure love?"
+> smi lia
+You smile at Lianna.
+> 
+Lianna removes a plate of lobster with a side of drawn butter and garnished
+with parsley potatoes from the table.
+> 
+Melee reaches across three cakes to get at the ribs and falls in one
+> 
+Valkov arrives through an arch.
+> 
+Lianna licks her lips.
+> grin
+You grin.
+> 
+Klone yells, "Anything left to drink?"
+> 
+Lianna continues to demolish her lobster.
+> 
+Melee wipes the frosting out of his hair
+> 
+Klone drinks some sparkling ale.
+> 
+Valkov asks, "Ok, how do I find my way out?"
+> get lobs
+You remove a plate of lobster with a side of drawn butter and garnished with
+parsley potatoes from the table.
+> 
+Klone smiles.
+> eat lobs
+You crack your way through the lobster's tough shell and bite into its
+succulent meat.
+R> look
+[Palace, banquet hall]
+Gleaming silverware and beautiful china sit on top of a polished table 
+in the center of this large hall. The table is enormous with enough room 
+to seat fifty people comfortably in the intricately carved chairs placed 
+around the table. Above the table, a crystal chandelier sparkles with light
+and loveliness. Streamers of every imaginable color swirl through the air,
+sparkling with glittering glass beads. A grand arch leads into a large
+ballroom, with a gathering of musicians and a large dance floor.
+You see Valkov, Klone, Lianna and Melee. 
+Obvious exits: south, west.
+> 
+Valkov goes south.
+> 
+Melee takes a bite of a small pastry covered in a glaze of sweet honey and
+topped with a ripe strawberry.
+> 
+Klone ponders.
+> 
+Melee goes through an arch.
+> 
+Klone leans on you.
+> 
+Lianna continues to demolish her lobster.
+> tick klon
+You tickle Klone.
+> 
+Klone says, "Not sure I can finish this without some help"
+> 'How are you doing Klone?
+You ask, "How are you doing Klone?"
+> 
+Klone points at an enormous table.
+> 
+Lianna asks, "The whole table?"
+> eat lob
+You continue to indulge in your lobster.
+R> 
+Lianna gazes at Klone.
+R> 
+Klone nods.
+> 'Lianna and I will help
+You say, "Lianna and I will help"
+> 
+Lianna drinks some sparkling gold champagne.
+> 
+Lianna grins.
+> 
+Klone makes an absolute mess as he rips into the lobster.
+> eat lobs
+You continue to indulge in your lobster.
+R> 
+Klone continues to demolish his lobster.
+R> 
+Klone continues to demolish his lobster.
+> 
+Klone takes a bite of a small pastry covered in a glaze of sweet honey and
+topped with a ripe strawberry.
+> 
+Lianna says, "I'm sorry love...I'm just not comfortable around royalty."
+> 
+Lianna sighs.
+> grin
+You grin.
+> cud lia
+You cuddle up to Lianna.
+> 
+Lianna says, "I feel so plain."
+> 
+Lianna says, "And ugly."
+> 
+Klone raises an eyebrow towards Lianna.
+> 'It's fine dear, but you don't need to feel that way
+You say, "It's fine dear, but you don't need to feel that way"
+> 
+Klone shakes his head back and forth.
+> kiss lian pass
+You kiss Lianna passionately.
+> 
+Klone takes a bite of a small pastry covered in a glaze of sweet honey and
+topped with a ripe strawberry.
+> 
+Lianna says, "I don't know who these people are."
+> 'You are very wrong, you outshine them all
+You say, "You are very wrong, you outshine them all"
+> 
+Klone continues to demolish his lobster.
+> beam lia
+You beam at Lianna.
+> 
+Klone licks his fingers.
+> 
+Lianna says, "I don't know the queen....and I don't know the princess."
+> 'You didn't know me once either
+You say, "You didn't know me once either"
+> smi lia
+You smile at Lianna.
+> 
+ ** Valkov has just left the Realms.
+> 
+Lianna says, "I miss Zorha."
+> smi
+You smile.
+> 
+Klone nods.
+> 
+Klone makes an absolute mess as he rips into the lobster.
+> 
+Lianna drinks some sparkling gold champagne.
+> 
+Klone continues to demolish his lobster.
+> 
+Klone continues to demolish his lobster.
+> 'She's a good lady, Zorha
+You say, "She's a good lady, Zorha"
+> 
+Lianna says, "I have no idea how this queen became queen...or where she came
+from."
+> whisp lian God, I almost said lay instead of lady
+You whisper to Lianna.
+> 
+Klone says, "Me either"
+> 
+Klone continues to demolish his lobster.
+> 
+Lianna whispers to you, "laugh"
+> 
+Klone licks his fingers.
+> 
+Klone makes an absolute mess as he rips into the lobster.
+> 
+Lianna says, "Zorha and were friends."
+> 
+Klone continues to demolish his lobster.
+> smi
+You smile.
+> 
+Lianna says, "Uhh..Zorha and I were friends."
+> smi lia
+You smile at Lianna.
+> 
+Lianna sighs.
+> eat cake
+You take a bite of the cake.
+The combination of cake and frosting literally melts in your mouth -- like a
+slice of heaven.
+> eat my lob
+You continue to indulge in your lobster.
+R> eat my lob
+[Wait 3 seconds...]
+R> 
+Klone continues to demolish his lobster.
+R> eat my lob
+[Wait 1 seconds...]
+R> eat my lob
+You gobble up the last bit of lobster meat, licking your fingers whan you are
+done.
+R> 
+Lianna asks, "Leah is lovely, isn't she?"
+R> nod lia
+
+Klone continues to demolish his lobster.
+> You nod to Lianna.
+> 'She's a cutie
+You say, "She's a cutie"
+> 'She needs to be a little less shy though
+
+Lianna says, "And smart...and beautiful..and talented..."
+> You say, "She needs to be a little less shy though"
+> 
+Klone licks his fingers.
+> 'She must have taken lessons from you 
+You say, "She must have taken lessons from you"
+> smi lia
+
+Klone makes an absolute mess as he rips into the lobster.
+> You smile at Lianna.
+> 
+Lianna says, "Hardly."
+> 
+Lianna continues to demolish her lobster.
+> grin
+You grin.
+> 
+Klone continues to demolish his lobster.
+> 'She could have, you have all those qualities and more
+You say, "She could have, you have all those qualities and more"
+> 
+Klone continues to demolish his lobster.
+> kiss lia lips
+You kiss Lianna upon the lips.
+> 
+Lianna kisses you upon the lips.
+> 
+Klone says, "Eww. a lobster kiss"
+> 
+Lianna nods to Klone.
+> 
+Klone continues to demolish his lobster.
+> 
+Lianna licks her fingers.
+> 
+Lianna licks her lips.
+> 
+Klone takes a bite of a small pastry covered in a glaze of sweet honey and
+topped with a ripe strawberry.
+> beam lia
+You beam at Lianna.
+> 
+Klone says, "Going to take mine back in there"
+> kiss lian deep
+You kiss Lianna deeply.
+> 
+Klone points at an arch.
+> 
+Klone waves.
+> 'Now THAT was a lobster kiss
+You say, "Now THAT was a lobster kiss"
+> 
+Lianna kisses you deeply.
+> 
+Lianna waves.
+> 
+Klone nods to you.
+> 
+Klone goes through an arch.
+> grin
+You grin.
+> look
+[Palace, banquet hall]
+Gleaming silverware and beautiful china sit on top of a polished table 
+in the center of this large hall. The table is enormous with enough room 
+to seat fifty people comfortably in the intricately carved chairs placed 
+around the table. Above the table, a crystal chandelier sparkles with light
+and loveliness. Streamers of every imaginable color swirl through the air,
+sparkling with glittering glass beads. A grand arch leads into a large
+ballroom, with a gathering of musicians and a large dance floor.
+You see Lianna. 
+Obvious exits: south, west.
+> 
+Lianna shakes her head at you.
+> act takes you in his arms and spins you around happily.
+Moordread takes you in his arms and spins you around happily.
+> turn obj
+turn obj
+You twirl around.
+> You twirl around.
+> 
+Lianna smiles at you.
+> kiss lian pass
+You kiss Lianna passionately.
+> 
+Lianna exclaims, "ACK!"
+> beam lia
+You beam at Lianna.
+> 
+Lianna kisses you passionately.
+> 'You know, I think there is a quiet garden and fountain around here
+You say, "You know, I think there is a quiet garden and fountain around here"
+> smi lia
+You smile at Lianna.
+> look
+[Palace, banquet hall]
+Gleaming silverware and beautiful china sit on top of a polished table 
+in the center of this large hall. The table is enormous with enough room 
+to seat fifty people comfortably in the intricately carved chairs placed 
+around the table. Above the table, a crystal chandelier sparkles with light
+and loveliness. Streamers of every imaginable color swirl through the air,
+sparkling with glittering glass beads. A grand arch leads into a large
+ballroom, with a gathering of musicians and a large dance floor.
+You see Lianna. 
+Obvious exits: south, west.
+> 
+Lianna exclaims, "Geez Moordread! How can you love me? I'm so boring!"
+> 
+Moryan's group arrives through an arch.
+> 
+Moryan's group goes south.
+> 'You radiate love just when I look at you dear
+You say, "You radiate love just when I look at you dear"
+> beam lian
+You beam at Lianna.
+> 
+Bethesdan arrives through an arch.
+> kiss lian lips
+You kiss Lianna upon the lips.
+> 'How can I not?
+You ask, "How can I not?"
+> 
+Lianna kisses you upon the lips.
+> smi lia
+You smile at Lianna.
+> 
+Bethesdan goes south.
+> look
+[Palace, banquet hall]
+Gleaming silverware and beautiful china sit on top of a polished table 
+in the center of this large hall. The table is enormous with enough room 
+to seat fifty people comfortably in the intricately carved chairs placed 
+around the table. Above the table, a crystal chandelier sparkles with light
+and loveliness. Streamers of every imaginable color swirl through the air,
+sparkling with glittering glass beads. A grand arch leads into a large
+ballroom, with a gathering of musicians and a large dance floor.
+You see Lianna. 
+Obvious exits: south, west.
+> s
+[Palace, hallway]
+You see Bethesdan. 
+Obvious exits: n, s, e.
+> 
+Bethesdan goes east.
+> s
+[Palace]
+Obvious exits: n, e, w.
+> n
+[Palace, hallway]
+Obvious exits: n, s, e.
+> n
+[Palace, banquet hall]
+You see Lianna. 
+Obvious exits: s, w.
+> hold lia
+Moordread takes Lianna by the hand.
+> cough
+You cough.
+> s
+Lianna follows you.
+[Palace, hallway]
+You see Lianna. 
+Obvious exits: n, s, e.
+> s
+Lianna follows you.
+[Palace]
+You see Lianna. 
+Obvious exits: n, e, w.
+> e
+Lianna follows you.
+[Palace, entrance]
+You see Lianna. 
+Obvious exits: n, e, w, o.
+> o
+Lianna follows you.
+[Palace, grounds]
+You see Lianna. A gate is here.
+Obvious exits: e, w.
+> e
+Lianna follows you.
+[Palace, fountain]
+You see Lianna. A blue stone fountain is here.
+Obvious exits: w.
+> smi
+You smile.
+> look in fount
+In the fountain you see some water.
+> 
+Lianna sits down on a stone bench.
+> time
+It is Mixus 18, 1046 (Year of the Sword).
+It is late morning.
+> go ben
+You sit down on the bench.
+s> 
+Lianna leans on you.
+s> act holds you in his arms and watches the late morning sun rise.
+Moordread holds you in his arms and watches the late morning sun rise.
+s> gaze lia
+You gaze at Lianna.
+s> 
+Lianna says, "Arin wanted to see Chandra."
+s> weath
+It is summer.
+The air is warm and humid.
+The sky is clear and sunny.
+s> nod
+You nod.
+s> 
+Those attending the Ball that have not gotten EXP please report up your level.
+s> 'It sounded as if she likes her
+You say, "It sounded as if she likes her"
+s> exp
+Level: 61
+Build Points to date: 634
+Unspent Build Points: 2
+Experience Points until next Build Point: 50447
+s> report Level 61
+Your message has been reported to the online GameMaster staff.
+s> 
+You have been awarded 400000 experience points.
+s> whisp lian Trying to get rid of me? *grin*
+You whisper to Lianna.
+s> exp
+
+Lianna nods to you.
+s> Level: 62
+Build Points to date: 641
+Unspent Build Points: 9
+Experience Points until next Build Point: 14847
+s> 
+Lianna whispers to you, "NO! Just feeling guilty because I'm not worthy of
+you."
+s> 
+Those attending the Ball that have not gotten EXP please report up your level.
+s> 
+ ** Elarin has just left the Realms.
+s> 
+ ** Sierron has just left the Realms.
+s> 
+ ** Melee has just left the Realms.
+s> 
+Last call for EXP for the Ball.
+s> whisp lian Yes you are! You make so happy I want you and you alone, to have you as my wife will make very happy
+You whisper to Lianna.
+s> kis lia pass
+You kiss Lianna passionately.
+s> 
+Lianna kisses you passionately.
+s> whisp lian You excite me so much my tongue gets tied and I can't even talk straight
+You whisper to Lianna.
+s> nuz lian
+You nuzzle Lianna affectionately.
+s> 
+Lianna asks, "Did you wake up to come here with me?"
+s> 'Well, I slept 30 minutes then my wife got home
+You say, "Well, I slept 30 minutes then my wife got home"
+s> 'I dozed off again and my dad called
+You say, "I dozed off again and my dad called"
+s> 'So I gave up
+You say, "So I gave up"
+s> 
+Lianna laughs.
+s> 
+Lianna comforts you.
+s> cud lia
+You cuddle up to Lianna.
+s> 
+Lianna cuddles up to you.
+s> 'I didn't want to miss being with you anyway
+You say, "I didn't want to miss being with you anyway"
+s> 
+Lianna says, "Thank you so much."
+s> beam lia
+You beam at Lianna.
+s> 
+ ** Tobias has just disconnected.
+s> 
+Lianna hugs you.
+s> 
+Lianna asks, "Why do I feel like crying?"
+s> 'I hope you at least had some fun, even if you weren't very comfortable
+You say, "I hope you at least had some fun, even if you weren't very
+comfortable"
+s> gaze lia
+You gaze at Lianna.
+s> 'My lobster breath getting in your eyes?
+You ask, "My lobster breath getting in your eyes?"
+s> smi lia
+You smile at Lianna.
+s> 
+Lianna laughs.
+s> 
+Lianna says, "No."
+s> tick lia
+You tickle Lianna.
+s> 
+Lianna says, "Well...maybe.."
+s> 
+Lianna says, "But I have it too."
+s> 
+Lianna grins.
+s> 'It had a bit of garlic in it
+You say, "It had a bit of garlic in it"
+s> beam lia
+You beam at Lianna.
+s> 
+Lianna kisses you deeply.
+s> kiss lia deep
+You kiss Lianna deeply.
+s> 
+Lianna says, "So we'll taste good together."
+s> 
+Lianna winks at you.
+s> 'And it tastes like heaven
+You say, "And it tastes like heaven"
+s> beam lia
+You beam at Lianna.
+s> act rests his hand against your cheek and smiles warmly in your eyes, "You are so lovely"
+Moordread rests his hand against your cheek and smiles warmly in your eyes,
+"You are so lovely"
+s> 
+ ** Bethesdan has just disconnected.
+s> beam lia
+You beam at Lianna.
+s> 
+Lianna gazes at you.
+s> 
+Lianna kisses your ear softly, tickling it with her tongue.
+s> 
+Lianna gives you a little nibble around the ear.
+s> 
+ ** Bethesdan has just left the Realms.
+s> 'I long to be your husband, make you happy and spend my life with yours
+You say, "I long to be your husband, make you happy and spend my life with
+yours"
+s> beam lia
+
+ ** Gwydion has just left the Realms.
+s> You beam at Lianna.
+s> 
+Lianna nods to you.
+s> kiss lian neck
+You kiss Lianna upon the neck.
+s> 
+Lianna says, "I want that so badly...."
+s> act kisses your neck softly.
+Moordread kisses your neck softly.
+s> 
+Lianna touches you.
+s> 
+Lianna asks, "Moordread?"
+s> list lia
+You listen carefully to Lianna.
+s> beam lia
+You beam at Lianna.
+s> 
+ ** Sierron has just disconnected.
+s> 
+Lianna asks, "Do you think we can secretly go marry ourselves?"
+s> grin
+You grin.
+s> hug lia
+You hug Lianna.
+s> 
+Lianna asks, "Just so I can feel like your wife?"
+s> 
+ ** Nigel has just left the Realms.
+s> 
+Lianna appears to become weaker.
+s> 
+Lianna says, "We wouldn't tell anyone....so every can share in our joy later."
+s> 'You don't want to wait for the big ceremony?
+You ask, "You don't want to wait for the big ceremony?"
+s> 
+Lianna says, "everyone."
+s> 
+Lianna says, "No...and I don't want to wait for some stupid mark to go away."
+s> beam lian
+You beam at Lianna.
+s> 
+Lianna says, "But I want the big ceremony too."
+s> smi
+You smile.
+s> 
+ ** Wolfbane has just disconnected.
+s> 
+Lianna says, "I want to be your wife, even if it's just in our eyes for now."
+s> 'I'm sure we could, there are many small villages and towns where we could find a place to be married
+You say, "I'm sure we could, there are many small villages and towns where we
+could find a place to be married"
+s> 
+Lianna says, "There's chapel in Kragenholm."
+s> smi
+You smile.
+s> 
+Lianna says, "A chapel."
+s> nod
+You nod.
+s> 
+Lianna says, "We could sneak off and say our vows to each other. It wouldn't be
+the ancestors..."
+s> 'That would work, i'm afraid I haven't remembered how to climb
+You say, "That would work, i'm afraid I haven't remembered how to climb"
+s> 
+Lianna says, "I can climb."
+s> smi lia
+You smile at Lianna.
+s> 
+Lianna says, "Or maybe we can find someplace special..."
+s> 
+Lianna says, "Not of a god or goddess."
+s> 
+Lianna gazes at you.
+s> 'Are there other T'kasta temples?
+You ask, "Are there other T'kasta temples?"
+s> 
+Lianna asks, "Is there a place of the pack...where we can be married with
+nature?"
+s> rais
+You raise your eyebrow.
+s> pond
+You ponder for a moment.
+s> 'The dens in Grymwood, some old abandoned dens in the shartans
+You say, "The dens in Grymwood, some old abandoned dens in the shartans"
+s> 'Nothing quite like a chapel
+You say, "Nothing quite like a chapel"
+s> 'Most wolflings just use the one in Shemris
+You say, "Most wolflings just use the one in Shemris"
+s> 
+Lianna says, "Someplace pretty..."
+s> pond
+You ponder for a moment.
+s> 
+ ** Gwydion has just left the Realms.
+s> 'Like Mitchells grove?
+You ask, "Like Mitchells grove?"
+s> 
+Lianna smiles at you.
+s> 
+Lianna says, "Maybe like Mitchell's Grove..."
+s> smi
+You smile.
+s> 
+Lianna says, "I saw a place today..."
+s> list lia
+You listen carefully to Lianna.
+s> 
+Lianna asks, "Thinvar's grove?"
+s> 
+Lianna ponders.
+s> pond
+You ponder for a moment.
+s> 'Elriss' lands?
+You ask, "Elriss' lands?"
+s> 
+Lianna says, "It was on a lake."
+s> 
+Lianna says, "At a lake..."
+s> 
+Lianna touches you.
+s> 'Shall we go there?
+You ask, "Shall we go there?"
+s> 
+Lianna says, "We can get married on Dolkun's island."
+s> nod
+You nod.
+s> 'That would be nice, I like it there
+You say, "That would be nice, I like it there"
+s> 'Those hot springs.....
+
+Lianna says, "We can say words to each other there...overlooking the
+statue...the ocean..."
+s> You say, "Those hot springs....."
+s> shiv
+You shiver.
+s> 
+Lianna smiles at you.
+s> 
+Lianna says, "I want to be your wife."
+s> beam lia
+You beam at Lianna.
+s> 'And I want you to be my wife!
+You exclaim, "And I want you to be my wife!"
+s> kiss lia lips
+You kiss Lianna upon the lips.
+s> 
+Lianna says, "I want your seed planted in my belly and have your children."
+s> 
+Lianna smiles at you.
+s> 'We've been doing that
+You say, "We've been doing that"
+s> cud lia
+You cuddle up to Lianna.
+s> 
+Lianna nods to you.
+s> touch lia
+You touch Lianna.
+s> 
+Lianna says, "But I'm not with child."
+s> 'Not yet
+You say, "Not yet"
+s> smi lia
+You smile at Lianna.
+s> 'We'll keep at it
+You say, "We'll keep at it"
+s> 
+Lianna grins.
+s> 'I don't mind lots of practice
+You say, "I don't mind lots of practice"
+s> 'I mean LOTS of practice
+You say, "I mean LOTS of practice"
+s> look
+[Palace, fountain]
+A majestic bluestone dolphin shoots water from the center of the fountain in
+this grove, cooling the air in the welcome shade of the trees. The fountain's
+song hypnotizes you as you stare into its ever-changing cascade. Stone benches
+provide a place to meditate in the peace offered here.
+You see Lianna (sitting). 
+Obvious exits: west.
+s> 
+You feel the touch of Elarin's mind:
+"greetings Khojin"
+s> 
+Lianna says, "We won't run off tonight...we both need rest...but if there is no
+resolution soon..."
+s> 
+You feel the touch of Rion's mind:
+"hi Elarin"
+s> nod lia
+You nod to Lianna.
+s> touch lia
+You touch Lianna.
+s> 
+You feel the touch of Elarin's mind:
+"hey Rion, how goes it?"
+s> 
+Lianna asks, "Do you want this Moordread? Do you feel it the way I do?"
+s> 
+You feel the touch of Elarin's mind:
+"you need help getting the last of your...tokens?"
+s> 
+Lianna asks, "The same love I feel?"
+s> 
+ ** Young has just left the Realms.
+s> 
+Lianna gazes at you.
+s> 'We shall be husband and wife, I love you too much to have it anyother way
+You say, "We shall be husband and wife, I love you too much to have it anyother
+way"
+s> gaze lia
+You gaze at Lianna.
+s> 
+Lianna says, "We must be careful we don't let on...what we've done...it will
+just be in our eyes for now."
+s> 
+You feel the touch of Rion's mind:
+"its goin alright"
+s> 'My love for you is so strong, it is like a great power that is unstoppable and pushes me to be more than I ever was or hoped to be before
+You say, "My love for you is so strong, it is like a great power that is
+unstoppable and pushes me to be more than I ever was or hoped to be before"
+s> 
+You feel the touch of Rion's mind:
+"huh?"
+s> 
+Lianna exclaims, "My love just fills my chest till I think it's going to
+explode!"
+s> beam lia
+You beam at Lianna.
+s> 'I feel that too!
+You exclaim, "I feel that too!"
+s> 
+Lianna gazes at you.
+s> act beams at you with eyes that swirl with emotion.
+Moordread beams at you with eyes that swirl with emotion.
+s> touch lia
+You touch Lianna.
+s> 
+Lianna says, "I believe our love is more powerful than the even the ancestors."
+s> smi
+You smile.
+s> 
+Lianna smiles at you.
+s> 'When I'm with you I can believe it is
+You say, "When I'm with you I can believe it is"
+s> 'Certainly it rivals it
+You say, "Certainly it rivals it"
+s> 
+Lianna 's eyes well up with tears as her love overflows from her heart to
+yours.
+s> 
+Lianna exclaims, "Oh Moordread!"
+s> 
+Lianna hugs you.
+s> 
+Tears roll down Lianna's cheeks.
+s> 'My love for you is so strong, it exists even outside of here and transends worlds
+You say, "My love for you is so strong, it exists even outside of here and
+transends worlds"
+s> kiss lian pas
+You kiss Lianna.
+s> 
+Lianna kisses you.
+s> 
+Lianna gazes at you.
+s> 
+Lianna says, "I want to be married unclothed."
+s> act holds your face against his, cradling you softly against him.
+Moordread holds your face against his, cradling you softly against him.
+s> beam lia
+You beam at Lianna.
+s> 
+Lianna smiles at you.
+s> 
+Lianna says, "This time alone..."
+s> 'It would be fitting, for our natural setting
+You say, "It would be fitting, for our natural setting"
+s> 
+Lianna nods to you.
+s> 
+Lianna asks, "When shall we do this?"
+s> 
+Lianna touches you.
+s> 
+Lianna says, "If you are truly willing.."
+s> 
+You feel the touch of Elarin's mind:
+"Khojin?"
+s> 
+You feel the touch of Klone's mind:
+"Where is that murg priest when you need him?"
+s> 'Lianna, we wolflings are known just to choose a mate, I hope you know I've chosen you and pledge my heart to you and no other, in my eyes you are already my wife
+You say, "Lianna, we wolflings are known just to choose a mate, I hope you know
+I've chosen you and pledge my heart to you and no other, in my eyes you are
+already my wife"
+s> beam lia
+You beam at Lianna.
+s> 
+Lianna smiles at you.
+s> 
+You feel the touch of Airgid's mind:
+"Yes Elarin"
+s> 'Perhaps in the morning, after we've rested?
+You ask, "Perhaps in the morning, after we've rested?"
+s> 
+You feel the touch of Elarin's mind:
+"might I catch a lesson of D&P from you Rak'kahn?"
+s> 
+Lianna says, "Aye...and I understand that. And let me do this the aelfen
+way..."
+s> 
+Lianna grins.
+s> 
+Lianna sighs.
+s> 'Or did you wish to give more time to removing the marks?
+You ask, "Or did you wish to give more time to removing the marks?"
+s> 
+Lianna says, "I have duties."
+s> 'Oh, that's right
+You say, "Oh, that's right"
+s> thump me
+Alright, you give yourself a solid rap on the noggin.
+s> 
+You feel the touch of Airgid's mind:
+"Of course"
+s> 'I'm tired, forgive me
+You say, "I'm tired, forgive me"
+s> nuz lia
+You nuzzle Lianna affectionately.
+s> 
+You feel the touch of Elarin's mind:
+"where might I find you ?"
+s> 
+ ** Lisanne has just disconnected.
+s> 
+Lianna says, "No..I don't want to wait for the marks to be taken away."
+s> 
+Lianna says, "I want us to be married...and we can have the huge legal one
+later."
+s> 'Yes, legalities and pleasantries for our friends
+You say, "Yes, legalities and pleasantries for our friends"
+s> smi
+You smile.
+s> 
+Lianna nods to you.
+s> 
+Lianna says, "Natural and quiet for us."
+s> nod
+You nod.
+s> 'Yes, it suits us well too
+You say, "Yes, it suits us well too"
+s> cud lia
+You cuddle up to Lianna.
+s> look w
+[Palace, grounds]
+Bright flowers flourish under the trees which line the sanded path leading
+from the gate to the formal entrance of the Royal Palace. One could spend
+hours admiring the work of the Royal Gardener who tends these grounds. The
+palace itself stands witness to another artisan at the top of his profession.
+Broad steps of blue marble lead to a series of fluted marble pillars, which
+with their entablature, are sculpted to look like nymphs. Ivy in urns between
+the pillars embrace the nymphs in chaste leaves. A functionary pauses in the
+entryway, tapping his finger against a tablet in his hands, then continues on.
+A gate leads back to the city.
+A gate is there.
+s> 
+Lianna cuddles up to you.
+s> time
+It is Mixus 18, 1046 (Year of the Sword).
+It is late morning.
+s> 
+Lianna says, "Let's go home and dream of this..."
+s> 
+Lianna struggles to her feet.
+s> beam
+You beam happily.
+s> 
+Lianna tugs on you.
+s> 'I feel the dreams already
+You say, "I feel the dreams already"
+s> stand
+You struggle to your feet under the weight of all your equipment.
+ [Round: 3 sec]
+R> 'Dancing like starlight
+You say, "Dancing like starlight"
+> hold lia
+She is already in your group.
+> w
+Lianna follows you.
+[Palace, grounds]
+You see Lianna. A gate is here.
+Obvious exits: e, w.
+> go gate
+Lianna follows you.
+[Park Avenue]
+You see Lianna. An iron gate and some fruit are here.
+Obvious exits: ne.
+> ne
+Lianna follows you.
+[Park Avenue]
+You see Lianna. Some fruit is here.
+Obvious exits: n, sw.
+> ne
+You can't go northeast!
+> n
+Lianna follows you.
+[Park Avenue]
+You see Lianna. A crystal fountain and some fruit are here.
+Obvious exits: s, ne.
+> ne
+Lianna follows you.
+[Park Avenue]
+You see Lianna. Some fruit is here.
+Obvious exits: e, sw.
+> ne
+You can't go northeast!
+> e
+Lianna follows you.
+[Park Avenue]
+You see Lianna. Some fruit is here.
+Obvious exits: n, w, ne.
+> ne
+Lianna follows you.
+[Park Avenue]
+You see Lianna. A cottage and some fruit are here.
+Obvious exits: ne, sw.
+> open doo
+You open a door with a little window in it.
+> go doo
+Lianna follows you.
+[Lianna's place]
+You see Lianna. 
+Obvious exits: none.
+> close doo
+You close a door with a little window in it.
+> lock doo with key
+You lock the door with a simple key.
+> cli stair
+Lianna follows you.
+[Boudoir]
+You see Lianna. A skylight is here.
+Obvious exits: none.
+> gaze sky
+You gaze at a skylight.
+> 
+Lianna looks up.
+> beam lia
+You beam at Lianna.
+> 
+Lianna removes a flowing emerald green gown that shimmers with thousands of
+sequins and bares her silky shoulders, revealing her naked body.
+> rem tun
+You are wearing clothes over that which will need to be removed first.
+> rem boot
+You remove some worn black leather boots from your feet.
+> rem taba
+You remove a finely crafted crimson tabard embroidered with the gleaming silver
+eagle of the Crimson Band.
+> look me
+You gaze upon your own reflection...
+You see a dashing wolfling whose soft gray eyes shine with a mysterious allure.
+Long, silvered hair brushes against his well-built shoulders. The warmth of his
+smile is hampered by the seared black handprint on the skin of his right cheek.
+He is wearing a glimmering silver talisman of a fist sheathed in a nimbus of
+fire., some eldritch titanium armor, a ruby studded silver earring, a ruby
+studded silver ring of the Crimson Band, a sterling silver pin in the shape of
+a flight of dragons and a golden amulet shaped in the image of the T'Kasta
+symbol.
+The scent of some exotic cologne gently drifts from him.
+He is behind a wall of force.
+He appears to be healthy.
+> gaze lia
+You gaze at Lianna.
+> shiv
+You shiver.
+> rem arm
+You remove some eldritch titanium armor.
+ [Round: 4 sec]
+R> 
+Lianna removes some sequined emerald green slippers with delicate silk ribbons
+that wrap around her shapely ankles from her feet.
+R> look me
+You gaze upon your own reflection...
+You see a dashing wolfling whose soft gray eyes shine with a mysterious allure.
+Long, silvered hair brushes against his well-built shoulders. The warmth of his
+smile is hampered by the seared black handprint on the skin of his right cheek.
+He is wearing a glimmering silver talisman of a fist sheathed in a nimbus of
+fire., a ruby studded silver earring, some dark brown breeches, a ruby studded
+silver ring of the Crimson Band, an embroidered tunic of cloth-of-gold, a
+sterling silver pin in the shape of a flight of dragons and a golden amulet
+shaped in the image of the T'Kasta symbol.
+The scent of some exotic cologne gently drifts from him.
+He is behind a wall of force.
+He appears to be healthy.
+> 
+Lianna slips some elegant green satin gloves from her hands.
+> rem tunic
+You remove an embroidered tunic of cloth-of-gold.
+> rem bree
+You remove some dark brown breeches.
+> look me
+You gaze upon your own reflection...
+You see a dashing wolfling whose soft gray eyes shine with a mysterious allure.
+Long, silvered hair brushes against his well-built shoulders. The warmth of his
+smile is hampered by the seared black handprint on the skin of his right cheek.
+He is wearing a glimmering silver talisman of a fist sheathed in a nimbus of
+fire., a long twisted tattoo of a thorny vine wrapped seductively around his
+thigh from knee to hip, a ruby studded silver earring, a finely drawn tattoo of
+a faintly luminescent green moon silhouetting the form of a silvery wolf, a
+ruby studded silver ring of the Crimson Band, a sterling silver pin in the
+shape of a flight of dragons and a golden amulet shaped in the image of the
+T'Kasta symbol.
+The scent of some exotic cologne gently drifts from him.
+He is behind a wall of force.
+He appears to be healthy.
+> 
+Lianna removes a fiery silver tiara with teardrop shaped diamonds that shimmer
+yellow in the light from her head.
+> go bed
+You lie down on the bed and get comfortable.
+L> lay
+You get into the wide canopied bed and lay back.
+L> 
+Lianna lies down on the bed, looking comfortable.
+L> 
+Lianna gets into bed and lays back.
+L> nuz lia
+You nuzzle Lianna affectionately.
+L> 
+Lianna nuzzles you affectionately.
+L> 
+Lianna lays on her side and leans on her elbow, her fingers stroking your
+chest.
+L> 
+Lianna smiles at you.
+L> 'I love you Lianna, and soon to be wife
+You say, "I love you Lianna, and soon to be wife"
+L> gaze lia
+You gaze at Lianna.
+L> 
+Lianna says, "I love you Moordread, my husband to be."
+L> beam lia
+
+Lianna gazes at you.
+L> You beam at Lianna.
+L> 'That sounds so nice
+You say, "That sounds so nice"
+L> cud lia
+You cuddle up to Lianna.
+L> 
+You feel the touch of Leah's mind:
+"he gone yet?"
+L> 
+Lianna cuddles up to you.
+L> 
+You feel the touch of Winter's mind:
+"he who/"
+L> 
+You feel the touch of Melee's mind:
+"whos on first"
+L> act holds you tight against him and drifts off to sleep smiling softly.
+Moordread holds you tight against him and drifts off to sleep smiling softly.
+L> close obj
+You close your eyes.
+L> 
+ ** Winter has just left the Realms.
+L> 
+Lianna says, "I want to wait to make love again...till we are naked on the
+island, saying our words..."
+L> who
+Ika                Vladmir            Elarin             Airgid             
+Torrinakus         Melee              Feras              Leah               
+Klone              Lianna             Rion               Moordread          
+Linnaeus           
+
+
+There are 13 adventurers in the Realms.
+
+L> nuz lia
+You nuzzle Lianna affectionately.
+L> 
+Lianna cuddles up to you.
+L> 
+Lianna closes her eyes.
+L> 
+Lianna says, "I love you."
+L> act whispers into your ear, "That would be perfect..."
+Moordread whispers into your ear, "That would be perfect..."
+L> whisp lia I love you so much...
+You whisper to Lianna.
+L> x
+
+ ** Moordread has just left the Realms.
+L> 
+
+Character Manager V1.00
+
+ 1 => Moordread
+ 2 => Morti
+ 3 => Bubba
+
+ C => Create new character
+ D => Delete current character
+ P => Play Legends of Future Past
+ X => Exit to NovaLink
+
+
+Active character: Moordread (#1)
+
+Select: /bye
+
+
+Thank you for using NovaLink.
+
+Connect time this session: 128 minutes.
+
+Have a nice evening!
+
+NovaLink is an online service of NovaLink USA Corporation,
+200 Friberg Parkway, Suite 4003, Westborough, MA 01581. Service: 800-274-2814.
+
+
+
+
+
+
+
+
+
+Invalid selection.
+
+Character Manager V1.00
+
+ 1 => Moordread
+ 2 => Morti
+ 3 => Bubba
+
+ C => Create new character
+ D => Delete current character
+ P => Play Legends of Future Past
+ X => Exit to NovaLink
+
+
+Active character: Moordread (#1)
+

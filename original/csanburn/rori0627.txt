@@ -1,0 +1,2670 @@
+
+Cephus puts away a gnarled birch wood cane.
+> 
+You feel the touch of Fafnir's mind:
+"kvaahn Mortif"
+> 
+Cephus gives a brass talisman shaped into a symbol of Rorin to Nord.
+> 
+Cephus nods to you.
+> 
+Cephus says, "Greetings brother MOrtif"
+> 
+Nord says, "she said she had an odd feeling after wearing it"
+> 'Good evening to you Brother Cephus
+You say, "Good evening to you Brother Cephus"
+> 
+Elriss says, "Mortif, have a seat, we're reviewing the visions we had."
+> 
+You return to normal speed.
+> look
+[Temple of Rorin]
+This is a spacious area where the priests of the Temple of Rorin engage in the
+tutelage of acolytes and adepts. The priests invite all to join in Rorin's
+light, and demonstrate a working knowledge of nearly every skill imaginable.
+The room is flanked by long stained wooden bookracks, and is filled with
+tables, mats and workbenches decorated with a vast array of tools and
+equipment. A rack of wooden weaponry sits in the corner for practice by
+initiates.
+You see Gurney (sitting), Nord (sitting), Emanon, Cephus (sitting), Krag
+(sitting), Elriss and Doroon. 
+Obvious exits: south.
+> pull chair
+You pull up a chair and take a load off.
+s> 
+You feel the touch of Donnald's mind:
+"hello everyone"
+s> 
+You feel the touch of Leah's mind:
+"Greetings, Donnald"
+s> 
+You feel the touch of Shankara's mind:
+"Greetings..."
+s> 
+Krag returns to normal.
+s> 
+You feel the touch of Donnald's mind:
+"hi Leah, Shankara and Fafnir"
+s> 
+You feel the touch of Leah's mind:
+"Hi, Shankara"
+s> 
+ ** Vladmir has just left the Realms.
+s> 
+Krag takes a bite of a thesnia leaf.
+s> 
+Krag seems changed.
+s> 
+Elriss says, "The next visions... were of a underground maze of tunnels."
+s> 
+Elriss says, "Presumably the ones we exited in the previous vision."
+s> 
+Elriss says, "And a pool of fire."
+s> 
+Krag listens carefully to Elriss.
+s> 
+ ** Jaxan has just left the Realms.
+s> 
+Cephus arches his eyebrow.
+s> 
+Elriss says, "Something to do with a fallen star, and an egg-sized gem."
+s> 
+Cephus nods.
+s> 
+(Doroon glances up from his writing, nodding.)
+s> 
+Krag nods.
+s> 
+Elriss says, "The fragments of the fallen star are smelted down..."
+s> 
+Cephus says, "Now that has to do with the blacksmith."
+s> 
+Elriss says, "And worked over a long time. Days, maybe weeks."
+s> 
+Elriss nods to Cephus.
+s> 
+Elriss says, "Forged into a sword, the sword we saw in the previous vision as
+well, I believe."
+s> 
+You feel the touch of Shankara's mind:
+"Greetings Ioen.. how are you?"
+s> act leans forward in his chair, listening intently.
+(Mortif leans forward in his chair, listening intently.)
+s> 
+Cephus nods.
+s> 
+Elriss says, "I placed the fiery gem that was in the star into the pommel of
+the sword..."
+s> 
+You feel the touch of Shankara's mind:
+"not to bad..."
+s> 
+Elriss says, "The sword flared, hot and bright with fiery light, and I almost
+dropped it."
+s> 
+Elriss says, "And I heard myself saying out loud..."
+s> 
+Elriss recites, "I will do your will my Lord... my god... Rorin."
+s> 
+Elriss says, "As the vision faded."
+s> 
+Emanon prays to the gods.
+s> pon
+You ponder for a moment.
+s> 
+You feel the touch of Shankara's mind:
+"chuckle   im fine Ioen..."
+s> 
+Krag arches his eyebrow.
+s> inv
+You are carrying: 
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  A chest
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  Some oiled bekk-ite metal
+  An iron lockpick
+  Some ebony leather armor with a fine network of gold filagree imbedded into
+it
+  An iron lockpick
+  An oiled moonstone
+  A jade ring
+  An oiled eye agate
+  An iron lockpick
+  An amulet formed from a blackened kvantar
+  A fiery silver badge engraved with the image of a blazing sun gripped within
+a gleaming golden hand (worn)
+  A leather teddy
+  A demon horn
+  A tiny chartreuse glass bottle
+  A misty white bottle
+  A blazing golden glass bottle
+  An oiled eye agate
+  An oiled copper shuriken
+  Some bubblegum
+  A glass (open)
+  An onyx amulet (worn)
+  A glowing medallion (worn)
+  A graphite crucible (open)
+  A truesteel hammer with a short wooden shaft and a sunburst engraved on the
+forge-shaped head
+  A large furry yeti doll with the familiar urisine scent to it
+  A mechanoid doll that looks like Hollister
+  A polished opal
+  A shadowy inky black doll of Donner sniffing a woman's skirt and sighing in
+pleasure
+  A strongbox
+  A sooty black t-shirt that says, "Smiths do it for hours and hours...just to
+keep in practice."
+  A brass necklace
+  A black doeskin harness (open)
+  A large brass lantern which looks like it was copied for the illustrations in
+a book
+  A graphite whetstone
+  A fuzzy plaid beltpouch (open)
+  A small polished moonstone
+  A fluffy brown dog (open)
+  A black leather vest
+  A large bloodstone
+  An ursine pelt
+  A mauve damn ticket
+  An apron (open)
+  A strongbox
+  A huge onyx stone
+  A malachite stone
+  A rowik berry
+  A werewolf eye
+  An icy elkyri longsword
+  A werewolf eye
+  Some sooty black leather gloves (worn)
+  Some green cotton pants (worn)
+  An elkyri pendant
+  A torch
+  A pure golden circlet etched with intricate sun symbols around it (worn)
+  An inky black leather trenchcoat (worn) (open)
+  A thin aelfen imperial cigar that sports a colorful label of a magenta
+jackal's head
+  An iridescent oiled knife
+  A backpack (open)
+  A pick-axe
+  An obsidian talisman (worn)
+  A pick-axe
+  A malachite wand
+  Some babich root
+  Some copper metal
+  An oiled aquamarine
+  An oiled sardonyx
+  Some mirmach
+  Some teak
+  Some rosewood
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  Some copper metal
+s> 
+Cephus listens to his surroundings closely.
+s> 
+Elriss asks, "Nord, did you also have that same visions?"
+s> 
+ ** Winter has just left the Realms.
+s> 
+Nord says, "exactly the same"
+s> 
+Elriss nods.
+s> 
+Cephus asks, "Has anyone else have other visions to add to these?"
+s> 
+Emanon shakes his head back and forth.
+s> 
+Krag shakes his head back and forth.
+s> 
+Krag says, "Not I"
+s> 
+Gurney shakes his head back and forth.
+s> 
+Nord says, "I know Veronica had two..."
+s> 
+Nord says, "I know Veronica had two..."
+s> 
+Nord says, "I know Veronica had two..."
+s> 
+Nord says, "I know Veronica had two..."
+s> 
+Nord says, "I know Veronica had two..."
+s> 
+Nord says, "I know Veronica had two..."
+s> 
+Nord babbles a few nonsensical phrases.
+s> 
+Doroon coughs.
+s> 
+Elriss says, "Wow, you're excited Nord."
+s> 
+Nord says, ""
+s> 
+Nord says, ""
+s> 
+Cephus chuckles.
+s> 
+Doroon asks, "Do you wish that recorded each time, sir?"
+s> 
+Doroon raises an eyebrow towards Cephus.
+s> 
+Elriss says, "Take a deep breath."
+s> 
+Elriss nudges Nord.
+s> 
+Nord says, "Mortif had one"
+s> 
+Cephus says, "I think would should be enough, no sense on wasting good
+parchment"
+s> 
+ ** Fafnir has just left the Realms.
+s> 
+Emanon inhales deeply as he lights a fine cigar.
+s> 
+Cephus says, "I think then I will relate the story that might shed some light
+on at least some of these visions..."
+s> 
+Elriss listens carefully to Cephus.
+s> 
+Cephus says, "or on the other hand muddle them even further"
+s> 
+Emanon listens carefully to Cephus.
+s> 
+Cephus says, "Doroon, the book if you would please."
+s> 
+Doroon gives a large leather bound book with it's title faintly visible along
+the spine to Cephus.
+s> 
+You feel the touch of Vella's mind:
+"I am lost in the swamp. Where's the crack to grymwood?"
+s> 
+(Doroon reverently hands the book to Cephus.)
+s> 
+Emanon muses, " whats the title?"
+s> 
+(Cephus places the book in his lap.)
+s> 
+Cephus says, "Myths and Legends of the Distant Past."
+s> 
+Emanon nods to Cephus.
+s> 
+You feel the touch of Vella's mind:
+"Nevermind, Found it"
+s> 
+Cephus says, "It is a compilation of many stories of several of Andor's races."
+s> 
+Elriss ponders.
+s> 
+Cephus says, "This one concerns the humans though, for the most part."
+s> 
+(Cephus opens the book, revealing yellowed pages.)
+s> 
+(Doroon steps back to stand quietly by Cephus' chair.)
+s> 
+Emanon muses, " is it available for regular study in the library? I'm
+fastenatited with such..especially religion.."
+s> 
+Krag nods.
+s> 
+Emanon muses, " sorry spelling sucks tonight[]"
+s> 
+Cephus says, "Yes Emanon, now do be quite."
+s> 
+Emanon bows.
+s> lean ema
+You lean on Emanon.
+s> 
+(Cephus clears his throat)
+s> 
+Cephus coughs.
+s> 
+Cephus says, "It has been some time since I had to orate."
+s> nod cep
+You nod to Cephus.
+s> whisp eman It shows too :)
+You whisper to Emanon.
+s> 
+Cephus says, "When the cataclysm struck it forever changed the face of Andor."
+s> 
+Cephus says, "In the blink of an eye the great civilizations of the planet were
+wiped away in a firestorm of utter devastation."
+s> 
+Cephus says, "Whole species of animal and plants became exinct."
+s> look ceph
+Brother Cephus, master librarian of the Rorin temple is an elderly gentleman
+by name if not by temperment. He is mostly bald with a ring of wispy white hair
+around his head. Although he walks fine, he is never without his cane.
+He is wearing a simple light brown robe kept closed with a piece of red cord,
+some soft leather sandals and a fiery gold badge engraved with a small phoenix.
+He appears to be healthy.
+s> 
+Cephus says, "Despite the holocaust of destruction, man survived his folly."
+s> 
+Cephus blinks.
+s> 
+Cephus thumps you on the head!
+s> 
+Emanon listens carefully to Cephus.
+s> rais
+You raise your eyebrow.
+s> 
+ ** Vella has just left the Realms.
+s> 
+Cephus says, "My voice might be failing but my ears are sharp as ever young
+one."
+s> 
+Elriss furrows his brow.
+s> 
+(Doroon coughs quietly.)
+s> 
+Gurney smiles.
+s> 
+Nord arches his eyebrow.
+s> 
+(Cephus looks down at the book and finds where he left off.)
+s> act smiles slyly but says nothing.
+(Mortif smiles slyly but says nothing.)
+s> 
+Cephus says, "In these early years man was little more then an animal, scraping
+out an existance across a poisoned land."
+s> 
+Cephus says, "It was during the dark time of humanity when new creatures began
+to emerge, ones that were both fantastic and horrible."
+s> 
+ ** Shankara has just left the Realms.
+s> 
+Cephus says, "Other races not seen before, made their prescence known, the
+highlanders, wolflings, and aelfes, even though it was thought they were always
+here."
+s> 
+Emanon ponders.
+s> 
+Krag listens carefully to Cephus.
+s> 
+Cephus says, "Time continued its relentless pace. The land began to heal and
+man once again gaines some semblence of civilization."
+s> 
+ ** Vladmir has just disconnected.
+s> 
+Cephus says, "Villages rose from the landscape, formed out a mutual survival
+against an often-hostile enviroment."
+s> 
+Cephus says, "It was in one of these villages that Faldor the blacksmith
+lived."
+s> 
+Cephus says, "To most in the village the blacksmith was considered the most
+important person, even above whoever was the ruler."
+s> 
+Krag smiles.
+s> 
+Emanon nods to Cephus.
+s> 
+Elriss ponders.
+s> 
+Cephus says, "Besides forging the weapons which their survival hinged upon, he
+created the more mundane items of every day life."
+s> 
+ ** Fafnir has just left the Realms.
+s> grin
+You grin.
+s> 
+Cephus says, "Some say if there werent blacksmiths their wouldnt have been any
+civilaztion."
+s> 
+Emanon muses, " well, not the qualitative one we have now anyway.."
+s> 
+Krag returns to normal.
+s> 
+Cephus says, "Faldor was not a large man, but he carried the build of a
+blacksmith with muscular arms and legs."
+s> 
+(Krag appears to have a proud look about him for he is a blacksmith!)
+s> 
+Emanon leans on you.
+s> wink eman
+You wink at Emanon.
+s> 
+Cephus says, "His face was what one would call common, neither being handsome
+nor ugly."
+s> 
+Emanon grins.
+s> 
+Cephus says, "What stood out beyond his physical appearance though was his
+complete honesty and goodness."
+s> 
+Cephus says, "He would never overcharge a customer and often would work for
+free when a person had not the means to pay."
+s> 
+Emanon smiles.
+s> inv
+You are carrying: 
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  A chest
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  Some oiled bekk-ite metal
+  An iron lockpick
+  Some ebony leather armor with a fine network of gold filagree imbedded into
+it
+  An iron lockpick
+  An oiled moonstone
+  A jade ring
+  An oiled eye agate
+  An iron lockpick
+  An amulet formed from a blackened kvantar
+  A fiery silver badge engraved with the image of a blazing sun gripped within
+a gleaming golden hand (worn)
+  A leather teddy
+  A demon horn
+  A tiny chartreuse glass bottle
+  A misty white bottle
+  A blazing golden glass bottle
+  An oiled eye agate
+  An oiled copper shuriken
+  Some bubblegum
+  A glass (open)
+  An onyx amulet (worn)
+  A glowing medallion (worn)
+  A graphite crucible (open)
+  A truesteel hammer with a short wooden shaft and a sunburst engraved on the
+forge-shaped head
+  A large furry yeti doll with the familiar urisine scent to it
+  A mechanoid doll that looks like Hollister
+  A polished opal
+  A shadowy inky black doll of Donner sniffing a woman's skirt and sighing in
+pleasure
+  A strongbox
+  A sooty black t-shirt that says, "Smiths do it for hours and hours...just to
+keep in practice."
+  A brass necklace
+  A black doeskin harness (open)
+  A large brass lantern which looks like it was copied for the illustrations in
+a book
+  A graphite whetstone
+  A fuzzy plaid beltpouch (open)
+  A small polished moonstone
+  A fluffy brown dog (open)
+  A black leather vest
+  A large bloodstone
+  An ursine pelt
+  A mauve damn ticket
+  An apron (open)
+  A strongbox
+  A huge onyx stone
+  A malachite stone
+  A rowik berry
+  A werewolf eye
+  An icy elkyri longsword
+  A werewolf eye
+  Some sooty black leather gloves (worn)
+  Some green cotton pants (worn)
+  An elkyri pendant
+  A torch
+  A pure golden circlet etched with intricate sun symbols around it (worn)
+  An inky black leather trenchcoat (worn) (open)
+  A thin aelfen imperial cigar that sports a colorful label of a magenta
+jackal's head
+  An iridescent oiled knife
+  A backpack (open)
+  A pick-axe
+  An obsidian talisman (worn)
+  A pick-axe
+  A malachite wand
+  Some babich root
+  Some copper metal
+  An oiled aquamarine
+  An oiled sardonyx
+  Some mirmach
+  Some teak
+  Some rosewood
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  Some copper metal
+s> 
+Cephus says, "His good sense was known to all and was often asked for advice,
+even by the village leader."
+s> 
+Cephus says, "Things were hard, but the village slowly prospered and grew
+larger. Many years pasted."
+s> 
+Cephus says, "It was these many years later when rumors began to be heard.
+Brought to the village by travelers from the north."
+s> 
+Cephus says, "The rumors were frightening and many chose to think of them no
+more as foolishness."
+s> look
+[Temple of Rorin]
+This is a spacious area where the priests of the Temple of Rorin engage in the
+tutelage of acolytes and adepts. The priests invite all to join in Rorin's
+light, and demonstrate a working knowledge of nearly every skill imaginable.
+The room is flanked by long stained wooden bookracks, and is filled with
+tables, mats and workbenches decorated with a vast array of tools and
+equipment. A rack of wooden weaponry sits in the corner for practice by
+initiates.
+You see Gurney (sitting), Nord (sitting), Emanon, Cephus (sitting), Krag
+(sitting), Elriss and Doroon. 
+Obvious exits: south.
+s> 
+Cephus says, "It was said an army had appeared out of the northern mountains."
+s> 
+Cephus says, "An army of not men, but the remnants of men."
+s> 
+Emanon ponders.
+s> 
+(Cephus stops for a moment.)
+s> 
+(Doroon silently hands Cephus a glass of water.)
+s> 
+You feel the touch of Leah's mind:
+"I'll be there shortly."
+s> 
+Emanon muses, " undead?"
+s> 
+(Cephus drinks from the glass and hands it back to Doroon.)
+s> 
+Cephus nods.
+s> act adjusts his chair.
+(Mortif adjusts his chair.)
+s> 
+Cephus says, "An army of the dead."
+s> 
+ ** Donnald has just left the Realms.
+s> 
+Emanon frowns.
+s> 
+Nord says, "they are like roaches"
+s> 
+Emanon nods.
+s> 
+Emanon muses, " leeches"
+s> 
+Cephus says, "Not a small host mind you but a legion of thousands."
+s> 
+Emanon ponders.
+s> 
+Emanon listens carefully to Cephus.
+s> 
+ ** Ioen has just left the Realms.
+s> 
+Cephus says, "The undead army traveled under a cloak of darkness."
+s> 
+Gurney arches his eyebrow.
+s> 
+Krag arches his eyebrow.
+s> 
+Cephus says, "As they moved southward, they swallowed all in front of them."
+s> 
+Cephus says, "The scattered villages had not the power to fight them."
+s> 
+(Emanon grinds his teeth)
+s> 
+Cephus says, "Those that were killed only rose again and became soldiers in the
+army."
+s> 
+Cephus says, "Be they man, women or child."
+s> 
+Emanon mutters something you can't quite make out.
+s> 
+ ** Marcolan has just left the Realms.
+s> 
+Emanon prays to the gods.
+s> 
+A gloom falls over the room as it becomes very quite except for Chephus's
+story.
+s> 
+Elriss listens carefully to Cephus.
+s> 
+Krag shivers.
+s> 
+Krag listens carefully to Cephus.
+s> 
+Cephus says, "At the head of every army is a leader and this one was no
+different."
+s> 
+Cephus says, "Some thought he was a fallen general from before the Cataclysm,
+others though him to be a necromancer of power beyond this world."
+s> 
+ ** Ria has just left the Realms.
+s> 
+Cephus says, "Those that were able to escape and flee southward said he rode in
+a great battle wagon drawn by twelve undead horses."
+s> 
+Cephus says, "Always at the front of the army, to see his work first hand no
+doubt."
+s> 
+Elriss ponders.
+s> act moves back further in his chair.
+(Mortif moves back further in his chair.)
+s> 
+Cephus says, "Back in Faldor's town nobody believed, as did not all the other
+villages or towns in the south."
+s> 
+Krag whispers to you, "I passed your order to our muse again. Im guessing she
+didnt recieve it. <WINK> Might want to do a follow up request."
+s> 
+Cephus says, "Who could or would want to believe such a thing."
+s> whisp krag [I'll do that *sigh*]
+You whisper to Krag.
+s> 
+Cephus says, "They started believe something was wrong, even if it was not this
+story of an army of undead.."
+s> 
+Cephus says, "It started as a trickle then become a score then hundreds of
+northlanders started pouring into the towns of the south."
+s> 
+Cephus says, "Behind them a wall of completed darkness appeared."
+s> 
+Krag arches his eyebrow.
+s> 
+(Emanon exhales)
+s> 
+The glowing outline of armor fades from around Nord.
+s> 
+Cephus says, "Scouts were sent out from Faldor's village, only one came back."
+s> 
+Cephus says, "He reported what had been talked about for months, the rumors
+became fact."
+s> 
+Cephus says, "Within that cloud of darkness was any army of unimanigble size
+and horror."
+s> 
+Cephus says, "Faldor spent day and night, hardly to rest forging swords,
+spears, axes for the defense of the village."
+s> 
+Cephus says, "Hastly built fortifcations were constructed."
+s> 
+Cephus says, "All this being done in a atmoshphere of hopelessness."
+s> 
+Doroon sighs.
+s> 
+ ** Myrdhyn has just left the Realms.
+s> 
+Cephus says, "They new no matter how well they built the walls or how many
+weapons were made, they were no match for the army marching towards them."
+s> 
+Krag says, "Better than to lay down and jet run over"
+s> 
+Cephus asks, "Still they prepared for what else could they do?"
+s> 
+Krag says, "Noble folk"
+s> 
+(Cephus stops for a moment.)
+s> 
+Gurney nods.
+s> 
+Cephus says, "Faldor the smith, sat on a bench, breathing the cool night air."
+s> 
+Cephus says, "He thought to himself that it was hard to believe that this would
+all be gone soon."
+s> 
+ ** Vladmir has just left the Realms.
+s> 
+Cephus says, "The stars in the night sky were bright that night and as he
+looked up one shot across the heavens..."
+s> 
+Cephus says, "He continued to pass from west to east, falling....falling..."
+s> 
+Cephus says, "Odd he thought to himself "Was it getting closer?""
+s> 
+Cephus says, "The falling star continued to grow larger and the tail lit up the
+village briefly as it pasted overhead."
+s> 
+Cephus says, "With a deafening explosion it slammed into the earth."
+s> 
+Doroon blinks.
+s> 
+(Cephus stops for a moment.)
+s> skil
+
+#  Skill                     Level     
+-- -----                     -----     
+8  Weaponsmithing            111       
+12 Trap & Poison Lore        1         
+14 Enchantment               17        
+22 Lockpicking               1         
+23 Spellcraft                17        
+35 Mining                    1         
+s> 
+Krag listens carefully to Cephus.
+s> 
+Elriss's blending effect wears off.
+s> 
+Elriss gazes at a sparkling white urimar scimitar which dances with eldritch
+fire like a fallen star given life once again.
+s> 
+Elriss listens carefully to Cephus.
+s> 
+Cephus says, "The whole village came to life after the star slammed into the
+ground."
+s> 
+Cephus says, "Everyone ran to the walls to see what could be seen."
+s> 
+Cephus says, "What was seen was a soft glow not more then a mile from the
+village."
+s> 
+ ** Stolar has just left the Realms.
+s> 
+Cephus says, "Then the even that light dimmed away."
+s> 
+ ** Marcolan has just left the Realms.
+s> 
+Cephus says, "Some thought it a sign of ill luck other just the opposite. Some
+were just unhappy about being wakened up."
+s> 
+ ** Myrdhyn has just left the Realms.
+s> 
+Cephus says, "Fador stood on the wall top thinking.."
+s> 
+ ** Loraquell has just left the Realms.
+s> 
+Cephus says, "He felt a presence..."
+s> 
+Cephus says, "One that threatened to overwelm him."
+s> 
+Cephus says, "A light filled his being."
+s> 
+ ** Lorenzo has just left the Realms.
+s> 
+Cephus says, "A voice, strong as the hardest metal but filled with such love
+spoke to him..."
+s> 
+Cephus says, "He almost fell off the wall when he heard the first words."
+s> 
+ ** Grunt has just left the Realms.
+s> 
+ ** Lorenzo has just left the Realms.
+s> 
+Cephus says, "I am the god Rorin, and have watched you since your begining.."
+s> 
+Doroon listens carefully to Cephus.
+s> 
+Emanon listens carefully to Cephus.
+s> 
+Nord grins.
+s> 
+Krag smiles.
+s> 
+Cephus says, "I have looked one such as you since times begining."
+s> 
+Emanon smiles.
+s> 
+Elriss appears to become less nimble.
+s> pond
+You ponder for a moment.
+s> 
+ ** Boroc has just left the Realms.
+s> who
+Saxon              Gurney             Nord               Emanon             
+Keera              Feras              Raningeth          Marcolan           
+Krag               Stolar             Cypress            Elriss             
+Mortif             Leah               Grunt              Megan              
+Winter             
+
+
+There are 17 adventurers in the Realms.
+
+s> 
+Nord furrows his brow.
+s> 
+Cephus says, "Many men speak of good deeds  or play at walking a path of
+righteousness but amost none trully live live so."
+s> 
+Gurney nods.
+s> 
+Sorry folks i'm lagging on and off []
+s> 
+Elriss ponders.
+s> 
+ ** Grunt has just left the Realms.
+s> 
+Cephus says, "You are a mortal who lives his life as one of light."
+s> 
+ ** Marcolan has just left the Realms.
+s> 
+Cephus says, "Your honesty and goodness is like a beacon that shines out from
+the darkness, and I will use you to pearce the darkness that descends upon you
+now."
+s> 
+Doroon smiles.
+s> 
+Cephus says, "Rorin continued to speak to Faldor as he stood as one in a
+trance."
+s> 
+Krag listens carefully to Cephus.
+s> 
+Cephus says, "But, I can only do this if you choose to become my disciple, I
+cannot force you into this."
+s> 
+Cephus says, "The choice must be of your own free will."
+s> 
+Cephus says, "Faldor at that point found himself on his knees, even though he
+did not remember how get got there."
+s> 
+Emanon nods.
+s> 
+Cephus says, "The guards on the walls looked on but they too felt a divine
+presence if not as keenly as Faldor."
+s> 
+Cephus says, "Faldor spoke "The divine, purity of your light fills me so that
+how could I refuse.""
+s> 
+Krag nods.
+s> 
+Cephus says, "Even if I did not believe I could not let these people die.""
+s> 
+ ** Winter has just left the Realms.
+s> 
+Cephus says, "But I do believe that you are Rorin, and so will follow were you
+lead me and do your will."
+s> 
+Cephus says, "Rorin then spoke."
+s> 
+Emanon listens carefully to Cephus.
+s> 
+ ** Stolar has just left the Realms.
+s> 
+Cephus says, "Then rise my disciple and go to the star that has fallen this
+night, although it still burns with celestrial fire it will not harm you."
+s> 
+Cephus says, "Take it up and then I will instruct your further."
+s> 
+Cephus says, "Faldor said "As you have commanded me so I shall.""
+s> 
+Cephus says, "Faldor left the wall and made his way to where he saw the star
+fall."
+s> 
+The ghostly shield protecting Emanon slowly fades.
+s> 
+Cephus says, "It was not hard to find, as there was a long trail of burn
+grassland to lead him."
+s> 
+Cephus says, "Finnaly he saw it."
+s> 
+Cephus says, "It layed within a crater easily as big as a house."
+s> 
+Doroon nods to Cephus.
+s> 
+Krag whistles.
+s> 
+Cephus says, "He clambered down the side till he was within reach to touch it."
+s> 
+Cephus says, "He saw now that it was no larger then a mellon."
+s> 
+Emanon arches his eyebrow.
+s> 
+Cephus says, "wisps of steam still emenated from it and it a dim red glow still
+played over it's surface."
+s> 
+Cephus says, "Standing there he began to have second thoughts..."
+s> 
+(Cephus stops for a moment.)
+s> 
+Cephus smiles.
+s> 
+Cephus coughs.
+s> 
+Cephus says, "But then the presence of Rorin he felt again and all fear was
+cast aside."
+s> 
+(Doroon holds out the glass again.)
+s> 
+Doroon blushes.
+s> 
+(Cephus takes the glass)
+s> 
+Cephus nods to Doroon.
+s> 
+(Cephus drinks some water from the glass.)
+s> 
+(Cephus hands the glass back to Doroon.)
+s> look in back
+In the backpack you see a rosewood framed portrait of a forest being protected
+from a horde of werewolves by brave wolflings, a dark inky black card of
+Sierron saying, "I want a card of me!" and sitting on the fountain, a bronze
+necklace, a marble medallion, some babich root, some babich root, some babich
+root, some babich root, some babich root, a maufra lichen and a maufra lichen.
+s> look in apr
+In the apron you see some fiery albescent metal, some fiery albescent metal,
+some icy elkyri metal, some icy elkyri metal, some icy elkyri metal, some icy
+elkyri metal, some fiery albescent metal, some fiery albescent metal, some
+fiery albescent metal, some fiery elkyri metal, some icy elkyri nunchaku, some
+icy randar metal, some icy randar metal, some icy elkyri metal, some icy elkyri
+metal, a werewolf eye, a werewolf eye, a gurkan pearl, a rowik berry, a fiery
+elkyri papenheimer and an icy randar papenheimer.
+s> 
+Doroon nods to Cephus.
+s> 
+Cephus says, "Fador bent down and lifted the star with both hands still a part
+of him thinking he was picking up a star that would burn him."
+s> 
+Cephus says, "Lifting it into the air, he was surprised that he felt no heat
+from it and that it was lighter then he thought is should be."
+s> 
+Cephus says, "The voice of Rorin spoke to Faldor once more."
+s> 
+Cephus says, "Take up the star and return to your forge. Break the star
+assunder revealing the heart."
+s> 
+ ** Boroc has just left the Realms.
+s> 
+Cephus says, "take the fiery heart and put it asside for now, but take the body
+and smelt it."
+s> 
+Cephus says, "When the body is one, you will work it until it is as sharp as
+the finest weapon you have ever forged."
+s> 
+Doroon listens carefully to Cephus.
+s> 
+Cephus says, "When the new body is complete once more, you will take up the
+heart and place it into the body, once more returning life to it."
+s> 
+Cephus says, "When this is done I will instruct you further."
+s> 
+Krag listens carefully to Cephus.
+s> act leans forward in his chair.
+(Mortif leans forward in his chair.)
+s> lean chair
+You lean on a chair.
+s> 
+You feel the touch of Mariella's mind:
+"hhooOOWWwwll"
+s> 
+Cephus says, "It is a long story I hope at least some of you are still awake."
+s> 
+Doroon casts his gaze across the area.
+s> 
+(Cephus smiles faintly)
+s> 
+Gurney chuckles.
+s> 
+Doroon smiles at Cephus.
+s> 
+You feel the touch of Emanon's mind:
+" Mari:)!"
+s> 
+Emanon smiles.
+s> 
+You feel the touch of Mariella's mind:
+"Hi Sax :)"
+s> 
+You feel the touch of Vryce's mind:
+"Greetings Mariella."
+s> 
+Emanon muses, " sorry, my wife.."
+s> nod
+You nod.
+s> 
+Cephus says, "Where was I..."
+s> 
+You feel the touch of Mariella's mind:
+"Hi Em :)"
+s> 
+Elriss says, "It is quite compelling, depsite the length."
+s> 
+Krag nods.
+s> 
+You feel the touch of Mariella's mind:
+"Hello Father!"
+s> 
+Cephus says, "I didnt right it...so i'm not looking for flattery"
+s> 'Faldor was to fashion the blade and place the heart in it
+You say, "Faldor was to fashion the blade and place the heart in it"
+s> 
+Gurney says, "All of Father's visitations have proven to be."
+s> 
+Cephus nods to you.
+s> 
+Gurney smiles.
+s> 
+(Cephus runs his finger along the page.)
+s> 
+Krag says, "Im on the edge of my seat"
+s> 
+Doroon nods.
+s> 'No flattery from me
+You say, "No flattery from me"
+s> 
+Emanon nods to Krag.
+s> lean chair
+You lean on a chair.
+s> 
+Krag says, "Not enough Smith stories if you ask me"
+s> nod krag
+You nod to Krag.
+s> 
+Gurney smiles.
+s> 
+Cephus says, "Faldor spent the next several weeks forging a sword from the
+fragments of the star"
+s> 
+You feel the touch of Mariella's mind:
+"Ok :)"
+s> 
+Cephus says, "Word began to spread within the town about how the star was a
+holy sign and that Faldor was forging a weapon to save them from it."
+s> 
+Cephus says, "it being the undead army marching ever closer."
+s> 
+Cephus says, "During those weeks Faldor slept little and ate just as much."
+s> 
+Cephus says, "At the end he held in his hands a sword fully six feet in length
+with a double edge."
+s> 
+Emanon whistles.
+s> 
+Krag smiles.
+s> 
+Cephus says, "The sword weighed only half what is should and the sword gleamed
+like no metal on Andor."
+s> 
+Nord smiles.
+s> 
+Doroon nods.
+s> 
+The glowing outline of armor fades from around Gurney.
+s> 
+Cephus says, "As he sat there admiring his creation the voice of Rorin once
+more spoke, this time though it was not in his mind but to all."
+s> 
+Cephus says, "Most if not all felt the touch of Rorin that day."
+s> 
+Cephus says, "Faldor, now shall you take up the heart and place it into the
+body."
+s> 
+Emanon listens carefully to Cephus.
+s> 
+Cephus says, "Faldor then removed the fiery round stone as large as an egg."
+s> 
+The glowing outline of armor fades from around Emanon.
+s> 
+Cephus says, "Taking it from the pouch he had kept it in."
+s> 
+Krag listens carefully to Cephus.
+s> 
+Cephus says, "Looking at the sword he saw there now a deep depression on the
+pommel."
+s> 
+Cephus says, "He place the heart, the heart of Rorin he now knew onto the
+sword."
+s> 
+Krag arches his eyebrow.
+s> 
+Cephus says, "With an audible click the stone secured itself to the sword."
+s> 
+Cephus says, "For a moment nothing happened...the very air was silent."
+s> 
+Elriss listens to his surroundings closely.
+s> 
+Cephus says, "Holding the greatsword with both hands he lifted it into the air,
+where it burst into flame."
+s> 
+Krag says, "ohhhh"
+s> who
+Saxon              Gurney             Nord               Emanon             
+Keera              Feras              Raningeth          Krag               
+Marcolan           Cypress            Elriss             Mortif             
+Leah               Mariella           Megan              Morag              
+Young              Vladmir            Zemtar             
+
+
+There are 19 adventurers in the Realms.
+
+s> 
+Cephus says, "Golden flame traveled and wraped itself about the blade, filling
+Faldor with divine power."
+s> 
+Cephus says, "Even though it was day, the square became brighter still."
+s> 
+Cephus says, "All those in the town felt the divine power of Rorin sweep over
+them."
+s> 
+You feel the touch of Zemtar's mind:
+"can anyone open chests?"
+s> 
+Cephus says, "Many fell to the ground, others wept, while others were filled
+with all comsuming joy."
+s> 
+Cephus says, "Rorin spoke once again."
+s> 
+Cephus says, "This man you know as the blacksmith Faldor will be my knight
+destroy the army of death that even descends upon you now."
+s> 
+Cephus says, "I have given him the power to strike at the mind of that host,
+but he cannot hope to reach that by himself."
+s> 
+Cephus says, "You must stand with him, and open a path for him so that he might
+reach the real evil that does drive the darkness."
+s> 
+Cephus says, "Many gave up the shout and declared just that right then, a few
+though shouted "But what can one town hope to do against that, even with Faldor
+leading us?""
+s> 
+Cephus says, "Faldor then spoke then.."
+s> 
+You feel the touch of Vella's mind:
+"Can someone teach me two weapons please?"
+s> 
+Cephus says, "We cannot, I will then travel to all the towns in the south that
+I can, and we will raise our own army to meet the darkness."
+s> 
+Doroon smiles.
+s> 
+You feel the touch of Zemtar's mind:
+"anyone have any imp toes for sale"
+s> 
+ ** Morrollan has just disconnected.
+s> 
+ ** Vella has just disconnected.
+s> look in vest
+It is closed.
+s> 
+Cephus says, "Rorin spoke one last time Know that I am Rorin the god of light,
+I walk amongst you once again, those that walk my path shall never be afraid of
+the darkness."
+s> 
+Emanon smiles.
+s> 
+Cephus says, "The presence of Rorin then receeded until his presence could not
+be felt accept in the heart of those that now beleived."
+s> 
+The brilliant prismatic globe around Elriss vanishes.
+s> 
+Nord smiles.
+s> 
+Cephus says, "For few minutes all was quite...then everyone began to speak at
+once."
+s> 
+Cephus says, "Faldor was not a person who you would call a naural leader, but
+his time with Rorin had changed things within in him.."
+s> 
+Gurney smiles.
+s> 
+Krag smiles.
+s> 
+Emanon nods to Cephus.
+s> look
+[Temple of Rorin]
+This is a spacious area where the priests of the Temple of Rorin engage in the
+tutelage of acolytes and adepts. The priests invite all to join in Rorin's
+light, and demonstrate a working knowledge of nearly every skill imaginable.
+The room is flanked by long stained wooden bookracks, and is filled with
+tables, mats and workbenches decorated with a vast array of tools and
+equipment. A rack of wooden weaponry sits in the corner for practice by
+initiates.
+You see Gurney (sitting), Nord (sitting), Emanon, Cephus (sitting), Krag
+(sitting), Elriss and Doroon. 
+Obvious exits: south.
+s> 
+Cephus says, "The leader of the village a man named Silas seeing this stepped
+down and allowed Faldor to take command."
+s> 
+ ** Winter has just left the Realms.
+s> 
+Cephus says, "Faldor told them at once that he would set off to the other towns
+and villages, to return with an army."
+s> 
+ ** Megan has just disconnected.
+s> 
+Cephus says, "With him he took only three men."
+s> who
+Saxon              Gurney             Nord               Emanon             
+Keera              Feras              Raningeth          Wolfbane           
+Krag               Marcolan           Cypress            Elriss             
+Mortif             Leah               Mariella           Morag              
+Young              Vladmir            Zemtar             
+
+
+There are 19 adventurers in the Realms.
+
+s> 
+You feel the touch of Wolfbane's mind:
+"greetings"
+s> 
+You feel the touch of Vladmir's mind:
+"Kvaahn"
+s> 
+You feel the touch of Young's mind:
+"Greetings Guildmaster"
+s> 
+You feel the touch of Leah's mind:
+"Hi, Wolfbane!"
+s> 
+You feel the touch of Mariella's mind:
+"Hi Wolfie :)"
+s> 
+Cephus says, "Over the next month Faldor and his men rode, again sleeping on a
+couple hours a night."
+s> 
+You feel the touch of Wolfbane's mind:
+"greetings vladmir arms brother leah and sis!"
+s> 
+Cephus says, "Some towns joined gladely and needed little convincing, others
+turned their back on him, shutting their gates."
+s> 
+Cephus says, "To those he brought forth the Body of Rorin and let it be seen."
+s> 
+You feel the touch of Mariella's mind:
+"I'm sure I did! I would have loved it :)"
+s> 
+(Emanon ponders such a sword)
+s> 
+Cephus says, "Whenever he did this the sword burst into flame and the divine
+presence of Rorin would sweep through the town. Those that were not so far from
+the path would open the gates and come forth."
+s> 
+Cephus says, "In time the army grew to almost ten thousand."
+s> 
+Krag smiles.
+s> 
+Emanon grins.
+s> 
+Elriss whistles.
+s> 
+Cephus says, "Most of the towns other then Faldor's own were emptied, the army
+streched behind him for mile upon mile."
+s> 
+You feel the touch of Shankara's mind:
+"Greetings..."
+s> 
+You feel the touch of Leah's mind:
+"Hello, Shankara"
+s> 
+You feel the touch of Young's mind:
+"Howdy Shankara"
+s> 
+You feel the touch of Vladmir's mind:
+"Kvaahn"
+s> 
+You feel the touch of Wolfbane's mind:
+"heya shankara"
+s> 
+You feel the touch of Shankara's mind:
+"how is everyone?"
+s> 
+You feel the touch of Cypress's mind:
+"Hi! Snakeman"
+s> 
+You feel the touch of Wolfbane's mind:
+"heya cypress"
+s> 
+You feel the touch of Cypress's mind:
+"Hi! Wolfie"
+s> 
+Cephus says, "Besides the fighting men there were all the wagons full of
+provisions for an army that cannot will be defeated before the first sword is
+swung."
+s> 
+Cephus coughs.
+s> 
+(Cephus stops for a moment.)
+s> 
+Emanon smiles.
+s> 
+You feel the touch of Saxon's mind:
+"Hiya Wolfbane"
+s> 
+Cephus says, "My eyes are starting to fail me."
+s> 
+Cephus mutters something you can't quite make out.
+s> 
+You feel the touch of Wolfbane's mind:
+"heya sax"
+s> 
+Gurney furrows his brow.
+s> 
+Krag says, "Rest then a moment brother"
+s> 
+Cephus says, "Where was I..."
+s> 
+Doroon takes some spectacles.
+s> act leans back in his chair.
+(Mortif leans back in his chair.)
+s> 
+Doroon gives some spectacles to Cephus.
+s> lean chair
+You lean on a chair.
+s> 
+(Emanon offer Cephus a glass of water)
+s> 
+You feel the touch of Zemtar's mind:
+"Shankara, can you eldritch?"
+s> 
+You feel the touch of Raningeth's mind:
+"anyone need any potions?"
+s> look
+[Temple of Rorin]
+This is a spacious area where the priests of the Temple of Rorin engage in the
+tutelage of acolytes and adepts. The priests invite all to join in Rorin's
+light, and demonstrate a working knowledge of nearly every skill imaginable.
+The room is flanked by long stained wooden bookracks, and is filled with
+tables, mats and workbenches decorated with a vast array of tools and
+equipment. A rack of wooden weaponry sits in the corner for practice by
+initiates.
+You see Gurney (sitting), Nord (sitting), Emanon, Cephus (sitting), Krag
+(sitting), Elriss and Doroon. 
+Obvious exits: south.
+s> 
+You feel the touch of Shankara's mind:
+"no i cant..."
+s> 
+Cephus says, "hmmph...I don't really need these"
+s> 
+Cephus dons some spectacles.
+s> 
+Krag says, "The many wagons with provisions"
+s> 
+Elriss chuckles.
+s> 
+Cephus says, "Yes, yes...wagons with provisions..."
+s> 
+Cephus says, "Here it is."
+s> 
+Cephus says, "Fourty days out Faldor returned to the lands near his town..."
+s> 
+Cephus says, "The Darkness was much, much closer now."
+s> 
+Cephus says, "All the sky to the south except for a small slip of blue was
+covered by the dark cloud."
+s> 
+Cephus furrows his brow.
+s> 
+Cephus says, "sorry north"
+s> 
+Cephus says, "Faldor rode in the town, who was on the verge of panic."
+s> 
+ ** Vladmir has just left the Realms.
+s> 
+Cephus says, "When they saw Faldor most of that fear was lifted and even more
+when the army he brought rode over the hills and into sight."
+s> 
+ ** Shankara has just left the Realms.
+s> 
+ ** Kythorn has just left the Realms.
+s> 
+Cephus says, "The scouts that were sent out told that the undead army would be
+at the walls in no more then a week."
+s> 
+ ** Shankara has just left the Realms.
+s> 
+Cephus says, "Faldor now had a council of men to help him devise a strategy."
+s> 
+Cephus says, "From what could be determined by the people that fled here from
+the north, the army of undead seemed to have one strategy."
+s> 
+Cephus says, "Overwelming odds."
+s> 
+ ** Leah has just disconnected.
+s> 
+Nord nods.
+s> 
+Cephus says, "Faldor and his council devised a strategy then that took
+advantage of this."
+s> 
+You feel the touch of Rion's mind:
+"is there a lockpicker near town?"
+s> 
+You feel the touch of Wolfbane's mind:
+"greetings sir rion"
+s> 
+Cephus says, "Knowing that one mind controlled them and that even if that were
+not so an army of that size reacted to change very slowly..."
+s> 
+Krag nods.
+s> 
+You feel the touch of Mariella's mind:
+"Hi Rion <wag>"
+s> 
+Cephus says, "The decided to devide their own army into three seperate groups."
+s> 
+You feel the touch of Keera's mind:
+"Sunny!"
+s> 
+You feel the touch of Rion's mind:
+"Hihey Mariella :)"
+s> 
+You feel the touch of Zemtar's mind:
+"is there a fruit or something that resytores fatigue?"
+s> 
+You feel the touch of Winter's mind:
+"Manango fruits"
+s> 
+You feel the touch of Young's mind:
+"yep, manango fruit"
+s> 
+You feel the touch of Rion's mind:
+"Heya Keera!"
+s> 
+Cephus says, "Each of the smaller legions would be divided again into three
+groups."
+s> 
+ ** Winter has just left the Realms.
+s> who
+Saxon              Gurney             Nord               Emanon             
+Keera              Feras              Raningeth          Wolfbane           
+Krag               Marcolan           Cypress            Elriss             
+Mortif             Winter             Mariella           Rion               
+Morag              Young              Kythorn            Zemtar             
+Leah               Nomi               
+
+
+There are 22 adventurers in the Realms.
+
+s> 
+Cephus says, "There would be no defense made, the army as a whole would be
+fluid able to retreat and move quickly on a command."
+s> 
+ ** Wolfbane has just left the Realms.
+s> 
+Emanon nods to Cephus.
+s> 
+ ** Kythorn has just left the Realms.
+s> 
+Cephus says, "One group would attack the left flank while the other the right."
+s> 
+Cephus says, "drawing the left and right side of the dark army outward."
+s> 
+You feel the touch of Saxon's mind:
+"Heya Rion!"
+s> 
+You feel the touch of Rion's mind:
+"Hihey Saxon!"
+s> 
+Cephus says, "When a side was drawn out enough...each Legion would fall upon
+it."
+s> 
+You feel the touch of Saxon's mind:
+"Where ya at?"
+s> 
+ ** Gladreal has just left the Realms.
+s> 
+Cephus says, "Hopefully destroying as many dead as they could."
+s> 
+Cephus says, "If the battle was going badly then they would retreat quickly."
+s> 
+You feel the touch of Rion's mind:
+"the old place in town"
+s> 
+ ** Nomi has just left the Realms.
+s> 
+ ** Nomi has just left the Realms.
+s> 
+ ** Nomi has just left the Realms.
+s> 
+Cephus says, "While the legion on the opposite flank would then do the same and
+lure out their side."
+s> 
+The ghostly shield protecting Gurney slowly fades.
+s> 
+Cephus says, "If this worked then Faldor thought the dark army would be
+weakened enough so that he could take his legion and send a wedge down the
+middle."
+s> 
+You feel the touch of Rion's mind:
+"Saxon where are you?"
+s> 
+Krag nods.
+s> 
+You feel the touch of Young's mind:
+"In front of me"
+s> 
+You feel the touch of Rion's mind:
+"hi Young"
+s> 
+You feel the touch of Saxon's mind:
+"Hey Rion, I got someone with me"
+s> 
+You feel the touch of Young's mind:
+"Howdy tracker"
+s> 
+You feel the touch of Rion's mind:
+"okay, where?"
+s> 
+You feel the touch of Saxon's mind:
+"We're in the church"
+s> 
+Cephus says, "One of his generals then spoke up and said "This might work if we
+were fighting men, but were not, these we go against of the undead""
+s> 
+ ** Shayla has just disconnected.
+s> 
+Cephus says, "I think in the face of this army the men will balk and be struck
+with terror."
+s> 
+ ** Wolfbane has just disconnected.
+s> 
+Cephus says, "It was then the presence of Rorin filled the room."
+s> 
+Cephus says, "His voice filled the chamber."
+s> 
+You feel the strength leave you.
+s> 
+Gurney appears to become weaker.
+s> 
+Krag listens carefully to Cephus.
+s> 
+Cephus says, "No that the unatural terror that the army does eminate will not
+be felt as my presence will fill your men and burn away any thought of horror."
+s> 
+Cephus says, "The presence of Rorin was then gone."
+s> 
+(Cephus takes a moment)
+s> 
+Cephus says, "Faldor gave the army two 3 days to rest."
+s> 
+Cephus says, "three days"
+s> 
+(Cephus adjsuts his spectacles)
+s> 
+Cephus says, "On the morning of the fourth day he rode to the front of the army
+he had created."
+s> 
+ ** Marcolan has just left the Realms.
+s> 
+Cephus says, "Faldor was not a speach maker so his words were short."
+s> 
+ ** Shayla has just disconnected.
+s> 
+Cephus says, "Standing in the stirrups of his horse with the Body of Rorin
+strapped to his back he spoke."
+s> who
+Saxon              Gurney             Nord               Emanon             
+Keera              Feras              Raningeth          Shayla             
+Krag               Myrdhyn            Cypress            Elriss             
+Mortif             Winter             Mariella           Rion               
+Morag              Young              Shankara           Zemtar             
+Leah               Nomi               Jaxan              
+
+
+There are 23 adventurers in the Realms.
+
+s> 
+ ** Jaxan has just left the Realms.
+s> 
+ ** Vladmir has just left the Realms.
+s> 
+ ** Jaxan has just left the Realms.
+s> 
+ ** Jaxan has just left the Realms.
+s> 
+ ** Cael has just left the Realms.
+s> 
+Cephus says, "This day we go to battle a foe that is antithsesis of all we live
+for..."
+s> 
+Cephus says, "The army we fight has no mind accept the one who controlls it."
+s> 
+You feel the touch of Winter's mind:
+"Myrd!"
+s> 
+Cephus says, "But we are men, and gods have given us minds, hearts and
+souls..."
+s> 
+You feel the touch of Shankara's mind:
+"you forgot one"
+s> 
+Cephus says, "Rorin the god of light has given me a blade to strike at the
+being that leads that dark host..."
+s> 
+ ** Myrdhyn has just left the Realms.
+s> 
+Cephus says, "But I cannot do it unless we all stand together, fight as one."
+s> who
+Saxon              Gurney             Nord               Emanon             
+Keera              Feras              Raningeth          Shayla             
+Krag               Marcolan           Cypress            Elriss             
+Mortif             Winter             Mariella           Rion               
+Morag              Young              Shankara           Zemtar             
+Leah               Nomi               Jaxan              
+
+
+There are 23 adventurers in the Realms.
+
+s> 
+Cephus says, "It was then the presence of Rorin crossed the plane and enveloped
+Faldor's army"
+s> 
+Cephus exclaims, "We fight for our loved ones, we fight for the light, Rorin is
+with us!"
+s> 
+ ** Nomi has just disconnected.
+s> 
+Cephus says, "Faldor then kicked his horse once and galloped ahead, his army
+just behind him charging forward."
+s> 
+(Cephus puts his finer on the page but closes it.)
+s> 
+Emanon arches his eyebrow.
+s> 
+Krag arches his eyebrow.
+s> 
+Cephus says, "hmmmm"
+s> 
+Emanon muses, " you cant stop there.."
+s> 
+ ** Young has just left the Realms.
+s> 
+ ** Boroc has just disconnected.
+s> 
+Elriss furrows his brow.
+s> 
+Cephus says, "I'm older then all of you...and have talked more today then in
+months time."
+s> 
+Cephus chuckles at Emanon.
+s> 
+Elriss chuckles at Cephus.
+s> 
+Gurney smiles.
+s> 
+Elriss says, "Oh, a cliffhanger."
+s> 
+Emanon smiles at Cephus.
+s> 
+Doroon gives Cephus a backrub.
+s> 
+Cephus asks, "Would it put you out if I finish the story on the marrow?"
+s> 
+Cephus says, "It is not nearly finished"
+s> 
+(Doroon softly says, "You should rest, sir.")
+s> 
+Gurney nods.
+s> 
+Emanon nods.
+s> 
+Krag smiles at Cephus.
+s> 
+Cephus says, "Grand"
+s> 
+Gurney chuckles.
+s> 
+Cephus asks, "Tomorow then at the same time?"
+s> 
+Gurney nods.
+s> 
+Elriss nods to Cephus.
+s> 
+Krag ponders.
+s> 
+Emanon muses, " I'll do my best...iffy this quick.."
+s> 
+Krag struggles to his feet.
+s> 
+Elriss says, "I'll be here."
+s> 
+Gurney says, "As will I."
+s> 
+Cephus says, "We could set it for a bit latter"
+s> 
+Krag says, "I may be a bit late as well or not at alll"
+s> 
+Cephus says, "If that will help."
+s> 
+Krag sighs.
+s> 
+Cephus asks, "Would a day make a difference?"
+s> 
+Cephus nods to Krag.
+s> 
+Emanon muses, " is next sunduy hugely bad..or this tues?"
+s> 
+Nord struggles to his feet.
+s> 
+Nord incants a spell.
+s> 
+Nord gestures.
+Nord looks a little better.
+s> 
+Nord incants a spell.
+s> 
+Nord gestures.
+Nord looks a little better.
+s> 
+Cephus says, "If everyone can make it tuesday then I think I can."
+s> 
+Emanon nods to Cephus.
+s> 
+Gurney nods.
+s> 
+Cephus says, "If it allows everyone to be here."
+s> 
+Emanon muses, " tues I can do"
+s> pond
+You ponder for a moment.
+s> 'Tuesday or sunday I guess
+You say, "Tuesday or sunday I guess"
+s> 
+Cephus gives a large leather bound book with it's title faintly visible along
+the spine to Doroon.
+s> 
+Emanon muses, " same time 8 there?[]"
+s> 
+Cephus nods.
+s> 
+Emanon nods.
+s> 
+Cephus says, "tuesday at 8 []"
+s> 
+Emanon muses, " can do"
+s> 
+Cephus stands up.
+s> 
+Cephus exclaims, "my bones are talking to me!"
+s> 
+Emanon grins.
+s> 
+Cephus wields a gnarled birch wood cane.
+s> 
+Elriss listens carefully to Cephus.
+s> 
+Elriss winces.
+s> 
+(Krag writes that down)
+s> 
+Gurney says, "Rest well."
+s> 
+You feel the touch of Shankara's mind:
+"Zemtar?"
+s> 
+You feel the touch of Shankara's mind:
+"can you come to the bc?"
+s> 'Mine aren't on speaking terms any longer
+You say, "Mine aren't on speaking terms any longer"
+s> 
+You feel the touch of Zemtar's mind:
+"sure"
+s> 
+Cephus chuckles.
+s> 
+Cephus nods to Emanon.
+s> 
+Doroon chuckles at you.
+s> 
+You feel the touch of Zemtar's mind:
+"rooted to the spot"
+s> 
+You feel the touch of Zemtar's mind:
+"hold on a sec"
+s> look
+[Temple of Rorin]
+This is a spacious area where the priests of the Temple of Rorin engage in the
+tutelage of acolytes and adepts. The priests invite all to join in Rorin's
+light, and demonstrate a working knowledge of nearly every skill imaginable.
+The room is flanked by long stained wooden bookracks, and is filled with
+tables, mats and workbenches decorated with a vast array of tools and
+equipment. A rack of wooden weaponry sits in the corner for practice by
+initiates.
+You see Gurney (sitting), Nord, Emanon, Cephus, Krag, Elriss and Doroon. 
+Obvious exits: south.
+s> 
+Elriss nods to Cephus.
+s> stand
+You struggle to your feet under the weight of all your equipment.
+ [Round: 11 sec]
+R> 
+Emanon removes a fiery silver badge with the image of a blazing sun gripped
+within a gleaming golden hand.
+R> 
+Emanon nods to Cephus.
+> 
+You feel the touch of Zemtar's mind:
+"on my way"
+> 
+Cephus says, "I think I will find my bed then."
+> 
+Cephus nods to Elriss.
+> 
+Emanon removes some heavy crimson shoulder guards from which hangs a long
+crimson silk cloak.
+> 
+Emanon dons a fiery silver badge with the image of a blazing sun gripped within
+a gleaming golden hand.
+> 
+Emanon slips some heavy crimson shoulder guards from which hangs a long crimson
+silk cloak over his back.
+> 
+Gurney struggles to his feet.
+> 
+Emanon bows towards Cephus.
+> 
+Krag says, "Good idea"
+> 
+Cephus says, "May Roin be with you"
+> 
+Gurney bows towards Cephus.
+> 
+Cephus bows.
+> 
+Elriss bows towards Cephus.
+> 
+Gurney says, "And with you."
+> 
+Cephus says, "Rorin too"
+> 
+Elriss says, "And with you, Brother Cephus."
+> 
+Krag takes a steel pocketwatch out of his breast pocket.
+> 
+Krag pushes a button on the top of a steel pocketwatch and it snaps open.
+> 
+Krag checks the time on a steel pocketwatch.
+> 
+Krag pushes a steel pocketwatch closed with a click.
+> 
+Krag tucks a steel pocketwatch in his breast pocket.
+> 
+Doroon bows.
+> 
+Cephus says, "aye"
+> 
+Elriss bows towards Doroon.
+> 
+Cephus says, "Come along Doroon."
+> 
+Krag bows towards Cephus.
+> 
+Emanon muses, " fire and light to you ll, I too m ust attend my wife a moment
+and then go"
+> 
+Gurney bows towards Doroon.
+> 
+Doroon says, "A good morn to you all, sirs."
+> 'Fire and light Brothers
+You say, "Fire and light Brothers"
+> 
+Cephus is now following Doroon.
+> 
+Krag bows towards Doroon.
+> 
+Doroon blushes.
+> time
+It is Phobrus 8, 1046 (Year of the Sword).
+It is midmorning.
+> 
+Doroon's group goes south.
+> look
+[Temple of Rorin]
+This is a spacious area where the priests of the Temple of Rorin engage in the
+tutelage of acolytes and adepts. The priests invite all to join in Rorin's
+light, and demonstrate a working knowledge of nearly every skill imaginable.
+The room is flanked by long stained wooden bookracks, and is filled with
+tables, mats and workbenches decorated with a vast array of tools and
+equipment. A rack of wooden weaponry sits in the corner for practice by
+initiates.
+You see Gurney, Nord, Emanon, Krag and Elriss. 
+Obvious exits: south.
+> 
+Krag says, "Weve kept him up all night"
+> 
+Emanon grins.
+> 
+Gurney smirks.
+> 'We did?
+You ask, "We did?"
+> 
+Elriss chuckles at you.
+> 
+Krag taps a steel pocketwatch.
+> 'I thought it was him who kept us up
+You say, "I thought it was him who kept us up"
+> shr
+You shrug.
+> 
+Krag says, "Unless this is broken"
+> 'I'll wager Faldor never got thumped on the head by librarians...
+You say, "I'll wager Faldor never got thumped on the head by librarians..."
+> 
+Krag says, "We could have has Elris read it so he could sleep"
+> snort
+You snort.
+> 
+Krag laughs.
+> 
+You feel the touch of Mariella's mind:
+"yes ...where?"
+> 
+Gurney smiles.
+> 
+Krag yawns.
+> exp
+Level: 80
+Build Points to date: 829
+Unspent Build Points: 6
+Experience Points until next Build Point: 4801
+> 
+You feel the touch of Mariella's mind:
+"ok"
+> 
+You feel the touch of Emanon's mind:
+":)"
+> 
+You feel the touch of Mariella's mind:
+"hhooOOWWwwlll"
+> 
+You feel the touch of Winter's mind:
+"Hiya mari!"
+> 
+You feel the touch of Winter's mind:
+"Hiya Emanon!"
+> 
+You feel the touch of Mariella's mind:
+"Hello Sister :)"
+> 
+Emanon muses, " be well brothers, Father shine on youy always.."
+> 
+Emanon bows.
+> 
+Gurney bows towards Emanon.
+> wave em
+You wave to Emanon.
+> 
+Krag bows towards Elriss.
+> 
+All Rorin players please report their levels.
+> 
+Elriss bows.
+> 
+Emanon concentrates intently.
+> exp
+Level: 80
+Build Points to date: 829
+Unspent Build Points: 6
+Experience Points until next Build Point: 4801
+> 
+Emanon concentrates.
+> 
+Emanon phases out.
+> report Level 80
+Your message has been reported to the online GameMaster staff.
+> 
+You feel the touch of Shankara's mind:
+"anyone have a spider eye?"
+> 
+Gurney says, "I think I need a walk to stretch what is left og my legs."
+> 
+The ground shudders then cracks open spewing wisps of fire as a figure rises
+from the crevice.
+> 
+Krag says, "I think a stat herb salad and im off to bed"
+> 
+Dante says, "greets"
+> 
+Gurney blinks.
+> 
+Dante says, "hang on"
+> 
+Krag exclaims, "ACK!!!"
+> 
+Gurney waves to Dante.
+> 
+Gurney chuckles.
+> 
+Dante says, "I plan on running a Rorin event this sunday as well."
+> 
+Elriss smiles at Dante.
+> 
+Dante says, "unless you screw things up between now and then"
+> 
+Dante grins.
+> 
+Gurney beams happily.
+> 
+Gurney chuckles.
+> grin
+You grin.
+> look
+[Temple of Rorin]
+This is a spacious area where the priests of the Temple of Rorin engage in the
+tutelage of acolytes and adepts. The priests invite all to join in Rorin's
+light, and demonstrate a working knowledge of nearly every skill imaginable.
+The room is flanked by long stained wooden bookracks, and is filled with
+tables, mats and workbenches decorated with a vast array of tools and
+equipment. A rack of wooden weaponry sits in the corner for practice by
+initiates.
+You see Gurney, Nord, Dante, Krag and Elriss. 
+Obvious exits: south.
+> 
+Nord asks, "july 4?"
+> 
+Krag says, "3rd"
+> 
+Nord says, "that's saturday"
+> 
+Krag says, "oh it is the 4th"
+> 
+Dante frowns.
+> 
+Dante says, "hang on"
+> 
+Krag says, "Ack again"
+> 
+Dante says, "thats crappy"
+> 
+Gurney chuckles.
+> 
+Gurney laughs.
+> 
+Dante says, "didnt realize it"
+> 
+Dante says, "I can make it unless everyone has better things to do that eve"
+> 
+Gurney says, "I will be gone"
+> 'I stopped playing with fire years ago
+You say, "I stopped playing with fire years ago"
+> shr
+You shrug.
+> 'I can make it
+You say, "I can make it"
+> 
+Dante says, "What about the monday after?"
+> 
+Krag says, "Not me"
+> 
+Gurney says, "monday is fine by me"
+> 
+Dante says, "most have off"
+> 
+Krag shrugs.
+> 'Monday could work, maybe
+You say, "Monday could work, maybe"
+> 
+Krag says, "(ish maybe"
+> 
+Gurney says, "depends on the time, council meeting that night"
+> 
+Krag says, "er 9ish"
+> 
+Elriss says, "Just about any time is good for me."
+> 
+Gurney says, "At 9"
+> 
+Nord says, "council mtg conflict"
+> 
+Dante says, "let me check out the calander and i'll pick out a day for early
+next week then"
+> 
+Gurney nods.
+> 
+Gurney says, "Alright"
+> 
+Krag nods.
+> 
+Dante says, "Make sure there arent other events confliciting"
+> exp
+
+Dante says, "ok..hang here for five and i'll hand out exp"
+> Level: 80
+Build Points to date: 829
+Unspent Build Points: 6
+Experience Points until next Build Point: 4801
+> 
+Gurney nods.
+> 
+A pair of scantily dressed succubae arrive and escort Dante back to the
+Netherworld.
+> 
+You feel the touch of Winter's mind:
+"Any weaver?"
+> 
+Gurney smiles.
+> 
+Nord yawns.
+> nod nor
+You nod to Nord.
+> look
+[Temple of Rorin]
+This is a spacious area where the priests of the Temple of Rorin engage in the
+tutelage of acolytes and adepts. The priests invite all to join in Rorin's
+light, and demonstrate a working knowledge of nearly every skill imaginable.
+The room is flanked by long stained wooden bookracks, and is filled with
+tables, mats and workbenches decorated with a vast array of tools and
+equipment. A rack of wooden weaponry sits in the corner for practice by
+initiates.
+You see Gurney, Nord, Krag and Elriss. 
+Obvious exits: south.
+> 
+Krag takes a steel pocketwatch out of his breast pocket.
+> 
+Krag pushes a button on the top of a steel pocketwatch and it snaps open.
+> 
+Krag checks the time on a steel pocketwatch.
+> 
+Krag pushes a steel pocketwatch closed with a click.
+> 
+Krag tucks a steel pocketwatch in his breast pocket.
+> exp
+Level: 80
+Build Points to date: 829
+Unspent Build Points: 6
+Experience Points until next Build Point: 4801
+> pre 210
+You prepare the Haste spell.
+ [Round: 3 sec]
+R> cast
+[Wait 1 seconds...]
+R> cast
+You gesture.
+[Success: 95%, Roll 72] Success!
+You find yourself able to move incredibly fast.
+> pre 209
+You prepare the Strength III spell.
+ [Round: 1 sec]
+R> cas
+pre 209
+You gesture.
+[Success: 95%, Roll 32] Success!
+You feel incredibly strong.
+> You prepare the Strength III spell.
+ [Round: 1 sec]
+R> rel
+You release your prepared spell.
+> pre 403
+You prepare the Mindlink spell.
+ [Round: 1 sec]
+R> cas
+[Wait 1 seconds...]
+R> cas
+You gesture.
+[Success: 95%, Roll 84] Success!
+You feel the power of your mind expanding.
+> stat
+
+You are a high priest of the Temple of Rorin.
+Level: 80
+Build Points to date: 829
+Unspent Build Points: 6
+Experience Points until next Build Point: 4781
+Quickness: 110    Constitution: 121    Strength:  207    Agility: 60 
+Willpower: 102    Perception:   62     Empathy:   103
+Age:       45     Height:       5'1    Weight:    136    Load: 300
+
+Current Attack Modifier: 51 [Berserk]
+Current Defend Modifier: -8
+
+Body Points: 226/226
+Mana: 219/249
+Psi: 247/247
+Fatigue: 224/224
+[Type SPELLS or SKILLS for more information.]
+You are an acolyte in the Temple of Rorin."
+> disarm ches
+[Success: 36%, Roll: 72] Failure.
+You are unable to disarm a chest.
+ [Round: 5 sec]
+R> disarm ches
+[Success: 36%, Roll: 17] Success!
+You disarm a chest.
+ [Round: 5 sec]
+R> disarm strong
+[Success: 36%, Roll: 39] Failure.
+You are unable to disarm a strongbox.
+ [Round: 5 sec]
+R> 
+Krag mutters something you can't quite make out.
+R> disarm strong
+[Wait 1 seconds...]
+R> disarm strong
+[Success: 36%, Roll: 1] Success!
+You disarm a strongbox.
+ [Round: 5 sec]
+R> pick ches with lock
+[Success: 0%, Roll: 22] Failure.
+You fail to pick the lock on a chest.
+ [Round: 5 sec]
+R> pick strong with lock
+[Success: 0%, Roll: 34] Failure.
+You fail to pick the lock on a strongbox.
+ [Round: 5 sec]
+R> who
+Saxon              Gurney             Nord               Emanon             
+Keera              Feras              Raningeth          Shayla             
+Krag               Marcolan           Cypress            Elriss             
+Mortif             Winter             Mariella           Rion               
+Morag              Shankara           Zemtar             Leah               
+Jaxan              
+
+
+There are 21 adventurers in the Realms.
+
+R> exp
+Level: 80
+Build Points to date: 829
+Unspent Build Points: 6
+Experience Points until next Build Point: 4761
+> 
+Nord incants a spell.
+> 
+Nord gestures.
+Nord looks a little better.
+> look
+[Temple of Rorin]
+This is a spacious area where the priests of the Temple of Rorin engage in the
+tutelage of acolytes and adepts. The priests invite all to join in Rorin's
+light, and demonstrate a working knowledge of nearly every skill imaginable.
+The room is flanked by long stained wooden bookracks, and is filled with
+tables, mats and workbenches decorated with a vast array of tools and
+equipment. A rack of wooden weaponry sits in the corner for practice by
+initiates.
+You see Gurney, Nord, Krag and Elriss. 
+Obvious exits: south.
+> 
+Gurney opens a sack.
+> 
+Gurney closes a sack.
+> inv
+You are carrying: 
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  A chest
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  Some oiled bekk-ite metal
+  An iron lockpick
+  Some ebony leather armor with a fine network of gold filagree imbedded into
+it
+  An iron lockpick
+  An oiled moonstone
+  A jade ring
+  An oiled eye agate
+  An iron lockpick
+  An amulet formed from a blackened kvantar
+  A fiery silver badge engraved with the image of a blazing sun gripped within
+a gleaming golden hand (worn)
+  A leather teddy
+  A demon horn
+  A tiny chartreuse glass bottle
+  A misty white bottle
+  A blazing golden glass bottle
+  An oiled eye agate
+  An oiled copper shuriken
+  Some bubblegum
+  A glass (open)
+  An onyx amulet (worn)
+  A glowing medallion (worn)
+  A graphite crucible (open)
+  A truesteel hammer with a short wooden shaft and a sunburst engraved on the
+forge-shaped head
+  A large furry yeti doll with the familiar urisine scent to it
+  A mechanoid doll that looks like Hollister
+  A polished opal
+  A shadowy inky black doll of Donner sniffing a woman's skirt and sighing in
+pleasure
+  A strongbox
+  A sooty black t-shirt that says, "Smiths do it for hours and hours...just to
+keep in practice."
+  A brass necklace
+  A black doeskin harness (open)
+  A large brass lantern which looks like it was copied for the illustrations in
+a book
+  A graphite whetstone
+  A fuzzy plaid beltpouch (open)
+  A small polished moonstone
+  A fluffy brown dog (open)
+  A black leather vest
+  A large bloodstone
+  An ursine pelt
+  A mauve damn ticket
+  An apron (open)
+  A strongbox
+  A huge onyx stone
+  A malachite stone
+  A rowik berry
+  A werewolf eye
+  An icy elkyri longsword
+  A werewolf eye
+  Some sooty black leather gloves (worn)
+  Some green cotton pants (worn)
+  An elkyri pendant
+  A torch
+  A pure golden circlet etched with intricate sun symbols around it (worn)
+  An inky black leather trenchcoat (worn) (open)
+  A thin aelfen imperial cigar that sports a colorful label of a magenta
+jackal's head
+  An iridescent oiled knife
+  A backpack (open)
+  A pick-axe
+  An obsidian talisman (worn)
+  A pick-axe
+  A malachite wand
+  Some babich root
+  Some copper metal
+  An oiled aquamarine
+  An oiled sardonyx
+  Some mirmach
+  Some teak
+  Some rosewood
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  Some copper metal
+> 
+Gurney incants a spell.
+> 'Anyone need an oily gem?
+
+Gurney gestures.
+Gurney seems changed.
+> You ask, "Anyone need an oily gem?"
+> tap oil sard
+You tap an oiled sardonyx.
+> 
+Krag asks, "Oily gem?"
+> 
+Elriss asks, "What do they do?"
+> 
+Gurney shakes his head back and forth.
+> nod
+
+Gurney incants a spell.
+> You nod.
+> 
+Krag says, "How odd"
+> 
+Gurney gestures.
+Gurney seems changed.
+> 'My dad traded some mul parts for them
+You say, "My dad traded some mul parts for them"
+> 
+You have been awarded 82000 experience points.
+> 
+You have been awarded 82000 experience points.
+> 
+You have been awarded 82000 experience points.
+> tap oil bek met
+You tap some oiled bekk-ite metal.
+> 
+Krag says, "Slippery ting to I bet"
+> nod krag
+You nod to Krag.
+> exp
+Level: 81
+Build Points to date: 832
+Unspent Build Points: 9
+Experience Points until next Build Point: 9561
+> 
+Gurney incants a spell.
+> 
+Gurney gestures.
+Gurney seems changed.
+> 
+Gurney incants a spell.
+> 
+Gurney gestures.
+Gurney seems changed.
+> x
+
+ ** Mortif has just left the Realms.
+> 
+
+Character Manager V1.00
+
+ 1 => Moordread
+ 2 => Morti
+ 3 => Bubba
+
+ C => Create new character
+ D => Delete current character
+ P => Play Legends of Future Past
+ X => Exit to NovaLink
+
+
+Active character: Morti (#2)
+
+Select: p
+
+Interactive Entertainment OS V6.10 [Legends of Future Past]
+(c)1991-1995 Inner Circle Technologies, Inc. Revision dated Apr 13 1995.
+
+URLs of web components are:
+
+Webpage: www.lofp.com
+Boards: www.lofp.com/forums
+Boards (avoids Timeouts): www.lofp.com/forums/?RequestTimeout=500
+Calendar: www.lofp.com/calendar
+Rate Plan: www.lofp.com/newrate.htm
+Rate FAQ: www.lofp.com/ratefaq.htm
+Scripting policy: www.lofp.com/script.htm
+Policies: www.lofp.com/basic/policies.htm
+GAME STATUS: www.lofp.com/status.htm
+
+EMail Addresses:
+Any GM: gmname@lofp.com (like chanatahe@lofp.com)
+Manager: druid@lofp.com   His ICQ is 5730609
+Queen Moryan- QueenMoryan@lofp.com
+Baron Emails are as follows: Baron-Aetheon@lofp.com,
+Baron-Beoford@lofp.com, Baroness-Charette@lofp.com,
+Baron-Nikoli@lofp.com
+
+Please see the website for the rateplan and the scripting policy.  The
+URLS are listed above.
+
+Eprise Corporation
+1671 Worcester Rd, 4th Floor
+Framingham, MA 01701
+Send checks Attn: Gary Whitten
+
+The next Council of Lords will meet on Monday, JULY 5th at 9:00pm.
+                                                       
+A Royal Ball will be held in honor of Princess Arin D'vena's 11th
+birthday on July 10th. Look for details on the newsboard and calendar.
+                                 
+[Temple of Rorin]
+You see Gurney, Nord, Krag and Elriss. 
+Obvious exits: s.
+It is Phobrus 8, 1046 (Year of the Sword).
+It is late morning.
+A wizened priestess totters to her feet and casts a spell.
+> 
+The elderly woman creaks back into her chair.
+> tap oil aqu
+You tap an oiled aquamarine.
+> 
+Krag says, "Very odd indeed"
+> tap oil aga
+You tap an oiled eye agate.
+> tap oil moon
+You tap an oiled moonstone.
+> 
+Gurney says, "odd"
+> 
+Krag says, "The stones"
+> 
+ ** Krag has just left the Realms.
+> 
+Krag exits.
+> 
+Krag arrives.
+> 
+A wizened priestess totters to her feet and casts a spell.
+> 
+The elderly woman creaks back into her chair.
+> 'Take one and see if you can get it to do anything
+You say, "Take one and see if you can get it to do anything"
+> give oil moon to krag
+You give an oiled moonstone to Krag.
+> give oil sar to gur
+You give an oiled sardonyx to Gurney.
+> look
+[Temple of Rorin]
+This is a spacious area where the priests of the Temple of Rorin engage in the
+tutelage of acolytes and adepts. The priests invite all to join in Rorin's
+light, and demonstrate a working knowledge of nearly every skill imaginable.
+The room is flanked by long stained wooden bookracks, and is filled with
+tables, mats and workbenches decorated with a vast array of tools and
+equipment. A rack of wooden weaponry sits in the corner for practice by
+initiates.
+You see Gurney, Nord, Krag and Elriss. 
+Obvious exits: south.
+> 
+Gurney gazes at an oiled sardonyx.
+> 
+You return to normal speed.
+> pre 210
+You prepare the Haste spell.
+ [Round: 3 sec]
+R> cast
+[Wait 2 seconds...]
+R> cast
+[Wait 1 seconds...]
+R> cast
+You gesture.
+[Success: 95%, Roll 10] Success!
+You find yourself able to move incredibly fast.
+> 
+Krag says, "Well it has no alchemical ability of a regular moonstone"
+> pond
+You ponder for a moment.
+> 
+Gurney asks, "other than say...produce crowns at the jewelers?"
+> 
+Gurney grins.
+> shr
+You shrug.
+> 'I didn't try selling them
+You say, "I didn't try selling them"
+> 'But perhaps the oils can be made iridescent, like oiled metals
+
+ ** Nord has just left the Realms.
+> 
+Nord exits.
+> 
+Nord arrives.
+> 
+A wizened priestess totters to her feet and casts a spell.
+> You say, "But perhaps the oils can be made iridescent, like oiled metals"
+> 
+The elderly woman creaks back into her chair.
+> 
+Nord says, "ok I'm toast...later all"
+> 
+Gurney smiles.
+> 
+Gurney bows towards Nord.
+> wave nor
+You wave to Nord.
+> 
+Nord waves.
+> 
+ ** Nord has just disconnected.
+> 
+Nord disconnects.
+> 
+Krag says, "me too"
+> 
+Krag waves.
+> 
+Gurney bows towards Krag.
+> 'I'm going to sleep myself now
+You say, "I'm going to sleep myself now"
+> wave
+You wave.
+> x
+
+ ** Mortif has just left the Realms.
+> 
+
+Character Manager V1.00
+
+ 1 => Moordread
+ 2 => Morti
+ 3 => Bubba
+
+ C => Create new character
+ D => Delete current character
+ P => Play Legends of Future Past
+ X => Exit to NovaLink
+
+
+Active character: Morti (#2)
+
+Select: /bye
+
+
+Thank you for using NovaLink.
+
+Connect time this session: 168 minutes.
+
+Have a nice evening!
+
+NovaLink is an online service of NovaLink USA Corporation,
+200 Friberg Parkway, Suite 4003, Westborough, MA 01581. Service: 800-274-2814.
+
+
+
+
+
+
+
+
+
+Invalid selection.
+
+Character Manager V1.00
+
+ 1 => Moordread
+ 2 => Morti
+ 3 => Bubba
+
+ C => Create new character
+ D => Delete current character
+ P => Play Legends of Future Past
+ X => Exit to NovaLink
+
+
+Active character: Morti (#2)
+

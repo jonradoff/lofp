@@ -1,0 +1,642 @@
+
+A gentle breeze wafts through the garden, stirring the wind chimes.
+s> 
+Vladmir drinks some hot tea.
+s> inv
+You are carrying: 
+  A parchment note
+  A parchment note
+  A parchment note
+  A maufra lichen
+  A maufra lichen
+  A maufra lichen
+  A happy fun pouch of patchwork colors
+  A maufra lichen
+  A gleaming steel electric guitar with strings of shimmering silver and
+engraved lightning bolts
+  A bone tooth
+  A bone tooth
+  A maufra lichen
+  A riyong mushroom
+  A damaged obsidian
+  A black diamontine dagger with a handle of ivory
+  A rowik berry
+  Some babich root
+  Some babich root
+  A fiery randar papenheimer
+  A crispy pickle
+  A carrot
+  A manango pit
+  A manango pit
+  A wool blanket
+  Some chan'chalta
+  An iridescent oiled knife
+  A finely crafted silver bracelet gleaming with twin green moons of emerald
+and garnet
+  An iron amulet (worn)
+  Some sheer pink silk panties cut high at the hip and saying, "Knight me!"
+  A flowing white gauze shirt tying across his chest followed by radiant pearl
+buttons and billowed sleeves (worn)
+  Some tight black pants with solid gray piping down the seam and cuffs tucked
+into his boots (worn)
+  A simple key
+  A glimmering silver talisman of a fist sheathed in a nimbus of fire. (worn)
+  Some eldritch titanium armor (worn)
+  A shiny elkyri shield
+  A long twisted tattoo of a thorny vine wrapped seductively around his thigh
+from knee to hip (worn)
+  A small dark gold key emblazoned with the crest of Count Wolfbane Crag
+  A ruby studded silver earring (worn)
+  An ivory medallion
+  A finely drawn tattoo of a faintly luminescent green moon silhouetting the
+form of a silvery wolf (worn)
+  Some worn black leather boots (worn)
+  Some steel shoulder guards buffed to a high polish (worn)
+  Some heavy steel thigh guards buffed to a high polish (worn)
+  Your object
+  A dented and rusty helm pitted and scarred with years of use (worn)
+  A torch
+  A finely crafted crimson tabard embroidered with the gleaming silver eagle of
+the Crimson Band (worn)
+  A ruby studded silver ring of the Crimson Band (worn)
+  An embroidered tunic of cloth-of-gold
+  A broom
+  Some black gauntlets coated with tiny scales of near transparent silver
+(worn)
+  A sterling silver pin in the shape of a flight of dragons (worn)
+  A lens
+  A golden amulet shaped in the image of the T'Kasta symbol (worn)
+  A candy eye
+  Some fragrant sori
+  A tricana seedling
+  A rowik berry
+  A crystal bottle (open)
+  A tiny silvery manango berry
+s> 
+Fafnir says, "let see we need to decide on Ioen inner circle, Avalon for outer 
+circle and one else"
+s> 
+Vladmir says, "Ioen should be admitted.  My opinion"
+s> 
+The soothing song of a small bird fills the air.
+s> 
+You feel the touch of Rion's mind:
+"boy, you have to love freezin rain..."
+s> 
+You feel the touch of Leah's mind:
+"it is nice, isn't it?"
+s> 
+Fafnir says, "I have spoken with him and i must agree with vladmir"
+s> 
+You feel the touch of Rion's mind:
+"yep, sure stings though"
+s> 
+Dolkun nods to Vladmir.
+s> 
+Fafnir says, "I will leave the decide on Avalon up to Lianna and Moordread"
+s> 
+A crystal in the statue's claw flashes bright blue for an instant.
+s> contact rion Freezing rains are good time for dates :)
+You are unable to make mental contact with such a person.
+ [Round: 2 sec]
+Rs> 
+Vladmir pulls a flowing ebony robe with the ancient symbol of the T'Kasta
+embroidered in silver thread.
+s> 
+You feel the touch of Cypress's mind:
+"Hi! Rion"
+s> 
+You feel the touch of Rion's mind:
+"hiya Aunt Cypress :)"
+s> 
+Vladmir opens a black leather harness.
+s> 
+Vladmir puts a turkey feather in the harness.
+s> 
+Vladmir closes a black leather harness.
+s> contact rion Freezing rains are good time for dates :)
+You are unable to make mental contact with such a person.
+ [Round: 2 sec]
+Rs> who
+Dolkun             Raningeth          Valkov             Miria              
+Vladmir            Savannah           Rion               Cypress            
+Lianna             Fafnir             Moordread          Leah               
+
+
+
+There are 12 adventurers in the Realms.
+
+s> 
+Lianna says, "Avalon and the Outer Circle is fine with me."
+s> 
+Fafnir says, "Dolkun I think I'm rubbing off on my student he as that nice blue
+glow around him"
+s> 
+Lianna says, "If it is for you."
+s> 
+The dragon's crystal flares with a brilliant azure light.
+s> 
+Dolkun chuckles.
+s> 
+Vladmir drinks some hot tea.
+s> 
+Dolkun growls, "Its the tea"
+s> 
+Dolkun twists up his face in an expression of pain.
+s> 
+Vladmir smiles.
+s> 
+Dolkun shudders.
+s> 
+Fafnir says, "We dump all the ale to make room for the tea"
+s> 
+Dolkun growls, "I have no problem with Ioen .. he has always been a friend to
+me and a btoehr he showed me his honor many times."
+s> 
+Dolkun growls, "In deeds not words."
+s> 
+Vladmir chuckles.
+s> 
+Dolkun growls, "Deeds speak louder then words."
+s> 
+ ** Savannah has just disconnected.
+s> 
+Fafnir nods to Dolkun.
+s> 
+Lianna nods to Fafnir.
+s> 
+A T'Kasta priest pauses at a rose bush, savoring its sweet aroma.
+s> 
+Fafnir nods to Lianna.
+s> 
+Lianna struggles to her feet.
+s> who
+Dolkun             Raningeth          Valkov             Miria              
+Vladmir            Rion               Cypress            Lianna             
+Fafnir             Moordread          Leah               
+
+
+There are 11 adventurers in the Realms.
+
+s> 
+Fafnir becomes submissive.
+s> 
+Lianna says, "You may have to submit."
+s> 
+Lianna grins.
+s> 
+Lianna incants a spell.
+s> 
+Lianna gestures.
+Lianna moves with blurring speed.
+s> 
+Vladmir asks, "I must get some exercise.   Do you need me for anything further
+teacher?"
+s> 
+Lianna incants a spell.
+s> 
+Lianna gestures at Fafnir.
+s> 
+Fafnir says, "thanks"
+s> 
+Fafnir stops submitting.
+s> 
+Lianna says, "I'm not going to do Dolkun..his is a rainbow."
+s> 
+Lianna says, "He's evil...black as night."
+s> 
+Lianna nuzzles you affectionately.
+s> 
+Lianna asks, "Love?"
+s> 
+Vladmir chuckles.
+s> 
+A shiny orange fish leaps out of the water, does a flip and dives back into the
+pool.
+s> 
+Vladmir says, "It was good to see you again Dolkun.  Be well all"
+s> 
+Vladmir stands up.
+s> 
+Vladmir bows.
+s> 
+Vladmir hugs Lianna.
+s> 
+Vladmir hugs Dolkun.
+s> 
+Vladmir salutes you.
+s> 
+Dolkun growls, "I am a rainboe?"
+s> 
+Dolkun struggles to his feet.
+s> 
+Vladmir chuckles.
+s> 
+Dolkun hugs Vladmir.
+s> 
+Dolkun growls, "And you rak'kahn"
+s> 
+Dolkun growls, "be well."
+s> 
+Vladmir bows deeply to Fafnir
+s> 
+Dolkun bows towards Vladmir.
+s> sal vlad
+
+Fafnir bows.
+s> You salute Vladmir.
+s> 
+Vladmir says, "peace teacher"
+s> 
+Dolkun sits down.
+s> 
+Vladmir goes southeast.
+s> lean lia
+You lean on Lianna.
+s> cud lia
+You cuddle up to Lianna.
+s> 
+You feel the touch of Vladmir's mind:
+"hehheheheheh"
+s> 
+Fafnir says, "So what have you all been up to"
+s> 
+An elderly darkin in green-stained workclothes approaches the stream. After
+listening silently for a moment, he moves a small stone in the stream, subtly
+altering the sound of the stream. Satisfied, he wanders down a pathway.
+s> 
+Lianna cuddles up to you.
+s> 
+Lianna says, "Moordread sleeps alot."
+s> 
+You feel the touch of Vladmir's mind:
+"Dont lose any sleep waiting for it"
+s> nod
+You nod.
+s> 'I do
+You say, "I do"
+s> nod
+You nod.
+s> 
+You feel the touch of Vladmir's mind:
+"aye"
+s> 
+Lianna says, "I haven't seen him much since he got back from his journey."
+s> 
+Fafnir says, "Just plant rose around him like we do with dolkun"
+s> 'It was a tiring journey, it's nice to be back and rest up
+You say, "It was a tiring journey, it's nice to be back and rest up"
+s> 
+Dolkun chuckles.
+s> 
+Lianna returns to normal speed.
+s> 
+Dolkun ponders.
+s> 
+The soothing song of a small bird fills the air.
+s> 
+ ** Fafnir has just disconnected.
+s> 
+Fafnir disconnects.
+s> 
+Dolkun casts his gaze across the area.
+s> 
+Dolkun scratches his head.
+s> smi
+You smile.
+s> look
+[Garden]
+Exotic flowers and plants from around the world fill this lush, open-air 
+garden. Light from the cavern's high crystalline ceiling cascades down upon 
+weeping trees and sculpted flower bushes. As you move along the garden's 
+rolling hills, you see a small bridge slightly arced over a stream that 
+gently flows out of a pond and burbles softly as it makes its way from one 
+side of this large garden to the other. A magnificent statue of a great 
+white dragon dominates the center of this pond. Several stone benches set 
+along side the stream's winding path offer ample room for relaxation and 
+quiet contemplation. Vines from tarokka bushes flow upwards from the ground 
+in various places to cover the walls in many meditative patterns. A stone 
+arch is here.
+You see Dolkun (sitting) and Lianna. 
+Obvious exits: southeast.
+s> who
+Dolkun             Raningeth          Valkov             Miria              
+Vladmir            Rion               Cypress            Lianna             
+Moordread          Leah               
+
+
+There are 10 adventurers in the Realms.
+
+s> 'Must be nap time for old Fafnir
+You say, "Must be nap time for old Fafnir"
+s> 
+Lianna says, "Well..."
+s> grin
+You grin.
+s> 
+A crystal in the statue's claw flashes bright blue for an instant.
+s> 
+Lianna says, "I guess we'll leave you to your meditation."
+s> 
+Lianna smiles at Dolkun.
+s> stand
+You struggle to your feet under the weight of all your equipment.
+ [Round: 2 sec]
+R> hug dolk
+You hug Dolkun.
+> 
+Lianna hugs Dolkun.
+> 'Watch those gardeners if you doze off
+You say, "Watch those gardeners if you doze off"
+> fol lia
+You are now following Lianna.
+J> 
+Lianna exclaims, "Oh! And you missed a big keg party last night!"
+J> nod
+You nod.
+J> 'Crunch had quite a keg
+You say, "Crunch had quite a keg"
+J> nod
+You nod.
+J> 
+Lianna says, "Crunch is hilarious."
+J> 
+A crystal in the statue's claw flashes bright blue for an instant.
+J> 
+Lianna says, "I wanted to burst out laughing so many times."
+J> grin
+You grin.
+J> 
+Dolkun growls, "Crunch will be able to help us alot.."
+J> nod
+You nod.
+J> 'I prefer fighting next to him, not against him
+You say, "I prefer fighting next to him, not against him"
+J> 
+You feel the touch of Rion's mind:
+"any lockopeners around?"
+J> 
+You feel the touch of Cypress's mind:
+"Sure!"
+J> 
+You feel the touch of Rion's mind:
+"where are ya?"
+J> 
+A small squirrel scampers down a tree foraging for food. 
+J> 
+Dolkun growls, "I did fight him one time"
+J> 
+ ** Valkov has just disconnected.
+J> 
+An elderly darkin in green-stained workclothes approaches the stream. After
+listening silently for a moment, he moves a small stone in the stream, subtly
+altering the sound of the stream. Satisfied, he wanders down a pathway.
+J> 
+ ** Vladmir has just left the Realms.
+J> 'I did once, going to be a long time if ever that I do again
+You say, "I did once, going to be a long time if ever that I do again"
+J> 
+A gentle breeze wafts through the garden, stirring the wind chimes.
+J> 
+ ** Valkov has just left the Realms.
+J> 
+Dolkun growls, "I never did fight him you know I was joking .. he would whoop
+my behind from here to next week.."
+J> 
+Dolkun chuckles.
+J> 
+A T'Kasta priest pauses at a rose bush, savoring its sweet aroma.
+J> 'That's why I'm not going to anytime soon, and I had Klone and Seeker there helping
+You say, "That's why I'm not going to anytime soon, and I had Klone and Seeker
+there helping"
+J> 
+Lianna nuzzles you affectionately.
+J> kiss lia
+You kiss Lianna.
+J> smi lia
+You smile at Lianna.
+J> 
+Lianna kisses you upon the lips.
+J> 
+Dolkun chuckles.
+J> 
+Dolkun growls, "He is something else eh.."
+J> 
+Dolkun growls, "We will let him deal with the bloods"
+J> 
+Dolkun growls, "Him Jayd and Sil can tke the lead"
+J> 
+Dolkun growls, "I will hide behind Airgid..."
+J> 
+You hear the chirps of a cricket from somewhere nearby.
+J> 
+Dolkun growls, "and throw rocks"
+J> 
+Dolkun nods.
+J> 
+Dolkun growls, "yep"
+J> 
+Dolkun growls, "big rocks.."
+J> smi
+You smile.
+J> 
+Dolkun growls, "with slime on them.."
+J> 
+Dolkun growls, "see how they deal with that!"
+J> 
+Dolkun growls, "ha!"
+J> chuck
+You chuckle.
+J> 'Maybe I can get tangled in their feet and slow them down a little
+You say, "Maybe I can get tangled in their feet and slow them down a little"
+J> 
+ ** Terinakho has just left the Realms.
+J> who
+Dolkun             Raningeth          Valkov             Miria              
+Corrin             Omar               Zifnab             Rion               
+Cypress            Lianna             Moordread          Leah               
+
+
+
+There are 12 adventurers in the Realms.
+
+J> 
+The windchimes play out a gentle melody as they rustle in the breeze.
+J> 
+Dolkun ponders.
+J> 
+Dolkun growls, "We can throw Lia at them.."
+J> 
+Dolkun growls, "make sure she is bubbled"
+J> 
+Dolkun growls, "like that old human game.."
+J> 
+Dolkun growls, "Bowling"
+J> 
+Dolkun growls, "I think thats what it was called.."
+J> 
+Dolkun chuckles.
+J> 
+Lianna says, "I don't look well in bubbles."
+J> 
+A gentle breeze wafts through the garden, stirring the wind chimes.
+J> grin
+You grin.
+J> 
+Lianna says, "Moordread.."
+J> 'You look well in anything, or nothing
+You say, "You look well in anything, or nothing"
+J> wink lia
+You wink at Lianna.
+J> 
+Lianna says, "Zifnab offered 50k to any charity if I dye my hair red."
+J> rais
+You raise your eyebrow.
+J> 
+Lianna nods to you.
+J> 
+Lianna asks, "What do you think?"
+J> 
+Lianna asks, "Should I do it?"
+J> 'I'm not sure how you'd look in red hair, but the color of your hair isn't what's important to me
+You say, "I'm not sure how you'd look in red hair, but the color of your hair
+isn't what's important to me"
+J> 
+Lianna smiles at you.
+J> kiss lia cheek
+You kiss Lianna on the cheek.
+J> 
+Lianna says, "well thank you love."
+J> 
+Dolkun growls, "see"
+J> 
+Dolkun growls, "Red"
+J> 
+A T'Kasta priest pauses at a rose bush, savoring its sweet aroma.
+J> 
+Dolkun growls, "Go for it Lia!"
+J> grin
+You grin.
+J> 
+Dolkun growls, "We will call you the carrot mage"
+J> 'Countess Sun has red hair, it looks good on her
+You say, "Countess Sun has red hair, it looks good on her"
+J> 
+Dolkun ducks.
+J> laugh
+You laugh.
+J> nod dolk
+You nod to Dolkun.
+J> 
+Dolkun chuckles.
+J> 
+Dolkun whistles innocently.
+J> lean carr
+You lean on a carrot.
+J> beam lia
+You beam at Lianna.
+J> 
+Lianna asks, "Carrot top?"
+J> 
+Lianna says, "I don't think so."
+J> grin
+You grin.
+J> 
+Lianna says, "I don't want to have the hair the color of a carrot."
+J> 
+CRUUUUUNCH! CRUUUUUNCH!
+J> 
+The soothing song of a small bird fills the air.
+J> 
+Lianna says, "afk one sec."
+J> 'Maybe a darker shade of red
+You say, "Maybe a darker shade of red"
+J> 
+Lianna says, "[]"
+J> 
+Dolkun nods to you.
+J> 
+Dolkun growls, "Red head"
+J> 
+Dolkun growls, "To match her fiery nature"
+J> 
+Dolkun growls, "then when she gets mad we can just say look at that burning
+flame"
+J> 
+A shiny orange fish leaps out of the water, does a flip and dives back into the
+pool.
+J> 
+Dolkun growls, "thats bob"
+J> 
+Dolkun growls, "the fish"
+J> 
+Dolkun growls, "took me years to train him"
+J> 
+Dolkun growls, "Earin ate him.."
+J> 
+Dolkun sighs.
+J> 
+Dolkun growls, "one time"
+J> 
+Dolkun mutters something you can't quite make out.
+J> roll
+You roll your eyes.
+J> 'Is there anything he won't try and stick in his mouth?
+You ask, "Is there anything he won't try and stick in his mouth?"
+J> 
+Dolkun shakes his head at you.
+J> 
+Dolkun growls, "Saw him try to eat a jup leg one time.."
+J> 
+Dolkun rolls his eyes.
+J> 'Ack
+You say, "Ack"
+J> act turns a bit green.
+Moordread turns a bit green.
+J> 
+Dolkun nods to you.
+J> 
+You feel the touch of Valkov's mind:
+"Does anyone want their wounds tended to?"
+J> 
+Dolkun growls, "I thumped him for that"
+J> 
+The windchimes play out a gentle melody as they rustle in the breeze.
+J> 
+Lianna says, "Crunch was eating goat's eyes last night."
+J> 
+Lianna shudders.
+J> nod
+You nod.
+J> grin
+You grin.
+J> 'I think I need another nap
+You say, "I think I need another nap"
+J> 
+Lianna raises an eyebrow towards you.
+J> 
+Lianna asks, "Already?"
+J> yawn
+You yawn.
+J> nod
+You nod.
+J> 'rough day
+You say, "rough day"
+J> sigh
+You sigh.
+J> 'I love you dear
+You say, "I love you dear"
+J> kiss lia pass
+You kiss Lianna passionately.
+J> hug dolk
+You hug Dolkun.
+J> 'take care
+You say, "take care"
+J> 
+The dragon's crystal flares with a brilliant azure light.
+J> 
+ ** Saryon has just left the Realms.
+J> 
+Lianna hugs Dolkun.
+J> 
+Lianna hugs you.

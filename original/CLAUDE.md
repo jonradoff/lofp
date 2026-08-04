@@ -1,3 +1,5 @@
+Read VIBECTL.md for current project status, deployment details, and issue context before starting work.
+
 # Scripts
 
 Original game script files and documentation (read-only reference)

@@ -1,0 +1,2656 @@
+
+Cephus ponders.
+!> who
+Lianna             Rival              Airgid             Nord               
+Fafnir             Arminger           Marcolan           Klone              
+Mortif             Elarin             Young              Stefan             
+Rion               
+
+
+There are 13 adventurers in the Realms.
+
+!> 
+Nord says, "my inquiries to the Lorekeepers go unanswered"
+!> 
+You feel the touch of Fafnir's mind:
+"Kvaahn Stefan"
+!> 
+You feel the touch of Stefan's mind:
+"greetings Fafnir."
+!> 
+You are bleeding.
+!> 
+You feel the touch of Elarin's mind:
+"hiya Duke Rulon"
+!> 
+You feel the touch of Stefan's mind:
+"Greetings."
+!> 
+You feel the touch of Rion's mind:
+"Hiya Duke Stefan :)"
+!> 
+Nord says, "since Faldor spoke to all the races, I wonder if each of the races
+have stories about him"
+!> 
+Stefan arrives.
+!> 
+Stefan bows with a flourish.
+!> 
+Arminger waves to Stefan.
+!> 
+Stefan smiles at Arminger.
+!> 
+Cephus nods to Stefan.
+!> 
+Stefan nods to Cephus.
+!> 
+ ** Fafnir has just left the Realms.
+!> 
+You are bleeding.
+!> 
+Cephus says, "Duke Stefen, fire and light."
+!> 
+Cephus smiles.
+!> 
+Nord says, "Greetings, Brother Stefan"
+!> 
+Stefan says, "Fire and light Brother Cephus."
+!> 
+Doroon bows towards Stefan.
+!> 
+Stefan smiles at Nord.
+!> 
+Stefan says, "Well Met Brother Nord."
+!> 
+Cephus says, "I heard you were abroad, but it is good to see you within
+Father's temple again"
+!> 
+You are bleeding.
+!> 
+Stefan says, "I received your scroll this morning...I made the time to stop
+by."
+!> 
+Stefan smiles.
+!> smi stef
+You smile at Stefan.
+!> 
+Stefan smiles at Cephus.
+!> 
+Nord says, "Mortif...could you find out if the wolflings have any mention of
+Faldor in their history"
+!> 
+Cephus says, "Your council is always wise and thoughtful."
+!> 'I shall try
+You say, "I shall try"
+!> nod nor
+You nod to Nord.
+!> 
+You are bleeding.
+!> 
+Nord asks, "and Arminger...the highlanders?"
+!> 
+Stefan ponders.
+!> 
+ ** Klone has just left the Realms.
+!> 
+Arminger says, "Okay boss."
+!> 
+Arminger grins.
+!> 
+You are bleeding.
+!> 
+Cephus says, "Is your plan to still make the journey to Kragenholm, Brother
+Nord?"
+!> 
+Stefan pulls on the straps of some fiery randar gauntlets with raised studs
+along the knuckles, tightening them.
+!> 
+Nord says, "aye...since it was the last place he was seen"
+!> 
+You are bleeding.
+!> 
+(Doroon stands quietly by Cephus' shoulder.)
+!> 
+Cephus says, "My infirmities preclude me making such and long journey..."
+!> 
+Nord says, "hopefully their lorekeepers will have some record"
+!> 
+ ** Lianna has just left the Realms.
+!> 
+Stefan nods.
+!> 
+You feel the touch of Elarin's mind:
+"*blink*"
+!> who
+Sapphire           Rival              Airgid             Nord               
+Arminger           Marcolan           Mortif             Elarin             
+Young              Stefan             Rion               
+
+
+There are 11 adventurers in the Realms.
+
+!> 
+You are bleeding.
+!> 
+You feel the touch of Elarin's mind:
+"hurricane? is everything ok?"
+!> 
+Cephus says, "Young Dorron here will however be making it in my stead."
+!> 
+Nord says, "all that climbing is for young folk"
+!> smi dor
+You smile at Doroon.
+!> 
+Stefan appears to become weaker.
+!> 
+Stefan chuckles.
+!> 
+Stefan incants a spell.
+!> 
+Stefan gestures.
+Stefan moves with blurring speed.
+!> 
+Stefan incants a spell.
+!> 
+Stefan gestures.
+Stefan radiates with magical strength.
+!> 
+Stefan incants a spell.
+!> 
+Stefan gestures.
+Stefan radiates with magical strength.
+!> 
+Stefan incants a spell.
+!> 
+Stefan gestures.
+Stefan radiates with magical strength.
+!> 
+You feel the touch of Airgid's mind:
+"it came in off the sea, when we were out there"
+!> 
+The ghostly shield protecting Stefan slowly fades.
+!> 
+Nord says, "something I can no longer pass for"
+!> 
+Nord shakes his head back and forth.
+!> 
+Cephus says, "Stefan, with being away...have you had a chance to read the tale
+of Faldor?"
+!> 
+Nord grins.
+!> 
+Stefan incants a spell.
+!> 
+Stefan shakes his head back and forth.
+!> 
+You feel the touch of Elarin's mind:
+"usually come with the demon also"
+!> 
+Stefan says, "I fear that I have not brother."
+!> 
+You are bleeding.
+!> 
+Stefan gestures.
+Stefan radiates with magical strength.
+!> look me
+You gaze upon your own reflection...
+You see Mortif Macabre, an aging wolfling with soft gray eyes, and long white
+hair hanging around his shoulders. His body is slightly stooped, and the light
+returned to his eyes. The flush of life is once again in his face.
+He is wearing a fiery silver badge engraved with the image of a blazing sun
+gripped within a gleaming golden hand, an onyx amulet, a glowing medallion,
+some sooty black leather gloves, some green cotton pants, a pure golden circlet
+etched with intricate sun symbols around it and an obsidian talisman.
+He radiates with magical strength.
+He appears to be healthy.
+He has a gashed and scorched head, a lacerated body, a nicked back, a lacerated
+right leg and a nicked left hand.
+!> 
+Cephus says, "Well it is too long to read again now..."
+!> 
+Stefan smiles.
+!> chuck
+You chuckle.
+!> 'It will make nice  reading before retiring for a night
+
+Nord asks, "is their an ultra abbreviated version that makes much sense?"
+!> 
+Stefan says, "I shall read it when I have a free moment brother, in the
+meantime, you will have to put up with my ignorance."
+!> You say, "It will make nice  reading before retiring for a night"
+!> 
+Cephus says, "Perhaps Nord can give you the highlights as you make the journey"
+!> 
+Stefan smiles.
+!> 
+You are bleeding.
+!> 
+Stefan says, "I trust that Nord would not lead me astray."
+!> 
+Stefan smiles at Nord.
+!> 
+Nord asks, "have I ever?"
+!> 
+Stefan is now following Nord.
+!> 
+Nord winks at Stefan.
+!> 
+Stefan ponders.
+!> 
+ ** Elarin has just left the Realms.
+!> 
+Stefan chuckles.
+!> 
+Arminger blinks.
+!> 
+Stefan says, "Let me think on that."
+!> 
+Stefan grins.
+!> 
+ ** Nik has just left the Realms.
+!> 
+Nord asks, "everyone been the Deep Realms?"
+!> 
+You are bleeding.
+!> 'Haven't been there in years, but yeah
+You say, "Haven't been there in years, but yeah"
+!> 
+Stefan says, "Years ago."
+!> 
+Arminger nods.
+!> 
+Stefan smiles.
+!> 
+Arminger says, "Just got back."
+!> exp
+Level: 81
+Build Points to date: 835
+Unspent Build Points: 12
+Experience Points until next Build Point: 78206
+!> 
+Cephus says, "My apprentice, have you packed for the journey, do not forget you
+writing materials."
+!> 
+Cephus says, "I expect a full report on your return."
+!> 
+Cephus gazes at Doroon.
+!> who
+Sapphire           Rival              Airgid             Nord               
+Feras              Arminger           Marcolan           Elarin             
+Mortif             Young              Stefan             Rion               
+
+
+
+There are 12 adventurers in the Realms.
+
+!> 
+Nord says, "I heard there are some big bees down there now so keep your eyes
+open"
+!> 
+Arminger nods to Nord.
+!> 
+Arminger nods to Nord.
+!> 
+Doroon gazes at a large leather bound book with it's title faintly visible
+along the spine.
+!> 
+Arminger says, "Giant bees.."
+!> 
+Doroon ponders.
+!> 
+Cephus says, "Bees?"
+!> 
+You are bleeding.
+!> 
+Arminger says, "just pass da ledge"
+!> 
+Arminger nods to Cephus.
+!> 
+Doroon says, "I'd best get some."
+!> 
+Stefan says, "hmmm."
+!> 'I saw some bees up here, hope they ain't the same
+You say, "I saw some bees up here, hope they ain't the same"
+!> 
+Stefan asks, "Fire, Cold, Electric, or pure evil smashing power?"
+!> 
+Stefan grins.
+!> 
+Nord says, "if everyone would join me...hopefully we will bring back something
+useful Cephus"
+!> 
+Arminger says, "They is"
+!> 
+Stefan gazes at a gold sheath embroidered with the phoenix emblem intertwined
+with the initials "SR".
+!> 
+Arminger nods to you.
+!> 
+Stefan is now following Nord.
+!> 
+Doroon is now following Nord.
+!> 
+Arminger is now following Nord.
+!> fol  nord
+You are now following Nord.
+!J> 
+Nord bows towards Cephus.
+!J> 
+Nord's group goes west.
+!J> 
+You follow Nord.
+[Inner Temple, Centrum]
+You see Nord, Arminger, Doroon and Stefan. 
+Obvious exits: e.
+!J> 'Darn, those bees did a number on me too
+You say, "Darn, those bees did a number on me too"
+!J> sigh
+You sigh.
+!J> 
+Nord's group goes down a hall.
+!J> 
+You follow Nord.
+[Outer Temple, Temple Proper]
+You see Nord, Arminger, Doroon and Stefan. A golden alzyron statue of Rorin is
+here.
+Obvious exits: none.
+!J> 
+Nord's group goes through a majestic arch.
+!J> 
+You follow Nord.
+[Outer Temple, Vestibule]
+You see Nord, Arminger, Doroon and Stefan. 
+Obvious exits: none.
+!J> 
+Stefan returns to normal speed.
+!J> 
+Nord's group goes through a white lacquered door.
+!J> 
+You follow Nord.
+[Church Street]
+You see Nord, Arminger, Doroon and Stefan. 
+Obvious exits: n, s.
+!J> 
+Nord's group goes south.
+!J> 
+You follow Nord.
+[Broadway & Church]
+You see Nord, Arminger, Doroon and Stefan. 
+Obvious exits: n, e, w.
+!J> 
+Nord's group goes east.
+!J> 
+You follow Nord.
+[Broadway]
+You see Nord, Arminger, Doroon and Stefan. 
+Obvious exits: e, w.
+!J> 
+Nord's group goes east.
+!J> 
+You follow Nord.
+[Broadway]
+You see Nord, Arminger, Doroon and Stefan. Some rubble and a wooden bin are
+here.
+Obvious exits: w, ne.
+!J> 
+Nord's group goes northeast.
+!J> 
+You follow Nord.
+[Broadway]
+You see Nord, Arminger, Doroon and Stefan. 
+Obvious exits: n, sw.
+!J> 
+Nord's group goes north.
+!J> 
+You follow Nord.
+[Broadway]
+You see Nord, Arminger, Doroon and Stefan. An ancient building is here.
+Obvious exits: n, s.
+!J> 
+Nord's group goes north.
+!J> 
+You follow Nord.
+[Bazaar South]
+You see Nord, Arminger, Doroon and Stefan. A jupaaskri leg is here.
+Obvious exits: n, s, e, w, ne, nw.
+!J> 
+Nord's group goes east.
+!J> 
+You follow Nord.
+[Bazaar Southeast]
+You see Nord, Arminger, Doroon and Stefan. A large wooden building is here.
+Obvious exits: n, w, nw.
+!J> 
+Nord's group goes north.
+!J> 
+You follow Nord.
+[Bazaar East]
+You see Nord, Arminger, Doroon, Stefan and a trader. A comfortable building
+that houses the Sojourner's Hospice is here.
+Obvious exits: n, s, e, w, nw, sw.
+!J> 
+Nord's group goes east.
+!J> 
+You follow Nord.
+[Main Street]
+You see Nord, Arminger, Doroon and Stefan. 
+Obvious exits: e, w.
+!J> 
+Nord's group goes east.
+!J> 
+You follow Nord.
+[Main Street, Gatehouse]
+You see Nord, Arminger, Doroon and Stefan. 
+Obvious exits: w.
+!J> 
+Nord's group goes through a massive inner gate.
+!J> 
+You follow Nord.
+[Under the Gatehouse]
+You see Nord, Arminger, Doroon and Stefan. 
+Obvious exits: none.
+!J> 
+You are bleeding.
+!J> 
+Nord's group goes through a massive outer gate.
+!J> 
+You follow Nord.
+[Fayd Gate, exterior]
+You see Nord, Arminger, Doroon and Stefan. A large iron gate is here.
+Obvious exits: s, e, nw.
+!J> 
+Nord's group goes northwest.
+!J> 
+You follow Nord.
+[Outside Fayd, northern wall]
+You see Nord, Arminger, Doroon and Stefan. 
+Obvious exits: n, w, nw, se.
+!J> 
+Nord's group goes northwest.
+!J> 
+You follow Nord.
+[Foothills, grass]
+You see Nord, Arminger, Doroon and Stefan. 
+Obvious exits: n, se.
+!J> 
+Nord's group goes north.
+!J> 
+You follow Nord.
+[Foothills, scrub growth]
+You see Nord, Arminger, Doroon and Stefan. 
+Obvious exits: s, nw.
+!J> 
+Nord's group goes northwest.
+!J> 
+You follow Nord.
+[Grasslands]
+You see Nord, Arminger, Doroon and Stefan. 
+Obvious exits: e, ne, nw, se.
+!J> 
+Nord's group goes northeast.
+!J> 
+You follow Nord.
+[Foothills, stream]
+You see Nord, Arminger, Doroon and Stefan. A bush is here.
+Obvious exits: n, sw.
+!J> 
+Nord's group goes north.
+!J> 
+You follow Nord.
+[Foothills, river crossing]
+You see Nord, Arminger, Doroon and Stefan. A small bridge is here.
+Obvious exits: s.
+!J> 
+Arminger says, "We throw brother stefan in first. They be so busy chewin on him
+they leave us along"
+!J> 
+Nord's group goes over a small bridge.
+!J> 
+You follow Nord.
+[Trail head]
+You see Nord, Arminger, Doroon and Stefan. A small bridge is here.
+Obvious exits: ne, nw.
+!J> 
+Arminger winks at you.
+!J> 
+Nord's group goes northwest.
+!J> 
+You follow Nord.
+[Mountain Trail, peak view]
+You see Nord, Arminger, Doroon and Stefan. 
+Obvious exits: w, se.
+!J> 
+Nord's group goes west.
+!J> 
+You follow Nord.
+[Mountain Trail]
+You see Nord, Arminger, Doroon and Stefan. 
+Obvious exits: n, e, nw.
+!J> 
+Nord's group goes northwest.
+!J> 
+You follow Nord.
+[Mountain Trail, loose pebbles]
+You see Nord, Arminger, Doroon and Stefan. A cliff is here.
+Obvious exits: n, se.
+!J> 
+Nord's group goes north.
+!J> 
+You follow Nord.
+[Mountain Trail, ledge]
+You see Nord, Arminger, Doroon and Stefan. A ladder is here.
+Obvious exits: s, d.
+!J> 
+Stefan chuckles.
+!J> 
+Stefan exclaims, "Yeah!"
+!J> 
+Nord incants a spell.
+!J> 
+Arminger grins.
+!J> 
+Nord gestures at Arminger.
+Arminger shimmers magically.
+!J> 
+Arminger climbs up the ladder.
+!J> 
+Nord incants a spell.
+!J> 
+Nord gestures at Doroon.
+Doroon shimmers magically.
+!J> 
+Nord incants a spell.
+!J> 
+Stefan climbs up the ladder.
+!J> 
+Nord gestures at Mortif.
+You feel much lighter.
+!J> 
+Nord says, "climb the ladder to the next level"
+!J> 
+You are bleeding.
+!J> 
+Nord incants a spell.
+!J> 
+Nord passes his hand over Doroon's eyes.
+Doroon's pupils alter to those of a cat.
+!J> 
+Nord incants a spell.
+!J> 
+Nord passes his hand over Mortif's eyes.
+Your vision seems enhanced.
+!J> 
+Stefan steps off the ladder onto the setback.
+!J> 
+Stefan smiles.
+!J> 
+Stefan asks, "Need a lift?"
+!J> 
+Nord says, "they are nervous"
+!J> 
+Stefan looks up.
+!J> 
+Stefan says, "ahh"
+!J> pant
+You pant.
+!J> 
+Stefan nods.
+!J> 
+Stefan chuckles.
+!J> cli lad
+You climb up the ladder.
+[Teeth of Shartan, precipice]
+An up ladder and a down ladder are here.
+Obvious exits: e.
+!> e
+
+Stefan clambers onto the set-back from below.
+!> 
+Stefan goes east.
+!> [Teeth of Shartan, canyon view]
+You see Stefan. 
+Obvious exits: w.
+!> 
+Stefan goes through a crevice.
+!> sear
+You search the area.
+ [Round: 5 sec]
+You find the crevice Menelian spoke of.
+!R> go crev
+You find the proper crevice, and enter. The cramped crevice continues
+suffocatingly, hundreds of spans into the rock. Eventually, you exit into a
+cave...
+[Subterranean Stream]
+You see Stefan. A pool and a stream are here.
+Obvious exits: none.
+!R> pre 210
+[Wait 15 seconds...]
+!R> look
+[Subterranean Stream]
+An underground stream chirps and bubbles as it splashes over a large rock and
+into a deep pool. From there it continues down under a low outcropping, and
+around a bend. The glistening spray from the water clings to the the rock
+walls, accenting lavender and blue hues in the gray stone.
+You see Stefan. 
+Obvious exits: none.
+!R> ign lant
+You light a large brass lantern which looks like it was copied for the
+illustrations in a book.
+!R> 
+You are bleeding.
+!R> go stream
+You wade into the stream, following it around the bend.
+[Subterranean waterfall]
+A mountain stream, some mist and a boulder are here.
+Obvious exits: none.
+!> 
+Stefan comes around the bend in the stream.
+!> 
+Stefan rises into the air.
+!> 
+Stefan descends away.
+!> pre 224
+You prepare the Fly spell.
+ [Round: 3 sec]
+!R> cast
+You gesture.
+[Success: 95%, Roll 37] Success!
+You feel much lighter.
+!> pre 210
+You prepare the Haste spell.
+ [Round: 3 sec]
+!R> cast
+You gesture.
+[Success: 95%, Roll 52] Success!
+You find yourself able to move incredibly fast.
+!> fly
+You rise a few feet off the ground.
+!F> desc
+[Subterranean pool]
+You see Arminger and Stefan. A stream and some deep mist that chokes the air
+are here.
+Obvious exits: none.
+ [Round: 2 sec]
+!RF> desc
+
+Arminger says, "Yokay"
+!F> You land on the ground.
+!> gaze
+You gaze about the area.
+!> 
+Arminger opens a cane with an onyx crook carved into the likeness of a dragon's
+head.
+!> 
+Arminger puts a polished diamond in the cane.
+!> 
+Arminger puts a polished diamond in the cane.
+!> 'I haven't been down this hole in ages
+
+Arminger puts a polished blue diamond in the cane.
+!> You say, "I haven't been down this hole in ages"
+!> 
+Arminger puts a polished blue diamond in the cane.
+!> 
+Arminger puts a polished yellow diamond in the cane.
+!> 
+Arminger closes a cane with an onyx crook carved into the likeness of a
+dragon's head.
+!> 
+You are bleeding.
+!> 
+Arminger takes a drink of a dark green potion.
+!> 
+Nothing happens.
+!> 
+Arminger grips a star sapphire tightly. It glows for a moment, and then appears
+to be greatly improved!
+!> 
+Arminger grips a star sapphire tightly. It glows for a moment, and then appears
+to be greatly improved!
+!> 
+Arminger sniffs.
+!> 
+Arminger casts his gaze across the area.
+!> 
+Arminger surveys the area.
+!> 
+Arminger mines the area, finally removing an aquamarine from the surrounding
+rock.
+!> 
+You are bleeding.
+!> 
+Stefan smiles.
+!> 
+Arminger takes an aquamarine.
+!> surv
+This is an excellent area for mining.
+ [Round: 2 sec]
+!R> 
+Stefan says, "I'd wager its been about 9 faydian years or so for me."
+!> 
+Arminger returns to normal speed.
+!> pond
+You ponder for a moment.
+!> '12 at least
+You say, "12 at least"
+!> 
+Arminger asks, "Sense ya been down here?"
+!> pond
+You ponder for a moment.
+!> nod arm
+You nod to Arminger.
+!> 
+Stefan nods.
+!> 
+You are bleeding.
+!> 
+Nord flies in.
+!> 
+Nord lands on the ground.
+!> 
+Arminger says, "I spend all me time down here."
+!> 
+Stefan is now following Nord.
+!> 
+Stefan returns to normal speed.
+!> 
+Arminger takes a drink of a dark green potion.
+!> 
+Arminger moves with blurring speed.
+!> fol nor
+You are now following Nord.
+!J> 
+Arminger is now following Nord.
+!J> 
+Doroon flies in.
+!J> 
+Doroon lands on the ground.
+!J> 
+Doroon is now following Nord.
+!J> 
+Nord's group goes through a natural stone arch.
+!J> 
+You follow Nord.
+[Deep Realms, chamber of fog]
+You see Nord, Arminger, Doroon and Stefan. 
+Obvious exits: o.
+!J> 
+Nord's group goes through a hole.
+!J> 
+You follow Nord.
+[Deep Realms, hot cave]
+You see Nord, Arminger, Doroon and Stefan. 
+Obvious exits: d.
+!J> 
+Nord's group goes down.
+!J> 
+You follow Nord.
+[Deep Realms, geothermal caves]
+You see Nord, Arminger, Doroon and Stefan. 
+Obvious exits: se, u.
+!J> 
+Nord's group goes southeast.
+!J> 
+You follow Nord.
+[Deep Realms, geothermal caves]
+You see Nord, Arminger, Doroon and Stefan. 
+Obvious exits: n, e, nw, se, sw.
+!J> 
+Nord's group goes east.
+!J> 
+You follow Nord.
+[Deep Realms, geothermal caves]
+You see Nord, Arminger, Doroon and Stefan. 
+Obvious exits: n, w, nw.
+!J> 
+Stefan incants a spell.
+!J> 
+Stefan gestures.
+Stefan moves with blurring speed.
+!J> pre 210
+
+Stefan incants a spell.
+!J> You prepare the Haste spell.
+ [Round: 1 sec]
+!RJ> cas
+You gesture.
+[Success: 95%, Roll 11] Success!
+Nothing happens.
+!J> pre 403
+You prepare the Mindlink spell.
+ [Round: 1 sec]
+!RJ> cas
+You gesture.
+[Success: 95%, Roll 1] Spectacular success!
+You feel the power of your mind expanding.
+!J> pre 209
+You prepare the Strength III spell.
+ [Round: 1 sec]
+!RJ> cas
+You gesture.
+[Success: 95%, Roll 54] Success!
+You feel incredibly strong.
+!J> 
+You are bleeding.
+!J> look
+[Deep Realms, geothermal caves]
+A rocky shelf along the north wall is the only means of transport through this
+steamy cave. Boiling pools of mud fill the rest of its interior, and sometimes
+a small geyser erupts from its depths, spraying a scalding mixture of steam and
+earth in all directions. Eastern travel is currently made impossible by the
+blasting of one such geyser.
+You see Nord, Arminger, Doroon and Stefan. 
+Obvious exits: north, west, northwest.
+!J> 
+Nord says, "Faldor was a smith several hundred years ago"
+!J> 
+Arminger returns to normal speed.
+!J> 
+Arminger surveys the area.
+!J> 
+Sputtering a last time, the geyser to the northeast becomes little more than a
+gurgle in the mud.
+!J> 
+Nord says, "there was an undead army led by some dark man/general"
+!J> 
+Nord's group goes northeast.
+!J> 
+You follow Nord.
+[Deep Realms, geothermal caves]
+You see Nord, Arminger, Doroon and Stefan. 
+Obvious exits: e, sw.
+!J> 'Back when folks respected a smith proper like
+You say, "Back when folks respected a smith proper like"
+!J> 
+Nord's group goes east.
+!J> 
+You follow Nord.
+[Deep Realms, Blood of Andor]
+You see Nord, Arminger, Doroon and Stefan. 
+Obvious exits: w.
+!J> 
+Stefan nods.
+!J> 
+You are bleeding.
+!J> 
+Doroon casts his gaze across the area.
+!J> 
+Stefan smiles at you.
+!J> 
+Nord's group makes their way up the ledge, but Nord becomes unsure of his
+footing and is forced to retreat to the bottom of the ledge.
+!J> 
+Stefan gazes at a ledge.
+!J> 
+Nord says, "swallowing up pockets of civilization and adding the dead to its
+army"
+!J> act hugs the wall closely, trying to keep his balance.
+(Mortif hugs the wall closely, trying to keep his balance.)
+!J> 
+Nord's group makes their way up the ledge, but fails to find any further
+footholds or handholds. Alas, he is forced to backtrack to the beginning.
+!J> 
+Stefan says, "that's one way to recruit."
+!J> 
+Stefan furrows his brow.
+!J> 
+Nord's group makes their way up the ledge, but fails to find any further
+footholds or handholds. Alas, he is forced to backtrack to the beginning.
+!J> 
+Arminger grins.
+!J> 
+Nord says, "Faldor was visited by Rorin"
+!J> 
+You are bleeding.
+!J> 
+Nord's group makes their way up the ledge, but fails to find any further
+footholds or handholds. Alas, he is forced to backtrack to the beginning.
+!J> 
+(Doroon walks along, eyes taking in everything. He pauses every few minutes to
+jot down a note.)
+!J> 
+Some gravel showers down from high above, as a tremor is felt.
+!J> 
+Nord says, "crafted a weapon out of a fallen star"
+!J> 
+Nord arches his eyebrow.
+!J> 
+Nord's group makes their way up the ledge, but Nord becomes unsure of his
+footing and is forced to retreat to the bottom of the ledge.
+!J> 
+Arminger furrows his brow.
+!J> bow obj
+What are you referring to?  Please be more specific.
+!J> fur
+You furrow your brow.
+!J> inv
+You are carrying: 
+  A cocooned larva
+  A manango fruit
+  A tricana seedling
+  A spider ear
+  A spider ear
+  A spider ear
+  An icy randar scimitar
+  A bloodstone
+  A blackened archaic broom which is missing many of its bristles
+  An eldritch diamontine shield
+  Some fiery gold bracers engraved with a crimson eagle soaring above the
+Citadel, pinions spread wide
+  A graphite crucible (open)
+  An iron lockpick
+  A jade ring
+  An iron lockpick
+  An amulet formed from a blackened kvantar
+  A fiery silver badge engraved with the image of a blazing sun gripped within
+a gleaming golden hand (worn)
+  A leather teddy
+  A demon horn
+  A tiny chartreuse glass bottle
+  A misty white bottle
+  A blazing golden glass bottle
+  An oiled eye agate
+  An iridescent oiled shuriken
+  Some bubblegum
+  A glass (open)
+  A backpack (open)
+  A spider ear
+  An onyx amulet (worn)
+  A glowing medallion (worn)
+  A graphite crucible (open)
+  A glass idol
+  A truesteel hammer with a short wooden shaft and a sunburst engraved on the
+forge-shaped head
+  A large furry yeti doll with the familiar urisine scent to it
+  A mechanoid doll that looks like Hollister
+  A shadowy inky black doll of Donner sniffing a woman's skirt and sighing in
+pleasure
+  A sooty black t-shirt that says, "Smiths do it for hours and hours...just to
+keep in practice."
+  A brass necklace
+  A black doeskin harness (open)
+  A glowing large brass lantern which looks like it was copied for the
+illustrations in a book
+  A spider ear
+  A graphite whetstone
+  A fuzzy plaid beltpouch (open)
+  A fluffy brown dog (open)
+  A strongbox
+  A black leather vest
+  A mauve damn ticket
+  A werewolf eye
+  Some sooty black leather gloves (worn)
+  Some green cotton pants (worn)
+  An elkyri pendant
+  A torch
+  A pure golden circlet etched with intricate sun symbols around it (worn)
+  An inky black leather trenchcoat (open)
+  A thin aelfen imperial cigar that sports a colorful label of a magenta
+jackal's head
+  An obsidian talisman (worn)
+  An oiled aquamarine
+  Some oiled bekk-ite metal
+  A tricana seedling
+  A tricana seedling
+  A maufra lichen
+  A riyong mushroom
+!J> 
+Nord says, "he raised an army"
+!J> 
+You carefully make your way up the ledge, realizing at last that this climb
+could never be attempted in reverse. There is no turning back now.
+!J> 
+You follow Nord.
+[Deep Realms, top of ledge]
+You see Nord, Arminger, Doroon and Stefan. 
+Obvious exits: none.
+!J> 
+Arminger surveys the area.
+!J> 
+Nord begins traversing the rocky shelf to a point out of sight in the smoky
+haze.
+!J> 
+You are bleeding.
+!> 
+You feel the touch of Nord's mind:
+"come on up"
+!> 
+Arminger searches the area.
+!> 
+Arminger points at a rocky shelf.
+!> 
+Doroon begins traversing the rocky shelf to a point out of sight in the smoky
+haze.
+!> 
+Arminger says, "dat way."
+!> 
+Stefan begins traversing the rocky shelf to a point out of sight in the smoky
+haze.
+!> 
+Arminger takes a drink of a dark green potion.
+!> 
+Arminger moves with blurring speed.
+!> 
+Arminger begins traversing the rocky shelf to a point out of sight in the smoky
+haze.
+!> 
+You are bleeding.
+!> 
+You return to normal speed.
+!> go shelf
+You begin to make your way along the shelf, but soon what seemed wide becomes
+excruciatingly narrow! You gather all your courage and press on...
+[Deep Realms, natural bridge west]
+You see Nord, Arminger, Doroon and Stefan. 
+Obvious exits: e.
+!R> 
+Nord says, "the dark man that led the army may be back"
+!R> 
+The Queen bee enters reeking of acid honey.
+!R> fol nor
+[Wait 17 seconds...]
+!R> 
+Doroon ponders.
+!R> 
+A Queen attempts to lock her mandibles to Mortif!
+ Serious burn to right arm. [44 Damage]
+!R> 
+Stefan arches his eyebrow.
+!R> 
+Stefan incants a spell.
+!R> 'ack!
+
+A Queen attempts to lock her mandibles to Nord!
+Nord avoids the attack!
+!R> 
+A cave haunt floats in.
+!R> You exclaim, "ack!"
+!R> 
+Nord is now guarding you.
+!R> 
+Stefan gestures.
+Nothing happens.
+!R> 
+Doroon wields a gleaming gold elkyri warhammer deeply etched with a multi-rayed
+sun.
+!R> glare bee
+
+A Queen attempts to lock her mandibles to Stefan!
+ Minor burn to body. [51 Damage]
+!R> 
+A cave haunt wails a tune of horror and despair.
+!R> What are you referring to?  Please be more specific.
+!R> 
+Stefan wields a brilliant albescent broadsword whose razor-sharp blade glows
+softly in the light.
+!R> 
+Nord incants a spell.
+!R> 
+Stefan advances towards a Queen.
+!R> 
+Arminger returns to normal speed.
+!R> 
+You are bleeding.
+!R> 
+A Queen attempts to lock her mandibles to Arminger!
+ Severe burn to head. [79 Damage]
+!R> 
+A cave haunt hisses at Mortif.
+Magic begins to form but then fizzles.
+!R> 
+Stefan swings at a Queen. Hit! Massive damage.
+!R> 
+Arminger extinguishes a lantern.
+!R> 
+Arminger becomes one with the stones.
+!R> 
+Stefan swings at a Queen. Miss.
+!R> 
+Nord gestures at Mortif.
+Mortif looks a little better.
+!R> 
+Stefan thrusts at a Queen. Hit! Good damage.
+!R> 
+A Queen attempts to lock her mandibles to Nord!
+Nord avoids the attack!
+!R> 
+Stefan swings at a Queen. Hit! Massive damage.
+!R> 
+Nord incants a spell.
+!R> 
+Stefan swings at a Queen. Hit! Massive damage.
+!R> 
+Stefan swings at a Queen. Hit! Major damage.
+!R> 
+The Queen bzzzs, rubbing her wings together.
+!R> 
+A cave haunt wails a tune of horror and despair.
+!R> 
+Stefan thrusts at a Queen. Hit! Devastating damage.
+!R> 
+Doroon advances towards a Queen.
+!R> 
+Stefan puts away a brilliant albescent broadsword whose razor-sharp blade glows
+softly in the light.
+!> 
+Doroon swings at a Queen. Miss.
+!> 
+Stefan opens a gold sheath embroidered with the phoenix emblem intertwined with
+the initials "SR".
+!> 
+The Queen snaps her mandibles in an intricate staccato of sound at Stefan.
+The Queen bee gnashes her mandibles in anger.
+!> 
+A cave haunt hisses at Nord.
+Magic begins to form but then fizzles.
+!> 
+Stefan removes a golden elkyri broadsword with a sparkling silver hilt and a
+phoenix emblem in it's center from the sheath.
+!> 
+Nord gestures at Mortif.
+Mortif looks a little better.
+!> 
+Stefan wields a golden elkyri broadsword with a sparkling silver hilt and a
+phoenix emblem in it's center.
+!> 
+Arminger reveals himself.
+!> 
+Arminger concentrates intently on a fiery silver badge.
+!> 
+Arminger looks a little better.
+!> 
+Stefan thrusts at a Queen. Hit! Massive damage.
+!> 
+A cave haunt wails a tune of horror and despair.
+!> health
+
+Stefan swings at a Queen. Hit! Awesome damage.
+!> You have 226/226 body points.
+You are bleeding at a rate of 1/minute.
+You have a gashed and scorched head, a lacerated body, a nicked back, a burnt
+right arm, a lacerated right leg and a nicked left hand.
+!> 
+Doroon swings at a Queen. Miss.
+!> 
+Nord incants a spell.
+!> 
+Stefan swings at a Queen. Hit! Devastating damage.
+!> 
+Stefan swings at a Queen. Hit! Devastating damage.
+!> 
+The Queen bzzzs, rubbing her wings together.
+!> 
+A cave haunt hisses at Arminger.
+Magic begins to form but then fizzles.
+!> 
+Stefan thrusts at a Queen. Hit! Devastating damage.
+!> 
+Doroon retreats.
+!> 
+Stefan swings at a Queen. Hit! Massive damage.
+!> pre 221
+You prepare the Dancing Sword spell.
+ [Round: 2 sec]
+!R> 
+Arminger takes a drink of a dark green potion.
+!R> 
+Arminger moves with blurring speed.
+!R> 
+Stefan thrusts at a Queen. Miss.
+!R> 
+With a roar, a sekleth stomps in!
+!R> 
+A sekleth advances towards Nord.
+!R> 
+A sekleth swings at Nord. Miss.
+!R> 
+The Queen snaps her mandibles in an intricate staccato of sound at Arminger.
+Arminger gets a friendly look.
+!R> 
+A cave haunt wails a tune of horror and despair.
+!R> 
+Stefan swings at a Queen. Hit! Massive damage.
+!> 
+Doroon shakes his head back and forth.
+!> 
+Stefan thrusts at a Queen. Hit! Awesome damage, knockdown.
+!> 
+Stefan thrusts at a Queen. Hit! Massive damage.
+!> 
+Arminger concentrates intently on a fiery silver badge.
+!> 
+Arminger looks a little better.
+!> 
+A Queen stands up.
+!> 
+A cave haunt hisses at Nord.
+Magic begins to form but then fizzles.
+!> 
+Stefan swings at a Queen. Hit! Devastating damage.
+!> 
+Nord incants a spell.
+!> 
+Stefan swings at a Queen. Hit! Major damage.
+!> cas quee
+pre 221
+You gesture at Queen.
+[Success: 5%, Roll 93] Failure.
+!> You prepare the Dancing Sword spell.
+ [Round: 2 sec]
+!R> 
+Nord gestures at Doroon.
+Doroon gradually fades from view.
+!R> 
+Stefan thrusts at a Queen. Miss.
+!R> 
+A sekleth swings at Nord. Miss.
+!R> 
+The Queen bzzzs, rubbing her wings together.
+!R> 
+A cave haunt wails a tune of horror and despair.
+!R> 
+Stefan swings at a Queen. Hit! Awesome damage.
+!> 
+Nord incants a spell.
+!> 
+Stefan swings at a Queen. Hit! Massive damage.
+!> 
+Arminger concentrates intently on a fiery silver badge.
+!> 
+Arminger looks a little better.
+!> 
+Stefan swings at a Queen. Miss.
+!> 
+The Queen snaps her mandibles in an intricate staccato of sound at Arminger.
+The Queen bee gnashes her mandibles in anger.
+!> 
+A cave haunt hisses at Nord.
+Magic begins to form but then fizzles.
+!> 
+Nord gestures at Mortif.
+You feel a tingling sensation.
+!H> 
+Stefan swings at a Queen. Hit! Devastating damage.
+!H> 
+Stefan swings at a Queen. Hit! Massive damage.
+!H> cas hau
+pre 221
+You suddenly fade into view.
+You gesture at a haunt.
+[Success: 95%, Roll 86] Success!
+An animate sword leaps forth from Mortif's hand
+and slashes at a haunt with expert skill!
+ Puny slash to left leg. [10 Damage]
+!> 
+Stefan swings at a Queen. Hit! Devastating damage.
+!> You prepare the Dancing Sword spell.
+ [Round: 2 sec]
+!R> 
+A sekleth swings at Nord. Miss.
+!R> 
+The Queen bzzzs, rubbing her wings together.
+!R> 
+Stefan thrusts at a Queen. Hit!
+ Powerful sideswipe removes top of skull from ears up.
+
+ She heaves, and with a final sigh and gurgle of honey, collapses.
+!R> 
+Nord incants a spell.
+!R> 
+Arminger becomes one with the stones.
+!R> rel
+You release your prepared spell.
+!> pre 225
+You prepare the Invisibility spell.
+ [Round: 3 sec]
+!R> 
+A cave haunt wails a tune of horror and despair.
+!R> cast
+[Wait 2 seconds...]
+!R> cast
+[Wait 1 seconds...]
+!R> 
+Stefan advances towards a cave haunt.
+!R> cast
+You gesture.
+[Success: 95%, Roll 30] Success!
+You feel a tingling sensation.
+!H> 
+A sekleth swings at Nord. Miss.
+!H> 
+A cave haunt hisses at Nord.
+Magic begins to form but then fizzles.
+!H> 
+Stefan swings at a cave haunt. Hit! Massive damage.
+!H> fol nor
+You are now following Nord.
+!JH> 
+Stefan swings at a cave haunt. Hit! Minor damage.
+!JH> 
+A cave haunt wails a tune of horror and despair.
+!JH> look
+
+Stefan swings at a cave haunt. Hit!
+ It vanishes.
+!JH> [Deep Realms, natural bridge west]
+A rocky shelf winds from around a bend of the chasm here. No further travel on
+this side is possible. Hundreds of feet below churns hot magma. Forward and
+above, the wall of the chasm appears to have been subject to superheating,
+because a black, glassy and utterly unclimbable surface is all that lies ahead.
+However, looking east across the chasm, a narrow natural bridge extends over
+the gloom to a cave on the other side.
+You see Nord, Stefan, a sekleth and Queen (dead). 
+Obvious exits: east.
+!JH> 
+A sekleth swings at Nord. Miss.
+!JH> 
+Stefan puts away a golden elkyri broadsword with a sparkling silver hilt and a
+phoenix emblem in it's center.
+!JH> 
+Nord fails to skin a Queen.
+!JH> 
+Nord wields a silvery elkyri longsword.
+!JH> 
+Nord wields a fiery silver shield emblazoned with a golden sun gripped in a
+closing hand.
+!JH> 
+Stefan closes a gold sheath embroidered with the phoenix emblem intertwined
+with the initials "SR".
+!JH> 
+Stefan wields a golden elkyri broadsword with a sparkling silver hilt and a
+phoenix emblem in it's center.
+!JH> 
+Stefan wields a fiery elkyri papenheimer.
+!JH> 
+Nord swings at a sekleth. Hit! Massive damage.
+!JH> 
+A sekleth swings at Nord. Miss.
+!JH> 
+Nord swings at a sekleth. Hit! Good damage.
+!JH> 
+Nord swings at a sekleth. Hit! Devastating damage.
+!JH> 
+Nord swings at a sekleth. Hit! Massive damage.
+!JH> 
+You hear someone gulp.
+!JH> 
+Nord swings at a sekleth. Hit! Devastating damage.
+!JH> 
+Stefan advances towards a sekleth.
+!JH> 
+Stefan thrusts at a sekleth. Hit!
+ It collapses, dead.
+!JH> look
+[Deep Realms, natural bridge west]
+A rocky shelf winds from around a bend of the chasm here. No further travel on
+this side is possible. Hundreds of feet below churns hot magma. Forward and
+above, the wall of the chasm appears to have been subject to superheating,
+because a black, glassy and utterly unclimbable surface is all that lies ahead.
+However, looking east across the chasm, a narrow natural bridge extends over
+the gloom to a cave on the other side.
+You see Nord, Stefan, a sekleth (dead) and Queen (dead). 
+Obvious exits: east.
+!JH> health
+
+Nord skins a sekleth.
+!JH> You have 226/226 body points.
+You are bleeding at a rate of 1/minute.
+You have a gashed and scorched head, a lacerated body, a nicked back, a burnt
+right arm, a lacerated right leg and a nicked left hand.
+!JH> 
+You are bleeding.
+!JH> 
+Nord searches a Queen.
+!JH> smi
+You suddenly fade into view.
+You smile.
+!J> 
+Nord's group goes east.
+!J> 
+You follow Nord.
+[Deep Realms, natural bridge]
+You see Nord and Stefan. 
+Obvious exits: e, w.
+!J> 
+Nord puts away a silvery elkyri longsword.
+!J> 
+Nord puts away a fiery silver shield emblazoned with a golden sun gripped in a
+closing hand.
+!J> 
+Stefan is now following Nord.
+!J> 
+Nord incants a spell.
+!J> 
+Nord narrows his eyes and gazes intently about the area.
+!J> 
+Nord's group goes east.
+!J> 
+You follow Nord.
+[Deep Realms, natural bridge east]
+You see Nord and Stefan. 
+Obvious exits: w.
+!J> 
+Nord's group goes through an opening.
+!J> 
+You follow Nord.
+[Deep Realms, volcanic cave]
+You see Nord and Stefan. 
+Obvious exits: ne, o.
+!J> 
+Nord's group goes northeast.
+!J> 
+You follow Nord.
+[Deep Realms, volcanic cave]
+You see Nord and Stefan. 
+Obvious exits: n, sw.
+!J> 
+Nord's group goes north.
+!J> 
+You follow Nord.
+[Deep Realms, volcanic cave]
+You see Nord and Stefan. 
+Obvious exits: s, e.
+!J> 
+Nord's group goes east.
+!J> 
+You follow Nord.
+[Deep Realms, caves]
+You see Nord and Stefan. 
+Obvious exits: s, w.
+!J> 
+Nord points at a wall.
+!J> 
+Arminger reveals himself.
+!J> 
+Arminger walks right through the illusionary wall.
+!J> go wal
+You walk right through the illusionary wall.
+[Deep Realms, Kragengate]
+You see Arminger. 
+Obvious exits: none.
+!> 
+Arminger heaves himself against the doors...
+!> 
+Arminger slowly pushes the doors open.
+!> 
+Nord arrives through the illusionary wall.
+!> 
+Something arrives through the illusionary wall.
+!> 
+Nord pushes on the doors, but they will not open any further.
+!> 
+Stefan arrives through the illusionary wall.
+!> fol nor
+You are now following Nord.
+!J> 
+The air before you shimmers and congeals into Doroon!
+!J> 
+Doroon smiles angelically.
+!J> 
+Doroon is now following Nord.
+!J> 
+Arminger returns to normal speed.
+!J> 
+Stefan is now following Nord.
+!J> 
+Arminger is now following Nord.
+!J> 
+Nord's group goes through a massive titanium door.
+!J> 
+You follow Nord.
+[Kragenholm, town gates]
+You see Nord, Arminger, Doroon and Stefan. 
+Obvious exits: w.
+!J> 
+You are bleeding.
+!J> 
+The translucent blue sphere surrounding Nord fades.
+!J> 
+A deeplander miner arrives hauling a load of ore.
+!J> 
+Nord's group goes west.
+!J> 
+You follow Nord.
+[Kragenholm]
+You see Nord, Arminger, Doroon and Stefan. 
+Obvious exits: e, w.
+!J> 
+Nord's group goes west.
+!J> 
+You follow Nord.
+[Kragenholm]
+You see Nord, Arminger, Doroon and Stefan. 
+Obvious exits: e, w.
+!J> 
+Nord's group goes west.
+!J> 
+You follow Nord.
+[Kragenholm]
+You see Nord, Arminger, Doroon and Stefan. 
+Obvious exits: s, e.
+!J> 
+Nord's group goes south.
+!J> 
+You follow Nord.
+[Kragenholm]
+You see Nord, Arminger, Doroon and Stefan. 
+Obvious exits: n, sw.
+!J> 
+Nord's group goes southwest.
+!J> 
+You follow Nord.
+[Kragenholm]
+You see Nord, Arminger, Doroon and Stefan. 
+Obvious exits: ne, sw.
+!J> 
+Nord's group goes southwest.
+!J> 
+You follow Nord.
+[Kragenholm]
+You see Nord, Arminger, Doroon and Stefan. 
+Obvious exits: ne, nw.
+!J> 
+Nord's group goes northwest.
+!J> 
+You follow Nord.
+[Kragenholm]
+You see Nord, Arminger, Doroon and Stefan. A wrought iron gate is here.
+Obvious exits: nw, se.
+!J> 
+Nord's group goes northwest.
+!J> 
+You follow Nord.
+[Kragenholm]
+You see Nord, Arminger, Doroon and Stefan. 
+Obvious exits: se, d.
+!J> 
+Nord's group goes through a shimmering opening.
+!J> 
+You follow Nord.
+[Loremaster's lobby]
+You see Nord, Arminger, Doroon and Stefan. Some blue mist is here.
+Obvious exits: ne, se, sw, o.
+!J> 
+Nord casts his gaze across the area.
+!J> 
+Doroon casts his gaze across the area.
+!J> 
+You are bleeding.
+!J> 
+A deeplander looks at you oddly.
+!J> 
+Nord says, "hmm..."
+!J> 
+Stefan nods to a deeplander.
+!J> 
+You hear a deeplander say, "Lord"
+!J> rais
+You raise your eyebrow.
+!J> 
+Stefan smiles.
+!J> 
+Stefan says, "Good day sir."
+!J> 'I ain't a lord, but thanks all the same
+You say, "I ain't a lord, but thanks all the same"
+!J> 
+Nord asks, "excuse me...could we have an audience with your loremasters?"
+!J> 
+You are bleeding.
+!J> 
+(a deeplander looks a bit nervous)
+!J> 
+Stefan arches his eyebrow.
+!J> 
+Stefan returns to normal speed.
+!J> look
+[Loremaster's lobby]
+You feel a sense of awe as the power surging through this room washes over you.
+The room is circular in shape, with four shimmering archways tempting you in
+different directions. Embedded in the floor beneath the pedestal is a large
+star, each jewel laden point tipped by a huge twinkling diamond. Above the star
+is a strange cloud of blue mist.
+You see Nord, Arminger, Doroon, Stefan and a deeplander. 
+Obvious exits: northeast, southeast, southwest, out.
+!J> look deepland
+You see a deeplander. He closely resemble his surface dwelling cousin, the
+highlander, except for the darker color of his skin. He is wearing some brown
+breeches, some black leather boots and a suit of deeplander armor.
+!J> 
+Nord says, "we are from the Temple of Rorin in the city of Fayd"
+!J> 
+You hear a deeplander say, "Well you Lordship, he isnt really in a good state
+to see anyone."
+!J> 
+A deeplander goes out.
+!J> rais
+look
+You raise your eyebrow.
+!J> [Loremaster's lobby]
+You feel a sense of awe as the power surging through this room washes over you.
+The room is circular in shape, with four shimmering archways tempting you in
+different directions. Embedded in the floor beneath the pedestal is a large
+star, each jewel laden point tipped by a huge twinkling diamond. Above the star
+is a strange cloud of blue mist.
+You see Nord, Arminger, Doroon and Stefan. 
+Obvious exits: northeast, southeast, southwest, out.
+!J> 
+You are bleeding.
+!J> 
+Nord furrows his brow.
+!J> 
+Arminger grins.
+!J> 
+Doroon ponders.
+!J> 
+Nord asks, "is he ill?"
+!J> 
+Stefan arches his eyebrow.
+!J> 
+Arminger says, "Friendly sort."
+!J> 
+Stefan says, "took off running."
+!J> 
+Arminger chuckles.
+!J> 'Perhaps a good service to Rorin will bring him some improvement
+You say, "Perhaps a good service to Rorin will bring him some improvement"
+!J> 
+Nord says, "yes...but where is he"
+!J> 
+You are bleeding.
+!J> 
+Nord's group goes southeast.
+!J> 
+You follow Nord.
+[Hall of Tomes]
+You see Nord, Arminger, Doroon and Stefan. 
+Obvious exits: nw.
+!J> 
+Nord casts his gaze across the area.
+!J> look
+[Hall of Tomes]
+Deep shadows cloak one half of this room, while the other side is bathed is
+a shimmering white light. Staring into the dim shadows you can make out the
+shape of a black granite pedestal placed dead center in the darkness. Resting
+on top it is a tattered rune covered tome, its pages curiously void of any
+writing. Inscribed into the base of the pedestal are two cryptic runes.
+Directly opposite it, bathed in a warm glow is a pure white pedestal which
+holds another tome, its cover carefully repaired and its pages. There is a
+third blue pedestal for placing offerings.
+You see Nord, Arminger, Doroon and Stefan. 
+Obvious exits: northwest.
+!J> tap gurk pearl
+What are you referring to?  Please be more specific.
+!J> open apr
+What are you referring to?  Please be more specific.
+!J> 
+Doroon casts his gaze across the area.
+!J> inv
+
+Nord's group goes northwest.
+!J> 
+You follow Nord.
+[Loremaster's lobby]
+You see Nord, Arminger, Doroon, Stefan and a deeplander. Some blue mist is
+here.
+Obvious exits: ne, se, sw, o.
+!J> You are carrying: 
+  A cocooned larva
+  A manango fruit
+  A tricana seedling
+  A spider ear
+  A spider ear
+  A spider ear
+  An icy randar scimitar
+  A bloodstone
+  A blackened archaic broom which is missing many of its bristles
+  An eldritch diamontine shield
+  Some fiery gold bracers engraved with a crimson eagle soaring above the
+Citadel, pinions spread wide
+  A graphite crucible (open)
+  An iron lockpick
+  A jade ring
+  An iron lockpick
+  An amulet formed from a blackened kvantar
+  A fiery silver badge engraved with the image of a blazing sun gripped within
+a gleaming golden hand (worn)
+  A leather teddy
+  A demon horn
+  A tiny chartreuse glass bottle
+  A misty white bottle
+  A blazing golden glass bottle
+  An oiled eye agate
+  An iridescent oiled shuriken
+  Some bubblegum
+  A glass (open)
+  A backpack (open)
+  A spider ear
+  An onyx amulet (worn)
+  A glowing medallion (worn)
+  A graphite crucible (open)
+  A glass idol
+  A truesteel hammer with a short wooden shaft and a sunburst engraved on the
+forge-shaped head
+  A large furry yeti doll with the familiar urisine scent to it
+  A mechanoid doll that looks like Hollister
+  A shadowy inky black doll of Donner sniffing a woman's skirt and sighing in
+pleasure
+  A sooty black t-shirt that says, "Smiths do it for hours and hours...just to
+keep in practice."
+  A brass necklace
+  A black doeskin harness (open)
+  A glowing large brass lantern which looks like it was copied for the
+illustrations in a book
+  A spider ear
+  A graphite whetstone
+  A fuzzy plaid beltpouch (open)
+  A fluffy brown dog (open)
+  A strongbox
+  A black leather vest
+  A mauve damn ticket
+  A werewolf eye
+  Some sooty black leather gloves (worn)
+  Some green cotton pants (worn)
+  An elkyri pendant
+  A torch
+  A pure golden circlet etched with intricate sun symbols around it (worn)
+  An inky black leather trenchcoat (open)
+  A thin aelfen imperial cigar that sports a colorful label of a magenta
+jackal's head
+  An obsidian talisman (worn)
+  An oiled aquamarine
+  Some oiled bekk-ite metal
+  A tricana seedling
+  A tricana seedling
+  A maufra lichen
+  A riyong mushroom
+!J> 
+Doroon asks, "What is this here?"
+!J> 
+(a deeplander gazes at your party.)
+!J> look in apron
+What are you referring to?  Please be more specific.
+!J> look in back
+In the backpack you see a rosewood framed portrait of a forest being protected
+from a horde of werewolves by brave wolflings, a dark inky black card of
+Sierron saying, "I want a card of me!" and sitting on the fountain, a bronze
+necklace and a marble medallion.
+!J> 
+Nord asks, "is your loremaster ill?"
+!J> 
+You are bleeding.
+!J> look
+[Loremaster's lobby]
+You feel a sense of awe as the power surging through this room washes over you.
+The room is circular in shape, with four shimmering archways tempting you in
+different directions. Embedded in the floor beneath the pedestal is a large
+star, each jewel laden point tipped by a huge twinkling diamond. Above the star
+is a strange cloud of blue mist.
+You see Nord, Arminger, Doroon, Stefan and a deeplander. 
+Obvious exits: northeast, southeast, southwest, out.
+!J> look in ves
+It is closed.
+!J> open ves
+You open a black leather vest, revealing some elkyri metal, a prismatic gray
+bottle engraved with the writing, "Summon Spectral Warrior" and some icy randar
+metal.
+!J> 
+Stefan counts his money.
+!J> 
+You hear a deeplander say, "um....who are you people?"
+!J> 
+Nord says, "we are from the Temple of Rorin in Fayd"
+!J> 
+You hear a deeplander say, "We...we...don't get may topsiders here."
+!J> 
+(Doroon turns to Stefan, waiting for him to answer.)
+!J> 
+ ** Young has just left the Realms.
+!J> 
+ ** Wolfbane has just disconnected.
+!J> 
+Stefan nods to Nord.
+!J> 
+A deeplander blinks.
+!J> 
+You are bleeding.
+!J> 
+ ** Elarin has just left the Realms.
+!J> 
+You hear a deeplander say, "Why...why...are...are..you here?"
+!J> 
+Nord says, "we wanted to speak to your loremasters...someone who has knowledge
+of history"
+!J> 
+Doroon smiles sweetly at the deeplander.
+!J> 
+Doroon asks, "Are you frightened, sir?"
+!J> 
+You are bleeding.
+!J> 
+You hear a deeplander say, "Oh...he...he is not seeying anyone."
+!J> 
+Stefan says, "Hmmmm"
+!J> 
+A deeplander blinks at Doroon.
+!J> 
+Arminger asks, "Why not?"
+!J> 
+Arminger gazes at a deeplander.
+!J> 
+You hear a deeplander say, "no...no....I just....have...a...a...stutter."
+!J> 
+Stefan says, "You seem edgy."
+!J> 
+Nord says, "we have come a long way...we would be most grateful"
+!J> 
+You hear a deeplander say, "Well...well...if you saw...half the
+things...I....I...seen around..."
+!J> 
+You hear a deeplander say, "um...um...nothing"
+!J> 
+You are bleeding.
+!J> 
+(a deeplander looks nervous now)
+!J> 
+Nord asks, "seen what?"
+!J> 
+Doroon touches a large leather bound book with it's title faintly visible along
+the spine.
+!J> 
+Stefan says, "I've seen quite a few things in my day sir."
+!J> 
+You hear a deeplander say, "I...I...can't say anything
+more...you...you...should leave."
+!J> 
+Stefan casts his gaze across the area.
+!J> 
+Nord nods to Arminger.
+!J> 
+Arminger sniffs.
+!J> 
+Arminger goes southeast.
+!J> 
+Stefan says, "There was a time when I was a regular here, welcomed with open
+arms."
+!J> 
+Stefan ponders.
+!J> 
+You are bleeding.
+!J> 
+Stefan says, "it seems the times have changed."
+!J> 
+A deeplander nods to Stefan.
+!J> 
+Stefan casts his gaze across the area.
+!J> 'I even lived down here for a year
+You say, "I even lived down here for a year"
+!J> 
+Nord says, "perhaps we can help with whatever seem to be troubling you"
+!J> gaze
+You gaze about the area.
+!J> nod stef
+You nod to Stefan.
+!J> 
+You hear a deeplander say, "Your Lordship...."
+!J> 
+Arminger arrives.
+!J> 
+Nord's skin appears to become less rigid.
+!J> 
+Arminger is now following Nord.
+!J> 
+Doroon nods.
+!J> 
+Stefan listens carefully to a deeplander.
+!J> 
+The room seems to darken somewhat.
+!J> 
+Nord blinks.
+!J> 
+Arminger lights a lantern.
+!J> 
+Nord listens to his surroundings closely.
+!J> 
+(Arminger rubs his eyes)
+!J> 
+You are bleeding.
+!J> 
+THe hackles on your neck rise a bit.
+!J> 
+Stefan arches his eyebrow.
+!J> 
+Stefan incants a spell.
+!J> 
+You hear a deeplander say, "I...must...must.."
+!J> 
+Stefan puts away a golden elkyri broadsword with a sparkling silver hilt and a
+phoenix emblem in it's center.
+!J> 
+Stefan puts away a fiery elkyri papenheimer.
+!J> 
+Stefan gestures.
+Magic begins to form around Stefan but then fizzles.
+!J> 
+Stefan incants a spell.
+!J> 
+Stefan gestures.
+Stefan moves with blurring speed.
+!J> 
+Nord asks, "has there been unusual things happening in the Deep Realms?"
+!J> 
+You hear a deeplander say, "I must go."
+!J> 
+Arminger says, "Ya must tell us whats going on here bub."
+!J> 
+Stefan wields a brilliant albescent broadsword whose razor-sharp blade glows
+softly in the light.
+!J> 
+Stefan wields a fiery elkyri papenheimer.
+!J> 
+Stefan casts his gaze across the area.
+!J> 
+Arminger gazes at a deeplander.
+!J> 
+Doroon asks, "Go? Where?"
+!J> 
+Arminger returns to normal speed.
+!J> 
+You are bleeding.
+!J> 
+A deeplander goes northeast.
+!J> 
+Nord says, "whatever it is...its not just going to go away"
+!J> 
+Nord's group goes northeast.
+!J> 
+You follow Nord.
+[Conjurer's training]
+You see Nord, Arminger, Doroon, Stefan and a deeplander. 
+Obvious exits: sw.
+!J> 
+ ** Nik has just left the Realms.
+!J> 
+Arminger casts his gaze across the area.
+!J> 
+Ramitet glides away.
+!J> 
+Arminger says, "Magics"
+!J> 
+Nord arches his eyebrow.
+!J> 
+Arminger snorts.
+!J> 
+Arminger gazes at Ramitet.
+!J> 
+Ramitet casts his gaze across the area.
+!J> 
+Nord gazes at Ramitet.
+!J> 
+Ramitet whispers, "You may leave now"
+!J> 
+ ** Feras has just left the Realms.
+!J> 
+Ramitet gazes at a deeplander.
+!J> look ram
+Mystery and shadows seem to be close companions of this deeplander wizard.
+He is a taller then average and so thin as to be mostly bones. Tattoos
+along with an angular shaped head give his face a skull-like appearance.
+He is wearing a velvet dark purple robe with tiny runes of power flowing about
+the cuffs and hem, some deep black deeplander boots, a tarnished silver ring
+with a hinged cap engraved with an alien eye and a platinum torc inset with
+alternating bands of precious gems.
+He is surrounded by a prismatic globe.
+He is protected by a ghostly, hovering shield.
+He is surrounded by a scintillating curtain of light.
+He appears to be healthy.
+!J> 
+You are bleeding.
+!J> 
+A deeplander leaves the room in a hurry.
+!J> 
+(Ramitet looks at each of you.)
+!J> 
+Nord says, "Greetings"
+!J> 
+Nord bows towards Ramitet.
+!J> bow
+You bow.
+!J> 
+Ramitet whispers, "To what honor do grace these halls with your presence."
+!J> 
+You are bleeding.
+!J> 
+Ramitet whispers, "Comonors and Lords...a motely party."
+!J> 
+Stefan chuckles.
+!J> 
+Arminger grins.
+!J> 
+Ramitet whispers, "Ah and a student of knowlege"
+!J> 
+Stefan asks, "I am afraid, I missed your name?"
+!J> 
+Arminger leans on a deeplander pick-axe.
+!J> 
+Nord says, "we have come in search of some information"
+!J> 
+Ramitet gazes at Doroon.
+!J> 
+Ramitet whispers, "And you expect to find it in these halls?"
+!J> 
+Nord says, "Rorin is what binds us all together"
+!J> 
+Ramitet gazes at Nord.
+!J> 
+Stefan leans on a golden elkyri broadsword with a sparkling silver hilt and a
+phoenix emblem in it's center.
+!J> 
+You are bleeding.
+!J> 
+Nord nods to Ramitet.
+!J> 
+Stefan puts a golden elkyri broadsword with a sparkling silver hilt and a
+phoenix emblem in it's center in the sheath.
+!J> 
+Ramitet whispers, "Rorin, not a name spoken to often or with much fondness in
+this city."
+!J> 
+Stefan closes a battered and torn sheath of aged leather.
+!J> 
+Nord says, "we are from the Temple of Rorin from Fayd"
+!J> 
+Stefan says, "it is the loss of this city then."
+!J> 
+Ramitet whispers, "I realize that."
+!J> 
+ ** Nixt has just left the Realms.
+!J> 
+Stefan returns to normal speed.
+!J> 
+Doroon sighs.
+!J> 
+You are bleeding.
+!J> 
+Ramitet gazes at Stefan.
+!J> 
+Nord says, "that is part of the reason why we are here"
+!J> 
+Ramitet whispers, "You would be Duke Stefen?"
+!J> 
+Stefan asks, "Aye, And you would be?"
+!J> 
+(Ramitet looks sideways at Nord.)
+!J> 
+(Ramitet returns his gaze to Stefan.)
+!J> lean hamm
+You lean on a truesteel hammer with a short wooden shaft and a sunburst
+engraved on the forge-shaped head.
+!J> 
+Ramitet whispers, "I am the scholar Ramitet."
+!J> 
+The scintillating curtain of light surrounding Ramitet fades.
+!J> 
+Doroon bows towards Ramitet.
+!J> 
+You are bleeding.
+!J> 
+(Stefan turns his gaze to the crystal desk, his eyes roaming over its contents.)
+!J> 
+Stefan smiles at Ramitet.
+!J> 
+Stefan says, "Well met then scholar."
+!J> 
+Nord says, "Greetings, learned one"
+!J> 
+Ramitet whispers, "So you are hear to open old and forgotten wounds."
+!J> 
+Nord furrows his brow.
+!J> 
+Doroon gazes at Ramitet.
+!J> 
+Nord asks, "you have an idea about why we're here?"
+!J> 
+You are bleeding.
+!J> 
+Doroon asks, "Could you explain that, sir?"
+!J> 
+(Ramitet picks a book off the shelf and moves it to another place.)
+!J> 
+(Stefan glances to Nord.)
+!J> 
+Ramitet whispers, "An inkling."
+!J> 
+You are bleeding.
+!J> 
+ ** Elarin has just disconnected.
+!J> 
+Ramitet whispers, "It is not every day we see a group of Rorin followers here."
+!J> 
+(Doroon follows Ramitet, moving to stand by his shoulder.)
+!J> 
+Ramitet gazes at Doroon.
+!J> 
+You are bleeding.
+!J> 
+Nord says, "that is not our purpose...there have been certain developments that
+require the information that you may have"
+!J> 
+(Doroon shivers involuntarily, but doesn't move.)
+!J> 
+Stefan ponders.
+!J> 
+Ramitet ponders.
+!J> 
+You are bleeding.
+!J> 
+Ramitet whispers, "Please be more specific."
+!J> 
+Nord asks, "you have heard of the name, Faldor?"
+!J> 
+(Ramitet smiles...but it somehow it makes you not feel better.)
+!J> 
+Ramitet casts his gaze across the area.
+!J> touch bad
+You touch a fiery silver badge engraved with the image of a blazing sun gripped
+within a gleaming golden hand.
+!J> 
+You are bleeding.
+!J> 
+Ramitet whispers, "Ah...so I was correct on my assumption."
+!J> 
+Stefan nods.
+!J> 
+Ramitet whispers, "And knowing the story...you think I would risk helping you?"
+!J> 
+You are bleeding.
+!J> 
+Nord asks, "what information can you share?"
+!J> 
+Nord asks, "risk?"
+!J> 
+Ramitet whispers, "I can share nothing."
+!J> 
+Doroon asks, "Can't? Or won't?"
+!J> 
+You are bleeding.
+!J> 
+Ramitet whispers, "Please don't think me foolish...You have obviously heard or
+read about story"
+!J> 
+Ramitet whispers, "Given that...what makes you think I would help you?"
+!J> 
+Ramitet gazes at Doroon.
+!J> 
+Nord says, "what we know ended when he left the above world behind"
+!J> 
+You are bleeding.
+!J> 
+Ramitet whispers, "Perhaps both or none young one"
+!J> 
+Arminger whispers to you, "Well, haven't met a sage yet who didn't like to talk
+like they knew it alll.."
+!J> 
+Doroon gazes at Ramitet.
+!J> 
+(Ramitet rubs his hands like they pain him.)
+!J> 
+(Doroon glances down.)
+!J> 
+You are bleeding.
+!J> 
+Ramitet whispers, "Come now...if you read the story then you know at least the
+basics of what happened here."
+!J> 
+Arminger furrows his brow.
+!J> 
+ ** Airgid has just disconnected.
+!J> 
+Nord says, "other then a mention of some divided beliefs...nothing"
+!J> whisp arming Yeah...most of them like to flaunt how much they know, and how much you *don't* know
+You whisper to Arminger.
+!J> 
+Ramitet whispers, "I will not risk my standing or safety because some follower
+of the light god decide they need to know more."
+!J> 
+Nord says, "that's what we are here to learn"
+!J> 
+You are bleeding.
+!J> 
+Stefan says, "we have come in the pursuit of knowledge."
+!J> 
+(Ramitet takes a book off the shelf and leafs through it.)
+!J> 
+You are bleeding.
+!J> 
+Without looking up he says 'You do nothing to sway me to help you".....
+!J> 
+Ramitet whispers, "Unless..."
+!J> 
+(Ramitet looks up)
+!J> 
+Doroon smiles sweetly.
+!J> 
+Nord says, "is that what you do with your knowledge...squirrel the bad away and
+hope it never occurs again"
+!J> 
+Doroon asks, "What could we do to sway you?"
+!J> 'Perhaps there other more "open minded" scholars with the knowledge we seek
+You say, "Perhaps there other more "open minded" scholars with the knowledge we
+seek"
+!J> 
+Ramitet gazes at Nord.
+!J> 
+ ** Feras has just disconnected.
+!J> 
+Nord says, "I think we can learn from what you have to offer"
+!J> 
+You are bleeding.
+!J> who
+Sapphire           Rival              Airgid             Nord               
+Feras              Arminger           Marcolan           Klone              
+Mortif             Kellah             Stefan             Leah               
+Rion               
+
+
+There are 13 adventurers in the Realms.
+
+!J> 
+Your vision returns to normal.
+!J> 
+Nord says, "perhaps so we can ease over some of that pain of the past"
+!J> 
+Ramitet whispers, "I care not for the topside gods...as does the hole of
+deeplander society...what right do you have to come in here and demand help?"
+!J> 
+Doroon's eyes return to normal.
+!J> 
+Ramitet whispers, "Besides...the knowlege you seek is not here.."
+!J> 
+You are bleeding.
+!J> 
+Doroon raises an eyebrow towards Ramitet.
+!J> 
+(Ramitet smiles again...)
+!J> 
+Stefan ponders.
+!J> 
+Doroon gazes at a large leather bound book with it's title faintly visible
+along the spine.
+!J> 
+Doroon asks, "Where is it?"
+!J> 
+Ramitet chuckles at Doroon.
+!J> 
+(Stefan slowly wanders around the room, his eyes glancing from item to item.)
+!J> 
+Ramitet whispers, "Oh...were it cannot do my people any harm again.."
+!J> 
+You are bleeding.
+!J> 
+Stefan says, "Impressive library."
+!J> 
+Ramitet nods to Stefan.
+!J> 
+Stefan says, "a great sage once told me..."
+!J> 
+Nord says, "what's to say what you don't tell us today won't harm your people"
+!J> 
+Ramitet whispers, "Yes...it has taken many centuries to fill these shelves"
+!J> 
+Stefan says, "those that do not learn from history, are doomed to repeat it."
+!J> 
+Stefan ponders.
+!J> 
+You are bleeding.
+!J> 
+Ramitet whispers, "What can be learned from the story?"
+!J> 
+Stefan says, "we seek to learn, who knows if that will help or not."
+!J> 
+Ramitet whispers, "Help you say...help with what exactly?"
+!J> 
+You are bleeding.
+!J> 
+ ** Rival has just left the Realms.
+!J> 
+Stefan asks, "You say it is hidden where it cannot harm your people again?"
+!J> 
+Doroon gazes at Ramitet.
+!J> 
+Nord says, "the story of Faldor...what happened to him"
+!J> 
+Doroon says, "You didn't answer my question, though."
+!J> 
+Doroon smiles at Ramitet.
+!J> 
+Doroon asks, "What could we do to sway you to aid us?"
+!J> 
+Ramitet whispers, "Yes I did not"
+!J> 
+You are bleeding.
+!J> 
+Ramitet ponders.
+!J> 
+ ** Thistle has just left the Realms.
+!J> 
+Nord listens carefully to Ramitet.
+!J> 
+You are bleeding.
+!J> 
+Ramitet whispers, "First I want to know why you seek this knowlege...and not
+the hazy answers you have given."
+!J> 
+Doroon gazes at Nord.
+!J> 
+The stuffy smell of the hall makes your nostrils twitch.
+!J> 
+You are bleeding.
+!J> 
+You hear a cry out and footsteps moving away in a great hurry.
+!J> 
+Nord says, "we want to learn of Faldor and his whereabouts...complete our own
+archives"
+!J> 
+Ramitet frowns.
+!J> 
+Nord arches his eyebrow.
+!J> 
+Stefan arches his eyebrow.
+!J> 
+Stefan goes southwest.
+!J> 
+Ramitet whispers, "Take no mind of that...ears not meant to here this
+discussion."
+!J> 
+You are bleeding.
+!J> 
+Nord says, "we would also find Faldor"
+!J> 
+Ramitet gazes at Nord.
+!J> 
+Ramitet arches his eyebrow.
+!J> Connection terminated by remote host
+> 
+Lianna smiles at you.
+> 'I'd hoped Mortif would be done about 40 minutes ago
+You say, "I'd hoped Mortif would be done about 40 minutes ago"
+> sigh
+You sigh.
+> 
+Lianna says, "I think you've had enough sex for today."
+> 'or earlier
+You say, "or earlier"
+> 'Enough???
+You ask, "Enough???"
+> 'OH, bite your tongue
+You say, "OH, bite your tongue"
+> 
+Lianna nods to you.
+> 
+Lianna laughs.
+> grin
+You grin.
+> 'Or better yet, I will
+You say, "Or better yet, I will"
+> kiss lia deep
+You kiss Lianna deeply.
+> 
+Lianna says, "I'll wait until your wife holds out on you..."
+> act chews on your tongue.
+
+Lianna ponders.
+> Moordread chews on your tongue.
+> 'Tonight, tomorrow night, the next night
+You say, "Tonight, tomorrow night, the next night"
+> 
+Lianna laughs.
+> 'All vacation, she already said I wasn't get any then
+You say, "All vacation, she already said I wasn't get any then"
+> 
+Lianna exclaims, "You had sex twice this month already!"
+> 'Oh yeah!
+You exclaim, "Oh yeah!"
+> thump me
+Alright, you give yourself a solid rap on the noggin.
+> 'Silly me
+You say, "Silly me"
+> 
+Lianna says, "It's going to pick up...you can get horny with her."
+> 
+Lianna says, "I think I'll be the one to hold out now."
+> 
+Lianna laughs.
+> winc
+You wince.
+> 
+Lianna kisses you deeply.
+> 
+Lianna says, "We need to start RPing again."
+> 'I don't know, step daughter was here and they got into it, I usually don't get any while she's pissed, even when I wasn't the cause
+You say, "I don't know, step daughter was here and they got into it, I usually
+don't get any while she's pissed, even when I wasn't the cause"
+> nod lia
+You nod to Lianna.
+> 'I suppose we do
+You say, "I suppose we do"
+> 'A good balance of RP and sex, not weighted to far on either side
+You say, "A good balance of RP and sex, not weighted to far on either side"
+> 
+Lianna nods.
+> 'But balance for me is like, 5 hours of sex, 1 hour of RP
+You say, "But balance for me is like, 5 hours of sex, 1 hour of RP"
+> 
+Lianna says, "I don't feel right doing stuff after you've been with your wife
+anyway...makes me feel..."
+> 
+Lianna appears to become weaker.
+> 
+Lianna says, "Slutty."
+> 
+Lianna says, "Airgid took Sapphire mining."
+> 
+ ** Arminger has just disconnected.
+> 'I'm sorry, maybe I shouldn't mention it at all, but I wasn't going to lie and say I got nothing
+You say, "I'm sorry, maybe I shouldn't mention it at all, but I wasn't going to
+lie and say I got nothing"
+> 
+Lianna says, "I know."
+> 
+Lianna says, "But it's a huge turnoff."
+> 
+Lianna says, "I'm sorry."
+> cud lia
+You cuddle up to Lianna.
+> 
+Lianna cuddles up to you.
+> 'I still love you, I just don't know when to keep my mouth shut
+You say, "I still love you, I just don't know when to keep my mouth shut"
+> 
+Lianna pokes you.
+> 
+Lianna says, "Oh good grief."
+> grin
+You grin.
+> 
+Lianna nuzzles you affectionately.
+> 
+Lianna says, "You can share things with me..."
+> 
+Lianna asks, "I didn't know it would turn me off...so how could you know?"
+> chuck
+You chuckle.
+> 
+Lianna says, "It was like a cold shower on me."
+> 'Live and learn
+You say, "Live and learn"
+> 
+Lianna says, "I'll get over it."
+> 
+Lianna nuzzles you affectionately.
+> kiss lia pass
+You kiss Lianna passionately.
+> 
+Lianna kisses you passionately.
+> 'Get over it soon
+You say, "Get over it soon"
+> wink lia
+You wink at Lianna.
+> 
+Lianna laughs.
+> 
+Lianna says, "I'll work on it."
+> 'Are you over it now?
+You ask, "Are you over it now?"
+> 
+Lianna tickles you.
+> 'How about now?
+You ask, "How about now?"
+> list lia
+You listen carefully to Lianna.
+> 
+Lianna laughs at you!
+> shiv
+You shiver.
+> 
+Lianna says, "Not yet."
+> 'Do you know how much I love you??
+You ask, "Do you know how much I love you??"
+> 
+Lianna nods to you.
+> kiss lia pass
+You kiss Lianna passionately.
+> 
+Lianna says, "Yes I do."
+> 
+Lianna says, "And I love you very much too."
+> 
+Lianna nuzzles you affectionately.
+> beam lia
+You beam at Lianna.
+> 
+Lianna kisses you passionately.
+> 
+Lianna says, "I hate Sunday nights."
+> sigh
+You sigh.
+> nod
+You nod.
+> 
+Lianna says, "They are very tough for me...I always cry."
+> 'Any night before I get up at 4am sucks
+You say, "Any night before I get up at 4am sucks"
+> gaze lia
+You gaze at Lianna.
+> comf lia
+You comfort Lianna.
+> 
+Lianna says, "I'll be with you tomorrow morning."
+> beam
+You beam happily.
+> 
+ ** Stefan has just disconnected.
+> 
+Lianna smiles at you.
+> 'I'll be here waiting for you
+You say, "I'll be here waiting for you"
+> 
+Lianna nuzzles you affectionately.
+> 'Just think how much I love you, and let the crying go away
+You say, "Just think how much I love you, and let the crying go away"
+> rub lia
+You give Lianna a backrub.
+> mass lia
+You massage Lianna.
+> 
+Lianna says, "That'll just make me cry more."
+> 'Wow, I'm doing good here
+You say, "Wow, I'm doing good here"
+> pond
+You ponder for a moment.
+> 
+Lianna says, "I died after you left by the way."
+> winc
+You wince.
+> gest
+You flail your arms about wildly.
+> 
+Lianna says, "Jup got me."
+> 'Got me twice the other day
+You say, "Got me twice the other day"
+> 
+Lianna says, "Then a figure skinned me."
+> 'Might have got me more but no one would rez me the 2nd time
+You say, "Might have got me more but no one would rez me the 2nd time"
+> sigh
+You sigh.
+> nod lia
+You nod to Lianna.
+> 
+Lianna says, "Got my ear."
+> 'He stunned me but never killed me
+You say, "He stunned me but never killed me"
+> 
+ ** Arminger has just disconnected.
+> 
+Lianna says, "Stunned Elarin while he was trying to rezz me."
+> 'We'll have to skin him and give him a taste of it
+You say, "We'll have to skin him and give him a taste of it"
+> 
+ ** Miria has just left the Realms.
+> 
+Lianna nuzzles you affectionately.
+> 'I love you dear but I need to crash
+You say, "I love you dear but I need to crash"
+> 
+Lianna says, "Get some sleep love."
+> sigh
+You sigh.
+> 
+Lianna nods.
+> 
+ ** Elarin has just left the Realms.
+> 
+Lianna says, "I know how you feel."
+> 'You know I hate to go, no matter how tired I am
+You say, "You know I hate to go, no matter how tired I am"
+> kiss lia pass
+You kiss Lianna passionately.
+> 
+Lianna says, "You'll see me in about 7 hours."
+> beam
+You beam happily.
+> 
+Lianna says, "Or 8 or 9."
+> 'I look forward to it, whenever
+You say, "I look forward to it, whenever"
+> kiss lia lips
+You kiss Lianna upon the lips.
+> 
+Lianna kisses you upon the lips.
+> 'Good night my loving wife
+You say, "Good night my loving wife"
+> hug lia
+You hug Lianna.
+> 
+Lianna says, "good night my sexy husband."
+> beam
+You beam happily.
+> x
+
+ ** Moordread has just left the Realms.
+> 
+
+Character Manager V1.00
+
+ 1 => Moordread
+ 2 => Morti
+ 3 => Bubba
+
+ C => Create new character
+ D => Delete current character
+ P => Play Legends of Future Past
+ X => Exit to NovaLink
+
+
+Active character: Moordread (#1)
+

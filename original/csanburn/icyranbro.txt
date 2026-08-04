@@ -1,0 +1,830 @@
+look n
+[Crescent isle, sandgrass]
+The clumps of sand have gathered here into a single low shape, a shelf of
+sorts which buttresses the edge of a narrow length of beach. As with the
+vegetation on the rest of the island, it serves as an ineffective barrier
+against any traveller larger than a kobold child. The grass grows thicker
+than ever, everywhere except the shelf itself.
+You see a muldragun. 
+> who
+Donnald            Fafnir             Feras              Vaulle             
+Sy                 Leah               Chasity            Elriss             
+Pockets            Hyena              Graul              Nomi               
+Firestar           Stolar             Moordread          Miria              
+Hsiang             Elarin             
+
+
+There are 18 adventurers in the Realms.
+
+> 
+A muldragun slithers in, its many heads writhing in the air.
+> adv mul
+a mul
+You advance towards a muldragun.
+> You swing at a muldragun with your icy randar broadsword.
+ [ToHit: 5, Roll: 50] Hit!
+ Fine slash to body. [48 Damage]
+ The broadsword radiates intense cold!
+ Insignificant burn to right paw. [12 Damage]
+ [Round: 1 sec]
+R> adv mul
+a mul
+You are already engaging that opponent.
+> You swing at a muldragun with your icy randar broadsword.
+ [ToHit: 5, Roll: 76] Hit!
+ Minor slash to head. [21 Damage]
+ [Round: 1 sec]
+R> adv mul
+a mul
+You are already engaging that opponent.
+> You thrust at a muldragun with your icy randar broadsword.
+ [ToHit: 5, Roll: 65] Hit!
+ Minor slash to second head. [22 Damage]
+ [Round: 1 sec]
+R> adv mul
+a mul
+You are already engaging that opponent.
+> You thrust at a muldragun with your icy randar broadsword.
+ [ToHit: 5, Roll: 29] Hit!
+ Superb slash to head. [54 Damage]
+ [Round: 1 sec]
+R> adv mul
+a mul
+You are already engaging that opponent.
+> You swing at a muldragun with your icy randar broadsword.
+ [ToHit: 5, Roll: 91] Hit!
+ Superb slash to body. [27 Damage]
+ [Round: 1 sec]
+R> 
+The rain continues.
+R> 
+A muldragun snaps at Moordread with its teeth.
+ [ToHit: 95, Roll: 64] Miss.
+R> adv mul
+a mul
+You are already engaging that opponent.
+> You thrust at a muldragun with your icy randar broadsword.
+ [ToHit: 5, Roll: 8] Hit!
+ Grisly slash to left hind leg. [23 Damage]
+ The broadsword radiates intense cold!
+ Ghastly burn to hindquarter. [19 Damage]
+ It writhes and drops to the ground, dead.
+ [Round: 1 sec]
+R> skin mul
+skin 2 mul
+sear mul
+You remove a muldragun tooth.
+> What are you referring to?  Please be more specific.
+> You search a muldragun.
+You find nothing.
+ [Round: 2 sec]
+R> sear mul
+What are you referring to?  Please be more specific.
+> 
+You feel the touch of Elarin's mind:
+"big H?"
+> 
+You feel the touch of Hyena's mind:
+"yes sir"
+> 
+ ** Hsiang has just disconnected.
+> 
+You feel the touch of Hyena's mind:
+"Upstairs in Crafters"
+> 
+ ** Fafnir has just disconnected.
+> 
+A muldragun slithers in, its many heads writhing in the air.
+> adv mul
+a mul
+You advance towards a muldragun.
+> You swing at a muldragun with your icy randar broadsword.
+ [ToHit: 5, Roll: 7] Hit!
+ Minor slash to left foreleg. [33 Damage]
+ [Round: 1 sec]
+R> adv mul
+a mul
+You are already engaging that opponent.
+> You swing at a muldragun with your icy randar broadsword.
+ [ToHit: 5, Roll: 14] Hit!
+ Grazing strike to tail. [9 Damage]
+ The broadsword radiates intense cold!
+ Minor burn to head. [21 Damage]
+ [Round: 1 sec]
+R> adv mul
+a mul
+
+A muldragun slithers in, its many heads writhing in the air.
+R> You are already engaging that opponent.
+> You swing at a muldragun with your icy randar broadsword.
+ [ToHit: 5, Roll: 75] Hit!
+ Minor slash to right hind leg. [15 Damage]
+ [Round: 1 sec]
+R> adv mul
+a mul
+You are already engaging that opponent.
+> You swing at a muldragun with your icy randar broadsword.
+ [ToHit: 5, Roll: 1] Miss.
+ [Round: 1 sec]
+R> adv mul
+a mul
+
+A muldragun snaps at Moordread with its teeth.
+ [ToHit: 95, Roll: 96] Excellent Hit!
+ Puny slash to left hand. [3 Damage]
+> You are already engaging that opponent.
+> You swing at a muldragun with your icy randar broadsword.
+ [ToHit: 5, Roll: 69] Hit!
+ Superb slash to head. [51 Damage]
+ [Round: 1 sec]
+R> adv mul
+a mul
+You are already engaging that opponent.
+> You thrust at a muldragun with your icy randar broadsword.
+ [ToHit: 5, Roll: 18] Hit!
+ Grisly slash to body. [57 Damage]
+ [Round: 1 sec]
+R> 
+You feel the touch of Sabreen's mind:
+"Greetings to the people of Fayd."
+R> adv mul
+a mul
+You are already engaging that opponent.
+> You swing at a muldragun with your icy randar broadsword.
+ [ToHit: 5, Roll: 30] Hit!
+ Brutal abdominal cut results in disembowelment.
+ It writhes and drops to the ground, dead.
+ [Round: 1 sec]
+R> 
+A muldragun casts its gazes across the area.
+R> adv mul
+a mul
+You advance towards a muldragun.
+> You thrust at a muldragun with your icy randar broadsword.
+ [ToHit: 5, Roll: 38] Hit!
+ Fine slash to head. [46 Damage]
+ [Round: 1 sec]
+R> adv mul
+a mul
+You are already engaging that opponent.
+> You swing at a muldragun with your icy randar broadsword.
+ [ToHit: 5, Roll: 90] Hit!
+ Good strike to head. [42 Damage]
+ [Round: 1 sec]
+R> adv mul
+a mul
+[Wait 1 seconds...]
+R> [Wait 1 seconds...]
+R> adv mul
+a mul
+
+You feel the touch of Hyena's mind:
+"Hello Lady !"
+> You are already engaging that opponent.
+> You thrust at a muldragun with your icy randar broadsword.
+ [ToHit: 5, Roll: 46] Hit!
+ Superb slash to head. [48 Damage]
+ [Round: 1 sec]
+R> adv mul
+a mul
+[Wait 1 seconds...]
+R> 
+A muldragun snaps at Moordread with its teeth.
+ [ToHit: 95, Roll: 64] Miss.
+R> You thrust at a muldragun with your icy randar broadsword.
+ [ToHit: 5, Roll: 42] Hit!
+ Minor slash to left paw. [8 Damage]
+ [Round: 1 sec]
+R> adv mul
+a mul
+You are already engaging that opponent.
+> You swing at a muldragun with your icy randar broadsword.
+ [ToHit: 5, Roll: 77] Hit!
+ Passable strike to tail. [15 Damage]
+ [Round: 1 sec]
+R> adv mul
+a mul
+You are already engaging that opponent.
+> You swing at a muldragun with your icy randar broadsword.
+ [ToHit: 5, Roll: 9] Hit!
+ Minor slash to hindquarter. [10 Damage]
+ The broadsword radiates intense cold!
+ Ghastly burn to left foreleg. [42 Damage]
+ [Round: 1 sec]
+R> adv mul
+a mul
+You are already engaging that opponent.
+> You swing at a muldragun with your icy randar broadsword.
+ [ToHit: 5, Roll: 38] Hit!
+ Powerful sideswipe removes top of skull from ears up.
+ It writhes and drops to the ground, dead.
+ [Round: 1 sec]
+R> adv mul
+a mul
+You advance towards a muldragun.
+> It is already dead.
+> adv mul
+a mul
+You are already engaging that opponent.
+> It is already dead.
+> adv mul
+a mul
+You are already engaging that opponent.
+> It is already dead.
+> skin mul
+skin 2 mul
+sear mul
+
+A black muldragun arrives.
+> 
+A black muldragun roars, its heads writhing in an intricate pattern.
+> You remove a muldragun scale.
+> You remove a muldragun claw.
+> You search a muldragun.
+You find nothing.
+ [Round: 2 sec]
+R> 
+Vaulle's group arrives.
+R> sear mul
+[Wait 1 seconds...]
+R> adv muldragun
+a muldragun
+
+Sy chuckles.
+R> You advance towards a muldragun.
+> It is already dead.
+> adv mul
+a mul
+You are already engaging that opponent.
+> It is already dead.
+> adv mul
+a mul
+
+A black muldragon raises one foreleg off the ground, staring directly at
+Vaulle.
+A black muldragun hurls a bolt of lightning at Vaulle!
+ Insignificant burn to left hand. [4 Damage]
+> You are already engaging that opponent.
+> It is already dead.
+> adv mul
+a mul
+You are already engaging that opponent.
+> It is already dead.
+> 
+You feel the touch of Sabreen's mind:
+"Hello Hyena, its been a while."
+> adv mul
+a mul
+You are already engaging that opponent.
+> It is already dead.
+> adv mul
+a mul
+
+Sy is now guarding Vaulle.
+> You are already engaging that opponent.
+> It is already dead.
+> adv mul
+a mul
+You are already engaging that opponent.
+> It is already dead.
+> 
+A black muldragun roars, its heads writhing in an intricate pattern.
+> 
+Vaulle raises an eyebrow towards a muldragun.
+> adv mul
+a mul
+You are already engaging that opponent.
+> It is already dead.
+> 
+Sy comforts Vaulle.
+> adv mul
+a mul
+You are already engaging that opponent.
+> It is already dead.
+> adv mul
+a mul
+You are already engaging that opponent.
+> It is already dead.
+> adv mul
+a mul
+You are already engaging that opponent.
+> It is already dead.
+> 
+You feel the touch of Hyena's mind:
+"<smile>  I hope you have been well."
+> adv mul
+a mul
+
+A black muldragon raises one foreleg off the ground, staring directly at
+Vaulle.
+A black muldragun hurls a bolt of lightning at Vaulle!
+ Insignificant burn to right leg. [5 Damage]
+> You are already engaging that opponent.
+> It is already dead.
+> adv mul
+a mul
+You are already engaging that opponent.
+> It is already dead.
+> adv mul
+a mul
+You are already engaging that opponent.
+> It is already dead.
+> 
+Sy blinks.
+> adv mul
+a mul
+You are already engaging that opponent.
+> It is already dead.
+> adv mul
+a mul
+You are already engaging that opponent.
+> It is already dead.
+> 
+You feel the touch of Sabreen's mind:
+"Aye, very well. Yourself?"
+> 
+Sy wields an eldritch wrymwood greatbow.
+> 
+A black muldragun's heads swivel to face Sy.
+> 
+A black muldragun snaps at Sy with its teeth.
+ [ToHit: 95, Roll: 62] Miss.
+> adv mul
+a mul
+You are already engaging that opponent.
+> It is already dead.
+> adv mul
+a mul
+You are already engaging that opponent.
+> It is already dead.
+> 
+Vaulle says, "I do wish he'd STOP that."
+> 
+A bhulondag arrives.
+> 
+A bhulondag advances towards Sy.
+> 
+A bhulondag slashes at Sy with its claws.
+ [ToHit: 95, Roll: 39] Miss.
+> adv mul
+a mul
+You are already engaging that opponent.
+> stan
+get sat
+ret
+n
+ret
+cli shelf
+It is already dead.
+> You are already standing.
+> What are you referring to?  Please be more specific.
+> You retreat.
+> [Crescent isle, sandgrass]
+Obvious exits: s, w.
+> You are not currently engaging any opponents.
+> You approach the sandy shelf.
+You clamber over the sandy shelf.
+[Crescent isle, north beach]
+Obvious exits: sw.
+> sal
+You salute.
+> stan
+get sat
+ret
+n
+ret
+cli shelf
+You are already standing.
+> What are you referring to?  Please be more specific.
+> You are not currently engaging any opponents.
+> You can't go north!
+> You are not currently engaging any opponents.
+> wary
+What are you referring to?  Please be more specific.
+> Combat strategy now wary.
+> 
+You feel the touch of Hyena's mind:
+"Not too bad!"
+> look
+[Crescent isle, north beach]
+The north end of the island is a small, natural cove lined with the same
+white sand which covers the rest of the area. A few small rocks protrude
+from the water's edge, channeling the incoming waves away from the beach
+and keeping the loose stuff from breaking up and collapsing.
+Obvious exits: southwest.
+> 
+You feel the touch of Chasity's mind:
+"pockets?"
+> 
+You feel the touch of Sabreen's mind:
+"Good good."
+> sw
+[Crescent isle, sandgrass]
+Obvious exits: s, w.
+> 
+The rain continues.
+> s
+[Crescent isle, sandgrass]
+You see Vaulle, Sy, a muldragun (dead), a black muldragun and a bhulondag. A
+muldragun scale, a muldragun claw and a muldragun tooth are here.
+Obvious exits: n, s, nw.
+> nod
+You nod.
+> 
+A black muldragun voices an earsplitting shriek with all five heads!
+> 
+A bhulondag slashes at Sy with its claws.
+ [ToHit: 95, Roll: 55] Miss.
+> 
+Vaulle fires at a bhulondag with her polished rosewood greatbow.
+ [ToHit: 5, Roll: 97] Excellent Hit!
+ Good shot to left arm. [7 Damage]
+ It is stunned!
+> 
+Vaulle loads a polished rosewood greatbow.
+> 
+Vaulle bows slightly.
+> 
+A black muldragun roars, its heads writhing in an intricate pattern.
+> 
+Sy waves to you.
+> 
+ ** Firestar has just left the Realms.
+> 
+Vaulle says, "I am sorry."
+> 
+You feel the touch of Chasity's mind:
+"are you coming to your workshop anytime soon by chance?"
+> 
+A black muldragon raises one foreleg off the ground, staring directly at
+Vaulle.
+A black muldragun hurls a bolt of lightning at Vaulle!
+ Insignificant burn to left leg. [7 Damage]
+> 'Pardon me, I'd not noticed anyone here
+You say, "Pardon me, I'd not noticed anyone here"
+> n
+
+You feel the touch of Hyena's mind:
+"I hate to ask, but did Lord Greythan mention my proposition?"
+> [Crescent isle, sandgrass]
+Obvious exits: s, w.
+> go open
+[Inside hut]
+Obvious exits: d.
+> d
+[Sandy cave]
+Obvious exits: s, u.
+> s
+[Sandy cave]
+Obvious exits: n, d.
+> d
+[Sandy cave]
+Obvious exits: se, sw, u.
+> hide
+You slip into hiding.
+ [Round: 2 sec]
+RH> 
+You feel the touch of Chasity's mind:
+"Pockets?"
+RH> 
+You feel the touch of Pockets's mind:
+"Yes Chasity?"
+H> 
+You feel the touch of Sabreen's mind:
+"Hmm, I don't think so. I've been out of touch for a while though."
+H> sw
+s
+drop sat
+You reveal yourself.
+[Sandy cave]
+Obvious exits: e, ne.
+> You can't go south!
+> What are you referring to?  Please be more specific.
+> 
+You feel the touch of Sabreen's mind:
+"I'd gladly meet you in your saloon."
+> hide
+You slip into hiding.
+ [Round: 2 sec]
+RH> 
+You feel the touch of Chasity's mind:
+"are you coming to your workshop anytime soon?"
+RH> ne
+You reveal yourself.
+[Sandy cave]
+Obvious exits: se, sw, u.
+> hide
+You slip into hiding.
+ [Round: 2 sec]
+RH> 
+You feel the touch of Pockets's mind:
+"I might could"
+RH> who
+Donnald            Raningeth          Feras              Vaulle             
+Sy                 Leah               Chasity            Elriss             
+Pockets            Hyena              Graul              Nomi               
+Stolar             Moordread          Miria              Elarin             
+
+
+
+There are 16 adventurers in the Realms.
+
+H> 
+You feel the touch of Chasity's mind:
+"I have something for you from a friend"
+H> 
+You feel the touch of Hyena's mind:
+"If you have time, I don't want to make you sick with my rambling <g>"
+H> 
+You feel the touch of Sabreen's mind:
+"Not at all."
+H> who
+Donnald            Raningeth          Feras              Vaulle             
+Sy                 Leah               Chasity            Elriss             
+Pockets            Hyena              Graul              Nomi               
+Stolar             Moordread          Miria              Elarin             
+
+
+
+There are 16 adventurers in the Realms.
+
+H> 
+You feel the touch of Chasity's mind:
+"quite alot as a matter of fact"
+H> 
+You feel the touch of Chasity's mind:
+"and it would sure be nice to get the load off"
+H> 
+You feel the touch of Chasity's mind:
+"smile"
+H> 
+A scarlet muldragun crawls in, hissing.
+H> 
+You feel a tingle in your mind. Sy thinks to you, "hey, where did you go?."
+H> 
+You feel a tingle in your mind. Sy thinks to you, "we didnt mean to uproot
+you."
+H> 
+You feel the touch of Chasity's mind:
+"come back"
+H> contact sy no problem, I'm undergournd with the scarletts
+You contact Sy with your thoughts.
+ [Round: 2 sec]
+RH> fat
+Mana: 46/46
+Psi: 85/92
+Fatigue: 183/231
+H> look
+[Sandy cave]
+It is too dark to see anything.
+Obvious exits: southeast, southwest, up.
+H> 
+You feel the touch of Pockets's mind:
+"Whered ya go?"
+H> look
+[Sandy cave]
+It is too dark to see anything.
+Obvious exits: southeast, southwest, up.
+H> adv mu
+a mu
+You reveal yourself.
+You advance towards a muldragun.
+> You swing at a scarlet muldragun with your icy randar broadsword.
+ [ToHit: 95, Roll: 88] Miss.
+ [Round: 1 sec]
+R> .
+You swing at a scarlet muldragun with your icy randar broadsword.
+ [ToHit: 95, Roll: 2] Miss.
+ [Round: 1 sec]
+R> bers
+Combat strategy now berserk.
+> a mu
+You swing at a scarlet muldragun with your icy randar broadsword.
+ [ToHit: 62, Roll: 85] Hit!
+ Puny slash to left foreleg. [11 Damage]
+ The broadsword radiates intense cold!
+ Minor burn to right foreleg. [37 Damage]
+ [Round: 1 sec]
+R> 
+A scarlet muldragun turns one head to face Moordread and looses a gout of
+flame!
+ Insignificant burn to body. [10 Damage]
+R> a mu
+You swing at a scarlet muldragun with your icy randar broadsword.
+ [ToHit: 62, Roll: 70] Hit!
+ Minor slash to second head. [31 Damage]
+ The broadsword radiates intense cold!
+ Minor burn to left foreleg. [32 Damage]
+ [Round: 1 sec]
+R> a mu
+You thrust at a scarlet muldragun with your icy randar broadsword.
+ [ToHit: 62, Roll: 81] Hit!
+ Grazing strike to right foreleg. [9 Damage]
+ [Round: 1 sec]
+R> a mu
+You swing at a scarlet muldragun with your icy randar broadsword.
+ [ToHit: 62, Roll: 43] Miss.
+ [Round: 1 sec]
+R> a mu
+[Wait 1 seconds...]
+R> a mu
+You swing at a scarlet muldragun with your icy randar broadsword.
+ [ToHit: 62, Roll: 60] Miss.
+ [Round: 1 sec]
+R> 
+A scarlet muldragun casts its gazes across the area.
+R> a mu
+You thrust at a scarlet muldragun with your icy randar broadsword.
+ [ToHit: 62, Roll: 65] Hit!
+ Passable strike to back. [21 Damage]
+ The broadsword radiates intense cold!
+ Minor burn to left hind leg. [24 Damage]
+ [Round: 1 sec]
+R> a mu
+You swing at a scarlet muldragun with your icy randar broadsword.
+ [ToHit: 62, Roll: 36] Miss.
+ [Round: 1 sec]
+R> a mu
+[Wait 1 seconds...]
+R> a mu
+You swing at a scarlet muldragun with your icy randar broadsword.
+ [ToHit: 62, Roll: 15] Miss.
+ [Round: 1 sec]
+R> a mu
+You thrust at a scarlet muldragun with your icy randar broadsword.
+ [ToHit: 62, Roll: 24] Miss.
+ [Round: 1 sec]
+R> a mu
+You thrust at a scarlet muldragun with your icy randar broadsword.
+ [ToHit: 62, Roll: 29] Miss.
+ [Round: 1 sec]
+R> a mu
+You thrust at a scarlet muldragun with your icy randar broadsword.
+ [ToHit: 62, Roll: 42] Miss.
+ [Round: 1 sec]
+R> 
+A scarlet muldragun snaps at Moordread with its teeth.
+ [ToHit: 95, Roll: 55] Miss.
+R> a mu
+You swing at a scarlet muldragun with your icy randar broadsword.
+ [ToHit: 62, Roll: 33] Miss.
+ [Round: 1 sec]
+R> a mu
+You swing at a scarlet muldragun with your icy randar broadsword.
+ [ToHit: 62, Roll: 93] Hit!
+ Minor slash to back. [32 Damage]
+ [Round: 1 sec]
+R> a mu
+You swing at a scarlet muldragun with your icy randar broadsword.
+ [ToHit: 62, Roll: 2] Miss.
+ [Round: 1 sec]
+R> a mu
+You swing at a scarlet muldragun with your icy randar broadsword.
+ [ToHit: 62, Roll: 20] Miss.
+ [Round: 1 sec]
+R> a mu
+
+A scarlet muldragun snaps at Moordread with its teeth.
+ [ToHit: 95, Roll: 11] Miss.
+R> You swing at a scarlet muldragun with your icy randar broadsword.
+ [ToHit: 62, Roll: 14] Miss.
+ [Round: 1 sec]
+R> ret
+u
+You retreat.
+> [Sandy cave]
+Obvious exits: n, d.
+> n
+[Sandy cave]
+Obvious exits: s, u.
+> 
+A black muldragun arrives.
+> 
+A black muldragun's heads swivel to face Moordread.
+> 
+A black muldragun snaps at Moordread with its teeth.
+ [ToHit: 95, Roll: 61] Miss.
+> u
+You must RETREAT before you can move away while engaged!
+> a mu
+You swing at a black muldragun with your icy randar broadsword.
+ [ToHit: 5, Roll: 44] Hit!
+ Passable strike to second head. [25 Damage]
+ [Round: 1 sec]
+R> a mu
+You swing at a black muldragun with your icy randar broadsword.
+ [ToHit: 5, Roll: 94] Hit!
+ Puny slash to right foreleg. [12 Damage]
+ The broadsword radiates intense cold!
+ Insignificant burn to tail. [7 Damage]
+ [Round: 1 sec]
+R> a mu
+You swing at a black muldragun with your icy randar broadsword.
+ [ToHit: 5, Roll: 71] Hit!
+ Passable strike to head. [21 Damage]
+ [Round: 1 sec]
+R> a mu
+You thrust at a black muldragun with your icy randar broadsword.
+ [ToHit: 5, Roll: 23] Hit!
+ Minor slash to head. [36 Damage]
+ [Round: 1 sec]
+R> a mu
+[Wait 1 seconds...]
+R> 
+A black muldragun snaps at Moordread with its teeth.
+ [ToHit: 95, Roll: 42] Miss.
+R> a mu
+You swing at a black muldragun with your icy randar broadsword.
+ [ToHit: 5, Roll: 42] Hit!
+ Minor slash to back. [29 Damage]
+ [Round: 1 sec]
+R> a mu
+You swing at a black muldragun with your icy randar broadsword.
+ [ToHit: 5, Roll: 84] Hit!
+ Good strike to body. [43 Damage]
+ The broadsword radiates intense cold!
+ Insignificant burn to head. [6 Damage]
+ [Round: 1 sec]
+R> a mu
+You swing at a black muldragun with your icy randar broadsword.
+ [ToHit: 5, Roll: 25] Hit!
+ Minor slash to left paw. [8 Damage]
+ The broadsword radiates intense cold!
+ Minor burn to left paw. [10 Damage]
+ [Round: 1 sec]
+R> a mu
+[Wait 1 seconds...]
+R> a mu
+You swing at a black muldragun with your icy randar broadsword.
+ [ToHit: 5, Roll: 84] Hit!
+ Masterful strike to head. [46 Damage]
+ The broadsword radiates intense cold!
+ Serious burn to right hind leg. [6 Damage]
+ [Round: 1 sec]
+R> a mu
+You swing at a black muldragun with your icy randar broadsword.
+ [ToHit: 5, Roll: 95] Hit!
+ Superb slice juliennes head!
+ It writhes and drops to the ground, dead.
+ [Round: 1 sec]
+R> a mu
+You must ADVANCE towards your opponent to battle them
+with your current weapon.
+> skin mu
+It is too dark to do that.
+> x
+
+ ** Moordread has just left the Realms.
+> 
+
+Character Manager V1.00
+
+ 1 => Moordread
+ 2 => Morti
+ 3 => Bubba
+
+ C => Create new character
+ D => Delete current character
+ P => Play Legends of Future Past
+ X => Exit to NovaLink
+
+
+Active character: Moordread (#1)
+
+Select: /bye
+
+
+Thank you for using NovaLink.
+
+Connect time this session: 61 minutes.
+
+Have a nice evening!
+
+NovaLink is an online service of NovaLink USA Corporation,
+200 Friberg Parkway, Suite 4003, Westborough, MA 01581. Service: 800-274-2814.
+
+
+
+
+
+
+
+
+
+Invalid selection.
+
+Character Manager V1.00
+
+ 1 => Moordread
+ 2 => Morti
+ 3 => Bubba
+
+ C => Create new character
+ D => Delete current character
+ P => Play Legends of Future Past
+ X => Exit to NovaLink
+
+
+Active character: Moordread (#1)
+
+Select: Connection terminated by remote host

@@ -1,0 +1,4794 @@
+
+Alpe clicks and beeps.
+J> look
+[Council of Lords Chamber]
+This room is large and comfortable, decorated in muted grays and blues,
+to be pleasing on the eyes. A large table rests in the center of the room
+carved from oak. Around it rest the chairs for the council members. A small
+area is reserved for the official observers from the other guilds near Fayd.
+Behind a railing sits the gallery for those wishing to observe the
+proceedings. A door leads out into the hall. In the center of the table, 
+inlaid into the wood is the Royal Crest of the D'vena family, a white lily 
+lain over a shield of blue.
+You see Charette (sitting), Stolar, Alpe (sitting), Jasmine (sitting), Vaille
+(sitting), Wolfbane, Airgid, Gabryelle, Garin, Nikoli, Sierron (sitting), a
+councilor, a councilor, a councilor, a councilor and a councilor. 
+Obvious exits: none.
+J> 
+Nikoli asks, "Greetings...Vaille is it not...Lord of Highridge?"
+J> 
+Airgid folds his wings.
+J> 
+Sierron raises an eyebrow towards Vaille.
+J> 
+Wolfbane says, "how are you baron?"
+J> 
+Vaille states, "An undead is welcome at the meeting?"
+J> look vail
+You see the Mayor of Highridge. His hair is dark brown, nearly black, matching
+his eyes. A slight smile plays across his lips at odd moments. His skin is
+dark, from hours spent outdoors.
+He is wearing some polished leather shoes laced with braided silk, a thick
+blackened steel armband inset with a series of tiny rubies, an icy platinum
+medallion inset with a single green pearl, some beige trousers cuffed neatly at
+the ankles, a fine blue silk shirt accented with tiny ivory buttons and a fiery
+gold ring engraved with two clenched fists.
+He appears to be healthy.
+J> 
+Vaille stands up.
+J> 
+Graul looks into a small device.
+J> 
+Vaille shakes hands with Nikoli.
+J> 
+Wolfbane listens carefully to Nikoli.
+J> bow vail
+You bow towards Vaille.
+J> 
+Vaille states, "Yes."
+J> 
+Avalon dangles a fake spider on a long string over sierrions headJ> 
+Vaille states, "I believe we met at....."
+J> 
+Nikoli says, "Oh...rather well....it's a long dusty ride here everytime."
+J> 
+Vaille ponders.
+J> 
+Wolfbane bows towards Vaille.
+J> 
+Kellah nods to Leah.
+J> 
+Sierron icily states, "I am the high priest of Ordanin, and I will soon be
+mortal again."
+J> look nik
+Baron Nikoli Augustus Montague is a short man with a lithe build who moves
+with an easy, almost commoner's grace. Unruly black hair frames a face which
+watches the world through steel gray eyes that constantly dart back and forth.
+He is wearing some form-fitting indigo leather gloves which flare slightly at
+the wrist, a wide-brimmed black leather hat with a band of iridescent eel skin,
+a supple black leather duster enhanced with mother-o-pearl buttons and
+iridescent snake skin along the edges, a dark leather scabbard with platinum
+fittings, a heavy memarin signet ring of the Baron of Kirkendale Marsh, some
+knee-high hard leather boots of charcoal color with iridescent snake skin along
+the cuffs and sides and a simple alzyron hoop earring worn in his left ear.
+He appears to be healthy.
+J> 
+Vaille states, "Some funtion a time ago."
+J> 
+Graul ponders.
+J> 
+Wolfbane nods to Nikoli.
+J> 
+Nikoli gazes at Sierron.
+J> 
+Garin touches a white metal talisman in the shape of the Open Hand of Shemri.
+J> 
+Graul asks, "So where Tobie run off and hide at?"
+J> 
+Vaille looks suspiciously at Sierron.
+J> 
+Graul sits on a chair.
+J> 
+Jayd's group arrives through a door leading to the Council Chamber.
+J> 
+Stolar gazes at Garin.
+J> 
+Graul listens carefully to Sy.
+J> 
+Wolfbane salutes Jasmine.
+J> 
+Moryan smiles.
+J> 
+Sy shrugs.
+J> 
+Garin continues to stand behind his chair.
+J> 
+Alpe bows towards Moryan.
+J> 
+Nikoli bows towards Jasmine.
+J> 
+Gabryelle curtsies towards Moryan.
+J> 
+Wolfbane salutes Jayd.
+J> 
+Wolfbane hugs Jasmine.
+J> 
+Jayd disbands his group.
+J> 
+Jayd makes a salute.
+J> 
+Sierron bows towards Moryan.
+J> 
+Gabryelle salutes Jayd.
+J> 
+Jasmine nods.
+J> 
+Stolar bows towards Moryan.
+J> 
+Avalon moves the fake spider just ove airgids headJ> 
+Moryan smiles.
+J> 
+Airgid bows towards Jayd.
+J> 
+Wolfbane bows towards Moryan.
+J> 
+Garin bows towards Moryan.
+J> 
+Moryan says, "Thank you Captain Jayd."
+J> 
+Kellah struggles to her feet.
+J> 
+Jasmine struggles to her feet.
+J> 
+Avalon struggles to her feet.
+J> 
+Nikoli says, "High Priestess"
+J> 
+Vaille makes a hesitant bow towards Moryan.
+J> 
+Leah smiles a little smile at Sy.
+J> 
+Kellah nudges Avalon.
+J> 
+Leah struggles to her feet.
+J> 
+Airgid bows towards Moryan.
+J> 
+Nikoli smiles at Jasmine.
+J> 
+Your mind returns to normal.
+J> 
+Kellah curtsies.
+J> 
+Sy smiles at Leah.
+J> 
+Jasmine curtsies towards Moryan.
+J> 
+Avalon curtsies.
+J> 
+Leah curtsies.
+J> 
+Sierron struggles to his feet.
+J> 
+Sierron bows towards Moryan.
+J> 
+Avalon pulls the spider back into the gallery very fastJ> bow mory
+You bow towards Moryan.
+J> time
+It is Folster 2, 1045 (Year of the Wyrm).
+It is midmorning.
+J> 
+Leah leans on Avalon.
+J> 
+Avalon waves to moryanJ> 
+Graul nods to Sy.
+J> 
+Avalon grins.
+J> 
+Jayd incants a spell.
+J> 
+Avalon stands on her toes to see her queenJ> 
+Vaille huddles towards the back with a small group of men.
+J> 
+Moryan raises an eyebrow towards Wolfbane.
+J> 
+Stefan's group arrives through a door leading to the Gallery.
+J> 
+Stefan bows with a flourish.
+J> 
+Stolar casts his gaze across the area.
+J> 
+Moryan smiles.
+J> 
+Veronica smiles.
+J> 
+Stefan's group goes through a door.
+J> 
+Stefan's group arrives through a door leading to the Council Chamber.
+J> 
+Stefan smiles.
+J> 
+Kellah leans over to Leah and whispers ,'She's lovely, isn't she?J> 
+Winter curtsies.
+J> 
+Garin bows towards Stefan.
+J> 
+Leah nods to Kellah.
+J> 
+Garin bows towards Veronica.
+J> bow stef
+
+Moryan says, "please, would the coucilors have a seat."
+J> You bow towards Stefan.
+J> 
+Nord bows.
+J> look
+[Council of Lords Chamber]
+This room is large and comfortable, decorated in muted grays and blues,
+to be pleasing on the eyes. A large table rests in the center of the room
+carved from oak. Around it rest the chairs for the council members. A small
+area is reserved for the official observers from the other guilds near Fayd.
+Behind a railing sits the gallery for those wishing to observe the
+proceedings. A door leads out into the hall. In the center of the table, 
+inlaid into the wood is the Royal Crest of the D'vena family, a white lily 
+lain over a shield of blue.
+You see Charette (sitting), Stolar, Moryan, Nord, Alpe (sitting), Jasmine,
+Vaille, Veronica, Wolfbane, Jayd, Stefan, Airgid, Gabryelle, Garin, Nikoli,
+Sierron, Winter, a councilor, a councilor, a councilor, a councilor and a
+councilor. 
+Obvious exits: none.
+J> 
+Winter stops following Stefan.
+J> 
+Nikoli says, "Lord Stephan"
+J> 
+Gabryelle sits on a chair.
+J> 
+Nord sits down.
+J> 
+Alpe bows towards Winter.
+J> 
+Stefan says, "Greetings everyone."
+J> 
+Veronica furrows her brow.
+J> 
+Stefan smiles.
+J> 
+Wolfbane smiles at Stefan.
+J> 
+Winter says, "Greetings."
+J> 
+Wolfbane says, "greetings marquis"
+J> 
+Stefan disbands his group.
+J> 
+Veronica sits on a chair.
+J> 
+Avalon leans over the rail to get a beter look and knocks a pile of leaflets
+into the galleryJ> 
+Veronica says, "Hello, everyone."
+J> 
+Stolar sits down.
+J> 
+Winter sits on a chair.
+J> look
+[Council of Lords Chamber]
+This room is large and comfortable, decorated in muted grays and blues,
+to be pleasing on the eyes. A large table rests in the center of the room
+carved from oak. Around it rest the chairs for the council members. A small
+area is reserved for the official observers from the other guilds near Fayd.
+Behind a railing sits the gallery for those wishing to observe the
+proceedings. A door leads out into the hall. In the center of the table, 
+inlaid into the wood is the Royal Crest of the D'vena family, a white lily 
+lain over a shield of blue.
+You see Charette (sitting), Stolar (sitting), Moryan, Nord (sitting), Alpe
+(sitting), Jasmine, Vaille, Veronica (sitting), Wolfbane, Jayd, Stefan, Airgid,
+Gabryelle (sitting), Garin, Nikoli, Sierron, Winter (sitting), a councilor, a
+councilor, a councilor, a councilor and a councilor. 
+Obvious exits: none.
+J> 
+Wolfbane retreats.
+J> 
+ ** Gurney has just left the Realms.
+J> look chair
+
+Sy leans over to Graul and whispers, "Yeesh, its more crowded in there than
+here in the gallery."J> You see nothing extraordinary.
+J> 
+Stefan escorts Veronica to her seat, then takes his own.
+J> 
+Leah gulps.
+J> 
+Charette smiles at Veronica.
+J> 
+Stefan pulls up a chair and takes a load off.
+J> 
+Wolfbane sits on a chair.
+J> 
+Avalon sits down.
+J> 
+Graul nods to Sy.
+J> 
+Leah sits on a chair.
+J> 
+Veronica smiles at Charette.
+J> pull chair
+You pull up a chair and take a load off.
+sJ> 
+Kellah sits on a chair.
+sJ> 
+Airgid smiles and whispers to Jayd I will watch and listen and learn.
+sJ> 
+Graul looks into a small device.
+sJ> 
+Charette says, "Greetings, and my congratulations on your new addition,
+Veronica."
+sJ> 
+Nikoli takes a seat near to Moryan
+sJ> 
+Jasmine pulls up a chair and takes a load off.
+sJ> 
+Nikoli pulls up a chair and takes a load off.
+sJ> 
+Veronica says, "Thank you very much."
+sJ> 
+Veronica beams at Charette.
+sJ> 
+Charette says, "And to you as well, Stefan, of course."
+sJ> 
+Sierron sits down.
+sJ> 
+Charette grins.
+sJ> 
+Vaille states, "Hello Cousin."
+sJ> 
+Nikoli looks up at the gallery
+sJ> 
+Stefan smiles at Charette.
+sJ> 
+Vaille smiles at Charette.
+sJ> 
+Stefan says, "It was all her doing."
+sJ> 
+Stefan smiles.
+sJ> 
+Veronica chuckles.
+sJ> 
+Winter chuckles.
+sJ> 
+Moryan chuckles.
+sJ> 
+Avalon folds her arms.
+sJ> 
+Winter says, "with your help, Stefan"
+sJ> 
+Wolfbane tickles Winter.
+sJ> 
+Charette gazes at Vaille.
+sJ> 
+Moryan sits and gently smoothes out her skirt.
+sJ> 
+Stefan chuckles.
+sJ> 
+Stefan nods.
+sJ> 
+Winter smiles at Wolfbane.
+sJ> 
+Stefan asks, "Well then, are we all assembled?"
+sJ> 
+Avalon wiggles her ears.
+sJ> 
+Sierron smiles at Winter.
+sJ> 
+Moryan says, "Marquis.."
+sJ> 
+Vaille states, "I hope Duncan is doing well."
+sJ> 
+Charette nods curtly to Vaille.
+sJ> 
+Winter nods to Sierron.
+sJ> 
+Stefan returns to normal speed.
+sJ> 
+Stefan listens carefully to Moryan.
+sJ> 
+Graul whistles innocently.
+sJ> 
+Moryan leans over and speaks quietly to Stefan.
+sJ> 
+Jayd leans on Airgid.
+sJ> 
+Charette says, "he seems stronger of late, Vaille."
+sJ> 
+Avalon struggles to her feet.
+sJ> 
+Avalon leans on a railing.
+sJ> 
+Vaille states, "That is good to hear."
+sJ> 
+Vaille nods to Charette.
+sJ> 
+Graul nods.
+sJ> 
+Kellah looks at Avalon nervously.sJ> 
+Sierron listens to his surroundings closely.
+sJ> 
+Moryan nods to Stefan.
+sJ> 
+Wolfbane casts his gaze across the area.
+sJ> 
+Moryan says, "I'll ask for as much quiet as we can through the proceedings."
+sJ> 
+Moryan says, "those being too troublesome in the gallery will be escorted out."
+sJ> 
+Avalon sits down.
+sJ> 
+Leah holds on the the ties in the back of Avalon's dress as a saftey
+precaution.sJ> 
+Avalon blushes.
+sJ> 
+Moryan says, "Before we get to those residing inside of Fayd and the other
+council matters.."
+sJ> 
+Nikoli removes a wide-brimmed black leather hat with a band of iridescent eel
+skin from his head.
+sJ> 
+Moryan says, "I want to make a statement."
+sJ> 
+Wolfbane listens carefully to Moryan.
+sJ> 
+Vaille raises an eyebrow towards Moryan.
+sJ> 
+Stolar listens carefully to Moryan.
+sJ> 
+Nikoli folds one leg over the other and leans back in his chair.
+sJ> 
+Moryan says, "Some of you might wonder why we have members of the Council from
+the surrounding lands, and why they should vote on what happens inside the
+city."
+sJ> 
+Hyena arrives through a door leading to the Gallery.
+sJ> 
+Hyena rolls his eyes.
+sJ> 
+Hyena goes through a door.
+sJ> 
+Hyena arrives through a door leading to the Council Chamber.
+sJ> 
+Moryan says, "To be honest, not every vote will concern everyone. A matter
+strictly dealing with a guild or temple will most likely be handled only by
+those councilors."
+sJ> 
+Hyena pants.
+sJ> 
+Avalon pats a chair next to herssJ> 
+Hyena smiles.
+sJ> 
+Hyena sits down.
+sJ> 
+Nord smiles at Hyena.
+sJ> 
+Hyena coughs.
+sJ> 
+Moryan says, "That will be for the First Seat, Marquis Stefan to decide."
+sJ> 
+The brilliant prismatic globe around Sierron vanishes.
+sJ> 
+Avalon blushes.
+sJ> 
+Stefan nods.
+sJ> 
+Moryan says, "Matters concerning all of Fayd's lands and holdings will be
+considered by all those with concerns, being all those holding lands and
+titles."
+sJ> 
+Hyena coughs.
+sJ> 
+Airgid nods to Jayd.
+sJ> 
+Jayd nods to Airgid.
+sJ> 
+Moryan says, "I hope that makes it more clear, and might resolve some small
+issues."
+sJ> 
+Hyena nods.
+sJ> 
+Moryan says, "Also.."
+sJ> 
+Wolfbane listens carefully to Moryan.
+sJ> 
+Hyena winces.
+sJ> 
+Hyena struggles to his feet.
+sJ> 
+Moryan says, "For the purposes of votes, before any one is officially named to
+the council."
+sJ> 
+Hyena bows towards Moryan.
+sJ> 
+Hyena sits down.
+sJ> 
+Charette shifts slightly in her chair, crossing one leg over the other and
+leaning on the table.
+sJ> 
+Moryan says, "When a vote is conducted, it will need to pass by a majority of
+all, not merely of those present."
+sJ> 
+Nikoli glances over the people seated here today.
+sJ> 
+Moryan says, "There will be no issues pushed through by lack of attendance."
+sJ> 
+Wolfbane nods to Moryan.
+sJ> 
+Garin nods.
+sJ> 
+Moryan says, "You may decline a specific vote, but there will still be a
+majority needed."
+sJ> 
+Airgid says, "That is good my Queen."
+sJ> 
+Moryan smiles.
+sJ> 
+Wolfbane raises an eyebrow towards Airgid.
+sJ> 
+Airgid gazes at Wolfbane.
+sJ> 
+Wolfbane ponders.
+sJ> 
+Wolfbane shrugs.
+sJ> 
+Moryan says, "Now, we'll move on."
+sJ> 
+Hyena winks at Stolar.
+sJ> 
+Airgid whispers softly   aye
+sJ> 
+Sierron listens to his surroundings closely.
+sJ> 
+Moryan confers over some papers with Stefan.
+sJ> 
+Stolar smiles at Hyena.
+sJ> 
+The ghostly shield protecting Sierron slowly fades.
+sJ> 
+Hyena smiles.
+sJ> 
+Wolfbane nods to Alpe.
+sJ> 
+Stefan listens carefully to Moryan.
+sJ> 
+Stefan nods to Moryan.
+sJ> 
+Alpe fidgets nervously.
+sJ> 
+Avalon pushes her chair back and balances on its two back legssJ> 
+Airgid appears to become weaker.
+sJ> 
+Garin is now guarding Moryan.
+sJ> 
+Moryan smiles at Garin.
+sJ> 
+Airgid gazes at Garin.
+sJ> 
+Vaille looks depressed as he listens to the proceedings.
+sJ> 
+Stefan says, "Ok then, we shall start to take attendance."
+sJ> 
+Garin says, "Force of habit."
+sJ> 
+Garin mutters something you can't quite make out.
+sJ> 
+Airgid says, "aye"
+sJ> 
+Wolfbane smiles at Garin.
+sJ> 
+Stefan asks, "First, is the Duchy of Blacksmoke?"
+sJ> 
+Hyena listens to his surroundings closely.
+sJ> 
+One of the councilors raises his hand.
+sJ> 
+Stefan asks, "The barony of Across?"
+sJ> 
+Moryan gazes at Charette.
+sJ> 
+Charette says, "Here."
+sJ> 
+Stefan smiles at Charette.
+sJ> 
+Alpe clicks and beeps.
+sJ> 
+Sy winks.
+sJ> 
+Charette smiles at Stefan.
+sJ> 
+Hyena smiles.
+sJ> 
+Stefan asks, "The town of Highridge is represented?"
+sJ> 
+Stefan listens to his surroundings closely.
+sJ> 
+Vaille raises his hand.
+sJ> 
+Vaille nods to Stolar.
+sJ> 
+Vaille nods to Stefan.
+sJ> 
+Stefan smiles at Vaille.
+sJ> 
+Stefan says, "Good to have you with us Mayor."
+sJ> 
+Vaille states, "Yes, I suppose it is good. In a way."
+sJ> 
+Vaille sighs.
+sJ> 
+ ** Fafnir has just left the Realms.
+sJ> 
+Stefan asks, "Barony of Houndsteeth?"
+sJ> who
+Graul              Sy                 Feras              Stolar             
+Nord               Alpe               Hyena              Keera              
+Jasmine            Veronica           Kellah             Wolfbane           
+Moordread          Leah               Jayd               Stefan             
+Avalon             Airgid             Chaya              Tobias             
+Garin              Morrollan          Sierron            Winter             
+Aishua             Piper              
+
+
+There are 26 adventurers in the Realms.
+
+sJ> 
+Hyena nods to Vaille.
+sJ> 
+Charette casts a glance at Vaille, a slight frown creasing her brow.
+sJ> 
+A counciler raises his hand.
+sJ> 
+Stefan nods to a councilor.
+sJ> 
+Nikoli chuckles at Charette.
+sJ> 
+Stefan asks, "The Marches?"
+sJ> 
+Nikoli glances over at Vaille
+sJ> 
+Another councilor raises his hand.
+sJ> 
+ ** Aishua has just left the Realms.
+sJ> 
+Stefan nods.
+sJ> 
+Stefan asks, "And forgive me if I mispronounce this...Chlry'est?"
+sJ> 
+A young aelven woman raises her hand.
+sJ> 
+Stefan smiles at the young aelven woman.
+sJ> 
+Vaille nods to Hyena.
+sJ> 
+Hyena smiles at Stefan.
+sJ> 
+Vaille smiles.
+sJ> 
+Stolar furrows his brow.
+sJ> 
+Hyena beams happily.
+sJ> 
+Stefan says, "good to ahve you councilor."
+sJ> 
+Hyena makes a note in his weavers' notepad.
+sJ> 
+Stefan asks, "The Lands of Rullon?"
+sJ> act moves his gaze from one councillor to the next, as each acknowledges.
+Moordread moves his gaze from one councillor to the next, as each acknowledges.
+sJ> 
+Veronica smiles at Stefan.
+sJ> 
+Veronica raises her hand.
+sJ> 
+Stefan nods.
+sJ> 
+Stefan smiles at Veronica.
+sJ> 
+Stefan asks, "Kirkendale?"
+sJ> 
+Nikoli inclines his head towards Stefan
+sJ> 
+Stefan nods to Nikoli.
+sJ> 
+Stefan says, "Barony of Lynieas."
+sJ> 
+Vaille nervously fiddles with his ring as he listens.
+sJ> 
+Hyena grins.
+sJ> 
+A councilor raises his hand.
+sJ> 
+Stefan nods.
+sJ> 
+Hyena grins.
+sJ> 
+Nikoli gazes at Stefan.
+sJ> 
+Stefan nods.
+sJ> 
+Stefan says, "That completes the surrounding landholdings...now onto the city
+proper."
+sJ> 
+Stefan asks, "The Silver Arcana?"
+sJ> 
+Winter nods.
+sJ> 
+Winter raises her hand.
+sJ> 
+Vaille smiles at Hyena.
+sJ> 
+Stefan smiles at Winter.
+sJ> 
+Stefan asks, "The Crimson Band?"
+sJ> 
+Moryan smiles at Winter.
+sJ> 
+Hyena smiles.
+sJ> 
+Winter smiles at Moryan.
+sJ> whisp wolfb That me?
+You whisper to Wolfbane.
+sJ> 
+Hyena grins.
+sJ> 
+Stefan casts his gaze across the area.
+sJ> 
+Stefan asks, "Wolfbane, do you sit for the band?"
+sJ> 
+Wolfbane says, "i fear that highlord dane could not join us this eve moordread
+will stand in his stead"
+sJ> 
+Moryan nods.
+sJ> nod wolfb
+You nod to Wolfbane.
+sJ> 
+Stefan nods to you.
+sJ> 
+Moire arrives through a door leading to the Gallery.
+sJ> 
+Stefan says, "Very well, welcome Moordread."
+sJ> 
+Stefan says, "The Church of Shemri."
+sJ> nod stef
+You nod to Stefan.
+sJ> 
+Sy smiles at Moire.
+sJ> 
+Stolar raises his hand.
+sJ> 
+Moire nods to Sy.
+sJ> 
+Stefan nods to Stolar.
+sJ> 
+Garin smiles at Stolar.
+sJ> 
+Graul leans on a railing.
+sJ> 
+Stefan says, "The Temple of Rorin."
+sJ> 
+Nord raises his hand.
+sJ> 
+Hyena nods to Vaille.
+sJ> 
+Nikoli gazes at Hyena.
+sJ> 
+Stefan smiles at Nord.
+sJ> 
+Stefan says, "The temple of Amilor."
+sJ> 
+Jasmine raises her hand.
+sJ> 
+Graul says, "You can barely see little Garin down there... he looks like a
+donut from here."
+sJ> 
+Stefan smiles at Jasmine.
+sJ> 
+Graul furrows his brow.
+sJ> 
+Stefan asks, "Yarin?"
+sJ> 
+Garin furrows his brow.
+sJ> 
+Avalon plays with a plastic action figure of a scarlet muldragon with movable
+heads and legs.
+sJ> 
+Stefan listens to his surroundings closely.
+sJ> 
+Moryan casts her gaze across the area.
+sJ> 
+Stefan asks, "Do any here speak for the Yarinites?"
+sJ> 
+Moire says, "aye, 'e do be lookin' like a donut, Graul"
+sJ> 
+Stefan nods.
+sJ> 
+Moire nods to Graul.
+sJ> 
+Nikoli smiles at Hyena.
+sJ> 
+Stefan says, "Very well..."
+sJ> 
+Stefan says, "The Temple of Ordanin."
+sJ> 
+Sierron raises his hand.
+sJ> 
+Moire smiles at Sy.
+sJ> 
+Stefan asks, "The Tech guild?"
+sJ> 
+Alpe says, "Affirmative Marquis"
+sJ> 
+Alpe beeps and whirrs.
+sJ> 
+Nikoli leans towards Hyena
+sJ> 
+Delight arrives.
+sJ> 
+Vaille gazes at Alpe.
+sJ> 
+Hyena listens carefully to Nikoli.
+sJ> 
+Vaille furrows his brow.
+sJ> 
+Veronica smiles at Delight.
+sJ> 
+Stefan nods.
+sJ> 
+Jasmine smiles at Delight.
+sJ> 
+Hyena winks at Delight.
+sJ> 
+Delight blushes.
+sJ> 
+Stefan asks, "The T'kasta?"
+sJ> 
+Airgid says, "We of the T'kasta are here."
+sJ> 
+Stefan nods to Airgid.
+sJ> 
+Airgid bows.
+sJ> 
+Stefan says, "The Foresters."
+sJ> 
+Alpe bows towards Delight.
+sJ> 
+Hyena raises his hand.
+sJ> 
+Moire nods.
+sJ> 
+Hyena snickers, "Hyena Bedlam at your service."
+sJ> 
+Stefan asks, "Do any here speak for the Foresters?"
+sJ> 
+Stefan nods to Hyena.
+sJ> 
+Stefan smiles.
+sJ> 
+Stefan asks, "The Eliditur?"
+sJ> 
+Hyena snickers, "yes, I do"
+sJ> 
+Hyena blinks.
+sJ> 
+Sierron smiles at Hyena.
+sJ> 
+Avalon puffs her cheeks out!
+sJ> 
+Wolfbane whispers to you, "when it gets to the part where we must swear loyalty
+explain that there are some concerns and that while we cannot at this time
+swear to the crown we will swear to uphold the city and its laws against all
+agressors"
+sJ> 
+Stefan asks, "Do any here speak for the Eliditur?"
+sJ> 
+Stefan nods.
+sJ> 
+Hyena winks at Sierron.
+sJ> 
+Moire smiles at Avalon.
+sJ> 
+Stefan asks, "The Wolflings?"
+sJ> 
+Moire whispers, "Now now, ye'll make me laugh li'l onesJ> 
+Moryan listens to her surroundings closely.
+sJ> 
+Graul says, "I am here."
+sJ> 
+Sy nudges Graul.
+sJ> 
+Stefan smiles.
+sJ> 
+Moryan gazes at a railing.
+sJ> 
+Graul says, "Observing."
+sJ> whisp wolfb Ok, got it
+You whisper to Wolfbane.
+sJ> 
+Sy nudges Graul waking him up.sJ> 
+Moryan says, "I suggest you come down here then."
+sJ> 
+Stefan says, "Perhaps you should come on down Graul."
+sJ> 
+Graul nods.
+sJ> 
+Stefan smiles.
+sJ> 
+Moire pokes Graul.
+sJ> 
+Alpe nods to Delight.
+sJ> 
+Graul struggles to his feet.
+sJ> 
+Wolfbane whispers to you, "use your own words"
+sJ> 
+Graul goes through a door.
+sJ> 
+Graul arrives through a door leading to the Council Chamber.
+sJ> 
+Avalon drops a bag of marbles that roll onto the floor and all over the placesJ> 
+Avalon ducks.
+sJ> 
+Stefan says, "The Lawkeepers."
+sJ> 
+Hyena winces.
+sJ> 
+Jayd raises his hand.
+sJ> 
+Leah furrows her brow.
+sJ> 
+Moire chuckles.
+sJ> 
+Graul bows towards Moryan.
+sJ> 
+Airgid says, "Come Graul we will stand beside each other."
+sJ> 
+Graul bows towards Stefan.
+sJ> 
+Delight coughs.
+sJ> 
+Avalon ducks.
+sJ> 
+Stefan nods to Jayd.
+sJ> 
+Stefan asks, "The Tiewaz?"
+sJ> 
+Avalon points at Kellah.
+sJ> 
+Hyena appears to become weaker.
+sJ> 
+Sy quickly gathers up all the marbles, catching on just before it falls off the
+gallery.sJ> whisp wolfb I will dress it up some :)
+You whisper to Wolfbane.
+sJ> 
+Avalon blushes.
+sJ> 
+Wolfbane whispers to you, "wince"
+sJ> 
+Graul says, "I can observe for the Tiewaz."
+sJ> 
+Moire sits down.
+sJ> 
+Stolar softly says, "if someone stands in today can it be changed in the
+future?"
+sJ> 
+Stefan nods.
+sJ> 
+Hyena smiles.
+sJ> 
+Sierron smiles at Graul.
+sJ> 
+Stefan says, "That completes the guilds."
+sJ> 
+Stolar softly says, "there is a member in the stands if there should be a
+different one for each guild"
+sJ> 
+Stefan asks, "The Field Marshall is present?"
+sJ> 
+Avalon winks at Moire.
+sJ> 
+Kellah is turning many shades of pink.sJ> 
+Wolfbane nods to Stefan.
+sJ> 
+Stefan says, "aye, none shall have 2 votes."
+sJ> 
+Moire smiles at Avalon.
+sJ> 
+Wolfbane nods to Stefan.
+sJ> 
+Stefan says, "The Lady High Justice."
+sJ> 
+Graul asks, "Leah, could you come observe for the Tiewaz?"
+sJ> 
+Gabryelle nods to Stefan.
+sJ> 
+Gabryelle says, "I am here."
+sJ> 
+Stefan nods.
+sJ> 
+Leah asks, "me?"
+sJ> 
+Leah nods.
+sJ> 
+Avalon asks, "her?"
+sJ> 
+Leah struggles to her feet.
+sJ> 
+Avalon points at Leah.
+sJ> 
+Stefan asks, "The Mayor is present I hear?"
+sJ> 
+Kellah nods to Avalon.
+sJ> 
+Stefan looks under the table.
+sJ> 
+Alpe casts his gaze across the area.
+sJ> 
+Hyena chuckles.
+sJ> 
+Alpe shrugs.
+sJ> 
+Stolar softly says, "Leah is a new member, perhaps she could stnad in until
+Moulin decides on a premanent one"
+sJ> 
+Garin furrows his brow.
+sJ> 
+Winter grins.
+sJ> 
+Stefan says, "ahh."
+sJ> 
+Stolar furrows his brow.
+sJ> 
+Stefan smiles at Garin.
+sJ> 
+Stefan winks at Garin.
+sJ> 
+Moryan chuckles.
+sJ> 
+Graul nods to Stefan.
+sJ> 
+Alpe says, "Oh, there he is"
+sJ> 
+Alpe clicks and beeps.
+sJ> 
+Graul says, "I saw him from above."
+sJ> 
+Stefan says, "Lord Garin."
+sJ> 
+Moryan says, "He is no longer mayor."
+sJ> 
+Garin says, "Mayor no longer."
+sJ> 
+Garin smiles.
+sJ> 
+Moire leans over to Avalon.sJ> 
+Vaille leans on a chair.
+sJ> 
+Moryan smiles at Garin.
+sJ> 
+Avalon grins.
+sJ> 
+Moire says, "'ere, sit on m' lap so ye kin see better."
+sJ> 
+Delight beams at Hyena.
+sJ> 
+Stefan says, "I see the note, Lord of Fayd it is then."
+sJ> 
+Avalon winks at Sy.
+sJ> 
+Moire nods to Avalon.
+sJ> 
+Hyena snickers, "is that spot open?"
+sJ> 
+Hyena whistles.
+sJ> 
+Avalon scramples onto moires lapsJ> 
+Stefan says, "And I of course am here, that completes attendance."
+sJ> 
+Hyena grins.
+sJ> 
+Sierron chuckles.
+sJ> 
+Moryan smiles.
+sJ> 
+Wolfbane nods to Stefan.
+sJ> 
+Moryan says, "a moment while the Marquis and I confer."
+sJ> 
+Stefan nods to Moryan.
+sJ> 
+Hyena opens an emerald green skin sheath.
+sJ> 
+Stefan listens carefully to Moryan.
+sJ> 
+Avalon shifts her weight and curls up snug in moire<s small lapsJ> 
+Hyena closes an emerald green skin sheath.
+sJ> 
+Nikoli gazes at Hyena.
+sJ> 
+Avalon whispers loudlysJ> 
+Alpe nods to Delight.
+sJ> 
+Avalon says, "leahs lost...again"
+sJ> 
+Sy goes through a door.
+sJ> 
+Airgid smiles at Delight.
+sJ> 
+Moire takes Avalon by the hand.
+sJ> 
+Moire struggles to her feet.
+sJ> 
+Stefan nods as the Queen provides him with last minute instructions.
+sJ> 
+Vaille runs his fingers up and down his medallion nervously.
+sJ> 
+Airgid says, "Long time Lady"
+sJ> 
+Sy arrives through a door leading to the Gallery.
+sJ> 
+Avalon struggles to her feet.
+sJ> 
+Avalon pouts.
+sJ> look vail
+You see the Mayor of Highridge. His hair is dark brown, nearly black, matching
+his eyes. A slight smile plays across his lips at odd moments. His skin is
+dark, from hours spent outdoors.
+He is wearing some polished leather shoes laced with braided silk, a thick
+blackened steel armband inset with a series of tiny rubies, an icy platinum
+medallion inset with a single green pearl, some beige trousers cuffed neatly at
+the ankles, a fine blue silk shirt accented with tiny ivory buttons and a fiery
+gold ring engraved with two clenched fists.
+He appears to be healthy.
+sJ> 
+Moryan says, "The first to swear loyalty will be the outlying lands."
+sJ> 
+Winter appears to become weaker.
+sJ> 
+Moire's group goes through a door.
+sJ> 
+Kellah blinks.
+sJ> 
+Charette nods.
+sJ> 
+Wolfbane casts his gaze across the area.
+sJ> 
+Stefan nods to Moryan.
+sJ> 
+Moryan whispers quietly with Stefan.
+sJ> 
+Moire's group arrives through a door leading to the Gallery.
+sJ> 
+Vaille gazes at Charette.
+sJ> 
+Moire's group goes through a door.
+sJ> 
+Sierron listens to his surroundings closely.
+sJ> 
+Moryan says, "Please remember the charters are not complete. Tonight is
+swearing on intent, and once again when each is presented to your
+guild/temple/land"
+sJ> 
+Veronica concentrates intently.
+sJ> 
+Moire's group arrives through a door leading to the Gallery.
+sJ> 
+Hyena nods.
+sJ> 
+Avalon has a small piece of tape over her mouthsJ> 
+Moire's group goes through a door.
+sJ> 
+Hyena furrows his brow.
+sJ> fat
+Mana: 37/37
+Psi: 60/66
+Fatigue: 192/192
+sJ> look me
+You gaze upon your own reflection...
+You see Moordread Macabre, an aging male wolfling.
+He is short, average weight and incredibly muscular.
+He has gray eyes, tan skin and long, flowing silvery hair.
+He is wearing a black crystal necklace, some crimson elkyri gauntlets with
+titanium rivets, some randar shoulder guards, some eldritch steel-rimmed armor,
+some soft leather boots, a magenta crystal pendant, a finely crafted crimson
+tabard embroidered with the gleaming silver eagle of the Crimson Band, an
+eldritch helm, a quartz talisman, a quartz pendant and a ruby studded silver
+ring of the Crimson Band.
+He is behind a wall of force.
+He appears to be healthy.
+He has a nicked, banged-up and scorched head, a nicked, banged-up and scorched
+body, a lacerated, bludgeoned and scorched back, a nicked and singed right arm,
+a nicked, banged-up and singed left arm, a nicked, banged-up and singed right
+leg, a nicked, banged-up and scorched left leg, a lacerated and singed right
+hand and a nicked, banged-up and singed left hand.
+sJ> 
+Stefan says, "ok then."
+sJ> 
+Stefan clears his throat.
+sJ> 
+Stefan coughs.
+sJ> 
+Stefan struggles to his feet.
+sJ> 
+Moryan stands up.
+sJ> 
+Stefan says, "I shall first recite the oath put before each of the
+baronies...afterwhich, I shall ask each representative from said baronies to
+stand and take the oath."
+sJ> 
+Hyena ponders.
+sJ> 
+Moryan listens carefully to Stefan.
+sJ> 
+Stefan says, "Be it known, on this date..."
+sJ> 
+Charette casts an annoyed glance at Vaille as he whispers back and forth.
+sJ> 
+ ** Genevra has just left the Realms.
+sJ> 
+Moire's group arrives through a door leading to the Gallery.
+sJ> 
+Stefan says, "by this treaty, barony of...."
+sJ> 
+Hyena nods to Vaille.
+sJ> 
+Moire sits down.
+sJ> 
+Nikoli turns his signet ring.
+sJ> 
+Avalon sits down.
+sJ> 
+Stefan says, "doth swear allegiance to the Queen, Moryan D'vena the First, to
+protect the lands in and around Fayd."
+sJ> 
+Jayd casts his gaze across the area.
+sJ> 
+Stefan says, "In return, my barony shall be granted the aid and protection of
+the Royal army, when and if needed."
+sJ> 
+Stefan nods.
+sJ> 
+Hyena furrows his brow.
+sJ> 
+Moryan says, "As I said, its rather rough still."
+sJ> 
+Nikoli ponders.
+sJ> 
+Moryan says, "it has the same intent as the guilds and temples."
+sJ> 
+Hyena raises his hand.
+sJ> 
+Sierron appears to become weaker.
+sJ> 
+Stefan says, "If the representative of Blacksmoke with stand."
+sJ> 
+The councilor from Blacksmoke stands.
+sJ> 
+Stefan says, "er will stand."
+sJ> 
+Stefan nods to a councilor.
+sJ> 
+Stefan says, "Councilor please raise your right hand."
+sJ> 
+The councilor raises his right hand.
+sJ> 
+Avalon raises her hand.
+sJ> 
+Moire shakes her head at Avalon.
+sJ> 
+Stefan says, "Does the Barony of Blacksmoke swear the oath that I have stated? 
+Please say I do, if so."
+sJ> 
+Moire smiles.
+sJ> 
+Vaille gazes sadly at the councilor.
+sJ> 
+Jasmine returns to normal.
+sJ> 
+The councilor readily says, "I do so swear, with the power given my by the
+Duchess of Blacksmoke."
+sJ> 
+Stefan nods to a councilor.
+sJ> 
+Nord gazes at Vaille.
+sJ> 
+Moryan smiles at a councilor.
+sJ> 
+Nord furrows his brow.
+sJ> 
+Stefan says, "welcome to the council sir."
+sJ> 
+The councilor bows deeply to Moryan, and takes his seat.
+sJ> 
+Stefan says, "Would the representative of Across please stand"
+sJ> 
+Moire nods to Leah.
+sJ> 
+Charette stands up.
+sJ> 
+Hyena furrows his brow.
+sJ> 
+Charette curtsies towards Moryan.
+sJ> 
+Moryan smiles at Charette.
+sJ> 
+Stefan smiles at Charette.
+sJ> 
+Vaille pulls up a chair and takes a load off.
+sJ> 
+Vaille raises an eyebrow towards Charette.
+sJ> 
+Stefan asks, "Baroness Charette, do you swear the oath as I have stated it?"
+sJ> whisp wolfb Are you sure they won't raise a stink when I say we aren't swearing today?
+You whisper to Wolfbane.
+sJ> 
+Charette says, "I do so swear.. as representative of Duncan Franksel I pledge
+the support of the Barony of Across.."
+sJ> 
+Vaille frowns slightly.
+sJ> 
+Stefan smiles.
+sJ> 
+Vaille gazes at Charette.
+sJ> 
+Stefan says, "welcome to the council."
+sJ> 
+Wolfbane whispers to you, "just say that we cannot at this time"
+sJ> 
+Gabryelle nods to Jayd.
+sJ> 
+Avalon closes her eyes.
+sJ> 
+Avalon nods.
+sJ> 
+Charette says, "and aplace all her armies and arms at the disposal of Queen
+Moryan D'Vena in time of war."
+sJ> 
+Charette curtsies.
+sJ> 
+Moryan smiles at Charette.
+sJ> 
+Stefan smiles at Charette.
+sJ> 
+ ** Morrollan has just left the Realms.
+sJ> 
+Stefan says, "Welcome"
+sJ> 
+Charette takes her seat with dignity.
+sJ> 
+Charette sits down.
+sJ> 
+Moryan says, "Thank you Baroness."
+sJ> 
+Vaille looks off in the distance.
+sJ> 
+Sierron returns to normal.
+sJ> 
+Stefan says, "Will the representative of Highridge please stand."
+sJ> 
+Vaille gazes at Stolar.
+sJ> 
+ ** Genevra has just left the Realms.
+sJ> 
+Vaille gazes at Stefan.
+sJ> 
+Charette mouths "You're welcome," to Moryan.
+sJ> 
+Hyena gazes at Vaille.
+sJ> 
+Vaille slowly rises from his seat.
+sJ> 
+Vaille stands up.
+sJ> 
+Hyena smiles at Vaille.
+sJ> 
+Moryan gazes at Vaille.
+sJ> 
+Vaille sliches a bit.
+sJ> 
+Sy nudges Leah.
+sJ> 
+Hyena furrows his brow.
+sJ> 
+Stefan asks, "Do you swear on behalf of Highridge, to the oath as I have stated
+it?"
+sJ> 
+Leah goes through a door.
+sJ> 
+Leah arrives through a door leading to the Council Chamber.
+sJ> 
+Hyena smiles at Stolar.
+sJ> 
+Vaille casts his gaze across the area.
+sJ> 
+Vaille raises an eyebrow towards Charette.
+sJ> 
+Moryan listens carefully to Vaille.
+sJ> gaze vai
+You gaze at Vaille.
+sJ> 
+Vaille sighs.
+sJ> 
+Stefan listens carefully to Vaille.
+sJ> 
+Charette gazes at Vaille.
+sJ> 
+Vaille raise his hand halfheartedly.
+sJ> 
+Hyena nods.
+sJ> 
+Vaille states, "I suppose."
+sJ> 
+Moryan raises an eyebrow towards Vaille.
+sJ> rais
+You raise your eyebrow.
+sJ> 
+Stolar smiles at Leah.
+sJ> 
+Wolfbane raises an eyebrow towards Vaille.
+sJ> 
+Veronica clears her throat.
+sJ> 
+Vaille sighs.
+sJ> 
+Gabryelle nods to Jayd.
+sJ> 
+Vaille mumbles something under his breath, sounding like "Extortion"
+sJ> 
+Vaille pulls up a chair and takes a load off.
+sJ> 
+Stefan says, "well then, welcome..."
+sJ> 
+Stefan says it half heartedly.
+sJ> 
+Hyena coughs.
+sJ> 
+Moryan says, "Vaille, that is unacceptable. Yes or no is the response."
+sJ> 
+Stefan says, "To the council."
+sJ> 
+Hyena nods to Vaille.
+sJ> 
+Vaille raises an eyebrow towards Moryan.
+sJ> 
+Veronica glances warily at Vaille.
+sJ> 
+Vaille states, "Fine...."
+sJ> 
+Stefan says, "Will the representative of The Rullon lands please stand."
+sJ> 
+Moryan says, "I suppose does not fully answer the oath."
+sJ> 
+Nikoli smiles slightly towards Vaille
+sJ> 
+Vaille stands up.
+sJ> 
+Stefan listens carefully to Moryan.
+sJ> 
+Vaille states, "I abstain."
+sJ> 
+Vaille states, "Respectfully."
+sJ> 
+Vaille gazes at Moryan.
+sJ> 
+Stolar arches his eyebrow.
+sJ> 
+Moryan asks, "You abstain from swearing loyalty?"
+sJ> 
+Vaille states, "Yes."
+sJ> 
+Garin ponders.
+sJ> 
+Stefan ponders.
+sJ> 
+Moryan asks, "On what grounds?"
+sJ> 
+Vaille states, "On the grounds this whole episode is a charade."
+sJ> 
+Veronica raises an eyebrow towards Vaille.
+sJ> 
+Moryan raises an eyebrow towards Vaille.
+sJ> 
+Alpe blinks.
+sJ> 
+Avalon gasps.
+sJ> 
+Charette raises an eyebrow towards Vaille.
+sJ> 
+Kellah blinks.
+sJ> 
+Charette frowns.
+sJ> 
+Nikoli says, "Well that certainly is putting your cards on the table"
+sJ> 
+Vaille states, "You have no more right to rule than any of us."
+sJ> 
+Nikoli chuckles softly
+sJ> 
+Avalon leans on Moire.
+sJ> 
+Moryan says, "If I remember correctly, you are here on sufferance as it is.
+Your town barely rates a full seat."
+sJ> 
+Charette says, "Than --"
+sJ> 
+Moire nods to Avalon.
+sJ> 
+Charette chockes off her exclamation.
+sJ> 
+Charette nods to Moryan.
+sJ> 
+Stefan says, "In that matter you are wrong Mayor, it is unfortunate that you
+believe so."
+sJ> 
+A murmur is heard through the crowd.
+sJ> 
+Vaille states, "And I will not be coerced into swearing loyalty to a crown I
+cannot support in my heart."
+sJ> 
+Alpe buzzes and clicks.
+sJ> 
+Nord ponders.
+sJ> 
+Stefan says, "However, one cannot abstain on an oath.  Abstaining is a
+priveledge of voting only."
+sJ> 
+Avalon touches her hand to her throat.
+sJ> 
+Hyena snickers, "Why can't you support it in your heart, Mayor?"
+sJ> 
+Vaille gazes at Stolar.
+sJ> 
+Stolar gazes at Vaille.
+sJ> 
+Vaille raises an eyebrow towards Stefan.
+sJ> 
+Moire nods to Avalon.
+sJ> 
+Vaille states, "Join me in this stand."
+sJ> 
+Vaille gestures to the others.
+sJ> 
+Moryan blinks at Vaille.
+sJ> 
+Vaille states, "Do not be forced into this mockery."
+sJ> act watches Vaille silently with gray somber eyes.
+Moordread watches Vaille silently with gray somber eyes.
+sJ> 
+Graul gazes at Vaille.
+sJ> 
+Vaille states, "You all nkow in your hearts this is not the righful ruler of
+Fayd."
+sJ> 
+Graul says, "Interesting point to try and foster support."
+sJ> 
+Stefan waits patiently, his gaze flowing over the assembled representatives.
+sJ> 
+Hyena snickers, "Vaille you can't have a hope to help your people like this."
+sJ> 
+Nikoli says, "Old boy...I think your getting ahead of yourself and over your
+head for that matter"
+sJ> 
+Hyena snickers, "please reconsider, sir."
+sJ> 
+Vaille states, "Stnad now. Or live with the consequences of regret for the rest
+of your lives."
+sJ> 
+ ** Vaulle has just left the Realms.
+sJ> 
+The translucent red sphere surrounding Winter fades.
+sJ> 
+Vaille states, "I do *not* pledge my support."
+sJ> 
+Wolfbane nods to Nikoli.
+sJ> 
+Nikoli looks at Vaille with amusement
+sJ> 
+Hyena sighs.
+sJ> 
+Vaille sits down.
+sJ> 
+Vaille folds his arms in defiance.
+sJ> 
+Charette presses her lips together, frowning.
+sJ> 
+Stefan drums his fingers impatiently upn the table before him.
+sJ> 
+The scintillating curtain of light surrounding Stefan fades.
+sJ> 
+Graul looks into a small device.
+sJ> act turns his gaze from Vaille to Moryan, waiting her response.
+Moordread turns his gaze from Vaille to Moryan, waiting her response.
+sJ> 
+Moryan asks, "Baroness.. exactly how much land does the village of Highridge
+occupy in the midst of your lands?"
+sJ> 
+Moryan gazes at Charette.
+sJ> 
+Vaille gazes at Charette.
+sJ> 
+Airgid says, "Faydians are becoming soft, kill him and elect a new
+mayor..easy."
+sJ> 
+Airgid mutters something you can't quite make out.
+sJ> 
+Charette stands up.
+sJ> 
+Vaille states, "Do not be intimidated, cousin."
+sJ> 
+Stefan grins.
+sJ> 
+Hyena snickers, "Your Majesty, may I have leave to talk some sense into the
+Mayor?"
+sJ> 
+Airgid gazes at Vaille.
+sJ> 
+Nikoli says, "I think we can be a bit more civilized then that"
+sJ> 
+Charette says, "Only a few square miles, Your Highness.. of which he may not be
+Mayor by the time he returns there."
+sJ> 
+Vaille raises an eyebrow towards Hyena.
+sJ> 
+Airgid asks, "Why?"
+sJ> 
+Vaille frowns.
+sJ> 
+Moryan says, "I shall leave the Baroness to deal with it then."
+sJ> 
+Airgid shakes his head back and forth.
+sJ> 
+Airgid sighs.
+sJ> 
+Charette says, "I have already sworn loyalty for all my father's lands."
+sJ> 
+Moryan says, "It is up to you if he retains any right to observe these
+proceedings."
+sJ> 
+Charette gazes at Vaille.
+sJ> 
+Hyena snickers, "everyone makes poor choices sometimes, I can count myself
+among those who do."
+sJ> 
+Vaille stands up.
+sJ> 
+Charette gazes at Vaille.
+sJ> 
+Vaille looks around one last time before walking slowlt out the door.
+sJ> 
+Vaille goes through a door.
+sJ> 
+Hyena sighs.
+sJ> 
+Stefan frowns.
+sJ> 
+Nord shakes his head back and forth.
+sJ> 
+Veronica shakes her head slowly back and forth.
+sJ> 
+Charette says, "I believe he made his choice himself."
+sJ> 
+Moryan nods to Charette.
+sJ> 
+Veronica nods to Charette.
+sJ> 
+Hyena snickers, "My Queen, may I have leave to try and speak to him, for what
+good that will do?"
+sJ> 
+Moryan says, "Aye. A pity, I know your aunt held high hopes for him."
+sJ> 
+Nikoli says, "We can only believe that"
+sJ> 
+Hyena furrows his brow.
+sJ> 
+Charette bites her lower lip.
+sJ> 
+ ** Chaya has just disconnected.
+sJ> 
+Moryan says, "after the council meeting I care not what you do, the proceedings
+will be long enough as is Hyena."
+sJ> 
+Hyena nods.
+sJ> 
+Charette sits with dignity, head held high.
+sJ> 
+Hyena bows towards Moryan.
+sJ> 
+ ** Vaulle has just left the Realms.
+sJ> 
+Charette sits down.
+sJ> 
+Stefan says, "Well, putting that unfortunate occurance behind us, we shall move
+on to the Lands of Rullon."
+sJ> 
+Veronica stands up.
+sJ> 
+Hyena furrows his brow.
+sJ> 
+Veronica smiles at Stefan.
+sJ> 
+Stefan says, "Do the Lands of Rullon swear to the oath as stated before you/"
+sJ> 
+Moryan smiles at Veronica.
+sJ> 
+Stefan smiles.
+sJ> 
+Veronica says, "On behalf of the Rullon Lands, it's people and it's spirit, we
+take the oath with full hearts and clear minds."
+sJ> 
+Moryan smiles at Veronica.
+sJ> 
+Stefan smiles at Veronica.
+sJ> 
+Vaille quietly steps back in, standing at the rear of the room.
+sJ> 
+Veronica smiles warmly at Moryan and curtsies towards her.
+sJ> 
+Moryan says, "Thank you Marquise."
+sJ> 
+Veronica sits on a chair.
+sJ> 
+Hyena raises an eyebrow towards Vaille.
+sJ> 
+Delight arches her eyebrow.
+sJ> 
+Stefan asks, "Will the representative of the Barony of Kirdkendale please
+stand?"
+sJ> 
+Nikoli nods to Stefan.
+sJ> 
+Nikoli stands up.
+sJ> 
+Stefan nods to Nikoli.
+sJ> 
+Hyena nods to Nikoli.
+sJ> 
+Nikoli strides over to Moryan
+sJ> 
+Moryan gazes at Nikoli.
+sJ> 
+Vaille gazes at Nikoli.
+sJ> 
+Nikoli glances over at Stefan
+sJ> 
+Vaille shakes his head back and forth.
+sJ> 
+Gabryelle watches the proceedings intently.
+sJ> 
+Nikoli says, "Please report your oath."
+sJ> 
+Stefan asks, "Baron Nikoli, does the Barony of Kirdkendale swear the oath as I
+have stated?"
+sJ> 
+Moryan listens carefully to Nikoli.
+sJ> 
+Nikoli says, "I would like it repeated again."
+sJ> 
+Nikoli looks on with just a hint of amusement on his lips
+sJ> 
+Avalon wraps her arms around the entire bundle of bunnies.
+sJ> 
+Moryan says, "You heard it the first time Nikoli."
+sJ> 
+Nikoli says, "Oh very well"
+sJ> 
+Stefan says, "Your memory is superb Nikoli, I need not repeat it."
+sJ> 
+Stefan smiles at Nikoli.
+sJ> look nik
+Baron Nikoli Augustus Montague is a short man with a lithe build who moves
+with an easy, almost commoner's grace. Unruly black hair frames a face which
+watches the world through steel gray eyes that constantly dart back and forth.
+He is wearing some form-fitting indigo leather gloves which flare slightly at
+the wrist, a supple black leather duster enhanced with mother-o-pearl buttons
+and iridescent snake skin along the edges, a dark leather scabbard with
+platinum fittings, a heavy memarin signet ring of the Baron of Kirkendale
+Marsh, some knee-high hard leather boots of charcoal color with iridescent
+snake skin along the cuffs and sides and a simple alzyron hoop earring worn in
+his left ear.
+He appears to be healthy.
+sJ> 
+Wolfbane ponders.
+sJ> 
+Wolfbane listens carefully to Nikoli.
+sJ> 
+Sierron leans on Graul.
+sJ> 
+Stefan listens carefully to Nikoli.
+sJ> 
+Nikoli says, "At this time I do swear alegiance to Queen Moryan...with bringing
+my force of arms to battle in times of war and great trouble...looking to claim
+likewise if my lands are in peril"
+sJ> 
+Nikoli gazes at Moryan.
+sJ> 
+Stefan smiles at Nikoli.
+sJ> 
+Nikoli gives a little wink at Moryan
+sJ> 
+Stefan says, "Thank you Nikoli."
+sJ> 
+Moryan asks, "At this time?"
+sJ> 
+Nikoli nods to Stefan.
+sJ> 
+Moryan chuckles at Nikoli.
+sJ> 
+Vaille sighs.
+sJ> 
+Nikoli says, "Well this isnt the official oath"
+sJ> 
+Hyena furrows his brow.
+sJ> 
+Moryan says, "I understand"
+sJ> 
+Moryan smiles at Nikoli.
+sJ> 
+Nikoli strides back to his chair
+sJ> 
+Moryan says, "and I can accept your oath as stated."
+sJ> 
+Nikoli pulls up a chair and takes a load off.
+sJ> 
+Vaille gazes at Nikoli.
+sJ> 
+Nikoli raises an eyebrow towards Vaille.
+sJ> 
+Vaille looks away from Nikoli with indignance.
+sJ> 
+Nikoli smirks.
+sJ> 
+Stefan says, "Ok then, we shall move onto the city proper and the guilds
+within."
+sJ> 
+The scintillating curtain of light surrounding Winter fades.
+sJ> 
+Stefan quickly pages through his notes.
+sJ> 
+The translucent red sphere surrounding Sierron fades.
+sJ> 
+Stefan says, "The guild oath is as follows..."
+sJ> 
+Graul fidgets slightly, pulling at his cloths.
+sJ> 
+ ** Saryon has just left the Realms.
+sJ> 
+Sierron smiles at Graul.
+sJ> 
+Nord appears to become weaker.
+sJ> 
+Hyena folds his arms and watches the proceedings.
+sJ> 
+Stefan says, "Be it known that on this date, that the esteemed guild/temple of,
+x, doth swear allegiance to teh Queen, Moryan D'vena the First of FAyd..."
+sJ> 
+Stefan says, "and the Kingdom of Fayd.  The Guild/temple will retain its own
+charter,"
+sJ> 
+Hyena furrows his brow.
+sJ> 
+Stefan says, "except in matters of direct conflice with those of the laws of
+Fayd."
+sJ> 
+Stefan says, "In times of great peril, war, or other threat to the Kingdom of
+Fayd, the guild/temple is hereby given"
+sJ> 
+Alpe ponders.
+sJ> 
+Charette leans forward between Veronica and Nikoli, murmuring something softly
+to Nikoli.
+sJ> 
+Stefan says, "the privilege and the right to bear arms and/or magics against
+all agressors and in defense of the city, Queen, her family,"
+sJ> 
+Stefan says, "and kingdom."
+sJ> 
+Stefan says, "In return for the defense of Fayd, the guild/temple is gratned
+the right to receive aid and compensation from teh Queen"
+sJ> 
+Stefan says, "and Fayd for any destruction against their guild/temple."
+sJ> 
+Stefan says, "Also, the guild/temple is granted the right to a seat and a
+voting voice on the Council of Lords."
+sJ> 
+Stefan says, "The guild/temple agrees upon claiming the seat to be bound by the
+decisions of the Council as well as their Queen."
+sJ> 
+Stefan pants.
+sJ> 
+Stefan takes a drink of water before looking up.
+sJ> 
+Veronica chuckles at Stefan.
+sJ> 
+Wolfbane whispers to Stefan why so dry that was short for you.
+sJ> 
+Leah returns to normal.
+sJ> 
+Stefan says, "Now, I shall call each guild up one by one to affirm the oath."
+sJ> 
+Stefan chuckles at Wolfbane.
+sJ> 
+Stefan asks, "Will the representative of the Temple of Shemri rise first?"
+sJ> 
+Stolar struggles to his feet.
+sJ> 
+Moryan smiles at Stolar.
+sJ> 
+Stolar bows towards Moryan.
+sJ> 
+Stefan smiles at Stolar.
+sJ> 
+Stolar smiles at Stefan.
+sJ> 
+Stefan asks, "Does the temple of Shemri swear the oath of allegiance?"
+sJ> 
+Stolar softly says, "On behalf of the Church of Shemri, I do so swear."
+sJ> 
+Veronica looks down and furrows her brow slightly.
+sJ> 
+Stefan smiles at Stolar.
+sJ> 
+Moryan smiles at Stolar.
+sJ> 
+Stolar bows towards Moryan.
+sJ> 
+ ** Rion has just disconnected.
+sJ> 
+Stefan says, "Welcome to the Council."
+sJ> 
+Moryan says, "Thank you Stolar."
+sJ> 
+Veronica's blending effect wears off.
+sJ> 
+Stolar smiles.
+sJ> 
+Stefan says, "Will the Temple of Rorin please Rise."
+sJ> 
+Stolar sits down.
+sJ> 
+Nord struggles to his feet.
+sJ> 
+Nord pulls a simple white silk robe that buttons across the shoulder and down
+the side.
+sJ> 
+Stefan smiles at Nord.
+sJ> 
+Gabryelle listens to her surroundings closely.
+sJ> 
+Veronica smiles at Nord.
+sJ> 
+Stefan asks, "Does the temple of Rorin swear the oath of allegiance?"
+sJ> 
+Moryan smiles at Nord.
+sJ> 
+Wolfbane listens carefully to Nord.
+sJ> 
+Nord raises his hand.
+sJ> 
+Nikoli leans towards Charette.
+sJ> 
+Nord says, "as a servant of Rorin's temple, I pledge our loyalty to the Queen
+in the service of the light"
+sJ> 
+Nord bows towards Moryan.
+sJ> 
+Moryan smiles at Nord.
+sJ> 
+Stefan smiles at Nord.
+sJ> 
+Nord bows towards Stefan.
+sJ> 
+Moryan says, "Thank you Nord."
+sJ> 
+Nord sits down.
+sJ> 
+Stefan says, "Welcome to the Council."
+sJ> 
+Stefan asks, "Will the representative of the Temple of Ordanin please rise?"
+sJ> 
+Sierron struggles to his feet.
+sJ> 
+Stefan smiles at Sierron.
+sJ> 
+Sierron bows towards Stefan.
+sJ> 
+Stefan asks, "Does the temple of Ordanin swear the oath of allegiance?"
+sJ> 
+Wolfbane whispers to you, "i hope the fireworks are not too bad when you stand"
+sJ> 
+Sierron icily states, "The temple of Ordanin, does so swear it."
+sJ> 
+Moryan smiles at Sierron.
+sJ> 
+Stefan smiles at Sierron.
+sJ> whisp wolfb That helps *roll*, but I"m ready for them
+
+Stefan says, "Welcome to the council."
+sJ> You whisper to Wolfbane.
+sJ> 
+Sierron smiles.
+sJ> 
+Jayd nods to Airgid.
+sJ> 
+Sierron bows towards Moryan.
+sJ> 
+Sierron sits down.
+sJ> 
+Moryan smiles.
+sJ> 
+Wolfbane whispers to you, "your welcome"
+sJ> 
+Stefan asks, "Will the representative of the Silver Aracana please rise?"
+sJ> whisp wolfb Wish I'd had more than a few moments notice....
+
+Winter struggles to her feet.
+sJ> You whisper to Wolfbane.
+sJ> 
+Stefan smiles at Winter.
+sJ> 
+Vaille raises an eyebrow towards Winter.
+sJ> 
+Moryan smiles at Winter.
+sJ> 
+Winter smiles.
+sJ> 
+Wolfbane whispers to you, "i am sorry bout that and you know i am"
+sJ> 
+Stefan asks, "Does the Silver Arcana swear the oath of allegiance?"
+sJ> 
+Vaille slowly shakes his head at Winter.
+sJ> 
+Veronica gazes at Vaille.
+sJ> 
+Winter says, "Only as long as the Queen walks the path of Light"
+sJ> 
+Moryan says, "that was stated in the oath, or should have been."
+sJ> 
+Stefan says, "That is stated within the oath."
+sJ> 
+Winter says, "and that we are not force to fight outside Fayd. Only then, on
+behalf of the Silver Arcana, I do swear."
+sJ> 
+Moryan nods.
+sJ> 
+Stefan smiles at Winter.
+sJ> 
+Stefan nods to Winter.
+sJ> 
+Moryan says, "The oath is only in defense of Fayd. That too is stated clearly."
+sJ> 
+Garin glances at his former Mayoral brother sadly.
+sJ> 
+Stefan says, "That is the spirit of the oath, so we gladly accept the Silver
+Arcana to the council."
+sJ> 
+Moryan smiles.
+sJ> 
+Winter curtsies.
+sJ> 
+Servants enter the council chamber refilling water glasses.
+sJ> 
+Stefan smiles at Winter.
+sJ> 
+Stefan asks, "Will the representative of the Temple of Amilor please rise?"
+sJ> 
+Winter sits on a chair.
+sJ> 
+Jasmine struggles to her feet.
+sJ> 
+Stolar takes a sip from a glass of water.
+sJ> 
+The glowing outline of armor fades from around Nord.
+sJ> 
+Charette smiles as a serving wench hands her a glass of icy water, nodding
+pleasantly.
+sJ> 
+Vaille looks wearily around at the group.
+sJ> 
+Stefan smiles at Jasmine.
+sJ> whisp wolfb Geez, is he saving me for last? I want to get this over with
+You whisper to Wolfbane.
+sJ> 
+Stefan asks, "Does the temple of Amilor swer the oath of allegiance?"
+sJ> 
+Wolfbane whispers to you, "be patient it is best for last if it is so wished"
+sJ> 
+Moryan gazes at Jasmine.
+sJ> 
+Jasmine says, "As High Priestess of Amilor,   I do pledge our oath to the Queen
+and City in its path the Light."
+sJ> 
+Moryan smiles at Jasmine.
+sJ> 
+Stefan smiles at Jasmine.
+sJ> 
+Stefan says, "Then welcome to the council."
+sJ> 
+Moryan says, "Thank you Jasmine."
+sJ> 
+Vaille sighs.
+sJ> 
+Stefan asks, "Will the Crimson Band representative please rise?"
+sJ> Act rises from his chair and bows to Stefan in disciplined military fashion.
+Moordread rises from his chair and bows to Stefan in disciplined military
+fashion.
+sJ> stand
+You struggle to your feet under the weight of all your equipment.
+ [Round: 2 sec]
+RJ> 
+Stefan nods to you.
+J> 
+Vaille mutters to himself, you distinctly hear the word "Sheep" spoken.
+J> 
+Stefan asks, "Does the Crimson Band swear the oath of allegiance?"
+J> 
+Stolar licks his lips.
+J> 
+Stolar casts his gaze across the area.
+J> 'I must report that at this time the Band has outstanding issues which prevent us from swearing this oath to the crown, but...
+You say, "I must report that at this time the Band has outstanding issues which
+prevent us from swearing this oath to the crown, but..."
+J> 
+Graul raises an eyebrow towards Vaille.
+J> 
+Graul's stomach growls.
+J> 
+Graul frowns.
+J> act stands straight and at attention as he turns his gaze to Moryan.
+Moordread stands straight and at attention as he turns his gaze to Moryan.
+J> 
+Moryan listens carefully to you.
+J> 
+Stefan arches his eyebrow.
+J> 
+Stolar nods to Graul.
+J> 
+Vaille raises an eyebrow towards you.
+J> 
+Stefan listens carefully to you.
+J> 'We are able to swear to uphold the city of Fayd and its laws against all agressors
+You say, "We are able to swear to uphold the city of Fayd and its laws against
+all agressors"
+J> 
+Veronica stares directly at Vaille, annoyance showing clearly in her eyes.
+J> 
+Moryan ponders.
+J> 
+Hyena shakes his head at Vaille.
+J> 
+Hyena's eyes return to normal.
+J> 
+Stefan listens carefully to Moryan.
+J> 
+Moryan asks, "Does the Crimson Band fully understand that its gaining a right
+to hold a seat will be dependant on the council after this day?"
+J> 
+Jayd appears to become weaker.
+J> act watches cooly, standing at attention.
+Moordread watches cooly, standing at attention.
+J> 
+Moryan gazes at you.
+J> 
+Moryan appears to be waiting.
+J> whisp wolfb Do we?
+You whisper to Wolfbane.
+J> act breathes in, preparing a reply.
+Moordread breathes in, preparing a reply.
+J> 
+Wolfbane whispers to you, "if you feel that the oath is in line with our
+believfs swear it"
+J> 
+Hyena furrows his brow.
+J> 
+Sierron listens to his surroundings closely.
+J> 'I feel that our further matters to be resolved can be utiliized..
+You say, "I feel that our further matters to be resolved can be utiliized.."
+J> 
+Veronica smiles at Nikoli, then turns her attention back to the proceedings.
+J> 'At the time of the official oath, 
+You say, "At the time of the official oath,"
+J> 'and so...
+You say, "and so..."
+J> 'I will in the name of the Crimson Band, swear to uphold this oath
+You say, "I will in the name of the Crimson Band, swear to uphold this oath"
+J> 
+Vaille takes out a parchment and scribbles a few notes on it.
+J> 
+Jayd furrows his brow.
+J> act bows neatly to Moryan.
+Moordread bows neatly to Moryan.
+J> 
+Moryan nods to you.
+J> 
+Stefan smiles at you.
+J> 
+Jasmine pulls up a chair and takes a load off.
+J> 
+Stefan says, "Vey well then, welcome."
+J> 
+Vaille states, "crap afk a sec, dogs yipping"
+J> act returns to his seat neatly.
+Moordread returns to his seat neatly.
+J> pull chair
+You pull up a chair and take a load off.
+sJ> 
+Hyena coughs.
+sJ> 
+Garin furrows his brow.
+sJ> 
+Stefan asks, "Will the representative of the temple of Yarin pleaser rise?"
+sJ> 
+Delight casts her gaze across the area.
+sJ> 
+Hyena smiles at Delight.
+sJ> 
+Graul says, "There wasn't one."
+sJ> 
+Stefan nods to Delight.
+sJ> 
+Graul says, "Oh, sorry."
+sJ> 
+Delight frowns slightly.
+sJ> 
+Graul blushes.
+sJ> 
+Nikoli motions for a royal page to come to his side.
+sJ> 
+Hyena smiles at Graul.
+sJ> 
+Delight stands and steps forward.
+sJ> 
+Stefan smiles.
+sJ> 
+Delight curtsies towards Moryan.
+sJ> whisp wolfb Hadn't really expected an ultimatum like that from her
+
+Moryan nods to Delight.
+sJ> You whisper to Wolfbane.
+sJ> 
+Stefan asks, "Does the temple of Yarin swear to teh oath of allegiance?"
+sJ> 
+Nikoli scribbles something down on a piece of paper and hands it to the page.
+sJ> 
+The page leaves the room.
+sJ> 
+Delight takes a deep breath.
+sJ> 
+Wolfbane whispers to you, "you should have besides now its your fault for the
+next meeting ;)"
+sJ> 
+ ** Cyrano has just left the Realms.
+sJ> 
+Delight says, "I can not so swear for the entire temple, as I am not its
+elected representative.."
+sJ> 
+Delight casts her gaze across the area.
+sJ> 
+Moryan nods to Delight.
+sJ> whisp wolfb Holy crap, I'm going to be hung right next to Emanon...
+You whisper to Wolfbane.
+sJ> 
+Wolfbane whispers to you, "no right next to me [wink]"
+sJ> 
+Stefan listens carefully to Moryan.
+sJ> 
+Delight asks, "however, I swear my personal fealty, and ask if I may reserve
+the right to renew the oath in the name of the temple before your coronation?"
+sJ> whisp wolfb *nod* :)
+You whisper to Wolfbane.
+sJ> 
+Moryan ponders.
+sJ> 
+Airgid stands at attention.
+sJ> 
+Moryan says, "It will fall to the members of the council to permit that, the
+same as I just told the Crimson Band."
+sJ> 
+Moryan says, "I will treat none differently."
+sJ> 
+Delight nods to Moryan.
+sJ> 
+Wolfbane whispers to you, "do not worry if it is that much a problem with the
+rest i will take the heat"
+sJ> 
+Stefan nods to Moryan.
+sJ> 
+Moryan says, "but I thank you for your personal oath."
+sJ> 
+Moryan smiles at Delight.
+sJ> 
+Delight says, "My thanks, Your Highness."
+sJ> 
+Delight curtsies towards Moryan.
+sJ> 
+Delight slips into a seat beside Hyena.
+sJ> 
+Delight sits down.
+sJ> 
+Alpe gazes at a railing.
+sJ> 
+Hyena smiles at Delight.
+sJ> whisp wolf Technically you didn't ask me to answer as I did, you left it up to me
+You whisper to Wolfbane.
+sJ> 
+Stefan says, "Will the representative of the Technologist guild please rise."
+sJ> 
+Alpe clicks and beeps.
+sJ> 
+Alpe struggles to his feet.
+sJ> 
+Alpe bows towards Moryan.
+sJ> 
+Alpe bows towards Stefan.
+sJ> 
+Wolfbane whispers to you, "as i wanted it i did not want you to feel i
+influanced you in any way"
+sJ> 
+Stefan smiles at Alpe.
+sJ> 
+Moryan smiles at Alpe.
+sJ> 
+Stefan asks, "Does the technologist guild swear the oath of allegiance?"
+sJ> 
+Sierron listens to his surroundings closely.
+sJ> 
+Alpe raises his hand.
+sJ> 
+Airgid listens to his surroundings closely.
+sJ> whisp wolfb Not that they'd believe me, but I will attest to you giving me my own choice
+You whisper to Wolfbane.
+sJ> 
+Stefan listens carefully to Alpe.
+sJ> 
+Graul says, "Don't ask me, I know his battery is good."
+sJ> 
+Wolfbane whispers to you, "you may be right on that but still i will take any
+heat from this"
+sJ> 
+Stefan smiles.
+sJ> 
+Alpe exclaims, "I, Alpe Diodey, Cyber-Master, Technician of Technology, as an
+officer in the Technologists Guild do hereby so affirm our allegience. Long
+live theQueen!"
+sJ> 
+Hyena snickers.
+sJ> 
+Moryan hides a chuckle.
+sJ> 
+Moryan smiles at Alpe.
+sJ> 
+Garin blinks.
+sJ> 
+Alpe beeps and whirrs.
+sJ> 
+Garin scratches his head.
+sJ> 
+Veronica arches her eyebrow.
+sJ> 
+Veronica ponders.
+sJ> 
+Jayd looks mildly suprised.
+sJ> 
+Moryan says, "my thanks Alpe."
+sJ> 
+Veronica smiles at Alpe.
+sJ> 
+Alpe bows towards Moryan.
+sJ> 
+Airgid ponders.
+sJ> 
+Stefan smiles.
+sJ> 
+Stefan says, "Then welcome to the council."
+sJ> 
+Alpe bows towards Stefan.
+sJ> 
+Alpe pulls up a chair and takes a load off.
+sJ> 
+Stefan asks, "Have I missed anyone?"
+sJ> 
+Airgid chuckles.
+sJ> 
+Moryan shakes her head at Airgid.
+sJ> 
+Stefan casts his gaze across the area.
+sJ> 
+Wolfbane whispers to you, "as a side note if dane will not step in afterwards
+will you be able to hang for a while with this stuff?"
+sJ> 
+Moryan says, "there is a reason Airgid."
+sJ> 
+Airgid says, "aye"
+sJ> 
+Moryan says, "Now, if the council would listen a moment."
+sJ> 
+Hyena listens to his surroundings closely.
+sJ> 
+Stolar listens carefully to Moryan.
+sJ> 
+Sierron listens carefully to Moryan.
+sJ> 
+Moryan says, "The issue of the offering of the T'kasta a full seat has been a
+puzzling one."
+sJ> 
+Wolfbane listens carefully to Moryan.
+sJ> 
+Moryan says, "and I have decided to let it rest in the hands of the Council.
+You are the ones that know them best, have fought beside them, have bled with
+them in defense of Fayd."
+sJ> 
+Airgid ponders.
+sJ> 
+Wolfbane nods to Moryan.
+sJ> 
+A royal guard enters the chambers and converses silently and quickly with
+Captain Jayd of the Lawkeeps.
+sJ> 
+Moryan says, "I would not dishonor them by not offering them this right if you
+feel it will do them justice, and their voice is one that needs to be heard."
+sJ> 
+Veronica smiles.
+sJ> 
+Vaille casts his gaze across the area.
+sJ> 
+Wolfbane nods.
+sJ> 
+Moryan says, "But, if you do, the will swear the same oath, but it applies
+within Fayd, just as the rest of yours does."
+sJ> whisp wolfb I will do my best
+You whisper to Wolfbane.
+sJ> 
+Avalon yawns.
+sJ> 
+Avalon grins.
+sJ> 
+Stefan says, "I have a few words to say on the matter."
+sJ> 
+Moryan nods to Stefan.
+sJ> 
+Moryan says, "be my guest."
+sJ> 
+Moryan sits and gently smoothes out her skirt.
+sJ> 
+Sierron's skin appears to become less rigid.
+sJ> 
+Stefan takes a drink of water.
+sJ> 
+Wolfbane smiles at Stefan.
+sJ> 
+The glowing outline of armor fades from around Sierron.
+sJ> 
+Stefan says, "I have had the oppurtunity to both work and fight besides the
+T'kasta..."
+sJ> 
+Stefan says, "It has been many years since they took up a residence within the
+city of Fayd, and they have been nothing but a benefit to the city in all that
+time."
+sJ> 
+Avalon cracks her knuckles.
+sJ> 
+Veronica nods to Stefan.
+sJ> 
+Stefan says, "They have always aided us in our times of need, and I believe
+they deserve a seat upon this council, if they so desire it."
+sJ> 
+Stefan says, "That is all...if anyone else would like the oppurtunity to speak,
+do so now."
+sJ> 
+Stefan smiles.
+sJ> 
+Avalon fidgets nervously.
+sJ> 
+Stefan pulls up a chair and takes a load off.
+sJ> 
+Nikoli ponders.
+sJ> 
+Stefan listens to his surroundings closely.
+sJ> 
+Garin ponders.
+sJ> 
+Airgid says, "Thank you Lord, I would speak my Queen."
+sJ> 
+Stefan nods to Airgid.
+sJ> 
+Moryan nods to Airgid.
+sJ> 
+Stefan says, "The floor is yours Airgid."
+sJ> 
+ ** Genevra has just left the Realms.
+sJ> 
+Veronica says, "If I may, I would just like to second that.  T'kasta have
+always been a wonderful friend to Fayd and I support them fully."
+sJ> 
+ ** Raningeth has just left the Realms.
+sJ> 
+Hyena nods to Veronica.
+sJ> 
+Wolfbane smiles at Veronica.
+sJ> 
+Airgid says, "We of the T'kasta thank you for this, but we will decline and
+remain the same."
+sJ> 
+Moryan nods to Airgid.
+sJ> act sits straight and attentive in his chair, a textbook example of military discipline.
+Moordread sits straight and attentive in his chair, a textbook example of
+military discipline.
+sJ> list airg
+You listen carefully to Airgid.
+sJ> 
+Veronica nods to Airgid.
+sJ> 
+Stefan nods to Airgid.
+sJ> 
+Avalon slowly lowers her fake spider on a string into the room below...sJ> 
+Airgid says, "We will observe."
+sJ> 
+Moryan says, "Fair enough. The offer was at least made to you, and the
+council."
+sJ> 
+Airgid says, "And we will follow thy laws."
+sJ> 
+Stolar nods.
+sJ> 
+Airgid smiles.
+sJ> 
+Stefan says, "Very well, should you ever change your mind, I would be honored
+to put it before the council."
+sJ> 
+Garin takes the spider and eats it.
+sJ> 
+Hyena chuckles.
+sJ> 
+Airgid says, "Thank you"
+sJ> 
+Sierron winces.
+sJ> 
+Airgid bows.
+sJ> 
+Stefan smiles at Airgid.
+sJ> 
+Avalon blinks.
+sJ> 
+Airgid stands at attention.
+sJ> 
+Airgid folds his wings.
+sJ> 
+Airgid bows.
+sJ> 
+The brilliant prismatic globe around Jayd vanishes.
+sJ> 
+Stefan asks, "Gabyrelle, I understand you wished to speak before the council?"
+sJ> 
+Gabryelle nods to Stefan.
+sJ> 
+Stefan smiles at Gabryelle.
+sJ> 
+Gabryelle stands up.
+sJ> 
+Sierron listens to his surroundings closely.
+sJ> 
+Gabryelle says, "The lawkeepers have an issue of banishment to be brought
+before the council."
+sJ> 
+Leah glances up at Avalon trying not to be noticed and gives her a stern look,
+then quickly pays quiet attention again.
+sJ> 
+Hyena nods.
+sJ> 
+Wolfbane nods.
+sJ> 
+ ** Feras has just disconnected.
+sJ> 
+Stefan listens carefully to Gabryelle.
+sJ> 
+Avalon pings Airgid off the head with a spit ball and ducks quickly behind the
+railsJ> 
+Gabryelle says, "The name, I'm sure you all recognize, is Tobias Thorne."
+sJ> 
+Hyena nods.
+sJ> 
+Hyena nods.
+sJ> 
+Winter smiles.
+sJ> 
+Veronica peers into the gallery.
+sJ> 
+Alpe buzzes and clicks.
+sJ> 
+Wolfbane ponders.
+sJ> 
+A royal page enters the chamber and goes to Nikoli's side whispering something
+to him, then going back to stand against the wall.
+sJ> 
+Gabryelle says, "He was subjected to banishement for one years time by the
+former King."
+sJ> 
+Gabryelle says, "After this period, it was lifted by Captain Varion."
+sJ> 
+Gabryelle says, "Until a few days ago, he had done nothing wrong. After the
+revision of the codex.."
+sJ> 
+The ghostly shield protecting Winter slowly fades.
+sJ> 
+Wolfbane listens carefully to Graul.
+sJ> 
+Wolfbane listens carefully to Gabryelle.
+sJ> 
+Sierron listens to his surroundings closely.
+sJ> 
+Avalon drops the happy fun ball.
+sJ> 
+...the happy fun ball bounces off the ground with a "BOING!" sound...
+sJ> 
+...and Avalon catches it!
+sJ> 
+Gabryelle says, "he persisted in saying the name of the goddess of death, now a
+crime by the words of the codex."
+sJ> 
+Alpe nods to Gabryelle.
+sJ> 
+Gabryelle says, "The first time, he was warranted, and subsquently arrested."
+sJ> 
+Gabryelle says, "upon his release, he committed the crime at least twice more."
+sJ> 
+Wolfbane listens carefully to Gabryelle.
+sJ> 
+Avalon sighs.
+sJ> 
+Vaille casts his gaze across the area.
+sJ> 
+Gabryelle says, "As I attempted to explain his crime to him, and fine and jail
+him for the second offense."
+sJ> 
+Gabryelle says, "He decided to stop listening, and slay me on the spot."
+sJ> 
+Gabryelle smirks.
+sJ> 
+ ** Graul has just disconnected.
+sJ> 
+Graul disconnects.
+sJ> 
+Wolfbane sighs.
+sJ> 
+Stefan furrows his brow.
+sJ> 
+Alpe gasps.
+sJ> 
+Sierron frowns.
+sJ> look gabr
+You see Gabryelle Jes'ymas, Lady High Justice of Fayd.  Her dark chestnut hair
+falls to her waist in thousands of tiny braids woven through with crystals and
+her dark brown eyes are filled with clever intelligence and great awareness.
+She is wearing some inky black leather boots ornamented with gold studs in a
+starburst design, a heavy gold ring with the seal of the Lady High Justice, a
+dark blue robe of the High Justice of Fayd and an albescent badge of the
+Lawkeepers.
+She appears to be healthy.
+sJ> 
+Hyena shakes his head back and forth.
+sJ> 
+Graul arrives.
+sJ> look mory
+
+Garin scratches his head.
+sJ> Before you is the Queen Moryan D'vena. Sparkling hazel eyes reveal quick wit
+and intelligence. Braided down her back is long blonde hair, with only a hint
+of silver. She is a formidable force for her slight size and youth.
+She is wearing a slender white alzyron crown inset with twin blue and white
+diamonds, an antique snow-white lily brooch, a white albescent signet ring with
+a channel of deep blue sapphires, some soft deep blue slippers with slender
+heels, a long deep blue skirt of brushed silk that falls to her ankles in soft
+folds and a long blue silk blouse with black pearl buttons.
+She is being guarded by Garin.
+She appears to be healthy.
+sJ> 
+Gabryelle says, "The lawkeepers have discussed the matter..."
+sJ> look stef
+You behold the noble Stefan Rullon, Marquis of Fayd and swordmaster. He lives
+his life based upon a strict code of honor. Revealed in the depths of rich
+brown eyes are hints of the royal frigil blood that flows through his veins.
+He is wearing a fiery silver badge engraved with the image of a blazing sun
+gripped within a gleaming golden hand, some fiery randar gauntlets with raised
+studs along the knuckles, some steel bracers whose polished surface has been
+carefully ridged to deflect incoming blades, a plated steel scarf with small
+lead weights at each end instead of fringe, some battered silver bracers barely
+concealing a wrist sheath, some long shin guards that look a lot like the arms
+of a metal devil, a tarnished deep silvery helm, some black fiery titanium
+armor which radiates a faint nimbus of orange flame with an eye on the chest, a
+gold sheath embroidered with the phoenix emblem intertwined with the initials
+"SR", a brilliant gold wedding ring forming two hands symbolizing love and
+trust cradling a tiny heart shaped ruby, some black leather boots with a red
+rose curling from toe to knee on the left one, some worn brown leather gloves
+bearing the faded image of a golden lion across the backs of the hands, some
+brilliant white shoulder guards with veins of blue alzyron running through
+them, an iron necklace decorated with an insignia of two crossed daggers and a
+gulivira skin cape.
+He radiates with magical strength.
+He is surrounded by a prismatic globe.
+He is protected by a ghostly, hovering shield.
+He appears to be healthy.
+sJ> look
+[Council of Lords Chamber]
+This room is large and comfortable, decorated in muted grays and blues,
+to be pleasing on the eyes. A large table rests in the center of the room
+carved from oak. Around it rest the chairs for the council members. A small
+area is reserved for the official observers from the other guilds near Fayd.
+Behind a railing sits the gallery for those wishing to observe the
+proceedings. A door leads out into the hall. In the center of the table, 
+inlaid into the wood is the Royal Crest of the D'vena family, a white lily 
+lain over a shield of blue.
+You see Charette (sitting), Graul, Stolar (sitting), Moryan (sitting), Nord
+(sitting), Alpe (sitting), Hyena (sitting), Jasmine (sitting), Vaille, Veronica
+(sitting), Wolfbane (sitting), Leah, Jayd, Stefan (sitting), Airgid, Gabryelle,
+Garin, Nikoli (sitting), Sierron (sitting), Winter (sitting), Delight
+(sitting), a councilor, a councilor, a councilor, a councilor and a councilor. 
+Obvious exits: none.
+sJ> look char
+Tanned and robust from hours in the outdoors, Charette's chestnut hair frames
+a heart-shaped face and brushes sturdy shoulders. Dark lashes fringe cool
+brown eyes that hint at knowledge at odds with her eighteen years.
+She is wearing a pale brown leather tunic laced up the front with deep brown
+suede laces, some dark brown suede breeches that fit her trim legs smoothly and
+some soft leather boots.
+She appears to be healthy.
+sJ> 
+Gabryelle says, "and Captain Shadow Walker, Captain Varion and myself all do
+agree, that his banishement should be reinstated."
+sJ> 
+Wolfbane ponders.
+sJ> 
+Gabryelle says, "With one warning before I finish."
+sJ> 
+Wolfbane listens carefully to Gabryelle.
+sJ> 
+Avalon carefully folds a piece of paper into a paper airplane and looks over
+the railing at winter....sJ> 
+Sierron listens to his surroundings closely.
+sJ> 
+Moire shakes her head at Avalon.
+sJ> 
+Gabryelle says, "I will say, with the one exception, he was much easier to deal
+with while he was not banished, his crimes were aplenty otherwise. I have no
+easy solution for the matter, so I respectfully submit it to the council."
+sJ> 
+Gabryelle bows.
+sJ> 
+Gabryelle sits on a chair.
+sJ> 
+Moryan casts her gaze across the area.
+sJ> 
+Stolar raises his hand.
+sJ> 
+Hyena raises his hand.
+sJ> 
+Stefan nods to Jayd.
+sJ> 
+Stefan says, "Very well Lady High Justice..."
+sJ> 
+Stefan asks, "Stolar you wish to speak?"
+sJ> 
+Hyena nods.
+sJ> 
+Stolar softly says, "Is banishment the honly thing we can do? Cant we cut him
+up and strew him across the wastes?"
+sJ> 
+Alpe beeps and whirrs.
+sJ> 
+Moryan chuckles.
+sJ> 
+Hyena laughs.
+sJ> 
+Veronica chuckles at Stolar.
+sJ> 
+Wolfbane raises his hand.
+sJ> 
+Wolfbane says, "thats my job stolar"
+sJ> 
+Wolfbane smiles at Stolar.
+sJ> 
+Stolar beams at Wolfbane.
+sJ> 
+Stefan says, "In the wastes you can do whatever you like to him."
+sJ> 
+Stefan smiles at Stolar.
+sJ> 
+Stefan asks, "Hyena, you also wished to speak on the matter?"
+sJ> 
+Hyena nods.
+sJ> 
+Hyena struggles to his feet.
+sJ> 
+Moryan listens carefully to Hyena.
+sJ> 
+Nikoli listens to his surroundings closely.
+sJ> 
+Sierron listens to his surroundings closely.
+sJ> 
+Stefan nods to Wolfbane.
+sJ> 
+Hyena snickers, "I would like to say that while he was banished, I was murdered
+twice in my own workshop by he and his friends, skinned and laughed at.  These
+were reported."
+sJ> 
+Moire struggles to her feet.
+sJ> 
+Veronica frowns.
+sJ> 
+Moire disbands her group.
+sJ> 
+Moire says, "be good, li'l one"
+sJ> 
+Moire goes through a door.
+sJ> 
+Stefan nods.
+sJ> 
+Avalon grins.
+sJ> 
+Stefan listens carefully to Hyena.
+sJ> 
+Hyena snickers, "He and his friends also killed a few of my apprentices,
+harassed business partners and nearly drove my friend Raningeth insane."
+sJ> 
+Wolfbane taps Hyena on the shoulder.
+sJ> 
+Wolfbane says, "did do so"
+sJ> 
+Garin starts to say something, then restrains himself.
+sJ> 
+Hyena snickers, "he disrespected my home, it's laws and it's people every
+chance he was able during this banishment."
+sJ> 
+ ** Moire has just left the Realms.
+sJ> 
+Hyena snickers, "If that is easier to manage, then I'm a carrot."
+sJ> 
+Alpe nods.
+sJ> 
+Hyena bows towards Moryan.
+sJ> 
+Hyena sits down.
+sJ> 
+Moryan nods.
+sJ> 
+Stefan smiles.
+sJ> 
+Stefan says, "Wolfbane also requested to speak on the matter."
+sJ> 
+Stolar gazes at Hyena.
+sJ> 
+Nikoli nods to Hyena.
+sJ> 
+Wolfbane struggles to his feet.
+sJ> 
+Sierron listens to his surroundings closely.
+sJ> 
+Wolfbane says, "fellow counsil members"
+sJ> 
+Hyena smiles at Stolar.
+sJ> 
+Stolar grins.
+sJ> 
+Avalon struggles to her feet.
+sJ> 
+Avalon searches the area.
+sJ> 
+Wolfbane says, "we are faced with a somewhat hard choice"
+sJ> 
+Avalon searches the area.
+sJ> 
+Wolfbane says, "it may seem simple on the surface ut it is not"
+sJ> 
+Sierron nods.
+sJ> 
+Moryan listens carefully to Wolfbane.
+sJ> 
+Graul looks into a small device.
+sJ> 
+Wolfbane says, "on one hand yes it is totally warranted that Tobias be banned
+from entering the city limits"
+sJ> 
+Avalon searches the area.
+sJ> 
+Gabryelle listens carefully to Wolfbane.
+sJ> 
+Wolfbane says, "and i am not worried about any crimes i know he will commit
+because no matter what he will"
+sJ> 
+Stolar listens carefully to Wolfbane.
+sJ> 
+Wolfbane says, "hyena was right in stating that he has killed numerous peoples
+lawkeeps and the like"
+sJ> 
+Hyena nods.
+sJ> 
+Wolfbane says, "even my wife and myself were victoms"
+sJ> 
+Avalon leans back on her chair balancing on its back two legs...sJ> 
+Graul gazes at Gabryelle.
+sJ> 
+The glow from Garin's sword fades to a soft white light.
+sJ> 
+Sy squints.
+sJ> 
+Wolfbane says, "if we banish him it will not stop him from doing anything he
+has shown that in the past"
+sJ> 
+Garin grunts.
+sJ> 
+The air before you shimmers and congeals into Tobias!
+sJ> 
+Hyena rolls his eyes.
+sJ> 
+Sy removes a shiny plasteel greatbow equipped with a high tech laser bowsight
+from around his body.
+sJ> 
+Avalon screams!
+sJ> 
+Wolfbane says, "as you can see"
+sJ> 
+Hyena struggles to his feet.
+sJ> 
+Nikoli stands up.
+sJ> 
+Moryan frowns at Tobias.
+sJ> 
+Veronica rolls her eyes.
+sJ> 
+Graul closes a door.
+sJ> 
+Garin raises an eyebrow towards Tobias.
+sJ> 
+Stefan struggles to his feet.
+sJ> 
+Kellah hugs Avalon.
+sJ> 
+Veronica stands up.
+sJ> 
+Tobias says, "My ears were ringing badly."
+sJ> 
+Moryan stands up.
+sJ> 
+Without warning, Graul howls and collapses to the ground, shaking. Undergoing a
+terrible transformation, he changes shape into that of a wolf!
+sJ> 
+Wolfbane says, "but here is the delima"
+sJ> 
+A wolf licks his lips.
+sJ> 
+Stefan says, "As will your head, if you don't leave the chamber."
+sJ> 
+Tobias furrows his brow.
+sJ> 
+Avalon chair falls over backwards and crashes to the floorsJ> 
+Nikoli says, "I'd say this was impecible timing"
+sJ> 
+Gabryelle stands up.
+sJ> 
+Kellah whispers to Avalon,'Don't worry, they'll handle it.sJ> 
+Stefan says, "There is a gallery for observers."
+sJ> 
+Sy is now guarding Avalon.
+sJ> 
+Sy is now guarding Kellah.
+sJ> 
+Leah flinches
+sJ> 
+Tobias says, "I am unwarranted, I am an observer is all."
+sJ> 
+Hyena opens a silvery black spidersilk pouch closed with a button of obsidian
+carved in the shape of a crouching spider.
+sJ> 
+Wolfbane says, "i would advise you to leave"
+sJ> 
+Stefan says, "Then you are in the wrong room."
+sJ> 
+Wolfbane glares at Tobias.
+sJ> 
+Alpe points at a railing.
+sJ> 
+Moryan says, "Then please place yourself on the other side of the railing."
+sJ> 
+Jayd says, "You may witness from the above chamber Mr.Thorne."
+sJ> 
+Avalon trys to jump over the railsJ> 
+Sy groans.
+sJ> 
+Tobias nods to Moryan.
+sJ> 
+Tobias winks at Moryan.
+sJ> 
+Tobias says, "Ok, Queenie"
+sJ> 
+Moryan frowns at Tobias.
+sJ> 
+Nikoli scowls at Moryan.
+sJ> 
+Tobias opens a door.
+sJ> 
+Stefan arches his eyebrow.
+sJ> 
+Tobias goes through a door.
+sJ> 
+Wolfbane mutters something you can't quite make out.
+sJ> 
+Tobias arrives through a door leading to the Gallery.
+sJ> 
+The glow from Garin's sword fades to a soft white light.
+sJ> 
+Stefan closes a door.
+sJ> 
+Moryan shakes her head back and forth.
+sJ> 
+Nikoli shakes his head back and forth.
+sJ> 
+Hyena raises his hand.
+sJ> 
+Veronica sits on a chair.
+sJ> 
+Moryan gazes at a railing.
+sJ> 
+Sierron raises his hand.
+sJ> 
+Stefan says, "Wolfbane may continue."
+sJ> 
+Moryan sits and gently smoothes out her skirt.
+sJ> 
+Wolfbane says, "as i was stating before rudly interupted"
+sJ> look rail
+[Council of Lords Gallery]
+You see Sy, Kellah (sitting), Avalon and Tobias. A railing is here.
+Obvious exits: none.
+sJ> 
+Garin smiles dryly.
+sJ> 
+Tobias asks, "Rudely?"
+sJ> 
+Tobias mutters something you can't quite make out.
+sJ> 
+Avalon shudders.
+sJ> 
+Moryan says, "Continued comments from teh gallery will result in removal."
+sJ> 
+Moryan says, "period."
+sJ> 
+Moryan gazes directly at Tobias.
+sJ> 
+Tobias humms softly to himself.
+sJ> 
+Nikoli looks over Tobias very carefully.
+sJ> 
+Veronica listens carefully to Wolfbane.
+sJ> 
+Leah glances up to the Gallery with concern on her face
+sJ> 
+Garin wields a flickering red randar longsword with a gold crossguard and ivory
+pommel.
+sJ> 
+Garin fiddles with an ivory handled nyrainian battleknife inset with a single
+shimmering black opal, and three blades snick into place...
+sJ> 
+Garin grasps the hilt of his battleknife..
+sJ> 
+Garin wields an ivory handled nyrainian battleknife inset with a single
+shimmering black opal.
+sJ> 
+Moryan listens carefully to a wolf.
+sJ> 
+Moryan listens carefully to Wolfbane.
+sJ> 
+Wolfbane says, "here is where we have a problem on one hand we banish him and
+he keeps on committing crimes against the city"
+sJ> 
+Tobias leans on a deep red elkyri papenheimer that crackles with intense heat.
+sJ> 
+Gabryelle nods to Wolfbane.
+sJ> 
+Wolfbane says, "if we do not"
+sJ> 
+Nikoli pulls up a chair and takes a load off.
+sJ> 
+Hyena snickers, "Perhaps I have a better solution."
+sJ> 
+Wolfbane says, "we are chastized for letting criminals walk the street freely"
+sJ> 
+Tobias returns to normal speed.
+sJ> 
+Wolfbane says, "i would like nothing more then a total banishment"
+sJ> 
+Tobias incants a spell.
+sJ> 
+Tobias gestures.
+Tobias moves with blurring speed.
+sJ> 
+Tobias frowns.
+sJ> 
+Alpe nods to a wolf.
+sJ> 
+Alpe nods to Wolfbane.
+sJ> 
+Wolfbane says, "but i do not think that will cure the problem"
+sJ> 
+Tobias glares at Sy.
+sJ> 
+Tobias furrows his brow.
+sJ> 
+Sy smirks.
+sJ> 
+Avalon chews her nails and looks streight aheadsJ> 
+Nikoli says, "Obviously it hasn't in so far as to this point."
+sJ> 
+Stefan listens carefully to a wolf.
+sJ> 
+Wolfbane says, "i have no idea how to either"
+sJ> 
+Hyena raises his hand.
+sJ> 
+Sierron raises his hand.
+sJ> 
+Wolfbane nods to Nikoli.
+sJ> 
+Stefan nods.
+sJ> 
+Wolfbane says, "true while under banishment before"
+sJ> 
+Stefan asks, "Is that all Wolfbane?"
+sJ> 
+Wolfbane smiles at Stefan.
+sJ> 
+Sy glances at Tobias, holds his nose, and moves away from him.sJ> 
+Stefan says, "sorry, I did not mean to interupt."
+sJ> 
+Wolfbane says, "he always visited the city"
+sJ> 
+Nikoli asks, "Perhaps putting directing some influence to the business Eternity
+Inc.?"
+sJ> 
+ ** Elarin has just left the Realms.
+sJ> 
+Tobias gazes at Sy.
+sJ> 
+Tobias incants a spell.
+sJ> 
+ ** Nik has just left the Realms.
+sJ> 
+Tobias gestures.
+Nothing happens.
+sJ> 
+Wolfbane nods to Nikoli.
+sJ> 
+Veronica nods to Nikoli.
+sJ> 
+Alpe gazes at a railing.
+sJ> 
+Tobias incants a spell.
+sJ> 
+Tobias gestures.
+Magic begins to form around Tobias but then fizzles.
+sJ> 
+Tobias incants a spell.
+sJ> 
+Tobias gestures.
+Tobias gradually fades from view.
+sJ> 
+Stefan nods.
+sJ> 
+A lawkeeper leans over, taps Tobias on the shoulder and says, "No more spells."
+sJ> 
+Nikoli asks, "Forbiding them to sell their insurance as it were to known
+criminals?"
+sJ> 
+Kellah whispers to Sy, "Please not in front of Avalon.sJ> 
+Wolfbane says, "well even if i made no sence ive stated what i can"
+sJ> 
+Avalon sighs.
+sJ> 
+Nikoli glances up at the railing.
+sJ> 
+Stefan nods.
+sJ> 
+Sy closes a door.
+sJ> 
+Stefan gestures at Hyena.
+sJ> 
+Hyena nods to Stefan.
+sJ> 
+Wolfbane leans on Charette.
+sJ> 
+Stefan says, "You have the floor again Hyena."
+sJ> 
+Wolfbane leans on a chair.
+sJ> 
+Hyena snickers, "It is well within the power of the Council and the Queen to go
+a step further, to create a special status..."
+sJ> 
+ ** Elarin has just left the Realms.
+sJ> 
+Moryan listens carefully to Hyena.
+sJ> 
+ ** Nik has just left the Realms.
+sJ> 
+You see a door leading to the Council Chamber open.
+sJ> 
+You see a door leading to the Gallery open.
+sJ> 
+Moryan scowls.
+sJ> 
+Nikoli stands up.
+sJ> 
+Veronica stands up.
+sJ> 
+A wolf sniffs about the area.
+sJ> 
+A gold badge of the Lawkeepers glows with a soft silver light.
+sJ> 
+A wolf shakes his head back and forth.
+sJ> 
+Avalon points at a door.
+sJ> 
+Sierron frowns.
+sJ> 
+Veronica closes a door.
+sJ> 
+A wolf sniffs about the area.
+sJ> 
+Veronica sits on a chair.
+sJ> 
+Leah keeps an ear to the proceedings and a concerned eye on Avalon and Kellah.
+sJ> 
+Moryan leans over and whispers to Jayd.
+sJ> 
+Sy leans on a door.
+sJ> look
+[Council of Lords Chamber]
+This room is large and comfortable, decorated in muted grays and blues,
+to be pleasing on the eyes. A large table rests in the center of the room
+carved from oak. Around it rest the chairs for the council members. A small
+area is reserved for the official observers from the other guilds near Fayd.
+Behind a railing sits the gallery for those wishing to observe the
+proceedings. A door leads out into the hall. In the center of the table, 
+inlaid into the wood is the Royal Crest of the D'vena family, a white lily 
+lain over a shield of blue.
+You see Charette (sitting), a wolf, Stolar (sitting), Moryan (sitting), Nord
+(sitting), Alpe (sitting), Hyena, Jasmine (sitting), Vaille, Veronica
+(sitting), Wolfbane, Leah, Jayd, Stefan, Airgid, Gabryelle, Garin, Nikoli,
+Sierron (sitting), Winter (sitting), Delight (sitting), a councilor, a
+councilor, a councilor, a councilor and a councilor. 
+Obvious exits: none.
+sJ> 
+Hyena snickers, "To vote Tobias Thorne an Enemy of the State and all who have
+sworn the oath.  Giving ever guild and church to legally defend themselves and
+uphold the Crown's law in ejecting him."
+sJ> 
+Avalon says, "guard the queen"
+sJ> 
+Garin smiles.
+sJ> 
+Hyena snickers, "How stupid would one be to take on everyone?"
+sJ> 
+Winter rubs her hand along the staff.
+sJ> 
+Wolfbane smiles at Hyena.
+sJ> 
+Moryan smiles at Jayd.
+sJ> 
+Hyena snickers, "Defenders have come forth to hunt him outside in punishment."
+sJ> 
+Jayd opens a door.
+sJ> 
+Jayd goes through a door.
+sJ> 
+Jayd arrives through a door leading to the Council Chamber.
+sJ> 
+Jayd goes through a door.
+sJ> 
+Hyena snickers, "But, why bother with a simple banishment?"
+sJ> 
+Jayd arrives through a door leading to the Gallery.
+sJ> 
+The air before you shimmers and congeals into Tobias!
+sJ> 
+Sy nods to Jayd.
+sJ> 
+Tobias nods to Jayd.
+sJ> 
+Hyena snickers, "When more drastic means are needed."
+sJ> 
+Avalon shudders.
+sJ> 
+Tobias counts his money.
+sJ> 
+Nikoli says, "I don't think he intends to...more likely only to disrupt these
+proceedings."
+sJ> 
+Firestar arrives through a door leading to the Council Chamber.
+sJ> 
+Firestar bows.
+sJ> 
+Alpe gazes at Firestar.
+sJ> 
+Firestar sits down.
+sJ> 
+Hyena bows towards Firestar.
+sJ> 
+Tobias says, "For the una=banishment thing"
+sJ> 
+Tobias winks at Jayd.
+sJ> 
+Kellah hugs Avalon.
+sJ> 
+Sierron raises his hand.
+sJ> 
+Tobias gives Jayd some money.
+sJ> 
+Tobias raises a single finger to his lips and whispers, Shhhhh.sJ> 
+Jayd smirks.
+sJ> 
+Hyena snickers, "As a citizen of Fayd, I would fight for my home and it's laws
+when they are broken time and time again."
+sJ> 
+Avalon blinks.
+sJ> 
+Stefan nods to Hyena.
+sJ> 
+Nikoli glances up at the gallery.
+sJ> 
+Avalon blinks.
+sJ> avoid tobi
+What are you referring to?  Please be more specific.
+sJ> 
+Moryan says, "Captain Varion, you may remove him at your discretion if he
+utters another word."
+sJ> 
+Avalon says, "i saw that tobias"
+sJ> 
+Avalon says, "im telling"
+sJ> 
+Jayd makes a salute.
+sJ> 
+Hyena snickers, "isn't it the same thing?  Or are we to be blackmailed by
+perceived impending threats and actions no  matter what course we choose?"
+sJ> 
+Tobias smiles.
+sJ> 
+Stefan smiles.
+sJ> 
+Moryan listens carefully to Hyena.
+sJ> 
+Kellah touches her lip with her finger and motions Avalon to keep quiet.sJ> 
+Tobias leans on a railing.
+sJ> 
+Tobias grins.
+sJ> 
+Hyena snickers, "An Enemy of the Crown can be dealt with by all."
+sJ> 
+Hyena nods to Stefan.
+sJ> 
+Wolfbane nods to Hyena.
+sJ> 
+Jayd wields a red elkyri broadsword with an ivory dragon hilt and flames
+dancing across the blade.
+sJ> 
+Jayd wields a shiny elkyri shield.
+sJ> 
+Hyena snickers, "That's all."
+sJ> 
+Hyena bows towards Stefan.
+sJ> 
+Hyena bows towards Moryan.
+sJ> 
+Stefan smiles.
+sJ> 
+Sierron raises his hand.
+sJ> 
+Stefan gestures at Sierron.
+sJ> 
+Moryan nods to Hyena.
+sJ> 
+Tobias raises an eyebrow towards Jayd.
+sJ> 
+Sierron struggles to his feet.
+sJ> 
+Moryan listens carefully to Sierron.
+sJ> 
+Sierron leans on a metallic marble staff of black and white, inset with fiery
+and icy violet garnets and wreathed in fog.
+sJ> 
+Tobias returns to normal speed.
+sJ> 
+Stefan says, "Your floor Sierron."
+sJ> 
+Sierron icily states, "The Codex is clear in what actions are to be taken
+against repeat offenders."
+sJ> 
+Alpe nods to Sierron.
+sJ> 
+Firestar puts Tavi on his lap.
+sJ> 
+Sierron icily states, "Tobias was banished, for a year, and then the banishment
+was lifted. He has continued to assault, insult, and kill the citizens of
+Fayd."
+sJ> 
+Hyena nods.
+sJ> 
+Alpe says, "And laugh"
+sJ> 
+Hyena nods to Alpe.
+sJ> 
+Moryan says, "Quiet please, so we may finish quicker."
+sJ> /time
+
+It is now 23:24:14 EST on 05/16/99.
+You have been online since 20:49:38 (154 minutes total).
+sJ> 
+Avalon's bunnies nuzzle her neck.
+sJ> 
+Gabryelle raises her hand.
+sJ> 
+Tobias rubs a deep red elkyri papenheimer that crackles with intense heat.
+sJ> 
+Kellah struggles to her feet.
+sJ> 
+Tobias gazes at Jayd.
+sJ> 
+Sierron icily states, "Justice must preveil in this matter, Tobias should be
+banished perminately from the lands of Fayd"
+sJ> 
+Stolar raises his hand.
+sJ> 
+Airgid chuckles.
+sJ> 
+ ** Delight has just disconnected.
+sJ> 
+Delight disconnects.
+sJ> 
+ ** Elarin has just left the Realms.
+sJ> 
+Firestar nods to Sierron.
+sJ> 
+Tobias smiles at Sierron.
+sJ> 
+Tavi scrambles up onto Firestar's shoulder and presses his wet nose against
+Firestar's ear while chittering quietly to him.
+sJ> 
+Sierron icily states, "If we do not give him permenant banishment, then Justice
+will not be correctly served, the codex is the law, and we must follow it."
+sJ> 
+ ** Shadra has just left the Realms.
+sJ> 
+Sierron icily states, "I know, Justice is hard to accept, but this is when it
+should be dealt."
+sJ> 
+Tobias looks less confident.
+sJ> 
+Sierron nods to Stefan.
+sJ> 
+Stefan nods.
+sJ> 
+Stefan gestures at Gabryelle.
+sJ> 
+Gabryelle ponders.
+sJ> 
+Stefan says, "Lady High Justice, if you will make your remarks quick."
+sJ> 
+Stefan smiles at Gabryelle.
+sJ> 
+Sierron bows towards Moryan.
+sJ> 
+Sierron sits down.
+sJ> 
+Gabryelle says, "The purpose of this Council,.."
+sJ> 
+Gabryelle nods to Stefan.
+sJ> 
+Avalon wags her finger at tobiassJ> 
+Tobias paces back and forth.
+sJ> 
+Gabryelle says, "Is to have the abiltiy to go above and beyond the laws when
+needed."
+sJ> 
+Avalon says, "tobias you going to get a time out I think.."
+sJ> 
+Hyena nods.
+sJ> 
+Gabryelle says, "or to create new ones as are needed."
+sJ> 
+Hyena nods.
+sJ> 
+Sy grins.
+sJ> 
+Tobias asks, "How's the back?"
+sJ> 
+Tobias smiles at Gabryelle.
+sJ> 
+Gabryelle says, "I am amiable to the Enemy of Fayd .."
+sJ> 
+Hyena smiles.
+sJ> 
+Moryan gazes up at the gallery.
+sJ> 
+Jayd listens to his surroundings closely.
+sJ> 
+Vaille casts his gaze across the area.
+sJ> 
+Gabryelle shakes her head back and forth.
+sJ> 
+Hyena furrows his brow.
+sJ> 
+Jayd says, "Tobias, please come with me."
+sJ> 
+Avalon waves to Tobias.
+sJ> 
+Gabryelle says, "and would recommend it."
+sJ> 
+Hyena listens carefully to Gabryelle.
+sJ> 
+Sy waves to Tobias.
+sJ> 
+Hyena nods.
+sJ> 
+Vaille states, "Anyone bribe?"
+sJ> 
+Vaille states, "I just paid you"
+sJ> 
+Vaille is now following Jasmine.
+sJ> 
+Gabryelle says, "As well as many other restrictions."
+sJ> 
+Hyena arches his eyebrow.
+sJ> 
+Jayd takes Tobias by the hand.
+sJ> 
+Jayd maneuvers by Sy!
+sJ> 
+Jayd's group goes through a door.
+sJ> 
+Stefan nods.
+sJ> 
+Sy closes a door.
+sJ> 
+Stefan says, "I will say this before we decide the fate of Tobias..."
+sJ> 
+Stefan says, "he is a bully, pure and simple..."
+sJ> 
+Veronica nods to Stefan.
+sJ> act listens carefully as Stefan speaks.
+Moordread listens carefully as Stefan speaks.
+sJ> 
+Sierron nods to Stefan.
+sJ> 
+Hyena nods.
+sJ> 
+Alpe raises his hand.
+sJ> 
+Stefan says, "However, his actions during the time of his banishment should
+offer support to the need for a more drastic punishment, not a reason to allow
+him to walk our streets."
+sJ> 
+Hyena nods.
+sJ> 
+Nikoli nods to Stefan.
+sJ> 
+Wolfbane nods to Stefan.
+sJ> 
+Avalon rests her head on her handssJ> 
+Veronica nods to Stefan.
+sJ> 
+Sierron nods to Stefan.
+sJ> 
+Sierron icily states, "Justice demands it."
+sJ> 
+Firestar nods to Stefan.
+sJ> 
+Sierron nods to Stefan.
+sJ> 
+A wolf raises a paw.
+sJ> 
+Hyena nods.
+sJ> 
+Stefan asks, "With that said, who here would offer a punishment to be voted
+upon by the council?"
+sJ> 
+Alpe raises his hand.
+sJ> 
+Avalon whispers to kellah "tobias needs a spanking.."sJ> 
+Stefan nods to Alpe.
+sJ> 
+Veronica raises her hand.
+sJ> 
+Avalon nods gravelysJ> 
+Kellah nods to Avalon.
+sJ> 
+Veronica casts her gaze across the area.
+sJ> 
+Veronica furrows her brow.
+sJ> 
+Hyena snickers, "Didn't I already?"
+sJ> 
+Stefan listens carefully to Alpe.
+sJ> 
+Hyena furrows his brow.
+sJ> 
+Winter says, "he should be turned into an eekey for a year."
+sJ> 
+Hyena smiles.
+sJ> 
+Nikoli says, "In the marsh we have our own way of taking care of nusances like
+this, not a very nice place to swim if you get my drift."
+sJ> 
+Stefan says, "Just want it stated for the councils vote."
+sJ> 
+Hyena nods to Nikoli.
+sJ> 
+Alpe says, "I move that Tobias Thorne be banned from Fayd, declared an enemy of
+the state, and..."
+sJ> 
+Moryan listens to her surroundings closely.
+sJ> 
+Hyena listens carefully to Alpe.
+sJ> 
+Alpe says, "Have all insurance policies on him cancelled and no new ones
+issued."
+sJ> 
+ ** Elarin has just left the Realms.
+sJ> 
+Avalon gasps.
+sJ> 
+Firestar raises his hand.
+sJ> 
+Alpe nods to Stefan.
+sJ> 
+Stefan gestures at Firestar.
+sJ> 
+Firestar struggles to his feet.
+sJ> 
+Firestar says, "As I have no vote in this matter..."
+sJ> 
+Firestar says, "I would only offer this."
+sJ> act nods ever so slightly as he listens.
+Moordread nods ever so slightly as he listens.
+sJ> 
+Firestar says, "Many times Tobias has intefered with those aiding Fayd."
+sJ> 
+Hyena nods.
+sJ> 
+Firestar says, "This in times of the cities more dire of needs."
+sJ> 
+Stefan ponders.
+sJ> 
+Firestar says, "He has slain many for nothing more then mere disagreement or
+for the want of fun."
+sJ> 
+Firestar says, "He will continue to do so."
+sJ> 
+Hyena nods.
+sJ> 
+Firestar says, "I have to agree with Alpe on his punishment."
+sJ> 
+Firestar bows.
+sJ> 
+Firestar sits down.
+sJ> 
+Stefan smiles.
+sJ> 
+Hyena nods to Firestar.
+sJ> 
+Alpe beeps and whirrs.
+sJ> 
+Wolfbane raises his hand.
+sJ> 
+Stefan says, "Alpe has put an issue before the council."
+sJ> 
+Stefan says, "The moment for debate has passed, let us vote upon the matter."
+sJ> 
+Nikoli says, "If he does not have the luxery of looking towards Eternity, then
+he will be reluctant to be as open as he has."
+sJ> 
+Hyena nods to Nikoli.
+sJ> 
+Veronica asks, "Is this a  permanant banishment?"
+sJ> 
+Stefan says, "What is before the council is permanent banishment, being branded
+an enemy of the state, and a blockage on his useage of eternity."
+sJ> 
+Veronica nods.
+sJ> 
+Stefan nods to Veronica.
+sJ> 
+Alpe nods.
+sJ> 
+Stefan says, "I shall ask each guild, simply state aye, or nay."
+sJ> 
+Garin raises his hand.
+sJ> 
+Stefan says, "Then I shall ask the landed and nobility."
+sJ> 
+Hyena nods to Alpe.
+sJ> 
+Avalon whispers to kellah "and no cookiees eather..."sJ> 
+Stefan listens carefully to Garin.
+sJ> 
+Garin says, "Quick question."
+sJ> 
+Stefan says, "aye."
+sJ> 
+Garin says, "Eternity is not owned by Fayd, but but by a private individual."
+sJ> 
+Hyena nods.
+sJ> 
+The air before you shimmers and congeals into Jayd!
+sJ> 
+Jayd smiles.
+sJ> 
+Garin says, "Actually, that is a comment, not a question."
+sJ> 
+Moryan says, "it resides inside Fayd's walls."
+sJ> 
+Garin coughs.
+sJ> 
+Stefan says, "They have sworn allegiance to the city."
+sJ> 
+Garin ponders.
+sJ> 
+Avalon blinks.
+sJ> 
+Jayd incants a spell.
+sJ> 
+Garin says, "That, then, would be a first.  But if so, fine."
+sJ> 
+Jayd puts away a red elkyri broadsword with an ivory dragon hilt and flames
+dancing across the blade.
+sJ> 
+Jayd puts away a shiny elkyri shield.
+sJ> 
+Stefan says, "For a substantial Tax break I believe."
+sJ> 
+Hyena laughs.
+sJ> 
+Avalon says, "kaavah..."
+sJ> 
+For the briefest of moments you see the form of a majestic crystal Dragon
+outlined over the form of Avalon.
+sJ> 
+Avalon grins.
+sJ> 
+Garin says, "I withdraw my comment."
+sJ> 
+Stefan says, "Then let us begin."
+sJ> 
+Garin smiles.
+sJ> 
+Winter says, "other that or losing customers who are loyal."
+sJ> 
+Stefan smiles at Garin.
+sJ> 
+Stefan nods.
+sJ> 
+Stefan says, "Shemri."
+sJ> 
+The glowing outline of armor fades from around Airgid.
+sJ> 
+Stolar softly says, "aye"
+sJ> 
+Stefan says, "Rorin"
+sJ> 
+Hyena nods.
+sJ> 
+Nord says, "aye"
+sJ> 
+ ** Shadra has just left the Realms.
+sJ> 
+Stefan says, "Ordanin"
+sJ> 
+Sierron icily states, "aye"
+sJ> 
+Stefan says, "Silver Arcana."
+sJ> 
+Winter says, "aye"
+sJ> 
+Garin appears to become weaker.
+sJ> 
+The ghostly shield protecting Stefan slowly fades.
+sJ> 
+Stefan says, "For the record, one can say aye, nay, or abstain."
+sJ> 
+Stefan says, "Amilor."
+sJ> 
+Jasmine says, "aye"
+sJ> 
+Stefan says, "Crimson Band"
+sJ> 'aye
+You say, "aye"
+sJ> 
+Stefan says, "Technologists."
+sJ> 
+Alpe says, "Affirmative"
+sJ> 
+Alpe clicks and beeps.
+sJ> 
+Nikoli stiffles a slightly bored look.
+sJ> 
+Stefan says, "Blacksmoke"
+sJ> 
+You hear an aye from teh councilor.
+sJ> 
+Stefan says, "Across"
+sJ> 
+Hyena nods to Firestar.
+sJ> 
+Charette says, "Abstain. This is not something that should concern outside
+entities."
+sJ> 
+Stefan listens to his surroundings closely.
+sJ> 
+Stefan nods.
+sJ> 
+Stefan says, "Rullon"
+sJ> 
+Veronica says, "Aye."
+sJ> 
+Stefan says, "Kirdkendale"
+sJ> 
+Stefan listens carefully to Nikoli.
+sJ> 
+Moryan gazes at Nikoli.
+sJ> 
+Nikoli says, "While I do not know the oderous fellow personally, I will take
+what council I have heard today and render my decision in the positive."
+sJ> 
+Hyena nods to Nikoli.
+sJ> 
+Stefan says, "aye it is."
+sJ> 
+Stefan smiles.
+sJ> 
+Stefan says, "Lord Garin"
+sJ> 
+Garin nods.
+sJ> 
+Garin says, "Aye."
+sJ> 
+Stefan says, "High Marshall Wolfbane"
+sJ> 
+Wolfbane says, "aye"
+sJ> 
+Stefan says, "Lady High Justice"
+sJ> 
+Gabryelle says, "Aye."
+sJ> 
+Hyena furrows his brow.
+sJ> 
+Moryan shakes her head at Stefan.
+sJ> 
+Stefan says, "Then, since the matter is almost unanymous, and there is no tie
+to break, I do not get a vote."
+sJ> 
+Stefan says, "the motion passes."
+sJ> 
+Hyena raises his hand.
+sJ> 
+Stefan gestures at Hyena.
+sJ> 
+Moryan nods to Stefan.
+sJ> 
+Hyena snickers, "Just to clarify, as Enemy of the State all guilds and churches
+have the right to eject him from the city?"
+sJ> 
+Nikoli says, "Well this calls for a celeberation...the Councils first
+decision."
+sJ> 
+Firestar smiles.
+sJ> 
+Stolar beams happily.
+sJ> 
+Tavi scrambles up onto Firestar's shoulder and presses his wet nose against
+Firestar's ear while chittering quietly to him.
+sJ> 
+Stefan says, "Aye."
+sJ> 
+Wolfbane chuckles at Nikoli.
+sJ> 
+Hyena nods.
+sJ> 
+Hyena beams happily.
+sJ> 
+Firestar whispers 'Yes Tavi you can bite him now.
+sJ> 
+Hyena snickers, "I guess I don't need a vote after all"
+sJ> 
+Hyena beams happily.
+sJ> 
+Stefan chuckles.
+sJ> 
+Moryan says, "as Queen, I concur wholeheartedly with the decision made."
+sJ> 
+Hyena bows towards Moryan.
+sJ> 
+Veronica smiles at Moryan.
+sJ> 
+Alpe nods to Moryan.
+sJ> 
+Stefan bows towards Moryan.
+sJ> 
+Moryan smiles.
+sJ> 
+Moryan stands up.
+sJ> 
+Avalon curtsies.
+sJ> 
+Moryan says, "Royal scribes will be working hard on the drawing up of the
+charters for each guild and temple."
+sJ> 
+Hyena snickers, "I would step up the guard nonetheless"
+sJ> 
+Stefan says, "Jayd, if you will inform the lawkeepers of the decision it would
+be much appreciated."
+sJ> 
+Nord struggles to his feet.
+sJ> 
+Hyena smiles at a wolf.
+sJ> 
+Moryan says, "When finished, I will present each to your organizations."
+sJ> 
+Sierron pets a wolf.
+sJ> 
+Jayd says, "Of course, High Chancellor."
+sJ> 
+Stefan listens carefully to Moryan.
+sJ> 
+Avalon hops around on one leg trying to wake up her other legsJ> 
+Stefan smiles.
+sJ> 
+Nikoli claps his hands together.
+sJ> 
+Stefan says, "well then, this first meeting of the Council is adjourned."
+sJ> 
+Alpe struggles to his feet.
+sJ> stand
+You struggle to your feet under the weight of all your equipment.
+ [Round: 2 sec]
+RJ> 
+Moryan smiles.
+J> 
+Alpe bows towards Moryan.
+J> 
+Wolfbane beams happily.
+J> 
+Sierron smiles.
+J> 
+Jasmine struggles to her feet.
+J> 
+Winter struggles to her feet.
+J> 
+Stolar struggles to his feet.
+J> 
+Firestar struggles to his feet.
+J> 
+Stefan looks for a gavel, but just slaps his palm down instead.
+J> 
+Veronica smiles at Nikoli and rises from her seat.
+J> 
+Leah smiles.
+J> 
+Veronica stands up.
+J> 
+Sierron struggles to his feet.
+J> 
+Winter curtsies towards Moryan.
+J> 
+Nikoli nods to Veronica.
+J> 
+Garin stretches his arms lazily.
+J> 
+Kellah applauds.
+J> 
+Hyena does a little jig!
+J> 
+Stolar bows towards Moryan.
+J> 
+Kellah grins.
+J> 
+Gabryelle curtsies towards Moryan.
+J> 
+Nikoli bows smartly to Veronica
+J> 
+Hyena counts his money.
+J> 
+Moryan smiles.
+J> 
+Airgid stands at attention.
+J> 
+Kellah hugs Avalon.
+J> 
+Airgid bows towards Moryan.
+J> 
+Hyena snickers, "Drinks on me!"
+J> 
+Winter smiles.
+J> 
+Nikoli chuckles.
+J> 
+Stefan chuckles.
+J> 
+Stolar beams at Hyena.
+J> 
+Firestar says, "My Queen, I must offer my apology to you and the council for
+being late."
+J> 
+Garin casts his gaze across the area.
+J> 
+Winter curtsies towards Gabryelle.
+J> 
+Kellah exclaims, "Avalon, you were such a good girl!"
+J> 
+Stefan says, "I am afraid, I have a 6 day old child to tend too."
+J> 
+Alpe places a polished steel helm onto his head.
+J> 
+Firestar bows towards Moryan.
+J> 
+Sy smiles at Avalon.
+J> 
+Gabryelle walks silently out of the room.
+J> 
+Kellah says, "I'm proud of you."
+J> 
+Avalon shakes her legJ> 
+Stefan is now following Veronica.
+J> 
+Nikoli strides over to Moryan and whispers in her ear.
+J> 
+Moryan smiles.
+J> 
+Sy stretches his arms lazily.
+J> 
+Avalon says, "thanks"
+J> 
+Sierron chuckles at Stefan.
+J> 
+A wolf wags his tail.
+J> 
+A wolf leans on Stefan.
+J> 
+Sierron hugs a wolf.
+J> 
+Sierron hugs Hyena.
+J> 
+Kellah says, "Now let"
+J> 
+Stefan grins.
+J> 
+Hyena hugs Sierron.
+J> 
+Would everyone please report up your level if you attended the Council of Lords
+meeting.
+J> 
+Firestar steps over to Nikoli
+J> 
+Leah relaxes a bit and smiles up at Avalon.
+J> 
+Stefan nods to Veronica.
+J> exp
+Level: 34
+Build Points to date: 360
+Unspent Build Points: 4
+Experience Points until next Build Point: 14318
+J> 
+A wolf licks his lips.
+J> report Level 34
+Your message has been reported to the online GameMaster staff.
+J> 
+Stefan chuckles.
+J> 
+Kellah asks, "Let's go get something to eat, eh?"
+J> 
+Stefan winks at a wolf.
+J> 
+Hyena does a little jig!
+J> 
+Jasmine curtsies.
+J> 
+Jasmine goes through a door.
+J> 
+You have been awarded 300000 experience points.
+J> 
+Firestar steps up on a chair and whispers in the Baron's ear.
+J> 
+A wolf looks around for Kellah.
+J> exp
+
+Sierron smiles jas
+J> Level: 35
+Build Points to date: 370
+Unspent Build Points: 14
+Experience Points until next Build Point: 15118
+J> 
+ ** Hyena has just left the Realms.
+J> 
+Hyena exits.
+J> 
+Hyena arrives.
+J> 
+Leah curtsies towards Moryan.
+J> 
+Alpe clicks and beeps.
+J> 
+Leah curtsies.
+J> x
+
+ ** Moordread has just left the Realms.
+J> 
+
+Character Manager V1.00
+
+ 1 => Moordread
+ 2 => Morti
+ 3 => Bubba
+
+ C => Create new character
+ D => Delete current character
+ P => Play Legends of Future Past
+ X => Exit to NovaLink
+
+
+Active character: Moordread (#1)
+
+Select: p
+
+Interactive Entertainment OS V6.10 [Legends of Future Past]
+(c)1991-1995 Inner Circle Technologies, Inc. Revision dated Apr 13 1995.
+
+URLs of web components are:
+
+Webpage: www.lofp.com
+Boards: www.lofp.com/forums
+Boards (avoids Timeouts): www.lofp.com/forums/?RequestTimeout=500
+Calendar: www.lofp.com/calendar
+Rate Plan: www.lofp.com/newrate.htm
+Rate FAQ: www.lofp.com/ratefaq.htm
+Scripting policy: www.lofp.com/script.htm
+Policies: www.lofp.com/basic/policies.htm
+GAME STATUS: www.lofp.com/status.htm
+
+EMail Addresses:
+Any GM: gmname@lofp.com (like chanatahe@lofp.com)
+Manager: druid@lofp.com   His ICQ is 5730609
+Baron Emails are as follows: Baron-Aetheon@lofp.com,
+Baron-Beoford@lofp.com, Baroness-Charette@lofp.com,
+Baron-Nikoli@lofp.com
+
+Please see the website for the rateplan and the scripting policy.  The
+URLS are listed above.
+
+Eprise Corporation
+1671 Worcester Rd, 4th Floor
+Framingham, MA 01701
+Send checks Attn: Gary Whitten
+
+                                                         
+***NEW EMAIL*** Baroness-Moryan@lofp.com is now QueenMoryan@lofp.com.
+Thank you!
+
+The next Council of Lords will meet on May 17th at 9:30pm.
+                                                       
+The coronation of Queen Moryan will take place on May 23rd at 3pm.
+Immediately following there will be a park dedication ceremony as well
+as a tournament for a Knight Protector. Details in the calendar.
+                                        
+[Council of Lords Chamber]
+You see Charette (sitting), a wolf, Stolar, Moryan, Nord, Alpe, Hyena,
+Veronica, Wolfbane, Leah, Jayd, Stefan, Airgid, Firestar, Garin, Nikoli,
+Sierron, Winter, a councilor, a councilor, a councilor, a councilor and a
+councilor. A railing is here.
+Obvious exits: none.
+It is Folster 2, 1045 (Year of the Wyrm).
+It is early evening.
+> 
+Leah waves.
+> 
+Alpe taps a lockpick.
+> 
+Kellah takes Avalon by the hand.
+> 
+ ** Piper has just left the Realms.
+> 
+Leah goes through a door.
+> 
+Alpe casts his gaze across the area.
+> 
+Firestar bows towards Nikoli.
+> 
+Nord nods to a wolf.
+> 
+Kellah says, "LEt's go get Leah, Lonnie"
+> 
+Nikoli nods to Firestar.
+> 
+Sy opens a door.
+> 
+A wolf is now following Nord.
+> 
+Wolfbane says, "moordread a word please"
+> 
+Kellah hugs Sy.
+> 
+Nikoli smiles.
+> 
+Hyena snickers, "This is the kind of job that makes you feel good."
+> 
+Kellah's group goes through a door.
+> 
+Firestar nods to Winter.
+> 
+Nord's group goes through a door.
+> 
+ ** Winter has just left the Realms.
+> 
+Winter exits.
+> 
+Winter arrives.
+> 
+Winter is now following Firestar.
+> act salutes Wolfbane crisply.
+Moordread salutes Wolfbane crisply.
+> nod wolfb
+
+ ** Stolar has just left the Realms.
+> 
+Stolar exits.
+> 
+Wolfbane takes Moordread by the hand.
+> You nod to Wolfbane.
+J> 
+Stolar arrives.
+J> 
+Sierron sighs.
+J> fol wolfb
+You are now following Wolfbane.
+J> 
+Nikoli shakes hands with Wolfbane.
+J> 
+Stefan ponders.
+J> 
+Wolfbane raises his hand.
+J> 
+Firestar's group goes through a door.
+J> 
+Nikoli shakes hands with Stefan.
+J> 
+Jayd gives an opal to Garin.
+J> 
+Jayd gives a chipped fire opal to Garin.
+J> 
+Jayd gives a large fire opal to Garin.
+J> 
+Jayd gives a fire opal to Garin.
+J> 
+Jayd gives an opal to Garin.
+J> 
+Jayd gives an opal to Garin.
+J> 
+Jayd gives an opal to Garin.
+J> 
+Veronica smiles at Stefan.
+J> 
+Wolfbane shakes hands with Nikoli.
+J> 
+Garin beams at Jayd.
+J> 
+Garin says, "Thanks, Jayd."
+J> 
+Stolar goes through a door.
+J> 
+Jayd nods.
+J> 
+Sy leans on a railing.
+J> 
+Wolfbane says, "please i must take my leave"
+J> 
+Wolfbane bows.
+J> 
+Wolfbane's group goes through a door.
+J> 
+You follow Wolfbane.
+[Palace, hallway]
+You see Stolar, Kellah, Wolfbane, Leah, Avalon and Garin. 
+Obvious exits: n, w.
+J> 
+Avalon waves to Stolar.
+J> 
+Leah says, "that was a long meeting to sit through for a little girl."
+J> 
+Wolfbane's group goes north.
+J> 
+You follow Wolfbane.
+[Palace]
+You see Wolfbane and Garin. 
+Obvious exits: n, s, w.
+J> 
+The glow from Garin's sword fades to a soft white light.
+J> 
+Wolfbane's group goes west.
+J> 
+You follow Wolfbane.
+[Palace, waiting room]
+You see Wolfbane and Garin. 
+Obvious exits: s, e, w.
+J> 
+Wolfbane's group goes south.
+J> 
+You follow Wolfbane.
+[Palace, courtyard]
+You see Wolfbane and Garin. Some pebbles are here.
+Obvious exits: n, s.
+J> 
+ ** Jasmine has just left the Realms.
+J> 
+Did I miss anyone for EXP that attended the Council?
+J> gaze
+
+ ** Sierron has just disconnected.
+J> You gaze about the area.
+J> 
+Wolfbane's group goes south.
+J> 
+You follow Wolfbane.
+[Palace, entrance]
+You see Wolfbane and Garin. 
+Obvious exits: n, e, w, o.
+J> 
+Airgid arrives.
+J> 
+Wolfbane's group goes out.
+J> 
+You follow Wolfbane.
+[Palace, grounds]
+You see Wolfbane and Garin. A gate is here.
+Obvious exits: e, w.
+J> 
+Airgid arrives.
+J> 
+Wolfbane's group goes through a gate.
+J> 
+You follow Wolfbane.
+[Park Avenue]
+You see Wolfbane and Garin. An iron gate and some fruit are here.
+Obvious exits: ne.
+J> 
+Airgid arrives through a gate.
+J> 
+Wolfbane's group goes northeast.
+J> 
+You follow Wolfbane.
+[Park Avenue]
+You see Wolfbane and Garin. Some fruit is here.
+Obvious exits: n, sw.
+J> 
+Wolfbane's group goes north.
+J> 
+You follow Wolfbane.
+[Park Avenue]
+You see Wolfbane and Garin. A crystal fountain and some fruit are here.
+Obvious exits: s, ne.
+J> 
+Wolfbane's group goes northeast.
+J> 
+You follow Wolfbane.
+[Park Avenue]
+You see Wolfbane and Garin. Some fruit is here.
+Obvious exits: e, sw.
+J> 
+ ** Sy has just left the Realms.
+J> 
+Wolfbane's group goes east.
+J> 
+You follow Wolfbane.
+[Park Avenue]
+You see Wolfbane and Garin. Some fruit is here.
+Obvious exits: n, w, ne.
+J> 
+Wolfbane's group goes northeast.
+J> 
+You follow Wolfbane.
+[Park Avenue]
+You see Wolfbane and Garin. A cottage and some fruit are here.
+Obvious exits: ne, sw.
+J> 
+Wolfbane's group goes northeast.
+J> 
+You follow Wolfbane.
+[Park Avenue & Elm]
+You see Wolfbane, Garin and a commoner. A red brick townhouse surrounded by a
+black wrought iron fence and an ornate black iron gate are here.
+Obvious exits: s, e, sw.
+J> 
+Wolfbane's group goes south.
+J> 
+You follow Wolfbane.
+[Elm Street]
+You see Wolfbane and Garin. 
+Obvious exits: n, s.
+J> 
+Wolfbane's group goes south.
+J> 
+You follow Wolfbane.
+[Elm Street & First]
+You see Wolfbane and Garin. A cottage is here.
+Obvious exits: n, s, e, w.
+J> 
+Wolfbane's group goes south.
+J> 
+You follow Wolfbane.
+[Elm Street, Knob Hill]
+You see Wolfbane and Garin. 
+Obvious exits: n, s.
+J> 
+Wolfbane's group goes south.
+J> 
+You follow Wolfbane.
+[Elm Street]
+You see Wolfbane and Garin. 
+Obvious exits: n, s.
+J> 
+Wolfbane's group goes south.
+J> 
+You follow Wolfbane.
+[Main Street & Elm]
+You see Wolfbane and Garin. 
+Obvious exits: n, e, w.
+J> 
+Wolfbane's group goes west.
+J> 
+You follow Wolfbane.
+[Kai's Corner]
+You see Wolfbane and Garin. A simple gray townhouse and a building are here.
+Obvious exits: s, e, w, sw.
+J> 
+Wolfbane's group goes south.
+J> 
+You follow Wolfbane.
+[Pleasant Street]
+You see Wolfbane and Garin. A reinforced steel structure is here.
+Obvious exits: n, s.
+J> 
+Wolfbane's group goes south.
+J> 
+You follow Wolfbane.
+[Pleasant Street]
+You see Wolfbane and Garin. 
+Obvious exits: n, s.
+J> 
+Wolfbane's group goes south.
+J> 
+You follow Wolfbane.
+[Pleasant Street]
+You see Wolfbane and Garin. 
+Obvious exits: n, s.
+J> 
+Wolfbane's group goes south.
+J> 
+You follow Wolfbane.
+[Pleasant Street]
+You see Wolfbane and Garin. A granite house with a porticullis over its front
+door is here.
+Obvious exits: n, s.
+J> 
+The glow from Garin's sword fades to a soft white light.
+J> 
+The clatter of hooves echoes through the bazaar.
+J> 
+Wolfbane's group goes south.
+J> 
+You follow Wolfbane.
+[Broadway & Pleasant]
+You see Wolfbane and Garin. Some rubble is here.
+Obvious exits: n, e, w.
+J> 
+Wolfbane's group goes west.
+J> 
+You follow Wolfbane.
+[Broadway]
+You see Wolfbane and Garin. A ramshackle building and some fruit are here.
+Obvious exits: e, w.
+J> 
+Wolfbane's group goes west.
+J> 
+You follow Wolfbane.
+[Broadway]
+You see Wolfbane and Garin. An iron gate and some fruit are here.
+Obvious exits: e, w.
+J> 
+Wolfbane's group goes through an iron gate.
+J> 
+You follow Wolfbane.
+[Citadel, Training & Parade Grounds]
+You see Wolfbane and Garin. 
+Obvious exits: none.
+J> 
+Wolfbane's group climbs up a wide stairway.
+J> 
+You climb up a wide stairway.
+J> 
+You follow Wolfbane.
+[Citadel of the Crimson Band, Lobby]
+You see Wolfbane and Garin. 
+Obvious exits: s.
+J> 
+The guards snap to attention as Wolfbane enters.
+J> 
+Wolfbane's group goes south.
+J> 
+You follow Wolfbane.
+[Citadel, Great Hall]
+You see Wolfbane and Garin. 
+Obvious exits: n, w.
+J> 
+Wolfbane's group goes west.
+J> 
+You follow Wolfbane.
+[Citadel, Hallway of Warriors]
+You see Wolfbane and Garin. 
+Obvious exits: n, s, e.
+J> 
+ ** Airgid has just left the Realms.
+J> 
+Wolfbane's group goes south.
+J> 
+You follow Wolfbane.
+[Hallway of Warriors, South]
+You see Wolfbane and Garin. 
+Obvious exits: n.
+J> 
+The guards snap to attention as Wolfbane enters.
+J> 
+A guard holds aside the tapestry and allows Wolfbane to pass through to the
+room beyond.
+J> look
+[Hallway of Warriors, South]
+An ornate oriental rug covers the entire length of this baroque hallway. Muted
+light flickers from silver leaf candleabras which are placed in such a way as
+to allow future portraits to be hung here. A large tapestry hangs on the
+southern wall covering it from floor to ceiling and flanked by two guardsmen.
+You see Garin. 
+Obvious exits: north.
+> go tap
+A guard holds aside the tapestry and admits you to the War Room.
+[Crimson Band, War Room]
+You see Wolfbane. A chair and a newsboard are here.
+Obvious exits: n, e, w, sw.
+> 
+The guards snap to attention as Garin is admited to the War Room.
+> 
+Wolfbane smiles at Garin.
+> 
+Garin babbles a few nonsensical phrases.
+> 
+ ** Nord has just left the Realms.
+> 
+Garin takes a bite of a zany roll.
+> nod gar
+You nod to Garin.
+> eat roll
+You take a bite of the roll.
+That was the last of it.
+> 
+ ** Graul has just left the Realms.
+> 
+Wolfbane says, "i am sorry morrdread for putting you in that situation"
+> 
+Garin says, "Hungry work."
+> 
+Thank you all for coming!!
+> 'I was uncomfortable, true
+You say, "I was uncomfortable, true"
+> 
+Wolfbane says, "i needed someone i could trust to make the right decitions"
+> 'But couldn't see another choice
+You say, "But couldn't see another choice"
+> shr
+You shrug.
+> 
+Wolfbane nods to you.
+> 
+ ** Winter has just left the Realms.
+> 
+Wolfbane says, "garin"
+> 
+Wolfbane says, "i want you to know"
+> 'I hope everyone else agrees it was the right choice
+You say, "I hope everyone else agrees it was the right choice"
+> 
+Wolfbane says, "and i do hope you to believe it true"
+> 
+Garin fidgets nervously.
+> exp
+Level: 35
+Build Points to date: 370
+Unspent Build Points: 14
+Experience Points until next Build Point: 15118
+> 
+Wolfbane says, "i told moordread the desitions were all his to make"
+> 
+Garin says, "Oh, I believe it."
+> 
+Garin smiles at Wolfbane.
+> chuck
+You chuckle.
+> 
+Garin puts an opal in the satchel.
+> 
+Garin puts a chipped fire opal in the satchel.
+> 
+Garin puts a large fire opal in the satchel.
+> 
+Garin puts a fire opal in the satchel.
+> 
+Garin puts an opal in the satchel.
+> 
+Garin puts an opal in the satchel.
+> 
+Garin puts an opal in the satchel.
+> 
+Wolfbane says, "i did not want to influance him in any way"
+> 
+Garin closes a deathcat fur satchel.
+> 
+Garin puts away a flickering red randar longsword with a gold crossguard and
+ivory pommel.
+> 
+Garin pushes an ivory handled nyrainian battleknife inset with a single
+shimmering black opal and it clicks closed.
+> 
+Garin puts away an ivory handled nyrainian battleknife inset with a single
+shimmering black opal.
+> 
+Garin says, "Us Banders aren't influencable."
+> 
+Garin grins.
+> 
+Wolfbane says, "and had to believe in him to follow our oath as a bander"
+> 'Someone should've called a meeting before the council one to discuss this
+You say, "Someone should've called a meeting before the council one to discuss
+this"
+> 
+Garin says, "Wolbane did."
+> 'Oh yeah, too bad they didn't show up
+You say, "Oh yeah, too bad they didn't show up"
+> 
+Garin says, "But I couldn't get here early enough."
+> 
+Wolfbane says, "with the key members not making an appearance it would have
+done any good"
+> 
+ ** Kellah has just left the Realms.
+> nod
+You nod.
+> 
+ ** Hyena has just left the Realms.
+> 'I nearly didn't make it either, I'm sure it was tough for them
+You say, "I nearly didn't make it either, I'm sure it was tough for them"
+> 
+Wolfbane nods to you.
+> 
+Wolfbane says, "i am sure emanon is gonna have a shit hemorage when he finds
+his guild has sworn allegence"
+> 
+ ** Durek has just left the Realms.
+> 
+Wolfbane grins.
+> sigh
+You sigh.
+> 
+Garin shrugs.
+> nod
+You nod.
+> 
+Garin says, "He'll have to live with it.  Resign, or whatever."
+> 
+Wolfbane says, "all have to alleart the cleaning staff"
+> 
+Wolfbane nods.
+> 
+Wolfbane says, "if you will please excuse me"
+> 'I'm sorry he sees things that way
+You say, "I'm sorry he sees things that way"
+> nod wolf
+You nod to Wolfbane.
+> 
+Wolfbane makes a salute.
+> 
+A guard pulls aside the tapestry allowing Wolfbane to enter the Hallway of
+Warriors.
+> 'And me
+You say, "And me"
+> sal gar
+You salute Garin.
+> 'Take care Lord Garin
+You say, "Take care Lord Garin"
+> 
+Garin makes a salute.
+> 
+Garin does a little jig!
+> look
+[Crimson Band, War Room]
+This well lit area serves as the private meeting area for Crimson Band
+members. Located within the center of the room is a large circular mirmach
+table with fifteen matching chairs. Three ornately carved chairs, for the
+Guildmaster, Lorekeeper and Sergeant at Arms, are located at the northern edge
+of the round table. Assorted sofas, couches and overstuffed arm chairs are
+scattered against the walls of the war room. Enormous maple tables line the
+northern wall, to either side of the hallway entrance, and upon which are
+assorted tankards and glasses filled with a variety of beverages. Apprentice
+warriors scurry to and fro, ensuring that the containers remain full. Upon
+the southern wall, next to a door is an old oaken kiosk.  An open box addressed
+to Garin sits on the table.
+You see Garin. A chair and a newsboard are here.
+Obvious exits: north, east, west, southwest.
+> eat roll
+You take a bite of the roll.
+That was the last of it.
+> grin
+You grin.
+> 
+Garin says, "You too, Brother."
+> 
+Garin takes a bite of a zany roll.
+> x
+
+ ** Moordread has just left the Realms.
+> 
+
+Character Manager V1.00
+
+ 1 => Moordread
+ 2 => Morti
+ 3 => Bubba
+
+ C => Create new character
+ D => Delete current character
+ P => Play Legends of Future Past
+ X => Exit to NovaLink
+
+
+Active character: Moordread (#1)
+
+Select: /bye
+
+
+Thank you for using NovaLink.
+
+Connect time this session: 183 minutes.
+
+Have a nice evening!
+
+NovaLink is an online service of NovaLink USA Corporation,
+200 Friberg Parkway, Suite 4003, Westborough, MA 01581. Service: 800-274-2814.
+
+
+
+
+
+
+
+
+
+Invalid selection.
+
+Character Manager V1.00
+
+ 1 => Moordread
+ 2 => Morti
+ 3 => Bubba
+
+ C => Create new character
+ D => Delete current character
+ P => Play Legends of Future Past
+ X => Exit to NovaLink
+
+
+Active character: Moordread (#1)
+

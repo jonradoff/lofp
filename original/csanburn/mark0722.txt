@@ -1,0 +1,2857 @@
+
+Elarin points at himself.
+J> 
+Lianna says, "The ancestors."
+J> 
+Elarin says, "your allowed to throw darts at me tho"
+J> 
+Elarin nods to Airgid.
+J> 
+Lianna ponders.
+J> 
+Airgid asks, "the ancestors said to are to prove a point?"
+J> 
+Lianna ponders.
+J> 
+Fafnir says, "to destory this atlar will take a full scale invasion of izlar"
+J> 
+Lianna says, "Well...it was more like a voice.."
+J> 
+A drakin hatchling begins to cry.
+J> 
+Airgid says, "I already know we are more powerful."
+J> 
+Airgid says, "In my heart I feel it."
+J> 
+Lianna says, "I assumed it was an ancestor.."
+J> 
+Airgid says, "So it must be true."
+J> 
+A small drakin child giggles at Airgid.
+J> 
+Elarin looks less confident.
+J> 
+Elarin tickles the small child.
+J> 
+Elarin gives the small child a glass of ale.
+J> 
+Fafnir says, "First we will talk to this High priest before we going start
+plans for invasion"
+J> 
+Fafnir thumps Elarin on the head!
+J> 
+Airgid thumps Elarin on the head!
+J> 
+Elarin coughs.
+J> 
+Elarin says, "what I do?"
+J> 
+A small human child giggles and splashes some water at you as you get to close
+to the water's edge. 
+J> 
+The child runs away with the glass.
+J> 
+Lianna asks, "And find out what we have to do to be rid of the mark?"
+J> 
+Airgid exclaims, "ack!"
+J> 
+Airgid jumps up and down!
+J> 
+Lianna asks, "Will you ask for me?"
+J> 
+Airgid says, "water"
+J> 
+Elarin says, "he should like that ale"
+J> 
+Fafnir nods to Lianna.
+J> 
+Airgid says, "words"
+J> 
+Airgid shrugs.
+J> list airg
+You listen carefully to Airgid.
+J> 
+Fafnir says, "If we need to destory the altar then we will do that"
+J> 
+Airgid shakes his head back and forth.
+J> 
+Elarin says, "your will Khojin"
+J> 
+Fafnir nods.
+J> 
+Elarin bows towards Airgid.
+J> 
+A drakin hatchling begins to cry.
+J> 
+Airgid says, "aright"
+J> 
+Airgid says, "aright"
+J> 
+Airgid says, "aright"
+J> 
+Airgid opens a soft brown leather backpack with a soaring falcon embroidered on
+the flap.
+J> 
+Airgid removes some shimmering tarokka blossoms from the backpack.
+J> 
+Fafnir says, "quiet now"
+J> 
+Airgid closes a soft brown leather backpack with a soaring falcon embroidered
+on the flap.
+J> 
+Elarin gives the hatchling some medicine.
+J> 
+Airgid mutters something you can't quite make out.
+J> list faf
+You listen carefully to Fafnir.
+J> 
+A small drakin child stagers towards the pool of water.
+J> 
+Elarin says, "hmmm"
+J> act stands near the pool watching the staggering child carefully.
+Moordread stands near the pool watching the staggering child carefully.
+J> 
+Fafnir says, " We are go to the the altar"
+J> 
+Elarin says, "er..."
+J> 
+Elarin says, "come here kid"
+J> 
+Elarin says, "not safe to drink and swim"
+J> 
+Fafnir takes Airgid by the hand.
+J> 
+Fafnir takes Elarin by the hand.
+J> 
+Elarin says, "Khojin"
+J> 
+Fafnir stands up.
+J> 
+Fafnir's group goes down a path.
+J> 
+You follow Fafnir.
+[The Unicorn's passage]
+You see Airgid, Lianna, Elarin and Fafnir. 
+Obvious exits: none.
+J> 
+Fafnir goes down a path heading northeast.
+> 
+ ** Donnald has just left the Realms.
+> look
+[The Unicorn's passage]
+A sparkling blue lake, larger then most cities, dominates the center of this 
+enormous cavern. The lakeshore is covered with a fine sparkling sand and 
+light from above reflects off its peaceful waters. To the northeast you see 
+a number of winged beings carefully tending to the terraced gardens and 
+orchards stepping down the steep inner slopes of the Cavern. The chirping of 
+birds and the sounds of woodland creatures are all you hear above the dull 
+roar of a distant waterfall in this peaceful glen. A well-used cobblestone 
+path cuts northeast and northwest through a lush forest.
+You see Airgid, Lianna and Elarin. 
+Obvious exits: none.
+> go pat
+[Northeast Path]
+You see Fafnir. 
+Obvious exits: none.
+R> 
+You move past a portion of the cavern that has been left relatively untouched.
+Massive multi-colored stalagmites surround you as you proceed along the path
+following the curve of the lake.
+R> 
+A priest wanders in.
+
+A priest says "Dejheer kon gyi tb cho'nya."
+
+A priest goes northeast.
+R> 
+As you continue on the cobbled path along the eastern edge of the lake, you
+draw near a rickety old pier jutting out over the water of the lake.
+> look
+[Northeast Path]
+You travel along a well-worn coblestone path which winds its way to the
+northeast.
+You see Fafnir. 
+Obvious exits: none.
+> 
+A drakin fisherman saunters up to you smelling of bait, tar and fizz, a basket
+in one hand. 
+
+A fisherman shouts, "Fish for sale! Fresh fish! Buy my fish!"
+> 
+You walk past two merchants standing on the side of the path talking to each
+other.
+> 
+You hear one merchant say, "...good sale, wish I had thought of ...." 
+> 
+The path slightly curves away to the north as you approach one of the lower
+sections of the many stepped farms that line the cavern wall. A small vegetable
+stand is here with a sign that reads, "Gone Fishing," hanging in front of it.
+> look
+[Northeast Path]
+You travel along a well-worn coblestone path which winds its way to the
+northeast.
+Obvious exits: none.
+> 
+You arrive at the base of a mountain. Twin sentinels flank the base of a
+massive, stone stairway as it ascends toward a high plateau. 
+> 
+Fafnir climbs up a stairway.
+> look
+[Zha'hadin Stairway]
+Two huge bronze sentinels flank the base of a massive, stone stairway as it  
+ascends toward a high plateau that overlooks the cavern. Every fourth step 
+is flanked by dual braziers that softly illuminate the path up the steep  
+stairway. A rough-hewn path meanders down towards the lakeshore. A large
+island can be seen in the middle of the lake from this vantage point.
+Obvious exits: none.
+> cli stair
+After a long slow climb you arrive on a plateau.
+[Zha'hadin]
+You see Fafnir. A massive stone statue of a drakin and a massive stone statue
+of a drakin are here.
+Obvious exits: none.
+R> 
+Fafnir says, " where are the rest of them"
+> roll
+You roll your eyes.
+> 
+Fafnir taps his foot.
+> 
+Fafnir yells, "move it your slower them dolkun"
+> look stair
+You see nothing extraordinary.
+> 
+You feel the touch of Vladmir's mind:
+"Kvaahn"
+> think Greetings Vladmir!
+You project your thoughts.
+> 
+You feel the touch of Elarin's mind:
+"Kvaahn Vlad...come to Zha'hadin altar please"
+> 
+You feel the touch of Shankara's mind:
+"Greetings..."
+> look
+[Zha'hadin]
+Ancient solid stone walls rising over one hundred feet tall and fifty feet 
+thick loom over you, guarding an immense citadel. The citadel itself is 
+entered from a stone double doorway that stands eighty feet high and thirty 
+feet thick. This colossal entryway is flanked by two massive stone statues 
+of drakins. The statues stand close to the height of the walls themselves 
+and each have a single wing open over the apex of the two doors.
+You see Fafnir. 
+Obvious exits: none.
+> 
+You feel the touch of Vladmir's mind:
+"otw"
+> 
+Airgid arrives after climbing up a stairway.
+> 
+Elarin arrives after climbing up a stairway.
+> 
+Fafnir paces back and forth.
+> tap
+
+Lianna arrives after climbing up a stairway.
+> You tap your foot.
+> 
+Elarin is now following Fafnir.
+> fol faf
+You are now following Fafnir.
+J> 
+Lianna is now following Fafnir.
+J> 
+Elarin dips Fafnir.
+J> 
+Elarin ponders.
+J> 
+Fafnir says, "And you say I am out of shape"
+J> 
+Two drakin fly into the area, land and walk through a doorway.
+J> 
+Lianna says, "I'm just lost."
+J> chuck
+You chuckle.
+J> 
+Elarin chuckles.
+J> cud lian
+You cuddle up to Lianna.
+J> 'I've only been here twice and she gets lost more than me
+You say, "I've only been here twice and she gets lost more than me"
+J> tick lia
+You tickle Lianna.
+J> 
+The ghostly shield protecting Elarin slowly fades.
+J> 
+Fafnir says, " we will wait for Vladmir"
+J> 
+Elarin incants a spell.
+J> 
+Fafnir slows down considerably.
+J> 
+Elarin gestures.
+Elarin moves with blurring speed.
+J> 
+Fafnir's wall of force vanishes.
+J> 
+Elarin incants a spell.
+J> 
+Elarin gestures.
+A ghostly shield hovers before Elarin.
+J> 
+Elarin incants a spell.
+J> 
+Elarin gestures.
+A ghostly shield hovers before Elarin.
+J> 
+Elarin incants a spell.
+J> 
+Elarin gestures.
+Magic begins to form around Elarin but then fizzles.
+J> 
+Elarin incants a spell.
+J> 
+Elarin gestures.
+A ghostly shield hovers before Elarin.
+J> 
+Elarin incants a spell.
+J> 'But I still love her
+
+Elarin gestures.
+A ghostly shield hovers before Elarin.
+J> 
+Elarin incants a spell.
+J> You say, "But I still love her"
+J> 
+Elarin gestures.
+A ghostly shield hovers before Elarin.
+J> 
+Elarin incants a spell.
+J> kiss lia lips
+You kiss Lianna upon the lips.
+J> 
+Elarin gestures.
+A ghostly shield hovers before Elarin.
+J> 
+Elarin incants a spell.
+J> 
+Elarin gestures.
+A ghostly shield hovers before Elarin.
+J> 
+Lianna says, "I'm afraid to go meditate by myself cause one...I can't find the
+room...and 2...I can't get back to Fayd."
+J> 
+Elarin incants a spell.
+J> 
+Elarin gestures.
+A ghostly shield hovers before Elarin.
+J> 
+Elarin incants a spell.
+J> 
+Elarin gestures.
+A ghostly shield hovers before Elarin.
+J> 
+Elarin incants a spell.
+J> 
+Elarin gestures.
+A ghostly shield hovers before Elarin.
+J> 
+Elarin incants a spell.
+J> 
+Elarin gestures.
+A ghostly shield hovers before Elarin.
+J> 
+Elarin incants a spell.
+J> 
+Lianna kisses you upon the lips.
+J> 
+Elarin gestures.
+A ghostly shield hovers before Elarin.
+J> 
+Elarin incants a spell.
+J> 
+Elarin gestures.
+A ghostly shield hovers before Elarin.
+J> 
+Elarin incants a spell.
+J> 
+Elarin gestures.
+A ghostly shield hovers before Elarin.
+J> 
+Elarin incants a spell.
+J> 'I will go with you
+
+Elarin gestures.
+A ghostly shield hovers before Elarin.
+J> You say, "I will go with you"
+J> 
+Elarin incants a spell.
+J> 
+Elarin gestures.
+A ghostly shield hovers before Elarin.
+J> nuz lia
+You nuzzle Lianna affectionately.
+J> 
+Airgid puts away a fiery randar naginata with a long curved blade engraved with
+many strange symbols.
+J> 
+Vladmir arrives after climbing up a stairway.
+J> 
+Airgid concentrates intently.
+J> 
+Elarin incants a spell.
+J> bow vlad
+You bow towards Vladmir.
+J> 
+Vladmir bows.
+J> 
+Fafnir takes Vladmir by the hand.
+J> 
+Elarin gestures at Fafnir.
+A ghostly shield hovers before Fafnir.
+J> 
+Vladmir says, "Kvaahn"
+J> 
+Lianna smiles at Vladmir.
+J> 
+Airgid's wall of force vanishes.
+J> 
+Elarin incants a spell.
+J> 
+Elarin gestures at Fafnir.
+Magic begins to form around Elarin but then fizzles.
+J> 
+Elarin incants a spell.
+J> 
+Fafnir's group goes through a titanic stone double door.
+J> 
+You follow Fafnir.
+[Zha'hadin entry]
+You see Vladmir, Lianna, Elarin and Fafnir. 
+Obvious exits: n, s.
+J> 
+Elarin gestures at Fafnir.
+A ghostly shield hovers before Fafnir.
+J> 
+Fafnir's group goes south.
+J> 
+You follow Fafnir.
+[Zha'hadin]
+You see Airgid, Vladmir, Lianna, Elarin and Fafnir. A massive stone statue of a
+drakin and a massive stone statue of a drakin are here.
+Obvious exits: none.
+J> 
+Vladmir says, "wow a party? For me? You shouldnt have"
+J> 
+Vladmir smiles.
+J> 
+Fafnir's group goes through a titanic stone double door.
+J> 
+You follow Fafnir.
+[Zha'hadin entry]
+You see Vladmir, Lianna, Elarin and Fafnir. 
+Obvious exits: n, s.
+J> 
+Fafnir's group goes north.
+J> 
+You follow Fafnir.
+[Courtyard]
+You see Vladmir, Lianna, Elarin and Fafnir. 
+Obvious exits: none.
+J> 
+Beams of light shoot from the four elemental dragons' eyes, striking the
+crystal dragon in the center of the courtyard. The crystal dragon glows
+briefly. A mighty roar reverberates through the courtyard from the crystal
+dragon statue as it cranes its neck and opens its multi-faceted maw.
+J> grin
+You grin.
+J> 
+Fafnir's group goes through an arch.
+J> 
+You follow Fafnir.
+[Foyer]
+You see Vladmir, Lianna, Elarin and Fafnir. 
+Obvious exits: w, ne, nw.
+J> 
+Elarin says, "its a beat Lianna and Moordread up party"
+J> 
+Fafnir says, "where is airgid"
+J> 
+Elarin nods.
+J> 
+Vladmir says, "ah"
+J> 
+Elarin says, "ill get him"
+J> 
+Vladmir says, "well I am not into violence"
+J> 
+Elarin goes through an arch.
+J> 
+Lianna says, "He lost his frame of mind."
+J> 'or just his mind?
+You ask, "or just his mind?"
+J> 
+Vladmir smiles.
+J> 
+Lianna appears to become weaker.
+J> 
+Elarin's group arrives through an arch.
+J> lean lia
+You lean on Lianna.
+J> 
+Elarin disbands his group.
+J> 
+Elarin is now following Fafnir.
+J> 
+Airgid goes through an arch.
+J> look
+
+Elarin chuckles.
+J> [Foyer]
+This room is used mainly to offer a place for guests to wait and does not 
+hold much in the way of furniture. What little furniture there is, is 
+comfortable but not too stylish. An armchair faces the fireplace on the 
+eastern wall and a sofa sits along the northeastern wall. A thick old rug 
+covers the floor in front of the chair and sofa. Seen through an archway 
+is a long hallway.
+You see Vladmir, Lianna, Elarin and Fafnir. 
+Obvious exits: west, northeast, northwest.
+J> 
+Fafnir says, "Once we are in the altar room I ask you all for silences"
+J> 
+Elarin says, "i guess he has stuff to do"
+J> 
+Elarin chuckles.
+J> 
+Fafnir's group goes through an arch.
+J> 
+You follow Fafnir.
+[Hallway]
+You see Vladmir, Lianna, Elarin and Fafnir. 
+Obvious exits: n, s.
+J> 
+Fafnir's group goes north.
+J> 
+You follow Fafnir.
+[Meditation Room]
+You see Vladmir, Lianna, Elarin and Fafnir. 
+Obvious exits: s.
+J> 
+Vladmir nods to Fafnir.
+J> nod faf
+You nod to Fafnir.
+J> 
+Elarin says, "can I silently dip you Synachi?"
+J> 
+Fafnir says, "NO"
+J> 
+Elarin coughs.
+J> 
+Lianna exclaims, "Shhh!"
+J> 
+Elarin mutters something you can't quite make out.
+J> 
+Lianna pokes Elarin.
+J> 
+A T'Kasta warrior opens a solid diamontine randar door and waves Fafnir
+through.
+J> 
+You follow Fafnir.
+[Sanctum Sanctorum]
+You see Vladmir, Lianna, Elarin and Fafnir. Some pillars is here.
+Obvious exits: none.
+J> 
+Fafnir kneels.
+J> gaze
+Made from huge precision-cut stone slabs, this expansive chamber is supported
+by four massive adamantine pillars. The walls are covered, from floor to
+ceiling, in archaic drakin scripture. As your gaze travels across the walls and
+up the pillars, you see the scripture continue onto the ceiling itself.
+J> 
+Approaching the altar, Fafnir reverently kneels on the prayer cushion before
+it. Lighting a stick of incense, he lowers his head in a silent prayer to the
+Great Ancestors.
+J> 
+A crystal rod embedded in the ceiling of this chamber extends in length. A
+yellowish mote of light streaks from the rod and is absorbed into the book
+above the altar. 
+J> 
+The book opens up to a blank page as fiery text magically appears upon it. 
+J> 
+The Book slams closed, the air ringing with the impact! A golden spirit form
+rises from the book and walks to the gateway. The gateway's shimmering energies
+surge with golden light for just a moment, allowing the spirit form to enter.
+J> 
+The rod in the ceiling retracts to its normal length.
+J> 
+Elarin kneels.
+J> 
+Elarin seems to be concentrating intently on something.
+J> 
+Approaching the altar, Elarin reverently kneels on the prayer cushion before
+it. Lighting a stick of incense, he lowers his head in a silent prayer to the
+Great Ancestors.
+J> 
+Lianna kneels.
+J> 
+Approaching the altar, Lianna reverently kneels on the prayer cushion before
+it. Lighting a stick of incense, she lowers her head in a silent prayer to the
+Great Ancestors.
+J> 
+Elarin stands up.
+J> knee
+You kneel.
+KJ> 
+Vladmir kneels.
+KJ> 
+Fafnir whisper, Ancestors we come to you to seek your guidance
+KJ> conc altar
+KJ> 
+Airgid bows.
+KJ> 
+Fafnir bows his head and begins to whisper a ancient chant
+KJ> 
+Elarin returns to normal speed.
+KJ> 
+Approaching the altar, Airgid reverently kneels on the prayer cushion before
+it. Lighting a stick of incense, he lowers his head in a silent prayer to the
+Great Ancestors.
+KJ> exam cush
+You see nothing extraordinary.
+KJ> 
+ ** Saryon has just left the Realms.
+KJ> 
+Approaching the altar, Vladmir reverently kneels on the prayer cushion before
+it. Lighting a stick of incense, he lowers his head in a silent prayer to the
+Great Ancestors.
+KJ> 
+Airgid says, "Torgat Be Zin."
+KJ> 
+Fafnir makes a cut in his arm and  use to the blood to draw a set ancient runes
+across his
+KJ> 
+Airgid struggles to his feet.
+KJ> knee cush
+You are already kneeling.
+KJ> 
+Airgid smiles and moves to the rear.
+KJ> 
+A T'Kasta guard walks into the chamber, looks around, and leaves as quietly as
+he came in.
+KJ> 
+As fast as Fafnir cuts his arm the wound heals and the blood is gone.
+KJ> 
+Fafnir whisper, Kym-nark-mar Ya-ahk-met
+KJ> 
+A soft blue glow surrounds Fafnir.
+KJ> 
+A priest moves next to the gong.
+KJ> 
+Fafnir whisper,Ancestors my young Rak'kash and Rak'kahn have been mark with
+shadow of death
+KJ> 
+Lianna whispers to you, "I really should study drakin...I have no clue what
+he's saying."
+KJ> 
+A young T'Kasta priest studies the ancient scriptures inscribed on the walls, a
+look of intense concentration on his face as he jots down key passages on a
+sheet of parchment.
+KJ> 
+A small group of T'Kasta priests enter the room and kneel before the altar...
+KJ> whisp lian YEah, we should get a book or something, "the complete idiots guide to Drakin" should work for me
+You whisper to Lianna.
+KJ> 
+Approaching the altar, Fafnir reverently kneels on the prayer cushion before
+it. Lighting a stick of incense, he lowers his head in a silent prayer to the
+Great Ancestors.
+KJ> exp
+Level: 60
+Build Points to date: 629
+Unspent Build Points: 2
+Experience Points until next Build Point: 4538
+KJ> 
+Fafnir countines his chants add his voice to though of the priests
+KJ> 
+Approaching the altar, Fafnir reverently kneels on the prayer cushion before
+it. Lighting a stick of incense, he lowers his head in a silent prayer to the
+Great Ancestors.
+KJ> 
+The priests begin to chat adding their voice to the Synachis.
+KJ> 
+A T'Kasta guard walks into the chamber, looks around, and leaves as quietly as
+he came in.
+KJ> 
+Approaching the altar, Fafnir reverently kneels on the prayer cushion before
+it. Lighting a stick of incense, he lowers his head in a silent prayer to the
+Great Ancestors.
+KJ> 
+Elarin kneels.
+KJ> 
+Lianna closes her eyes and mouths a silent prayer for guidance for the Synachi.
+KJ> 
+Lianna closes her eyes.
+KJ> 
+Fafnir chants, Ya-ahk-met
+KJ> 
+As a priest taps the gong, a resonating tone is heard.
+KJ> 
+Approaching the altar, Fafnir reverently kneels on the prayer cushion before
+it. Lighting a stick of incense, he lowers his head in a silent prayer to the
+Great Ancestors.
+KJ> 
+A T'Kasta guard walks into the chamber, looks around, and leaves as quietly as
+he came in.
+KJ> close obj
+You close your eyes.
+KJ> 
+Approaching the altar, Fafnir reverently kneels on the prayer cushion before
+it. Lighting a stick of incense, he lowers his head in a silent prayer to the
+Great Ancestors.
+KJ> 
+Airgid whispers softly 'Duea-Ktrang ntigoth.
+KJ> 
+A golden mote of light appears form the gateway and floats before you.
+KJ> 
+ ** Dutch has just left the Realms.
+KJ> 
+Approaching the altar, Lianna reverently kneels on the prayer cushion before
+it. Lighting a stick of incense, she lowers her head in a silent prayer to the
+Great Ancestors.
+KJ> 
+Fafnir bows his head to the ancestors
+KJ> 
+A T'Kasta guard walks into the chamber, looks around, and leaves as quietly as
+he came in.
+KJ> 
+Elarin bows reverently upon catching sight of the mote.
+KJ> 
+Fafnir point at lianna and then moordread
+KJ> 
+A gentle voice fills the room saying, "We have come."
+KJ> 
+Lianna opens her eyes.
+KJ> 
+Airgid kneels.
+KJ> open obj
+You open your eyes.
+KJ> 
+Lianna looks up.
+KJ> 
+Elarin says, "'Duea-Ktrang ntigoth"
+KJ> 
+Fafnir says, "Ancestors i ask for your guidance  the Young Rak'kash and
+Rak'kahn have been ark with shadow of death"
+KJ> 
+The mote of light moves towards Lianna then towards Moordread.
+KJ> 
+A T'Kasta priest slowly kneels before the altar, as he closes his eyes and
+lowers his head in a silent prayer to the Ancestors.
+KJ> 
+Approaching the altar, Elarin reverently kneels on the prayer cushion before
+it. Lighting a stick of incense, he lowers his head in a silent prayer to the
+Great Ancestors.
+KJ> 
+Lianna shivers.
+KJ> 
+You feel the touch of Murg priest's mind:
+"WIFE!!!! *BEAM*"
+KJ> 
+The mote of golden light returns to its place and begins to dim.
+KJ> 
+Fafnir says, " I offer you my strengh and life if you need be to remove this
+mark"
+KJ> 
+Lianna reaches for Moodread's hand squeezing it tightly.
+KJ> 
+You feel the touch of Murg priest's mind:
+"Wife sure quiet, getting lunch?"
+KJ> 
+Airgid mutters we seek the Way not another war.
+KJ> 
+You feel the touch of Klone's mind:
+"She went to bed"
+KJ> act squeezes Lianna's hand back.
+Moordread squeezes Lianna's hand back.
+KJ> 
+Vladmir bows his head reverently
+KJ> 
+You feel the touch of Leah's mind:
+"I'm still busy foraging up some food..."
+KJ> 
+You feel the touch of Murg priest's mind:
+"*swoon* Her in bed!"
+KJ> 
+The golden mote of light slowly fades and becomes a ball of darkness.
+KJ> 
+A T'Kasta guard walks into the chamber, looks around, and leaves as quietly as
+he came in.
+KJ> 
+You feel the touch of Leah's mind:
+"very very busy."
+KJ> 
+You feel the touch of Murg priest's mind:
+"Me not like smelly flowers in room!"
+KJ> 
+You feel the touch of Leah's mind:
+"oh say...there are a few things I need you to do while I'm away."
+KJ> 
+You feel the touch of Murg priest's mind:
+"Me come find you!"
+KJ> 
+You feel the touch of Leah's mind:
+"yes I thought you would like the flowers."
+KJ> 
+You feel the touch of Klone's mind:
+"She is hiding in BC, actually"
+KJ> 
+You feel the touch of Murg priest's mind:
+"Flowers smell uck!"
+KJ> 
+You feel the touch of Leah's mind:
+"no no that's okay, I need you to put in a window for the pink curtains I
+bought."
+KJ> 
+You feel the touch of Murg priest's mind:
+"What pink?"
+KJ> 
+Fafnir send his spirit toward the gate way add his strengh to theres
+KJ> 
+Approaching the altar, Fafnir reverently kneels on the prayer cushion before
+it. Lighting a stick of incense, he lowers his head in a silent prayer to the
+Great Ancestors.
+KJ> 
+Airgid concentrates intently on a gate.
+KJ> 
+You feel the touch of Leah's mind:
+"it's a divine color. has little white flowers all over them too."
+KJ> 
+You feel the touch of Murg priest's mind:
+"Err, that not murg color!"
+KJ> conc gate
+
+Lianna touches her hand to her cheek, the mark still burning cold on her flesh.
+KJ> You concentrate intently on a gate.
+KJ> 
+You feel the touch of Leah's mind:
+"oh yes you will learn to love it."
+KJ> 
+A voice thunders, "We understand this darkness and can remove it!"
+KJ> 
+You feel the touch of Murg priest's mind:
+"Why Leah wife drool cup empty?"
+KJ> 
+Lianna blinks.
+Connected to host 192.233.90.30
+                              
+
+[Establishing connection]
+
+ 
+
+  NovaLink Interactive Networks (R)
+
+  "new" to open a new account
+  "info" for more information
+
+
+login: csanburn
+
+That User-ID is currently online.
+
+Continuing the login process will disconnect your other session.
+
+ Password: ********
+
+Attempting to disconnect other session.
+
+
+
+
+          NovaLink (R)
+(C)1995 NovaLink USA Corporation
+
+Good evening, CSanburn.
+You are the 2,435,069tth login to date.
+It is now 23:01:12 EST.
+
+Your last recorded login was on 07/22/99 at 18:29:12 EST.
+NOTE: It has been 628 days since your last password change.  Changing
+      your password frequently is essential to your account's security.
+
+
+You are accessing NovaLink via Autonet.
+Your account is exempt from these hourly charges.
+
+   #      Bulletin                                                /Go Page
+
+   R  ... Read your waiting mail
+   Q  ... Quickscan
+
+
+Select a bulletin to display, '?' to relist, or 'E' to enter NovaLink/exit> /go legends
+
+
+Page: LEGENDS
+23:01:14 EST, 22-JUL-99
+
+   A ... About Legends of Future Past
+   C ... Legends Calendar of Events
+   P ... Play Legends of Future Past   
+   T ... Legends Teleconference (OOC)  
+   V ... Version Notes                 
+
+Menu choice, or 'X' to exit> p
+
+
+
+Welcome back to Legends of Future Past!
+
+
+Character Manager V1.00
+
+ 1 => Moordread
+ 2 => Morti
+ 3 => Bubba
+
+ C => Create new character
+ D => Delete current character
+ P => Play Legends of Future Past
+ X => Exit to NovaLink
+
+
+Active character: Moordread (#1)
+
+Select: p
+
+Interactive Entertainment OS V6.10 [Legends of Future Past]
+(c)1991-1995 Inner Circle Technologies, Inc. Revision dated Apr 13 1995.
+
+URLs of web components are:
+
+Webpage: www.lofp.com
+Boards: www.lofp.com/forums
+Boards (avoids Timeouts): www.lofp.com/forums/?RequestTimeout=500
+Calendar: www.lofp.com/calendar
+Rate Plan: www.lofp.com/newrate.htm
+Rate FAQ: www.lofp.com/ratefaq.htm
+Scripting policy: www.lofp.com/script.htm
+Policies: www.lofp.com/basic/policies.htm
+GAME STATUS: www.lofp.com/status.htm
+
+EMail Addresses:
+Any GM: gmname@lofp.com (like chanatahe@lofp.com)
+Manager: druid@lofp.com   His ICQ is 5730609
+Queen Moryan- QueenMoryan@lofp.com
+Baron Emails are as follows: Baron-Aetheon@lofp.com,
+Baron-Beoford@lofp.com, Baroness-Charette@lofp.com,
+Baron-Nikoli@lofp.com
+
+Please see the website for the rateplan and the scripting policy.  The
+URLS are listed above.
+
+Eprise Corporation
+1671 Worcester Rd, 4th Floor
+Framingham, MA 01701
+Send checks Attn: Gary Whitten
+
+***NOTICE*** Unfortunately, the Royal Ball date must be moved once more,
+to Friday, July 23rd due to unchangable plans. The time will be 9:00pm.
+Once again, I'm very sorry for the changes in timing.
+                                            
+                                                   
+***Notice*** The Teiwaz meeting for 10pm tonight is cancelled. Next
+meeting will be in August. Thank you.
+                            
+                                             
+[Meditation Room]
+Obvious exits: s.
+It is Mixus 13, 1046 (Year of the Sword).
+You can't tell what the time of day is here.
+K> look
+[Meditation Room]
+Small candles placed throughout the chamber cast a soft warm glow across the 
+otherwise cold polished stone walls.  As your eyes adjust to the dim lights, 
+your gaze falls upon an image of a large winged serpentine dragon encircling 
+three interlocking whorls, inlaid in silver into the center of the black
+stone floor. A spiral staircase leads down while a massive closed set of 
+doors made from a strange diamontine randar alloy lead deeper into the 
+citadel. Two well-armed T'Kasta warriors stand guard on either side of these 
+doors. A dark titanium door leads back the way you came.
+Obvious exits: south.
+K> who
+Klone              Moordread          Saryon             Airgid             
+Leah               Firestar           Feras              Keera              
+Vladmir            Lianna             Marcolan           Elarin             
+Fafnir             Cypress            Shankara           
+
+
+There are 15 adventurers in the Realms.
+
+K> contact lian Uh...
+You contact Lianna with your thoughts.
+ [Round: 2 sec]
+RK> 
+You feel the touch of Murg priest's mind:
+"Soap make bubbles in drool! ACK!"
+K> look door
+You see nothing extraordinary.
+K> 
+You feel the touch of Leah's mind:
+"gives you a clean mouth it does...clean inside and out."
+K> contact lia Where'd everyone go?
+You contact Lianna with your thoughts.
+ [Round: 2 sec]
+RK> 
+You feel the touch of Murg priest's mind:
+"Me come find you, show pretty bubble drool, Leah wife like!"
+K> 
+You feel the touch of Lianna's mind:
+"Moordread?"
+K> 
+You feel the touch of Leah's mind:
+"maybe its good for you to keep having your lunch."
+K> think Love?
+You project your thoughts.
+K> 
+You feel the touch of Murg priest's mind:
+"Lianna aelf!! Need marry!?"
+K> 
+You feel the touch of Lianna's mind:
+"Where are you?"
+K> think Mediating yet
+You project your thoughts.
+K> 
+You feel the touch of Lianna's mind:
+"I do not see you!"
+K> think I closed my eyes and opened them again but you were gone
+You project your thoughts.
+K> look
+[Meditation Room]
+Small candles placed throughout the chamber cast a soft warm glow across the 
+otherwise cold polished stone walls.  As your eyes adjust to the dim lights, 
+your gaze falls upon an image of a large winged serpentine dragon encircling 
+three interlocking whorls, inlaid in silver into the center of the black
+stone floor. A spiral staircase leads down while a massive closed set of 
+doors made from a strange diamontine randar alloy lead deeper into the 
+citadel. Two well-armed T'Kasta warriors stand guard on either side of these 
+doors. A dark titanium door leads back the way you came.
+Obvious exits: south.
+K> look door
+You see nothing extraordinary.
+K> 
+One of the meditating priests begins to hover a few inches off the ground for a
+moment before gently descending back to his seat.  
+K> 
+You feel the touch of Murg priest's mind:
+"Me find you Lianna aelf, then you see me!"
+K> 
+Elarin arrives through a door.
+K> 
+Elarin says, "stand"
+K> stand
+You struggle to your feet under the weight of all your equipment.
+ [Round: 2 sec]
+R> fur
+You furrow your brow.
+R> 
+Elarin takes Moordread by the hand.
+R> 
+A T'Kasta warrior opens a solid diamontine randar door and waves Elarin
+through.
+J> 
+You follow Elarin.
+[Sanctum Sanctorum]
+You see Airgid, Vladmir (kneeling), Lianna (kneeling), Elarin and Fafnir
+(kneeling). Some pillars is here.
+Obvious exits: none.
+J> 
+Elarin disbands his group.
+> 
+You feel the touch of Klone's mind:
+"she sitting right here in the center of town"
+> go cush
+You take a seat upon the cushion.
+s> 
+You feel the touch of Lianna's mind:
+"Murg priest, I have no time for you."
+s> knee
+You kneel.
+K> 
+You feel the touch of Saryon's mind:
+"Leah wants little murgelfets, Murg Priest."
+K> 
+You feel the touch of Murg priest's mind:
+"Always time for marry, me make short ceremony!"
+K> 
+Lianna smiles softly at Moordread.
+K> 
+You feel the touch of Murg priest's mind:
+"What murgelfets?"
+K> 
+Lianna nods to Elarin.
+K> act turns his gaze to Lianna, his broad smile and warm eyes beaming at her with happiness.
+Moordread turns his gaze to Lianna, his broad smile and warm eyes beaming at
+her with happiness.
+K> 
+Vladmir continues to rock back and forth, his eyes tightly closed
+K> whisp lian I can't find a decent isp to save myself *mutter* []
+You whisper to Lianna.
+K> 
+A dark claw appears out of the void and moves towards Lianna.
+K> 
+A crystal rod embedded in the ceiling of this chamber extends in length. A
+yellowish mote of light streaks from the rod and is absorbed into the book
+above the altar. 
+K> 
+The book opens up to a blank page as fiery text magically appears upon it. 
+K> 
+The Book slams closed, the air ringing with the impact! A golden spirit form
+rises from the book and walks to the gateway. The gateway's shimmering energies
+surge with golden light for just a moment, allowing the spirit form to enter.
+K> 
+The rod in the ceiling retracts to its normal length.
+K> 
+Lianna muffles a scream.
+K> 
+You feel the touch of Leah's mind:
+"keep eating your lunch, dear and don't think too hard...we have lots of work
+to do on the cave."
+K> 
+The priests bein to chant faster.
+K> 
+Approaching the altar, Fafnir reverently kneels on the prayer cushion before
+it. Lighting a stick of incense, he lowers his head in a silent prayer to the
+Great Ancestors.
+K> 
+ ** Shankara has just left the Realms.
+K> 
+Airgid starts to move forward but stops.
+K> 
+Lianna is gripped in a field of dark power.
+K> 
+You feel the touch of Murg priest's mind:
+"Me not think, no worry Leah wife..me rest for when you wear murg priest out
+again!"
+K> gaze lia
+You gaze at Lianna.
+K> 
+Lianna gasps.
+K> 
+Vladmir increases the tempo of his rocking
+K> 
+Elarin repeats the priest's chant.
+K> 
+Lianna gulps.
+K> act looks quickly to the others, then back to Lianna.
+Moordread looks quickly to the others, then back to Lianna.
+K> 
+Fafnir eyes flare dark blue
+K> 
+Approaching the altar, Fafnir reverently kneels on the prayer cushion before
+it. Lighting a stick of incense, he lowers his head in a silent prayer to the
+Great Ancestors.
+K> 
+Just as the claw is about to touch Lianna a gentle voice says, "Stop."
+K> 
+Elarin shakes his head at you.
+K> 
+Fafnir chants faster and fasters
+K> 
+You feel the touch of Keera's mind:
+"Leeann please say with Keera?"
+K> 
+The claw stops an inch from Lianna's face.
+K> 
+You feel the touch of Leah's mind:
+"I'll bring some more soap later."
+K> 
+You feel the touch of Murg priest's mind:
+"Keera need marry!?"
+K> 
+A T'Kasta guard walks into the chamber, looks around, and leaves as quietly as
+he came in.
+K> 
+You feel the touch of Leah's mind:
+"Keera run! hide!~"
+K> 
+Dark jolts of energy ripple from the claw.
+K> 
+You feel the touch of Keera's mind:
+"who say to Keera!  is not Leeann"
+K> 
+Lianna gazes at the claw. her body frozen.
+K> 
+You feel the touch of Murg priest's mind:
+"Keera wolf girl with scrawny wolf guy tracker?"
+K> 
+A gentle voice says, "What is learned from this Lianna?
+K> 
+Airgid prepares to jump in front of the claw.
+K> 
+ ** Sierron has just left the Realms.
+K> 
+You feel the touch of Keera's mind:
+"Is not rownee! Is strongness, is braveness, bad one not say bad thing from
+Sunny!"
+K> 
+You feel the touch of Saryon's mind:
+"Rownee?"
+K> 
+Fafnir wings start to flare with a Azure light sending light to the ancestors
+K> 
+Approaching the altar, Fafnir reverently kneels on the prayer cushion before
+it. Lighting a stick of incense, he lowers his head in a silent prayer to the
+Great Ancestors.
+K> 
+Dark energy ripples over Lianna's face.
+K> 
+Lianna sighs.
+K> 
+You feel the touch of Keera's mind:
+"sick Sour One too much sickness in mind, no more for Keera to hear now, go say
+sick thing to other"
+K> 
+You feel the touch of Murg priest's mind:
+"Leah wife, me eat all soap, now feel sick in belly."
+K> 
+You feel the touch of Seeker's mind:
+"Now you want to drink a LOT of water"
+K> 
+A gentle voice says, "She does not know. The lesson needs to be leanred before
+we can aid you."
+K> 
+You feel the touch of Leah's mind:
+"it's the cleansing process. Lots and lots of water helps."
+K> 
+You feel the touch of Murg priest's mind:
+"If Leah love say drink, priest drink!"
+K> 
+Fafnir nods.
+K> 
+Tears roll down Lianna's cheeks.
+K> 
+A lone T'Kasta warrior kneels before the altar and bows her head in prayer.
+After a few moments she rises and exits the chamber.
+K> 
+You feel the touch of Aquanix's mind:
+"hi white fur."
+K> 
+The dark figures within the gateway nod as one.
+K> 
+You feel the touch of Leah's mind:
+"and I left some carrots in the corner for you instead of that awful meat."
+K> 
+Lianna says, "I only said what my heart told me to say."
+K> act gazes at Lianna lovingly.
+Moordread gazes at Lianna lovingly.
+K> gaze gate
+Made from huge precision-cut stone slabs, this expansive chamber is supported
+by four massive adamantine pillars. The walls are covered, from floor to
+ceiling, in archaic drakin scripture. As your gaze travels across the walls and
+up the pillars, you see the scripture continue onto the ceiling itself.
+K> 
+You feel the touch of Murg priest's mind:
+"Carrots them orange things?"
+K> conc
+You concentrate.
+K> 
+You feel the touch of Leah's mind:
+"yes they are. Good for you."
+K> 
+You feel the touch of Aquanix's mind:
+"where white fur be?"
+K> 
+Lianna says, "I cannot believe in a power that is not real to me."
+K> 
+You feel the touch of Murg priest's mind:
+"Me use them catch bunnies for dinner, bunnies come fast!"
+K> 
+A gentle voice says, "With us here and anyplace else you can alway be free with
+your heart. What lesson was learned from this?"
+K> 
+You feel the touch of Leah's mind:
+"oh no! no bunnies for dinner!"
+K> 
+You feel the touch of Murg priest's mind:
+"Leah wife right, them good for priest, catch lots bunnies!"
+K> 
+Lianna says, "So I guess what I've learned is to not put down what other's
+believe..."
+K> 
+You feel the touch of Leah's mind:
+"we are having...um...vegetable pie."
+K> smi lia
+You smile at Lianna.
+K> 
+A young T'Kasta priest studies the ancient scriptures inscribed on the walls, a
+look of intense concentration on his face as he jots down key passages on a
+sheet of parchment.
+K> 
+Approaching the altar, Fafnir reverently kneels on the prayer cushion before
+it. Lighting a stick of incense, he lowers his head in a silent prayer to the
+Great Ancestors.
+K> 
+Approaching the altar, Elarin reverently kneels on the prayer cushion before
+it. Lighting a stick of incense, he lowers his head in a silent prayer to the
+Great Ancestors.
+K> 
+Lianna looks down.
+K> 
+You feel the touch of Murg priest's mind:
+"Urp..me thing water not great idea!"
+K> 
+You feel the touch of Elandra's mind:
+"I think I missed something somewhere."
+K> 
+Airgid touches Lianna.
+K> 
+A gentle voice says, "She is starting to see.
+K> 
+You feel the touch of Leah's mind:
+"Dagas, Elandra!"
+K> 
+Lianna says, "Respect what other believe, even if it's not what I believe."
+K> 
+Lianna says, "Others."
+K> 
+You feel the touch of Seeker's mind:
+"Water is very good for you. Drink a couple buckets."
+K> 
+You feel the touch of Klone's mind:
+"That is because you did not drink enough water"
+K> 
+You feel the touch of Elandra's mind:
+"Dagas Leah! um...did you get married?"
+K> 
+You feel the touch of Murg priest's mind:
+"Me think me need bucket for other things."
+K> 
+A gentle voice says, "seek the one to remove the mark child."
+K> 
+You feel the touch of Murg priest's mind:
+"Leah marry!"
+K> 
+You feel the touch of Leah's mind:
+"um...take it outside..."
+K> 
+Lianna looks up.
+K> 
+Airgid listens to a gate.
+K> 
+Lianna furrows her brow.
+K> 
+You feel the touch of Keera's mind:
+"Blue Eyes stop to hide so much, then she can not say to him!"
+K> 
+Airgid listens to his surroundings closely.
+K> 
+The claw moves back into the void and both are gone in a blink.
+K> 
+Lianna asks, "Who is that? The one who gave it to me?"
+K> 
+Lianna sighs.
+K> 
+You feel the touch of Aquanix's mind:
+"I am there now"
+K> 
+You feel the touch of Murg priest's mind:
+"Me think me lay down and nap, let sick go away."
+K> 
+You feel the touch of Leah's mind:
+"good idea...nice long nap...yes."
+K> 
+Fafnir whispers, thanks you for wisdom and blessings Ancestors
+K> 
+Elarin bows.
+K> 
+You feel the touch of Murg priest's mind:
+"Wife Leah come wake me special way?"
+K> 
+You feel the touch of Leah's mind:
+"I'll sneak in...um bring you some more soap later."
+K> pray
+You reverently approach the altar and kneel on the prayer cushion before it.
+Lighting a stick of incense, you place it within the small sandbox and bow your
+head and pray.
+K> 
+Approaching the altar, Fafnir reverently kneels on the prayer cushion before
+it. Lighting a stick of incense, he lowers his head in a silent prayer to the
+Great Ancestors.
+K> 
+Approaching the altar, Lianna reverently kneels on the prayer cushion before
+it. Lighting a stick of incense, she lowers her head in a silent prayer to the
+Great Ancestors.
+K> 
+Airgid says, "Duea-ktrang nitgoth."
+K> 
+Vladmir nods.
+K> 
+Fafnir slowly stands up
+K> 
+Fafnir stands up.
+K> 
+Elarin stands up.
+K> 
+Approaching the altar, Vladmir reverently kneels on the prayer cushion before
+it. Lighting a stick of incense, he lowers his head in a silent prayer to the
+Great Ancestors.
+K> 
+Fafnir Bows to the Priests
+K> 
+A gentle voice says, "Seek with your brothers, the one who they seek.."
+
+K> 
+Vladmir bows low to the gate
+K> 
+Lianna slowly stands up, a look of bewilderment on her face.
+K> 
+Elarin bows toward the altar, then towards the gate.
+K> 
+Vladmir stands up.
+K> 
+You feel the touch of Murg priest's mind:
+"Nite Leah wife!"
+K> 
+Airgid bows.
+K> 
+Lianna raises an eyebrow towards Airgid.
+K> 
+Fafnir says, " thanks you for help rak'kahn"
+K> 
+Elarin bows.
+K> stand
+You struggle to your feet under the weight of all your equipment.
+ [Round: 2 sec]
+R> 
+Airgid says, "aye, I know what we seek all to well."
+> 
+Lianna stands slowly, feeling suddenly very old.
+> 
+Fafnir nods to Airgid.
+> list airg
+You listen carefully to Airgid.
+> 
+Lianna struggles to her feet.
+> 
+Vladmir frowns.
+> 
+Elarin says, "the black lord?"
+> act helps Lianna up and holds her tightly.
+
+Elarin listens carefully to Airgid.
+> Moordread helps Lianna up and holds her tightly.
+> hug lia
+You hug Lianna.
+> 
+Airgid shakes his head back and forth.
+> 
+Lianna asks, "Seek with you?"
+> 
+Fafnir leans on a fiery randar bo-stick encased in a sheath of gleaming silver
+and engraved with the mark of the T'kasta.
+> 
+Airgid says, "Many things will be answered there."
+> 
+ ** Seeker has just left the Realms.
+> 
+Elarin nods to Airgid.
+> 
+Airgid touches a bloody drakin corpse of a T'Kasta guard.
+> 
+Elarin says, "aye I remember"
+> 
+Airgid nods to Elarin.
+> 
+Fafnir says, "The High priest is who need to remove it"
+> 
+A T'Kasta guard walks into the chamber, looks around, and leaves as quietly as
+he came in.
+> 
+Airgid says, "I assume that the claw was Shin-jah"
+> pond
+You ponder for a moment.
+> 
+Fafnir nods.
+> 'Looked like the claw was about to do something, remove it I thought
+You say, "Looked like the claw was about to do something, remove it I thought"
+> 
+Airgid says, "worst than that."
+> 
+Fafnir says, "no airgid the claw was the dark power of the ancestors"
+> 
+Airgid says, "Ancestors don't do that."
+> look
+[Sanctum Sanctorum]
+You are struck with a sense of age beyond measure as you enter this gigantic 
+chamber. Dominating the room pulses a rippling energy field which plays 
+across the surface of a large gateway that takes up the northernmost wall. 
+Glowing symbols, one for each drakin clan, flame brilliantly upon inscribed 
+pillars running in parallel lines down the center of this revered site. A 
+golden alzyron altar is situated just before the great gateway, above which 
+a huge arcane tome is suspended in mid-air. Several T'Kasta priests chant 
+softly at the foot of the altar, their voices raised in supplication to the 
+Ancestors. A large polished gong stands along the western wall and a massive 
+set of doors leads out.
+You see Airgid, Vladmir, Lianna, Elarin and Fafnir. 
+Obvious exits: none.
+> 
+Airgid says, "dark power"
+> 
+Airgid says, "aye"
+> 
+Lianna says, "That wasn't the ancestors.."
+> 
+Airgid says, "alright."
+> 
+Elarin says, "I think Synachi knows best"
+> look
+[Sanctum Sanctorum]
+You are struck with a sense of age beyond measure as you enter this gigantic 
+chamber. Dominating the room pulses a rippling energy field which plays 
+across the surface of a large gateway that takes up the northernmost wall. 
+Glowing symbols, one for each drakin clan, flame brilliantly upon inscribed 
+pillars running in parallel lines down the center of this revered site. A 
+golden alzyron altar is situated just before the great gateway, above which 
+a huge arcane tome is suspended in mid-air. Several T'Kasta priests chant 
+softly at the foot of the altar, their voices raised in supplication to the 
+Ancestors. A large polished gong stands along the western wall and a massive 
+set of doors leads out.
+You see Airgid, Vladmir, Lianna, Elarin and Fafnir. 
+Obvious exits: none.
+> 
+Elarin says, "in these matters"
+> 
+Airgid says, "I've been to the dark enough to know, I should had seen."
+> 
+Fafnir says, "Yes it was lianna"
+> 
+Lianna nods.
+> 
+Vladmir blushes.
+> 
+Lianna says, "Yes Synachi knows best."
+> 
+Fafnir says, "Only darkness can remove the mark other wiser would kill you two
+body and soul"
+> 
+Vladmir says, "I am but a student, but the ancestors come in all varieties. 
+Some good, some not so good"
+> 
+A crystal rod embedded in the ceiling of this chamber extends in length. A
+yellowish mote of light streaks from the rod and is absorbed into the book
+above the altar. 
+> 
+The book opens up to a blank page as fiery text magically appears upon it. 
+> 
+The Book slams closed, the air ringing with the impact! A golden spirit form
+rises from the book and walks to the gateway. The gateway's shimmering energies
+surge with golden light for just a moment, allowing the spirit form to enter.
+> 
+The rod in the ceiling retracts to its normal length.
+> 
+Lianna asks, "So am I to apologize to Tobias?"
+> 
+ ** Firestar has just left the Realms.
+> 
+Airgid says, "No"
+> 
+Elarin says, "i doubt it"
+> 
+Elarin shakes his head at Lianna.
+> 
+ ** Stolar has just left the Realms.
+> 
+ ** Saryon has just left the Realms.
+> 
+Elarin says, "you need to seek the one"
+> 
+Elarin says, "as we all do"
+> 
+Airgid says, "We will go to its high priest and we shall see."
+> 
+Vladmir says, "but all follow the way and make it what it is"
+> 
+Lianna asks, "When is this meeting?"
+> 
+Airgid says, "not yet."
+> 
+[Report up levels please."
+> 'Soon perhaps?
+You ask, "Soon perhaps?"
+> exp
+Level: 60
+Build Points to date: 629
+Unspent Build Points: 2
+Experience Points until next Build Point: 4538
+> 
+Airgid says, "aye"
+> 
+ ** Kyp has just left the Realms.
+> report 60th
+Your message has been reported to the online GameMaster staff.
+> 
+You have been awarded 150000 experience points.
+> exp
+Level: 61
+Build Points to date: 632
+Unspent Build Points: 5
+Experience Points until next Build Point: 9338
+> 
+Fafnir says, "Let us move to the garden"
+> fol faf
+You are now following Fafnir.
+J> 
+Lianna nods.
+J> 
+Elarin is now following Fafnir.
+J> 
+Lianna is now following Fafnir.
+J> 
+Vladmir is now following Fafnir.
+J> 
+Airgid says, "I had the dark right on the claw anyways."
+J> 
+Fafnir smiles at Airgid.
+J> 
+Fafnir takes Airgid by the hand.
+J> 
+Fafnir's group goes through a door.
+J> 
+You follow Fafnir.
+[Meditation Room]
+You see Airgid, Vladmir, Lianna, Elarin and Fafnir. 
+Obvious exits: s.
+J> 
+Fafnir's group goes south.
+J> 
+You follow Fafnir.
+[Hallway]
+You see Airgid, Vladmir, Lianna, Elarin and Fafnir. 
+Obvious exits: n, s.
+J> 
+Fafnir's group goes south.
+J> 
+You follow Fafnir.
+[Foyer]
+You see Airgid, Vladmir, Lianna, Elarin and Fafnir. 
+Obvious exits: w, ne, nw.
+J> 
+Vladmir says, "at least we didnt try to shake its hand"
+J> 
+Vladmir chuckles.
+J> 
+Fafnir's group goes northwest.
+J> 
+You follow Fafnir.
+[Garden]
+You see Airgid, Vladmir, Lianna, Elarin and Fafnir. A bridge, a stream and an
+ancient tarokka bush are here.
+Obvious exits: se.
+J> nod vlad
+You nod to Vladmir.
+J> 
+Fafnir walks down a path and sits down on a stone bench near the stream.
+J> 
+ ** Elarin has just left the Realms.
+J> 
+Elarin exits.
+J> 
+Elarin arrives.
+J> 
+ ** Vladmir has just left the Realms.
+J> 
+Vladmir exits.
+J> 
+Vladmir arrives.
+J> x
+
+ ** Moordread has just left the Realms.
+J> 
+
+Character Manager V1.00
+
+ 1 => Moordread
+ 2 => Morti
+ 3 => Bubba
+
+ C => Create new character
+ D => Delete current character
+ P => Play Legends of Future Past
+ X => Exit to NovaLink
+
+
+Active character: Moordread (#1)
+
+Select: p
+
+Interactive Entertainment OS V6.10 [Legends of Future Past]
+(c)1991-1995 Inner Circle Technologies, Inc. Revision dated Apr 13 1995.
+
+URLs of web components are:
+
+Webpage: www.lofp.com
+Boards: www.lofp.com/forums
+Boards (avoids Timeouts): www.lofp.com/forums/?RequestTimeout=500
+Calendar: www.lofp.com/calendar
+Rate Plan: www.lofp.com/newrate.htm
+Rate FAQ: www.lofp.com/ratefaq.htm
+Scripting policy: www.lofp.com/script.htm
+Policies: www.lofp.com/basic/policies.htm
+GAME STATUS: www.lofp.com/status.htm
+
+EMail Addresses:
+Any GM: gmname@lofp.com (like chanatahe@lofp.com)
+Manager: druid@lofp.com   His ICQ is 5730609
+Queen Moryan- QueenMoryan@lofp.com
+Baron Emails are as follows: Baron-Aetheon@lofp.com,
+Baron-Beoford@lofp.com, Baroness-Charette@lofp.com,
+Baron-Nikoli@lofp.com
+
+Please see the website for the rateplan and the scripting policy.  The
+URLS are listed above.
+
+Eprise Corporation
+1671 Worcester Rd, 4th Floor
+Framingham, MA 01701
+Send checks Attn: Gary Whitten
+
+***NOTICE*** Unfortunately, the Royal Ball date must be moved once more,
+to Friday, July 23rd due to unchangable plans. The time will be 9:00pm.
+Once again, I'm very sorry for the changes in timing.
+                                            
+                                                   
+***Notice*** The Teiwaz meeting for 10pm tonight is cancelled. Next
+meeting will be in August. Thank you.
+                            
+                                             
+[Garden]
+You see Airgid, Elarin, Vladmir, Lianna and Fafnir (sitting). A bridge, a
+stream and an ancient tarokka bush are here.
+Obvious exits: se.
+It is Mixus 13, 1046 (Year of the Sword).
+You can't tell what the time of day is here.
+It is summer.
+The sky is clear.
+> 
+Vladmir lights a brass lantern which is shaped like the head of a dragon with
+the light beaming out of its eyes.
+> 
+Vladmir walks down a path and sits down on a stone bench near the stream.
+> hug lia
+You hug Lianna.
+> look
+[Garden]
+Exotic flowers and plants from around the world fill this lush, open-air 
+garden. Light from the cavern's high crystalline ceiling cascades down upon 
+weeping trees and sculpted flower bushes. As you move along the garden's 
+rolling hills, you see a small bridge slightly arced over a stream that 
+gently flows out of a pond and burbles softly as it makes its way from one 
+side of this large garden to the other. A magnificent statue of a great 
+white dragon dominates the center of this pond. Several stone benches set 
+along side the stream's winding path offer ample room for relaxation and 
+quiet contemplation. Vines from tarokka bushes flow upwards from the ground 
+in various places to cover the walls in many meditative patterns. A stone 
+arch is here.
+You see Airgid, Elarin, Vladmir (sitting), Lianna and Fafnir (sitting). 
+Obvious exits: southeast.
+> 
+A flight of multi-colored butterflies flutter through the air.
+> 
+Lianna hugs you.
+> 
+ ** Lianna has just left the Realms.
+> 
+Lianna exits.
+> 
+Lianna arrives.
+> 
+Elarin nods to Fafnir.
+> act takes a seat and holds Lianna in his lap.
+Moordread takes a seat and holds Lianna in his lap.
+> go pat
+You stroll down a path and find yourself a place to sit on a stone bench. 
+s> 
+Lianna asks, "What about Moordread's mark? Will his disappear when mine does?"
+s> 
+Lianna sits down.
+s> 
+Airgid head starts bobbing around, back an forth following the flight of the
+butterflies.
+s> 
+Elarin says, "most likely Leah"
+s> 
+Fafnir nods.
+s> 
+Elarin says, "as the lesson is yours to learn"
+s> 
+Elarin says, "he only went to rescue you"
+s> 
+Airgid says, "I would think he will have to be present when we get to where we
+have to go."
+s> 
+A gentle breeze wafts through the garden, stirring the wind chimes.
+s> 
+[Did I get everyone?}
+s> 
+Lianna says, "I want him there...unless he'll be in danger."
+s> 
+Airgid says, "We will all be."
+s> 
+Airgid says, "magic may or may not work there, it is a strange island that we
+go too."
+s> 
+Lianna asks, "Island?"
+s> 'I like islands, for the most part
+You say, "I like islands, for the most part"
+s> 
+You feel the touch of Klone's mind:
+"Again I claim the Bazaar Center in the name of the Klone empire."
+s> 
+Airgid says, "Oh we know where, we just can't get there yet."
+s> 
+You feel the touch of Bethesdan's mind:
+"Why ?"
+s> 
+A flight of multi-colored butterflies flutter through the air.
+s> 
+Fafnir says, " I think your confusing them Airgid"
+s> 
+You feel the touch of Klone's mind:
+"Have to start somewhere"
+s> 
+You feel the touch of Bethesdan's mind:
+"Good answer."
+s> 
+Airgid smiles and gazes at the butterflies.
+s> gaze lia
+You gaze at Lianna.
+s> hug lia
+You hug Lianna.
+s> 'It will be hard to stop me from being with you
+You say, "It will be hard to stop me from being with you"
+s> 
+Lianna hugs you.
+s> 
+Airgid says, "Most likely, I'm confused my self, most of the time."
+s> 
+Lianna smiles at you.
+s> 
+Fafnir says, "they are talking about the high priest of ilzar  you are thinking
+of the other one"
+s> 
+Lianna says, "I want you with me forever."
+s> 
+Airgid ponders.
+s> 'That's where I intend to be
+You say, "That's where I intend to be"
+s> nuz lian
+You nuzzle Lianna affectionately.
+s> 
+Vladmir chuckles.
+s> 
+A small squirrel scampers down a tree foraging for food. 
+s> 
+Lianna nuzzles you affectionately.
+s> 
+Airgid says, "I thought the soft voice said to follow the others."
+
+Elarin goes southeast.
+s> 
+Fafnir concentrates intently.
+s> 
+Fafnir concentrates intently.
+s> who
+Klone              Moordread          Saryon             Bethesdan          
+Airgid             Leah               Elarin             Feras              
+Keera              Vladmir            Lianna             Marcolan           
+Fafnir             Cypress            Aquanix            Elandra            
+
+
+
+There are 16 adventurers in the Realms.
+
+s> 
+Fafnir concentrates intently.
+s> 
+Lianna says, "It told me to follow you guys...and who you seek."
+s> nod lia
+You nod to Lianna.
+s> It said...'seek the one to remove the mark child.
+"it" is not understood.
+s> 'It said..."seek the one to remove the mark child."
+You say, "It said..."seek the one to remove the mark child.""
+s> 
+Fafnir says, "you need to follow us lianna you get lose to easy here"
+s> 
+A flight of multi-colored butterflies flutter through the air.
+s> 
+Lianna nods to Fafnir.
+s> 
+Fafnir concentrates intently.
+s> 
+Fafnir concentrates intently.
+s> 
+Vladmir ponders.
+s> 'and to seek with your brothers, the one who they seek
+You say, "and to seek with your brothers, the one who they seek"
+s> pond
+You ponder for a moment.
+s> 
+Lianna says, "I get lost in here...and going back..."
+s> 
+Vladmir says, "unfortuneatly, that list could be considered quite long"
+s> 
+Fafnir says, "I am glad we are able to help you"
+s> 
+Vladmir smiles.
+s> 
+An elderly darkin in green-stained workclothes approaches the stream. After
+listening silently for a moment, he moves a small stone in the stream, subtly
+altering the sound of the stream. Satisfied, he wanders down a pathway.
+s> 
+Lianna hugs Fafnir.
+s> 
+Lianna says, "Thank you for all you did."
+s> nod
+You nod.
+s> 
+Lianna says, "I can never ever forget what a wonderful family this is."
+s> 
+Lianna hugs Airgid.
+s> 
+Lianna hugs Vladmir.
+s> 
+Airgid smiles.
+s> 
+Lianna nuzzles you affectionately.
+s> 'We have what didn't before, we know where to start, even if we don't understand why yet
+You say, "We have what didn't before, we know where to start, even if we don't
+understand why yet"
+s> kiss lia lips
+You kiss Lianna upon the lips.
+s> 
+Lianna kisses you upon the lips.
+s> 
+The brilliant prismatic globe around Vladmir vanishes.
+s> 
+ ** Marcolan has just left the Realms.
+s> 
+Vladmir mutters something you can't quite make out.
+s> 
+Vladmir smiles at Lianna.
+s> 
+Vladmir says, "Everytime I see the Ancestors, I feel like a happy child"
+s> 
+The dragon's crystal flares with a brilliant azure light.
+s> 
+Vladmir chuckles.
+s> 
+Fafnir nods.
+s> smi vlad
+You smile at Vladmir.
+s> 
+Lianna smiles at Vladmir.
+s> 'I sort of feel that way when I see Lianna
+You say, "I sort of feel that way when I see Lianna"
+s> nuz lia
+You nuzzle Lianna affectionately.
+s> 
+Lianna grins.
+s> 
+Lianna nuzzles you affectionately.
+s> 
+Airgid says, "Always a good feeling to see them."
+s> 
+Fafnir says, "All will turn out for the good"
+s> 
+Lianna says, "I hope so...Moordread and I want to start our lives."
+s> 
+Airgid says, "Or make it so."
+s> 
+Lianna sighs.
+s> 
+Elarin arrives.
+s> nod lia
+You nod to Lianna.
+s> 
+Elarin bows.
+s> 
+A small squirrel scampers down a tree foraging for food. 
+s> 
+Elarin walks down a path and sits down on a stone bench near the stream.
+s> 'We are at that love
+You say, "We are at that love"
+s> cud lia
+You cuddle up to Lianna.
+s> 
+Elarin stands up.
+s> 
+Vladmir exclaims, "You have Lianna, I have the ancestors.  We are both happy!"
+s> 
+Elarin ponders.
+s> 
+Vladmir smiles at you.
+s> 
+Elarin gropes around, trying to hide.
+s> 
+Elarin incants a spell.
+s> 
+Lianna hugs Elarin.
+s> 
+Airgid smiles.
+s> 
+Elarin gestures.
+Elarin moves with blurring speed.
+s> 
+Fafnir concentrates intently.
+s> 
+Lianna says, "I couldn't give him his hug.."
+s> 
+Lianna says, "Couldn't see him."
+s> 
+Fafnir smiles.
+s> 
+You hear Elarin say, "who?"
+s> 
+Fafnir stands up.
+s> 
+Fafnir searches the area.
+Elarin is discovered!
+s> 
+Elarin chuckles.
+s> 
+Fafnir says, " you"
+s> 
+Airgid incants a spell.
+s> 
+Elarin dips Fafnir.
+s> 
+Airgid gestures.
+s> 
+Fafnir walks down a path and sits down on a stone bench near the stream.
+s> 
+Elarin hugs Lianna.
+s> 
+ ** Airgid has just disconnected.
+s> 
+Airgid disconnects.
+s> 
+Elarin gropes around, trying to hide.
+s> 
+Vladmir says, "I wonder if I will find Dolkun today"
+s> 
+Vladmir ponders.
+s> 
+You hear Elarin say, "mayhap"
+s> 
+You hear Elarin say, "but late"
+s> 
+Vladmir says, "I hope so"
+s> 
+A gentle breeze wafts through the garden, stirring the wind chimes.
+s> 
+You hear Elarin say, "he always is late"
+s> 
+Fafnir stands up.
+s> who
+Klone              Moordread          Saryon             Bethesdan          
+Leah               Elarin             Feras              Keera              
+Vladmir            Lianna             Graul              Fafnir             
+Cypress            Aquanix            Elandra            
+
+
+There are 15 adventurers in the Realms.
+
+s> 
+Fafnir searches the area.
+Elarin is discovered!
+s> 
+Elarin chuckles at Fafnir.
+s> 
+Vladmir asks, "whats with the hiding rak'kahn? taken up the art of stealth?"
+s> 
+Elarin says, "I always hide from Suneechee"
+s> psi
+#    Discipline
+---  -----------------------------------------
+1    Matter Awakening
+2    Kinetic Thrust
+3    Levitate [Active: 1 psi/min]
+4    Pyrokinetics
+5    Cryokinetics
+6    Capacitance
+7    Electrify
+8    Strengthen Steel
+9    Manipulate Lock
+10   Wall of Force
+11   Flight [Active: 2 psi/min]
+18   Mind Awakening
+19   Telepathy
+20   Contact [Active: 1 psi/min]
+42   Speed [Active: 2 psi/min]
+
+[Type PSI <Discipline #> to invoke a power and PROJECT <Target> to direct it at
+a creature or object]
+s> 
+Elarin nods to Vladmir.
+s> 
+Vladmir smiles.
+s> psi 10
+You concentrate...
+[Success: 30%, Roll 41] Failure.
+ [Round: 2 sec]
+Rs> psi 10
+You concentrate...
+[Success: 30%, Roll 79] Failure.
+ [Round: 2 sec]
+Rs> psi 10
+You concentrate...
+[Success: 30%, Roll 34] Failure.
+ [Round: 2 sec]
+Rs> psi 10
+You concentrate...
+[Success: 30%, Roll 52] Failure.
+ [Round: 2 sec]
+Rs> psi 10
+You concentrate...
+[Success: 30%, Roll 13] Success!
+You erect a wall of force around your body.
+ [Round: 2 sec]
+Rs> fat
+
+Elarin says, "keeps the old one busy"
+s> Mana: 66/66
+Psi: 152/203
+Fatigue: 231/231
+s> 
+Elarin nods to Vladmir.
+s> 
+Fafnir moves considerably faster.
+s> 
+Fafnir concentrates intently.
+s> 
+Vladmir says, "Well, I better get to hunting.  I have lots of trans to learn"
+s> 
+Fafnir concentrates intently.
+Fafnir phases out of view.
+s> 
+You hear Elarin say, "trans?"
+s> 
+Vladmir says, "transcendence"
+s> 
+Something concentrates intently.
+s> 
+Lianna asks, "For what?"
+s> 
+You hear Elarin say, "you know the planes collapsed right?"
+s> 
+The air before you shimmers and congeals into Fafnir!
+s> 
+Fafnir smiles.
+s> 
+Vladmir groans.
+s> 'Parts are accessible
+You say, "Parts are accessible"
+s> 
+You hear Elarin say, "yes"
+s> 
+A gentle breeze wafts through the garden, stirring the wind chimes.
+s> 
+You hear Elarin say, "but the trans is not worth it really"
+s> 
+Vladmir says, "I heard the storm giants were still open"
+s> 
+You hear Elarin say, "not anymore"
+s> 
+Fafnir says, "Elarin the found four places they can now"
+s> 
+You hear Elarin say, "tho the giants can be accessed..."
+s> 
+You hear Elarin say, "I feel that what I learned, was not necesary"
+s> 
+Vladmir arches his eyebrow.
+s> 
+You hear Elarin say, "3 only Rak'kahn"
+s> 
+You hear Elarin say, "the gate to ruined world is still to be found"
+s> 
+You hear Elarin say, "what do you hunt with Vlad?"
+s> 
+You hear Elarin say, "a weapon?"
+s> 
+You hear Elarin say, "if you are a mage"
+s> 
+You hear Elarin say, "then trans is what you should know"
+s> 
+Vladmir asks, "You learned alot while in the planes... did you not?"
+s> whisp lian Are you awake over there love?
+You whisper to Lianna.
+s> 
+Fafnir says, "I never like the planes having to learn a whole new skill and
+getting a new weapon"
+s> 
+Vladmir says, "a weapon"
+s> 
+You hear Elarin say, "but learning trans just for the giants..."
+s> 
+Elarin reveals himself.
+s> 
+Elarin shakes his head back and forth.
+s> 
+The dragon's crystal flares with a brilliant azure light.
+s> 
+Elarin says, "aye"
+s> 
+Elarin says, "i did"
+s> 
+Elarin says, "but i hunted hell"
+s> 
+Elarin says, "then i hunted ruined"
+s> 
+Elarin says, "and mals"
+s> 
+Elarin says, "and then the giants"
+s> 
+Lianna hugs you.
+s> 
+Elarin says, "most of that is gone"
+s> 
+Lianna nuzzles you affectionately.
+s> beam lian
+You beam at Lianna.
+s> 
+Elarin says, "but as Synachi says"
+s> kiss lian lips
+You kiss Lianna upon the lips.
+s> 
+Vladmir mutters something you can't quite make out.
+s> 
+Elarin says, "it might not be worth learning 40 trans just for the giants"
+s> 
+Fafnir says, "this night has been very draining for me i need get some rest"
+s> 
+Fafnir bows.
+s> 
+Elarin says, "tho they are great learning..."
+s> 
+Lianna kisses you upon the lips.
+s> bow faf
+You bow towards Fafnir.
+s> 
+Lianna says, "And me."
+s> 
+Vladmir asks, "so you are telling me that I shouldnt learn trans so I can hunt
+giants because after that there will be nothing to hunt>?"
+s> 
+Elarin comforts Fafnir.
+s> 
+Lianna says, "And I know Moordread needs sleep."
+s> 'Thank you Fafnir, for your help
+You say, "Thank you Fafnir, for your help"
+s> 
+Lianna nuzzles you affectionately.
+s> 
+Vladmir bows towards Fafnir.
+s> 
+Lianna hugs Fafnir.
+s> 
+Elarin dips Fafnir.
+s> smi lia
+You smile at Lianna.
+s> 
+Fafnir dips Elarin.
+s> 
+Lianna says, "Thank you Fafnir."
+s> 
+Lianna kisses Fafnir on the cheek.
+s> 
+Fafnir says, " you can hunt the demon ship wirh elarin"
+s> 
+A flight of multi-colored butterflies flutter through the air.
+s> 'I need to get my wife to bed
+You say, "I need to get my wife to bed"
+s> 
+Elarin says, "aye"
+s> 
+Lianna struggles to her feet.
+s> 
+Fafnir hugs Lianna.
+s> 
+Elarin says, "or the swamp"
+s> stand
+
+ ** Fafnir has just left the Realms.
+s> 
+Fafnir exits.
+s> You struggle to your feet under the weight of all your equipment.
+ [Round: 2 sec]
+R> 
+Elarin says, "im telling you Rak'kahn"
+> 
+Vladmir listens carefully to Elarin.
+> 
+Elarin says, "that Khalil got a lot farther than I did"
+> 
+Lianna says, "Elarin..help us out of here."
+> 
+Elarin says, "when we were close together"
+> 
+Vladmir says, "I respect your words, you lived it while I was slummbering"
+> 
+Elarin says, "just by hunting the swamp"
+> 
+Vladmir is now following Elarin.
+> 
+Vladmir stands up.
+> 
+Elarin listens carefully to Lianna.
+> fol elar
+You are now following Elarin.
+J> look
+[Garden]
+Exotic flowers and plants from around the world fill this lush, open-air 
+garden. Light from the cavern's high crystalline ceiling cascades down upon 
+weeping trees and sculpted flower bushes. As you move along the garden's 
+rolling hills, you see a small bridge slightly arced over a stream that 
+gently flows out of a pond and burbles softly as it makes its way from one 
+side of this large garden to the other. A magnificent statue of a great 
+white dragon dominates the center of this pond. Several stone benches set 
+along side the stream's winding path offer ample room for relaxation and 
+quiet contemplation. Vines from tarokka bushes flow upwards from the ground 
+in various places to cover the walls in many meditative patterns. A stone 
+arch is here.
+You see Elarin, Vladmir and Lianna. 
+Obvious exits: southeast.
+J> look se
+[Foyer]
+This room is used mainly to offer a place for guests to wait and does not 
+hold much in the way of furniture. What little furniture there is, is 
+comfortable but not too stylish. An armchair faces the fireplace on the 
+eastern wall and a sofa sits along the northeastern wall. A thick old rug 
+covers the floor in front of the chair and sofa. Seen through an archway 
+is a long hallway.
+J> 
+Elarin says, "lets go out, and ill advice you a bit rak'kahn"
+J> 
+Lianna is now following Elarin.
+J> 
+Vladmir nods to Elarin.
+J> 
+Vladmir says, "agreed"
+J> 
+Elarin says, "but its truly up to you, i will show you the numbers"
+J> 
+Elarin nods.
+J> 
+Elarin's group goes southeast.
+J> 
+You follow Elarin.
+[Foyer]
+You see Elarin, Vladmir and Lianna. 
+Obvious exits: w, ne, nw.
+J> 
+Vladmir says, "the lovers need their rest"
+J> 
+Vladmir grins.
+J> 
+Elarin's group goes through an arch.
+J> 
+You follow Elarin.
+[Courtyard]
+You see Elarin, Vladmir and Lianna. 
+Obvious exits: none.
+J> 
+Elarin chuckles.
+J> 
+Elarin rolls his eyes.
+J> 'Yeah, uh rest, that's what we're going to do
+You say, "Yeah, uh rest, that's what we're going to do"
+J> nod
+You nod.
+J> 
+Vladmir says, "I am envious, Ill admit it"
+J> 
+Vladmir chuckles.
+J> 
+You hear the rich, soothing tone of a deeply resonating bell far above
+Zha'hadin.
+J> 
+Elarin touches a statue.
+J> 
+Elarin touches a statue.
+J> 
+Elarin ponders.
+J> 
+Lianna says, "Just hang out with Elarin...you'll end up in my bedroom."
+J> 
+Vladmir says, "but I doubt that a drakiness will show up to sweep me off my
+feet any time soon"
+J> 
+Lianna coughs.
+J> 
+Elarin says, "i forgot how to open from inside"
+J> 
+Vladmir chuckles.
+J> 
+A mighty roar fills the air!
+J> 
+Elarin chuckles at Lianna.
+J> look
+[Courtyard]
+Majestic stone walls, carved with huge symbols of each of the drakin clans, 
+loom overhead as you enter this open-air courtyard. Rising directly ahead of 
+you, dominating the middle of the yard is a statue of a mighty dragon. Small 
+cobblestone pathways radiate outward from the massive statue to each corner 
+of this yard. Each pathway terminates at a small colored statue of a dragon. 
+A wide stone archway set in the northern wall leads deeper into the Citadel. 
+On a pedestal by the archway is a glowing white globe. Two colossal stone 
+doors lead back out into the cavern. A stairway leads up along one of the 
+walls. 
+You see Elarin, Vladmir and Lianna. 
+Obvious exits: none.
+J> look arc
+At the peak of the arch, a winged serpentine dragon coiled about three
+inter-locking whorls is carved into the jade.
+J> 
+A mighty roar fills the air!
+J> 
+Vladmir says, "i just use my torc"
+J> 
+Beams of intense white light shoot forth from the eyes of the crystal dragon,
+striking the doors!
+J> 
+Elarin says, "ah"
+J> 
+Beams of intense white light shoot forth from the eyes of the crystal dragon,
+striking the doors!
+J> look door
+You see nothing extraordinary.
+J> 
+Elarin says, "i thought it still had to do with the statue"
+J> 
+Huge steel rods slowly recess into the walls.
+J> 
+Elarin touches a statue.
+J> 
+Elarin snatches his hand back in pain!
+J> 
+Huge steel rods slowly recess into the walls.
+J> 
+Elarin snatches his hand back in pain!
+J> 
+Elarin snatches his hand back in pain!
+J> 
+Elarin snatches his hand back in pain!
+J> 
+Elarin snatches his hand back in pain!
+J> 
+A loud grinding noise assails your ears as the massive stone doors of Zha'hadin
+open, revealing the cavern beyond.
+J> 
+Elarin snatches his hand back in pain!
+J> 
+A loud grinding noise assails your ears as the massive stone doors of Zha'hadin
+open, revealing the cavern beyond.
+J> look door
+You see nothing extraordinary.
+J> gaze door
+You gaze at a titanic stone double door.
+J> 
+Elarin incants a spell.
+J> gaze 2 door
+What are you referring to?  Please be more specific.
+J> 
+Elarin gestures.
+Elarin looks a little better.
+J> 
+Elarin incants a spell.
+J> look elar
+You see Elarin Damarian, a young male drakin.
+He is of medium height, huge and incredibly muscular.
+He has red eyes and his scales are jet black with sea green bands.
+He is wearing some ancient silvery gauntlets which are engraved with the symbol
+of Elarin's clan, some red enamelled bracers etched with gold filigree and
+inset with faceted yellow topaz, some deeplander boots, some ghostly white
+shoulder guards, a large gold ring craved to resemble a great golden dragon,
+poised to strike, a flowing ebony silk robe embroidered with the symbol of the
+T'Kasta in silver threads, a black steel helm formed into the shape of an open
+dragon's maw, a brass amulet in the shape of a great golden Dragon, a gray
+crystal torc bearing the mark of the T'Kasta, a shimmering pendant, a silver
+ring, an ivory talisman and a twisted dark metal earcuff resembling tiny clawed
+fingers.
+He radiates with magical strength.
+He is protected by a ghostly, hovering shield.
+A translucent red sphere surrounds him.
+A bright orange glow emanates from him.
+He appears to be healthy.
+He has a nicked, bludgeoned, slightly punctured and scorched head, a nicked,
+bludgeoned and slightly punctured body, a lacerated, bludgeoned, slightly
+punctured and singed back, a grazed and scorched right arm, a slightly
+punctured and scorched left arm, a nicked, banged-up, grazed and scorched right
+leg, a grazed and singed left leg, a grazed and singed right hand, a nicked,
+grazed and singed left hand, a grazed right wing, a slightly punctured and
+singed left wing and a banged-up, slightly punctured and singed tail.
+J> 
+Elarin gestures.
+Nothing happens.
+J> 
+Elarin incants a spell.
+J> 
+Elarin gestures.
+Elarin moves with blurring speed.
+J> 
+Elarin says, "you ready Rak'kahn?"
+J> 
+Elarin listens carefully to Vladmir.
+J> 
+Vladmir nods to Elarin.
+J> 
+Elarin's group goes through a titanic stone double door.
+J> 
+You follow Elarin.
+[Zha'hadin entry]
+You see Elarin, Vladmir and Lianna. 
+Obvious exits: n, s.
+J> 
+Elarin's group goes south.
+J> 
+You follow Elarin.
+[Zha'hadin]
+You see Elarin, Vladmir and Lianna. A massive stone statue of a drakin and a
+massive stone statue of a drakin are here.
+Obvious exits: none.
+J> 
+You hear a distant echo of a roar as the doors before you slowly start to swing
+closed.
+J> 
+Elarin's group climbs down a stairway.
+J> 
+You follow Elarin.
+[Zha'hadin Stairway]
+You see Elarin, Vladmir and Lianna. 
+Obvious exits: none.
+J> 
+Elarin goes down a path heading southeast.
+> gaze pat
+You gaze at a path heading southeast.
+> 
+Lianna goes down a path heading southeast.
+> go pat
+[Southeast Path]
+You see Elarin and Lianna. 
+Obvious exits: none.
+> 
+The path slightly curves away to the south as you approach one of the lower
+sections of the many stepped farms that line the cavern wall. A small vegetable
+stand is here with a sign that reads, "Gone Fishing," hanging in front of it.
+> look
+[Southeast Path]
+You travel along a well-worn coblestone path which winds its way to the
+southeast.
+You see Elarin and Lianna. 
+Obvious exits: none.
+> 
+As you continue on the cobbled path along the southeastern edge of the lake,
+you draw near a rickety old pier jutting out over the water of the lake.
+> 
+You move past a portion of the cavern that has been left relatively untouched.
+Massive multi-colored stalagmites surround you as you proceed along the path
+following the curve of the lake.
+> 
+Vladmir arrives down a path heading southeast.
+> 
+You arrive at the lakeshore which is covered with a fine sparkling sand. Light
+from above reflects off the peaceful waters of the lake.
+> 
+Lianna arrives.
+> look
+[The Unicorn's passage]
+A sparkling blue lake, larger then most cities, dominates the center of this 
+enormous cavern. The lakeshore is covered with a fine sparkling sand and 
+light from above reflects off its peaceful waters. To the northeast you see 
+a number of winged beings carefully tending to the terraced gardens and 
+orchards stepping down the steep inner slopes of the Cavern. The chirping of 
+birds and the sounds of woodland creatures are all you hear above the dull 
+roar of a distant waterfall in this peaceful glen. A well-used cobblestone 
+path cuts northeast and northwest through a lush forest.
+You see Elarin and Lianna. 
+Obvious exits: none.
+> 
+ ** Cypress has just disconnected.
+> look
+[The Unicorn's passage]
+A sparkling blue lake, larger then most cities, dominates the center of this 
+enormous cavern. The lakeshore is covered with a fine sparkling sand and 
+light from above reflects off its peaceful waters. To the northeast you see 
+a number of winged beings carefully tending to the terraced gardens and 
+orchards stepping down the steep inner slopes of the Cavern. The chirping of 
+birds and the sounds of woodland creatures are all you hear above the dull 
+roar of a distant waterfall in this peaceful glen. A well-used cobblestone 
+path cuts northeast and northwest through a lush forest.
+You see Elarin and Lianna. 
+Obvious exits: none.
+> who
+Klone              Moordread          Saryon             Bethesdan          
+Torrinakus         Leah               Elarin             Feras              
+Keera              Vladmir            Lianna             Graul              
+Aquanix            Elandra            
+
+
+There are 14 adventurers in the Realms.
+
+> 
+Vladmir arrives.
+> 
+A priestess walks in, bows and continues northeast down a path.
+> 
+Vladmir begins the chore of climbing the stairs, determinedly not looking down.
+> 
+Elarin points at a stairway.
+> 
+Elarin rises into the air.
+> cli stair
+
+Elarin ascends away.
+> You begin the daunting task of climbing the stairs to the ledge above, fighting
+off waves of vertigo as you approach the cloud bank. The vastness of this
+mighty cavern takes your breath away. You complete your climb and arrive on a
+high ledge.
+[Cavern Ledge]
+You see Elarin (flying) and Vladmir. 
+Obvious exits: none.
+R> 
+Elarin walks right through the cavern wall!
+R> 
+Elarin goes through a wall.
+R> 
+Vladmir walks right through the cavern wall!
+R> 
+Vladmir goes through a wall.
+R> cud lia
+You cuddle up to Lianna.
+> 
+ ** Feras has just left the Realms.
+> go wal
+You walk right into the cavern wall and disappear!
+[Portal Room]
+You see Elarin and Vladmir. 
+Obvious exits: none.
+> 
+Vladmir asks, "did they make it out>?"
+> 
+Lianna arrives through a wall.
+> 
+Vladmir smiles.
+> 
+Elarin takes Moordread by the hand.
+> 
+Elarin takes Lianna by the hand.
+J> 
+Elarin unlocks the door with a bright silver key engraved with the symbol of
+the T'Kasta.
+J> 
+Elarin opens a door.
+J> 
+Elarin's group goes through a door.
+J> 
+You follow Elarin.
+[T'Kasta Temple: Entry]
+You see Elarin, Vladmir and Lianna. Some carved pillars is here.
+Obvious exits: none.
+J> 
+Elarin closes a door.
+J> 
+Elarin locks the door with a bright silver key engraved with the symbol of the
+T'Kasta.
+J> look arch
+At the peak of the arch, a winged serpentine dragon coiled about three
+inter-locking whorls is carved into the jade.
+J> 
+Elarin's group goes through a jade arch.
+J> 
+You follow Elarin.
+[Before the Jade Arch]
+You see Elarin, Vladmir and Lianna. 
+Obvious exits: none.
+J> 
+Elarin's group goes down a flowered path.
+J> 
+You follow Elarin.
+[Elm Street]
+You see Elarin, Vladmir, Lianna, a commoner and a trader. 
+Obvious exits: n, s.
+J> 
+Elarin smiles.
+J> 
+Elarin disbands his group.
+> 
+Vladmir is now following Elarin.
+> 
+A door slams in the building behind you.
+> 
+A trader goes south.
+> 
+Elarin says, "ok you two"
+> 
+Vladmir says, "take care you two.  See you soon"
+> 
+Elarin says, "take care"
+> bow elar
+You bow towards Elarin.
+> 
+A pretty child skips by.
+> bow vla
+You bow towards Vladmir.
+> 
+Vladmir says, "not too soon"
+> 
+A commoner goes south.
+> 
+Elarin waves.
+> 
+Vladmir winks at you.
+> 'Thank you both
+You say, "Thank you both"
+> 
+Lianna hugs Elarin.
+> 
+Elarin bows.
+> 
+Lianna hugs Vladmir.
+> 
+A trader arrives.
+> 
+Elarin hugs Lianna.
+> 
+Vladmir grins.
+> 
+Vladmir waves.
+> 
+Lianna exclaims, "Thank you!"
+> 
+Vladmir swoons.
+> look
+[Elm Street]
+Elm Street slopes south away from Park Avenue where city buildings give way to
+greening grass, trees leafing out, and plantings of flowers.
+You see Elarin, Vladmir, Lianna and a trader. 
+Obvious exits: north, south.
+> smi 
+
+Elarin chuckles.
+> You smile.
+> 
+Vladmir exclaims, "welcome!"
+> 
+You feel a dark presence watching you.
+> 
+Lianna grins.
+> hold lia
+Moordread takes Lianna by the hand.
+> cud lia
+You cuddle up to Lianna.
+> 
+Elarin's group goes south.
+> look
+[Elm Street]
+Elm Street slopes south away from Park Avenue where city buildings give way to
+greening grass, trees leafing out, and plantings of flowers.
+You see Lianna and a trader. 
+Obvious exits: north, south.
+> n
+Lianna follows you.
+[Park Avenue & Elm]
+You see Lianna. A red brick townhouse surrounded by a black wrought iron fence
+and an ornate black iron gate are here.
+Obvious exits: s, e, sw.
+> sw
+Lianna follows you.
+[Park Avenue]
+You see Lianna. A cottage and some fruit are here.
+Obvious exits: ne, sw.
+> open doo
+You open a door with a little window in it.
+> 
+A pretty child skips by.
+> go doo
+Lianna follows you.
+[Lianna's place]
+You see Lianna. 
+Obvious exits: none.
+> close doo
+You close a door with a little window in it.
+> lock doo with key
+You lock the door with a simple key.
+> cli stair
+Lianna follows you.
+[Boudoir]
+You see Lianna. A skylight is here.
+Obvious exits: none.
+> kiss lia deep
+You kiss Lianna deeply.
+> 
+Lianna kisses you deeply.
+> 
+Lianna lies down on the bed, looking comfortable.
+> 'I love you !
+You exclaim, "I love you !"
+> go bed
+You lie down on the bed and get comfortable.
+L> lay
+You get into the wide canopied bed and lay back.
+L> rem boot
+You remove some worn black leather boots from your feet.
+L> 
+Lianna exclaims, "I love you more!"
+L> rem arm
+
+Lianna gets into bed and lays back.
+L> You are wearing clothes over that which will need to be removed first.
+L> rem 2 guar
+You remove some heavy steel thigh guards buffed to a high polish.
+L> rem guar
+You remove some steel shoulder guards buffed to a high polish.
+L> lay
+L> rem arm
+You remove some eldritch titanium armor.
+ [Round: 4 sec]
+RL> rem helm
+You remove a dented and rusty helm pitted and scarred with years of use from
+your head.
+L> rem gau
+You remove some black gauntlets coated with tiny scales of near transparent
+silver from your hands.
+L> rem bree
+You remove some dark brown breeches.
+L> rem tun
+You remove an embroidered tunic of cloth-of-gold.
+L> 
+Lianna removes a shimmering sea green cape that accents her eyes and flickers
+like sunlight on the sea.
+L> rem boot
+You aren't wearing that.
+L> 
+Lianna removes some form-fitting gleaming white mail made from tiny links of
+chain each one reflecting the smallest bit of light, revealing her naked body.
+L> rem gau
+You aren't wearing that.
+L> 'sleep tight love, I'll see you soon
+You say, "sleep tight love, I'll see you soon"
+L> 
+Lianna nuzzles you affectionately.
+L> kiss lia lips
+You kiss Lianna upon the lips.
+L> 
+Lianna says, "I'm sorry I kept you up late."
+L> 
+Lianna hugs you.
+L> 'And soon that mark will be gone
+You say, "And soon that mark will be gone"
+L> 'Don't be, I treasure every minute with you
+You say, "Don't be, I treasure every minute with you"
+L> 
+Lianna says, "I love you so much."
+L> 
+Lianna hugs you.
+L> 'I love you even more!
+You exclaim, "I love you even more!"

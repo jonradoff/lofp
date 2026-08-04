@@ -1,0 +1,3255 @@
+
+Gwydion absently taps two rocks together, sounding like castanets.
+> 
+Your GM hasn't come back yet, give her some time :)
+> 
+The fire shifts slightly as it consumes another piece of wood.
+> 
+A wolf listens carefully to Gwydion.
+> 
+A wolf stalks about the area.
+> 
+Hazen arrives.
+> 
+Hazen mutters something you can't quite make out.
+> 
+Donnald smiles at Hazen.
+> 
+Graul smiles at Hazen.
+> comf haz
+You comfort Hazen.
+> 
+Hazen wheezes, "Sorry, me hearing ain't what it used ta be."
+> 
+A wolf cocks her head to one side.
+> 
+One of the furs stirs as a draft tries to push it aside.
+> 
+A wolf sits down.
+> 
+Gwydion smiles.
+> 
+Hazen wheezes, "Now then.."
+> 
+Donnald says, "whats the mattr  you get lost there"
+> 
+Hazen coughs.
+> 
+Feras nuzzles Cypress affectionately.
+> 'I heard that
+You say, "I heard that"
+> 
+Hazen wheezes, "I been sent here by that Suve lass, pretty thang she is."
+> 
+A wolf barks!
+> 
+Cypress gazes at Hazen.
+> wink haz
+You wink at Hazen.
+> 
+A wolf wags her tail.
+> 'You got that right
+You say, "You got that right"
+> 
+A wolf listens carefully to Hazen.
+> 'Nothing wrong with your eyes
+You say, "Nothing wrong with your eyes"
+> toast haz
+You raise a toast to Hazen!
+> 
+Graul says, "As we were coming back, the odler gentleman here said Suve told
+him we would pay for his services.  If he could cast a spell to protect our
+dens from magically moving things and persons here."
+> 
+Hazen makes a disgusting sound, then spits into the fire.
+> 
+The fire crackles and hisses as steam escapes from the wood.
+> 
+Gwydion asks, "Indeed?"
+> 
+A wolf perks up her ears.
+> 
+Feras says, "Cool"
+> 
+Hazen wheezes, "Ayup. Do it all the time."
+> 
+Donnald says, "good"
+> act watches the hocker fly with a hint of disgust on his face.
+Moordread watches the hocker fly with a hint of disgust on his face.
+> 
+Hazen taps a small wooden pipe carved in the shape of a snake.
+> 
+Feras ponders.
+> 
+Hazen wheezes, "Ain't someone got some baccy?"
+> 
+A wolf wags her tail.
+> 
+A wolf sneezes.
+> 
+Gwydion opens a forest green leather satchel.
+> 
+Donnald shakes his head at Hazen.
+> 
+Gwydion rummages around in his satchel.
+> 'Not me
+You say, "Not me"
+> 
+Feras asks, "Can we project out though with this enchantment?"
+> 
+Feras cocks his head to the side.
+> 
+Gwydion gets a small tobacco pouch from his satchel and hands it over to Hazen.
+> 
+Graul says, "Sorry sir, I don't smoke."
+> 
+Hazen wheezes, "Well.. that be the kicker, doubtful. But ain't gonna get
+anymore popping in on ya with yer pants around yer ankles."
+> 
+Hazen smiles at Gwydion.
+> 
+The fire crackles and hisses as steam escapes from the wood.
+> 
+Feras nods.
+> 
+Hazen wheezes, "Thanks a bunch, been nearly an hour since I had a smoke."
+> 
+Donnald giggles.
+> 
+Feras says, "Good trade"
+> 
+A wolf gazes curiously at Hazen.
+> 
+Hazen fills his pipe, tamping it in good.
+> 
+Gwydion smiles.
+> 
+Hazen hands the pouch back.
+> 
+Hazen wields a small wooden pipe carved in the shape of a snake.
+> 
+Hazen clenches the pipe between his teeth and takes a puff.
+> 
+Hazen fires up his pipe.
+> 
+Hazen wheezes, "Ahhhhh."
+> 
+Hazen wheezes, "Ain't nothin like it."
+Connected to host 192.233.90.30
+                              
+
+[Establishing connection]
+
+ 
+
+  NovaLink Interactive Networks (R)
+
+  "new" to open a new account
+  "info" for more information
+
+
+login: csanburn
+Password: ********
+
+
+          NovaLink (R)
+(C)1995 NovaLink USA Corporation
+
+Good evening, CSanburn.
+You are the 2,431,457tth login to date.
+It is now 21:59:56 EST.
+
+Your last recorded login was on 07/05/99 at 21:54:30 EST.
+NOTE: It has been 611 days since your last password change.  Changing
+      your password frequently is essential to your account's security.
+
+
+You are accessing NovaLink via Autonet.
+Your account is exempt from these hourly charges.
+
+   #      Bulletin                                                /Go Page
+
+   R  ... Read your waiting mail
+   Q  ... Quickscan
+
+
+Select a bulletin to display, '?' to relist, or 'E' to enter NovaLink/exit> /go legends
+p
+
+
+Page: LEGENDS
+21:59:58 EST, 05-JUL-99
+
+   A ... About Legends of Future Past
+   C ... Legends Calendar of Events
+   P ... Play Legends of Future Past   
+   T ... Legends Teleconference (OOC)  
+   V ... Version Notes                 
+
+Menu choice, or 'X' to exit> 
+
+
+Welcome back to Legends of Future Past!
+
+
+Character Manager V1.00
+
+ 1 => Moordread
+ 2 => Morti
+ 3 => Bubba
+
+ C => Create new character
+ D => Delete current character
+ P => Play Legends of Future Past
+ X => Exit to NovaLink
+
+
+Active character: Moordread (#1)
+
+Select: p
+
+Interactive Entertainment OS V6.10 [Legends of Future Past]
+(c)1991-1995 Inner Circle Technologies, Inc. Revision dated Apr 13 1995.
+
+URLs of web components are:
+
+Webpage: www.lofp.com
+Boards: www.lofp.com/forums
+Boards (avoids Timeouts): www.lofp.com/forums/?RequestTimeout=500
+Calendar: www.lofp.com/calendar
+Rate Plan: www.lofp.com/newrate.htm
+Rate FAQ: www.lofp.com/ratefaq.htm
+Scripting policy: www.lofp.com/script.htm
+Policies: www.lofp.com/basic/policies.htm
+GAME STATUS: www.lofp.com/status.htm
+
+EMail Addresses:
+Any GM: gmname@lofp.com (like chanatahe@lofp.com)
+Manager: druid@lofp.com   His ICQ is 5730609
+Queen Moryan- QueenMoryan@lofp.com
+Baron Emails are as follows: Baron-Aetheon@lofp.com,
+Baron-Beoford@lofp.com, Baroness-Charette@lofp.com,
+Baron-Nikoli@lofp.com
+
+Please see the website for the rateplan and the scripting policy.  The
+URLS are listed above.
+
+Eprise Corporation
+1671 Worcester Rd, 4th Floor
+Framingham, MA 01701
+Send checks Attn: Gary Whitten
+
+A Royal Ball will be held in honor of Princess Arin D'vena's 11th
+birthday on July 10th. Look for details on the newsboard and calendar.
+                                 
+                                                
+[Wolfling Den]
+You see Hazen, Cypress, a wolf (laying), a wolf (laying), Feras, Graul, Donnald
+(sitting) and Saxon. A silver lined stone basin full of sparkling fresh water
+and a newsboard are here.
+Obvious exits: none.
+It is Melma 24, 1046 (Year of the Sword).
+It is late night.
+The Great Moon is gibbous waning and Phulcrus is gibbous waxing.
+The wolf guarding the door nods to you and growls, "Greetings Brother".
+> 
+A log splits, and tumbles down, creating a small shower of sparks.
+> 
+A wolf growls, "so for us to get here, we'll have to poof into an area nearby
+and walk in, correct?"
+
+Graul says, "That is the question, how do we get folks in, that cannot turn to
+wolf form."
+> 
+A wolf cocks her head to one side.
+> 
+Feras shrugs.
+> 
+A wolf sits up.
+> 
+A wolf suddenly howls, writhing in pain. It transforms into Khalil!
+> 
+Hazen wheezes, "Ayup, lessen you want me to cover the whole of the dens. I hear
+ya got a forest nearby that you want to keep idjits out of too"
+> 
+Graul says, "We can always get a ring for that though."
+> 
+A wolf arrives.
+> 
+The wolf guarding the door nods to a wolf and growls, "Greetings Sister".
+> 
+Gwydion arrives.
+> 
+The wolf guarding the door nods to Gwydion and growls, "Greetings Brother".
+> 
+A wolf lays down and puts her head on her paws.
+> 
+Hazen wheezes, "Well, if you want that, its a bit more special like."
+> 
+Gwydion sighs.
+> 
+Hazen smiles at Graul.
+> 
+A wolf wags her tail.
+> 
+Hazen wheezes, "But, I can do it."
+> 
+A wolf sloppily licks a wolf.
+> 
+Hazen wheezes, "Fer a price."
+> 
+A wolf gets back on all fours.
+> 
+Donnald smiles at Hazen.
+> 
+Khalil struggles to his feet.
+> 
+Feras gazes at Hazen.
+> 
+Khalil incants a spell.
+> 
+A wolf shakes vigorously.
+> 
+Khalil gestures.
+Khalil moves with blurring speed.
+> 
+Khalil incants a spell.
+> 'A price...like a pouch of baccy?
+You ask, "A price...like a pouch of baccy?"
+> rais
+You raise your eyebrow.
+> 
+A wolf perks up her ears.
+> 
+Hazen wheezes, "heh"
+> 
+Khalil leans on a cracked stone wall.
+> 
+Donnald says, "maby set up a place that poofers show up in and then we can
+watch them from there"
+> 
+Hazen wheezes, "You is a funny guy."
+> 
+A log burns down to embers that glow a dark red in the dim light of the den.
+> 
+Graul nods to Donnald.
+> 
+ ** Vladmir has just left the Realms.
+> 
+Graul says, "That could work, a den in the back that you can poof into."
+> 
+Hazen wheezes, "I can be leaving one spot clear of the spell, but its harder."
+> 
+Hazen casts his gaze across the area.
+> 
+Feras furrows his brow.
+> 
+Khalil says, "it would have to be a room that you can only traverse in and out
+of in wolf form"
+> 
+Donnald says, "but we would need ot fortify the area graul"
+> 'Perhaps our guard here could check out visitors before they enter
+You say, "Perhaps our guard here could check out visitors before they enter"
+> 
+Graul asks, "Well, what do you all want to go for?"
+> gaze gura
+What are you referring to?  Please be more specific.
+> 
+Feras nods to Khalil.
+> 
+Graul nods to Khalil.
+> 
+A wolf drinks some water from the basin.
+> 
+A wolf listens to her surroundings closely.
+> 
+Hazen looks for a soft spot on the ground near the fire.
+> 
+The fire crackles merrily, and its warm amber light flickers about the den.
+> 
+Hazen takes a seat between the two handsome female wolves.
+> 
+Hazen sits down.
+> 
+Hazen beams happily.
+> 
+A wolf wags her tail.
+> 
+Hazen clenches the pipe between his teeth and takes a puff.
+> 
+Donnald grins.
+> 
+Cypress gazes at Feras.
+> 
+A wolf growls, "Keera does not see what is poof, but if is majicks to make
+vanishes, and move to other place.. if one place is not safe in dens, how is
+any place safe?"
+> 
+A wolf cocks her head to one side.
+> 
+Feras takes Cypress by the hand.
+> 
+Hazen blows the smoke rings around the heads of the two females.
+> act does a double take, wondering how Hazen beat him to such a fine seat.
+Moordread does a double take, wondering how Hazen beat him to such a fine seat.
+> mut
+You mutter something under your breath.
+> 
+Hazen winks at you.
+> 
+Hazen wheezes, "Skill lad."
+> 'We should talk later
+You say, "We should talk later"
+> 
+Gwydion chuckles.
+> whist
+You whistle.
+> 
+Hazen chuckles.
+> 
+Feras gazes at Cypress.
+> 
+Graul says, "Poofing is either magic or psionics."
+> 
+Hazen wheezes, "Now then, you be wanting to hear the cost?"
+> 
+A wolf appears to become weaker.
+> 
+Graul smiles at a wolf.
+> 
+A wolf licks her lips.
+> nod
+You nod.
+> 
+A wolf listens carefully to Graul.
+> 
+ ** Saryon has just left the Realms.
+> 
+Donnald nods to Hazen.
+> 
+Cypress smiles at Feras.
+> 'The cost of each might help us decide
+You say, "The cost of each might help us decide"
+> 
+A slight breeze stirs in the den, and the fire flares up a bit.
+> 
+Graul concentrates intently.
+> 
+Feras smiles wryly
+> 
+Hazen pops a satchel on the ground in front of him. He pauses, removes his
+pipe, and spits into the fire.
+> 
+Graul concentrates.
+> 
+Graul phases out.
+> 
+Graul phases in.
+> 
+The wolf guarding the door nods to Graul and growls, "Greetings Packleader".
+> 
+Graul says, "Like that."
+> 
+A wolf blinks.
+> 
+A wolf sits down.
+> 
+A wolf sniffs Graul.
+> 
+A wolf nods.
+> 
+Hazen clenches the pipe between his teeth and takes a puff.
+> 
+Hazen wheezes, "20k in gold.. plus the supplies I need."
+> 
+Feras sniffs.
+> 
+Hazen digs through his satchel.
+> 
+Saxon concentrates intently.
+> 
+Hazen ponders.
+> 
+Khalil asks, "what supplies do you need?"
+> 
+Saxon concentrates.
+> 
+Saxon phases out.
+> 
+Hazen wheezes, "I'm looking"
+> 
+Hazen pokes his finger at a sturdy gray marble bottle.
+> 
+Hazen ponders.
+> 
+Hazen pokes his finger at a harpy eye.
+> 
+Hazen pokes his finger at a large bloody green eye.
+> 
+Hazen furrows his brow.
+> 
+A wolf cocks her head to one side.
+> 
+Graul says, "So you all know, I have 10k in the pack treasury."
+> 
+Hazen wheezes, "Nono.. thats that other spell."
+> 
+Hazen wheezes, "lets see..."
+> 
+Saxon phases in.
+> 
+The wolf guarding the door nods to Saxon and growls, "Greetings Brother".
+> 
+Hazen pokes his finger at a polished onyx bottle.
+> 'I can get the other 10k if needed
+
+Saxon gives Graul some money.
+> You say, "I can get the other 10k if needed"
+> nod grau
+You nod to Graul.
+> 
+Graul smiles at Saxon.
+> 
+A wolf listens to her surroundings closely.
+> 
+The fire crackles and hisses as steam escapes from the wood.
+> 
+Saxon smiles.
+> 
+Hazen wheezes, "no.. thats fer that male virility problem"
+> 
+Feras says, "I got 5k if necessary"
+> 
+Gwydion says, "I can put some toward it as well."
+> 
+Hazen ponders.
+> 
+Hazen pokes his finger at a tiny black tooth.
+> 
+Saxon says, "the money is taken care of."
+> 
+Hazen wheezes, "aha!"
+> 
+Hazen removes a vial from the satchel.
+> 
+Hazen opens a vial.
+> 
+Hazen spits forth a stream of explitives.
+> 
+Khalil returns to normal speed.
+> 
+Feras ponders.
+> 
+Hazen holds the bottle upside down.
+> 
+Hazen wheezes, "Crimey"
+> 
+Hazen wheezes, "Shin-jah's tears!"
+> 
+Hazen mutters something you can't quite make out.
+> 
+A wolf has to leave 'cause the storm is on top of her.
+> 
+A wolf pierces the air with a resounding howl!
+> 
+ ** Mariella has just left the Realms.
+> 
+A wolf exits.
+> 
+A wolf perks up her ears.
+> sigh
+You sigh.
+> 
+A wolf gets back on all fours.
+> who
+Cypress            Khalil             Keera              Feras              
+Leah               Genevra            Moordread          Arminger           
+Gwydion            Pockets            Graul              Donnald            
+Saxon              Morag              
+
+
+There are 14 adventurers in the Realms.
+
+> 
+A wolf whines.
+> 
+A wolf sniffs about the area.
+> 
+Hazen wheezes, "its empty!"
+> 
+A wolf curls up on the ground.
+> 
+A wolf puts her head on her paws.
+> 
+Cypress sighs.
+> 'Looks like
+You say, "Looks like"
+> 
+You hear a loud "POP!" as an acorn is finally consumed by the fire.
+> 
+A wolf perks up her ears.
+> 
+Gwydion asks, "And that's the one you need, yes?"
+> 
+Hazen wheezes, "Well, looks like you'll have to get them for me."
+> 
+Hazen nods to Gwydion.
+> 
+Feras gazes at Cypress.
+> 
+Khalil arches his eyebrow.
+> 
+Hazen wheezes, "Shin-jah's tears"
+> 
+Hazen mutters something you can't quite make out.
+> 
+Gwydion blinks.
+> 
+Feras frowns.
+> 'We are a resourceful group
+You say, "We are a resourceful group"
+> 
+Khalil says, "um..."
+> 
+A wolf cocks her head to one side.
+> 
+Gwydion says, "I thought you were cursing."
+> 
+Graul says, "As long as the one room, can only be gotten into, or out of on 4
+legs, then it will be a room for meeting outsiders.  At least our general dens
+here, would be safe."
+> 
+A wolf listens carefully to Graul.
+> 
+A wolf nods.
+> 
+A wolf growls, "She sees now."
+> 
+Khalil nods to Graul.
+> 
+Hazen wheezes, "Nope, I needs the tears of the goddess of death."
+> 
+Feras shivers.
+> 
+Gwydion winces.
+> 
+A wolf blinks.
+> 
+A wolf shudders.
+> 
+Graul raises an eyebrow towards Hazen.
+> 
+A wolf whines.
+> 
+Hazen points to the bottle. The bottle doesn't seem to have ever been used.
+> 
+Feras says, "I aint goin back down there"
+> 
+Donnald giggles.
+> 
+Cypress asks, "Where do we find those at?"
+> 
+The smell of pine hangs heavy in the air from the burning fire.
+> 
+Hazen wheezes, "Well, from her pretty face of course lass."
+> 
+Hazen winks at Cypress.
+> 
+Gwydion says, "I think providing the tears should be worth a substantial
+discount..."
+> 
+Donnald says, "i could ask tobias if he can get me some of the tears"
+> 
+Feras rolls his eyes.
+> 
+ ** Genevra has just left the Realms.
+> 
+Hazen starts into a coughing fit again, spitting into the fire. The fire hisses
+in protest.
+> 
+Gwydion asks, "So how does one make a death goddess cry, anyway?"
+> 
+A wolf gets back on all fours.
+> 
+Hazen shrugs.
+> 'I could break her heart
+You say, "I could break her heart"
+> 
+Graul says, "If you are going to ask Tobias, don't tell him what they are for. 
+he is one we wish to keep out."
+> wink
+You wink.
+> 
+Saxon asks, "Tell her Tobias did somethin good?"
+> 
+Gwydion laughs at Saxon!
+> 
+Donnald giggles.
+> 
+Cypress gazes at you.
+> 
+A wolf cocks her head to one side.
+> 
+Donnald says, "i will"
+> 
+A wolf sniffs Hazen.
+> 
+A log splits, and tumbles down, creating a small shower of sparks.
+> 
+Hazen gazes at a wolf.
+> 
+Hazen wheezes, "Purty lass"
+> 
+Donnald says, "but he wil want something huge as affavor"
+> 
+Hazen ponders.
+> 
+A wolf growls, "He makes coughs so much."
+> 
+Feras gazes at Donnald.
+> 
+Gwydion says, "No doubt."
+> look wolf
+You see a young female wolf with yellow eyes and white fur.
+She appears to be healthy.
+> nod wolf
+
+Hazen spits at a small fire pit.
+> You nod to a wolf.
+> 
+Feras says, "Geez"
+> 
+Khalil asks, "you sure its Shin-jah's tears we need?"
+> 
+Graul says, "Let me check my resources before you make any promises to him... I
+may have a way."
+> 
+Hazen ponders.
+> 
+Hazen wheezes, "Well, there IS .."
+> 
+Hazen wheezes, "naw, nevermind."
+> 
+Khalil listens carefully to Hazen.
+> 
+Gwydion listens carefully to Hazen.
+> 
+Donnald nods to Graul.
+> 
+A wolf cocks her head to one side.
+> 
+Hazen chews on the end of his pipe a bit.
+> 'Don't hold back on us now, elder
+You say, "Don't hold back on us now, elder"
+> smi haz
+You smile at Hazen.
+> 
+The fire crackles and hisses as steam escapes from the wood.
+> 
+Hazen wheezes, "Don't be sucking up neither lad."
+> smi wryly, "Not to you I wouldn't"
+Moordread smiles wryly, "Not to you I wouldn't"
+> wink
+You wink.
+> 
+Hazen wheezes, "Its even harder than getting the tears of Shin-jah."
+> 
+Khalil listens carefully to Hazen.
+> 
+Cypress listens to her surroundings closely.
+> 'Harder than that?
+You ask, "Harder than that?"
+> rais
+You raise your eyebrow.
+> 
+Hazen wheezes, "Ya gots to get blood, a vial each from followers of all eight
+gods."
+> 
+Feras rolls his eyes.
+> pond
+
+A wolf perks up her ears.
+> You ponder for a moment.
+> 
+Feras gazes at Hazen.
+> 
+Donnald says, "the tears is easer"
+> 
+Hazen wheezes, "Can be willing or not."
+> 
+A gentle breeze blows in, scattering several blossoms in its burst of air.
+> 
+The fire shifts slightly as it consumes another piece of wood.
+> 
+Graul says, "Actually that is easier."
+> 
+Gwydion nods.
+> nod grau
+You nod to Graul.
+> 
+A wolf growls, "is not sound hard, so much, Keera see everyone is always to
+bleed so much."
+> 
+Cypress ponders.
+> 
+A wolf tosses her head.
+> 
+Graul asks, "Have to be fresh blood?"
+> 
+Hazen shrugs.
+> 
+Hazen nods to Graul.
+> 
+Cypress gazes at Feras.
+> 
+Saxon says, "Yanno, seems you want a lot of stuff that borders on dark
+stuff...Shin-jah...blodd of followers...yanno, maybe it just ain't worth it"
+> 
+Graul says, "I got a few Tobias scalps around for him."
+> 
+Graul smirks.
+> 
+Feras whispers to Cypress while pointing a thumb at Hazen "He's tetched!"
+> 
+Hazen wheezes, "Ain't dark, you don't have to slice no body for it"
+> 
+Feras gazes at Hazen.
+> 
+Hazen scowls at Saxon.
+> 
+Hazen wheezes, "well, beyond a prick of the finger or sumthing"
+> 
+Saxon says, "No, sure don't see why anyone *good* would want blood."
+> 
+Saxon shrugs.
+> 
+The smell of pine hangs heavy in the air from the burning fire.
+> 
+Hazen frowns.
+> 
+Feras nods to Saxon.
+> 
+Hazen wheezes, "I'm Hazen the White!"
+> 
+A wolf listens carefully to Hazen.
+> 
+Hazen wheezes, "My magic works from stuff thats inside stuff."
+> 
+Graul gazes at the white glob in the corner.
+> 
+Graul says, "We noticed."
+> 'Like a heart?
+You ask, "Like a heart?"
+> 
+Cypress moves to stand slightly behind Feras
+> gaze heart
+You gaze at a bone heart.
+> 
+Donnald says, "well guys i will find out from tiobias about the tears and the
+rest of you work on the blood thing"
+> 
+Hazen wheezes, "Ever wonder what makes a leaf turn green, then red then brown?"
+> 
+Saxon frowns.
+> 
+Feras's eyes return to normal.
+> 
+Gwydion listens carefully to Hazen.
+> 
+Hazen wheezes, "My magic works on stuff like that"
+> 
+A wolf wags her tail.
+> 
+Hazen snorts.
+> 
+A wolf barks, "Is turnings!"
+> 
+Graul asks, "What else you need?"
+> 
+A log splits, and tumbles down, creating a small shower of sparks.
+> 
+Hazen wheezes, "A vial of blood from a follower of each of the eight gods. or
+the tears."
+> 
+Feras ponders.
+> 
+Saxon says, "We gonna just go off and get blood..gee, that'll make us popular."
+> 
+Gwydion chuckles.
+> 
+Hazen shrugs.
+> 
+A wolf cocks her head to one side.
+> 
+Hazen wheezes, "Only way to do the spell."
+> 
+Graul says, "I have a couple options for the tears."
+> 
+Graul shrugs.
+> 
+Cypress gazes at Graul.
+> 'Let's try tears first, with Grauls ideas
+You say, "Let's try tears first, with Grauls ideas"
+> 
+Saxon says, "Somehow using blood just don't feel right."
+> 
+Gwydion says, "I'm fairly sure the followers of the Light gods will give it
+willingly."
+> 
+Cypress says, "Well you're the pack leader"
+> 'Fall back on blood as a second shot
+You say, "Fall back on blood as a second shot"
+> 
+Graul says, "Lexa may be able to just get them from her husband for me."
+> 
+Feras cocks his head to the side.
+> 
+Hazen shrugs.
+> 
+Hazen wheezes, "My magic is good, you can check my aura iffen ya want. Its
+blue, hope that be good enough fer ya."
+> 
+A slight breeze stirs in the den, and the fire flares up a bit.
+> 
+Donnald listens carefully to Graul.
+> 
+Cypress listens carefully to Graul.
+> 
+Hazen looks indignant.
+> 
+Cypress asks, "What do we do?"
+> 
+Hazen wheezes, "here I am doing ya a favor fer that purty lass."
+> 
+Cypress gazes at Graul.
+> 
+Saxon smiles at a wolf.
+> 
+A wolf listens carefully to Saxon.
+> 
+Feras scratches his head.
+> 
+Graul asks, "We'll work on getting the items, we don't need to do it right now.
+ You will be around a bit right?"
+> 
+Hazen nods to Graul.
+> 
+Hazen sniffs.
+> 
+Hazen sniffs.
+> 
+Hazen snorts.
+> 
+Hazen snorts.
+> gaze haz
+You gaze at Hazen.
+> 
+A wolf listens carefully to Hazen.
+> 
+Hazen spits at a small fire pit.
+> 
+Hazen licks his lips.
+> 'If he doesn't hack up a lung first
+You say, "If he doesn't hack up a lung first"
+> 
+A wolf gazes curiously at the fire pit.
+> nod grau
+You nod to Graul.
+> 
+Hazen clenches the pipe between his teeth and takes a puff.
+> 
+Cypress nods to you.
+> 
+Donnald says, "good"
+> 
+The fire crackles and hisses as steam escapes from the wood.
+> 
+Hazen wheezes, "I gots some empty vials iffen ya need um."
+> 
+Hazen digs through his satchel.
+> 
+Hazen wheezes, "And don't try no funny business, I can tell the difference."
+> 
+Graul nods to Hazen.
+> 
+Graul says, "Please."
+> 
+Hazen removes a vial from the satchel.
+> 
+Saxon asks, "By taste?"
+> 
+Hazen removes a vial from the satchel.
+> 
+Hazen removes a vial from the satchel.
+> 
+Hazen removes a vial from the satchel.
+> 
+Hazen removes a vial from the satchel.
+> 
+Hazen removes a vial from the satchel.
+> 
+Hazen removes a vial from the satchel.
+> 
+Hazen twists up his face in an expression of pain.
+> 
+Hazen wheezes, "NO!"
+> 
+Hazen shudders.
+> 
+A wolf gazes askance at Saxon.
+> 
+Hazen wheezes, "By smell. Only vampires drink at blood."
+> 
+A wolf shudders.
+> 
+Cypress ponders.
+> 
+Hazen scowls at Saxon.
+> 
+Hazen wheezes, "You all don't seem to want me help."
+> 
+Hazen stands up.
+> 
+A slight breeze stirs in the den, and the fire flares up a bit.
+> 
+A wolf perks up her ears.
+> 
+Cypress says, "I hope we can get the tears..."
+> 
+Cypress says, "this blood thing is just tooo..."
+> 
+Donnald winks at Cypress.
+> 
+Hazen rolls his eyes.
+> 
+Cypress exclaims, "yuck!"
+> 
+Donnald says, "inwil get the tearsf rom tobias"
+> 
+Feras gazes at Donnald.
+> 
+Hazen wheezes, "Don't ya know that blood has magical properties?"
+> 
+A wolf growls, "please do not be angersome with pack"
+> 
+Hazen wheezes, "Ain't asking for gallons, just this tiny vial"
+> 
+A wolf leans on Hazen.
+> 
+Saxon says, "Yeah, seen it used ta heal people."
+> 
+Hazen nods to Saxon.
+> 
+Cypress appears to become weaker.
+> 
+Graul says, "We do sir, but blood is something we normally only take from
+enemies, and we don't use it for anything."
+> 
+Hazen wheezes, "I've done wonderous things with it, its just how my magic be
+working"
+> 
+Donnald nods to Hazen.
+> 
+Hazen puts away a small wooden pipe carved in the shape of a snake.
+> 
+Gwydion recites, "The Blood is the Life"
+> 
+Hazen gives a vial to Graul.
+> 
+Hazen gives a vial to Graul.
+> 
+Hazen gives a vial to Graul.
+> 
+The fire crackles merrily, and its warm amber light flickers about the den.
+> 
+Hazen gives a vial to Graul.
+> 
+Hazen gives a vial to Graul.
+> 
+Hazen gives a vial to Graul.
+> 
+Hazen gives a vial to Graul.
+> 
+Hazen gives a vial to Graul.
+> 
+Cypress gazes at Gwydion.
+> 
+Hazen smiles at Gwydion.
+> 
+Graul nods to Hazen.
+> 
+A wolf listens carefully to Graul.
+> 
+Hazen wheezes, "Check that third, might be a spider in it"
+> 
+Cypress says, "that may be, but you'll have to pick me up when I faint from
+seeing all of it"
+> 
+Hazen wheezes, "I'll carry ya lass."
+> 
+Hazen winks at Cypress.
+> 
+Feras licks his lips.
+> 
+Gwydion laughs.
+> 
+Cypress sighs.
+> 
+Graul asks, "Is it any extra fee for keeping one room clear?  Or protecting the
+lower forest?"
+> 
+Hazen wheezes, "Though, your thighs be a bit on the heavy side, but I'm still
+strong and virile!"
+> rais
+You raise your eyebrow.
+> 
+Feras drops his hand to his pommel instictively
+> 'Hey now
+You say, "Hey now"
+> 
+A slight breeze stirs in the den, and the fire flares up a bit.
+> 
+A wolf cocks her head to one side.
+> act throws Hazen a scolding look.
+Moordread throws Hazen a scolding look.
+> 
+A wolf shifts nervously.
+> 
+Hazen wheezes, "Hey now, I be liking them big thick thighs."
+> 
+Cypress pouts.
+> 
+You feel the strength leave you.
+> 
+Feras gazes at Hazen.
+> frow
+
+Hazen shrugs.
+> You frown.
+> 
+Saxon gazes at Hazen.
+> 
+Cypress leans on Feras.
+> 
+Donnald growls at Hazen.
+> 'Maybe I judged his eyesight wrong 
+You say, "Maybe I judged his eyesight wrong"
+> 
+Hazen wheezes, "I be thinking I'll head to town and find me a room and a
+wench."
+> 
+A wolf whines.
+> 
+Feras ponders.
+> look cypr
+A light dusting of freckles dots Cypress Starslayer's pert nose, highlighting
+emerald green eyes that sparkle with friendliness and compassion. Her honey
+blond hair flows in thick waves to her slender waist, accenting her trim form.
+She is wearing some faded blue jeans decorated with a heart-shaped cutout that
+shows the white lace panties beneath, a soft purple form-fitting t-shirt tucked
+into her jeans and an antique albescent engagement ring with two radiant
+encircling pearls that dance like moons above a night sky.
+She appears to be healthy.
+> 
+You feel the touch of Nissa's mind:
+":)"
+> 
+Feras gazes at Hazen.
+> 
+Saxon concentrates intently.
+> 
+Hazen makes a loud, disgusting sound and spits into the fire.
+> 
+Gwydion winces.
+> 
+Cypress shudders.
+> 
+Graul taps Hazen on the shoulder.
+> 
+Hazen gazes at Graul.
+> 
+The fire crackles and hisses as steam escapes from the wood.
+> 
+You feel the touch of Pockets's mind:
+"Hello Nissa!"
+> 
+Graul asks, "Is it any extra fee for keeping one room clear?  Or protecting the
+lower forest?"
+> 
+Feras whispers to Graul "Just how valuable are his services?"
+> 
+Hazen shakes his head at Graul.
+> 
+You feel the touch of Nissa's mind:
+"Hello, Pocket!"
+> 
+A wolf shivers.
+> 
+Graul says, "Then we will discuss it and see what all wish to have done."
+> 
+Feras gazes at Hazen.
+> 
+Saxon asks, "You are gonna show us you can even do it before we pay ya right?"
+> 
+Khalil gestures.
+Khalil moves with blurring speed.
+> 
+Khalil incants a spell.
+> 
+Hazen wheezes, "Its all the same, one way or another."
+> 
+A wolf shivers.
+> 
+A wolf leans on Khalil.
+> 
+Hazen wheezes, "Well, I be needin the blood or the tears, but you can keep the
+gold till I do the job."
+> whisp cypr Pay no heed to that fella, you should know better *wink*
+You whisper to Cypress.
+> 
+Khalil pets a wolf.
+> 
+The fire crackles and hisses as steam escapes from the wood.
+> 
+Cypress whispers to you, "he said my thighs were fat! *pout*"
+> 
+Hazen spits at a small fire pit.
+> 
+Hazen casts his gaze across the area.
+> 
+Gwydion says, "If Suve feels he can do it, that's good enough for me."
+> 
+A wolf shivers.
+> 
+Hazen sighs.
+> 
+Khalil nods to Gwydion.
+> whisp cypr His eyesight is shot, you are the vision of slender beauty *hugs*
+You whisper to Cypress.
+> 
+Feras ponders.
+> 
+Feras casts his gaze across the area.
+> 
+Hazen wheezes, "Now theres a lass with perfect thighs and .."
+> 
+Hazen sighs.
+> 
+You feel the touch of Pockets's mind:
+"has anyone seen Sun lately?"
+> 
+Graul says, "She did find and send him to us."
+> 
+Donnald shrugs.
+> 
+Cypress sighs.
+> 
+Hazen wheezes, "Shoulda seen her smile when she talked about you"
+> 'I'm thinking I know why she sent him here
+You say, "I'm thinking I know why she sent him here"
+> nod
+
+Hazen thumps Graul on the back.
+> You nod.
+> 
+Graul smiles at Hazen.
+> 
+The fire crackles and hisses as steam escapes from the wood.
+> 
+A low howl sounds from somewhere near the ledge.
+> 
+You feel the touch of Donnald's mind:
+"tobias are you around"
+> 
+Hazen wheezes, "Now then, I'm gonna go find me that room. need my sleep."
+> 
+Hazen stretches his arms lazily.
+> 
+Feras clenches a fist, his face turning a darker shade
+> 
+Saxon says, "I bet she did smile, we smile thinkin bout him too."
+> 
+Graul says, "Thank you sir."
+> 
+Without warning, Hazen howls and collapses to the ground, shaking. Undergoing a
+terrible transformation, he changes shape into that of a wolf!
+> 
+A wolf sniffs a wolf.
+> 
+Graul leans on Saxon.
+> look 2 wolf
+You see a young female wolf with yellow eyes and white fur.
+She appears to be healthy.
+> 
+A wolf snorts.
+> 
+Saxon says, "Prolly thinkin the same thing as us."
+> look wolf
+
+Saxon grins.
+> You see an aging male wolf with blue eyes and black fur.
+He appears to be healthy.
+> 
+A wolf whines.
+> 
+Graul says, "Yea, but for a different reason."
+> 
+Gwydion asks, "Can you find your way back to the city?"
+> 
+Donnald sighs.
+> 
+Graul pokes Saxon.
+> 
+A wolf tugs on a wolf.
+> 
+A wolf hacks and coughs a bit.
+> 
+A wolf goes through an opening.
+> 
+Donnald says, "well time ot go and find tobias"
+> 
+Graul says, "That must mean yes."
+> 
+A wolf gazes after the old one.
+> 
+Gwydion chuckles.
+> 
+Donnald says, "be back"
+> 
+Graul says, "Ok, so some questions we need to decide on."
+> 
+Cypress listens carefully to Graul.
+> 
+Khalil gestures.
+Nothing happens.
+> 
+Khalil incants a spell.
+> 
+Khalil leans on a cracked stone wall.
+> 
+You hear a loud "POP!" as an acorn is finally consumed by the fire.
+> 
+Donnald gazes at Graul.
+> 
+Khalil listens to his surroundings closely.
+> 
+Feras shows his teeth briefly
+> 
+Graul asks, "Do we include the werewolf area?"
+> 
+Without warning, Donnald howls and collapses to the ground, shaking. Undergoing
+a terrible transformation, he changes shape into that of a wolf!
+> 
+Khalil comforts Feras.
+> 
+A wolf leans on Cypress.
+> look wolf
+You see a young female wolf with yellow eyes and white fur.
+She appears to be healthy.
+> look wolf
+You see a young female wolf with yellow eyes and white fur.
+She appears to be healthy.
+> 
+Cypress asks, "How about we say no smoking in the den fron now on?"
+> look 2 wolf
+You see an aging male wolf with gray eyes and light brown fur.
+He appears to be healthy.
+> 
+Graul smiles at Cypress.
+> 
+A wolf gets back on all fours.
+> 
+A wolf goes through an opening.
+> 
+Gwydion says, "My inclination is to say no, Graul."
+> 
+ ** Durek has just left the Realms.
+> 
+Feras puts an arm around Cypress possesively
+> 
+Cypress smiles at a wolf.
+> 
+Graul says, "Yes, having someone able to come rezz has been nice at times."
+> 
+A wolf droops her head.
+> 
+A wolf curls up on the ground.
+> 
+Khalil nods to Graul.
+> 
+You feel the touch of Donnald's mind:
+"tobias are you here?"
+> nod
+You nod.
+> who
+Cypress            Khalil             Keera              Feras              
+Leah               Burne              Moordread          Arminger           
+Gwydion            Pockets            Graul              Donnald            
+Saxon              Morag              Tobias             Nissa              
+Cyrano             
+
+
+There are 17 adventurers in the Realms.
+
+> 
+ ** Cyrano has just left the Realms.
+> 
+Khalil says, "everything on this side of the trail"
+> 
+The fire crackles and hisses as steam escapes from the wood.
+> look
+[Wolfling Den]
+This large, roomy area has walls with old cracks covered over with
+soft furs. A large, silver-lined basin of water flowing into it 
+rests in a back corner. A fire pit sits near a grouping of stones
+for sitting. A lone wolf stands guard at the entrance, his eyes 
+battle wary. Near the back of the dens, an excavation has begun to
+clear out the individual rooms of the pack. The fresh smell of spring
+flowers fills the air with every breath.
+You see Cypress, Khalil, a wolf (laying), Feras, Gwydion (sitting), Graul and
+Saxon. A newsboard is here.
+Obvious exits: none.
+> 
+Feras gazes at a wolf.
+> 
+Khalil says, "and we should dig a new room as a teleport in point"
+> 
+Graul says, "And I am inclined to want another den made, maybe off this room,
+that you can only go into and out of on 4 legs, and cannot follow through."
+> 
+Khalil says, "if we can get it done in time"
+> 
+You feel the touch of Tobias's mind:
+"Yes Donnald."
+> 
+A wolf shivers.
+> 
+Graul nods to Khalil.
+> nod grau
+You nod to Graul.
+> 
+You feel the touch of Donnald's mind:
+"can i meet you at teh spioder cave"
+> 'I like that idea
+You say, "I like that idea"
+> 
+You feel the touch of Tobias's mind:
+"Sure."
+> 
+Gwydion ponders.
+> 
+You feel the touch of Donnald's mind:
+"  thanks"
+> 
+The fire crackles and hisses as steam escapes from the wood.
+> 
+Feras gazes at a wolf.
+> 
+Graul asks, "Any other ideas?  Thoughts?"
+> 
+Feras rolls his eyes.
+> 
+Gwydion says, "Last time I looked, it appeared that the rubble had been
+cleared..."
+> 
+A wolf puts her head on her paws.
+> 
+Khalil pets a wolf.
+> 
+Graul nods to Gwydion.
+> 
+Khalil nods to Gwydion.
+> 
+A wolf leans on Khalil.
+> 
+Gwydion asks, "Does that mean it's a clear trail between here and the Deep
+Forest?"
+> 
+Khalil says, "anyone can freely walk from the deep forest back to the river"
+> 
+Saxon says, "Well, it'll be ironic if Tobias helps us close off the dens...but
+I gotta say..a little bloodletting ta clear the dens just don't feel right."
+> 
+Khalil says, "but going from the river back to the deep forest is a bit harder"
+> 
+Feras casts his gaze across the area.
+> 
+ ** Burne has just disconnected.
+> 
+A wolf listens carefully to Saxon.
+> 
+Graul asks, "The river still cannot be marked though right?"
+> 
+Cypress gazes at Feras.
+> 
+Feras clears his throat.
+> 
+A log splits, and tumbles down, creating a small shower of sparks.
+> 
+Khalil ponders.
+> 
+Khalil asks, "the Eltinmar?"
+> 
+Khalil says, "should be able to be marked"
+> 
+Khalil says, "that's outside the homeland"
+> 
+Gwydion stands up.
+> 
+Khalil returns to normal speed.
+> 
+Without warning, Gwydion howls and collapses to the ground, shaking. Undergoing
+a terrible transformation, he changes shape into that of a wolf!
+> 
+Khalil gestures.
+Khalil moves with blurring speed.
+> 
+Khalil incants a spell.
+> exp
+Level: 54
+Build Points to date: 562
+Unspent Build Points: 4
+Experience Points until next Build Point: 9579
+> 
+A wolf growls, "I'm just going to go check something."
+> 
+Khalil nods.
+> 
+A wolf goes through an opening.
+> 
+Saxon shrugs.
+> 
+The fire crackles merrily, and its warm amber light flickers about the den.
+> 
+Graul says, "Wasn't markable before."
+> 
+Graul ponders.
+> 
+Saxon raises his hand.
+> 
+Khalil listens carefully to Saxon.
+> 
+Graul listens carefully to Saxon.
+> 
+Cypress listens carefully to Saxon.
+> time
+It is Melma 24, 1046 (Year of the Sword).
+It is early morning.
+The Great Moon is gibbous waning and Phulcrus is gibbous waxing.
+> 
+Graul pokes Saxon.
+> who
+Cypress            Khalil             Keera              Feras              
+Leah               Moordread          Arminger           Gwydion            
+Pockets            Graul              Donnald            Saxon              
+Morag              Tobias             Nissa              
+
+
+There are 15 adventurers in the Realms.
+
+> 
+Graul says, "This is by no means a formal meeting."
+> 
+Saxon asks, "before I keep talkin to this brick wall over here...does anyone
+but me have any bad feelings bout this?"
+> 
+Feras raises his hand.
+> 
+A wolf listens carefully to Saxon.
+> 
+ ** Nissa has just left the Realms.
+> 
+Graul says, "I don't agree with the blood."
+> 
+A log splits, and tumbles down, creating a small shower of sparks.
+> 
+Graul says, "Like you, I think it feels wrong."
+> 
+Saxon asks, "But ya agree with something from Shin-jah?"
+> 
+Graul smiles at Saxon.
+> 
+Khalil says, "personally, I'd like to find Suve and clear it with her first"
+> 
+ ** Morag has just left the Realms.
+> 
+Feras nods to Khalil.
+> 
+A wolf arrives through a narrow crevice.
+> 
+The wolf guarding the door nods to a wolf and growls, "Greetings Brother".
+> 
+Graul ponders.
+> 
+A wolf suddenly howls, writhing in pain. It transforms into Gwydion!
+> 
+Graul says, "That I think we can do."
+> 'I don't care for it, but I figure we try for the tears and if that works it's not an issue
+You say, "I don't care for it, but I figure we try for the tears and if that
+works it's not an issue"
+> 
+Gwydion says, "The Clearing can't be marked."
+> 
+A wolf listens carefully to you.
+> 
+Graul nods.
+> 
+Saxon says, "So we go get some evil gods stuff ta help us"
+> 
+Graul says, "THought so, only deep forest, and this room."
+> 
+Saxon sighs.
+> 'Be a perfect way to insult her
+You say, "Be a perfect way to insult her"
+> 
+A wolf listens carefully to Saxon.
+> 
+Khalil says, "but the deep forest can... and you don't have to be a wolfling to
+go from the deep forest to the clearing"
+> 
+The fire crackles and hisses as steam escapes from the wood.
+> 
+Feras whispers something to Graul
+> 
+Saxon says, "Yeah, if it works..or if its even ta really help us"
+> 'Should be double check with Suve first?
+You ask, "Should be double check with Suve first?"
+> 
+Gwydion says, "But  one can go from Deep Forest to the Clearing, and even to
+the Wild Forest right outside the den entrance, on two legs."
+> 
+Saxon says, "Anyone can waltz inta town and say Suve sent em, I agree with
+Khalil, we gotta check it out."
+> 'So far we only have his word that she sent him
+You say, "So far we only have his word that she sent him"
+> 
+A wolf growls, "She think is to sound so strangeness too, Sacks, but he say,
+"Oh, he is not dark!"  He say is very loud"
+> 
+A wolf growls, "is no way to see if he say what is?"
+> 
+Saxon says, "Yeah, I heard Tobias say the same thing lots and lots."
+> 
+Saxon smiles at a wolf.
+> 
+A wolf nods.
+> 
+A wolf growls, "But is no way to know?"
+> 
+Saxon says, "Yanno, I even heard Saryon say it a few times."
+> 
+The smell of pine hangs heavy in the air from the burning fire.
+> 
+Khalil says, "we can check his references"
+> 
+Khalil chuckles.
+> 
+Khalil returns to normal speed.
+> 
+A wolf growls, "words are words, but how does he act?"
+> 
+Graul says, "Aura doesn't mean anything."
+> 
+A wolf cocks her head to one side.
+> 
+Khalil says, "talk with Suve and make sure she sent him"
+> 
+Saxon nods to Khalil.
+> 
+Graul says, "And I will track down Suve."
+> 
+Khalil gestures.
+Khalil moves with blurring speed.
+> 
+Khalil incants a spell.
+> 
+Feras gazes at Cypress.
+> 'Called himself Hazen the White, then said he had a blue aura
+You say, "Called himself Hazen the White, then said he had a blue aura"
+> shr
+You shrug.
+> 
+A gentle breeze blows in, scattering several blossoms in its burst of air.
+> 
+Cypress leans on Feras.
+> 
+Graul says, "Blue is nuetral I think."
+> 
+Graul shrugs.
+> 
+A wolf growls, "And he is to hurt Sy Press, and that is wrong"
+> 
+Khalil says, "his name is Hazen... but the White... I think he made up at the
+town gates... didn't seem to sure of it when he first said it"
+> 
+A slight breeze stirs in the den, and the fire flares up a bit.
+> 
+Feras nods to Graul.
+> 
+Feras nods to Graul.
+> 
+Cypress smiles at a wolf.
+> 
+Cypress says, "I'm alright, Keera"
+> 
+Saxon says, "Well, I hate ta see us act like a herd a sheep when someone comes
+in and sheperds us ta what *they* wanna do."
+> 
+Saxon grins.
+> 'But you don't have to do a whole lot of good to get a green aura...kind of makes me wonder why an old guy like him is still blue
+You say, "But you don't have to do a whole lot of good to get a green
+aura...kind of makes me wonder why an old guy like him is still blue"
+> 
+Gwydion takes a bite of a thesnia leaf.
+> 
+Gwydion seems changed.
+> 
+Khalil nods to Saxon.
+> 
+A log burns down to embers that glow a dark red in the dim light of the den.
+> 
+Khalil says, "we'll check up on him Saxon"
+> 
+A wolf puts her head on her paws.
+> 
+Cypress says, "his manners were horrible"
+> 
+Khalil nods to Cypress.
+> nod cyp
+You nod to Cypress.
+> 'Deplorable
+You say, "Deplorable"
+> 
+Feras growls.
+> 
+Khalil says, "he's old... some people get that way"
+> 
+Graul says, "If bad manners kept you from being in the pack, I would been
+kicked out long ago."
+> 'Sadly true
+You say, "Sadly true"
+> 
+Cypress nods to a wolf.
+> nod khal
+You nod to Khalil.
+> 
+Graul grins.
+> 'You still could be
+You say, "You still could be"
+> 
+Feras says, "Why does so many insist on defending the old coot"
+> wink grau
+You wink at Graul.
+> 
+Feras sniffs.
+> 
+Graul tickles you.
+> 
+You hear a loud "POP!" as an acorn is finally consumed by the fire.
+> 
+Cypress says, "rude is one thing..sickening is another"
+> 
+Feras gazes at Cypress.
+> 
+Graul says, "Ok, I'll locate Suve, and verify his abilities, and
+trustworthiness."
+> 
+Cypress gazes at Graul.
+> 
+Graul asks, "Anything else?"
+> 
+Gwydion nods.
+> 
+A wolf growls, "say to Keera what is manners, because she think is not manners,
+but somethings else that is bad, to make old one say"
+> 
+A wolf nods to Cypress.
+> 
+Graul smiles at Cypress.
+> 
+A wolf growls, "She think old one is sick, he cough so much"
+> 
+Graul says, "Only rude?  I thought I was crude."
+> 
+Graul sighs.
+> 
+Feras furrows his brow.
+> 'tactless
+You say, "tactless"
+> smi grau
+You smile at Graul.
+> 
+Khalil returns to normal speed.
+> 
+Graul chuckles.
+> 
+The smell of pine hangs heavy in the air from the burning fire.
+> 'Loose lipped
+You say, "Loose lipped"
+> pond
+You ponder for a moment.
+> 'Headstrong
+You say, "Headstrong"
+> 
+Graul gazes at you.
+> 
+ ** Winter has just left the Realms.
+> 'Judgmental
+You say, "Judgmental"
+> 
+Graul says, "Sharp toothed."
+> 
+Gwydion asks, "Should we try to proceed with getting the ingredients?"
+> pond
+You ponder for a moment.
+> nod grau
+You nod to Graul.
+> 
+Graul licks his lips.
+> 'Sharp tongued
+You say, "Sharp tongued"
+> 
+Khalil listens carefully to Graul.
+> 
+Graul says, "We can at least figure out the difficulty of aquiring them."
+> nod
+You nod.
+> 
+Gwydion nods.
+> 
+The wolfling guarding the entrance sits for a moment and scratches at his ear.
+> 
+Cypress says, "alright so let's find Suve"
+> 
+Graul says, "No need to get them yet."
+> 
+The fire shifts slightly as it consumes another piece of wood.
+> 
+Feras ponders.
+> 
+Feras smiles at Cypress.
+> 
+Feras nods to Cypress.
+> 
+A wolf cocks her head to one side.
+> 
+Graul says, "I would also like to meet briefly with the council, alone, when we
+finish."
+> 
+A wolf listens carefully to Gwydion.
+> 
+Feras casts his gaze across the area.
+> who
+Cypress            Khalil             Keera              Feras              
+Leah               Moordread          Arminger           Gwydion            
+Pockets            Graul              Donnald            Saxon              
+Tobias             
+
+
+There are 13 adventurers in the Realms.
+
+> 
+You hear a loud "POP!" as an acorn is finally consumed by the fire.
+> 
+A wolf perks up her ears.
+> 
+The wolfling guarding the entrance sits for a moment and scratches at his ear.
+> who
+Cypress            Khalil             Keera              Feras              
+Leah               Moordread          Arminger           Gwydion            
+Pockets            Graul              Donnald            Saxon              
+Tobias             
+
+
+There are 13 adventurers in the Realms.
+
+> 
+Graul ponders.
+> 
+Graul says, "I didn't mean to make everyone get quiet."
+> 
+Graul casts his gaze across the area.
+> 
+Gwydion chuckles.
+> 
+Gwydion asks, "So how do we find Suve?"
+> 
+Khalil listens to his surroundings closely.
+> 
+Graul shrugs.
+> 
+Graul says, "Send out word, and wait."
+> 
+Graul smiles.
+> 
+Feras says, "She usually finds us if there is need"
+> 
+Graul nods to Feras.
+> 
+The fire crackles and hisses as steam escapes from the wood.
+> 
+Cypress says, "well if she sent him she must not be around"
+> 
+Feras ponders.
+> 
+Cypress says, "or she would have brought him here"
+> 
+A wolf puts her head on her paws.
+> 
+Feras says, "She is "enigmatic" at times"
+> 
+Gwydion nods to a wolf.
+> 
+The smell of pine hangs heavy in the air from the burning fire.
+> 
+Feras shrugs.
+> 
+Khalil gestures.
+Khalil moves with blurring speed.
+> 
+Khalil incants a spell.
+> 
+Khalil sits down.
+> 
+Without warning, Khalil howls and collapses to the ground, shaking. Undergoing
+a terrible transformation, he changes shape into that of a wolf!
+> 
+A wolf listens to her surroundings closely.
+> 
+A wolf curls up on the ground.
+> 
+A wolf listens to his surroundings closely.
+> 
+Cypress says, "I'm confused..."
+> 
+Feras smiles at Cypress.
+> smi
+You smile.
+> 
+Graul says, "Hi, I rude."
+> 
+Graul leans on Cypress.
+> 
+You feel the touch of Dorian's mind:
+"Morning."
+> 
+Feras ponders.
+> 
+Saxon stares at Cypress' blond hair and nods.
+> 
+Cypress asks, "we're going to wait for Suve before doing anything?"
+> 
+A wolf cocks her head to one side.
+> 
+Saxon grins.
+> 
+Feras sighs.
+> 
+You feel the touch of Leah's mind:
+"Good morning, Dorian!"
+> 
+Cypress thumps Saxon on the head!
+> 
+Saxon ducks.
+> 
+Saxon says, "ow"
+> 
+A wolf blinks.
+> 
+Saxon winces.
+> 
+A wolf whines.
+> 
+Saxon mutters something you can't quite make out.
+> 
+A wolf gets back on all fours.
+> 
+Gwydion asks, "Perhaps we could try calling her from up the trail?"
+> 
+You feel the touch of Pockets's mind:
+"hello Dorian."
+> 
+You feel the touch of Dorian's mind:
+"Hi Lah!"
+> 
+A wolf is now guarding Saxon.
+> 
+Cypress pokes Graul.
+> 
+Saxon beams at a wolf.
+> 
+Graul says, "We are going to verify his story, before we gather the items and
+continue."
+> 
+A wolf shivers.
+> 
+You feel the touch of Dorian's mind:
+"Hello Pockets."
+> 
+Saxon nuzzles a wolf affectionately.
+> 
+The fire shifts slightly as it consumes another piece of wood.
+> 
+A wolf growls, "please do not make hurts"
+> 
+A wolf barks!
+> 
+A wolf growls, "wrong wolf Saxon"
+> 
+Saxon winces.
+> 
+A wolf sits down.
+> 
+Saxon says, "You wolfs hafta stop all that leavin and comin in"
+> 
+Cypress asks, "ok so we aren't going to try to get the tears or blood at this
+point?"
+> 
+Saxon grins.
+> 
+Graul says, "She has never come as soon as we wanted her too.  It will take
+time."
+> 
+Feras wrinkles up his nose.
+> 
+Graul says, "It is spring... in and out, in and out...."
+> 
+Graul leans on Saxon.
+> 
+Feras ponders.
+> 
+A wolf listens carefully to Graul.
+> 
+Without warning, Gwydion howls and collapses to the ground, shaking. Undergoing
+a terrible transformation, he changes shape into that of a wolf!
+> rais
+You raise your eyebrow.
+> cough
+You cough.
+> 'Uhm, yeah
+You say, "Uhm, yeah"
+> 
+Feras gazes at Cypress.
+> 
+Saxon rolls his eyes.
+> 
+A log burns down to embers that glow a dark red in the dim light of the den.
+> 
+Feras cocks his head to the side.
+> 
+Graul says, "Oh, that reminds me..."
+> 
+All wolflings please report up your level.
+> exp
+Level: 54
+Build Points to date: 562
+Unspent Build Points: 4
+Experience Points until next Build Point: 9579
+> 
+Graul says, "The other day I heard something, I was hoping someone here could
+clerify it..."
+> 
+Graul says, "What is..."
+> report Level 54
+Your message has been reported to the online GameMaster staff.
+> 
+Graul gazes at Saxon.
+> 
+Doesn't mean its over, just getting you before the storm hits.
+> 
+You have been awarded 200000 experience points.
+> 
+Graul asks, "2 shakes of a strippers bottom?"
+> 
+Feras squeezes Cypress' hand chuckling softly
+> 
+A wolf listens carefully to Graul.
+> 'A very short time
+You say, "A very short time"
+> 
+A wolf cocks her head to one side.
+> 
+Graul ponders.
+> exp
+Level: 54
+Build Points to date: 568
+Unspent Build Points: 10
+Experience Points until next Build Point: 25579
+> 
+A wolf growls, "A *very* short time."
+> nod
+You nod.
+> 
+A wolf chuckles.
+> 
+Graul listens carefully to Saxon.
+> 
+The fire shifts slightly as it consumes another piece of wood.
+> 
+Graul says, "Wow, silence."
+> 
+Saxon arches his eyebrow.
+> 
+Graul ponders.
+> 
+A wolf looks confused.
+> 
+A wolf curls up on the ground.
+> 
+Did I miss anyone for exp?
+> 
+Saxon says, "Sounds like ya got yer answers"
+> 
+You feel the touch of Donnald's mind:
+"graul are you still around"
+> 
+ ** Feras has just left the Realms.
+> 
+Feras exits.
+> 
+Graul nods.
+> 
+Feras arrives.
+> 
+The wolf guarding the door nods to Feras and growls, "Greetings Brother".
+> 
+Graul says, "Not long, got it."
+> 
+ ** Cypress has just left the Realms.
+> 
+Cypress exits.
+> 
+Cypress arrives.
+> 
+The wolf guarding the door nods to Cypress and growls, "Greetings Sister".
+> 
+You feel the touch of Graul's mind:
+"Yes."
+> 
+Feras takes Cypress by the hand.
+> 
+Graul says, "See, in and out."
+> 
+Graul casts his gaze across the area.
+> 
+A wolf listens to her surroundings closely.
+> 
+Feras rolls his eyes.
+> 
+A wolf returns to normal speed.
+> 'Those were more out and in
+You say, "Those were more out and in"
+> 
+You feel the touch of Donnald's mind:
+"can you meet me at the spider cave to ilzar"
+> 
+Graul ponders.
+> 
+Feras wrinkles up his nose.
+> 
+A wolf growls, "Alright, give a shout when you need us, Graul."
+> 
+The smell of pine hangs heavy in the air from the burning fire.
+> 
+Graul smiles.
+> 
+A wolf goes through an opening.
+> 
+Feras shivers.
+> 
+Graul asks, "Council?"
+> 
+A wolf sniffs about the area.
+> 
+Saxon arches his eyebrow.
+> 
+Feras points at Saxon.
+> 
+Saxon casts his gaze across the area.
+> 
+Graul ponders.
+> 
+Saxon asks, "yeah?"
+> 
+Graul says, "Hmm, Mariella left."
+> 
+Feras nods.
+> 
+A wolf nods.
+> 
+Feras says, "You know my vote"
+> 
+ ** Gwydion has just left the Realms.
+> 
+Feras shakes his head at Cypress.
+> 
+Feras says, "If I had one"
+> 
+Graul says, "Come to my den if you are on the council."
+> 
+Without warning, Graul howls and collapses to the ground, shaking. Undergoing a
+terrible transformation, he changes shape into that of a wolf!
+> 
+Without warning, Saxon howls and collapses to the ground, shaking. Undergoing a
+terrible transformation, he changes shape into that of a wolf!
+> 
+A wolf growls, "3rd den if you don't know."
+> 
+A wolf goes through a small stone arch.
+> 'Take care all
+You say, "Take care all"
+> sal
+You salute.
+> 
+A wolf goes through a small stone arch.
+> 
+A wolf gets back on all fours.
+> 
+A wolf sloppily licks you.
+> 
+A wolf sloppily licks you.
+> 
+Cypress smiles at you.
+> 
+You feel the touch of Graul's mind:
+"in a minute."
+> 
+Feras nods to you.
+> 
+A wolf gets back on all fours.
+> smi
+You smile.
+> 
+A log burns down to embers that glow a dark red in the dim light of the den.
+> 
+You feel the touch of Donnald's mind:
+"will wait there"
+> beam
+You beam happily.
+> 
+A wolf growls, "More Dred goes?"
+> 'Well, I'm leaving the den
+You say, "Well, I'm leaving the den"
+> look wolf
+You see a mature male wolf with gray eyes and gray fur.
+He appears to be healthy.
+> 
+A wolf is now following Moordread.
+> 
+A wolf wags her tail.
+> look 2 wolf
+You see a young female wolf with yellow eyes and white fur.
+She appears to be healthy.
+> hug 2 wolf
+You hug a wolf.
+> trans
+You groan in pain as your body undergoes a metamorphosis and assumes
+the form of a wolf.
+ [Round: 7 sec]
+R> 
+A wolf droops his tail.
+R> 
+A wolf barks!
+R> wag
+You wag your tail.
+R> 
+A wolf goes through a small stone arch.
+R> 
+Feras leans on Cypress.
+> go open
+A wolf follows you.
+[Wild Forest]
+You see a wolf. 
+Obvious exits: u.
+> u
+A wolf follows you.
+[Wild Forest]
+You see a wolf. 
+Obvious exits: d.
+> go open
+A wolf follows you.
+[Before Grymwood]
+You see a wolf. 
+Obvious exits: s.
+> 
+A wolf sloppily licks you.
+> 
+A wolf growls, "please"
+> 'Where you going pretty Keera?
+You growl, "Where you going pretty Keera?"
+> 
+A wolf growls, "he remember where is special tree?"
+> 
+A wolf licks her lips.
+> 
+A wolf wags her tail.
+> act nuzzles you happily.
+A wolf nuzzles you happily.
+> nod
+You nod.
+> howl
+You howl.
+> s
+A wolf follows you.
+[Eltinmar Bridge, western side]
+You see a wolf. A rusty iron bridge is here.
+Obvious exits: n, s.
+> s
+A wolf follows you.
+[Eltinmar River, eastern crossing]
+You see a wolf. A gangplank and a dinghy are here.
+Obvious exits: n.
+You notice that one of Ebby's daughters is waiting here with a dinghy. A
+gangplank leads on board.
+> go pat
+A wolf follows you.
+[Grassland, crickets]
+You see a wolf. 
+Obvious exits: nw.
+A blade of grass slashes a wolf.
+ Glancing blow. [1 Damage]
+> winc
+You put your tail between your legs.
+> nw
+A wolf follows you.
+[Grassland, long grasses]
+You see a wolf. 
+Obvious exits: n, w, se.
+> 
+A wolf growls, "soon will spring time end, then comes hot summer."
+> sigh
+> nod
+You nod.
+> 
+A wolf growls, "oh, she hope is short summer time."
+> n
+
+A wolf growls, "always too too hot."
+> A wolf follows you.
+[Grymwood, entrance]
+You see a wolf. 
+Obvious exits: s, ne.
+> 
+A wolf shudders.
+> ne
+A wolf follows you.
+[Grymwood, glade beginning]
+You see a wolf. A worg claw is here.
+Obvious exits: n, s, w, ne, sw.
+> s
+A wolf follows you.
+[Grymwood, Mayten trees]
+You see a wolf. 
+Obvious exits: n, s.
+> 
+You breathe the aroma of rotting vegetation.
+> gaze
+You gaze keenly about the area.
+> look
+[Grymwood, Mayten trees]
+A well marked trail makes navigation easy as you travel through a grove of
+mayten trees. The new spring fronds are just beginning to unwind into feathery,
+silver-green fingers reaching toward the multi-hued mosaic of dead leaves,
+mosses and lichens that cover the ground. Occasionally, glinting iridescent
+stones catch your eye, as if the forest was bejeweled.
+You see a wolf. 
+Obvious exits: north, south.
+> 
+A wolf uses her keen eyes to look about the area.
+> 
+A wolf listens to her surroundings closely.
+> s
+A wolf follows you.
+[Grymwood, dry bed]
+You see a wolf. 
+Obvious exits: n, ne.
+> 
+A wolf growls, "She say.."
+> 
+A wolf growls, "I say"
+> ne
+A wolf follows you.
+[Grymwood, oak tree]
+You see a wolf. 
+Obvious exits: n, sw.
+> n
+A wolf follows you.
+[Grymwood, fruit tree]
+You see a wolf. 
+Obvious exits: n, s, e.
+> 
+A wolf chuffs softly.
+> 
+A wolf chuffs softly.
+> look
+[Grymwood, fruit tree]
+A delightful tree stands in the center of a small clearing with a smooth
+silver-gray trunk. Fluid branches hold up clusters of bright green oval leaves
+in a perfectly symmetrical array. At the termination of each branchlet is a
+single, trumpet-shaped yellow flower with tiny, long-billed birds fluttering
+around each.
+You see a wolf. 
+Obvious exits: north, south, east.
+> 
+A wolf growls, "Oh, More Dred, I always forget"
+> beam
+Not while you are a wolf.
+> howl
+You howl.
+> 
+A wolf growls, "see, is new thing I learn, what is I"
+> snif tree
+
+You spot a lizard taking cover under a rock.
+> You sniff a tree.
+> 
+A wolf shivers.
+> 
+A wolf suddenly howls, writhing in pain. It transforms into Keera!
+> trans
+You howl in pain as your body undergoes a metamorphosis and resumes
+humanoid form.
+ [Round: 7 sec]
+R> 
+Keera smiles.
+R> 
+ ** Arminger has just left the Realms.
+R> 
+Keera just knocked a flower from the tree.
+R> 
+Keera smiles at you.
+R> beam
+You beam happily.
+> hug keer
+You hug Keera.
+> 
+Keera wraps her arms around the tree.
+> 
+A troll arrives.
+> 'Good job
+You say, "Good job"
+> 
+A winter worg runs in.
+> adv tr
+You advance towards a troll.
+> 
+Keera hugs you.
+> wie broad
+You wield an icy randar broadsword.
+> 
+Keera fidgets nervously.
+> a trol
+
+Keera takes a golden flower.
+> You swing at a troll with your icy randar broadsword.
+ [ToHit: 5, Roll: 38] Hit!
+ Minor slash to left leg. [20 Damage]
+ [Round: 1 sec]
+R> a trol
+You swing at a troll with your icy randar broadsword.
+ [ToHit: 5, Roll: 59] Hit!
+ Passable strike to head. [14 Damage]
+ The broadsword radiates intense cold!
+ Insignificant burn to right arm. [3 Damage]
+ [Round: 1 sec]
+R> 
+Keera puts a golden flower in the bag.
+R> 
+A troll swings at Moordread with its giant club.
+ [ToHit: 95, Roll: 61] Miss.
+> a trol
+You thrust at a troll with your icy randar broadsword.
+ [ToHit: 5, Roll: 43] Hit!
+ Superb slash to body. [38 Damage]
+ The broadsword radiates intense cold!
+ Serious burn to left hand. [10 Damage]
+ [Round: 1 sec]
+R> a trol
+You thrust at a troll with your icy randar broadsword.
+ [ToHit: 5, Roll: 10] Hit!
+ Powerful sideswipe removes top of skull from ears up.
+ It collapses, dead.
+ [Round: 1 sec]
+R> 
+Keera gazes at a winter worg.
+> 
+Keera furrows her brow.
+> 
+A winter worg runs directly at Keera.
+> 
+A winter worg snaps at Keera with its teeth.
+ [ToHit: 65, Roll: 29] Miss.
+> a trol
+You must ADVANCE towards your opponent to battle them
+with your current weapon.
+> a trol
+You must ADVANCE towards your opponent to battle them
+with your current weapon.
+> adv wor
+You advance towards a worg.
+> 
+Keera concentrates intently.
+> a wor
+You swing at a winter worg with your icy randar broadsword.
+ [ToHit: 5, Roll: 6] Hit!
+ Superb slash to back. [39 Damage]
+ [Round: 1 sec]
+R> ret
+guar kee
+You retreat.
+> You step forward in defense of Keera!
+ [Round: 2 sec]
+R> a wor
+[Wait 1 seconds...]
+R> 
+A winter worg snaps at Moordread with its teeth.
+ [ToHit: 95, Roll: 10] Miss.
+> a wor
+You thrust at a winter worg with your icy randar broadsword.
+ [ToHit: 5, Roll: 44] Hit!
+ Fine slash to back. [15 Damage]
+ The broadsword radiates intense cold!
+ Minor burn to left paw. [5 Damage]
+ [Round: 1 sec]
+R> 
+Keera concentrates intently.
+> a wor
+You swing at a winter worg with your icy randar broadsword.
+ [ToHit: 5, Roll: 23] Hit!
+ Masterful strike to back. [28 Damage]
+ [Round: 1 sec]
+R> a wor
+
+Keera furrows her brow.
+> You thrust at a winter worg with your icy randar broadsword.
+ [ToHit: 5, Roll: 24] Hit!
+ Superb slice juliennes head!
+ It collapses, dead.
+ [Round: 1 sec]
+R> a wor
+You must ADVANCE towards your opponent to battle them
+with your current weapon.
+> 
+Keera concentrates intently.
+> skin wor
+You remove a worg pelt.
+> skin tr
+You fail to salvage an intact specimen.
+> 
+Keera blushes.
+> 
+Keera concentrates intently.
+> gaze pelt
+You gaze at a worg pelt.
+> 
+Keera smiles weakly.
+> 
+Keera gazes at a worg pelt.
+> 
+Keera cocks her head to the side.
+> inv
+You are carrying: 
+  An icy randar broadsword (wielded)
+  A maufra lichen
+  A pure silver randar papenheimer with a soft azure glow that seems to issue
+from the metal itself
+  A tiny silvery manango berry
+  Some eldritch titanium armor (worn)
+  A glass (open)
+  A glass (open)
+  A marble flask (open)
+  A bone idol
+  A shiny elkyri shield
+  A tiny silvery manango berry
+  A marble bottle (open)
+  A long twisted tattoo of a thorny vine wrapped seductively around his thigh
+from knee to hip (worn)
+  A small dark gold key emblazoned with the crest of Count Wolfbane Crag
+  A ruby studded silver earring (worn)
+  An ivory medallion (worn)
+  A finely drawn tattoo of a faintly luminescent green moon silhouetting the
+form of a silvery wolf (worn)
+  Some worn black leather boots (worn)
+  Some steel shoulder guards buffed to a high polish (worn)
+  Some heavy steel thigh guards buffed to a high polish (worn)
+  Your object
+  Some dark brown breeches (worn)
+  A dented and rusty helm pitted and scarred with years of use (worn)
+  A torch
+  A finely crafted crimson tabard embroidered with the gleaming silver eagle of
+the Crimson Band
+  A ruby studded silver ring of the Crimson Band (worn)
+  A jade pendant (worn)
+  An embroidered tunic of cloth-of-gold (worn)
+  A werewolf eye
+  A broom
+  Some black gauntlets coated with tiny scales of near transparent silver
+(worn)
+  A sterling silver pin in the shape of a flight of dragons (worn)
+  A cocooned larva
+  A tricana seedling
+  A rowik berry
+  A rowik berry
+  Some babich root
+  Some babich root
+  A large pearl
+  A bone heart
+  Some fragrant sori
+  Some mutton
+> 
+Keera takes a worg pelt.
+> 
+Keera listens carefully to you.
+> health
+You have 231/231 body points.
+> 
+Keera sniffs a worg pelt.
+> 
+Keera gives you a worg pelt.
+> 'Pretty fur for such a sick animal
+You say, "Pretty fur for such a sick animal"
+> 
+Keera sighs.
+> 
+Keera gazes at a winter worg.
+> 
+Keera nods.
+> 
+A skunk wanders through, tail held high.
+> 
+Keera whispers to you, "She is always so very sad"
+> 
+Keera furrows her brow.
+> nod
+You nod.
+> comf kee
+You comfort Keera.
+> sear tr
+You search a troll.
+You find a giant club and a crystal flask.
+ [Round: 2 sec]
+R> 
+Keera whispers to you, "I is always very sad, when these to come."
+> look kee
+Wide golden eyes sparkle curiously above a hesitant smile, as Keera returns
+your gaze. Her small frame shifts nervously and she cocks her head, sending
+gentle ripples down a cascading mane of snowy white hair.
+She is wearing an iridescent feather, a rainbow colored pouch, a white gold
+barrette, a diamond necklace, some werewolf hide boots, some eldritch titanium
+armor, a soft black feather and a parrot feather.
+Her hair is twined through with numerous colorful feathers.
+She is being guarded by Moordread.
+She appears to be healthy.
+> 
+You hear a rhythmic crunch of dry leaves as if something were walking on them.
+> 
+A giant spider skitters in.
+> 
+Keera gazes at a winter worg.
+> 
+Keera frowns at a giant spider.
+> 
+A giant spider begins to spin a web.
+> 
+Keera concentrates intently on a spider.
+> 
+A thin shell of ice forms around a giant spider.
+ Ghastly burn to body. [25 Damage]
+> nod
+You nod.
+> 
+Keera shudders.
+> 
+Keera concentrates intently on a spider.
+> 
+A chilling burst of air encircles a giant spider.
+ Ghastly burn to body. [14 Damage]
+> 
+A giant spider shoots its web at Moordread.
+The web misses!
+> 
+Keera concentrates intently on a spider.
+> 
+Frost crystalizes on a giant spider.
+ Ghastly burn to body. [21 Damage]
+ It crumples to the ground.
+> 
+Keera glares at a giant spider.
+> 'They are sad
+You say, "They are sad"
+> skin spid
+You remove a spider hair.
+> sear spid
+You search a giant spider.
+You find nothing.
+ [Round: 2 sec]
+R> gaze hair
+You gaze at a spider hair.
+> 
+Keera whispers to you, "Why does place where is so much beauty bring so many
+bad things?"
+> 
+Keera furrows her brow.
+> sear wor
+You search a winter worg.
+You find nothing.
+ [Round: 2 sec]
+R> 
+Keera listens carefully to you.
+R> 
+You feel the touch of Gwydion's mind:
+"I should think any time now would be good."
+R> pond
+You ponder for a moment.
+> 'They are used to finding injured here, who seek the healing of this tree
+You say, "They are used to finding injured here, who seek the healing of this
+tree"
+> sigh
+You sigh.
+> 
+Keera furrows her brow.
+> 
+Keera gazes at a tree.
+> 
+Keera takes a crystal flask.
+> look
+[Grymwood, fruit tree]
+A delightful tree stands in the center of a small clearing with a smooth
+silver-gray trunk. Fluid branches hold up clusters of bright green oval leaves
+in a perfectly symmetrical array. At the termination of each branchlet is a
+single, trumpet-shaped yellow flower with tiny, long-billed birds fluttering
+around each.
+You see Keera. A giant club and a spider hair are here.
+Obvious exits: north, south, east.
+> who
+
+Keera whispers to you, "Keera wish there was a way to make them all stay far
+far away"
+> Cypress            Khalil             Keera              Feras              
+Leah               Dorian             Moordread          Arminger           
+Vladmir            Gwydion            Pockets            Graul              
+Donnald            Saxon              Seeker             Tobias             
+
+
+
+There are 16 adventurers in the Realms.
+
+> 
+Keera touches a tree.
+> 
+Keera whispers to you, "She is special."
+> 
+A blue jay swoops down out of the trees. Landing a few feet away, it cocks its
+head to one side and looks at you blankly. Quickly, it grabs a nut in its beak
+and takes off, disappearing into the trees.
+> 
+Keera points at a tree.
+> nod
+You nod.
+> 'Very
+You say, "Very"
+> 
+You hear muffled grunting.
+> act gazes at the tree, his eyes looking bright and cheerful.
+Moordread gazes at the tree, his eyes looking bright and cheerful.
+> beam
+You beam happily.
+> 
+Keera smiles.
+> 
+You feel the touch of Gwydion's mind:
+"Sounds good."
+> 
+You feel the touch of Khalil's mind:
+"has anyone found the portal to the ruined world?"
+> 'A shame that she grows here alone
+You say, "A shame that she grows here alone"
+> 
+Keera whispers to you, "I think is very difference now, than I do behind time."
+> 
+You hear muffled grunting.
+> 'Imagine a whole forest!
+You exclaim, "Imagine a whole forest!"
+> 
+Keera listens carefully to you.
+> 
+Keera smiles.
+> gaze tree
+You gaze at a tree.
+> beam
+You beam happily.
+> 
+ ** Seeker has just left the Realms.
+> 
+Keera whispers to you, "I was afraid of her firsting time, when I eat her
+fruit."
+> 
+Keera shivers.
+> 'I bet there used to be once
+You say, "I bet there used to be once"
+> 
+Keera casts her gaze across the area.
+> nod
+You nod.
+> 'Must know when it's safe to eat
+You say, "Must know when it's safe to eat"
+> 
+Keera whispers to you, "Maybe bad things come to kill special trees."
+> 
+The brilliant prismatic globe vanishes from around you.
+> 
+The scent of pine lingers in the air.
+> 'I think some do destroy them
+You say, "I think some do destroy them"
+> 'Perhaps from lack of thinking, some on purpose
+You say, "Perhaps from lack of thinking, some on purpose"
+> frow
+You frown.
+> 
+Keera whispers to you, "But see, that all trees are special, is not only sweet
+silvery one."
+> 
+Leaves shudder in the wind.
+> 
+Keera gazes at a tree.
+> 
+Keera whispers to you, "Each is special, all are alive.. maybe many two legs
+can not see this"
+> act gestures to the oak south of here.
+Moordread gestures to the oak south of here.
+> 'I like that one too
+You say, "I like that one too"
+> 
+Keera whispers to you, "I see always they cut more and more."
+> 
+Keera smiles.
+> 
+Keera follows Moordreads gesture, nodding.
+> 
+Keera whispers to you, "She sees is nutty chitters always under mightsome
+tree."
+> 
+Perched on a branch overhead, a pretty yellow bird breaks into song.
+> 'Some trees are easier to like than others, like other wolflings
+You say, "Some trees are easier to like than others, like other wolflings"
+> 
+Keera whispers to you, "there are round nuts."
+> 'It's easier to like Cypress than it is to like Hazen
+You say, "It's easier to like Cypress than it is to like Hazen"
+> 
+Keera nods to you.
+> 
+You hear the sounds of faint laughter.
+> 
+Keera furrows her brow.
+> 
+Keera whispers to you, "I do not like to make juh jez, More Dred"
+> shr
+You shrug.
+> 
+Keera whispers to you, "I think juh jez are bad things, but sometimes, I do any
+way."
+> 'Not sure it's a judgement, just a feeling
+You say, "Not sure it's a judgement, just a feeling"
+> smi
+You smile.
+> 
+Keera whispers to you, "And I too, do not feel easy when old one comes, to say
+hurtsome things, and ask for strange darkness."
+> nod
+You nod.
+> 
+A giant spider skitters in.
+> 
+Keera frowns at a giant spider.
+> 
+Keera concentrates intently on a spider.
+> 
+Cold radiates from the area around a giant spider.
+ Serious burn to body. [10 Damage]
+> 'He is a strange one
+You say, "He is a strange one"
+> adv sp
+You advance towards a spider.
+> a sp
+You swing at a giant spider with your icy randar broadsword.
+ [ToHit: 5, Roll: 47] Hit!
+ Superb slash to body. [14 Damage]
+ The broadsword radiates intense cold!
+ Ghastly burn to body. [30 Damage]
+ It crumples to the ground.
+ [Round: 1 sec]
+R> skin sp
+You fail to salvage an intact specimen.
+> sear sp
+You search a giant spider.
+You find nothing.
+ [Round: 2 sec]
+R> 
+Keera hugs you.
+R> look
+[Grymwood, fruit tree]
+A delightful tree stands in the center of a small clearing with a smooth
+silver-gray trunk. Fluid branches hold up clusters of bright green oval leaves
+in a perfectly symmetrical array. At the termination of each branchlet is a
+single, trumpet-shaped yellow flower with tiny, long-billed birds fluttering
+around each.
+You see Keera. A giant club and a spider hair are here.
+Obvious exits: north, south, east.
+> 
+Keera shivers.
+> smi
+You smile.
+> 
+Keera whispers to you, "so many spiderbugs."
+> 
+Keera frowns.
+> 
+Keera touches a tree.
+> 'It's really kind of quiet
+
+Keera smiles.
+> You say, "It's really kind of quiet"
+> gaze
+You gaze about the area.
+> 
+Keera nods.
+> look n
+[Grymwood, glade path]
+The canopy is thinner here and you can just make out the sky between the
+leaves. The presence of scattered tree stumps and the lack of vegetation
+indicates that this glade was deliberately created.
+> 
+Keera whispers to you, "oh!"
+> 
+Keera smiles.
+> 
+Keera whispers to you, "I want to show you thing I find this day"
+> rais
+You raise your eyebrow.
+> 
+Keera stops following Moordread.
+> 
+Keera takes Moordread by the hand.
+> 
+Keera smiles.
+J> smi
+You smile.
+J> 
+Keera whispers to you, "Is strange"
+J> nod
+You nod.
+J> 
+Keera whispers to you, "And I do not know if they can see it, because it may be
+dark inside."
+J> 
+Keera sighs.
+J> 
+Keera whispers to you, "But I show him."
+J> 
+Keera casts her gaze across the area.
+J> 
+Keera's group goes north.
+J> 
+You follow Keera.
+[Grymwood, glade path]
+You see Keera. 
+Obvious exits: s, ne, sw.
+J> 'Ok
+You say, "Ok"
+J> 
+Keera's group goes northeast.
+J> 
+You follow Keera.
+[Grymwood, glade]
+You see Keera. A ring of stones is here.
+Obvious exits: ne, sw.
+J> 
+Keera's group goes northeast.
+J> 
+You follow Keera.
+[Grymwood, glade end]
+You see Keera and a troll. 
+Obvious exits: s, w, sw.
+J> 
+Keera furrows her brow.
+J> 
+A troll advances towards Moordread.
+J> 
+A troll swings at Moordread with its giant club.
+ [ToHit: 95, Roll: 86] Miss.
+J> ign tor
+You light a torch.
+J> 
+Keera frowns at a troll.
+J> 
+Keera concentrates intently on a troll.
+J> 
+Ice erupts from the ground and spreads across a troll!
+ Serious burn to head. [23 Damage]
+J> a tr
+You thrust at a troll with your icy randar broadsword.
+ [ToHit: 5, Roll: 80] Hit!
+ Well-aimed strike to back. [48 Damage]
+ The broadsword radiates intense cold!
+ Insignificant burn to right leg. [3 Damage]
+ [Round: 1 sec]
+RJ> a tr
+You swing at a troll with your icy randar broadsword.
+ [ToHit: 5, Roll: 81] Hit!
+ Fine slash to head. [14 Damage]
+ [Round: 1 sec]
+RJ> a tr
+You thrust at a troll with your icy randar broadsword.
+ [ToHit: 5, Roll: 88] Hit!
+ Superb slash to left leg. [15 Damage]
+ [Round: 1 sec]
+RJ> 
+Keera concentrates intently on a troll.
+RJ> 
+A troll swings at Moordread with its giant club.
+ [ToHit: 95, Roll: 65] Miss.
+J> a tr
+You thrust at a troll with your icy randar broadsword.
+ [ToHit: 5, Roll: 32] Hit!
+ Grisly slash to body. [17 Damage]
+ The broadsword radiates intense cold!
+ Torso frozen. Body shatters as it hits the ground.
+ It collapses, dead.
+ [Round: 1 sec]
+RJ> skin tr
+You remove a troll tongue.
+J> 
+Keera gazes at a troll.
+J> 
+Keera searches the area.
+J> sear tr
+You search a troll.
+You find a giant club and a chest.
+ [Round: 2 sec]
+RJ> 
+Keera smiles.
+RJ> look ches
+look ches
+You see nothing extraordinary.
+J> You see nothing extraordinary.
+J> look ches
+look ches
+You see nothing extraordinary.
+J> You see nothing extraordinary.
+J> look ches
+You see nothing extraordinary.
+J> 
+Keera points at a hidden crevice.
+J> get ches
+You take a chest.
+J> sear
+You search the area.
+ [Round: 2 sec]
+You observe a crevice hidden only because of the way it opens from the cliff:
+sort of an optical illusion.
+RJ> nod
+You nod.
+J> 
+Keera just disappeared into the cliff wall!
+J> go crev
+You slip into a crevice.
+[Grotto]
+You see Keera. 
+Obvious exits: none.
+> gaze
+You gaze about the area.
+> look
+[Grotto]
+You are in a sunken grotto. The sound of hundreds of droplets plopping to the
+stone floor creates a strange cacophony. Cracks and crevices allow light to
+filter into the grotto, revealing an ancient contraption.
+You see Keera. 
+Obvious exits: none.
+> 
+Keera cocks her head to the side.
+> 
+Keera points at a decrepit contraption.
+> smi
+You smile.
+> 
+Keera whispers to you, "There is metal thing, like near large water"
+> 'Like the other one we found with Leah
+You say, "Like the other one we found with Leah"
+> nod
+You nod.
+> 'er
+You say, "er"
+> pond
+You ponder for a moment.
+> 
+Keera whispers to you, "He come to show She who sings like the birds, and
+Keera."
+> 'Larksong
+You say, "Larksong"
+> chuck
+You chuckle.
+> 
+Keera nods to you.
+> 
+Keera smiles.
+> 
+Keera whispers to you, "And there is one like this."
+> 
+Keera touches a decrepit contraption.
+> nod
+You nod.
+> 'Have you been inside this one before?
+You ask, "Have you been inside this one before?"
+> open door
+It is already open.
+> 
+Keera whispers to you, "I see there is a metal door."
+> 
+Keera points at a door.
+> 
+Keera nods to you.
+> nod
+You nod.
+> 
+Keera whispers to you, "I open and go in, and there are strange things"
+> hold keer
+Moordread takes Keera by the hand.
+> go doo
+Keera follows you.
+[Ancient machine]
+You see Keera. 
+Obvious exits: none.
+> 
+Keera whispers to you, "What is this?"
+> gaze
+You gaze about the area.
+> 
+Keera casts her gaze across the area.
+> 'An old carriage
+You say, "An old carriage"
+> turn key
+You don't see a way to do that.
+> 
+Keera cocks her head to the side.
+> 
+Keera listens carefully to you.
+> turn 2 key
+What are you referring to?  Please be more specific.
+> 
+Keera gazes at some fuzzy dice.
+> pond
+You ponder for a moment.
+> drop key
+You drop a small dark gold key emblazoned with the crest of Count Wolfbane
+Crag.
+> turn key
+You turn a rusty key.
+Hey Sleeper! Did you really think something would happen? This isn't a Woody
+Allen movie.
+> 
+Keera bats at some moldy dice.
+> get key
+You can't take that.
+> get 2 key
+You take a small dark gold key emblazoned with the crest of Count Wolfbane
+Crag.
+> 
+Keera ponders.
+> push dice
+You push some fuzzy dice.
+> shr
+You shrug.
+> 
+Keera whispers to you, "She smell is very very old here."
+> nod
+You nod.
+> snif
+You sniff.
+> 'Very
+You say, "Very"
+> 
+You feel the touch of Donnald's mind:
+"tobias can you come and get me"
+> 
+Keera whispers to you, "only rust, only mold"
+> 'It has been here very long
+You say, "It has been here very long"
+> go doo
+Keera follows you.
+[Grotto]
+You see Keera. 
+Obvious exits: none.
+> 
+Keera whispers to you, "he say is Kare Age, but she not know what is that."
+> 'Long time ago
+You say, "Long time ago"
+> 
+Keera listens carefully to you.
+> 'They used it to travel
+You say, "They used it to travel"
+> 
+Keera arches her eyebrow.
+> 'Like the carriage in Fayd
+You say, "Like the carriage in Fayd"
+> 'You've seen it?
+You ask, "You've seen it?"
+> 
+Keera furrows her brow.
+> 
+ ** Vladmir has just left the Realms.
+> 
+Keera whispers to you, "She does not know"
+> 'Oh Keera, I must go
+You say, "Oh Keera, I must go"
+> 
+Keera whispers to you, "what does it look like?"
+> hug kee
+You hug Keera.
+> 
+Keera sighs.
+> 
+Keera nods.
+> 'horses pull it
+You say, "horses pull it"
+> 
+Keera hugs you.
+> smi keer
+You smile at Keera.
+> 
+Keera whispers to you, "She"
+> 
+Keera furrows her brow.
+> 'Be safe pretty wolfling
+You say, "Be safe pretty wolfling"
+> 
+Keera whispers to you, "I thank him for sharing with keera."
+> 
+Keera smiles.
+> 
+Keera kisses you on the cheek.
+> 
+Keera waves.
+> kiss keer cheek
+You kiss Keera on the cheek.
+> beam
+You beam happily.
+> x
+
+ ** Moordread has just left the Realms.
+> 
+
+Character Manager V1.00
+
+ 1 => Moordread
+ 2 => Morti
+ 3 => Bubba
+
+ C => Create new character
+ D => Delete current character
+ P => Play Legends of Future Past
+ X => Exit to NovaLink
+
+
+Active character: Moordread (#1)
+

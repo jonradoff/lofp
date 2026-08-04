@@ -1,0 +1,3554 @@
+
+A commoner arrives.
+H> 
+ ** Vladmir has just left the Realms.
+H> report Small door beside the tower, got it
+Your message has been reported to the online GameMaster staff.
+H> 
+[From Bryn]: :)
+H> 
+You return to normal speed.
+H> 
+A beautiful white carriage arrives with a jingle of harness bells.
+H> 
+You feel the touch of Charette's mind:
+"Bryn, it seems I am having drinks in the ... err... cozy establisment
+downstairs.. would you join us?"
+H> 
+A priest arrives.
+H> 
+A horse-drawn carriage moves north towards the center of the Bazaar.
+H> 
+You feel the touch of Bryn's mind:
+"Of course m'lady"
+H> think Hello and I hope all are well this afternoon
+You project your thoughts.
+H> 
+ ** Cael has just left the Realms.
+H> 
+You feel the touch of Sy's mind:
+"Heya Chandra"
+H> 
+You feel the touch of Vladmir's mind:
+"Kvaahn Chandra!"
+H> 
+You feel the touch of Cypress's mind:
+"Hi! Chandra"
+H> think Hello again Sy, Kvaahn Vladmir, Hi Aunt Cypress ::wag::
+You project your thoughts.
+H> e
+[Bazaar Southeast]
+A large wooden building is here.
+Obvious exits: n, w, nw.
+H> w
+[Bazaar South]
+You see a priest. 
+Obvious exits: n, s, e, w, ne, nw.
+H> n
+[Bazaar Center]
+You see a commoner. A large marble fountain, a wooden bin and a newsboard are
+here.
+Obvious exits: n, s, e, w, ne, nw, se, sw.
+H> look e
+[Bazaar East]
+Here at the eastern edge of the bazaar, street merchants of wares both mundane
+and fantastic set up their booths daily to catch your eye. From The Sojourner's
+Hospice, a run-down yet cozy inn on the corner, comes singing and the smell of
+spiced wine. A door with a holly wreath in its center leads in.
+A comfortable building that houses the Sojourner's Hospice is there.
+H> pre 213
+You prepare the Bend Space I spell.
+ [Round: 3 sec]
+RH> cast
+[Wait 1 seconds...]
+RH> mark
+
+A priest arrives.
+H> Marked areas:
+1: Bazaar Center
+2: Crescent isle, beach
+3: Rainforest, understory
+4: Deep Forest
+5: Under Keep, basement
+6: Wolfling Den
+7: Foresters Guild, meeting ground
+8: Across Plaza
+9: Palace, fountain
+H> 
+something suddenly appears!
+H> 
+ ** Cypress has just disconnected.
+H> cast 9
+You gesture into the air.
+[Success: 95%, Roll 93] Success!
+The color and detail of your surroundings swirl together. After a brief
+moment...
+[Palace, fountain]
+A blue stone fountain is here.
+Obvious exits: w.
+H> pre 210
+You prepare the Haste spell.
+ [Round: 3 sec]
+RH> who
+Dane               Aileron            Vladmir            Airgid             
+Nord               Vox                Krystian           Sy                 
+Nik                Bleach             Chandra            Smity              
+
+
+
+There are 12 adventurers in the Realms.
+
+RH> cast
+You suddenly fade into view.
+You gesture.
+[Success: 95%, Roll 6] Success!
+You find yourself able to move incredibly fast.
+> 
+ ** Bleach has just left the Realms.
+> pre 133
+You prepare the Globe of Protection II spell.
+ [Round: 1 sec]
+R> cast
+pre 133
+You gesture.
+[Success: 95%, Roll 92] Success!
+A brilliant prismatic globe encircles you.
+> You prepare the Globe of Protection II spell.
+ [Round: 1 sec]
+R> cast
+pre 133
+You gesture.
+[Success: 95%, Roll 52] Success!
+A brilliant prismatic globe encircles you.
+> You prepare the Globe of Protection II spell.
+ [Round: 1 sec]
+R> fat
+Mana: 287/369
+Psi: 267/267
+Fatigue: 232/232
+> cast
+pre 133
+You gesture.
+[Success: 95%, Roll 77] Success!
+A brilliant prismatic globe encircles you.
+> You prepare the Globe of Protection II spell.
+ [Round: 1 sec]
+R> cas
+You gesture.
+[Success: 95%, Roll 47] Success!
+A brilliant prismatic globe encircles you.
+> pre 102
+You prepare the Mystic Armor spell.
+ [Round: 1 sec]
+R> cas
+pre 102
+You gesture.
+[Success: 95%, Roll 71] Success!
+The glowing outline of armor appears around you.
+> You prepare the Mystic Armor spell.
+ [Round: 1 sec]
+R> cas
+pre 102
+You gesture.
+[Success: 95%, Roll 90] Success!
+The glowing outline of armor appears around you.
+> You prepare the Mystic Armor spell.
+ [Round: 1 sec]
+R> fat
+Mana: 217/369
+Psi: 267/267
+Fatigue: 232/232
+> cas
+pre 130
+You gesture.
+[Success: 95%, Roll 95] Success!
+The glowing outline of armor appears around you.
+> You prepare the Mass Protection spell.
+ [Round: 1 sec]
+R> cas
+pre 130
+You gesture.
+[Success: 95%, Roll 60] Success!
+A large white sphere of light encircles you.
+> You prepare the Mass Protection spell.
+ [Round: 1 sec]
+R> cas
+pre 130
+You gesture.
+[Success: 95%, Roll 81] Success!
+A large white sphere of light encircles you.
+> You prepare the Mass Protection spell.
+ [Round: 1 sec]
+R> cas
+pre 130
+You gesture.
+[Success: 95%, Roll 77] Success!
+A large white sphere of light encircles you.
+> You prepare the Mass Protection spell.
+ [Round: 1 sec]
+R> cas
+pre 326
+You gesture.
+[Success: 95%, Roll 71] Success!
+A large white sphere of light encircles you.
+> You prepare the Spectral Shield spell.
+ [Round: 1 sec]
+R> cas
+pre 326
+You gesture.
+[Success: 95%, Roll 37] Success!
+A ghostly shield hovers before you.
+> You prepare the Spectral Shield spell.
+ [Round: 1 sec]
+R> cas
+pre 326
+You gesture.
+[Success: 95%, Roll 96] Failure.
+> You prepare the Spectral Shield spell.
+ [Round: 1 sec]
+R> cas
+pre 326
+You gesture.
+[Success: 95%, Roll 3] Success!
+A ghostly shield hovers before you.
+> You prepare the Spectral Shield spell.
+ [Round: 1 sec]
+R> cas
+You gesture.
+[Success: 95%, Roll 4] Success!
+A ghostly shield hovers before you.
+> stat
+
+You are a master of the Order of the Silver Arcana.
+Level: 93
+Build Points to date: 958
+Unspent Build Points: 1
+Experience Points until next Build Point: 30067
+Quickness: 97     Constitution: 128    Strength:  103    Agility: 61 
+Willpower: 95     Perception:   100    Empathy:   131
+Age:       18     Height:       5'3    Weight:    126    Load: 300
+
+Current Attack Modifier: -10 [Wary]
+Current Defend Modifier: 209
+
+Body Points: 276/276
+Mana: 121/369
+Psi: 267/267
+Fatigue: 232/232
+[Type SPELLS or SKILLS for more information.]
+> fat
+Mana: 121/369
+Psi: 267/267
+Fatigue: 232/232
+> wear cloak
+You slip a blue and gray cloak with a silver wolf head clasp over your back.
+> stat
+
+You are a master of the Order of the Silver Arcana.
+Level: 93
+Build Points to date: 958
+Unspent Build Points: 1
+Experience Points until next Build Point: 30067
+Quickness: 97     Constitution: 128    Strength:  103    Agility: 61 
+Willpower: 95     Perception:   100    Empathy:   131
+Age:       18     Height:       5'3    Weight:    126    Load: 300
+
+Current Attack Modifier: -10 [Wary]
+Current Defend Modifier: 211
+
+Body Points: 276/276
+Mana: 121/369
+Psi: 267/267
+Fatigue: 232/232
+[Type SPELLS or SKILLS for more information.]
+> wear cape
+
+ ** Aileron has just left the Realms.
+> There is no room to wear another thing like that.
+> rem cloak
+You remove a blue and gray cloak with a silver wolf head clasp.
+> wear cape
+You slip a flowing deep blue cape embroiderd with a stunning serpentine gold
+and blue dragon over your back.
+> look
+[Palace, fountain]
+A majestic bluestone dolphin shoots water from the center of the fountain in
+this grove, cooling the air in the welcome shade of the trees. The fountain's
+song hypnotizes you as you stare into its ever-changing cascade. Stone benches
+provide a place to meditate in the peace offered here.
+Obvious exits: west.
+> fat
+Mana: 121/369
+Psi: 267/267
+Fatigue: 232/232
+> pre  209
+You prepare the Strength III spell.
+ [Round: 1 sec]
+R> cas
+pre 209
+You gesture.
+[Success: 95%, Roll 63] Success!
+You feel incredibly strong.
+> You prepare the Strength III spell.
+ [Round: 1 sec]
+R> cas
+pre 209
+You gesture.
+[Success: 95%, Roll 46] Success!
+You feel incredibly strong.
+> You prepare the Strength III spell.
+ [Round: 1 sec]
+R> cas
+pre 403
+You gesture.
+[Success: 95%, Roll 86] Success!
+You feel incredibly strong.
+> You prepare the Mindlink spell.
+ [Round: 1 sec]
+R> cas
+pre 403
+You gesture.
+[Success: 95%, Roll 10] Success!
+You feel the power of your mind expanding.
+> You prepare the Mindlink spell.
+ [Round: 1 sec]
+R> cas
+You gesture.
+[Success: 95%, Roll 88] Success!
+You feel the power of your mind expanding.
+> fat
+Mana: 92/369
+Psi: 267/267
+Fatigue: 232/232
+> spel
+
+Spell      Level      Name                          
+-----      -----      ----                          
+100        1          Flame Bolt                    
+101        3          Force Blade ()*               
+102        5          Mystic Armor                  
+103        7          Lightning Bolt                
+105        15         Globe of Protection           
+106        12         Summon Fire Elemental         
+107        12         Summon Air Elemental          
+108        12         Summon Water Elemental        
+109        16         Summon Gargoyle               
+112        20         Call Meteor ()***********     
+113        1          Light                         
+114        2          Mystic Key                    
+115        4          Shockwave                     
+116        21         Thunder Call                  
+117        8          Call Fire                     
+118        13         Flaming Sphere                
+119        3          Ice Bolt                      
+120        6          Frost Ray                     
+121        9          Freezing Sphere ()**********  
+122        2          Summon Familiar               
+123        12         Summon Earth Elemental        
+124        20         Inferno Glyph                 
+125        10         Thunder Glyph                 
+126        15         Ice Glyph                     
+127        10         Web                           
+130        23         Mass Protection               
+131        18         Flaming Arrows                
+132        23         Chain Lightning               
+133        30         Globe of Protection II        
+134        25         Siryx's Terrible Tentacles    
+135        24         Storm Blade                   
+136        19         Inferno Blade                 
+137        22         Winter Blade                  
+138        31         Energy Maelstrom              
+139        20         Sorcerous Summons I           
+141        17         Pyrotechnics                  
+144        28         Tindarath's Chaotic Summons   
+200        1          Fear                          
+201        3          Charm                         
+202        4          Enchantment I                 
+203        15         Enchantment II                
+205        6          Command                       
+206        12         Domination I                  
+207        4          Strength I                    
+208        8          Strength II                   
+209        16         Strength III                  
+210        5          Haste                         
+211        5          Slow                          
+213        17         Bend Space I                  
+215        10         Scry                          
+216        2          Slumber I                     
+217        6          Slumber II                    
+218        18         Slumber III                   
+219        7          Silence                       
+220        1          Dancing Blade                 
+222        23         Bend Space II                 
+224        11         Fly                           
+225        14         Invisibility                  
+226        3          Paranoia                      
+227        13         Imprisonment Rune             
+228        7          Identify                      
+229        9          Wizard's Armor                
+230        21         Disjunction                   
+231        19         Imprison                      
+232        20         Mist Form                     
+234        13         Spell Shield                  
+235        22         Cloak Mind                    
+245        13         Slime Form                    
+301        2          Turn Undead I                 
+302        8          Turn Undead II                
+303        11         Cure Poison                   
+305        14         Breath of Life                
+306        6          Animate Skeleton              
+311        3          Speak With Dead               
+313        1          Body Destruction I            
+314        5          Body Destruction II           
+316        1          Body Restoration I            
+317        5          Body Restoration II           
+318        10         Body Restoration III          
+319        12         Cure Disease                  
+323        3          Spectral Fist                 
+326        9          Spectral Shield               
+334        2          Invigoration I                
+335        9          Invigoration II               
+338        9          Unstun                        
+339        3          Destroy Undead I              
+340        8          Destroy Undead II             
+341        13         Destroy Undead III ()******** 
+345        7          Spectral Sword                
+400        1          Detect Magic                  
+401        5          Dispel Lesser Magic           
+403        9          Mindlink                      
+404        14         Aura Sense                    
+405        3          See Hidden                    
+406        8          Dispel Invisibility           
+407        3          Analyze Ore                   
+408        18         Truename                      
+412        9          Rite of Preparation           
+500        4          Plant Snare                   
+504        1          Call Animal                   
+506        3          Resist Weather                
+507        7          Heat Shield                   
+508        6          Cold Shield                   
+513        4          Agility I                     
+517        5          Stick to Snake                
+518        2          Claw Growth                   
+520        1          Night Vision                  
+521        7          Camouflage                    
+523        5          Earth Spike                   
+> pre 508
+You prepare the Cold Shield spell.
+ [Round: 1 sec]
+R> cas
+pre 508
+You gesture.
+[Success: 95%, Roll 77] Success!
+A translucent red sphere surrounds you.
+> You prepare the Cold Shield spell.
+ [Round: 1 sec]
+R> cas
+pre 508
+You gesture.
+[Success: 95%, Roll 23] Success!
+A translucent red sphere surrounds you.
+> You prepare the Cold Shield spell.
+ [Round: 1 sec]
+R> cas
+You gesture.
+[Success: 95%, Roll 83] Success!
+A translucent red sphere surrounds you.
+> fat
+Mana: 74/369
+Psi: 267/267
+Fatigue: 232/232
+> 
+ ** Nik has just left the Realms.
+> 
+You feel the touch of Piper's mind:
+"Hi All!"
+> think Hello Piper
+You project your thoughts.
+> 
+You feel the touch of Piper's mind:
+"Hi Chandra."
+> fat
+Mana: 111/369
+Psi: 267/267
+Fatigue: 232/232
+> who
+Dane               Aileron            Vladmir            Airgid             
+Nord               Vox                Krystian           Sy                 
+Elarin             Piper              Chandra            Smity              
+
+
+
+There are 12 adventurers in the Realms.
+
+> 
+You feel the touch of Piper's mind:
+"Is there a lock picker on?"
+> pre 225
+You prepare the Invisibility spell.
+ [Round: 1 sec]
+R> cast
+You gesture.
+[Success: 95%, Roll 5] Success!
+You feel a tingling sensation.
+H> pre 213
+You prepare the Bend Space I spell.
+ [Round: 1 sec]
+RH> cast 1
+You gesture into the air.
+[Success: 95%, Roll 43] Success!
+The color and detail of your surroundings swirl together. After a brief
+moment...
+[Bazaar Center]
+You see Piper and a crimson-band guard. A large marble fountain, a wooden bin
+and a newsboard are here.
+Obvious exits: n, s, e, w, ne, nw, se, sw.
+H> 
+ ** Vladmir has just left the Realms.
+H> smi
+You suddenly fade into view.
+You smile.
+> 
+Piper incants a spell.
+> 
+Piper smiles at you.
+> 
+Piper says, "Hi."
+> 
+A guard goes southeast.
+> 
+Cael arrives.
+> 'How are  you?
+You ask, "How are  you?"
+> 
+Cael waves an iron lockpick.
+> 
+Cael intones, "Hello"
+> 
+Piper asks, "I'm fine and you?"
+> 'Hey, there's a lockpicker
+You say, "Hey, there's a lockpicker"
+> 
+Cael twirls a lockpick in his fingers quite deftly
+> poii cael
+
+Piper beams at Cael.
+> "poii" is not understood.
+> 
+Cael nods.
+> 
+Piper drops a chest.
+> 
+Piper drops a chest.
+> 
+Piper drops a chest.
+> 
+A priest arrives.
+> 
+Cael returns to normal speed.
+> 
+Cael closes a wooden bin.
+> 
+Cael disarms a chest.
+> 
+Piper drops a trunk.
+> 
+Piper drops a trunk.
+> 
+Piper drops a coffer.
+> 
+Cael intones, "Do you have Haste?"
+> pre 210
+You prepare the Haste spell.
+ [Round: 1 sec]
+R> 
+Piper sighs.
+> cas cael
+
+Piper says, "nope"
+> You gesture at Cael.
+[Success: 95%, Roll 45] Success!
+Cael moves with blurring speed.
+> 
+Cael intones, "Thanks"
+> 
+Cael fiddles with a chest.
+> 
+Piper says, "but she does."
+> 'She does
+You say, "She does"
+> 
+Piper grins.
+> 'sort of 
+You say, "sort of"
+> 
+Cael fiddles with a chest.
+> 
+You return to normal speed.
+> 
+Cael intones, "haste by proxy"
+> 
+Cael fiddles with a chest.
+> nod cael
+You nod to Cael.
+> 
+Cael disarms a chest.
+> 'Exactly
+You say, "Exactly"
+> 
+Cael disarms a chest.
+> pre 210
+You prepare the Haste spell.
+ [Round: 3 sec]
+R> cast
+[Wait 2 seconds...]
+R> 
+A priest goes northwest.
+R> cast
+You gesture.
+[Success: 95%, Roll 87] Success!
+You find yourself able to move incredibly fast.
+> 
+Cael fiddles with the lock on a chest but fails to pick it.
+> 
+Cael fiddles with the lock on a chest but fails to pick it.
+> 
+A priest arrives.
+> spel
+
+Spell      Level      Name                          
+-----      -----      ----                          
+100        1          Flame Bolt                    
+101        3          Force Blade ()*               
+102        5          Mystic Armor                  
+103        7          Lightning Bolt                
+105        15         Globe of Protection           
+106        12         Summon Fire Elemental         
+107        12         Summon Air Elemental          
+108        12         Summon Water Elemental        
+109        16         Summon Gargoyle               
+112        20         Call Meteor ()***********     
+113        1          Light                         
+114        2          Mystic Key                    
+115        4          Shockwave                     
+116        21         Thunder Call                  
+117        8          Call Fire                     
+118        13         Flaming Sphere                
+119        3          Ice Bolt                      
+120        6          Frost Ray                     
+121        9          Freezing Sphere ()**********  
+122        2          Summon Familiar               
+123        12         Summon Earth Elemental        
+124        20         Inferno Glyph                 
+125        10         Thunder Glyph                 
+126        15         Ice Glyph                     
+127        10         Web                           
+130        23         Mass Protection               
+131        18         Flaming Arrows                
+132        23         Chain Lightning               
+133        30         Globe of Protection II        
+134        25         Siryx's Terrible Tentacles    
+135        24         Storm Blade                   
+136        19         Inferno Blade                 
+137        22         Winter Blade                  
+138        31         Energy Maelstrom              
+139        20         Sorcerous Summons I           
+141        17         Pyrotechnics                  
+144        28         Tindarath's Chaotic Summons   
+200        1          Fear                          
+201        3          Charm                         
+202        4          Enchantment I                 
+203        15         Enchantment II                
+205        6          Command                       
+206        12         Domination I                  
+207        4          Strength I                    
+208        8          Strength II                   
+209        16         Strength III                  
+210        5          Haste                         
+211        5          Slow                          
+213        17         Bend Space I                  
+215        10         Scry                          
+216        2          Slumber I                     
+217        6          Slumber II                    
+218        18         Slumber III                   
+219        7          Silence                       
+220        1          Dancing Blade                 
+222        23         Bend Space II                 
+224        11         Fly                           
+225        14         Invisibility                  
+226        3          Paranoia                      
+227        13         Imprisonment Rune             
+228        7          Identify                      
+229        9          Wizard's Armor                
+230        21         Disjunction                   
+231        19         Imprison                      
+232        20         Mist Form                     
+234        13         Spell Shield                  
+235        22         Cloak Mind                    
+245        13         Slime Form                    
+301        2          Turn Undead I                 
+302        8          Turn Undead II                
+303        11         Cure Poison                   
+305        14         Breath of Life                
+306        6          Animate Skeleton              
+311        3          Speak With Dead               
+313        1          Body Destruction I            
+314        5          Body Destruction II           
+316        1          Body Restoration I            
+317        5          Body Restoration II           
+318        10         Body Restoration III          
+319        12         Cure Disease                  
+323        3          Spectral Fist                 
+326        9          Spectral Shield               
+334        2          Invigoration I                
+335        9          Invigoration II               
+338        9          Unstun                        
+339        3          Destroy Undead I              
+340        8          Destroy Undead II             
+341        13         Destroy Undead III ()******** 
+345        7          Spectral Sword                
+400        1          Detect Magic                  
+401        5          Dispel Lesser Magic           
+403        9          Mindlink                      
+404        14         Aura Sense                    
+405        3          See Hidden                    
+406        8          Dispel Invisibility           
+407        3          Analyze Ore                   
+408        18         Truename                      
+412        9          Rite of Preparation           
+500        4          Plant Snare                   
+504        1          Call Animal                   
+506        3          Resist Weather                
+507        7          Heat Shield                   
+508        6          Cold Shield                   
+513        4          Agility I                     
+517        5          Stick to Snake                
+518        2          Claw Growth                   
+520        1          Night Vision                  
+521        7          Camouflage                    
+523        5          Earth Spike                   
+> 
+Cael intones, "where are these from?"
+> 
+Cael fiddles with the lock on a chest but fails to pick it.
+> 
+Piper shrugs.
+> 
+A priest goes southeast.
+> 
+You hear a click as Cael succeeds in picking the lock on a chest.
+> 
+Sy arrives.
+> 
+Sy waves.
+> 
+Piper says, "Um I got them from Sun."
+> 
+Piper giggles.
+> 
+Cael nods.
+> 
+Sy says, "Heya"
+> 
+Cael fiddles with the lock on a chest but fails to pick it.
+> 
+Piper smiles at Sy.
+> 
+Cael fiddles with the lock on a chest but fails to pick it.
+> 
+Piper says, "Hi."
+> 
+Cael intones, "I just like to ask"
+> 
+Sy gazes at Piper.
+> 
+Cael intones, "measure my skill"
+> 
+Cael fiddles with the lock on a chest but fails to pick it.
+> 
+With a steady clip clop of hooves, and a quiet jingling of harness bells, a
+charming horse-drawn carriage arrives from the south.
+> 
+Sy exclaims, "Wow, its Piper!"
+> 
+You hear a click as Cael succeeds in picking the lock on a chest.
+> pre 234
+You prepare the Spell Shield spell.
+ [Round: 1 sec]
+R> 
+You hear a click as Cael succeeds in picking the lock on a chest.
+> 
+Piper rolls her eyes at Sy.
+> 
+A priest arrives.
+> 
+Cael disarms a coffer.
+> 
+Piper smiles.
+> 
+With a jingle of harness bells, a regal looking horse pulls a carriage to the
+north.
+> 
+Piper says, "yeah it's me."
+> curts sy
+You curtsy towards Sy.
+> 
+Sy shrugs.
+> 
+Piper giggles.
+> 
+Cael fiddles with the lock on a coffer but fails to pick it.
+> cast
+You gesture.
+[Success: 95%, Roll 12] Success!
+An antimagical field emanates from you.
+> curts sy
+You curtsy towards Sy.
+> 
+Sy smiles at you.
+> 
+Cael fiddles with the lock on a coffer but fails to pick it.
+> 'Hello Sy
+You say, "Hello Sy"
+> 
+Cael intones, "coffer is a tough one"
+> 
+Cael fiddles with the lock on a coffer but fails to pick it.
+> pre 234
+You prepare the Spell Shield spell.
+ [Round: 1 sec]
+R> cas
+pre 234
+You gesture.
+[Success: 95%, Roll 24] Success!
+An antimagical field emanates from you.
+> You prepare the Spell Shield spell.
+ [Round: 1 sec]
+R> 
+Cael fiddles with the lock on a coffer but fails to pick it.
+R> 
+Sy asks, "Heya Chandra, hows things?"
+R> cas
+pre 234
+You gesture.
+[Success: 95%, Roll 58] Success!
+An antimagical field emanates from you.
+> You prepare the Spell Shield spell.
+ [Round: 1 sec]
+R> 
+You hear a click as Cael succeeds in picking the lock on a coffer.
+> 
+Piper applauds.
+> 
+Piper counts her money.
+> 
+Cael disarms a trunk.
+> 
+Piper says, "brb"
+> 
+Piper goes west.
+> 
+Cael disarms a trunk.
+> 
+Cael fiddles with the lock on a trunk but fails to pick it.
+> 
+Cael fiddles with the lock on a trunk but fails to pick it.
+> 
+A priest goes southeast.
+> 
+You hear a click as Cael succeeds in picking the lock on a trunk.
+> 
+You hear a click as Cael succeeds in picking the lock on a trunk.
+> 
+Sy asks, "Where are you hunting these days Chandra?"
+> 'Not too bad really, I spent the day chatting with Teraysha yesterday, and have been studying magic since
+You say, "Not too bad really, I spent the day chatting with Teraysha yesterday,
+and have been studying magic since"
+> 
+A priest arrives.
+> 'No where recently
+You say, "No where recently"
+> 
+Sy nods to you.
+> 
+Cypress arrives.
+> 
+Sy smiles at Cypress.
+> 
+Cypress hugs you.
+> 
+Piper arrives.
+> hug cypr
+You hug Cypress.
+> hug cypr
+You hug Cypress.
+> 
+The small orb of light floating beside Piper winks out.
+> 
+Piper smiles at Cypress.
+> 
+Cael intones, "all done Piper"
+> 
+Cypress smiles at Piper.
+> 
+Sy waves to Cael.
+> 
+Piper gives Cael some money.
+> 
+Cypress smiles at Sy.
+> 
+Cael bows.
+> 
+Piper exclaims, "thanks!"
+> 
+Cael intones, "My thanks"
+> 
+Sy says, "Hello again Cael"
+> 
+Piper takes a chest.
+> 
+Piper takes a chest.
+> 
+Piper takes a chest.
+> 
+Cael intones, "welcome"
+> 
+Piper takes a coffer.
+> 
+Piper takes a trunk.
+> 
+Piper takes a trunk.
+> 
+A priest goes north.
+> 
+A commoner arrives.
+> 
+A priest arrives.
+> 
+Cael intones, "Long time since I have seen you fleshy Sy.  You are well?"
+> 
+A commoner goes south.
+> 
+A priest goes northwest.
+> who
+Dane               Aileron            Cael               Airgid             
+Nord               Vox                Krystian           Sy                 
+Elarin             Piper              Cypress            Chandra            
+Smity              
+
+
+There are 13 adventurers in the Realms.
+
+> 
+Sy taps his chest.
+> 
+A commoner runs by.
+> 
+Sy says, "Solid"
+> 
+A priest arrives.
+> 
+A merchant arrives.
+> 
+A commoner arrives.
+> 
+Cael raps his chest
+> 
+A merchant goes northeast.
+> 
+Cypress asks, "How are you doing Chandra?"
+> 
+Sy smiles at Cael.
+> 
+Cael intones, "that is solid, you are 70 percet liquid"
+> 
+Cael shrugs.
+> 
+Cael waves.
+> 
+A merchant arrives.
+> 
+Sy chuckles.
+> 
+Cael goes northwest.
+> 'Ok so long as I keep busy
+You say, "Ok so long as I keep busy"
+> 
+Piper goes northwest.
+> 
+ ** Cael has just left the Realms.
+> 
+A priest goes east.
+> 
+Vladmir arrives.
+> 
+Vladmir opens a wooden bin.
+> 
+Sy waves to Vladmir.
+> 
+Vladmir puts a glass in the bin.
+> 
+Vladmir closes a wooden bin.
+> 
+Vladmir waves to Sy.
+> 
+Vladmir ponders.
+> 
+Vladmir says, "lets see, what to do"
+> 
+Vladmir ponders.
+> 
+You return to normal speed.
+> 
+A priest arrives.
+> 
+A merchant goes west.
+> 'Don't give my mind a chance to wander and I seem to do ok
+You say, "Don't give my mind a chance to wander and I seem to do ok"
+> 
+Vladmir takes a bite of a thesnia leaf.
+> 
+Vladmir seems changed.
+> 
+Cypress nods to you.
+> 
+A priest goes north.
+> 
+You feel the touch of Piper's mind:
+"Help@!!!!"
+> 
+Sy leans on a wooden bin.
+> pre  210
+You have already prepared a spell.
+> 
+Sy goes west.
+> 
+Vladmir goes west.
+> fur
+You furrow your brow.
+> 
+A commoner goes northwest.
+> 
+Your thoughts are jarred as you sense the death of Piper.
+> 
+You feel the touch of Vox's mind:
+"where?"
+> 
+Cypress ponders.
+> frow
+You frown.
+> 
+Cypress says, "oh no"
+> 'She was just here, anyone have an eye?
+You ask, "She was just here, anyone have an eye?"
+> look e
+[Bazaar East]
+Here at the eastern edge of the bazaar, street merchants of wares both mundane
+and fantastic set up their booths daily to catch your eye. From The Sojourner's
+Hospice, a run-down yet cozy inn on the corner, comes singing and the smell of
+spiced wine. A door with a holly wreath in its center leads in.
+A comfortable building that houses the Sojourner's Hospice is there.
+> look w
+[Bazaar West]
+The Armorer's Guild buys a surprising variety of old and damaged weapons from
+local adventurers and melts them down to make the new weaponry and armor on
+display. Would be owners may examine the manuscript on the table to see what
+new equipment can be afforded. Main Street continues west behind the stalls.
+A table is there.
+> 
+Cypress says, "no"
+> 'Darn, me either
+You say, "Darn, me either"
+> fid
+You fidget nervously.
+> 'She couldn't be far
+You say, "She couldn't be far"
+> 
+You feel the touch of Vox's mind:
+"anyone know where piper is?"
+> 'maybe the jeweler or the bank
+You say, "maybe the jeweler or the bank"
+> 
+A priest arrives.
+> 
+Cypress says, "I know"
+> 
+You feel the touch of Sy's mind:
+"Got her"
+> fol cypr
+You are now following Cypress.
+J> 
+Vladmir arrives.
+J> 
+Vladmir goes west.
+J> 
+Cypress says, "no I meant she could be far"
+J> 
+Sy arrives.
+J> 
+Sy furrows his brow.
+J> 'Oh
+You say, "Oh"
+J> 
+Cypress blushes.
+J> gaze sy
+You gaze at Sy.
+J> 
+A priest goes southwest.
+J> 'Where is she?
+You ask, "Where is she?"
+J> 
+Sy asks, "Can anyone help?"
+J> nod sy
+You nod to Sy.
+J> fol sy
+You are now following Sy.
+J> 
+Sy disbands his group.
+> 
+Sy is now following Chandra.
+> 
+Vladmir arrives.
+> 
+A commoner arrives.
+> 
+Vladmir asks, "what happened?"
+> 
+Sy says, "Somewhere safge"
+> 'Say where
+You say, "Say where"
+> look
+[Bazaar Center]
+You revel in the tumult as the center of the bazaar overwhelms your senses
+with its smell and sizzle of roast mutton, its cries of hawkers and cajoling
+merchants. Street dancers, minstrels, and half-clad jugglers amuse the
+crowds near a large marble fountain.  A large statue is almost as formidable
+a presence as the fountain.
+You see Vladmir, Sy, Piper (carried by Sy), Cypress and a commoner. A wooden
+bin and a newsboard are here.
+Obvious exits: north, south, east, west, northeast, northwest, southeast,
+southwest.
+> 
+A commoner goes northeast.
+> 
+A priest arrives.
+> 
+Sy shrugs.
+> 
+Cypress is now following Chandra.
+> 
+Vladmir sighs.
+> nod
+You nod.
+> w
+Your group follows you.
+[Bazaar West]
+You see Sy, Cypress and a lawkeeper. A table is here.
+Obvious exits: n, s, e, w, ne, se.
+> 
+Sy says, "dont know Vlad"
+> w
+Your group follows you.
+[Main Street]
+You see Sy, Cypress and a crimson-band guard. 
+Obvious exits: e, w.
+> w
+Your group follows you.
+[Main Street]
+You see Sy and Cypress. 
+Obvious exits: e, w.
+> look
+[Main Street]
+Large buildings, featureless in the gray light, loom around you here midway
+between the bazaar and Fayd's downtown district. People crowd past you on
+important business, and you feel small and insignificant among so many in such
+a hurry.
+You see Sy and Cypress. 
+Obvious exits: east, west.
+> 'Can follow me and carry her
+You say, "Can follow me and carry her"
+> e
+Your group follows you.
+[Main Street]
+You see Sy and Cypress. 
+Obvious exits: e, w.
+> e
+Your group follows you.
+[Bazaar West]
+You see Sy and Cypress. A table is here.
+Obvious exits: n, s, e, w, ne, se.
+> e
+Your group follows you.
+[Bazaar Center]
+You see Vladmir, Sy, Piper (carried by Sy) and Cypress. A large marble
+fountain, a wooden bin and a newsboard are here.
+Obvious exits: n, s, e, w, ne, nw, se, sw.
+> 
+A commoner arrives.
+> 
+Vladmir takes a bite of a thesnia leaf.
+> 
+Vladmir seems changed.
+> 
+Sy nods to you.
+> pre 311
+You have already prepared a spell.
+> 
+Sy says, "Sure I can"
+> rel
+You release your prepared spell.
+> 
+Sy chuckles.
+> pre 311
+You prepare the Speak With Dead spell.
+ [Round: 3 sec]
+R> 
+Vladmir takes a bite of a thesnia leaf.
+R> 
+Vladmir seems changed.
+R> 
+Sy asks, "Here?"
+> 'I didn't see her with us
+You say, "I didn't see her with us"
+> cas pip
+You gesture at Piper.
+[Success: 95%, Roll 40] Success!
+An otherworldly chime rings from Piper.
+> 
+Vladmir takes a bite of a thesnia leaf.
+> 
+Vladmir seems changed.
+> pre 405
+You prepare the See Hidden spell.
+ [Round: 3 sec]
+R> cas
+[Wait 2 seconds...]
+R> 
+A priest arrives.
+R> cas
+You narrow your eyes and gaze about the area.
+[Success: 95%, Roll 98] Failure.
+> 
+Sy comforts Piper.
+> pre 405
+You prepare the See Hidden spell.
+ [Round: 3 sec]
+R> cas
+[Wait 2 seconds...]
+R> cas
+[Wait 1 seconds...]
+R> cas
+You narrow your eyes and gaze about the area.
+[Success: 95%, Roll 47] Success!
+> 
+Vladmir takes a bite of a thesnia leaf.
+> 
+Vladmir seems changed.
+> 
+You hear Piper exclaim, "some commoner came in invis and then started casting
+on me!"
+> 
+Sy asks, "What happened Piper?"
+> 
+Vladmir counts his money.
+> 'What happened?
+You ask, "What happened?"
+> list pip
+You listen carefully to Piper.
+> 
+A commoner goes south.
+> 
+Vladmir takes a bite of a thesnia leaf.
+> 
+Vladmir seems changed.
+> frow
+You frown.
+> 
+Cypress comforts Piper.
+> 
+Vladmir says, "that isnt good"
+> 
+something suddenly appears!
+> 'Not a bid
+
+You hear Piper say, "no kidding."
+> You say, "Not a bid"
+> 
+Vladmir takes a bite of a thesnia leaf.
+> 
+Vladmir seems changed.
+> 
+Sy says, "I saw a suspiscious commoner around here earlier"
+> 
+Vladmir takes a bite of a thesnia leaf.
+> 
+Vladmir seems changed.
+> 
+With a steady clip clop of hooves, and a quiet jingling of harness bells, a
+charming horse-drawn carriage arrives from the south.
+> pre 210
+You prepare the Haste spell.
+ [Round: 3 sec]
+R> cast
+[Wait 2 seconds...]
+R> 
+Vladmir takes a bite of a thesnia leaf.
+R> 
+Vladmir seems changed.
+R> cast
+You gesture.
+[Success: 95%, Roll 94] Success!
+You find yourself able to move incredibly fast.
+> 
+You hear Piper say, "Well they were invis in Randolph's and then came vis and
+started casting at me."
+> 
+A commoner arrives.
+> pre 305 with man root
+Some mandrake root turns to dust as it is absorbed by the magic of your spell!
+You prepare the Breath of Life spell.
+ [Round: 1 sec]
+R> cas pip
+pre 318
+You kneel down and lay your hands upon Piper's body.
+[Success: 95%, Roll 38] Success!
+You feel like the conduit for an overwhelming force as you complete the spell.
+A few seconds later, Piper rises from death!
+> You prepare the Body Restoration III spell.
+ [Round: 1 sec]
+R> cas pip
+pre 318
+You gesture at Piper.
+[Success: 95%, Roll 86] Success!
+Piper looks a little better.
+> You prepare the Body Restoration III spell.
+ [Round: 1 sec]
+R> cas pip
+pre 318
+[Wait 1 seconds...]
+R> [Wait 1 seconds...]
+R> 
+With a jingle of harness bells, a regal looking horse pulls a carriage to the
+north.
+R> 
+Vladmir takes a bite of a thesnia leaf.
+> 
+Vladmir seems changed.
+> 
+Sy places Piper down.
+> cas pip
+pre 318
+You gesture at Piper.
+[Success: 95%, Roll 17] Success!
+Piper looks a little better.
+You sense the pleasure of the gods as you call upon the forces of life.
+> You prepare the Body Restoration III spell.
+ [Round: 1 sec]
+R> cas pip
+pre 318
+You gesture at Piper.
+[Success: 95%, Roll 4] Success!
+Piper looks a little better.
+You sense the pleasure of the gods as you call upon the forces of life.
+> You prepare the Body Restoration III spell.
+ [Round: 1 sec]
+R> cas pip
+pre 318
+[Wait 1 seconds...]
+R> [Wait 1 seconds...]
+R> cas pip
+pre 318
+You gesture at Piper.
+[Success: 95%, Roll 75] Success!
+Piper looks a little better.
+> You prepare the Body Restoration III spell.
+ [Round: 1 sec]
+R> 
+Piper smiles at you.
+R> cas pip
+pre 318
+[Wait 1 seconds...]
+R> [Wait 1 seconds...]
+R> cas pip
+pre 318
+You gesture at Piper.
+[Success: 95%, Roll 7] Success!
+Piper looks a little better.
+You sense the pleasure of the gods as you call upon the forces of life.
+> You prepare the Body Restoration III spell.
+ [Round: 1 sec]
+R> cas pip
+pre 318
+You gesture at Piper.
+[Success: 95%, Roll 10] Success!
+Piper looks a little better.
+> You prepare the Body Restoration III spell.
+ [Round: 1 sec]
+R> 
+Piper says, "thank you."
+R> cas pip
+pre 318
+You gesture at Piper.
+[Success: 95%, Roll 17] Success!
+Piper looks a little better.
+> You prepare the Body Restoration III spell.
+ [Round: 1 sec]
+R> cas pip
+pre 318
+You gesture at Piper.
+[Success: 95%, Roll 44] Success!
+Piper looks a little better.
+You sense the pleasure of the gods as you call upon the forces of life.
+> You prepare the Body Restoration III spell.
+ [Round: 1 sec]
+R> 
+Piper smiles at Sy.
+> cas pip
+pre 318
+You gesture at Piper.
+[Success: 95%, Roll 96] Failure.
+> You prepare the Body Restoration III spell.
+ [Round: 1 sec]
+R> cas pip
+pre 318
+You gesture at Piper.
+[Success: 95%, Roll 12] Success!
+Nothing happens.
+> You prepare the Body Restoration III spell.
+ [Round: 1 sec]
+R> 
+Vladmir takes a bite of a thesnia leaf.
+R> 
+Vladmir seems changed.
+R> cas pip
+pre 318
+You gesture at Piper.
+[Success: 95%, Roll 78] Success!
+Nothing happens.
+> You prepare the Body Restoration III spell.
+ [Round: 1 sec]
+R> 
+Piper says, "And you too."
+R> rel
+You release your prepared spell.
+> 
+Piper sits up.
+> 
+Sy nods to Piper.
+> 
+Vladmir takes a bite of a thesnia leaf.
+> 
+Vladmir seems changed.
+> 
+Piper hugs Sy.
+> 
+Piper struggles to her feet.
+> 
+Piper hugs you.
+> 
+Cypress sits down.
+> 'Not safe even in the jewelers
+You say, "Not safe even in the jewelers"
+> 
+Vladmir takes a bite of a thesnia leaf.
+> 
+Vladmir seems changed.
+> sigh
+You sigh.
+> 
+Piper sighs.
+> 
+Sy furrows his brow.
+> pre 234
+You prepare the Spell Shield spell.
+ [Round: 1 sec]
+R> 
+Vladmir takes a bite of a thesnia leaf.
+> 
+Vladmir seems changed.
+> 
+Cypress sighs.
+> 
+Piper incants a spell.
+> cas pip
+pre 234
+You gesture at Piper.
+[Success: 95%, Roll 58] Success!
+An antimagical field emanates from Piper.
+> You prepare the Spell Shield spell.
+ [Round: 1 sec]
+R> cas pip
+pre 234
+
+Piper narrows her eyes and gazes intently about the area.
+> You gesture at Piper.
+[Success: 95%, Roll 86] Success!
+An antimagical field emanates from Piper.
+> You prepare the Spell Shield spell.
+ [Round: 1 sec]
+R> cas pip
+pre 234
+You gesture at Piper.
+[Success: 95%, Roll 94] Success!
+An antimagical field emanates from Piper.
+> You prepare the Spell Shield spell.
+ [Round: 1 sec]
+R> cas pip
+pre 234
+You gesture at Piper.
+[Success: 95%, Roll 69] Success!
+An antimagical field emanates from Piper.
+> You prepare the Spell Shield spell.
+ [Round: 1 sec]
+R> cas pip
+pre 234
+
+Vladmir closes a backpack.
+> You gesture at Piper.
+[Success: 95%, Roll 36] Success!
+An antimagical field emanates from Piper.
+> You prepare the Spell Shield spell.
+ [Round: 1 sec]
+R> 
+A commoner goes northwest.
+R> 
+Vladmir takes a bite of a thesnia leaf.
+> 
+Vladmir seems changed.
+> cas
+You gesture.
+[Success: 95%, Roll 59] Success!
+An antimagical field emanates from you.
+> fat
+Mana: 199/369
+Psi: 267/267
+Fatigue: 232/232
+> 
+A commoner arrives.
+> look
+[Bazaar Center]
+You revel in the tumult as the center of the bazaar overwhelms your senses
+with its smell and sizzle of roast mutton, its cries of hawkers and cajoling
+merchants. Street dancers, minstrels, and half-clad jugglers amuse the
+crowds near a large marble fountain.  A large statue is almost as formidable
+a presence as the fountain.
+You see Vladmir, Sy, Piper, Cypress (sitting), a commoner and a priest. A
+wooden bin and a newsboard are here.
+Obvious exits: north, south, east, west, northeast, northwest, southeast,
+southwest.
+> 
+Vladmir takes a bite of a thesnia leaf.
+> 
+Vladmir seems changed.
+> 
+A priest goes north.
+> 
+A commoner goes southwest.
+> 
+A priest arrives.
+> 
+Piper incants a spell.
+> 
+Vladmir takes a bite of a thesnia leaf.
+> 
+Vladmir seems changed.
+> 
+Piper gestures.
+Piper seems changed.
+> 
+Piper incants a spell.
+> 
+A priest goes northwest.
+> 
+something suddenly appears!
+> pre 210
+You prepare the Haste spell.
+ [Round: 1 sec]
+R> cast
+
+Piper gestures.
+Piper seems changed.
+> You gesture.
+[Success: 95%, Roll 73] Success!
+Nothing happens.
+> 
+Vladmir takes a bite of a thesnia leaf.
+> 
+Vladmir seems changed.
+> pre  405
+You prepare the See Hidden spell.
+ [Round: 1 sec]
+R> 
+Piper incants a spell.
+> cas
+You narrow your eyes and gaze about the area.
+[Success: 95%, Roll 22] Success!
+> 
+A laash hauls itself in.
+> 
+Piper gestures.
+Piper seems changed.
+> 
+A laash hauls itself in.
+> blink
+
+Vladmir arches his eyebrow.
+> 
+Sy says, "Ack"
+> You blink.
+> 
+Cypress struggles to her feet.
+> 
+Vladmir goes south.
+> pre 134
+
+A laash hops towards Piper.
+> 
+A laash slashes at Piper. Hit! Massive damage.
+> 
+Cypress goes west.
+> You prepare the Siryx's Terrible Tentacles spell.
+ [Round: 1 sec]
+R> tar laa
+Targets now include:
+A laash
+> 
+Piper retreats.
+> 
+Piper goes west.
+> tar 2 laa
+Targets now include:
+A laash
+A laash
+> tar 3 laa
+What are you referring to?  Please be more specific.
+> cas laa
+You gesture at a laash.
+[Success: 95%, Roll 17] Success!
+Black tentacles burst forth from the ground!
+Tentacles grab hold of a laash!
+Tentacles grab hold of a laash!
+> 
+Sy fires at a laash. Hit! Massive damage.
+> 
+A commoner arrives.
+> 
+As Sy pulls the string on his greatbow back, a shimmering arrow forms, ready to
+fire.
+> 
+Sy fires at a laash. Hit! Major damage, stun.
+> 
+As Sy pulls the string on his greatbow back, a shimmering arrow forms, ready to
+fire.
+> 
+Sy fires at a laash. Hit! Major damage.
+> 
+As Sy pulls the string on his greatbow back, a shimmering arrow forms, ready to
+fire.
+> 
+Sy fires at a laash. Hit! Major damage.
+> 
+As Sy pulls the string on his greatbow back, a shimmering arrow forms, ready to
+fire.
+> 
+Sy fires at a laash. Hit! Major damage.
+> 
+As Sy pulls the string on his greatbow back, a shimmering arrow forms, ready to
+fire.
+> ret
+
+Sy fires at a laash. Hit! Good damage.
+> 
+As Sy pulls the string on his greatbow back, a shimmering arrow forms, ready to
+fire.
+> You are not currently engaging any opponents.
+> 
+Sy fires at a laash. Hit! Minor damage.
+> 
+As Sy pulls the string on his greatbow back, a shimmering arrow forms, ready to
+fire.
+> pre 112
+
+Sy fires at a laash. Hit! Minor damage.
+> 
+As Sy pulls the string on his greatbow back, a shimmering arrow forms, ready to
+fire.
+> 
+A laash is being crushed by the tentacles!
+ Glancing blow. [2 Damage]
+> 
+A laash lashes at Chandra with its razor barbed tongue!
+ Grisly slash to body. [152 Damage]
+!> You prepare the Call Meteor spell.
+ [Round: 1 sec]
+!R> 
+Sy fires at a laash. Hit! Massive damage.
+!R> 
+As Sy pulls the string on his greatbow back, a shimmering arrow forms, ready to
+fire.
+!R> 
+Sy fires at a laash. Hit! Major damage.
+!R> 
+As Sy pulls the string on his greatbow back, a shimmering arrow forms, ready to
+fire.
+!> 
+Sy fires at a laash. Hit! Major damage.
+!> 
+As Sy pulls the string on his greatbow back, a shimmering arrow forms, ready to
+fire.
+!> 
+Sy fires at a laash. Miss.
+!> 
+As Sy pulls the string on his greatbow back, a shimmering arrow forms, ready to
+fire.
+!> 
+Sy fires at a laash. Hit! Good damage.
+!> 
+As Sy pulls the string on his greatbow back, a shimmering arrow forms, ready to
+fire.
+!> cas 2 laa
+pre 112
+You gesture at a laash.
+[Success: 95%, Roll 88] Success!
+Chandra points to the sky. A moment later, a meteor
+screeches from the heavens and hammers a laash!
+ Insignificant burn to back. [18 Damage]
+ Feeble blow to left foreleg. [9 Damage]
+!> You prepare the Call Meteor spell.
+ [Round: 1 sec]
+!R> 
+Sy fires at a laash. Hit! Good damage.
+!> 
+As Sy pulls the string on his greatbow back, a shimmering arrow forms, ready to
+fire.
+!> 
+Sy fires at a laash. Hit! Major damage.
+!> 
+As Sy pulls the string on his greatbow back, a shimmering arrow forms, ready to
+fire.
+!> 
+ ** Vladmir has just left the Realms.
+!> 
+Sy fires at a laash. Hit! Major damage.
+!> 
+As Sy pulls the string on his greatbow back, a shimmering arrow forms, ready to
+fire.
+!> ret
+You are not currently engaging any opponents.
+!> 
+Sy fires at a laash. Hit! Good damage.
+!> 
+As Sy pulls the string on his greatbow back, a shimmering arrow forms, ready to
+fire.
+!> 
+Sy fires at a laash. Hit! Major damage.
+!> 
+As Sy pulls the string on his greatbow back, a shimmering arrow forms, ready to
+fire.
+!> w
+Sy follows you.
+[Bazaar West]
+You see Sy and Cypress. A table is here.
+Obvious exits: n, s, e, w, ne, se.
+!> frow
+You frown.
+!> health
+You have 124/276 body points.
+You are bleeding at a rate of 3/minute.
+You have a hideously gashed body.
+!> pre 318
+You have already prepared a spell.
+!> 
+Sy goes west.
+!> cas
+pre 318
+You gesture.
+[Success: 82%, Roll 15] Success!
+Chandra points to the sky. A moment later, a meteor
+screeches from the heavens and hammers Chandra!
+ Minor burn to body. [13 Damage]
+ Brutal blow to back. [36 Damage]
+!> You prepare the Body Restoration III spell.
+ [Round: 1 sec]
+!R> 
+Sy arrives.
+!> cas
+pre 318
+You gesture.
+[Success: 95%, Roll 16] Success!
+Chandra looks a little better.
+!> You prepare the Body Restoration III spell.
+ [Round: 1 sec]
+!R> cas
+pre 318
+You gesture.
+[Success: 95%, Roll 13] Success!
+Chandra looks a little better.
+!> You prepare the Body Restoration III spell.
+ [Round: 1 sec]
+!R> cas
+pre 318
+You gesture.
+[Success: 95%, Roll 60] Success!
+Chandra looks a little better.
+!> You prepare the Body Restoration III spell.
+ [Round: 1 sec]
+!R> cas
+pre 318
+You gesture.
+[Success: 95%, Roll 71] Success!
+Chandra looks a little better.
+!> You prepare the Body Restoration III spell.
+ [Round: 1 sec]
+!R> cas
+pre 318
+[Wait 1 seconds...]
+!R> [Wait 1 seconds...]
+!R> cas
+pre 318
+You gesture.
+[Success: 95%, Roll 36] Success!
+Chandra looks a little better.
+!> You prepare the Body Restoration III spell.
+ [Round: 1 sec]
+!R> 
+Sy goes east.
+!> 
+You are bleeding.
+!> cas
+pre 318
+You gesture.
+[Success: 95%, Roll 58] Success!
+Chandra looks a little better.
+!> You prepare the Body Restoration III spell.
+ [Round: 1 sec]
+!R> cas
+pre 318
+You gesture.
+[Success: 95%, Roll 44] Success!
+Chandra looks a little better.
+!> You prepare the Body Restoration III spell.
+ [Round: 1 sec]
+!R> cas
+pre 318
+You gesture.
+[Success: 95%, Roll 20] Success!
+Chandra looks a little better.
+!> You prepare the Body Restoration III spell.
+ [Round: 1 sec]
+!R> cas
+pre 318
+You gesture.
+[Success: 95%, Roll 69] Success!
+Nothing happens.
+!> You prepare the Body Restoration III spell.
+ [Round: 1 sec]
+!R> 
+You feel a tingle in your mind. Nord thinks to you, "could you come to the
+temple of rorin?."
+!R> cas
+pre 318
+You gesture.
+[Success: 95%, Roll 55] Success!
+Nothing happens.
+!> You prepare the Body Restoration III spell.
+ [Round: 1 sec]
+!R> 
+You feel the touch of Piper's mind:
+"If I find out who killed me it may not be pretty."
+!> 
+You feel the touch of Vladmir's mind:
+"Well, I dont think I will be fighting them"
+!> think I'm being attacked by demonds right now
+You project your thoughts.
+!> 
+A skurspyr phases into this plane right next to you.
+!> e
+[Bazaar Center]
+You see Sy, a commoner, a laash (ensnared) and a laash (ensnared). A large
+marble fountain, a wooden bin and a newsboard are here.
+Obvious exits: n, s, e, w, ne, nw, se, sw.
+!> 
+As Sy pulls the string on his greatbow back, a shimmering arrow forms, ready to
+fire.
+!> 
+Sy fires at a laash. Hit! Major damage.
+!> 
+As Sy pulls the string on his greatbow back, a shimmering arrow forms, ready to
+fire.
+!> s
+
+Sy fires at a laash. Hit! Good damage.
+!> 
+As Sy pulls the string on his greatbow back, a shimmering arrow forms, ready to
+fire.
+!> [Bazaar South]
+You see a lawkeeper. 
+Obvious exits: n, s, e, w, ne, nw.
+!> s
+[Broadway]
+An ancient building is here.
+Obvious exits: n, s.
+!> s
+[Broadway]
+You see a crimson-band guard. 
+Obvious exits: n, sw.
+!> s
+You can't go south!
+!> 
+A guard goes southwest.
+!> sw
+[Broadway]
+You see a crimson-band guard. Some rubble and a wooden bin are here.
+Obvious exits: w, ne.
+!> w
+[Broadway]
+Obvious exits: e, w.
+!> w
+[Broadway & Church]
+Obvious exits: n, e, w.
+!> n
+[Church Street]
+Obvious exits: n, s.
+!> go doo
+It is closed.
+!> open doo
+You open a door.
+!> 
+A contingent of Crimson Band guards marches past, carefully scrutinizing the
+street for any sign of trouble.
+!> go doo
+[Outer Temple, entrance]
+Obvious exits: none.
+!> think Ok, I'mm there Nord
+You project your thoughts.
+!> look arc
+You see nothing extraordinary.
+[Outer Temple, temple proper]
+A golden alzyron statue of Rorin is here.
+Obvious exits: o.
+!> 
+Nord arrives.
+!> 
+Nord takes Chandra by the hand.
+!> 
+You follow Nord.
+[Temple of Rorin]
+You see Nord, Bryn and Charette. 
+Obvious exits: s.
+!J> 
+A wizened priestess totters to her feet and casts a spell.
+!J> 'Bleeding a bit though
+
+Charette shakes her head at Bryn.
+!J> You say, "Bleeding a bit though"
+!J> fid
+You fidget nervously.
+!J> 
+The elderly woman creaks back into her chair.
+!J> 
+You are bleeding.
+!J> 
+Bryn says, "M'lady, I really think we should just go hom."
+!J> 
+You feel the touch of Cypress's mind:
+"not a safe place anywhere"
+!J> 
+Nord asks, "do you recognize her?"
+!J> 
+Bryn gazes at you.
+!J> rais
+You raise your eyebrow.
+!J> 
+Bryn squints.
+!J> gaze bry
+You gaze at Bryn.
+!J> look bry
+You see a short man, with red rings around his eyes from lack of sleep. Dark
+curly hair hangs around his enormous ears. Dark violet eyes stand out clearly
+in what is otherwise a very ugly face.
+He is wearing a simple crumpled white robe embroidered carelessly with symbols
+of Amilor, Shemri and Rorin and some hard leather boots.
+He appears to be healthy.
+!J> 
+[From Bryn]: thts the priest
+!J> 
+Charette gazes frainkly and openly at Chandra.
+!J> 
+[From Bryn]: :) but it was really dark
+!J> 
+Bryn ponders.
+!J> 
+Bryn shrugs.
+!J> 
+Bryn says, "could be."
+!J> 
+Nord asks, "do you recognize each other?"
+!J> 'Oh, you look familiar
+You say, "Oh, you look familiar"
+!J> gaze bry
+You gaze at Bryn.
+!J> 
+Bryn says, "sir, twas the middle of the night, and i'd just left the baron's
+beside."
+!J> 
+Nord says, "this is very important Bryn"
+!J> 
+Bryn says, "bedside"
+!J> 
+Bryn frowns at Nord.
+!J> 'I must apologize again for wakening you sir
+You say, "I must apologize again for wakening you sir"
+!J> 
+You are bleeding.
+!J> blush
+You blush.
+!J> 
+Charette exclaims, "Merciful Shemri, girl, what did that damage to you? Bryn
+enough of the foolishness. .heal the girl!"
+!J> 
+Bryn exclaims, "You are awlful uppity!"
+!J> 
+Bryn nods to Charette.
+!J> sit
+You sit.
+!sJ> 
+Bryn tends to your wounds.
+Your body looks better.
+ [Round: 8 sec]
+!RsJ> 
+Charette frowns.
+!RsJ> health
+You have 272/276 body points.
+You are bleeding at a rate of 3/minute.
+You have a hideously gashed body and a smashed back.
+!sJ> 
+You feel the touch of Sy's mind:
+"Skurspyer in BC"
+!sJ> 
+Bryn tends to your wounds.
+Your back looks better.
+ [Round: 16 sec]
+!RsJ> 'There are several demons loose in the city, I was attempting to heal others when they attacked
+You say, "There are several demons loose in the city, I was attempting to heal
+others when they attacked"
+!sJ> 
+Bryn tends to your wounds.
+Your body looks better.
+ [Round: 20 sec]
+RsJ> 
+Charette murmurs, "And they wonder why I'd not have a Rorinite at Father's
+bedside.."
+RsJ> 
+Charette shakes her head back and forth.
+RsJ> 
+Nord says, "uppity? I don't think you've seen uppity"
+RsJ> 
+Bryn raises an eyebrow towards Nord.
+RsJ> 
+Bryn asks, "That does it. M'lady, shall we return home?"
+sJ> 
+Bryn gazes at Charette.
+sJ> 
+Nord says, "this is not about me"
+sJ> 
+Charette lifts her head haughtiyl toward Nord.
+sJ> 
+Bryn says, "I'll not take this attitude."
+sJ> 
+Nord says, "this is about her"
+sJ> 'Please, let's not resort to name calling
+You say, "Please, let's not resort to name calling"
+sJ> health
+
+Charette asks, "Is the girl healed?"
+sJ> You have 276/276 body points.
+sJ> 
+Bryn holds his arm out to Charette.
+sJ> 
+You return to normal speed.
+sJ> stand
+You struggle to your feet under the weight of all your equipment.
+ [Round: 9 sec]
+RJ> 
+Bryn says, "Aye m'lady."
+RJ> 
+Charette nods.
+RJ> 
+Nord says, "leave and..."
+J> 'I owe you thanks again sir
+You say, "I owe you thanks again sir"
+J> 
+Bryn smiles at you.
+J> curts bry
+You curtsy towards Bryn.
+J> 
+Bryn says, "you are a very pretty girl."
+J> 
+Nord says, "you'll just reopen all those wounds you healed"
+J> 
+Bryn kisses you on the hand.
+J> 'Do you not remember me?
+You ask, "Do you not remember me?"
+J> 
+Bryn chuckles.
+J> 
+Charette says, " My dear,  I suggest you watch those that set themselves to
+protect you. Some fumble with it awfully."
+J> 
+Bryn says, "I don't see all too well ma'am."
+J> 
+Nord says, "I apologize Bryn"
+J> 
+Nord sighs.
+J> 'When you married me and my love, his hair blond, and eyes black?
+You ask, "When you married me and my love, his hair blond, and eyes black?"
+J> 
+Nord grits his teeth
+J> 
+Nord says, "try to remember"
+J> 
+Bryn gazes at Charette.
+J> 
+Charette nods to Bryn.
+J> gaze robe
+What are you referring to?  Please be more specific.
+J> gaze cape
+
+Charette asks, "Did you perform such a marriage?"
+J> You gaze at a flowing deep blue cape embroiderd with a stunning serpentine gold
+and blue dragon.
+J> 
+Bryn asks, "Shall I answer m'lady? or are we ready?"
+J> 
+Bryn ponders.
+J> 
+Bryn says, "ma'am, you know my eyesight is failing in the dark especially."
+J> 'Surely my attire is somewhat, er, unique
+You say, "Surely my attire is somewhat, er, unique"
+J> 
+Bryn says, "I married a young couple."
+J> 
+Charette nods encouragingly at Bryn.
+J> 
+Bryn says, "you could be her, I don't rightly remember that well."
+J> 
+Nord says, "the gods you represent...I think you know Bryn"
+J> 
+Bryn says, "I had just been up near 20 hours with the baron, we thought we
+might lose him that night."
+J> 
+Charette asks, "And the young man? Was he as she says?"
+J> 
+Bryn chuckles.
+J> 
+Bryn says, "He was eager to wed the lass, paid me handsomely too."
+J> 
+Charette asks, "It was the night his heart near stopped?"
+J> 
+Bryn nods to Charette.
+J> 
+Bryn says, "Aye m'lady."
+J> 
+Charette touches Bryn.
+J> 'Oh dear, I had no idea
+You say, "Oh dear, I had no idea"
+J> 
+Charette gazes at you.
+J> comf bry
+You comfort Bryn.
+J> 
+Bryn says, "I'd just fallen asleep, and thump thump thump on the door."
+J> 
+Charette asks, "You recognize him as the man who married you?"
+J> nod  char
+You nod to Charette.
+J> 'He was just awoken too, I felt awful
+You say, "He was just awoken too, I felt awful"
+J> 
+Charette comforts Bryn.
+J> 'But it had to be done that way, Frederick and I agreed
+You say, "But it had to be done that way, Frederick and I agreed"
+J> 
+Nord says, "the man you married was blessed by the three Gods of light"
+J> 
+Bryn gazes at a simple crumpled white robe embroidered carelessly with symbols
+of Amilor, Shemri and Rorin.
+J> nod nord
+You nod to Nord.
+J> 
+Nord says, "there must have been something different"
+J> 
+Charette says, "What names on the marriage lines? You keep careful records,
+Bryn.."
+J> 
+Charette raises an eyebrow towards Nord.
+J> 
+Bryn says, "Sir, your attitude offends me."
+J> 
+Bryn coughs.
+J> 
+Bryn says, "I umm.. don't think I ever did the writ on it m'lady."
+J> 'It is not his intent good priest
+You say, "It is not his intent good priest"
+J> 
+Bryn says, "until now I"d forgotten."
+J> act smiles at Bryn warmly.
+Chandra smiles at Bryn warmly.
+J> 
+Charette raises an eyebrow towards Bryn.
+J> 
+Bryn sighs.
+J> 
+Charette frowns slightly.
+J> 
+Nord clenches his fists behind his back
+J> 
+Charette asks, "That's unlike you, Bryn.. but considering the circumstances..
+what name WOULD have gone on the marriage lines, Lady?"
+J> 
+Charette listens carefully to you.
+J> 'He was so quiet at one moment I thought he was asleep standing
+You say, "He was so quiet at one moment I thought he was asleep standing"
+J> 
+Bryn coughs.
+J> 
+Bryn says, "I probably was."
+J> 
+Charette raises an eyebrow towards Bryn.
+J> 'Mine, Chandra McFearless
+You say, "Mine, Chandra McFearless"
+J> 
+You feel the touch of Sy's mind:
+"Careful in BC"
+J> 
+Charette nods to you.
+J> 
+Bryn ponders.
+J> 
+Charette listens carefully to Bryn.
+J> 
+Bryn says, "Aye, that sounds familiar."
+J> 'and Frederick used Erick Kent
+You say, "and Frederick used Erick Kent"
+J> 'Not his entire name
+You say, "Not his entire name"
+J> 
+Bryn says, "oh! the young man taht couldn't remember his name"
+J> 
+Bryn chuckles.
+J> 
+Charette chuckles softly.
+J> fid
+You fidget nervously.
+J> 
+Bryn says, "Now that I recall."
+J> 
+Bryn says, "See."
+J> 
+Bryn gazes at Nord.
+J> 
+Nord sighs in relief
+J> 
+Charette says, "I recall him using that one before, in fact.. when we were
+children."
+J> 
+Bryn says, "No king."
+J> 
+Bryn blinks at Charette.
+J> 
+Charette shakes her head at Bryn.
+J> 'Well, he couldn't decide on the name, he was afraid his real one would draw unwanted attention
+You say, "Well, he couldn't decide on the name, he was afraid his real one
+would draw unwanted attention"
+J> 
+Nord raises an eyebrow towards Bryn.
+J> 
+Charette says, "Yes, king.."
+J> 
+Bryn staggers.
+J> 
+Bryn shakes his head back and forth.
+J> 
+Charette gazes at you.
+J> 
+Bryn says, "I married no king."
+J> 
+Nord says, "steady Bryn"
+J> 
+Bryn gulps.
+J> 
+Bryn frowns at Nord.
+J> 'I know who I married
+You say, "I know who I married"
+J> 
+Bryn thumps Nord soundly in the chest.
+J> 
+Charette steps to Bryn's side, arm around his shoulder.
+J> 
+Nord gazes at Bryn.
+J> 
+Charette says, "Enough, Bryn.."
+J> 
+Bryn exclaims, "if you'd talk instead of suppose at things, we'd have been here
+already!"
+J> act places a hand on Nord's shoulder gently.
+Chandra places a hand on Nord's shoulder gently.
+J> 
+ ** Aileron has just left the Realms.
+J> 
+Charette coughs, trying not to snicker.
+J> 
+Bryn asks, "How hard it is to ask me if I married those two by name!?"
+J> 
+Bryn flails his arms about wildly.
+J> 
+Charette turns to Chandra.
+J> 
+Charette asks, "Chandra it is?"
+J> 
+Nord says, "because I didn't know who knew what"
+J> 
+Bryn rolls his eyes.
+J> 
+Nord says, "I only know parts of the story myself"
+J> whisp nord Sorry it was he who married Frederick and I, at that hour we couldn't be very choosy
+You whisper to Nord.
+J> nod char
+You nod to Charette.
+J> 
+Bryn exclaims, "So how am I supposed to tell you man! Use your freaking
+noodle!"
+J> 
+ ** Cypress has just disconnected.
+J> 
+Charette says, "Well, it's common knowledge that some young woman was claiming
+to have married Fred.."
+J> 
+Nord says, "that isn't important now"
+J> 
+Nord smiles at you.
+J> cough
+You cough.
+J> 
+Charette says, "No offense, m'lady.."
+J> 'It got around fast
+You say, "It got around fast"
+J> nod char
+You nod to Charette.
+J> 
+Nord says, "we need to see to your safety"
+J> 'None taken maam
+You say, "None taken maam"
+J> 
+Charette furrows her brow.
+J> 
+Charette says, "She's in no danger.. unless..."
+J> 
+Charette gazes at you.
+J> 
+Bryn gazes at you.
+J> 
+Charette asks, "Are you with child?"
+J> 
+ ** Piper has just left the Realms.
+J> 
+Nord says, "if you don't care for my way...we can speak to Cartin Greycloak"
+J> 'Piper was just slain at the jewelers by an invisible assassin, none seem very safe
+You say, "Piper was just slain at the jewelers by an invisible assassin, none
+seem very safe"
+J> rais char
+You raise an eyebrow towards Charette.
+J> 
+Bryn says, "Me and Cartin go WAY back."
+J> 
+Bryn folds his arms.
+J> 
+Nord says, "I mean Bryn"
+J> 
+You feel the touch of Prudence's mind:
+"Hello :)"
+J> 
+Charette smiles at Bryn.
+J> 
+You feel the touch of Sy's mind:
+"Heya Prudence"
+J> 'I do not think so
+You say, "I do not think so"
+J> 
+You feel the touch of Prudence's mind:
+"Hi Sy."
+J> 
+Charette says, "And he presided at my christening."
+J> 
+You feel the touch of Vladmir's mind:
+"Kvaahn Pru!"
+J> 
+You feel the touch of Prudence's mind:
+"Hi Vladmir"
+J> 
+Charette gazes at you.
+J> 
+Charette ponders.
+J> act runs a hand over her stomach.
+Chandra runs a hand over her stomach.
+J> 
+Charette says, "Hmm.."
+J> 
+Bryn squints.
+J> shr
+You shrug.
+J> 
+Charette says, "If you so much as suspect so..."
+J> 
+Nord says, "Stefan has offered his keep"
+J> 'Would I know after only a few weeks?
+You ask, "Would I know after only a few weeks?"
+J> 
+Charette says, "I'd say nothing.. not a word.. or better.."
+J> 
+You feel the touch of Prudence's mind:
+"I'm in the saloon"
+J> 
+Charette gazes at you.
+J> list char
+You listen carefully to Charette.
+J> 
+Nord says, "this temple is open to you Bryn"
+J> 
+Charette says, "Put it about that the grief caused you grievous harm.. and you
+lost a child before it was formed."
+J> 
+Bryn says, "I'm returning to my Baron's side."
+J> pond
+You ponder for a moment.
+J> 'Very good idea
+You say, "Very good idea"
+J> 
+Charette asks, "Nord, exactly why do you think she is in such danger?"
+J> act nods mischieviously to Charette.
+Chandra nods mischieviously to Charette.
+J> 
+Charette says, "If she does not bear Freddie's child.."
+J> 
+ ** Krystian has just left the Realms.
+J> 
+Nord says, "I was referring to Bryn but Chandra is most likely in danger as
+well"
+J> 
+Charette says, "she is no one. No offense,  again, Chandra."
+J> 
+The ghostly shield protecting Nord slowly fades.
+J> cough
+You cough.
+J> 
+Bryn frowns.
+J> 
+Bryn says, "why am I in danger"
+J> 
+Bryn snorts.
+J> 
+Nord says, "no one? she is the Queen"
+J> act says, "None taken again maam", but appears less sincere this time.
+Chandra says, "None taken again maam", but appears less sincere this time.
+J> 
+Nord gazes at you.
+J> 
+Charette shakes her head at Nord.
+J> 
+Bryn frowns.
+J> 
+Bryn chuckles.
+J> 
+Bryn asks, "This one is funny, how backwoods are you boy?"
+J> 
+Charette says, "She is the consort of the late King.. legally married, but not
+in line to take the throne."
+J> 
+Bryn gazes at Nord.
+J> 
+Charette ponders.
+J> rais
+You raise your eyebrow.
+J> 
+Charette says, "Unless.. lady.."
+J> 'Back...
+
+Charette gazes at you.
+J> You say, "Back..."
+J> 
+You feel the touch of Prudence's mind:
+"Anyone else need a healer?"
+J> list char
+You listen carefully to Charette.
+J> 
+Nord says, "listen Bryn...take a look at my face"
+J> 
+Charette says, "The lines were never writ.. we three know the truth.. and the
+gods..."
+J> 
+Bryn gazes at Nord.
+J> 
+Bryn says, "and? Mines just as ugly"
+J> 
+Charette speaks sharply, "Bryn!".
+J> 
+Bryn coughs.
+J> 
+ ** Vladmir has just left the Realms.
+J> sigh
+You sigh.
+J> 
+You feel the touch of Airgid's mind:
+"careful there are some still around"
+J> 
+Charette says, "if it is your wish, Chandra.. the lines can never be writ.."
+J> act looks instantly distraught.
+Chandra looks instantly distraught.
+J> 
+Nord says, "you may laugh it off but I'm considering the welfare of this city"
+J> 'Never....?
+You ask, "Never....?"
+J> frow
+You frown.
+J> 
+Charette gazes at Chandra with compassion.
+J> 
+Charette nods to you.
+J> 
+Bryn gazes at Nord.
+J> 
+Bryn says, "You show it in a damn funny way."
+J> 
+Charette asks, "Bryn, you'll see to it that the proper forms are written and
+filed then?"
+J> 'My love for Frederick will not allow me to disavow him
+You say, "My love for Frederick will not allow me to disavow him"
+J> 
+Charette smiles at you.
+J> 
+Bryn says, "Aye m'lady, but what name? The named given me was Erick Kent, that
+is the name I used."
+J> 
+Charette says, "I wish I'd known you while he was alive, Chandra.  I might even
+have approved."
+J> smi char
+You smile at Charette.
+J> 
+Charette gazes at Chandra, her eyes almost  twinkling.
+J> 
+Charette nods to Bryn.
+J> 'I wish so as well, buy my wishes go unanswered of late
+You say, "I wish so as well, buy my wishes go unanswered of late"
+J> sigh
+You sigh.
+J> 
+Charette says, "There are enough of us who ran together. Even Lanos will
+recognize Erick Kent as the name Freddie used when we went that time to .."
+J> 
+Charette coughs.
+J> 
+Charette says, "Never mind."
+J> rais char
+
+Bryn nods.
+J> You raise an eyebrow towards Charette.
+J> 
+Nord says, "I'm sorry Chandra"
+J> 
+Bryn says, "Aye then, I"ll see it done."
+J> 
+ ** Elarin has just disconnected.
+J> 
+Charette nods to Bryn.
+J> 
+Bryn says, "m"lady, we really should return"
+J> 'I think we will have to exchange stories one day maam
+You say, "I think we will have to exchange stories one day maam"
+J> smi char
+You smile at Charette.
+J> 
+Charette says, "My keep is open to you, Chandra.."
+J> 
+Nord says, "Bryn..."
+J> 
+Bryn scowls over at Nord.
+J> 
+Charette says, "though it is not a pleasant place of late."
+J> 
+Charette sighs.
+J> 
+Nord says, "you are the only one who can attest to this wedding"
+J> 'Perhaps we shall make it pleasant once again
+You say, "Perhaps we shall make it pleasant once again"
+J> 
+Bryn flails his arms about wildly.
+J> 
+ ** Vox has just left the Realms.
+J> 
+Charette sighs.
+J> 
+Nord says, "I don't think any piece of paper will hold up"
+J> 
+Charette says, "If you know of a cure for the wasting disease, perhaps."
+J> 
+Bryn says, "Lookie here. Your loyalties are to your city. Mine are to my
+baron."
+J> 
+Nord asks, "you said there are armed bands in Across?"
+J> 
+Bryn says, "He lies dying, and I'm not at his side to offer him the comfort of
+the gods."
+J> 'We can look for one
+You say, "We can look for one"
+J> 
+ ** Smity has just left the Realms.
+J> 
+Charette smiles sadly.
+J> 
+Charette says, "That is not my father's wish."
+J> sigh
+You sigh.
+J> 
+Nord says, "if they learn of you, it will be very short"
+J> 
+Nord sighs.
+J> 
+Charette says, "A party of wolflings stopping  people on the street asking for
+a priest.."
+J> 
+Bryn exclaims, "what will you have me do, Hide?!"
+J> 
+Bryn snorts.
+J> 
+Bryn says, "I have duties, and I take them seriously."
+J> 
+Bryn says, "The gods will protect me."
+J> 
+Charette says, "and one or two others  in the last few days, poking about.. as
+I said.. wearing the insignia of Rorin.. .and the  Oak Leaf of the foresters."
+J> 'They can only do so much, we are required to do the rest
+You say, "They can only do so much, we are required to do the rest"
+J> 
+Nord says, "yes but they can't protect you from death"
+J> act smiles kindly to Bryn.
+Chandra smiles kindly to Bryn.
+J> 
+You feel the touch of Prudence's mind:
+"Thanks again Sy."
+J> 
+Bryn asks, "think you I stupid enough not to spend a bit on Tarinth's?"
+J> 
+Bryn snorts.
+J> 
+You feel the touch of Sy's mind:
+"sure thing. Thank you too"
+J> 
+You feel the touch of Prudence's mind:
+"Sure no problem."
+J> 
+ ** Zephyr has just left the Realms.
+J> 
+Nord says, "Baroness...would you allow a squad of the Phoenix Guard to watch
+over Bryn"
+J> 
+Bryn says, "M'lady, I truly am about fed up to here with present company."
+J> 
+Charette folds her arms.
+J> 
+Bryn scowls at Nord.
+J> 
+Bryn exclaims, "The baroness has her own guard, how insulting you are!"
+J> 
+Charette says, "My own squads are quite capable, thank you."
+J> 
+Bryn asks, "Are they not good enough, or does the Marquis seek a foothold on
+her lands?"
+J> 'Perhaps just placing many priests in Across would be a better defense
+You say, "Perhaps just placing many priests in Across would be a better
+defense"
+J> 
+Nord says, "I am only looking after your safety"
+J> 
+Charette asks, "Perhaps I should send a squadron of my own archers to guard the
+lady here in the city?"
+J> 'Squads of guards around just one makes him kinda stand out
+You say, "Squads of guards around just one makes him kinda stand out"
+J> 
+Bryn extends his arm again to Charette, a pleading look in his eyes.
+J> 
+Nord says, "as you say there aren't many safe places"
+J> 
+Charette rests her hand on Bryn's wrist.
+J> 
+Charette says, "One moment more..."
+J> 
+Bryn sighs.
+J> 
+ ** Vox has just left the Realms.
+J> 
+Bryn says, "Aye m'lady"
+J> 
+ ** Prudence has just left the Realms.
+J> 
+Charette says, "Chandra.."
+J> list char
+You listen carefully to Charette.
+J> 
+Bryn scowls at Nord, his face turning mottled purples.
+J> 
+Charette asks, "Has Zorha offered you rooms or support yet?"
+J> 'Not as yet, I've stayed, elsewhere
+You say, "Not as yet, I've stayed, elsewhere"
+J> 
+Charette nods to you.
+J> 'She, er....doesn't know yet unless she's heard rumors
+You say, "She, er....doesn't know yet unless she's heard rumors"
+J> 
+Charette says, "If you wish it, I shall go to Moryan with this, and the two of
+us will approach her together. I'll vouch for your claim."
+J> act mutters under her breath, "As everyone seems to have heard"
+Chandra mutters under her breath, "As everyone seems to have heard"
+J> curts char
+You curtsy towards Charette.
+J> 'I would like someone there with me, yes
+You say, "I would like someone there with me, yes"
+J> fid
+You fidget nervously.
+J> 
+Charette nods to you.
+J> 
+Bryn gazes at Charette.
+J> 
+Nord says, "stay under guard Bryn...I wish you no harm"
+J> 
+ ** Sy has just left the Realms.
+J> 
+Bryn snorts.
+J> 
+Nord says, "call on me if necessary"
+J> 
+Bryn says, "Perhaps you need to learn some manners."
+J> 
+Charette says, "It might be better even for the Lady Moryan and I to speak with
+her first.. and introduce you formally."
+J> 
+Charette frowns slightly.
+J> 'I have nothing against that if you think it best
+You say, "I have nothing against that if you think it best"
+J> 
+Nord says, "perhaps in time you'll see this isn't about you or me"
+J> 
+Charette says, "It seems only ignorance puts you in danger.."
+J> 
+Bryn says, "Where I come from, you show respect to those you seek aid from."
+J> 
+Charette says, "perhaps it's time to make certain that everyone understands the
+line of succession.."
+J> 
+You have been awarded 400000 experience points.
+J> 
+ ** Elarin has just left the Realms.
+J> 
+Nord smiles at Bryn.
+J> 
+Bryn folds his arms.
+J> 
+Nord says, "perhaps I can visit you can we can discuss it"
+J> 
+Bryn smirks.
+J> 
+Bryn says, "I'll clean up my mace."
+J> 
+Charette tightens her fingers on Bryn's wrist.
+J> 
+Charette exclaims, "Bryn!"
+J> 
+Bryn coughs.
+J> 
+Charette taps her foot.
+J> 
+ ** Nik has just left the Realms.
+J> 'he meant clean up his place
+You say, "he meant clean up his place"
+J> cough
+
+The antimagical field around you disperses.
+J> You cough.
+J> 
+Bryn says, "Thats how me and Cartin used to discuss matters m'lady"
+J> 
+Bryn says, "One would usually agree much quicker that way."
+J> 
+Nord chuckles.
+J> 
+Charette murmurs, "which would account for those permanent bruises.."
+J> 
+Nord says, "do not let this out...its the best for everyone"
+J> 
+Bryn laughs at Nord!
+J> 
+Charette raises an eyebrow towards Nord.
+J> 
+Bryn says, "The whole entire area of Fayd knows it."
+J> 
+Bryn chuckles.
+J> 
+Charette says, "I fear it's more than a bit late for that.."
+J> 
+Nord says, "about you I mean"
+J> whisp nord and account for his current state of mind, I think Cartin won many an argument
+You whisper to Nord.
+J> 
+Bryn snorts.
+J> 
+Nord stares daggers at Bryn
+J> 
+Bryn glares at Nord.
+J> 
+Nord smiles at you.
+J> 
+Nord asks, "Baroness?"
+J> 
+Nord whispers to Charette.
+J> 
+Charette turns cooly to Nord, listening without changing her expression.
+J> 
+Nord says, "My thanks, Baroness"
+J> look
+[Temple of Rorin]
+This is a spacious area where the priests of the Temple of Rorin engage in the
+tutelage of acolytes and adepts. The priests invite all to join in Rorin's
+light, and demonstrate a working knowledge of nearly every skill imaginable.
+The room is flanked by long stained wooden bookracks, and is filled with
+tables, mats and workbenches decorated with a vast array of tools and
+equipment. A rack of wooden weaponry sits in the corner for practice by
+initiates.
+You see Nord, Bryn and Charette. 
+Obvious exits: south.
+J> 
+Bryn says, "M'lady, please."
+J> 
+Charette nods to Nord.
+J> 
+Nord says, "I shall lead you out"
+J> 
+Bryn says, "its evening..we've been gone all day."
+J> 
+Charette says, "All  right, Bryn.."
+J> time
+It is Manta 12, 1045 (Year of the Wyrm).
+It is evening.
+J> 
+Bryn says, "I can escort her."
+J> 
+Bryn scowls at Nord.
+J> 
+Charette says, "Aye. I'm getting anxious myself."
+J> 
+Charette shakes her head at Bryn.
+J> 
+Nord takes Charette by the hand.
+J> 
+Nord takes Bryn by the hand.
+J> 
+Nord's group goes south.
+J> 
+You follow Nord.
+[Outer Temple, entrance]
+You see Nord, Bryn, Charette and a darkak. 
+Obvious exits: none.
+J> 
+Bryn frowns.
+J> 
+Nord's group goes through a door.
+J> 
+You follow Nord.
+[Church Street]
+You see Nord, Bryn and Charette. 
+Obvious exits: n, s.
+J> 
+Charette says, "Allow him the courtesy of showing us out of his own temple."
+J> 'I hope the streets are in  better shape than I left them in
+You say, "I hope the streets are in  better shape than I left them in"
+J> 
+Charette arches her eyebrow.
+J> 
+Bryn gazes at Nord.
+J> 
+Nord says, "I will have to take care of that"
+J> curts bry
+You curtsy towards Bryn.
+J> 
+Nord closes a door.
+J> 
+Bryn asks, "you always house demons?"
+J> curts char
+You curtsy towards Charette.
+J> 
+Charette asks, "Do you often harbor demons?"
+J> 
+A contingent of Crimson Band guards marches past, carefully scrutinizing the
+street for any sign of trouble.
+J> 
+Nord says, "no...it will be dead shortly"
+J> look o
+That way is blocked.
+J> 
+Bryn kisses you on the hand.
+J> look
+[Church Street]
+The temple of Rorin stands proudly, its gleaming buttresses and
+burnished doors resplendent the late sun. The intricate stained glass
+windows look over the street like multihued eyes. Two guards dressed in
+gold and red stand on either side of the doors, proof against any
+impropriety toward Rorin or his followers.  A door on the opposite side
+of the street is emblazoned with the symbol of Ordanin, and grants entry
+to his temple.
+You see Nord, Bryn and Charette. 
+Obvious exits: north, south.
+J> 
+Bryn says, "m'lady."
+J> smi bry
+You smile at Bryn.
+J> 
+Bryn gazes at Charette.
+J> 'Sir
+You say, "Sir"
+J> 
+Nord says, "Safe journey"
+J> 
+Charette muses, "And Bryn would be safe here..."
+J> 
+A contingent of Crimson Band guards marches past, carefully scrutinizing the
+street for any sign of trouble.
+J> 
+ ** Vox has just left the Realms.
+J> 
+Charette nods to Nord.
+J> 
+Charette is now following Bryn.
+J> 
+Bryn's group goes south.
+J> 
+Nord sighs.
+J> fid
+You fidget nervously.
+J> 'Sorry
+You say, "Sorry"
+J> act smiles weakly at Nord.
+Chandra smiles weakly at Nord.
+J> 
+A contingent of Crimson Band guards marches past, carefully scrutinizing the
+street for any sign of trouble.
+J> 
+Nord shakes his head back and forth.
+J> 
+Nord says, "you have nothing to be sorry for"
+J> 'I feel like I'm at the center of a lot of trouble
+You say, "I feel like I'm at the center of a lot of trouble"
+J> 
+A contingent of Crimson Band guards marches past, carefully scrutinizing the
+street for any sign of trouble.
+J> 
+Charette walks in with a self-assured stride.
+J> look
+[Church Street]
+The temple of Rorin stands proudly, its gleaming buttresses and
+burnished doors resplendent the late sun. The intricate stained glass
+windows look over the street like multihued eyes. Two guards dressed in
+gold and red stand on either side of the doors, proof against any
+impropriety toward Rorin or his followers.  A door on the opposite side
+of the street is emblazoned with the symbol of Ordanin, and grants entry
+to his temple.
+You see Nord and Charette. 
+Obvious exits: north, south.
+J> 
+Charette frowns.
+J> pond
+You ponder for a moment.
+J> 
+Charette asks, "Did I drop my gloves here?"
+J> look char
+Charette Franksel is tanned and robust from hours of outdoor sport and
+work. Her rich chestnut hair barely brushes her broad shoulders,
+tumbling around a heart-shaped face and setting off cool brown eyes.
+She is wearing a pale brown leather tunic laced up the front with deep brown
+suede laces, some dark brown suede breeches that fit her trim legs smoothly and
+some soft leather boots.
+She appears to be healthy.
+J> 
+A contingent of Crimson Band guards marches past, carefully scrutinizing the
+street for any sign of trouble.
+J> 
+The sun sets in the west.
+J> gaze
+You gaze about the area.
+J> 'I do not see them
+You say, "I do not see them"
+J> look
+
+Nord says, "I did not see a pair"
+J> [Church Street]
+The temple of Rorin stands proudly, its gleaming buttresses and
+burnished doors resplendent the late sun. The intricate stained glass
+windows look over the street like multihued eyes. Two guards dressed in
+gold and red stand on either side of the doors, proof against any
+impropriety toward Rorin or his followers.  A door on the opposite side
+of the street is emblazoned with the symbol of Ordanin, and grants entry
+to his temple.
+You see Nord and Charette. 
+Obvious exits: north, south.
+J> 
+Charette frowns.
+J> 
+Charette shakes her head back and forth.
+J> 
+Nord says, "I shall return them if I do"
+J> 
+Bryn yells, "M'lady, please."
+J> 
+A contingent of Crimson Band guards marches past, carefully scrutinizing the
+street for any sign of trouble.
+J> fur
+You furrow your brow.
+J> 'He's alone?
+You ask, "He's alone?"
+J> 
+Charette says, "Thank you. Golden leather with green suede."
+J> act looks over Charette's shoulder.
+Chandra looks over Charette's shoulder.
+J> 
+Charette shakes her head back and forth.
+J> 
+Nord nods.
+J> 
+ ** Paks has just left the Realms.
+J> 
+Charette says, "Hardly."
+J> look s
+[Broadway & Church]
+Church Street begins at Broadway here and continues north. You recognize at a
+glance most of the religious ornamentation worn over their cloaks by pilgrims
+going that way. The majority of Fayd's temples line this street; you can hear
+vociferous theological debates even from here.
+J> look n
+[Church Street]
+A whitewashed wooden building houses the Church of Shemri. You can see its
+quaint steeple for some distance. Within is a bell for announcing weddings and
+other occasions. On the opposite side of the street, through a stone arch, is a
+shrine to Amilor. A wooden door, hung with a wreath of the tiny white flowers
+called "evermind," leads into the Church of Shemri.
+A white wooden building is there.
+J> 
+Charette says, "Nor have we been at all."
+J> 
+Charette bows towards you.
+J> 
+A contingent of Crimson Band guards marches past, carefully scrutinizing the
+street for any sign of trouble.
+J> 
+Charette bows towards Nord.
+J> smi
+You smile.
+J> 
+Nord bows.
+J> 
+Charette turns and walks away with a confident stride.
+J> pond
+You ponder for a moment.
+J> 
+A contingent of Crimson Band guards marches past, carefully scrutinizing the
+street for any sign of trouble.
+J> time
+It is Manta 12, 1045 (Year of the Wyrm).
+It is evening.
+The Great Moon is crescent waning and Phulcrus is new.
+J> 
+A contingent of Crimson Band guards marches past, carefully scrutinizing the
+street for any sign of trouble.
+J> who
+Dane               Piper              Fafnir             Airgid             
+Nord               Krystian           Elarin             Marcolan           
+Vox                Elandra            Chandra            Sy                 
+Miria              Brett              
+
+
+There are 14 adventurers in the Realms.
+
+J> 
+A contingent of Crimson Band guards marches past, carefully scrutinizing the
+street for any sign of trouble.
+J> look
+[Church Street]
+The temple of Rorin stands proudly, its gleaming buttresses and
+burnished doors resplendent the late sun. The intricate stained glass
+windows look over the street like multihued eyes. Two guards dressed in
+gold and red stand on either side of the doors, proof against any
+impropriety toward Rorin or his followers.  A door on the opposite side
+of the street is emblazoned with the symbol of Ordanin, and grants entry
+to his temple.
+You see Nord. 
+Obvious exits: north, south.
+J> 
+Nord says, "I apologize for bringing things up over and over"
+J> 
+Nord incants a spell.
+J> 
+Nord narrows his eyes and gazes intently about the area.
+J> smi
+You smile.
+J> 
+A contingent of Crimson Band guards marches past, carefully scrutinizing the
+street for any sign of trouble.
+J> 
+Nord says, "we needed to be sure"
+J> 'A question worth asking once surely is worth asking twice
+You say, "A question worth asking once surely is worth asking twice"
+J> 
+Nord says, "not when it brings you such sadness"
+J> 
+A contingent of Crimson Band guards marches past, carefully scrutinizing the
+street for any sign of trouble.
+J> 'The sadness is there, and will be for a long time to come I think
+You say, "The sadness is there, and will be for a long time to come I think"
+J> sgih
+"sgih" is not understood.
+J> sigh
+You sigh.
+J> 
+A contingent of Crimson Band guards marches past, carefully scrutinizing the
+street for any sign of trouble.
+J> 
+ ** Dane has just disconnected.
+J> 
+A contingent of Crimson Band guards marches past, carefully scrutinizing the
+street for any sign of trouble.
+J> 
+Nord says, "stay safe...I need to deal with that demon"
+J> curts nord
+You curtsy towards Nord.
+J> pre 225
+You have already prepared a spell.
+J> rel
+You release your prepared spell.
+J> 
+Nord bows towards you.
+J> 'Be careful as well
+You say, "Be careful as well"
+J> pre 225
+You prepare the Invisibility spell.
+ [Round: 3 sec]
+RJ> cast
+[Wait 1 seconds...]
+RJ> cast
+You gesture.
+[Success: 95%, Roll 100] Extreme failure!
+J> pre 225
+You prepare the Invisibility spell.
+ [Round: 3 sec]
+RJ> cast
+[Wait 2 seconds...]
+RJ> cast
+You gesture.
+[Success: 95%, Roll 23] Success!
+You feel a tingling sensation.
+JH> 
+A contingent of Crimson Band guards marches past, carefully scrutinizing the
+street for any sign of trouble.
+JH> 'I will  try
+You say, "I will  try"
+H> look
+[Church Street]
+The temple of Rorin stands proudly, its gleaming buttresses and
+burnished doors resplendent the late sun. The intricate stained glass
+windows look over the street like multihued eyes. Two guards dressed in
+gold and red stand on either side of the doors, proof against any
+impropriety toward Rorin or his followers.  A door on the opposite side
+of the street is emblazoned with the symbol of Ordanin, and grants entry
+to his temple.
+Obvious exits: north, south.
+H> s
+[Broadway & Church]
+You see a crimson-band guard. 
+Obvious exits: n, e, w.
+H> e
+[Broadway]
+Obvious exits: e, w.
+H> e
+[Broadway]
+Some rubble and a wooden bin are here.
+Obvious exits: w, ne.
+H> ne
+[Broadway]
+Obvious exits: n, sw.
+H> n
+[Broadway]
+An ancient building is here.
+Obvious exits: n, s.
+H> n
+[Bazaar South]
+Obvious exits: n, s, e, w, ne, nw.
+H> n
+[Bazaar Center]
+You see Piper, Brett, a trader and a falcon. A large marble fountain, a wooden
+bin and a newsboard are here.
+Obvious exits: n, s, e, w, ne, nw, se, sw.
+H> 
+Brett incants a spell.
+H> w
+[Bazaar West]
+You see Darby. A table is here.
+Obvious exits: n, s, e, w, ne, se.
+H> w
+[Main Street]
+Obvious exits: e, w.
+H> x
+
+ ** Chandra has just left the Realms.
+H> 
+
+Character Manager V1.00
+
+ 1 => Moordread
+ 2 => Morti
+ 3 => Bubba
+
+ C => Create new character
+ D => Delete current character
+ P => Play Legends of Future Past
+ X => Exit to NovaLink
+
+
+Active character: Bubba (#3)
+
+Select: p
+
+Interactive Entertainment OS V6.10 [Legends of Future Past]
+(c)1991-1995 Inner Circle Technologies, Inc. Revision dated Apr 13 1995.
+
+URLs of web components are:
+
+Webpage: www.lofp.com
+Boards: www.lofp.com/forums
+Boards (avoids Timeouts): www.lofp.com/forums/?RequestTimeout=500
+Calendar: www.lofp.com/calendar
+Rate Plan: www.lofp.com/newrate.htm
+Rate FAQ: www.lofp.com/ratefaq.htm
+Scripting policy: www.lofp.com/script.htm
+Policies: www.lofp.com/basic/policies.htm
+GAME STATUS: www.lofp.com/status.htm
+
+EMail Addresses:
+Any GM: gmname@lofp.com (like chanatahe@lofp.com)
+Manager: druid@lofp.com   His ICQ is 5730609
+King Frederick IV: kingfred@lofp.com
+Baron Emails are as follows: Baron-Aetheon@lofp.com,
+Baron-Beoford@lofp.com, Baroness-Moryan@lofp.com,
+Baroness-Charette@lofp.com, Baron-Nikoli@lofp.com
+
+Please see the website for the rateplan and the scripting policy.  The
+URLS are listed above.
+
+Eprise Corporation
+1671 Worcester Rd, 4th Floor
+Framingham, MA 01701
+Send checks Attn: Gary Whitten
+
+** LATEST MESSAGE **
+
+From Chanatahe:  Reminder: The start of a new quarter approaches.  To
+enable me to bill better a slight change has been made to the billing
+policy.  Rather than the billing being done between the 20th and the
+last day of the month previous, it'll now be anytime from the 3rd
+weekend of the month to the end of the month.  It just gives me 2
+guaranteed weekends to process the billing.  If you have any questions,
+please email.
+
+From Chyme: The Barons now all have an email address. Please look above
+to see how to word it. Have a great day!
+
+                                    
+[Main Street]
+Obvious exits: e, w.
+It is Manta 12, 1045 (Year of the Wyrm).
+It is evening.
+The Great Moon is crescent waning and Phulcrus is new.
+It is winter.
+There is a brisk chill in the air.
+The sky is clear.
+H> exp
+Level: 94
+Build Points to date: 962
+Unspent Build Points: 5
+Experience Points until next Build Point: 45697
+H> 
+Darby arrives.
+H> 
+Darby goes west.
+H> 
+ ** Vox has just disconnected.
+H> e
+[Bazaar West]
+You see a lawkeeper. A table is here.
+Obvious exits: n, s, e, w, ne, se.
+H> 
+A merchant arrives.
+H> e
+[Bazaar Center]
+You see a trader and a falcon. A large marble fountain, a wooden bin and a
+newsboard are here.
+Obvious exits: n, s, e, w, ne, nw, se, sw.
+H> look fal
+You see a falcon.
+H> look e
+[Bazaar East]
+Here at the eastern edge of the bazaar, street merchants of wares both mundane
+and fantastic set up their booths daily to catch your eye. From The Sojourner's
+Hospice, a run-down yet cozy inn on the corner, comes singing and the smell of
+spiced wine. A door with a holly wreath in its center leads in.
+A comfortable building that houses the Sojourner's Hospice is there.
+H> 
+A trader arrives.
+H> who
+Dane               Piper              Fafnir             Airgid             
+Nord               Krystian           Elarin             Marcolan           
+Elandra            Chandra            Sy                 Miria              
+Brett              Darby              
+
+
+There are 14 adventurers in the Realms.
+
+H> w
+[Bazaar West]
+A table is here.
+Obvious exits: n, s, e, w, ne, se.
+H> e
+[Bazaar Center]
+You see a trader, a trader and a falcon. A large marble fountain, a wooden bin
+and a newsboard are here.
+Obvious exits: n, s, e, w, ne, nw, se, sw.
+H> look in bin
+In the bin you see an ice sword, an ice sword, a glass and a chest.
+H> w
+[Bazaar West]
+A table is here.
+Obvious exits: n, s, e, w, ne, se.
+H> w
+[Main Street]
+Obvious exits: e, w.
+H> w
+[Main Street]
+Obvious exits: e, w.
+H> w
+[Main Street]
+A huge stone building and a small building are here.
+Obvious exits: e, w.
+H> w
+[Main Street & Elm]
+You see a lawkeeper. 
+Obvious exits: n, e, w.
+H> w
+[Kai's Corner]
+A simple gray townhouse and a building are here.
+Obvious exits: s, e, w, sw.
+H> sw
+[Commerce Street]
+A rickety building housing the Adventurers' Guild is here.
+Obvious exits: ne, sw.
+H> go doo
+[Adventurers' Guild]
+Obvious exits: o.
+H> cli stair
+[Test Tunnels, Entrance]
+Obvious exits: none.
+When you enter the Scribe sitting behind the desk wearily motions you over and
+has you sign his register. After you finish making your mark he shakes your
+hand and intones, "Good luck." while motioning you over to the archway.
+H> go arc
+As you pass through the arch it vanishes behind you!
+[Test Tunnels]
+A termite eye is here.
+Obvious exits: n, w, se.
+H> get eye
+You take a termite eye.
+H> w
+[Test Tunnels]
+Obvious exits: e, ne.
+The flakes of paint rise slowly into the air as you move down the corridor. You
+think you hear a baby cry from somewhere close by.
+H> ne
+[Test Tunnels]
+Obvious exits: e, sw.
+H> go arc
+As you step through the arch, your surroundings shimmer...
+[Adventurers' Guild]
+Obvious exits: o.
+H> o
+[Commerce Street]
+A rickety building housing the Adventurers' Guild is here.
+Obvious exits: ne, sw.
+H> ne
+[Kai's Corner]
+A simple gray townhouse and a building are here.
+Obvious exits: s, e, w, sw.
+H> e
+[Main Street & Elm]
+A horse-drawn carriage is here.
+Obvious exits: n, e, w.
+H> e
+[Main Street]
+A huge stone building and a small building are here.
+Obvious exits: e, w.
+H> e
+[Main Street]
+Obvious exits: e, w.
+H> e
+[Main Street]
+Obvious exits: e, w.
+H> e
+[Bazaar West]
+You see a lawkeeper. A table is here.
+Obvious exits: n, s, e, w, ne, se.
+H> who
+Dane               Piper              Fafnir             Airgid             
+Nord               Krystian           Elarin             Marcolan           
+Firestar           Elandra            Chandra            Sy                 
+Miria              Brett              Darby              
+
+
+There are 15 adventurers in the Realms.
+
+H> mark
+Marked areas:
+1: Bazaar Center
+2: Crescent isle, beach
+3: Rainforest, understory
+4: Deep Forest
+5: Under Keep, basement
+6: Wolfling Den
+7: Foresters Guild, meeting ground
+8: Across Plaza
+9: Palace, fountain
+H> pre 215
+You prepare the Scry spell.
+ [Round: 3 sec]
+RH> 
+Darby arrives.
+RH> 
+Darby goes west.
+RH> 
+Darby arrives.
+H> 
+Darby sells a rusty sword to the merchant.
+H> 
+Darby goes north.
+H> cast 7
+You gesture into the air.
+[Success: 95%, Roll 49] Success!
+You have a vision...
+[Foresters Guild, meeting ground]
+Obvious exits: none.
+H> pre 215
+You prepare the Scry spell.
+ [Round: 3 sec]
+RH> cast 6
+You gesture into the air.
+[Success: 95%, Roll 43] Success!
+You have a vision...
+[Wolfling Den]
+A silver lined stone basin full of sparkling fresh water and a newsboard are
+here.
+Obvious exits: none.
+H> pre 213
+You prepare the Bend Space I spell.
+ [Round: 3 sec]
+RH> cast 6
+[Wait 1 seconds...]
+RH> cast 6
+You gesture into the air.
+[Success: 95%, Roll 33] Success!
+The color and detail of your surroundings swirl together. After a brief
+moment...
+[Wolfling Den]
+A silver lined stone basin full of sparkling fresh water and a newsboard are
+here.
+Obvious exits: none.
+The wolf guarding the door nods to you and growls, "Greetings Sister".
+H> pre 412
+You prepare the Rite of Preparation spell.
+ [Round: 3 sec]
+RH> cas eye
+You suddenly fade into view.
+As you gesture at a termite eye, it becomes cloudy.
+> pre 215
+You prepare the Scry spell.
+ [Round: 3 sec]
+R> cast eye
+You gesture at the eye and it becomes transluscent. An faint image forms within
+its retina.
+> who
+Dane               Piper              Fafnir             Airgid             
+Nord               Krystian           Elarin             Marcolan           
+Firestar           Elandra            Chandra            Sy                 
+Miria              Brett              Darby              
+
+
+There are 15 adventurers in the Realms.
+
+> x
+
+ ** Chandra has just left the Realms.
+> 
+
+Character Manager V1.00
+
+ 1 => Moordread
+ 2 => Morti
+ 3 => Bubba
+
+ C => Create new character
+ D => Delete current character
+ P => Play Legends of Future Past
+ X => Exit to NovaLink
+
+
+Active character: Bubba (#3)
+
+Select: /bye
+
+
+Thank you for using NovaLink.
+
+Connect time this session: 67 minutes.
+
+Have a nice evening!
+
+NovaLink is an online service of NovaLink USA Corporation,
+200 Friberg Parkway, Suite 4003, Westborough, MA 01581. Service: 800-274-2814.
+
+
+
+
+
+
+
+
+
+Invalid selection.
+
+Character Manager V1.00
+
+ 1 => Moordread
+ 2 => Morti
+ 3 => Bubba
+
+ C => Create new character
+ D => Delete current character
+ P => Play Legends of Future Past
+ X => Exit to NovaLink
+
+
+Active character: Bubba (#3)
+
+Select: Connection terminated by remote host

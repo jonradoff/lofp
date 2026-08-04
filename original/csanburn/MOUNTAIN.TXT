@@ -1,0 +1,802 @@
+
+Elarin goes northwest.
+!JH> 
+You follow Elarin.
+[Death Mountain]
+The trail winds by a small chasm through which runs a blood filled brook filled
+with rainbow colored fish. The little fish seem to revel in the gore, leaping
+upstream over the rocks that block their way. Purple ferns, bobbing in the
+wind, hang lazily over the blood.
+You see Elarin. 
+Obvious exits: southeast, southwest.
+!JH> 
+Elarin goes southwest.
+!JH> 
+You follow Elarin.
+[Death Mountain]
+The trail flattens out slightly as you pass through a quarry of some kind.
+Little puddles of blood have collected where the ground has been wounded by
+recent excavations. Leeches cling to the soil, growing engorged from the feast.
+You see Elarin. 
+Obvious exits: northeast, southeast.
+!JH> 
+Elarin goes southeast.
+!JH> 
+You follow Elarin.
+[Death Mountain]
+A curious purple mist gathers here where it oozes up a nearby precipice.
+Looking down over edge you can see the shore of blood lake below. Strange weeds
+grow here with odd blossoms that resemble bits of hanging flesh.
+You see Elarin. 
+Obvious exits: northeast, northwest.
+!JH> 
+Elarin goes northeast.
+!JH> 
+You follow Elarin.
+[Death Mountain]
+The trail turns a corner and brings you into a field of tiny white flowers.
+They dance in the breeze like young girls on May Day. Tiny butterflies and
+little buzzing insects alight from blossom to blossom.
+You see Elarin and a ravager. 
+Obvious exits: northwest, southwest.
+!JH> 
+Elarin goes northwest.
+!JH> 
+You follow Elarin.
+[Death Mountain]
+The trail winds by a small chasm through which runs a blood filled brook filled
+with rainbow colored fish. The little fish seem to revel in the gore, leaping
+upstream over the rocks that block their way. Purple ferns, bobbing in the
+wind, hang lazily over the blood.
+You see Elarin. 
+Obvious exits: southeast, southwest.
+!JH> 
+A ravager flies into the room and lands.
+!JH> 
+You are bleeding.
+!JH> 
+A ravager whips its tail over its head, the tail emits a beam of red light at
+Elarin!
+ Insignificant burn to tail. [17 Damage]
+!JH> 
+Elarin goes southwest.
+!JH> 
+You follow Elarin.
+[Death Mountain]
+The trail flattens out slightly as you pass through a quarry of some kind.
+Little puddles of blood have collected where the ground has been wounded by
+recent excavations. Leeches cling to the soil, growing engorged from the feast.
+You see Elarin. 
+Obvious exits: northeast, southeast.
+!JH> look
+[Death Mountain]
+The trail flattens out slightly as you pass through a quarry of some kind.
+Little puddles of blood have collected where the ground has been wounded by
+recent excavations. Leeches cling to the soil, growing engorged from the feast.
+You see Elarin. 
+Obvious exits: northeast, southeast.
+!JH> 
+Elarin goes southeast.
+!JH> 
+You follow Elarin.
+[Death Mountain]
+A curious purple mist gathers here where it oozes up a nearby precipice.
+Looking down over edge you can see the shore of blood lake below. Strange weeds
+grow here with odd blossoms that resemble bits of hanging flesh.
+You see Elarin. 
+Obvious exits: northeast, northwest.
+!JH> 
+Elarin says, "here is the safest place"
+!JH> 
+Elarin says, "no dartaks here"
+!JH> 
+Elarin incants a spell.
+!JH> 
+Elarin puts away a fiery randar longsword engraved with the writing, "T'kasta".
+!JH> 
+Elarin puts away a shiny elkyri shield.
+!JH> 
+Elarin gestures.
+Elarin seems changed.
+!JH> 
+You are bleeding.
+!JH> 'Ok
+You say, "Ok"
+!JH> gig
+You giggle.
+!JH> look
+[Death Mountain]
+A curious purple mist gathers here where it oozes up a nearby precipice.
+Looking down over edge you can see the shore of blood lake below. Strange weeds
+grow here with odd blossoms that resemble bits of hanging flesh.
+You see Elarin. 
+Obvious exits: northeast, northwest.
+!JH> 
+Elarin says, "ah"
+!JH> 
+Elarin says, "you scared me there"
+!JH> gig
+You giggle.
+!JH> 
+Elarin taps some mist.
+!JH> 'Look at those strange weeds
+You say, "Look at those strange weeds"
+!JH> forage
+You forage around, but find nothing of interest here.
+ [Round: 20 sec]
+!RJH> 'Nothing to forage
+You say, "Nothing to forage"
+!RJH> 
+Elarin says, "thru the mist is the tower"
+!RJH> 
+A ravager reveals itself.
+!RJH> 
+A ravager backstabs at Elarin. Miss.
+!RJH> look mist
+You see nothing extraordinary.
+!RJH> 
+Elarin nods.
+!RJH> 
+Elarin wields a fiery randar longsword engraved with the writing, "T'kasta".
+!RJH> 
+Elarin wields a shiny elkyri shield.
+!RJH> tar rav
+Targets now include:
+A ravager
+!RJH> 
+A ravager whips its tail over its head, the tail emits a beam of red light at
+Elarin!
+ Minor burn to right arm. [29 Damage]
+!RJH> 
+Elarin puts away a fiery randar longsword engraved with the writing, "T'kasta".
+!RJH> 
+Elarin puts away a shiny elkyri shield.
+!RJH> 
+Elarin incants a spell.
+!RJH> 
+Elarin gestures.
+Elarin moves with blurring speed.
+!JH> 
+Elarin wields a fiery randar longsword engraved with the writing, "T'kasta".
+!JH> 
+Elarin wields a shiny elkyri shield.
+!JH> 
+A ravager slashes at Elarin. Miss.
+!JH> rel
+You have not prepared a spell.
+!JH> pre 112
+You prepare the Call Meteor spell.
+ [Round: 2 sec]
+!RJH> 
+You are bleeding.
+!RJH> 
+A ravager slashes at Elarin. Miss.
+!JH> look
+[Death Mountain]
+A curious purple mist gathers here where it oozes up a nearby precipice.
+Looking down over edge you can see the shore of blood lake below. Strange weeds
+grow here with odd blossoms that resemble bits of hanging flesh.
+You see Elarin and a ravager. 
+Obvious exits: northeast, northwest.
+!JH> 
+Elarin says, "wanna try the Ravager, worth 1k exp[]"
+!JH> nod
+You nod.
+!JH> 
+A ravager slashes its claws across its own chest, shivering in ecstasy.
+!JH> pre 112
+You have already prepared a spell.
+!JH> cas rav
+pre 112
+You suddenly fade into view.
+You gesture at a ravager.
+[Success: 95%, Roll 86] Success!
+Chandra points to the sky. A moment later, a meteor
+screeches from the heavens and hammers a ravager!
+ Insignificant burn to tail. [5 Damage]
+ Feeble blow to tail. [12 Damage]
+!J> You prepare the Call Meteor spell.
+ [Round: 2 sec]
+!RJ> cas rav
+pre 112
+You gesture at a ravager.
+[Success: 95%, Roll 71] Success!
+Chandra points to the sky. A moment later, a meteor
+screeches from the heavens and hammers a ravager!
+ Minor burn to back. [22 Damage]
+ Crushing blow to right wing. [29 Damage]
+!J> You prepare the Call Meteor spell.
+ [Round: 2 sec]
+!RJ> cas rav
+pre 112
+[Wait 1 seconds...]
+!RJ> [Wait 1 seconds...]
+!RJ> cas rav
+pre 112
+You gesture at a ravager.
+[Success: 95%, Roll 60] Success!
+Chandra points to the sky. A moment later, a meteor
+screeches from the heavens and hammers a ravager!
+ Insignificant burn to left hand. [5 Damage]
+ Solid blow to left hand. [14 Damage]
+!J> You prepare the Call Meteor spell.
+ [Round: 2 sec]
+!RJ> 
+A ravager slashes at Elarin. Miss.
+!RJ> cas rav
+pre 121
+You gesture at a ravager.
+[Success: 95%, Roll 9] Success!
+Chandra points to the sky. A moment later, a meteor
+screeches from the heavens and hammers a ravager!
+ Serious burn to body. [26 Damage]
+ Brutal blow to left wing. [25 Damage]
+!J> You prepare the Freezing Sphere spell.
+ [Round: 2 sec]
+!RJ> cas rav
+pre 121
+You gesture at a ravager.
+[Success: 95%, Roll 5] Success!
+Chandra forms a freezing sphere from the air and
+hurls it at a ravager!
+ Frosty blast glaciates circulatory system.
+ It explodes in a shower of blood and tissue.
+!J> You prepare the Freezing Sphere spell.
+ [Round: 2 sec]
+!RJ> beam
+You beam happily.
+!J> 
+Elarin is now guarding you.
+!J> exp
+Level: 93
+Build Points to date: 951
+Unspent Build Points: 4
+Experience Points until next Build Point: 99740
+!J> 
+Elarin skins a ravager.
+!J> look
+[Death Mountain]
+A curious purple mist gathers here where it oozes up a nearby precipice.
+Looking down over edge you can see the shore of blood lake below. Strange weeds
+grow here with odd blossoms that resemble bits of hanging flesh.
+You see Elarin and a ravager (dead). A ravager eye is here.
+Obvious exits: northeast, northwest.
+!J> 
+Elarin searches a ravager.
+!J> gaze eye
+You gaze at a ravager eye.
+!J> 
+Elarin leans on a ravager eye.
+!J> 
+Elarin chuckles.
+!J> 'gross
+You say, "gross"
+!J> 
+ ** Durek has just left the Realms.
+!J> 
+Elarin nods.
+!J> 
+You are bleeding.
+!J> 'Isn't much here that isn't gross
+You say, "Isn't much here that isn't gross"
+!J> 
+Elarin says, "ok dont go in the door"
+!J> gaze door
+What are you referring to?  Please be more specific.
+!J> 'door?
+You ask, "door?"
+!J> 
+Suddenly, Elarin leaps into the mist and vanishes!
+!J> pre 225
+You have already prepared a spell.
+!> cast
+You gesture.
+[Success: 47%, Roll 82] Failure.
+!> pre 225
+You prepare the Invisibility spell.
+ [Round: 3 sec]
+!R> cast
+
+Elarin jumps out of the mist!
+!R> [Wait 3 seconds...]
+!R> gaze mist
+You gaze at some mist.
+!> cast
+You gesture.
+[Success: 95%, Roll 93] Success!
+You feel a tingling sensation.
+!H> 
+Elarin says, "door at the other side"
+!H> 'Ok, won't go there
+You say, "Ok, won't go there"
+!H> 
+Suddenly, Elarin leaps into the mist and vanishes!
+!H> go mist
+Leaving all caution aside, you leap headlong off the mountain and into the
+purple mist!  As if you had merely taken a jump forward on firm ground, you
+emerge elsewhere...
+[Death Mountain, Fortress]
+You stand at the mist-choked peak of Death Mountain. At the summit, the sun
+appears several times larger than at the bottom. You stand in the shadow of
+a twisted fortress constructed right at the mountain-top, profiled by the
+eerie light. The structure was made with no logic whatsoever; towers jut
+out at bizarre, insane angles. Windows appear at random location. Curtain
+walls stand crooked, sloping up and down in nonsensical directions.
+The gate itself lacks any sort of defenses, and its heavy doors have
+been thrown wide open.
+You see Elarin. 
+Obvious exits: none.
+!H> gig
+You giggle.
+!H> look
+[Death Mountain, Fortress]
+You stand at the mist-choked peak of Death Mountain. At the summit, the sun
+appears several times larger than at the bottom. You stand in the shadow of
+a twisted fortress constructed right at the mountain-top, profiled by the
+eerie light. The structure was made with no logic whatsoever; towers jut
+out at bizarre, insane angles. Windows appear at random location. Curtain
+walls stand crooked, sloping up and down in nonsensical directions.
+The gate itself lacks any sort of defenses, and its heavy doors have
+been thrown wide open.
+You see Elarin. 
+Obvious exits: none.
+!H> 
+ ** Laurelin has just left the Realms.
+!H> 
+You are bleeding.
+!H> 
+ ** Nord has just left the Realms.
+!H> 
+Elarin says, "look at this place"
+!H> 'Weird
+You say, "Weird"
+!H> 
+Elarin says, "ducky wall paper inside"
+!H> 
+Elarin nods.
+!H> 
+Elarin says, "ok switch to full again[]"
+!H> fol elar
+You are now following Elarin.
+!JH> 'Ok
+You say, "Ok"
+!JH> 
+Elarin says, "go doo, the go door right back out"
+!JH> 'Ok
+You say, "Ok"
+!JH> go door
+go door
+[Fortress of Chaos, Gatehouse]
+Purple walls of dripping mucous support a ceiling of putrid flesh. Tiny red
+eyeballs hang from stems at the ceiling and follow your progress. An
+electric-green shag carpet covers the floor of the hall that leads north.
+Obvious exits: north.
+!H> [Death Mountain, Fortress]
+You stand at the mist-choked peak of Death Mountain. At the summit, the sun
+appears several times larger than at the bottom. You stand in the shadow of
+a twisted fortress constructed right at the mountain-top, profiled by the
+eerie light. The structure was made with no logic whatsoever; towers jut
+out at bizarre, insane angles. Windows appear at random location. Curtain
+walls stand crooked, sloping up and down in nonsensical directions.
+The gate itself lacks any sort of defenses, and its heavy doors have
+been thrown wide open.
+You see Elarin. 
+Obvious exits: none.
+!H> 
+You are bleeding.
+!H> 
+Elarin says, "you here?"
+!H> 'ICK!
+You exclaim, "ICK!"
+!H> 
+Elarin laughs.
+!H> 
+Elarin nods.
+!H> 'Eyeballs hanging from stems
+You say, "Eyeballs hanging from stems"
+!H> shiv
+You shiver.
+!H> 
+Elarin says, "its full of Skurspyr and Diagru and Riphaphone there"
+!H> 
+Elarin nods.
+!H> 
+Elarin returns to normal speed.
+!H> 
+Elarin says, "eyeballs"
+!H> 
+Elarin chuckles.
+!H> fol elar
+You are now following Elarin.
+!JH> look
+[Death Mountain, Fortress]
+You stand at the mist-choked peak of Death Mountain. At the summit, the sun
+appears several times larger than at the bottom. You stand in the shadow of
+a twisted fortress constructed right at the mountain-top, profiled by the
+eerie light. The structure was made with no logic whatsoever; towers jut
+out at bizarre, insane angles. Windows appear at random location. Curtain
+walls stand crooked, sloping up and down in nonsensical directions.
+The gate itself lacks any sort of defenses, and its heavy doors have
+been thrown wide open.
+You see Elarin. 
+Obvious exits: none.
+!JH> 
+You are bleeding.
+!JH> 
+Elarin says, "kind of cool"
+!JH> 'In a weird sort of way
+You say, "In a weird sort of way"
+!JH> 
+Elarin says, "but as i said... whoever immagined this place"
+!JH> 
+Elarin shakes his head back and forth.
+!JH> 
+Elarin chuckles.
+!JH> 'A couple cards shy of a deck
+You say, "A couple cards shy of a deck"
+!JH> 
+Elarin says, "reminds me of HP Lovecraft[]"
+!JH> 
+Elarin chuckles.
+!JH> 
+Elarin says, "aye"
+!JH> 'Yeah, it does
+You say, "Yeah, it does"
+!JH> 
+You are bleeding.
+!JH> 
+Elarin says, "lets get out of the mist, the skurspyr remove invis"
+!JH> 'Ok
+You say, "Ok"
+!JH> 
+Elarin says, "and PF"
+!JH> 
+Suddenly, Elarin leaps into the mist and vanishes!
+!JH> go mist
+You jump into the mist and emerge back on the mountain trail.
+[Death Mountain]
+A curious purple mist gathers here where it oozes up a nearby precipice.
+Looking down over edge you can see the shore of blood lake below. Strange weeds
+grow here with odd blossoms that resemble bits of hanging flesh.
+You see Elarin. A ravager eye and some shards are here.
+Obvious exits: northeast, northwest.
+!H> fol elar
+You are now following Elarin.
+!JH> 'That's not nice of them
+You say, "That's not nice of them"
+!JH> 
+Elarin says, "the benefit of hunting here"
+!JH> 
+Elarin says, "is the volume"
+!JH> 'volume?
+
+Elarin says, "no it isnt"
+!JH> You ask, "volume?"
+!JH> 
+Elarin says, "volume of demons"
+!JH> 
+Elarin says, "worth 1 and 2 k"
+!JH> 
+Elarin says, "but a lot"
+!JH> 'veritable hordes of demons?
+You ask, "veritable hordes of demons?"
+!JH> 
+You are bleeding.
+!JH> health
+You have 272/276 body points.
+You are bleeding at a rate of 2/minute.
+You have a lacerated, punctured and burnt head, a nicked back and a lacerated
+and scorched left arm.
+!JH> 
+Elarin nods.
+!JH> look
+[Death Mountain]
+A curious purple mist gathers here where it oozes up a nearby precipice.
+Looking down over edge you can see the shore of blood lake below. Strange weeds
+grow here with odd blossoms that resemble bits of hanging flesh.
+You see Elarin. A ravager eye and some shards are here.
+Obvious exits: northeast, northwest.
+!JH> 
+A darkak arrives.
+!JH> 
+A darkak rears up on its hind legs.
+!JH> 'Demon hunters paradise
+You say, "Demon hunters paradise"
+!JH> 
+A darkak slams its hooves at at Elarin.
+A shaft of blinding light strikes Elarin!
+!JH> 
+A darkak rears up on its hind legs.
+!JH> 
+A darkak slams its hooves at at Elarin.
+A shaft of blinding light strikes Elarin!
+!JH> hold elar
+You suddenly fade into view.
+Elarin will have to disband his own group first.
+!J> look
+
+A darkak rears up on its hind legs.
+!J> [Death Mountain]
+A curious purple mist gathers here where it oozes up a nearby precipice.
+Looking down over edge you can see the shore of blood lake below. Strange weeds
+grow here with odd blossoms that resemble bits of hanging flesh.
+You see Elarin (stunned) and a darkak. A ravager eye and some shards are here.
+Obvious exits: northeast, northwest.
+!J> 
+A darkak slams its hooves at at Chandra.
+A shaft of blinding light strikes Chandra!
+!SJ> nw
+
+Elarin drinks a mucky azure potion.
+!SJ> 
+Elarin's form suddenly shatters into tiny pieces!
+!S> You are stunned.
+!S> 
+A darkak rears up on its hind legs.
+!S> 
+A darkak slams its hooves at at Chandra.
+The darkak dims a fraction.
+!S> nw
+You are stunned.
+!S> 
+You hear someone say, "head back to the ship"
+!S> 
+A darkak advances towards Chandra.
+!S> 
+A darkak slashes at Chandra with its flame hooves.
+ [ToHit: 5, Roll: 48] Hit!
+ Minor slash to back. [33 Damage]
+!S> retl
+"retl" is not understood.
+!S> 
+A darkak slashes at Chandra with its flame hooves.
+ [ToHit: 5, Roll: 12] Hit!
+ Puny slash to right hand. [8 Damage]
+!S> nw
+You are stunned.
+!S> ret
+nw
+You are stunned.
+!S> You are stunned.
+!S> ret
+nw
+You are stunned.
+!S> You are stunned.
+!S> 
+A darkak slashes at Chandra with its flame hooves.
+ [ToHit: 5, Roll: 28] Hit!
+ Minor slash to body. [35 Damage]
+!S> ret
+nw
+You are stunned.
+!S> You are stunned.
+!S> ret
+nw
+You are stunned.
+!S> You are stunned.
+!S> ret
+nw
+You are stunned.
+!S> You are stunned.
+!S> ret
+nw
+You are stunned.
+!S> You are stunned.
+!S> 
+A darkak rears up on its hind legs.
+!> ret
+nw
+You retreat.
+!> You descend the mountain a bit...
+[Round: 3 sec]
+[Death Mountain]
+The trail flattens out slightly as you pass through a quarry of some kind.
+Little puddles of blood have collected where the ground has been wounded by
+recent excavations. Leeches cling to the soil, growing engorged from the feast.
+Obvious exits: northeast, southeast.
+!R> pre 225
+You prepare the Invisibility spell.
+ [Round: 3 sec]
+!R> cast
+[Wait 3 seconds...]
+!R> cast
+[Wait 2 seconds...]
+!R> cast
+[Wait 1 seconds...]
+!R> cast
+You gesture.
+[Success: 95%, Roll 3] Success!
+You feel a tingling sensation.
+!H> 
+A darkak arrives.
+!H> nw
+You can't go northwest!
+!H> ne
+You descend the mountain a bit...
+[Round: 3 sec]
+[Death Mountain]
+The trail winds by a small chasm through which runs a blood filled brook filled
+with rainbow colored fish. The little fish seem to revel in the gore, leaping
+upstream over the rocks that block their way. Purple ferns, bobbing in the
+wind, hang lazily over the blood.
+You see a xartack. 
+Obvious exits: southeast, southwest.
+!RH> 
+You are bleeding.
+!H> se
+You descend the mountain a bit...
+[Round: 3 sec]
+[Death Mountain]
+The trail turns a corner and brings you into a field of tiny white flowers.
+They dance in the breeze like young girls on May Day. Tiny butterflies and
+little buzzing insects alight from blossom to blossom.
+You see a darkak. 
+Obvious exits: northwest, southwest.
+!RH> 
+A darkak goes southwest.
+!RH> sw
+You descend the mountain a bit...
+[Round: 3 sec]
+[Death Mountain]
+After the initial climb, the path up the great mountain becomes quite pleasant,
+although seemingly interminable. Patches of grass grow between the rocks that
+dot the trails edge. The sky becomes a pastel shade of blue and a fragrant
+breeze gentle cools your skin.
+You see a darkak. 
+Obvious exits: northeast, down.
+!RH> d
+[Wait 1 seconds...]
+!RH> 
+A darkak goes northeast.
+!RH> d
+[Idemmu Ag, Far Shore]
+You stand on the far shore on the Lake of Blood. Directly before you is a great
+mountain of enormous size, far larger than anything from your home world. A
+narrow, treacherous path winds its way up the slope. Rising from a spot
+half-inside the lake is a high tower, at the top of which is a rusty, iron bell
+with a dangling chain. On the shore is beached a great skeletal whale, its jaw
+hanging open.
+You see a xartack, a nightsteed and a nightsteed. A huge skeletal jaw, a black
+katana, a tiny faceted jasper, a black halberd and a shard are here.
+Obvious exits: none.
+!H> go jaw
+[In the Whale, Jaw]
+You are standing inside the skeletal jaw of a massive whale. It smells of death
+and decay, and its surface is stained red by the lake of blood. An iron ladder
+has been nailed into the bone and leads up to a dark hole in its brain-case.
+A jaw is here.
+Obvious exits: none.
+!H> 
+You feel the touch of Elarin's mind:
+"you ok?"
+!H> pant
+You pant.
+!H> think Yeah
+You project your thoughts.
+!H> pre 210
+You prepare the Haste spell.
+ [Round: 3 sec]
+!RH> health
+You have 195/276 body points.
+You are bleeding at a rate of 2/minute.
+You have a lacerated, punctured and burnt head, a lacerated body, a lacerated
+back, a lacerated and scorched left arm and a nicked right hand.
+!RH> 'barely
+You say, "barely"
+!H> cast
+You suddenly fade into view.
+You gesture.
+[Success: 95%, Roll 95] Success!
+You find yourself able to move incredibly fast.
+!> pre 318
+You prepare the Body Restoration III spell.
+ [Round: 1 sec]
+!R> cast
+pre 318
+You gesture.
+[Success: 95%, Roll 19] Success!
+Chandra looks a little better.
+!> You prepare the Body Restoration III spell.
+ [Round: 1 sec]
+!R> cast
+pre 318
+You gesture.
+[Success: 95%, Roll 31] Success!
+Chandra looks a little better.
+!> You prepare the Body Restoration III spell.
+ [Round: 1 sec]
+!R> cast
+pre 318
+You gesture.
+[Success: 95%, Roll 23] Success!
+Chandra looks a little better.
+!> You prepare the Body Restoration III spell.
+ [Round: 1 sec]
+!R> cast
+pre 318
+You gesture.
+[Success: 95%, Roll 9] Success!
+Nothing happens.
+!> You prepare the Body Restoration III spell.
+ [Round: 1 sec]
+!R> cast
+pre 318
+You gesture.
+[Success: 95%, Roll 50] Success!
+Nothing happens.
+!> You prepare the Body Restoration III spell.
+ [Round: 1 sec]
+!R> 
+You feel the touch of Elarin's mind:
+"you at the ship yet?"
+!> think Yep
+You project your thoughts.
+!> 
+You are bleeding.
+!> rel
+You release your prepared spell.
+!> pre 225
+You prepare the Invisibility spell.
+ [Round: 1 sec]
+!R> cast
+You gesture.
+[Success: 95%, Roll 64] Success!
+You feel a tingling sensation.
+!H> think Drat, gotta go quick, be careful out there
+You project your thoughts.
+!H> x
+
+ ** Chandra has just left the Realms.
+!H> 
+
+Character Manager V1.00
+
+ 1 => Moordread
+ 2 => Morti
+ 3 => Bubba
+
+ C => Create new character
+ D => Delete current character
+ P => Play Legends of Future Past
+ X => Exit to NovaLink
+
+
+Active character: Bubba (#3)
+
+Select: /bye
+
+
+Thank you for using NovaLink.
+
+Connect time this session: 71 minutes.
+
+Have a nice day!
+
+NovaLink is an online service of NovaLink USA Corporation,
+200 Friberg Parkway, Suite 4003, Westborough, MA 01581. Service: 800-274-2814.
+
+
+
+
+
+
+
+
+
+Invalid selection.
+
+Character Manager V1.00
+
+ 1 => Moordread
+ 2 => Morti
+ 3 => Bubba
+
+ C => Create new character
+ D => Delete current character
+ P => Play Legends of Future Past
+ X => Exit to NovaLink
+
+
+Active character: Bubba (#3)
+
+Select: Connection terminated by remote host

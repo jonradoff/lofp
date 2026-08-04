@@ -1,3 +1,5 @@
+Read VIBECTL.md for current project status, deployment details, and issue context before starting work.
+
 # LoFP — Legends of Future Past
 
 Resurrecting a 1990s MUD from original script files. The original game engine source code is lost; only the content scripts and documentation survive. We reverse-engineer a working game from those.

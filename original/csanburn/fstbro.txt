@@ -1,0 +1,287 @@
+
+A metal devil arrives.
+> adv devil
+
+A metal devil advances towards Dehrikke.
+> 
+A metal devil slashes at Dehrikke with its claws.
+ [ToHit: 95, Roll: 62] Miss.
+> 
+A metal devil slashes at Dehrikke with its claws.
+ [ToHit: 95, Roll: 72] Miss.
+> You are already engaging that opponent.
+> a devil
+adv devi
+a devi
+adv devi
+a devi
+adv devi
+a devi
+adv devi
+a devi
+adv devi
+a devi
+You swing at a metal devil with your fiery steel broadsword.
+ [ToHit: 5, Roll: 16] Hit!
+ Masterful strike to body. [25 Damage]
+ It falls to the ground in a shower of sparks.
+ [Round: 3 sec]
+R> [Wait 3 seconds...]
+R> [Wait 3 seconds...]
+R> [Wait 3 seconds...]
+R> [Wait 3 seconds...]
+R> [Wait 3 seconds...]
+R> [Wait 3 seconds...]
+R> [Wait 3 seconds...]
+R> [Wait 3 seconds...]
+R> [Wait 3 seconds...]
+R> [Wait 3 seconds...]
+R> adv devi
+a devi
+adv devi
+a devi
+[Wait 3 seconds...]
+R> [Wait 3 seconds...]
+R> [Wait 3 seconds...]
+R> [Wait 3 seconds...]
+R> 
+A giant termite arrives.
+R> 
+A giant termite advances towards Dehrikke.
+> 
+A giant termite snaps at Dehrikke with its teeth.
+ [ToHit: 95, Roll: 70] Miss.
+> a dev
+You must ADVANCE towards your opponent to battle them
+with your current weapon.
+> a ter
+You swing at a giant termite with your fiery steel broadsword.
+ [ToHit: 5, Roll: 63] Hit!
+ Grisly slash to thorax. [23 Damage]
+ It crashes to the ground, antennae quivering.
+ [Round: 3 sec]
+R> look
+[Test Tunnels]
+A long, stone hallway stretches out in many directions from this point. The
+walls and floor of this hallway have been painted in in a grayish green color.
+The paint has started to chip and flake in numerous spots along the walls.
+Fixed to the ceiling, and running the length of the hallway are numerous metal
+pipes, their purpose unknown. On some of the walls various
+forms of graffiti can be made out. Many identical posters depicting a kobold
+with an enlarged forhead cover the walls. There is a deep fissure in the floor
+here.
+You see a metal devil (dead) and a giant termite (dead). A bag is here.
+Obvious exits: north, west, southeast.
+> 
+The sound of slowly dripping water echoes throughout the hallways.
+> sear dev
+You search a metal devil.
+You find nothing.
+ [Round: 5 sec]
+R> sear ter
+[Wait 2 seconds...]
+R> sear ter
+[Wait 1 seconds...]
+R> sear ter
+You search a giant termite.
+You find nothing.
+ [Round: 5 sec]
+R> 
+A kobold arrives.
+R> 
+A kobold advances towards Dehrikke.
+R> 
+A kobold thrusts at Dehrikke with its dagger.
+ [ToHit: 95, Roll: 82] Miss.
+R> adv kobold
+a kobold
+You are already engaging that opponent.
+> You swing at a kobold with your fiery steel broadsword.
+ [ToHit: 5, Roll: 20] Hit!
+ Grisly slash to left leg. [12 Damage]
+ [Round: 3 sec]
+R> adv kobo
+a kobo
+You are already engaging that opponent.
+> You thrust at a kobold with your fiery steel broadsword.
+ [ToHit: 5, Roll: 20] Hit!
+ Superb slice juliennes head!
+ It collapses, dead.
+ [Round: 3 sec]
+R> sear kobo
+You search a kobold.
+You find a dagger and an amethyst.
+ [Round: 5 sec]
+R> sear kobo
+sear term
+sear devi
+get coi
+get coi
+What are you referring to?  Please be more specific.
+> What are you referring to?  Please be more specific.
+> What are you referring to?  Please be more specific.
+> What are you referring to?  Please be more specific.
+> What are you referring to?  Please be more specific.
+> 
+A giant termite arrives.
+> adv termite
+a termite
+You advance towards a termite.
+> You swing at a giant termite with your fiery steel broadsword.
+ [ToHit: 5, Roll: 76] Hit!
+ Grisly slash to thorax. [24 Damage]
+ It crashes to the ground, antennae quivering.
+ [Round: 3 sec]
+R> sear term
+You search a giant termite.
+You find nothing.
+ [Round: 5 sec]
+R> sear kobo
+sear term
+sear devi
+What are you referring to?  Please be more specific.
+> What are you referring to?  Please be more specific.
+> What are you referring to?  Please be more specific.
+> 
+A kobold arrives.
+> adv kobold
+a kobold
+You advance towards a kobold.
+> You swing at a kobold with your fiery steel broadsword.
+ [ToHit: 5, Roll: 35] Hit!
+ Grisly slash to left arm. [12 Damage]
+ The broadsword radiates intense heat!
+ Ghastly burn to right leg. [3 Damage]
+ It collapses, dead.
+ [Round: 3 sec]
+R> sear kobo
+You search a kobold.
+You find a dagger, some silver coins and a copper coin.
+ [Round: 5 sec]
+R> sear kobo
+sear term
+sear devi
+get coi
+get coi
+What are you referring to?  Please be more specific.
+> What are you referring to?  Please be more specific.
+> What are you referring to?  Please be more specific.
+> You take some silver coins.
+> You take a copper coin.
+> 
+ ** Linnaeus has just disconnected.
+> 
+A kobold arrives.
+> adv kobold
+a kobold
+You advance towards a kobold.
+> You swing at a kobold with your fiery steel broadsword.
+ [ToHit: 5, Roll: 11] Hit!
+ Superb slash to right arm. [7 Damage]
+ [Round: 3 sec]
+R> 
+A kobold swings at Dehrikke with its dagger.
+ [ToHit: 95, Roll: 21] Miss.
+R> adv kobo
+a kobo
+You are already engaging that opponent.
+> You swing at a kobold with your fiery steel broadsword.
+ [ToHit: 5, Roll: 37] Hit!
+ Shot to back creates peep-hole through heart.
+ It collapses, dead.
+ [Round: 3 sec]
+R> sear kobo
+You search a kobold.
+You find a dagger, some silver coins and some copper coins.
+ [Round: 5 sec]
+R> sear kobo
+sear term
+sear devi
+get coi
+get coi
+What are you referring to?  Please be more specific.
+> What are you referring to?  Please be more specific.
+> What are you referring to?  Please be more specific.
+> You take some silver coins.
+> You take some copper coins.
+> 
+The sound of slowly dripping water echoes throughout the hallways.
+> 
+A giant termite arrives.
+> 
+A giant termite advances towards Dehrikke.
+> 
+A giant termite snaps at Dehrikke with its teeth.
+ [ToHit: 95, Roll: 7] Miss.
+> adv termite
+a termite
+You are already engaging that opponent.
+> You thrust at a giant termite with your fiery steel broadsword.
+ [ToHit: 5, Roll: 97] Excellent Hit!
+ Grisly slash to thorax. [13 Damage]
+ It is stunned!
+ [Round: 3 sec]
+R> adv term
+a term
+You are already engaging that opponent.
+> You swing at a giant termite with your fiery steel broadsword.
+ [ToHit: 5, Roll: 60] Hit!
+ Grisly slash to thorax. [28 Damage]
+ It crashes to the ground, antennae quivering.
+ [Round: 3 sec]
+R> sear term
+You search a giant termite.
+You find nothing.
+ [Round: 5 sec]
+R> get bag
+[Wait 2 seconds...]
+R> get bag
+[Wait 1 seconds...]
+R> sear kobo
+sear term
+sear devi
+get bag
+What are you referring to?  Please be more specific.
+> What are you referring to?  Please be more specific.
+> What are you referring to?  Please be more specific.
+> You take a bag.
+> look
+[Test Tunnels]
+A long, stone hallway stretches out in many directions from this point. The
+walls and floor of this hallway have been painted in in a grayish green color.
+The paint has started to chip and flake in numerous spots along the walls.
+Fixed to the ceiling, and running the length of the hallway are numerous metal
+pipes, their purpose unknown. On some of the walls various
+forms of graffiti can be made out. Many identical posters depicting a kobold
+with an enlarged forhead cover the walls. There is a deep fissure in the floor
+here.
+A dagger, a dagger, an amethyst and a dagger are here.
+Obvious exits: north, west, southeast.
+> get ame
+You take an amethyst.
+> w
+[Test Tunnels]
+Obvious exits: e, ne.
+The flakes of paint rise slowly into the air as you move down the corridor. You
+think you hear a baby cry from somewhere close by.
+> ne
+[Test Tunnels]
+Obvious exits: e, sw.
+> go arc
+As you step through the arch, your surroundings shimmer...
+[Adventurers' Guild]
+Obvious exits: o.
+> o
+[Commerce Street]
+A rickety building housing the Adventurers' Guild and some fruit are here.
+Obvious exits: ne, sw.
+> ne
+[Kai's Corner]
+A simple gray townhouse and a building are here.
+Obvious exits: s, e, w, sw.
+> w
+[Main Street, West]
+Some fruit is here.
+Obvious exits: e, w.
+> 
+A pretty child skips by.

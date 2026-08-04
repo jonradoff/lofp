@@ -1,0 +1,4395 @@
+
+Khaled taps an ornate green glass bottle.
+J> 
+Yourion listens to his surroundings closely.
+J> 
+A merchant smiles at Miria.
+J> 
+Khaled opens an ornate green glass bottle.
+J> look
+
+A merchant pushes a sky blue top hat of suede with a long red feather sticking
+out from the brim.
+J> 
+A merchant tips his hat politely.
+J> 
+Smoke billows from the small bottle and a towering pillar of smoke stands
+before you.
+J> 
+Moire nods to Yourion.
+J> [Quiet Meadow]
+You are standing in a quiet meadow near Fayd.
+You see Moryan, Khaled, Irienne, Wolfbane, Miria, Jasmine, a merchant, Stefan,
+Sabreen, Aetheon, Donnald, Young, Nord, Kellah, Yourion, Gwydion, Moire and Sy.
+A track is here.
+Obvious exits: none.
+J> 
+Aetheon nods to Sy.
+J> 
+A booming voice speaks some arcane words of power and a arch shimmers into
+existance.
+J> 
+Feras arrives.
+J> 
+Kellah blinks.
+J> 
+Moire shudders.
+J> 
+Miria smiles at a merchant.
+J> 
+Sabreen casts her gaze across the area.
+J> 
+Sy casts his gaze across the area.
+J> 
+You feel the touch of Airgid's mind:
+" Wolfbane!"
+J> 
+Donnald holds his breath
+J> 
+You feel the touch of Wolfbane's mind:
+"airgid?"
+J> 
+Gwydion gazes at a shimmering arch.
+J> 
+Gwydion arches his eyebrow.
+J> 
+Khaled's group goes through a shimmering arch.
+J> 
+You follow Khaled.
+[Endless Wastes]
+You see Moryan, Khaled, Irienne, Wolfbane, Miria, Jasmine, a merchant, Stefan,
+Sabreen, Aetheon, Donnald, Young, Nord, Kellah, Yourion, Gwydion, Moire and Sy.
+
+Obvious exits: n, s, e, w, nw.
+J> look
+[Endless Wastes]
+All about you are the endless trackless wastes. The ground is rocky, cracked
+and barren. Few plants can tolerate the harsh radiation here. 
+You see Moryan, Khaled, Irienne, Wolfbane, Miria, Jasmine, a merchant, Stefan,
+Sabreen, Aetheon, Donnald, Young, Nord, Kellah, Yourion, Gwydion, Moire and Sy.
+
+Obvious exits: north, south, east, west, northwest.
+J> 
+A merchant casts his gaze across the area.
+J> 
+a merchant says, "Nice place"
+J> 
+Moire whispers to those close, "Ye be thinkin' thet be safe?"
+J> 
+Feras arrives through a shimmering arch.
+J> 
+Miria says, "Abit warm"
+J> 
+Khaled says, "yes, it gets better"
+J> 
+Kellah is taken aback a bit.
+J> 
+Moire shivers.
+J> 
+Khaled's group goes west.
+J> 
+You follow Khaled.
+[Top of Ridge]
+You see Moryan, Khaled, Irienne, Wolfbane, Miria, Jasmine, a merchant, Stefan,
+Sabreen, Aetheon, Donnald, Young, Nord, Kellah, Yourion, Gwydion, Moire and Sy.
+A red sandy slope is here.
+Obvious exits: e.
+J> 
+Donnald lets his breath out
+J> 
+Gwydion says, "Ah."
+J> 
+You feel the touch of Airgid's mind:
+"I will not have the Kings messengers coming here will you tell the King."
+J> 
+Gwydion smiles.
+J> 
+Feras arrives.
+J> 
+Jasmine says, "All we need now is Sandmen."
+J> 
+Feras is now following Khaled.
+J> 
+Khaled's group climbs a red sandy slope.
+J> 
+You follow Khaled.
+[Caravansary]
+You see Moryan, Khaled, Irienne, Wolfbane, Miria, Jasmine, a merchant, Stefan,
+Sabreen, Aetheon, Donnald, Feras, Young, Nord, Kellah, Yourion, Gwydion, Moire
+and Sy. A red sandy slope is here.
+Obvious exits: ne, sw.
+J> 
+Stefan walks besides Moryan, continuing to exchange small talk.
+J> 
+Khaled's group goes southwest.
+J> 
+You follow Khaled.
+[Oasis of Xan'Shakara]
+You see Moryan, Khaled, Irienne, Wolfbane, Miria, Jasmine, a merchant, Stefan,
+Sabreen, Aetheon, Donnald, Feras, Young, Nord, Kellah, Yourion, Gwydion, Moire
+and Sy. 
+Obvious exits: w, ne.
+J> 
+You feel the touch of Wolfbane's mind:
+"where?"
+J> 
+Moryan smiles at Stefan.
+J> 
+Khaled's group goes west.
+J> 
+You follow Khaled.
+[Caravan Road]
+You see Moryan, Khaled, Irienne, Wolfbane, Miria, Jasmine, a merchant, Stefan,
+Sabreen, Aetheon, Donnald, Feras, Young, Nord, Kellah, Yourion, Gwydion, Moire
+and Sy. 
+Obvious exits: e, w.
+J> 
+Young asks, "Was that the town we could see?"
+J> 
+You feel the touch of Airgid's mind:
+"Home"
+J> 
+Stefan asks, "and how are you daughters?"
+J> 
+Khaled's group goes west.
+J> 
+You follow Khaled.
+[Outside Dhuliban, East Wall]
+You see Moryan, Khaled, Irienne, Wolfbane, Miria, Jasmine, a merchant, Stefan,
+Sabreen, Aetheon, Donnald, Feras, Young, Nord, Kellah, Yourion, Gwydion, Moire
+and Sy. 
+Obvious exits: e.
+J> 
+Moryan says, "Ah, growing madly."
+J> 
+Moryan chuckles.
+J> 
+Khaled's group goes through a low gate.
+J> 
+You follow Khaled.
+[East Caravan Street]
+You see Moryan, Khaled, Irienne, Wolfbane, Miria, Jasmine, a merchant, Stefan,
+Sabreen, Aetheon, Donnald, Feras, Young, Nord, Kellah, Yourion, Gwydion, Moire
+and Sy. 
+Obvious exits: n, s, w.
+J> 
+A child wanders by eating a date.
+J> 
+Donnald hugs Moire.
+J> 
+Feras drinks some ale.
+J> 
+You feel the touch of Wolfbane's mind:
+"i'll try"
+J> 
+Young says, "Guess so"
+J> 
+Khaled's group goes west.
+J> 
+You follow Khaled.
+[Caravan Street]
+You see Moryan, Khaled, Irienne, Wolfbane, Miria, Jasmine, a merchant, Stefan,
+Sabreen, Aetheon, Donnald, Feras, Young, Nord, Kellah, Yourion, Gwydion, Moire
+and Sy. 
+Obvious exits: e, w.
+J> 
+Young casts his gaze across the area.
+J> 
+The bright orange aura leaves Miria.
+J> 
+Khaled's group goes west.
+J> 
+You follow Khaled.
+[Caravan Street]
+You see Moryan, Khaled, Irienne, Wolfbane, Miria, Jasmine, a merchant, Stefan,
+Sabreen, Aetheon, Donnald, Feras, Young, Nord, Kellah, Yourion, Gwydion, Moire
+and Sy. 
+Obvious exits: e, w.
+J> 
+Moryan chuckles at Aetheon.
+J> 
+Stefan says, "You had best keep an eye on them, Gawaine has an eye for the
+ladies."
+J> 
+Khaled's group goes west.
+J> 
+You follow Khaled.
+[Central Plaza]
+You see Moryan, Khaled, Irienne, Wolfbane, Miria, Jasmine, a merchant, Crunch,
+Stefan, Sabreen, Aetheon, Donnald, Feras, Nikoli, Young, Nord, Kellah, Yourion,
+Gwydion, Moire and Sy. 
+Obvious exits: n, s, e, ne, se.
+J> 
+Moire smiles at Donnald.
+J> 
+Sy sniffs.
+J> 
+Moryan grins.
+J> 
+Moryan ponders.
+J> 
+Aetheon says, "Keep him away from my daughter"
+J> 
+Aetheon gazes at Stefan.
+J> 
+Moryan says, "Lets see.. time passes so fast."
+J> 
+Kellah smiles.
+J> 
+Nikoli bows with a flourish.
+J> 
+Crunch casts his gaze across the area.
+J> 
+Khaled says, "Welcome to Dhuliban , the Star of the Desert."
+J> 
+A merchant recites, "Daughters?"
+J> curts niko
+You curtsy towards Nikoli.
+J> 
+Wolfbane bows towards Nikoli.
+J> 
+a merchant rubs his hands together.
+J> 
+A merchant casts his gaze across the area.
+J> 
+You feel the touch of Airgid's mind:
+"Thank you, if I'm out of bounds let me know. :)"
+J> 
+Young bows towards Nikoli.
+J> 
+Stefan says, "I shall do my best Aetheon."
+J> 
+Aetheon says, "Unless you have proper dowry"
+J> 
+Aetheon winks at Stefan.
+J> 
+Nikoli says, "Greetings again Khaled"
+J> 
+Everywhere the babble of foreign voices and strange sounds surround you.
+J> 
+Aetheon nods to Nikoli.
+J> 
+Crunch concentrates intently on all the people within arms reach of Baron
+Montague.
+J> 
+Khaled bows towards Nikoli.
+J> 
+Stefan says, "I do believe, the custom is for the brides family to provide the
+dowry."
+J> 
+Stefan grins.
+J> 
+Feras sniffs.
+J> 
+Moryan chuckles.
+J> 
+The ghostly shield protecting Stefan slowly fades.
+J> 
+Moryan says, "My oldest is only ten, hardly a thing to worry about yet."
+J> 
+Nikoli looks at each of you in turn.
+J> 
+Moryan smiles at Stefan.
+J> 
+Moire nods to Nikoli.
+J> 
+Moryan curtsies towards Nikoli.
+J> 
+Khaled says, "The wedding shall be in the Holy Mosque of Shakara, peace be upon
+us all."
+J> 
+Irienne blushes.
+J> 
+Yourion bows towards Nikoli.
+J> 
+A merchant pushes Nikoli!
+J> 
+A merchant tips his hat politely.
+J> 
+Moryan says, "Greetings Nikoli"
+J> 
+Jasmine nods to Nikoli.
+J> 
+Nikoli bows towards Moryan.
+J> 
+A merchant mutters something you can't quite make out.
+J> 
+Khaled gestures towards an elegant marble door.
+J> 
+Sabreen curtsies.
+J> 
+Crunch casts his gaze across the area.
+J> 
+Stefan says, "Greetins Baron Nikoli."
+J> 
+Stefan bows towards Nikoli.
+J> 
+Crunch gazes at a merchant.
+J> 
+Kellah is mesmerized by the many performers in the streets, her eyes wide in
+wonder.
+J> 
+Stefan chuckles at Moryan.
+J> 
+Donnald bows towards Nikoli.
+J> 
+Aetheon says, "yes, but a year older then my heir, Daerun"
+J> 
+A merchant mutters something you can't quite make out.
+J> 
+Nikoli says, "Baroness"
+J> 
+Crunch grunts, "You stop that."
+J> 
+A group of slave Ghulams stand watching a female Bander demonstrate how she
+uses a rapier.
+J> 
+A merchant blushes.
+J> 
+Stefan says, "Gawaine is 12 and growing way to fast for his old man."
+J> 
+A merchant smiles at Crunch.
+J> 
+Young smiles at Crunch.
+J> 
+Moryan chuckles at Stefan.
+J> 
+Crunch grunts, "Next touch, you die."
+J> 
+Khaled says, "Please enter and find a place"
+J> 
+Donnald bows towards Crunch.
+J> 
+A merchant pushes a sky blue top hat of suede with a long red feather sticking
+out from the brim.
+J> 
+A merchant tips his hat politely.
+J> 
+A merchant nods to Crunch.
+J> 
+Wolfbane chuckles at Young.
+J> 
+Jasmine goes through an elegant marble door.
+J> 
+Nikoli walks over and lifts Baroness D'vena's hand kissing it lightly.
+J> 
+Donnald goes through an elegant marble door.
+J> 
+Wolfbane goes through an elegant marble door.
+J> 
+Kellah blinks.
+J> 
+Khaled disbands his group.
+> 
+Young says, "Howdy big guy"
+> 
+Moryan smiles at Nikoli.
+> 
+Young salutes Crunch.
+> go white door
+
+Irienne goes through an elegant marble door.
+> What are you referring to?  Please be more specific.
+> 
+Gwydion goes through an elegant marble door.
+> 
+Moryan says, "Such a rogue you are my dear."
+> 
+Crunch follows quietly behind Baron Montague.
+> 
+Yourion goes through an elegant marble door.
+> 
+Crunch casts his gaze across the area.
+> 
+Nikoli says, "Always"
+> 
+Crunch nods to Young.
+> 
+Sabreen goes through an elegant marble door.
+> 
+Khaled goes through an elegant marble door.
+> 
+Sy goes through an elegant marble door.
+> 
+Young goes through an elegant marble door.
+> 
+Aetheon smirks.
+> 
+Nord goes through an elegant marble door.
+> 
+Kellah goes through an elegant marble door.
+> go ele mar door
+[Shakara's Mosque, Ablution Fountain]
+You see Khaled, Irienne, Jasmine, Sabreen, Young, Nord, Kellah, Yourion,
+Gwydion and Sy. A large marble fountain is here.
+Obvious exits: none.
+> 
+Jasmine touches some water.
+> 
+Feras arrives through an elegant marble door.
+> 
+Yourion goes through a large arch.
+> 
+Aetheon arrives through an elegant marble door.
+> 
+Sabreen stands quietly near the back.
+> 
+Sy is now following Kellah.
+> 
+Irienne touches some water.
+> 
+A merchant arrives through an elegant marble door.
+> look in fou
+
+Jasmine takes a drink of some water.
+> There is nothing in that.
+> 
+Moryan arrives through an elegant marble door.
+> 
+Irienne goes through a large arch.
+> 
+Miria arrives through an elegant marble door.
+> 
+Gwydion goes through a large arch.
+> 
+A merchant casts his gaze across the area.
+> 
+A bell tolls somewhere. A Shakara priest speaks to a number of Faydian priests
+wearing the garb of Amilor and Shemri. 
+> 
+Khaled goes through a large arch.
+> 
+Feras goes through a large arch.
+> 
+Kellah nods to Sy.
+> 
+You feel the touch of Yurick's mind:
+"has the caravan for the wedding left?"
+> 
+Yourion arrives through a large arch.
+> 
+Frederick casts his gaze across the area.
+> 
+Yourion bows towards Frederick.
+> 
+Kellah smiles.
+> 
+Young bows towards Frederick.
+> 
+Moryan says, "My king"
+> 
+Moryan curtsies towards Frederick.
+> 
+Khaled arrives through a large arch.
+> 
+Sy bows towards Frederick.
+> 
+Jasmine curtsies towards Frederick.
+> 
+ ** Lusiana has just disconnected.
+> 
+Kellah curtsies towards Frederick.
+> 
+Frederick smiles.
+> 
+Moire arrives through an elegant marble door.
+> 
+Khaled gestures towards a large arch.
+> act looks among the many faces present.
+Chandra looks among the many faces present.
+> 
+Aetheon gives a shallow bow to Fredrick
+> 
+A merchant smiles at Frederick.
+> 
+A merchant pushes a sky blue top hat of suede with a long red feather sticking
+out from the brim.
+> 
+A merchant tips his hat politely.
+> 
+Khaled bows towards Frederick.
+> 
+Jasmine says, "Greetings, Your Highness."
+> smi fred
+
+Stefan arrives through an elegant marble door.
+> You smile at Frederick.
+> 
+Stefan bows towards Frederick.
+> 
+Nikoli's group arrives through an elegant marble door.
+> 
+Aetheon says, "I am here as you command."
+> 
+Frederick smiles warmly at Chandra.
+> 
+Khaled says, "please find a place thru the arch"
+> 
+Khaled smiles.
+> 
+Stefan says, "My liege."
+> 
+Frederick nods to Stefan.
+> 
+Moire goes through a large arch.
+> 
+Kellah smiles nervously.
+> 
+Jasmine goes through a large arch.
+> 
+Frederick extends an arm to Chandra.
+> 
+A merchant goes through a large arch.
+> 
+Kellah's group goes through a large arch.
+> 
+Shakara priest sing a hymn to the Sun God.
+> 
+Moryan goes through a large arch.
+> 
+Aetheon goes through a large arch.
+> 
+Crunch casts his gaze across the area.
+> 
+Nord goes through a large arch.
+> 
+Yurick appears.
+> act takes Fredericks arm.
+Chandra takes Fredericks arm.
+> hold fred
+
+Frederick smiles at you.
+> Chandra takes Frederick by the hand.
+> 
+Nikoli walks over to Frederick and bows, crossing his legs and sweeping off his
+hat.
+> 
+Nikoli says, "My Sire"
+> 
+The glowing outline of armor fades from around Young.
+> time
+It is Farnum 27, 1044 (Year of the Butterfly).
+It is night.
+The Great Moon is crescent waning and Phulcrus is new.
+> 
+Frederick whispers to you, "follow me"
+> 
+Khaled says, "I am pleased so many Faydians came."
+> fol fred
+You disband your group.
+You are now following Frederick.
+J> 
+Frederick's group goes through a large arch.
+J> 
+You follow Frederick.
+[Shakara's Mosque, Inner Chamber]
+You see Moryan, Irienne (sitting), Wolfbane, Jasmine, a merchant, Frederick,
+Aetheon, Donnald (kneeling), Feras, Nord, Kellah, Gwydion, Moire and Sy. 
+Obvious exits: none.
+J> 
+Moire asks, "an' 'ow fair ye?"
+J> 
+Irienne tugs nervously at her skirt.
+J> 
+A merchant gazes at Moire.
+J> 
+Wolfbane bows towards Frederick.
+J> 
+a merchant asks, "What?"
+J> 
+Sabreen stands near the back, her eyes watchful.
+J> 
+Stefan arrives through a large arch.
+J> 
+Yurick arrives through a large arch.
+J> 
+Frederick nods.
+J> 
+The golden altar sparkles.
+J> 
+Nikoli's group arrives through a large arch.
+J> 
+Yourion arrives through a large arch.
+J> gaze alt
+
+Frederick whispers to you, "I have missed you."
+J> What are you referring to?  Please be more specific.
+J> 
+Moire says, "jes askin' 'ow ye be?  Nothin' personal"
+J> 
+Miria arrives through a large arch.
+J> 
+Sy takes a seat in the pews near the back.
+J> 
+Moire shrugs.
+J> 
+Sy sits down.
+J> 
+a merchant looks at Moire with a confused look.
+J> 
+A merchant furrows his brow.
+J> 
+Kellah slides in next to Sy.
+J> 
+Kellah sits down.
+J> 
+Moryan sits and gently smoothes out her skirt.
+J> 
+a merchant asks, "Hmmm?"
+J> 
+Wolfbane tickles Moire.
+J> 
+Moire smiles wofl
+J> 
+Yurick stands silently by the arch.
+J> 
+Moire nods to Wolfbane.
+J> 
+Gwydion's eyes return to normal.
+J> whisp fred I know, I was sorry we could not be together the other day when you were so busy
+You whisper to Frederick.
+J> 
+Young arrives through a large arch.
+J> 
+Frederick directs Chandra to a seat.
+J> 
+Aetheon takes a seat near Moryan
+J> 
+Aetheon sits down.
+J> whisp fred But it made looking forward to this evening that much better
+
+Donnald watches the sermon quietly
+J> You whisper to Frederick.
+J> 
+Moryan nods to Aetheon.
+J> smi fred
+You smile at Frederick.
+J> 
+Moryan says, "Stefan, sit here near me."
+J> act takes her seat quietly.
+Chandra takes her seat quietly.
+J> pull chair
+What are you referring to?  Please be more specific.
+J> 
+Moire speaks in a low tone. "I don'na feel I belong 'ere wi' all these 'igh an'
+mightty's"
+J> sit
+You sit.
+sJ> 
+Zorha arrives through a large arch.
+sJ> 
+Zorha nods.
+sJ> 
+Zorha curtsies.
+sJ> 
+Frederick smiles at Zorha.
+sJ> 
+Jasmine curtsies towards Zorha.
+sJ> 
+Yurick bows towards Zorha.
+sJ> 
+Feras appears to become weaker.
+sJ> 
+Gwydion bows towards Zorha.
+sJ> 
+Frederick says, "Greetings mother."
+sJ> 
+Stefan smiles at Zorha.
+sJ> 
+Wolfbane bows towards Zorha.
+sJ> smi zor
+You smile at Zorha.
+sJ> 
+Zorha says, "My son."
+sJ> 
+Moryan smiles at Zorha.
+sJ> 
+Zorha smiles.
+sJ> 
+Donnald says, "Moire come and sit by me then"
+sJ> 
+Jasmine says, "Greetings, Zorha."
+sJ> 
+Yourion bows towards Zorha.
+sJ> 
+Aetheon bows towards Zorha.
+sJ> 
+Yurick says, "majesty."
+sJ> 
+Wolfbane kisses Zorha on the hand.
+sJ> 
+Yurick nods.
+sJ> 
+Jasmine smiles at Zorha.
+sJ> 
+Sy struggles to his feet.
+sJ> 
+Stefan says, "Greetings my queen."
+sJ> 
+Crunch grunts.
+sJ> 
+Zorha smiles.
+sJ> 
+Feras ponders.
+sJ> 
+Sy bows towards Zorha.
+sJ> 
+Zorha says, "Greetings all."
+sJ> 
+Feras sits down.
+sJ> 
+Kellah struggles to her feet.
+sJ> 
+Nikoli walks over to Aetheon
+sJ> 
+Wolfbane says, "greetings my queen"
+sJ> 
+Donnald bows towards Zorha.
+sJ> 
+Zorha sits down.
+sJ> 
+Wolfbane smiles at Zorha.
+sJ> 
+Kellah curtsies towards Zorha.
+sJ> 
+Zorha smiles.
+sJ> 
+Nikoli says, "Greeting Baron"
+sJ> 
+Nikoli gazes at Aetheon.
+sJ> 
+Zorha says, "I am pleased so many attened."
+sJ> act stands and curtsies politely to Zorha.
+Chandra stands and curtsies politely to Zorha.
+sJ> 
+Moire says, "nay, ye stay there.  I'll jes stan' a bit back 'ere"
+sJ> 
+Donnald sits down.
+sJ> 
+Yourion takes a seat in the back near sy
+sJ> 
+Kellah sits down.
+sJ> 
+Wolfbane squirms and tries to scratch his back through his armor.
+sJ> 
+Nikoli smiles with just a hint of mocking in it.
+sJ> 
+Yourion sits down.
+sJ> 
+Moire leans against the pillar again, casting her gaze about.
+sJ> 
+You feel the touch of Feras's mind:
+"Oog, I kinda joined the wedding party. Thought you were coming.."
+sJ> 
+Moire says, "but thank ye Donnal'"
+sJ> 
+Frederick smiles at you.
+sJ> 
+Wolfbane casts his gaze across the area.
+sJ> 
+You feel the touch of Airgid's mind:
+"Wedding party where?"
+sJ> 
+a merchant moves away from Moire and finds a seat near Sy.
+sJ> 
+Young gives Wolfbane a backrub.
+sJ> 
+Young gives Wolfbane a backrub.
+sJ> 
+A merchant sits down.
+sJ> 
+Wolfbane smiles at Young.
+sJ> 
+Donnald turns around and smiles at Moire
+sJ> 
+A merchant smiles at Sy.
+sJ> 
+Sabreen stands near the back, looking unobtrusive.
+sJ> 
+You feel the touch of Lianna's mind:
+"Who's getting married?"
+sJ> 
+A merchant pushes a sky blue top hat of suede with a long red feather sticking
+out from the brim.
+sJ> 
+A merchant tips his hat politely.
+sJ> act watches Frederick, smiling all the while.
+Chandra watches Frederick, smiling all the while.
+sJ> 
+Wolfbane smiles at Irienne.
+sJ> 
+You feel the strength leave you.
+sJ> 
+Irienne blushes.
+sJ> 
+Nikoli takes a seat next to Stefen.
+sJ> 
+Young sits down in the back behind Yourion.
+sJ> 
+Young sits down.
+sJ> 
+Frederick takes a seat near Chandra.
+sJ> 
+Frederick sits down.
+sJ> 
+Donnald turns back aand waits quietly
+sJ> 
+Wolfbane sits down next to Irienne
+sJ> 
+Kellah is trembling a bit with excitement and awe.
+sJ> 
+Wolfbane sits down.
+sJ> 
+Nikoli sits down.
+sJ> 
+Moryan casts her gaze across the area.
+sJ> 
+Stefan smiles over at Nikoli and strikes up a whispered conversation.
+sJ> 
+Wolfbane smiles at Irienne.
+sJ> 
+Irienne looks down.
+sJ> 
+Irienne blushes again.
+sJ> 
+Frederick gazes about, his eyes noticing everything.
+sJ> 
+Stefan sits down.
+sJ> 
+A bell tolls in the Mosque and in small towers priest call the faithful to
+prayer.
+sJ> 
+Jasmine kneels.
+sJ> 
+Jasmine prays to the gods.
+sJ> 
+Khaled arrives through a large arch.
+sJ> 
+Crunch settles in behind and to the right of Baron Montague.
+sJ> 
+Gwydion returns to normal.
+sJ> 
+Wolfbane picks Irienne's head up placing his hand upon her chin
+sJ> 
+Irienne blushes furiously.
+sJ> 
+Khaled moves to the front of the Mosque
+sJ> 
+Wolfbane says, "no need to be lookin down youll miss everything"
+sJ> 
+Wolfbane smiles iir
+sJ> 
+Moryan gazes at Khaled.
+sJ> 
+Wolfbane smiles at Irienne.
+sJ> 
+Irienne runs her fingers through her hair.
+sJ> 
+Jasmine traces a tiny symbol over her heart.
+sJ> 
+a merchant humms softly to himself.
+sJ> 
+Jasmine struggles to her feet.
+sJ> 
+Yurick gazes at Wolfbane.
+sJ> 
+Wolfbane says, "much better"
+sJ> 
+Donnald sighs.
+sJ> 
+Khaled nods to a priest in scarlet robes
+sJ> 
+Wolfbane smiles at Irienne.
+sJ> 
+Gwydion fidgets with the wrists of his tunic.
+sJ> 
+Shakara priest sing a hymn to the Sun God.
+sJ> 
+Gwydion pulls a soft white silk tunic with laces on his chest, and long,
+flowing sleeves to his wrists.
+sJ> 
+Khaled faces the crowd
+sJ> 
+Wolfbane smiles at Yourion.
+sJ> 
+Wolfbane smiles at Yurick.
+sJ> 
+Khaled raises his hands for ttention and silence
+sJ> 
+Donnald smiles at Jasmine.
+sJ> 
+Yurick nods to Wolfbane.
+sJ> 
+A merchant gazes at Khaled.
+sJ> 
+Yourion Whispers to Sy,"Weddings scare the hell out of me"
+sJ> act gazes at Khaled, listening attentively.
+Chandra gazes at Khaled, listening attentively.
+sJ> 
+a merchant removes a sky blue top hat of suede with a long red feather sticking
+out from the brim from his head.
+sJ> 
+Wolfbane pokes Yourion.
+sJ> 
+Donnald removes an eldritch helm from his head.
+sJ> 
+Yourion fidgets nervously.
+sJ> 
+The golden altar sparkles.
+sJ> 
+Frederick gazes at Chandra, then turns his attention to Khaled.
+sJ> 
+a merchant runs his fingers through his hair.
+sJ> 
+You feel the touch of Airgid's mind:
+"Wedding party is where?"
+sJ> 
+Donnald listens carefully to you.
+sJ> 
+Khaled says, "Your Majesties, Frederick and Zorha, Lords and Ladies of
+Fayd...."
+sJ> 
+Moryan wrinkles her nose at the merchant's outfit.
+sJ> 
+Young nods to Yurick.
+sJ> 
+Wolfbane listens carefully to Khaled.
+sJ> 
+A merchant gazes at Moryan.
+sJ> 
+Cypress appears.
+sJ> 
+A merchant pulls a sky blue suede jacket with a wide butterfly collar and a big
+red boutonniere.
+sJ> 
+Cypress sits down.
+sJ> 
+a merchant exclaims, "Hmmph!"
+sJ> 
+You feel the touch of Airgid's mind:
+"The wedding is where?"
+sJ> 
+Khaled says, "People of Dhuliban and Fayd...."
+sJ> 
+Frederick scowls at a merchant.
+sJ> 
+Stefan smiles at Khaled.
+sJ> 
+Frederick listens carefully to Khaled.
+sJ> 
+Jasmine listens carefully to Khaled.
+sJ> 
+Yurick gazes at a merchant.
+sJ> 
+A merchant furrows his brow.
+sJ> 
+A merchant casts his gaze across the area.
+sJ> look
+[Shakara's Mosque, Inner Chamber]
+This inner chamber is high roofed and cool even on the hottest of days. The
+roof is supported by pillars of red and blue. An altar gleams golden in the
+light of virtually countless candles.  The flames reflect in the polished gold
+and bronze surfaces of relics.  A spectacular sunburst with golden swords for
+rays is inset into the ceiling directly above the altar itself.  Luxurious red
+carpets fill the aisles between the varnished pews. You hear priests chanting
+and endless mantra of the glory of Shakara. An arch goes out. 
+You see Moryan (sitting), Khaled, Irienne (sitting), Wolfbane (sitting), Miria,
+Jasmine, a merchant (sitting), Crunch, Stefan (sitting), Zorha (sitting),
+Frederick (sitting), Cypress (sitting), Aetheon (sitting), Donnald (sitting),
+Feras (sitting), Nikoli (sitting), Young (sitting), Nord, Kellah (sitting),
+Yourion (sitting), Gwydion, Moire, Sy and Yurick. 
+Obvious exits: none.
+sJ> look fred
+You see a young human man with dark black eyes the color of the midnight sky,
+and golden hair that falls loosely to his shoulders. His complexion is fair,
+and his body well conditioned. He seems wise beyond his years.
+He is wearing a heavy alzyron signet ring emblazoned with the Royal Crest of
+the Kentaurus family, a flowing deep blue cape embroidered with a stunning
+serpentine gold and blue dragon, an elegant snow-white silk shirt embroidered
+along the collar with serpentine blue and gold dragons, a pearl inset alzyron
+crown of the King of Fayd, some low soft leather boots, some well-tailored deep
+blue pants accented with slender stripes of gold satin piping down the legs, an
+elegant black leather belt with gold buckle in the shape of a dragon and a long
+black leather sheath emblazoned with the symbol of the Kentaurus family.
+He appears to be healthy.
+sJ> 
+Yourion casts his gaze across the area.
+sJ> 
+Sabreen casts her gaze across the area.
+sJ> 
+Airgid appears.
+sJ> 
+Moire nods to Airgid.
+sJ> 
+Khaled says, "I present His Royal Highness, Sultan of Dhuliban, Lord of the
+Sands, Shakara's Own, Jashak al-Nur!"
+sJ> 
+anyone else wanting to come to the wedding report up now.
+sJ> 
+Jashak walks into the room in stately fashion, taking his place in front.
+sJ> 
+Feras nods to Cypress.
+sJ> 
+Jashak nods.
+sJ> 
+Trumpets blare...
+sJ> 
+Yurick bows towards Jashak.
+sJ> 
+Airgid says, "Synachi"
+sJ> 
+Moryan notices Aetheon and Nikoli whispering and frowns slightly.
+sJ> 
+Cypress gazes at Feras.
+sJ> 
+Nikoli chuckles at Aetheon.
+sJ> 
+Khaled bows towards Jasmine.
+sJ> smi jash
+
+Moire nods to Jashak.
+sJ> You smile at Jashak.
+sJ> 
+Khaled kneels.
+sJ> 
+Fafnir arrives through a large arch.
+sJ> 
+Frederick struggles to his feet.
+sJ> 
+Khaled says, "My lord."
+sJ> 
+Fafnir bows.
+sJ> 
+Frederick bows towards Jasmine.
+sJ> 
+Jashak nods to Khaled.
+sJ> 
+Stefan nods to Fafnir.
+sJ> 
+Frederick bows towards Jashak.
+sJ> 
+Lusiana arrives through a large arch.
+sJ> 
+Jashak bows towards Frederick.
+sJ> 
+Khaled stands up.
+sJ> 
+Yourion stands up.
+sJ> 
+Kellah struggles to her feet.
+sJ> 
+Airgid arrives through a large arch.
+sJ> 
+A trader appears.
+sJ> 
+Yourion smiles at Lusiana.
+sJ> 
+Donnald bows towards Fafnir.
+sJ> 
+Lusiana smiles at Young.
+sJ> 
+Lusiana smiles at Yourion.
+sJ> act stands and politely curtsies to Jashak before returning to her seat.
+Chandra stands and politely curtsies to Jashak before returning to her seat.
+sJ> 
+Young winks at Lusiana.
+sJ> 
+Kellah curtsies.
+sJ> 
+Donnald bows towards Jasmine.
+sJ> 
+Yourion gazes at Young.
+sJ> 
+Airgid bows towards Kellah.
+sJ> 
+a trader finds a seat near the back of the crowd.
+sJ> 
+A trader sits down.
+sJ> 
+Moryan watches the proceedings.
+sJ> 
+Yurick gazes at a trader.
+sJ> 
+A merchant smiles at a trader.
+sJ> 
+Kellah smiles.
+sJ> 
+A bell tolls in the Mosque and in small towers priest call the faithful to
+prayer.
+sJ> 
+Lusiana slips over to sit beside Yourion.
+sJ> 
+Yourion sits down.
+sJ> 
+a trader nods his head at a merchant.
+sJ> 
+Jashak waits patiently.
+sJ> 
+A priest comes forward and blesses the Sultan.
+sJ> 
+Airgid casts his gaze across the area.
+sJ> 
+Lusiana sits down.
+sJ> 
+Airgid gazes at Fafnir.
+sJ> 
+Airgid nods.
+sJ> 
+ ** Lianna has just disconnected.
+sJ> 
+Moire smiles at Young.
+sJ> 
+Wolfbane leans on Irienne.
+sJ> 
+Fafnir sits down.
+sJ> 
+Yourion fidgets nervously.
+sJ> 
+Gwydion watches everything, his expression unreadable.
+sJ> 
+The priest blesses the crowd, in the name of Shakara the Sun God.
+sJ> 
+Irienne blushes.
+sJ> 
+A merchant coughs.
+sJ> 
+Kellah doesn't know if it's right to sit in the presence of so much royality,
+and hovers uncertain.
+sJ> 
+A merchant casts his gaze across the area.
+sJ> 
+Young smiles at Moire.
+sJ> 
+ ** Darby has just left the Realms.
+sJ> 
+Airgid says, "sorry a drakin thing."
+sJ> 
+Shakara priest sing a hymn to the Sun God.
+sJ> 
+Airgid is now guarding Fafnir.
+sJ> 
+the priest nods to the Vizier
+sJ> 
+Frederick rests a hand on Chandra's shoulder as he stands nearby.
+sJ> 
+Jashak glances furtively back at the arch.
+sJ> 
+Moryan smiles warmly at Stefan.
+sJ> 
+You feel the touch of Silence's mind:
+"Kvaahn!"
+sJ> act reaches her hand up, resting it lightly on Fredericks.
+Chandra reaches her hand up, resting it lightly on Fredericks.
+sJ> 
+You feel the touch of Wolfbane's mind:
+"kvaahn silence"
+sJ> 
+You feel the touch of Airgid's mind:
+"Kvaahn Rak'Kahn"
+sJ> 
+Khaled says, "Your majesties, Lord of Dhuliban, King Frederick, Queen Zorha,
+Lords and ladies, people of both cities...."
+sJ> 
+You feel the touch of Yurick's mind:
+"Good Evening, Silence."
+sJ> 
+Donnald scratches his forehead
+sJ> 
+The golden altar sparkles.
+sJ> 
+Cypress moves next to Feras
+sJ> 
+Wolfbane listens carefully to Khaled.
+sJ> 
+Cypress listens to her surroundings closely.
+sJ> 
+You feel the touch of Mura's mind:
+"Hi"
+sJ> 
+Feras casts his gaze across the area.
+sJ> 
+Nikoli turns to Khaled, crossing his legs.
+sJ> 
+Nikoli removes a wide-brimmed black leather hat trimmed in silver with a single
+long white feather stuck in the band from his head.
+sJ> 
+Khaled says, "Welcome the Princess Liriama Kentaurus of Fayd."
+sJ> 
+Crunch surveys the crowds again, then turns his attention to the proceedings.
+sJ> 
+A merchant gazes at Nikoli.
+sJ> 
+A merchant rubs a sky blue top hat of suede with a long red feather sticking
+out from the brim.
+sJ> 
+Trunpets and cymbels sound
+sJ> 
+Cypress sighs.
+sJ> 
+Nikoli looks over at the merchant with a hint of amusement in his eyes.
+sJ> 
+Donnald smiles.
+sJ> 
+As the Princess Liriama steps through the arch, she is surrounded by a
+flickering nimbus of golden light.
+sJ> 
+Frederick smiles at his sister, his face beaming in pride.
+sJ> 
+Liriama smiles.
+sJ> 
+Jasmine curtsies towards Liriama.
+sJ> 
+Wolfbane gazes at Liriama.
+sJ> 
+Young bows towards Liriama.
+sJ> 
+Gwydion bows towards Liriama.
+sJ> 
+Yourion stands up.
+sJ> beam liri
+
+Moryan stands up.
+sJ> 
+Donnald bows towards Liriama.
+sJ> You beam at Liriama.
+sJ> 
+Lusiana stands up.
+sJ> 
+Jashak smiles at Liriama.
+sJ> 
+Yurick kneels, bowing towards Liriama.
+sJ> 
+Cypress stands up.
+sJ> 
+Yurick kneels.
+sJ> 
+Kellah curtsies towards Liriama.
+sJ> 
+Fafnir stands up.
+sJ> 
+Feras struggles to his feet.
+sJ> 
+Moryan curtsies towards Liriama.
+sJ> 
+Nikoli gazes at Liriama.
+sJ> 
+The music swells as she approaches the front of the Mosque.
+sJ> 
+Young struggles to his feet.
+sJ> 
+Wolfbane whisperrs to Irienne 'what a beautiful dress.'
+sJ> 
+Nikoli smiles.
+sJ> 
+Moryan sits and gently smoothes out her skirt.
+sJ> 
+Jashak bows deeply to Liriama.
+sJ> 
+Yurick struggles to his feet.
+sJ> 
+Khaled bows towards Liriama.
+sJ> 
+Frederick smiles.
+sJ> 
+Khaled kneels.
+sJ> look liri
+Before you is a radiant young woman, the Princess Liriama. Her large expressive
+eyes are nearly black, with tiny flecks of green. Shimmering long blonde hair
+falls around her waist, accenting her slender, delicate figure.
+She is wearing a white lace wedding gown that shimmers in the soft light
+accenting her graceful movements, a simple white alzyron necklace inset with a
+single perfect white diamond, some snow-white satin slippers trimed with fine
+lace and tiny diamonds that shimmer as she walks and a slender white alzyron
+circlet inset with a row of perfectly round creamy white pearls.
+She appears to be healthy.
+sJ> 
+Liriama walks slowly down the aisle, her eyes on her husband to be.
+sJ> 
+Khaled says, "My lady."
+sJ> 
+Irienne nods.
+sJ> 
+Liriama smiles at Khaled.
+sJ> 
+Khaled stands up.
+sJ> 
+You feel the touch of Blythe's mind:
+"::whimper::"
+sJ> 
+Wolfbane smiles.
+sJ> 
+Liriama gazes at Jashak.
+sJ> 
+Liriama smiles shyly.
+sJ> 
+Jashak smiles reassuringly to Liriama.
+sJ> 
+You feel the touch of Young's mind:
+"howdy cutie"
+sJ> 
+You feel the touch of Blythe's mind:
+"Oh, hello."
+sJ> 
+You feel the touch of Wolfbane's mind:
+"<nuzzle>"
+sJ> 
+Khaled gestures to the priest
+sJ> 
+Lusiana smiles at Yourion.
+sJ> 
+Jashak whispers, "My Lady."
+sJ> 
+You feel the touch of Blythe's mind:
+"I'm not feeling so cute..."
+sJ> 
+You feel the touch of Fafnir's mind:
+"hello little one"
+sJ> 
+Liriama smiles and softly murmurs, "My Lord."
+sJ> think Sure you are Aunt Blythe! ::wag::
+
+The priest approaches the couple and smiles, then blesses them in the name of
+Shakara...
+sJ> You project your thoughts.
+sJ> 
+ ** Blythe has just disconnected.
+sJ> 
+You feel the touch of Yurick's mind:
+"then your feelings deceive you, and you ought to ignore them."
+sJ> 
+Liriama slips into place beside Jashak, then turns to the priest.
+sJ> 
+Wolfbane winks at Irienne.
+sJ> 
+A bell tolls in the Mosque and in small towers priest call the faithful to
+prayer.
+sJ> 
+Irienne blushes.
+sJ> 
+Yourion sits down.
+sJ> 
+Feras sits down.
+sJ> 
+Cypress sits down.
+sJ> 
+Fafnir sits down.
+sJ> 
+Sy sits down.
+sJ> 
+Young sits down.
+sJ> 
+You feel the touch of Mura's mind:
+"Hi Sy, your order is ready"
+sJ> 
+Kellah sits down.
+sJ> 
+The people of Dhuliban echo the name of their god to the peek of the Dome above
+you.
+sJ> 
+Lusiana sits down.
+sJ> 
+Jashak tries to wipe his damp palms on his pants without anyone noticing.
+sJ> 
+Airgid smiles and thinks what ancestor is Shakara...
+sJ> 
+Jashak sits down.
+sJ> 
+Lusiana leans on Yourion.
+sJ> 
+SHAKARA!
+sJ> 
+Gwydion grins.
+sJ> 
+You feel the touch of Sy's mind:
+"Excellent news Mura. Ill have to come around later"
+sJ> 
+You feel the touch of Mura's mind:
+"ok"
+sJ> 
+Airgid says, "ahh"
+sJ> 
+Kellah blinks.
+sJ> 
+Shakara priest sing a hymn to the Sun God.
+sJ> 
+Moire shifts her weight from one foot to the other by the arch.
+sJ> 
+Sy listens to his surroundings closely.
+sJ> 
+THe priest smiles and says, "Blessed is this time, the joining of a man and a
+woman, is an ancient bond."
+sJ> 
+Sabreen looks equally uncomfortable standing near the back.
+sJ> 
+Zorha smiles.
+sJ> 
+Donnald sighs.
+sJ> 
+Nikoli watches the proceedings with a faint smile on his lips.
+sJ> 
+Cypress feels her eyes start to water
+sJ> 
+THe priest says, "And when the bod is also the joining of two peoples, so
+different...."
+sJ> 
+The priest looks across the room.
+sJ> 
+Airgid blinks.
+sJ> 
+The golden altar sparkles.
+sJ> 
+Feras comforts Cypress.
+sJ> 
+Frederick smiles.
+sJ> 
+Yourion blinks.
+sJ> 
+Liriama darts a glance at her mother, then smoothes the front of her dress,
+returning her attention to the words of the priest.
+sJ> 
+The small orb of light floating beside Young winks out.
+sJ> 
+Feras listens to his surroundings closely.
+sJ> 
+The priest says, "And yet so similar, it is doubly blessed."
+sJ> 
+ ** Pockets has just left the Realms.
+sJ> 
+Moryan watches, her eyes on the nearby faces of the nobles as much as the
+couple.
+sJ> 
+Airgid whispers to the Synachi they look the same to me..
+sJ> 
+Jashak appears to be listening intently to the priest's words.
+sJ> act listens and watches intently, practically on the edge of her seat.
+Chandra listens and watches intently, practically on the edge of her seat.
+sJ> 
+Cypress smiles at Feras.
+sJ> 
+Stefan glances back at Sabreen briefly, then returns his attention to the
+front.
+sJ> 
+Fafnir nods to Airgid.
+sJ> 
+Aetheon looks a little bored and disintrested with the proceedings.
+sJ> 
+Wolfbane gazes at a heavy gold wedding ring of a majestic crimson eagle gently
+grasping a blushing silver rose in its talon.
+sJ> 
+Wolfbane smiles.
+sJ> 
+The priest faces the Sultan...
+sJ> 
+Cypress sighs.
+sJ> 
+Wolfbane comforts Cypress.
+sJ> 
+Sy leans back quietly observing everything with fascination.
+sJ> 
+The priest Says to the Sultan, "You are more than just the ruler of this
+city...
+sJ> 
+Jashak listens carefully to the priest.
+sJ> 
+Stefan ponders.
+sJ> 
+Frederick listens to his surroundings closely.
+sJ> 
+Gwydion idly rubs his hand where a ring used to be, as an old memory flashes
+across his face.
+sJ> 
+ ** Kellah has just disconnected.
+sJ> 
+Kellah disconnects.
+sJ> 
+"You are the prime representative of the One God, Shakara that shines his glory
+upon us."
+sJ> 
+Jashak nods slowly.
+sJ> 
+A bell tolls in the Mosque and in small towers priest call the faithful to
+prayer.
+sJ> 
+Kellah arrives.
+sJ> 
+You feel Frederick's hand tighten sligthly on your shoulder.
+sJ> 
+Aetheon yawns.
+sJ> 
+Nord appears to become weaker.
+sJ> 
+Feras casts his gaze across the area.
+sJ> 
+Airgid whispers to the Synachi Ahh good they worship only one Ancestor.
+sJ> 
+Moryan glares at Aetheon.
+sJ> 
+"As such your children from this bride will also someday be the vessels of the
+God, do you accept that this is the God's will?"
+sJ> 
+Nikoli gazes over at Sy as if he just realized that he was in attendance.
+sJ> 
+Lusiana smiles slightly, glancing around at each of the nobles and
+guildleaders.
+sJ> 
+Jashak says, "Yes, of course."
+sJ> 
+The priest nods
+sJ> act moves her hand slightly, holding on to Fredericks hand tightly.
+Chandra moves her hand slightly, holding on to Fredericks hand tightly.
+sJ> 
+Nikoli turns back to the ceremony.
+sJ> 
+Shakara priest sing a hymn to the Sun God.
+sJ> 
+The priest then turns to Liriama and smiles
+sJ> 
+Jashak glances at Liriama out of the corner of his eye, gauging her expression.
+sJ> 
+Stefan rubs a fiery silver badge engraved with the image of a blazing sun
+gripped within a gleaming golden hand.
+sJ> 
+Wolfbane leans on Irienne.
+sJ> 
+Irienne flashes a quick smile at Wolfbane.
+sJ> 
+The golden altar sparkles.
+sJ> 
+Frederick watches his sister and the sultan.
+sJ> 
+Donnald watches the alter
+sJ> 
+Cypress casts her gaze across the area.
+sJ> 
+Fafnir listens to his surroundings closely.
+sJ> 
+Nikoli seems glances over a Stephan for a brief moment.
+sJ> 
+The priest says to her, "Princess of Fayd, Sister to the King, Daughter of
+Zorha Kentaurus, once Zohra al-Widzir of the desert people, do you.."
+sJ> 
+Liriama gazes at the priest, eyes wide as she prepares to speak her part.
+sJ> 
+Cypress sniffs.
+sJ> 
+Nord winks at Stefan.
+sJ> 
+Feras cocks his head to the side.
+sJ> 
+Stefan smiles.
+sJ> 
+Young nods to Sy.
+sJ> 
+Liriama bites her lower lip.
+sJ> 
+"Enter into this wedding knowing that the Sultan is both your Husband and the
+representative of Shakara on Andor?"
+sJ> 
+Frederick gazes at Liriama.
+sJ> 
+Liriama gazes at Jashak.
+sJ> 
+Jashak nods to Liriama.
+sJ> 
+Cypress wipes a tear from her cheek
+sJ> 
+Liriama smiles softly.
+sJ> act smiles and watches Liriama carefully.
+Chandra smiles and watches Liriama carefully.
+sJ> 
+Liriama says, "I .. do."
+sJ> 
+Airgid gazes at Liriama.
+sJ> 
+Liriama nods.
+sJ> 
+Zorha smiles.
+sJ> 
+Stefan winks at Nikoli.
+sJ> 
+Nikoli points slightly over towards the direction of the merchant.
+sJ> 
+Feras gazes at Cypress.
+sJ> 
+Frederick lets out a breath.
+sJ> 
+Zorha smiles at Liriama.
+sJ> 
+Khaled smiles.
+sJ> 
+Feras nods to Cypress.
+sJ> 
+Donnald sighs.
+sJ> 
+Liriama flashes a smile at her brother.
+sJ> 
+Jashak smiles at Liriama.
+sJ> 
+Crunch watches the merchant intently.
+sJ> 
+Airgid gazes at Jasmine.
+sJ> 
+Moryan notices Nikoli, and gives the merchant another scatching glance.
+sJ> 
+The priest nods
+sJ> 
+Jashak takes Liriama's hand in his.
+sJ> 
+Liriama turns to face Jashak, extending her hand.
+sJ> 
+The priest then looks toward king Frederick...
+sJ> 
+Lusiana leans on Yourion.
+sJ> 
+Frederick turns his attention to the priest.
+sJ> 
+Yourion gazes at Frederick.
+sJ> 
+Nikoli glances up at Baroness Moryan
+sJ> 
+Aetheon gazes at a merchant.
+sJ> 
+Nikoli raises an eyebrow towards Moryan.
+sJ> 
+Cypress ponders.
+sJ> 
+Airgid smiles and thinks the water god priestess is here.
+sJ> 
+Moryan shrugs.
+sJ> 
+Moryan smiles at Nikoli.
+sJ> 
+Moryan chuckles at Aetheon.
+sJ> 
+The priest asks the King, "Do you willingly give your sister to the Sultan, as
+a free woman?"
+sJ> 
+Zorha smiles at Frederick.
+sJ> 
+Fafnir listens to his surroundings closely.
+sJ> 
+Young nods to Sy.
+sJ> 
+Aetheon gazes at Moryan.
+sJ> 
+Frederick says, "It is not my choice to make, it is hers. She is free to wed
+whomever she chooses."
+sJ> 
+Aetheon mutters something you can't quite make out.
+sJ> 
+Frederick smiles at Liriama.
+sJ> 
+A bell tolls in the Mosque and in small towers priest call the faithful to
+prayer.
+sJ> 
+Jasmine ponders.
+sJ> 
+Yurick arches his eyebrow.
+sJ> 
+The priest smiles and bows to the King.
+sJ> beam liri
+You beam at Liriama.
+sJ> 
+Stefan glances over at Aetheon.
+sJ> 
+Airgid gazes at Aetheon.
+sJ> 
+Liriama smiles at Frederick.
+sJ> 
+Airgid ponders.
+sJ> 
+Liriama curtsies towards Frederick.
+sJ> 
+a trader glances quickly at Sabreen then returns his stare to the ceremony.
+sJ> 
+Frederick inclines his head to the priest, and smiles at his sister.
+sJ> 
+Jashak nods his thanks to Frederick.
+sJ> 
+Nikoli nods to Aetheon.
+sJ> 
+Sabreen stands still near the back, her eyes watching.
+sJ> 
+Moire moves back to the arch quietly.
+sJ> 
+Moire leans on a large arch.
+sJ> 
+Shakara priest sing a hymn to the Sun God.
+sJ> 
+Sy listens to his surroundings closely.
+sJ> 
+The priest raises his hands and starts an invocation in the native language of
+the people of Dhuliban.....
+sJ> 
+Jashak takes Liriama's hands in his.
+sJ> 
+Wolfbane gives Irienne a little pinch.
+sJ> 
+The glowing outline of armor fades from around you.
+sJ> 
+Frederick touches you.
+sJ> 
+Wolfbane nods to Young.
+sJ> 
+The ghostly shield protecting you slowly fades.
+sJ> 
+Kellah watches the ceremony, entranced.
+sJ> 
+Irienne squeaks.
+sJ> 
+Cypress pokes Wolfbane.
+sJ> 
+Donnald smiles.
+sJ> act looks up at Frederick warmly.
+Chandra looks up at Frederick warmly.
+sJ> 
+Irienne immediate claps her hand over her mouth and turns crimson.
+sJ> smi fred
+You smile at Frederick.
+sJ> 
+The golden altar sparkles.
+sJ> 
+Fafnir listens to his surroundings closely.
+sJ> 
+As the priest's singsong invocation rings in the Mosque, you feel a warm
+powerful Presence has arrived....
+sJ> 
+Frederick whispers to you, "Do you wish such pomp and circumstance my dear?"
+sJ> 
+Wolfbane smiles innocently
+sJ> 
+Airgid says, "Duea-Ktraug ntigoth Fafnir"
+sJ> 
+ ** Dolkun has just left the Realms.
+sJ> 
+Moryan casts her gaze across the area.
+sJ> 
+ ** Maland has just left the Realms.
+sJ> 
+Feras purses his lips in unspoken thought
+sJ> whisp freder I think I'd die of fright if it was me up there in the middle of this, but if you wish to...
+
+Cypress gazes at Feras.
+sJ> 
+Fafnir nods to Airgid.
+sJ> You whisper to Frederick.
+sJ> 
+The couple is bathed in brilliant light first seperately then the lights join.
+sJ> 
+Wolfbane casts his gaze across the area.
+sJ> 
+Jashak smiles.
+sJ> 
+A merchant fidgets nervously.
+sJ> 
+Kellah sighs.
+sJ> 
+Yourion blinks.
+sJ> 
+Cypress smiles.
+sJ> 
+Frederick whispers to you, "I would rather not myself .."
+sJ> 
+Sy looks up.
+sJ> 
+Donnald partaly covers his eyes
+sJ> 
+Airgid gazes at Jashak.
+sJ> 
+Nikoli whispers "Impressive"
+sJ> 
+As the lights join and become one glow, the locals all exclaim, "SHAKARA!"
+sJ> 
+Aetheon smiles at Moire.
+sJ> 
+Feras arches his eyebrow.
+sJ> 
+Nikoli glances at Aetheon and chuckles slightly
+sJ> 
+Liriama gazes at Jashak, the light bathing them both in warmth and radiance.
+sJ> 
+The priest bows before the Sultan and his bride.
+sJ> 
+Jashak smiles happily and nervously at Liriama.
+sJ> 
+a trader averts his gaze while the light is at it's brightest then continues to
+watch the ceremony.
+sJ> 
+Airgid exclaims, "Torgat Be Zin!"
+sJ> whisp fred It is alot of fuss, but you must be certain, I don't want you not having it just for my sake, I would do it if you wished
+
+THe priest kneels before them.
+sJ> You whisper to Frederick.
+sJ> 
+Moire nods to Aetheon.
+sJ> 
+Frederick smiles at you.
+sJ> 
+Jashak turns to gaze at the priest, still holding Liriama's hands.
+sJ> 
+THe priest says, "It is done, the God has joined them, let no power, mortal or
+otherwise seperate them."
+sJ> 
+Yourion leans on Lusiana.
+sJ> 
+Airgid gazes at Young.
+sJ> act leans her head slightly, resting her cheek against the back of Fredericks hand.
+Chandra leans her head slightly, resting her cheek against the back of
+Fredericks hand.
+sJ> 
+Jashak smiles at Liriama.
+sJ> 
+Wolfbane smiles.
+sJ> 
+Frederick beams at Liriama.
+sJ> 
+Irienne smiles.
+sJ> 
+Liriama smiles radiantly.
+sJ> 
+Khaled yells, "Long Live the Sultan, Long Live Liriama"
+sJ> beam
+You beam happily.
+sJ> 
+Donnald applauds.
+sJ> 
+Khaled yells, "Long Live the Sultan, Long Live Liriama"
+sJ> 
+Gwydion opens a bag.
+sJ> 
+Yourion applauds.
+sJ> 
+Young struggles to his feet.
+sJ> nod khal
+You nod to Khaled.
+sJ> 
+Feras sneaks a drink from his mug
+sJ> 
+Liriama gazes expectantly at Jashak.
+sJ> 
+Kellah applauds.
+sJ> 
+Aetheon nods to Moire.
+sJ> 
+Sy struggles to his feet.
+sJ> 
+Nikoli glances at Aetheon for a second
+sJ> 
+Frederick applauds.
+sJ> 
+Khaled yells, "Long Live the Sultan, Long Live Liriama"
+sJ> 
+Jasmine applauds.
+sJ> 
+Nikoli ponders.
+sJ> 
+Young applauds.
+sJ> 
+Gwydion opens a worn silvery blue bag with a gold silk drawstring.
+sJ> 
+Moire nods to Aetheon.
+sJ> 
+Sy applauds.
+sJ> 
+Nikoli stands up.
+sJ> stand
+You struggle to your feet under the weight of all your equipment.
+ [Round: 11 sec]
+RJ> 
+Yourion stands up.
+RJ> 
+Moryan stands up.
+RJ> 
+Stefan struggles to his feet.
+RJ> appl
+You applaud.
+RJ> 
+Nikoli applauds.
+RJ> 
+Cypress stands up.
+RJ> 
+Stefan applauds.
+RJ> 
+Jashak smiles at the crowd.
+RJ> 
+Zorha sniffles a little
+RJ> 
+Fafnir stands up.
+RJ> 
+Sy applauds.
+RJ> 
+Donnald stands up.
+RJ> 
+Airgid applauds.
+RJ> 
+Wolfbane whispers to you, "so if ya marry fredrick does that mean you will be
+queen fuzzybutt?"
+RJ> 
+Aetheon stands up.
+RJ> 
+Zorha struggles to her feet.
+RJ> 
+Gwydion removes a shimmering bardic harp of richly polished walnut, with subtly
+intricate patterns of rosewood inlay from the bag.
+RJ> 
+Zorha applauds.
+RJ> 
+Cypress applauds.
+RJ> 
+Moryan says, "Long life to the couple."
+RJ> 
+Zorha applauds.
+RJ> 
+Irienne struggles to her feet.
+RJ> 
+Nikoli exclaims, "Here!...Here!"
+J> 
+Moire moves to the side of the chamber.
+J> 
+Aetheon applauds.
+J> 
+Wolfbane struggles to his feet.
+J> 
+Zorha applauds.
+J> 
+Liriama softly murmurs, "My husband..."
+J> 
+Kellah exclaims, "Long life to the newlyweds!"
+J> 
+Feras struggles to his feet.
+J> 
+Liriama smiles at Jashak.
+J> 
+Wolfbane makes a toast. Cheers!
+J> 
+A bell tolls in the Mosque and in small towers priest call the faithful to
+prayer.
+J> 
+As Gwydion goes to draw his weapon, a guard grabs his by the shoulder and says,
+"No weapons in here!"
+J> 
+Lusiana stands up.
+J> 
+Frederick kisses you upon the forehead.
+J> 
+Crunch keeps next to Baron Montague during the uproar.
+J> 
+Fafnir says, "Torfat Be zin"
+J> 
+Jashak kisses Liriama gently on the cheek.
+J> 
+Aetheon gazes at Gwydion.
+J> 
+A trader struggles to his feet.
+J> 
+Sy whistles loudly the sound ehoing off the dome.
+J> 
+Lusiana leans on Yourion.
+J> beam
+
+Gwydion arches his eyebrow.
+J> You beam happily.
+J> lean fred
+
+Nikoli asks, "Crunch?"
+J> You lean on Frederick.
+J> 
+Young smiles at Airgid.
+J> 
+Donnald opens a leather sack.
+J> 
+Airgid chuckles.
+J> 
+Crunch grunts.
+J> 
+Donnald removes a flawless jasper from the sack.
+J> 
+Crunch gazes at Nikoli.
+J> 
+Donnald removes a flawless jasper from the sack.
+J> 
+Airgid shakes his head at Young.
+J> 
+Donnald closes a leather sack.
+J> 
+Nikoli gazes over towards Gwydion
+J> 
+Airgid says, "close."
+J> 
+Young shrugs.
+J> 
+Wolfbane makes a toast. Cheers!
+J> 
+Gwydion gazes at a shimmering bardic harp of richly polished walnut, with
+subtly intricate patterns of rosewood inlay.
+J> 
+Donnald says, "Cheers"
+J> 
+Liriama is now following Jashak.
+J> 
+Nikoli motions towards Gwydion..
+J> 
+Jashak bows towards Frederick.
+J> 
+Moryan chuckles.
+J> 
+Gwydion shrugs.
+J> 
+Young makes a toast. Cheers!
+J> 
+Cypress casts her gaze across the area.
+J> 
+Kellah beams happily.
+J> 
+Young drinks some shemrite ale.
+J> 
+Stefan chuckles at Moryan.
+J> 
+Gwydion puts a shimmering bardic harp of richly polished walnut, with subtly
+intricate patterns of rosewood inlay in the bag.
+J> 
+Wolfbane comforts Gwydion.
+J> 
+Crunch grunts, "No weapon, me not like weapon in this place."
+J> 
+Shakara priest sing a hymn to the Sun God.
+J> 
+Khaled says, "Lords and ladies, please join me and I shall lead us to the
+reception."
+J> 
+Gwydion carefully inspects the harp to be sure it is in tune.
+J> act leans close to Frederick, kissing him quickly on the cheek.
+Chandra leans close to Frederick, kissing him quickly on the cheek.
+J> 
+Moryan chuckles.
+J> 
+Feras sniffs.
+J> kiss fred cheek
+You kiss Frederick on the cheek.
+J> 
+Moryan is now following Khaled.
+J> 
+Yurick is now following Khaled.
+J> 
+Irienne is now following Khaled.
+J> 
+Wolfbane says, "he was gonna play his harp"
+J> 
+Sy is now following Khaled.
+J> 
+Donnald is now following Khaled.
+J> 
+Frederick disbands his group.
+> 
+Frederick is now following Khaled.
+> 
+Nord is now following Khaled.
+> 
+Cypress comforts Feras.
+> 
+Jasmine is now following Khaled.
+> 
+A merchant struggles to his feet.
+> 
+Fafnir is now following Khaled.
+> 
+Wolfbane nods to Crunch.
+> fol khal
+
+Miria is now following Khaled.
+> 
+Yourion is now following Khaled.
+> You are now following Khaled.
+J> 
+Kellah is now following Khaled.
+J> 
+Gwydion nods to Wolfbane.
+J> 
+Moryan laughs at Stefan!
+J> 
+Zorha is now following Khaled.
+J> 
+Wolfbane is now following Khaled.
+J> 
+Young is now following Khaled.
+J> 
+Moryan chuckles.
+J> 
+Airgid is now following Khaled.
+J> 
+A merchant is now following Khaled.
+J> 
+Stefan is now following Khaled.
+J> 
+Lusiana is now following Khaled.
+J> 
+Moire is now following Khaled.
+J> 
+Feras is now following Khaled.
+J> 
+Cypress is now following Khaled.
+J> 
+Nikoli disbands his group.
+J> 
+Nikoli is now following Khaled.
+J> 
+A trader is now following Khaled.
+J> 
+Moire says, "ah, the reception"
+J> 
+Crunch is now following Khaled.
+J> 
+Moryan raises an eyebrow towards Aetheon.
+J> 
+Moire smiles.
+J> 
+Feras tugs on Cypress.
+J> 
+Wolfbane smiles at Moire.
+J> 
+Jashak holds Liriama's hand tightly.
+J> 
+Kellah struggles to her feet.
+J> 
+Moryan gazes over at the King and Chandra, a slight shrug of her shoulders.
+J> 
+Kellah blinks.
+J> 
+Kellah blushes.
+J> 
+Cypress smiles.
+J> 
+Liriama leans lightly on Jashak's shoulder.
+J> 
+The golden altar sparkles.
+J> 
+Frederick gazes at Aetheon and Moryan.
+J> 
+Sy smiles at Kellah.
+J> 
+Jashak stands up.
+J> 
+ ** Markan has just disconnected.
+J> 
+Khaled's group goes through a large arch.
+J> 
+You follow Khaled.
+[Shakara's Mosque, Ablution Fountain]
+You see Moryan, Khaled, Irienne, a trader, Wolfbane, Kellah, Miria, Jasmine, a
+merchant, Crunch, Stefan, Zorha, Frederick, Airgid, Cypress, Donnald, Fafnir,
+Feras, Nikoli, Young, Nord, Yourion, Moire, Sy, Yurick and Lusiana. A large
+marble fountain is here.
+Obvious exits: none.
+J> 
+Cypress smiles at Feras.
+J> 
+Khaled's group goes through an elegant marble door.
+J> 
+You follow Khaled.
+[Central Plaza]
+You see Moryan, Khaled, Irienne, a trader, Wolfbane, Kellah, Miria, Jasmine, a
+merchant, Crunch, Stefan, Zorha, Frederick, Airgid, Cypress, Donnald, Fafnir,
+Feras, Nikoli, Young, Nord, Yourion, Moire, Sy, Yurick and Lusiana. 
+Obvious exits: n, s, e, ne, se.
+J> 
+Wolfbane mutters something you can't quite make out.
+J> 
+Khaled's group goes south.
+J> 
+You follow Khaled.
+[South Main Street]
+You see Moryan, Khaled, Irienne, a trader, Wolfbane, Kellah, Miria, Jasmine, a
+merchant, Crunch, Stefan, Zorha, Frederick, Airgid, Cypress, Donnald, Fafnir,
+Feras, Nikoli, Young, Nord, Yourion, Moire, Sy, Yurick and Lusiana. 
+Obvious exits: n, s, w.
+J> 
+Khaled's group goes west.
+J> 
+You follow Khaled.
+[Palace Street]
+You see Moryan, Khaled, Irienne, a trader, Wolfbane, Kellah, Miria, Jasmine, a
+merchant, Crunch, Stefan, Zorha, Frederick, Airgid, Cypress, Donnald, Fafnir,
+Feras, Nikoli, Young, Nord, Yourion, Moire, Sy, Yurick and Lusiana. 
+Obvious exits: n, e, w.
+J> 
+Moire stops following Khaled.
+J> 
+Khaled's group goes north.
+J> 
+You follow Khaled.
+[Intersection of Palace and Caravan St]
+You see Moryan, Khaled, Irienne, a trader, Wolfbane, Kellah, Miria, Jasmine, a
+merchant, Crunch, Stefan, Zorha, Frederick, Airgid, Cypress, Donnald, Fafnir,
+Feras, Nikoli, Young, Nord, Yourion, Sy, Yurick and Lusiana. A heavy teak gate
+is here.
+Obvious exits: n, s.
+J> act moves her gaze from one person to the next.
+
+Airgid says, "aye My Lord."
+J> Chandra moves her gaze from one person to the next.
+J> 
+Khaled's group goes through a heavy teak gate.
+J> 
+You follow Khaled.
+[Sultan's Palace, Gardens]
+You see Moryan, Khaled, Irienne, a trader, Wolfbane, Kellah, Miria, Jasmine, a
+merchant, Crunch, Stefan, Zorha, Frederick, Airgid, Cypress, Donnald, Fafnir,
+Feras, Nikoli, Young, Nord, Yourion, Sy, Yurick and Lusiana. A heavy teak gate
+and a large marble fountain are here.
+Obvious exits: none.
+J> 
+Feras drinks some ale.
+J> 
+Sy grins.
+J> 
+Khaled gestures around
+J> 
+Feras drinks some ale.
+J> 
+a merchant asks, "Slaves?"
+J> 
+Young casts his gaze across the area.
+J> 
+Feras licks his lips.
+J> 
+Sy gazes at a table.
+J> 
+Crunch follows directly behind Baron Montague.
+J> 
+a merchant says, "Hmmph"
+J> 
+Feras arches his eyebrow.
+J> 
+Frederick casts his gaze across the area.
+J> 
+The wedding streamers flutter in the breeze.
+J> 
+Khaled says, "Enjoy food drink, each others company."
+J> look on table
+
+Feras casts his gaze across the area.
+J> On the table you see an elegant long-stemmed crystal glass engraved with a
+rampant tiger before a sunburst of golden swords, an elegant long-stemmed
+crystal glass engraved with a rampant tiger before a sunburst of golden swords,
+an elegant long-stemmed crystal glass engraved with a rampant tiger before a
+sunburst of golden swords, an elegant long-stemmed crystal glass engraved with
+a rampant tiger before a sunburst of golden swords, an elegant long-stemmed
+crystal glass engraved with a rampant tiger before a sunburst of golden swords,
+an elegant long-stemmed crystal glass engraved with a rampant tiger before a
+sunburst of golden swords, an elegant long-stemmed crystal glass engraved with
+a rampant tiger before a sunburst of golden swords, some grapes, an elegant
+long-stemmed crystal glass engraved with a rampant tiger before a sunburst of
+golden swords, some grapes, some grapes, some grapes, some grapes, some grapes,
+some grapes, some grapes, some grapes, some grapes, some grapes, some grapes,
+some grapes, some grapes, some grapes, some grapes, some grapes, some grapes,
+some grapes, some grapes, some grapes, some grapes, some grapes, some grapes,
+some grapes, some grapes, some grapes, some grapes, some grapes, some grapes,
+some grapes, some grapes, some grapes, some grapes, some grapes, some grapes,
+some grapes, a luscious red apple, a luscious red apple, a luscious red apple,
+a luscious red apple, a luscious red apple, a luscious red apple, a luscious
+red apple, a luscious red apple, a luscious red apple, a luscious red apple, a
+luscious red apple, a luscious red apple, a luscious red apple, a luscious red
+apple, a luscious red apple, a luscious red apple, a luscious red apple, a
+luscious red apple, a luscious red apple, a luscious red apple, a luscious red
+apple, a luscious red apple, a luscious red apple, a luscious red apple, a
+luscious red apple, a luscious red apple, a luscious red apple, a luscious red
+apple, a luscious red apple, a luscious red apple, a luscious red apple, a
+luscious red apple, a luscious red apple, a luscious red apple, a luscious red
+apple, a luscious red apple, a luscious red apple, a luscious red apple, a
+luscious red apple, a luscious red apple, a luscious red apple, a luscious red
+apple, a luscious red apple, a luscious red apple, a luscious red apple, a
+luscious red apple, a luscious red apple, a luscious red apple, a luscious red
+apple, a luscious red apple, an elegant long-stemmed crystal glass engraved
+with a rampant tiger before a sunburst of golden swords, an elegant
+long-stemmed crystal glass engraved with a rampant tiger before a sunburst of
+golden swords, an elegant long-stemmed crystal glass engraved with a rampant
+tiger before a sunburst of golden swords, an elegant long-stemmed crystal glass
+engraved with a rampant tiger before a sunburst of golden swords, an elegant
+long-stemmed crystal glass engraved with a rampant tiger before a sunburst of
+golden swords, an elegant long-stemmed crystal glass engraved with a rampant
+tiger before a sunburst of golden swords, an elegant long-stemmed crystal glass
+engraved with a rampant tiger before a sunburst of golden swords, an elegant
+long-stemmed crystal glass engraved with a rampant tiger before a sunburst of
+golden swords, an elegant long-stemmed crystal glass engraved with a rampant
+tiger before a sunburst of golden swords, an elegant long-stemmed crystal glass
+engraved with a rampant tiger before a sunburst of golden swords, an elegant
+long-stemmed crystal glass engraved with a rampant tiger before a sunburst of
+golden swords, an elegant long-stemmed crystal glass engraved with a rampant
+tiger before a sunburst of golden swords, an elegant long-stemmed crystal glass
+engraved with a rampant tiger before a sunburst of golden swords, an elegant
+long-stemmed crystal glass engraved with a rampant tiger before a sunburst of
+golden swords, an elegant long-stemmed crystal glass engraved with a rampant
+tiger before a sunburst of golden swords, an elegant long-stemmed crystal glass
+engraved with a rampant tiger before a sunburst of golden swords, an elegant
+long-stemmed crystal glass engraved with a rampant tiger before a sunburst of
+golden swords, an elegant long-stemmed crystal glass engraved with a rampant
+tiger before a sunburst of golden swords, an elegant long-stemmed crystal glass
+engraved with a rampant tiger before a sunburst of golden swords, an elegant
+long-stemmed crystal glass engraved with a rampant tiger before a sunburst of
+golden swords, an elegant long-stemmed crystal glass engraved with a rampant
+tiger before a sunburst of golden swords, an elegant long-stemmed crystal glass
+engraved with a rampant tiger before a sunburst of golden swords, an elegant
+long-stemmed crystal glass engraved with a rampant tiger before a sunburst of
+golden swords, an elegant long-stemmed crystal glass engraved with a rampant
+tiger before a sunburst of golden swords, an elegant long-stemmed crystal glass
+engraved with a rampant tiger before a sunburst of golden swords, an elegant
+long-stemmed crystal glass engraved with a rampant tiger before a sunburst of
+golden swords, an elegant long-stemmed crystal glass engraved with a rampant
+tiger before a sunburst of golden swords and an elegant long-stemmed crystal
+glass engraved with a rampant tiger before a sunburst of golden swords.
+J> 
+Nikoli stops following Khaled.
+J> 
+Frederick smiles.
+J> 
+The glowing outline of armor fades from around Nord.
+J> 
+Moire arrives through a heavy teak gate.
+J> 
+A merchant removes an elegant long-stemmed crystal glass engraved with a
+rampant tiger before a sunburst of golden swords from the table.
+J> 
+Khaled disbands his group.
+> 
+Cypress smiles.
+> 
+Frederick takes Chandra's hand in his.
+> 
+Sy bows towards Khaled.
+> 
+Donnald is now following Khaled.
+> 
+Frederick takes Chandra by the hand.
+> 
+Nikoli removes an elegant long-stemmed crystal glass engraved with a rampant
+tiger before a sunburst of golden swords from the table.
+J> 
+Crunch is now following Nikoli.
+J> 
+Moryan smiles.
+J> 
+Yurick casts his gaze across the area.
+J> 
+Sy removes an elegant long-stemmed crystal glass engraved with a rampant tiger
+before a sunburst of golden swords from the table.
+J> 
+A merchant removes an elegant long-stemmed crystal glass engraved with a
+rampant tiger before a sunburst of golden swords from the table.
+J> 
+Khaled gestures towards a table.
+J> 
+A trader removes an elegant long-stemmed crystal glass engraved with a rampant
+tiger before a sunburst of golden swords from the table.
+J> 
+Young removes some grapes from the table.
+J> 
+Khaled gestures towards a table.
+J> 
+Moryan removes an elegant long-stemmed crystal glass engraved with a rampant
+tiger before a sunburst of golden swords from the table.
+J> 
+Fafnir is now following Airgid.
+J> 
+Frederick removes an elegant long-stemmed crystal glass engraved with a rampant
+tiger before a sunburst of golden swords from the table.
+J> act smiles to Frederick, holding his hand tightly.
+Chandra smiles to Frederick, holding his hand tightly.
+J> 
+Young takes a bite of some grapes.
+J> 
+Young nibbles slowly on the delectable looking grape.
+J> 
+Khaled says, "food and drinks"
+J> 
+Nord incants a spell.
+J> 
+A trader sniffs some sparkling pink champagne.
+J> 
+Donnald finda a seat close to the back
+J> 
+Yurick gazes around the room, looking for entrances.
+J> 
+Irienne removes a luscious red apple from the table.
+J> 
+Donnald sits down.
+J> 
+Kellah smiles happily, before being overcome by a bout of shyness.
+J> 
+Young removes an elegant long-stemmed crystal glass engraved with a rampant
+tiger before a sunburst of golden swords from the table.
+J> 
+You hear heavy footsteps as Aetheon strides into the room.
+J> 
+Wolfbane smiles at Nikoli.
+J> stat
+
+Moire removes an elegant long-stemmed crystal glass engraved with a rampant
+tiger before a sunburst of golden swords from the table.
+J> 
+Yurick taps some shimmering white leather armor.
+J> 
+You are a master of the Order of the Silver Arcana.
+Level: 92
+Build Points to date: 947
+Unspent Build Points: 0
+Experience Points until next Build Point: 33321
+Quickness: 97     Constitution: 128    Strength:  103    Agility: 61 
+Willpower: 95     Perception:   100    Empathy:   131
+Age:       17     Height:       5'3    Weight:    126    Load: 275
+
+Current Attack Modifier: 5 [Wary]
+Current Defend Modifier: 44
+
+Body Points: 276/276
+Mana: 365/365
+Psi: 264/264
+Fatigue: 232/232
+[Type SPELLS or SKILLS for more information.]
+J> 
+Fafnir bows towards Khaled.
+J> 
+Moire removes an elegant long-stemmed crystal glass engraved with a rampant
+tiger before a sunburst of golden swords from the table.
+J> 
+Zorha smiles.
+J> 
+Yourion removes an elegant long-stemmed crystal glass engraved with a rampant
+tiger before a sunburst of golden swords from the table.
+J> 
+Wolfbane removes an elegant long-stemmed crystal glass engraved with a rampant
+tiger before a sunburst of golden swords from the table.
+J> 
+Zorha removes an elegant long-stemmed crystal glass engraved with a rampant
+tiger before a sunburst of golden swords from the table.
+J> 
+Palace guards patrol the perimeter of the Garden.
+J> pre 209
+You prepare the Strength III spell.
+ [Round: 3 sec]
+RJ> 
+Yourion says, "Nice"
+RJ> 
+Zorha drinks some sparkling pink champagne.
+RJ> 
+Donnald removes an elegant long-stemmed crystal glass engraved with a rampant
+tiger before a sunburst of golden swords from the table.
+RJ> 
+Moire gives an elegant long-stemmed crystal glass engraved with a rampant tiger
+before a sunburst of golden swords to Aetheon.
+RJ> 
+Yourion drinks some sparkling pink champagne.
+J> 
+Frederick chuckles.
+J> 
+The glowing outline of armor fades from around Young.
+J> 
+Young drinks some sparkling pink champagne.
+J> cast
+As you go to cast your spell, a painfully hot pressure in your mind disrupts
+it.
+J> 
+Jashak's group arrives through a heavy teak gate.
+J> 
+Sy removes some chilled shrimp from the table.
+J> 
+Wolfbane chuckles at Nikoli.
+J> 
+Sy licks his lips.
+J> 
+Sy removes a shrimp off the plate, dips it in the sauce and eats it, removing
+and discarding the shell.
+J> 
+Cypress removes an elegant long-stemmed crystal glass engraved with a rampant
+tiger before a sunburst of golden swords from the table.
+J> 
+Young removes some chilled shrimp from the table.
+J> 
+Yourion removes some grapes from the table.
+J> 
+Yurick silently moves in beside the gate and stands there.
+J> 
+Young removes a shrimp off the plate, dips it in the sauce and eats it,
+removing and discarding the shell.
+J> 
+Wolfbane bows towards Jashak.
+J> 
+Yourion takes a bite of some grapes.
+J> 
+Yourion nibbles slowly on the delectable looking grape.
+J> 
+Wolfbane bows towards Liriama.
+J> 
+Fafnir bows towards Jasmine.
+J> 
+Sy drinks some sparkling pink champagne.
+J> 
+Moryan wanders over to Nikoli and strikes up a conversation.
+J> 
+Fafnir bows towards Liriama.
+J> 
+Jashak nods slightly to Wolfbane.
+J> 
+Donnald drinks some sparkling pink champagne.
+J> 
+Liriama smiles at Fafnir.
+J> 
+Nikoli shakes his head at Crunch.
+J> 
+Yourion stuffs some grapes into his pocket of later
+J> 
+Gwydion arrives through a heavy teak gate.
+J> 
+Lusiana leans on Yourion.
+J> 
+Sy chuckles at Kellah.
+J> 
+Khaled smiles at Jashak.
+J> 
+Miria removes some grapes from the table.
+J> 
+Cypress drinks some sparkling pink champagne.
+J> 
+Jashak nods to Khaled.
+J> 
+Kellah gives some babich root to Sy.
+J> 
+Nikoli inclines his head to Moryan
+J> 
+Khaled raises a toast to Jashak!
+J> 
+A palace guards speaks to a young maid in a corner.
+J> 
+Feras sniffs.
+J> 
+Kellah gives a riyong mushroom to Sy.
+J> 
+Frederick whispers to you, "I would think you me and a priest would be plenty"
+J> 
+Frederick winks at you.
+J> 
+Cypress gazes at Feras.
+J> 
+Gwydion places a dark brown wide-brimmed hat onto his head.
+J> 
+Airgid whispers to Fafnir I do not like this my Rak'Kahn.
+J> 
+Feras casts his gaze across the area.
+J> 
+Kellah removes an elegant long-stemmed crystal glass engraved with a rampant
+tiger before a sunburst of golden swords from the table.
+J> 
+Lusiana removes an elegant long-stemmed crystal glass engraved with a rampant
+tiger before a sunburst of golden swords from the table.
+J> 
+Gwydion removes an elegant long-stemmed crystal glass engraved with a rampant
+tiger before a sunburst of golden swords from the table.
+J> 
+Lusiana drinks some sparkling pink champagne.
+J> 
+Moryan casts her gaze across the area.
+J> 
+a merchant places a sky blue top hat of suede with a long red feather sticking
+out from the brim onto his head.
+J> 
+Yurick gazes at Airgid.
+J> 
+Jashak says, "She is the finest bride of all, don't you think, Vizier?"
+J> 
+Moryan drinks some sparkling pink champagne.
+J> 
+Yourion grins.
+J> 
+Jasmine says, "Liriama, Jashak, I would like to present gifts to you both on
+behalf of the Temple of Amilor."
+J> 
+Crunch continues to watch the crowd, particularly around Baron Montague.
+J> 
+Sy says, "Go easy on that stuff Kellah"
+J> 
+A merchant pulls a sky blue suede jacket with a wide butterfly collar and a big
+red boutonniere.
+J> 
+Sy nudges Kellah.
+J> 
+Nord nods to Stefan.
+J> 
+A merchant casts his gaze across the area.
+J> 
+Moryan gazes at a merchant.
+J> whisp fred Yes, more than enough. I'd skip the priest if it weren't a neccessity.
+
+Kellah nods to Sy.
+J> You whisper to Frederick.
+J> 
+Moryan wrinkles up her nose.
+J> 
+Liriama stays close by Jashak's side.
+J> 
+Jasmine opens a sea blue harness with the symbol of Amilor embroidered over the
+heart.
+J> 
+Khaled says, "I am pleased you have taken a wife, my lord. I wish you health
+and happiness."
+J> 
+You feel the touch of Lexa's mind:
+"Greetings everyone"
+J> 
+You feel the touch of Linnaeus's mind:
+"hello Lexa"
+J> 
+A trader sniffs a luscious red apple.
+J> 
+Frederick chuckles at you.
+J> 
+Kellah says, "I will, I promise, Sy."
+J> 
+Miria takes a bite of some grapes.
+J> 
+Miria nibbles slowly on the delectable looking grape.
+J> act whispers something to Frederick and giggles softly.
+
+Liriama smiles at Khaled.
+J> Chandra whispers something to Frederick and giggles softly.
+J> 
+You feel the touch of Young's mind:
+"Howdy Lexa"
+J> 
+Gwydion drinks some sparkling pink champagne.
+J> 
+Nikoli drinks some sparkling pink champagne.
+J> 
+Jashak says, "Happiness seems obvious."
+J> 
+Aetheon looks for a servant to hand hima beverage.
+J> 
+Irienne slips quickly through the crowd to an out-of-the-way spot.
+J> 
+ ** Silence has just disconnected.
+J> 
+Jasmine removes a finely crafted gold amulet bearing the likeness of the Gods
+of Light and hung from a gold and silver chain from the harness.
+J> 
+Khaled bows towards Liriama.
+J> 
+You feel the touch of Lexa's mind:
+"hey Linn how ya doing?"
+J> 
+Jashak smiles at Liriama.
+J> 
+Wolfbane mutters something you can't quite make out.
+J> 
+A bell tolls in the Mosque.
+J> 
+Jasmine removes a finely engraved golden talisman on a gold and silver chain
+bearing the likeness of Shemri, Rorin and Amilor from the harness.
+J> 
+a merchant watches the champagne flow, paying close attention to the women that
+drink the most.
+J> 
+Stefan stands off to the side, drinking a drink in silence.
+J> 
+Frederick leads Chandra through the group to his sister and the Sultan.
+J> 
+You feel the touch of Linnaeus's mind:
+"I'm not doing so well... still sober.. and you?"
+J> 
+Frederick kisses Liriama on the cheek.
+J> 
+Frederick smiles.
+J> 
+Jasmine gives a finely crafted gold amulet bearing the likeness of the Gods of
+Light and hung from a gold and silver chain to Liriama.
+J> 
+Liriama smiles at Frederick.
+J> 
+ ** Sy has just left the Realms.
+J> 
+Sy exits.
+J> 
+Frederick says, "Health and happiness to you Liri."
+J> 
+Airgid smiles and moves closer to the Synacji
+J> 
+Cypress drinks some sparkling pink champagne.
+J> 
+Liriama kisses Frederick on the cheek.
+J> 
+Airgid is now guarding Fafnir.
+J> 
+Donnald waches the room but does not move from his seat
+J> 
+Yourion removes a luscious red apple from the table.
+J> 
+Jasmine gives a finely engraved golden talisman on a gold and silver chain
+bearing the likeness of Shemri, Rorin and Amilor to Jashak.
+J> 
+Aetheon removes an elegant long-stemmed crystal glass engraved with a rampant
+tiger before a sunburst of golden swords from the table.
+J> 
+Fafnir smiles at Airgid.
+J> 
+Stefan removes an elegant long-stemmed crystal glass engraved with a rampant
+tiger before a sunburst of golden swords from the table.
+J> 
+Jasmine curtsies towards Jashak.
+J> 
+Jasmine curtsies towards Liriama.
+J> 
+Khaled says, "And to you Princess, I welcome you to Dhuliban and I will strive
+to serve you as I have your Husband."
+J> 
+Liriama beams at Frederick.
+J> 
+You feel the touch of Lexa's mind:
+"better..and sober. I know it's a shock"
+J> 
+Nikoli nods to Wolfbane.
+J> 
+Wolfbane sighs.
+J> 
+Jashak gazes at a finely engraved golden talisman on a gold and silver chain
+bearing the likeness of Shemri, Rorin and Amilor.
+J> 
+Kellah beams happily.
+J> 
+Donnald drinks some sparkling pink champagne.
+J> 
+Jashak says, "Thank you, Lady."
+J> 
+Zorha smiles.
+J> 
+Liriama says, "Too many at once!"
+J> 
+A merchant gazes at Jasmine.
+J> 
+Zorha hugs Liriama.
+J> 
+Liriama laughs, her eyes shining with excitement.
+J> 
+Moryan walks over to Stefan, and talks idly with him about their families.
+J> 
+Liriama hugs Zorha.
+J> 
+Cypress stands by Feras
+J> 
+You feel the touch of Linnaeus's mind:
+"nothing shocks me anymore my dear.  How are tech thingies?"
+J> 
+Frederick chuckles.
+J> 
+Jasmine says, "They have been crafted and imbued with alchemical properties by
+Raningeth, one of our priests."
+J> 
+Slaves are busy bringing food and drink.
+J> 
+Stefan smiles at Moryan.
+J> 
+Airgid gazes at Aetheon.
+J> 
+Jashak stands closely to Liriama, as if trying to shield her.
+J> 
+Zorha says, "You look wonderful."
+J> 
+Moire waits near the tables.
+J> 
+Fafnir opens a midnight blue silk case.
+J> 
+Liriama says, "My brother, thank you.."
+J> 
+Gwydion leans on a heavy teak gate.
+J> 
+Liriama hugs Frederick.
+J> 
+Fafnir removes a phase diamond ring in the shape of a falcon blending into a
+dragon wrapped around the band from the case.
+J> 
+Wolfbane drinks some sparkling pink champagne.
+J> 
+Gwydion drinks some sparkling pink champagne.
+J> 
+Young drinks some sparkling pink champagne.
+J> 
+Young raises an eyebrow towards Wolfbane.
+J> 
+Fafnir closes a midnight blue silk case.
+J> 
+Kellah drinks some sparkling pink champagne.
+J> 
+Jasmine closes a sea blue harness with the symbol of Amilor embroidered over
+the heart.
+J> 
+Frederick says, "A toaste to you both."
+J> 
+Jasmine removes an elegant long-stemmed crystal glass engraved with a rampant
+tiger before a sunburst of golden swords from the table.
+J> 
+Frederick raises up his glass.
+J> 
+Kellah nods.
+J> 
+Yourion says, "Aban would love this Champagne"
+J> 
+Donnald raises his glass
+J> 
+Jasmine makes a toast. Cheers!
+J> 
+Irienne removes an elegant long-stemmed crystal glass engraved with a rampant
+tiger before a sunburst of golden swords from the table.
+J> 
+Liriama says, "And Khaled.. I will strive to be a worthy wife and Sultana."
+J> 
+Cypress drinks some sparkling pink champagne.
+J> 
+Kellah makes a toast. Cheers!
+J> 
+Liriama curtsies towards Khaled.
+J> 
+Khaled smiles at Liriama.
+J> 
+Gwydion drinks some sparkling pink champagne.
+J> 
+Wolfbane whispers to Young well they dont have milk,
+J> 
+Wolfbane shrugs.
+J> 
+Musicians play quietly in the background.
+J> 
+Khaled bows towards Liriama.
+J> 
+Frederick says, "May you have every happiness."
+J> 
+Stefan nods his head at Moryan, a playful grin on his face.
+J> 
+Wolfbane listens carefully to Frederick.
+J> 
+Young shrugs.
+J> 
+Jasmine drinks some sparkling pink champagne.
+J> 
+Jashak says, "Thank you, My Lord."
+J> 
+Young removes some chilled shrimp from the table.
+J> 
+Moryan chuckles at Stefan.
+J> 
+Khaled smiles.
+J> 
+Jashak bows towards Frederick.
+J> 
+Young removes a shrimp off the plate, dips it in the sauce and eats it,
+removing and discarding the shell.
+J> 
+Frederick drinks some sparkling pink champagne.
+J> 
+Wolfbane raises a toast to Liriama!
+J> 
+Jasmine is now following Young.
+J> 
+Wolfbane raises a toast to Jashak!
+J> 
+Young raises a toast to Liriama!
+J> 
+Cypress removes some chilled shrimp from the table.
+J> 
+Nikoli makes his way over to the couple
+J> 
+Yourion nods to Lusiana.
+J> 
+You feel the touch of Lexa's mind:
+"not bad"
+J> 
+Aetheon drinks some sparkling pink champagne.
+J> 
+Young raises a toast to Jasmine!
+J> 
+Young drinks some sparkling pink champagne.
+J> 
+Young's group goes through a heavy teak gate.
+J> 
+Cypress removes a shrimp off the plate, dips it in the sauce and eats it,
+removing and discarding the shell.
+J> 
+a trader ambles over to a merchant and begins to speak of the finer points of
+trading.
+J> 
+Moire raises her glass towards the couple. She then drinks .
+J> 
+Liriama smiles.
+J> 
+Moire drinks some sparkling pink champagne.
+J> 
+Donnald stands up.
+J> 
+Moire drinks some sparkling pink champagne.
+J> 
+Moire drinks some sparkling pink champagne.
+J> 
+Moire drinks some sparkling pink champagne.
+J> 
+Moire drinks some sparkling pink champagne.
+J> 
+Moryan ponders.
+J> 
+a merchant bends down and rubs a spot off of his shoe.
+J> 
+Nikoli bows neatly to Liriama and Jashak
+J> 
+Donnald moves by the couple
+J> 
+Fafnir removes a luscious red apple from the table.
+J> 
+Irienne sips the champagne and promptly sneezes.
+J> 
+Stefan shares a joke with Moryan, but his attention seems to be on Crunch.
+J> 
+Moryan leans over and talks quietly in Stefan's ear.
+J> 
+Jashak nods to Nikoli.
+J> 
+Fafnir gives a luscious red apple to Airgid.
+J> 
+The wedding streamers flutter in the breeze.
+J> 
+Airgid casts his gaze across the area.
+J> 
+A merchant removes a shrimp off the plate, dips it in the sauce and eats it,
+removing and discarding the shell.
+J> 
+A merchant licks his lips.
+J> 
+Airgid gazes at Yourion.
+J> 
+A merchant gazes at some chilled shrimp.
+J> 
+Jashak removes an elegant long-stemmed crystal glass engraved with a rampant
+tiger before a sunburst of golden swords from the table.
+J> 
+A merchant removes a shrimp off the plate, dips it in the sauce and eats it,
+removing and discarding the shell.
+J> 
+Cypress removes a shrimp off the plate, dips it in the sauce and eats it,
+removing and discarding the shell.
+J> 
+A merchant removes a shrimp off the plate, dips it in the sauce and eats it,
+removing and discarding the shell.
+J> 
+Jashak gives an elegant long-stemmed crystal glass engraved with a rampant
+tiger before a sunburst of golden swords to Liriama.
+J> 
+Airgid smiles at Yourion.
+J> 
+Jashak removes an elegant long-stemmed crystal glass engraved with a rampant
+tiger before a sunburst of golden swords from the table.
+J> 
+Gwydion drinks some sparkling pink champagne.
+J> 
+Khaled says, "Although the food and drink are here , feel free to explore the
+city, enjoy the festivities, check out the baths. You are our guests."
+J> 
+Moire ask fer a patron t' bring ye 'ere
+J> 
+Khaled smiles.
+J> 
+Cypress offers a shrimp to Feras
+J> 
+Wolfbane smiles at Khaled.
+J> 
+Gwydion drinks some sparkling pink champagne.
+J> 
+Feras wrinkles up his nose.
+J> 
+Cypress giggles.
+J> 
+Gwydion gazes at an elegant long-stemmed crystal glass engraved with a rampant
+tiger before a sunburst of golden swords.
+J> 
+Khaled says, "coffee"
+J> 
+A pretty slave girl serves you coffee in a fine mug.
+J> 
+Jashak drinks some sparkling pink champagne.
+J> 
+Cypress removes a shrimp off the plate, dips it in the sauce and eats it,
+removing and discarding the shell.
+J> 
+Moryan gazes at you.
+J> 
+Khaled takes a delicate porcelain mug.
+J> 
+Khaled takes a sip of his coffee, smiling beatifically as the delightful spiced
+liquid flows across his palate.
+J> 
+Palace guards patrol the perimeter of the Garden.
+J> 
+Gwydion opens a forest green leather satchel.
+J> 
+Gwydion puts an elegant long-stemmed crystal glass engraved with a rampant
+tiger before a sunburst of golden swords in the satchel.
+J> 
+Stefan gives the slave girl a wink, as he accepts his cup of coffee.
+J> 
+Yourion smiles at Lusiana.
+J> 
+Feras glances uncertainly at the slaves
+J> 
+a merchant watches the slave girl with interest.
+J> 
+Gwydion closes a forest green leather satchel.
+J> 
+Stefan furrows his brow.
+J> 
+Airgid smiles and whispers to the Synachi, I'm keeping my eye on all of them.
+J> 
+Liriama gazes at Khaled, then grins.
+J> 
+Liriama says, "Coffee"
+J> 
+A pretty slave girl serves you coffee in a fine mug.
+J> 
+Aetheon gazes at Stefan.
+J> 
+Liriama beams happily.
+J> 
+Liriama takes a sip of her coffee, smiling beatifically as the delightful
+spiced liquid flows across her palate.
+J> 
+Fafnir smiles at Airgid.
+J> 
+A merchant takes a sip of his coffee, smiling beatifically as the delightful
+spiced liquid flows across his palate.
+J> 
+Wolfbane takes a sip of his coffee, smiling beatifically as the delightful
+spiced liquid flows across his palate.
+J> 
+Liriama leans on Jashak.
+J> 
+Gwydion says, "Coffee"
+J> 
+Feras purses his lips in quiet contemplation
+J> 
+Nikoli drinks some sparkling pink champagne.
+J> 
+Cypress drinks some sparkling pink champagne.
+J> 
+Airgid gazes at Aetheon.
+J> 
+Wolfbane says, "hey can we tip the slaves?"
+J> 
+Zorha says, "oooh coffee, civilization at last"
+J> 
+Wolfbane listens carefully to Khaled.
+J> 
+A merchant takes a delicate porcelain mug.
+J> 
+Frederick whispers to you, "A shame.. the baths sounded.. fun.."
+J> 
+Jashak wraps his free arm around Liriama.
+J> 
+Crunch walks in and out of the crowd, looking for potential threats to his
+liege.
+J> 
+Zorha says, "coff"
+J> 
+Aetheon furrows his brow.
+J> 
+Wolfbane says, "this coffee is excellent"
+J> 
+Yourion appears to become weaker.
+J> 
+Gwydion says, "Coffee"
+J> 
+A pretty slave girl serves you coffee in a fine mug.
+J> 
+ ** Adrianna has just left the Realms.
+J> 
+Jashak nods to Liriama.
+J> 
+Gwydion takes a delicate porcelain mug.
+J> 
+Nikoli looks over at Wolfbane
+J> 
+A palace guards speaks to a young maid in a corner.
+J> 
+Moryan chuckles at Stefan.
+J> 
+Liriama nods to Wolfbane.
+J> 
+Zorha says, "coffee"
+J> 
+A pretty slave girl serves you coffee in a fine mug.
+J> 
+Yourion removes an elegant long-stemmed crystal glass engraved with a rampant
+tiger before a sunburst of golden swords from the table.
+J> 
+Liriama beams happily.
+J> 
+Stefan raises his cup in salute to Aethon, then continues talking to Moryan.
+J> 
+Zorha takes a delicate porcelain mug.
+J> 
+Nikoli chuckles slightly
+J> 
+Moryan drinks some sparkling pink champagne.
+J> 
+Gwydion sniffs the coffee.
+J> 
+Wolfbane smiles at Nikoli.
+J> 
+Zorha takes a sip of her coffee, smiling beatifically as the delightful spiced
+liquid flows across her palate.
+J> 
+Airgid gazes at Yurick.
+J> 
+Zorha beams happily.
+J> 
+Wolfbane tickles Cypress.
+J> 
+Yurick nods to Airgid.
+J> 
+Gwydion takes a sip of his coffee, smiling beatifically as the delightful
+spiced liquid flows across his palate.
+J> 
+Cypress giggles.
+J> 
+Airgid nods to Yurick.
+J> 
+Khaled smiles.
+J> 
+Cypress drinks some sparkling pink champagne.
+J> 
+Nikoli says, "You are nothing if not a bull in a china shop my Lord Wolfbane."
+J> 
+Wolfbane says, "well i dont drink alcohol"
+J> 
+ ** Aislinn has just left the Realms.
+J> 
+Wolfbane shrugs.
+J> 
+Khaled says, "I amglad you find it to your liking , your highness."
+J> 
+Frederick casts his gaze across the area.
+J> 
+Aetheon smirks.
+J> 
+Khaled bows towards Zorha.
+J> 
+Wolfbane beams at Nikoli.
+J> 
+Zorha smiles.
+J> 
+A bell tolls in the Mosque.
+J> 
+A merchant pulls a bright red satin bowtie drooping to the sides.
+J> 
+A merchant casts his gaze across the area.
+J> 
+Liriama gazes around at everyone, then whispers something to Jashak.
+J> act smiles, sipping daintily at a glass of champagne.
+Chandra smiles, sipping daintily at a glass of champagne.
+J> 
+Gwydion takes a sip of his coffee, smiling beatifically as the delightful
+spiced liquid flows across his palate.
+J> 
+Jashak nods to Liriama.
+J> 
+Khaled sighs.
+J> 
+Jashak smiles.
+J> 
+Gwydion's eyes return to normal.
+J> 
+Wolfbane says, "well i am tring to be more noble i know i need work"
+J> 
+Wolfbane sighs.
+J> 
+Yourion gazes at Khaled.
+J> 
+Khaled says, "Give them to the couple, either one."
+J> 
+Khaled smiles.
+J> 
+Nikoli asks, "So where will the happy couple be spending their honeymoon?"
+J> 
+Feras whispers someting to Cypress
+J> 
+Young's group arrives through a heavy teak gate.
+J> 
+Young disbands his group.
+J> 
+Jashak says, "Vizier, we will be retiring from the festivities now."
+J> 
+Moryan wrinkles up her nose.
+J> 
+Jasmine says, "whis you it does hold spells though."
+J> 
+Liriama smiles at Nikoli.
+J> 
+Khaled nods to Jashak.
+J> 
+Cypress nods.
+J> 
+Slaves are busy bringing food and drink.
+J> 
+Khaled bows towards Jashak.
+J> 
+Irienne slips through the crowd.
+J> 
+Khaled says, "Of course"
+J> 
+Stefan says, "There are a few who could learn much about nobility from you
+Wolfbane."
+J> 
+Khaled smiles.
+J> 
+Nikoli smiles at Liriama.
+J> 
+Donnald says, "Jashak please take this gift as a symbole of your love for each
+other"
+J> whisp fred Oh? I missed the part of the baths, when is that? ::smile::
+You whisper to Frederick.
+J> 
+Irienne gives a delicate diamond jar to Liriama.
+J> 
+Stefan smiles at Wolfbane.
+J> 
+Irienne vanishes again.
+J> 
+Wolfbane leans on Stefan.
+J> 
+Frederick chuckles at you.
+J> 
+Liriama touches a delicate diamond jar.
+J> 
+Donnald gives a flawless jasper to Khaled.
+J> 
+Donnald gives a flawless jasper to Khaled.
+J> 
+Khaled says, "There are a few gifts, my lord..."
+J> 
+Liriama curtsies towards Irienne.
+J> 
+Frederick whispers to you, "After we are wed."
+J> 
+Irienne blushes.
+J> 
+Young opens a sooty black leather beltpouch.
+J> 
+Lexa appears.
+J> 
+Frederick kisses you upon the forehead.
+J> 
+Moire says, "M'Lady Liriama, if'n I mi"
+J> 
+Wolfbane gazes at a faerie mug engraved with a picture of The Nissa.
+J> 
+Young closes a sooty black leather beltpouch.
+J> 
+Jashak says, "Of course, we shall wait a bit longer."
+J> lean fred
+You lean on Frederick.
+J> 
+Kellah gives a red velvet bag to Liriama.
+J> 
+Kellah blushes.
+J> 
+Liriama listens carefully to Moire.
+J> 
+Wolfbane says, "empty"
+J> 
+Yourion smiles at Wolfbane.
+J> 
+Young opens a sooty black leather beltpouch.
+J> 
+Wolfbane sighs.
+J> 
+Khaled smiles.
+J> 
+Jasmine drinks some sparkling pink champagne.
+J> 
+Young closes a sooty black leather beltpouch.
+J> 
+Moryan says, "You have been gone far too long Marquis."
+J> 
+Donnald moves away and takes his seat
+J> 
+Young opens a black leather pouch.
+J> 
+Wolfbane says, "wheres that cute slave girl with the coffee"
+J> 
+Wolfbane casts his gaze across the area.
+J> 
+Jasmine touches a brown and tan feather which dances in the wind.
+J> 
+Musicians play quietly in the background.
+J> 
+Liriama opens a red velvet bag.
+J> 
+Moire says, "yer 'usban' 'as the gift 'e deserves, an' I 'ave a small gif' fer
+yerself"
+J> 
+Feras gazes at the slaves with obvious concern in his eye
+J> whisp fred A very good part to look forward to :)
+You whisper to Frederick.
+J> 
+Khaled says, "The royal couple wish to retire, are there any more gifts?"
+J> 
+Kellah blushes.
+J> 
+Young removes a huge sparkling yellow diamond expertly cut in the shape of a
+miniature sun from the pouch.
+J> 
+Airgid asks, "coffee?"
+J> 
+Liriama smiles at Kellah.
+J> 
+Frederick blushes.
+J> 
+Cypress nods to Feras.
+J> 
+Kellah curtsies towards Liriama.
+J> 
+Nikoli wonders over to the merchant.
+J> 
+Young nods to Khaled.
+J> 
+Frederick gazes at you.
+J> 
+Fafnir nods.
+J> 
+Wolfbane nods to Airgid.
+J> 
+Airgid asks, "Tea?"
+J> 
+Young closes a black leather pouch.
+J> 
+Moire says, "if ye'll accept it from one lowborn 's meself"
+J> 
+Young bows towards Jasmine.
+J> 
+Jashak says, "Thank you, all, for the fine gifts and good wishes."
+J> 
+Stefan whispers to Nord, "you know, Brook gave myself and the Lady Veronica a
+chalice filled with Invigoration potion for our wedding."
+J> 
+Nikoli casts his gaze across the area.
+J> 
+Nikoli gazes at a merchant.
+J> 
+Young bows towards Jashak.
+J> 
+Young bows towards Liriama.
+J> 
+A merchant chuckles at Stefan.
+J> 
+Moire gives a slender wavy-bladed gold dagger held by a pommel encrusted with
+milky white opal fragments to Liriama.
+J> 
+Wolfbane chuckles at Stefan.
+J> 
+Young gives a huge sparkling yellow diamond expertly cut in the shape of a
+miniature sun to Liriama.
+J> 
+ ** Adrianna has just left the Realms.
+J> whisp fred Uh oh, I forgot about gifts...what does Liriama like?
+
+Fafnir says, " Iwish to give  gift to you from those of us at the T'kasta"
+J> You whisper to Frederick.
+J> 
+Kellah asks, "I made them myself, M'lady.. I hope they are acceptable?"
+J> 
+A merchant raises an eyebrow towards Nikoli.
+J> 
+Kellah blushes.
+J> 
+Khaled smiles.
+J> 
+A merchant nods to Nikoli.
+J> smile softly at Frederick.
+Chandra smiles softly at Frederick.
+J> 
+Wolfbane gazes at Moire.
+J> 
+Liriama says, "It is not birth that makes us, m'lady, but our lives.. and I'm
+honored."
+J> 
+Liriama curtsies towards Moire.
+J> 
+Moire bows towards Liriama.
+J> 
+Lexa paces back and forth.
+J> 
+Frederick smiles at you.
+J> 
+Jashak smiles.
+J> 
+Liriama touches a slender wavy-bladed gold dagger held by a pommel encrusted
+with milky white opal fragments.
+J> 
+Nord whispers to Stefan, I suppose that is the reason you were able to get up
+and hunt the next day
+J> 
+The wedding streamers flutter in the breeze.
+J> 
+Wolfbane says, "wow thats beautiful"
+J> 
+Zorha smiles.
+J> 
+Frederick whispers to you, "You can wait if you wish..it will be more special
+if you do."
+J> 
+Moire steps back.
+J> 
+Feras sighs.
+J> 
+Moryan frowns at Aetheon.
+J> 
+Wolfbane smiles at Moire.
+J> 
+Fafnir opens a midnight blue silk case.
+J> 
+ ** Alyxandra has just left the Realms.
+J> 
+Zorha nods.
+J> 
+Stefan chuckles at Nord.
+J> 
+ ** Adrianna has just left the Realms.
+J> 
+Fafnir mutters something you can't quite make out.
+J> 
+Feras casts his gaze across the area.
+J> 
+ ** Fafnir has just left the Realms.
+J> 
+Fafnir exits.
+J> 
+Donnald drinks some sparkling pink champagne.
+J> 
+Moire smiles at Lexa.
+J> 
+Nikoli smiles slightly to the merchant.
+J> 
+Moire gestures towards an elegant long-stemmed crystal glass engraved with a
+rampant tiger before a sunburst of golden swords.
+J> 
+Fafnir arrives.
+J> 
+Cypress gives a tiny ivory music box delicately carved with roses in bas relief
+to Liriama.
+J> 
+Moire says, "do be 'avin' one lass"
+J> 
+Liriama beams at Cypress.
+J> 
+Lexa smiles at Moire.
+J> 
+Zorha smiles.
+J> 
+Moryan seems content to discuss things with Stefan, but her eyes roam the
+crowd.
+J> 
+Fafnir taps a phase diamond ring in the shape of a falcon blending into a
+dragon wrapped around the band.
+J> 
+Airgid drinks some hot tea.
+J> 
+Liriama opens a tiny ivory music box delicately carved with roses in bas
+relief.
+J> 
+Cypress smiles.
+J> whisp fred Good, I'll try and get something nice made with dimonds, she likes those?
+You whisper to Frederick.
+J> 
+Frederick casts his gaze across the area.
+J> 
+Liriama turns the small brass key set into the bottom of the box.
+J> 
+Palace guards patrol the perimeter of the Garden.
+J> 
+Frederick nods to you.
+J> 
+Crunch weaves his way back to Baron Montague, as the crowd settles into a
+rhythm.
+J> 
+The lid of Liriama's music box slowly opens and a soft glow shines from it.
+J> 
+The haunting strains of an old ballad spill from Liriama's music box.
+J> 
+As the lid opens, a delicately carved crystal rose rises to float above the
+box.
+J> 
+Moire smiles at Wolfbane.
+J> 
+The rose revolves slowly to the strains of the music, casting rainbows of light
+as it turns.
+J> 
+Miria takes a bite of some grapes.
+J> 
+Miria nibbles slowly on the delectable looking grape.
+J> 
+As the last notes of the song fade, the lid closes, enfolding the rose once
+again.
+J> 
+Frederick ponders.
+J> 
+Liriama gasps.
+J> 
+Aetheon bows towards Jasmine.
+J> 
+Liriama says, "Oh, that's lovely!"
+J> 
+Kellah says, "oohhh.."
+J> 
+Aetheon bows towards Jashak.
+J> 
+Fafnir goes through a heavy teak gate.
+J> 
+A merchant nods to Nikoli.
+J> 
+Liriama hugs Cypress.
+J> 
+Jashak says, "Very exquisite."
+J> 
+Cypress beams happily.
+J> 
+Jashak nods to Aetheon.
+J> 
+Yourion smiles at Cypress.
+J> 
+Aetheon asks, "You recieved the twin stallions I sent?"
+J> 
+Airgid says, "My Lord King if you have a moment."
+J> 
+Jashak listens carefully to Khaled.
+J> 
+Moire listens to her surroundings closely.
+J> 
+Jashak says, "Did we recieve them?"
+J> 
+Nikoli nods to a merchant.
+J> 
+Lexa casts her gaze across the area.
+J> 
+A palace guards speaks to a young maid in a corner.
+J> 
+Liriama leans on Jashak.
+J> 
+Khaled nods to Aetheon.
+J> 
+Yourion mutters something about stables
+J> 
+Lusiana chuckles at Yourion.
+J> 
+Khaled says, "Yes, they arrived in good health."
+J> 
+Frederick leans on you.
+J> 
+Moire smiles at Lexa.
+J> 
+Wolfbane bows towards Lexa.
+J> 
+Jashak smiles.
+J> 
+Aetheon says, "I have duties to attend to, so I congradulate you on your
+wedding"
+J> 
+Fafnir arrives through a heavy teak gate.
+J> 
+Gwydion goes through a heavy teak gate.
+J> 
+Feras nods to Cypress.
+J> 
+A merchant nods to Nikoli.
+J> 
+A merchant chuckles.
+J> 
+Jashak says, "Shall we retire now?"
+J> 
+A merchant smiles.
+J> 
+Jashak listens carefully to Liriama.
+J> 
+Frederick nods to Airgid.
+J> 
+Liriama smiles at Jashak.
+J> 
+Aetheon nods to Liriama.
+J> 
+Liriama says, "Yes!"
+J> 
+Fafnir gives a phase diamond ring in the shape of a falcon blending into a
+dragon wrapped around the band to Jashak.
+J> 
+Aetheon goes through a heavy teak gate.
+J> 
+Jashak smiles.
+J> 
+Kellah giggles.
+J> 
+Liriama blushes.
+J> 
+Donnald waves to Lexa.
+J> 
+A warm desert breeze fills the garden....
+J> 
+Lexa giggles.
+J> 
+Feras sniffs.
+J> 
+Young drinks some sparkling pink champagne.
+J> 
+Kellah says, "Sy had a nice present for .. but..."
+J> 
+Jasmine drinks some sparkling pink champagne.
+J> 
+Donnald drinks some sparkling pink champagne.
+J> 
+Kellah blinks.
+J> 
+Yurick furrows his brow.
+J> 
+Kellah sighs.
+J> 
+Young drinks some sparkling pink champagne.
+J> 
+Yurick casts his gaze across the area.
+J> 
+A bell tolls in the Mosque.
+J> 
+Young taps an elegant long-stemmed crystal glass engraved with a rampant tiger
+before a sunburst of golden swords.
+J> 
+You smell the sand and the sun....and hear faint hoof beats...
+J> 
+Feras puts a pint mug in the satchel.
+J> 
+Cypress removes a shrimp off the plate, dips it in the sauce and eats it,
+removing and discarding the shell.
+J> 
+Yurick glances quickly around.
+J> 
+Stefan ponders.
+J> 
+As Young places an elegant long-stemmed crystal glass engraved with a rampant
+tiger before a sunburst of golden swords into a slime mold, it dissolves away!
+J> 
+Moire goes through a heavy teak gate.
+J> 
+Young drinks some shemrite ale.
+J> 
+Young's slime belches and bubbles before coming to rest.
+J> 
+Young is now following Wolfbane.
+J> 
+Cypress removes a shrimp off the plate, dips it in the sauce and eats it,
+removing and discarding the shell.
+J> 
+Lexa casts her gaze across the area.
+J> 
+Moryan drinks some sparkling pink champagne.
+J> 
+ ** Wolfbane has just disconnected.
+J> 
+Wolfbane disconnects.
+J> 
+Yurick asks, "Are there...guests expected?"
+J> 
+Miria removes some grapes from the table.
+J> 
+Jashak says, "Good day to you all.  May the sun shine down on you in warmth and
+prosperity."
+J> sip champ
+
+Cypress removes a shrimp off the plate, dips it in the sauce and eats it,
+removing and discarding the shell.
+J> What are you referring to?  Please be more specific.
+J> 
+Jashak bows.
+J> 
+Stefan moves closer to the king, perhaps just by chance.
+J> 
+a trader watches the group intently making notes on a scroll in his hands as he
+sips his champagne.
+J> 
+Moryan curtsies.
+J> 
+Liriama curtsies.
+J> 
+Donnald goes through a heavy teak gate.
+J> 
+Moire arrives through a heavy teak gate.
+J> 
+Jasmine curtsies towards Jashak.
+J> 
+Nikoli bows.
+J> 
+Irienne smiles.
+J> 
+Fafnir bows.
+J> 
+Jasmine curtsies towards Liriama.
+J> 
+Cypress smiles.
+J> curts jash
+
+There is a shower of gold dust over the couple....
+J> You curtsy towards Jashak.
+J> 
+Kellah curtsies towards Jashak.
+J> 
+Wolfbane arrives.
+J> 
+Kellah curtsies towards Liriama.
+J> 
+Jashak smiles.
+J> curts liri
+
+Donnald arrives through a heavy teak gate.
+J> 
+Jashak's group goes through a heavy teak gate.
+J> What are you referring to?  Please be more specific.
+J> 
+Yourion bows towards Jasmine.
+J> 
+Nikoli turns back to his conversation with the merchant.
+J> 
+Wolfbane sighs.
+J> 
+Slaves are busy bringing food and drink.
+J> 
+Jasmine mutters something you can't quite make out.
+J> 
+Zorha smiles.
+J> 
+Zorha says, "Lovely"
+J> 
+Airgid says, "Just that if you send someone"
+J> nod zor
+You nod to Zorha.
+J> beam
+You beam happily.
+J> 
+Donnald sits down.
+J> 
+Khaled smiles.
+J> 'She looked very happy indeed
+You say, "She looked very happy indeed"
+J> 
+Frederick listens carefully to Airgid.
+J> 
+Feras folds his arms.
+J> 
+Wolfbane casts his gaze across the area.
+J> 
+Young says, "Nice weddin"
+J> 
+Young smiles.
+J> 
+Cypress pokes Feras.
+J> 
+Airgid says, "We  huh well would like it to stop at the old temple sit."
+J> 
+Moryan says, "It was a lovely ceremony."
+J> 
+Khaled says, "That was unusual, I didn't have that planned, the gold dust?"
+J> 
+Feras raises an eyebrow towards Cypress.
+J> 
+Cypress nods.
+J> 
+Airgid says, "err site."
+J> 
+Wolfbane squirms and tries to scratch his back through his armor.
+J> 
+Yurick raises an eyebrow towards Khaled.
+J> 
+Zorha smiles.
+J> 
+Musicians play quietly in the background.
+J> 
+Frederick raises an eyebrow towards Airgid.
+J> 
+Feras nods to Cypress.
+J> 
+Donnald takes an icy pocketwatch out of his breast pocket.
+J> 
+Donnald pushes a button on the top of an icy pocketwatch and it snaps open.
+J> 
+Donnald checks the time on an icy pocketwatch.
+J> 
+Donnald pushes an icy pocketwatch closed with a click.
+J> 
+Donnald tucks an icy pocketwatch in his breast pocket.
+J> 
+Young casts his gaze across the area.
+J> 
+Wolfbane says, "please excuse me"
+J> 
+Jasmine drinks some sparkling pink champagne.
+J> 
+Moire goes through a heavy teak gate.
+J> 
+Zorha says, "I think I know what it was, my lord Vizier, it was a blessing of
+sorts."
+J> 
+Airgid says, "Its that most that we don't know will be killed is all."
+J> 
+Wolfbane bows.
+J> 
+Wolfbane goes through a heavy teak gate.
+J> 
+Lusiana listens carefully to Zorha.
+J> 
+Frederick says, "I have no idea what you are talking about."
+J> 
+Zorha smiles.
+J> 
+Frederick chuckles.
+J> 
+Kellah drinks some sparkling pink champagne.
+J> 
+You feel the touch of Linnaeus's mind:
+"stop that, it hurts!"
+J> 
+Jasmine chuckles.
+J> 
+Miria removes a luscious red apple from the table.
+J> 
+Airgid chuckles.
+J> 
+You feel the touch of Linnaeus's mind:
+"*mutter*"
+J> 
+Frederick smiles at Airgid.
+J> 
+Airgid ponders.
+J> 
+Miria goes through a heavy teak gate.
+J> 
+Frederick asks, "Start from the top?"
+J> 
+The wedding streamers flutter in the breeze.
+J> 
+Lusiana is now following Yourion.
+J> 
+Irienne works her way unobtrusively through the crowd and slips out the gate.
+J> 
+Frederick whispers to you, "Are you bored just standing here with me like
+this?"
+J> 
+Irienne goes through a heavy teak gate.
+J> 
+Cypress is now following Feras.
+J> 
+Airgid asks, "Did you not send a messanger to the citadel inviting Dolkun to
+the wedding?"
+J> 
+Zorha says, "My people, before I came to fayd worshiped Ahkr, the Wandering
+God...."
+J> 
+A merchant ponders.
+J> whisp fred No, I could probably just stand next to you for the entire night and part of tomorrow
+You whisper to Frederick.
+J> 
+Yourion listens carefully to Zorha.
+J> 
+Frederick says, "Many messangers were sent to people."
+J> 
+ ** Mura has just disconnected.
+J> smile warmly up at Frederick.
+Chandra smiles warmly up at Frederick.
+J> 
+Khaled says, "Ahh, the Chaos ...Lord of Djinns?"
+J> 
+Frederick smiles down at Chandra, looking slightly distracted.
+J> 
+Feras casts his gaze across the area.
+J> 
+Zorha smiles.
+J> 
+Palace guards patrol the perimeter of the Garden.
+J> 
+Zorha nods.
+J> 
+Feras nods to Cypress.
+J> 
+Nikoli drinks some sparkling pink champagne.
+J> 
+Zorha says, "Indeed, he came to my wedding as well."
+J> 
+Yurick looks away a moment.
+J> 
+Nord goes through a heavy teak gate.
+J> 
+Moryan smiles.
+J> 
+Feras's group goes through a heavy teak gate.
+J> 
+Airgid says, "Well that is what I am saying, your messaenger was lucky to make
+it."
+J> 
+ ** Mura has just disconnected.
+J> 
+Frederick raises an eyebrow towards Airgid.
+J> 
+Wolfbane arrives through a heavy teak gate.
+J> 
+Feras's group arrives through a heavy teak gate.
+J> 
+Frederick says, "I'm not following you."
+J> 
+A merchant chuckles at Frederick.
+J> 
+A palace guards speaks to a young maid in a corner.
+J> 
+Frederick casually puts his arm around Chandra.
+J> 
+Lusiana removes some grapes from the table.
+J> 
+Stefan listens to Airgid with interest.
+J> 
+Moryan removes some grapes from the table.
+J> 
+The prismatic globe around Young vanishes.
+J> 
+Moryan takes a bite of some grapes.
+J> 
+Moryan nibbles slowly on the delectable looking grape.
+J> 
+Donnald listens carefully to Airgid.
+J> 
+You feel the touch of Moire's mind:
+"ah, I foun' a wondrous drinkin' spot"
+J> 
+Crunch spots an apple laying on the table and grabs it and pops it in his
+mouth, chews once then swallows.
+J> 
+Airgid says, "Ahh if I can't make the meaning clear, I will have Jayd come to
+you and explain."
+J> 
+Fafnir says, "If i mat Airgid"
+J> whisp freder I will probably need to go to bed soon, worked 14 hours today, probably 12 more tomorrow()
+
+Feras rolls his eyes.
+J> You whisper to Frederick.
+J> 
+Yurick says, "I believe he is saying that the invitation was sent to the wrong
+place."
+J> 
+Nikoli nods to a merchant.
+J> 
+Airgid says, "Or Synachi"
+J> 
+Frederick whispers to you, "chuckle, Ok, I still have anothe rnpc to pull out
+*grin*() lemme know  when you can play something and we can get these two going
+more"
+J> 
+Airgid bows towards Frederick.
+J> 
+Kellah removes a fruit pastry from the table.
+J> 
+A bell tolls in the Mosque.
+J> 
+Kellah looks at the fruit pastry.
+J> 
+Moryan nods to Stefan.
+J> 
+Young removes a fruit pastry from the table.
+J> 
+Fafnir bows towards Frederick.
+J> 
+Frederick nods to Airgid.
+J> 
+Young inhales deeply of the fruit pastry.
+J> 
+Young smiles.
+J> 
+Young takes a bite of a fruit pastry.
+J> 
+Young, barely able to contain himself, stuffs a piece of fruit pastry into his
+mouth.
+J> 
+Jasmine drinks some sparkling pink champagne.
+J> 
+Frederick gazes at you.
+J> 
+Cypress smiles at Young.
+J> 
+Wolfbane removes a luscious red apple from the table.
+J> 
+Wolfbane rubs a luscious red apple.
+J> 
+The apple gleams after being polished so thoroughly.
+J> 
+Lexa raises an eyebrow towards Young.
+J> 
+Donnald removes some grapes from the table.
+J> 
+Yourion removes a fruit pastry from the table.
+J> 
+Kellah blinks.
+J> 
+Wolfbane takes a bite of a luscious red apple.
+J> 
+Moryan nods to Stefan.
+J> 
+Kellah removes some roast boar from the table.
+J> 
+Feras wrinkles up his nose.
+J> 
+Kellah sniffs some roast boar.
+J> 
+Zorha removes a shrimp off the plate, dips it in the sauce and eats it,
+removing and discarding the shell.
+J> 
+Donnald takes a bite of some grapes.
+J> 
+Donnald nibbles slowly on the delectable looking grape.
+J> 
+Young takes a bite of a fruit pastry.
+J> 
+Young, barely able to contain himself, stuffs a piece of fruit pastry into his
+mouth.
+J> 
+Slaves are busy bringing food and drink.
+J> 
+Kellah takes a bite of some roast boar.
+J> 
+Lusiana drinks some sparkling pink champagne.
+J> 
+Zorha removes a shrimp off the plate, dips it in the sauce and eats it,
+removing and discarding the shell.
+J> 
+Cypress casts her gaze across the area.
+J> 
+Wolfbane says, "how have you been my queen it has been some time since i have
+seen you"
+J> 
+Feras twists up his face in an expression of pain.
+J> 
+Kellah says, "Mmmm.."
+J> 
+Donnald sighs.
+J> 
+Frederick says, "Vizier.."
+J> 
+Wolfbane smiles at Zorha.
+J> 
+Zorha smiles at Wolfbane.
+J> 
+Kellah takes a bite of some roast boar.
+J> 
+Zorha says, "I have been well"
+J> 
+Jasmine puts a glass on the table.
+J> 
+Cypress comforts Feras.
+J> 
+Jasmine puts an elegant long-stemmed crystal glass engraved with a rampant
+tiger before a sunburst of golden swords on the table.
+J> 
+Moryan chuckles at Stefan.
+J> whisp fred ok, will let you know. Hopefully the current project will be finished this week and I'll more time next week()
+You whisper to Frederick.
+J> 
+Kellah takes a bite of some roast boar.
+J> 
+Wolfbane says, "that is good to hear"
+J> 
+Wolfbane smiles at Zorha.
+J> 
+Young takes a bite of a fruit pastry.
+J> 
+Young, barely able to contain himself, stuffs a piece of fruit pastry into his
+mouth.
+J> 
+A merchant ponders.
+J> 
+Donnald drinks some sparkling pink champagne.
+J> 
+Feras's stomach growls.
+J> 
+Jasmine removes an elegant long-stemmed crystal glass engraved with a rampant
+tiger before a sunburst of golden swords from the table.
+J> 
+Frederick asks, "Is there a nearby room.. a sitting room I could make use of?"
+J> 
+Feras mutters something you can't quite make out.
+J> 
+Donnald puts an elegant long-stemmed crystal glass engraved with a rampant
+tiger before a sunburst of golden swords on the table.
+J> 
+Zorha says, "A wonderful day, but sad too, my youngest."
+J> 
+Kellah smiles at Young.
+J> 
+Zorha sighs.
+J> 
+Wolfbane says, "not my place here lexa"
+J> 
+Kellah takes a bite of a fruit pastry.
+J> 
+Kellah, barely able to contain herself, stuffs a piece of fruit pastry into her
+mouth.
+J> 
+Feras nods to Cypress.
+J> 
+Frederick gazes at Zorha.
+J> 
+Yourion's group goes through a heavy teak gate.
+J> 
+Young takes a bite of a fruit pastry.
+J> 
+Young, barely able to contain himself, stuffs a piece of fruit pastry into his
+mouth.
+J> 
+Wolfbane smiles at Lexa.
+J> 
+Lexa smiles zorah
+J> 
+Frederick says, "Mother, please don't start."
+J> 
+Wolfbane nods to Zorha.
+J> 
+Moryan nods to Stefan.
+J> 
+Zorha smiles at Frederick.
+J> 
+Young smiles at Kellah.
+J> 
+Musicians play quietly in the background.
+J> 
+Jasmine drinks some sparkling pink champagne.
+J> 
+Wolfbane whistles innocently.
+J> 
+Donnald takes a bite of some grapes.
+J> 
+Donnald nibbles slowly on the delectable looking grape.
+J> 
+Zorha says, "Well, very well."
+J> 
+Airgid bows towards Zorha.
+J> 
+Zorha frowns.
+J> smi
+You smile.
+J> 
+Zorha smiles at Airgid.
+J> 
+Frederick whispers to you, "let me act escorting you out()"
+J> 
+Donnald stands up.
+J> 
+Fafnir leans on some roast boar.
+J> 
+Khaled says, "Well my lords there are many places, the entire city is open to
+you."
+J> 
+You feel the touch of Krystian's mind:
+"hello"
+J> whisp fred Ok, ready when you are :)
+You whisper to Frederick.
+J> 
+Yurick gazes at Fafnir.
+J> 
+Lexa smiles at Airgid.
+J> 
+Fafnir leans on some roast boar.
+J> 
+The wedding streamers flutter in the breeze.
+J> 
+Wolfbane smiles at Khaled.
+J> 
+You feel the touch of Tobias's mind:
+"Hello Krystian"
+J> 
+You feel the touch of Silence's mind:
+"Kvaahn!"
+J> 
+You feel the touch of Sashi's mind:
+"Hello, Krystian."
+J> 
+Airgid smiles lexas
+J> 
+Frederick makes a slight bow to the gathering.
+J> 
+Fafnir mutters something you can't quite make out.
+J> 
+Donnald goes through a heavy teak gate.
+J> 
+Khaled says, "Perhaps the baths?"
+J> 
+Frederick's group goes through a heavy teak gate.
+J> 
+You follow Frederick.
+[Intersection of Palace and Caravan St]
+Obvious exits: n, s.
+J> 
+Donnald lights a lantern.
+J> 
+Frederick smiles at you.
+J> smi
+You smile.
+J> 
+Donnald goes south.
+J> nuz fred
+You nuzzle Frederick affectionately.
+J> 'That was a lovely wedding
+You say, "That was a lovely wedding"
+J> 
+Frederick smiles.
+J> 
+Frederick says, "Aye."
+J> 
+Irienne arrives.
+J> 
+Frederick casts his gaze across the area.
+J> 'Liriama was purely radiant
+You say, "Liriama was purely radiant"
+J> 
+Irienne goes through a heavy teak gate.
+J> 
+Frederick coughs.
+J> 
+Frederick casts his gaze across the area.
+J> 
+Frederick kisses you upon the lips.
+J> gaze
+You gaze about the area.
+J> 
+Everywhere the babble of foreign voices and strange sounds surround you.
+J> kiss fred lips
+You kiss Frederick upon the lips.
+J> beam
+You beam happily.
+J> 
+Frederick chuckles.
+J> act looks lovingly upon Frederick.
+Chandra looks lovingly upon Frederick.
+J> look
+[Intersection of Palace and Caravan St]
+It is too dark to see anything.
+Obvious exits: north, south.
+J> 
+Frederick touches you.
+J> 
+Frederick says, "Be well. Many saw you at my side."
+J> smi
+You smile.
+J> 
+Frederick hugs you.
+J> 'I will, I'm certain they know better
+You say, "I will, I'm certain they know better"
+J> hug fred
+You hug Frederick.
+J> 
+Donnald's group arrives.
+J> look
+
+Donnald's group goes through a heavy teak gate.
+J> [Intersection of Palace and Caravan St]
+It is too dark to see anything.
+Obvious exits: north, south.
+J> 
+You see guards pace by on the palace wall.
+J> 
+A merchant arrives through a heavy teak gate.
+J> 
+ ** Sashi has just disconnected.
+J> 
+Frederick nods.
+J> 
+The sun rises in the east.
+J> beam fred
+You beam at Frederick.
+J> 
+A merchant arches his eyebrow.
+J> look
+[Intersection of Palace and Caravan St]
+You are at the gate to the Palace of the Sultan. You can see the trees and
+domes of the Palace over the top of the wall. Several men guard the gates.
+To the east you see the gleaming white dome and prayer towers of Shakara's
+Mosque. Streamers and ribbon bedeck the walls.
+You see a merchant and Frederick. 
+Obvious exits: north, south.
+J> 
+A merchant casts his gaze across the area.
+J> 
+Frederick kisses you on the cheek.
+J> 
+A merchant goes north.
+J> 
+Frederick whispers to you, "heh()"
+J> 
+The king leaves the room, royal guards looking around attentively.
+> 
+Moire arrives.
+> 
+Moire goes through a heavy teak gate.
+> look
+[Intersection of Palace and Caravan St]
+You are at the gate to the Palace of the Sultan. You can see the trees and
+domes of the Palace over the top of the wall. Several men guard the gates.
+To the east you see the gleaming white dome and prayer towers of Shakara's
+Mosque. Streamers and ribbon bedeck the walls.
+Obvious exits: north, south.
+> 
+Lexa arrives through a heavy teak gate.
+> 
+ ** Krystian has just disconnected.
+> x
+
+ ** Chandra has just left the Realms.
+> 
+
+Character Manager V1.00
+
+ 1 => Moordread
+ 2 => Morti
+ 3 => Bubba
+
+ C => Create new character
+ D => Delete current character
+ P => Play Legends of Future Past
+ X => Exit to NovaLink
+
+
+Active character: Bubba (#3)
+
+Select: /bye
+
+
+Thank you for using NovaLink.
+
+Connect time this session: 90 minutes.
+
+Have a nice evening!
+
+NovaLink is an online service of NovaLink USA Corporation,
+200 Friberg Parkway, Suite 4003, Westborough, MA 01581. Service: 800-274-2814.
+
+
+
+
+
+
+
+
+
+Invalid selection.
+
+Character Manager V1.00
+
+ 1 => Moordread
+ 2 => Morti
+ 3 => Bubba
+
+ C => Create new character
+ D => Delete current character
+ P => Play Legends of Future Past
+ X => Exit to NovaLink
+
+
+Active character: Bubba (#3)
+

@@ -1,0 +1,699 @@
+look
+[Palace, grounds]
+A sand covered path leads from the gate to the front entrance of the
+Royal Palace. Lining the path are beautiful flowers and trees are tended
+to by the Royal gardener. His work is exemplary. One could spend many
+hours just staring in wonderment at the profusion of flora. The palace
+itself is the work of another artisan at the top of his profession.
+Broad, blue marbled steps lead up to a series of fluted marble pillars.
+The pillars and their entablature are sculpted to look like young nymphs.
+Large, potted plants sit between the pillars, except for the entryway,
+and the vines of the plants have started to grow their way up the pillars,
+adding even more beauty to the palace. Through the front entryway, one
+can see various functionaries running about. A gate leads back to the city.
+Obvious exits: east, west.
+> verbose
+Full descriptions on.
+> w
+[Palace, pool]
+Elm trees encircle a man-made tide pool on three sides. The fourth side
+is a beach. The pool is filled with crystal clear water, and all
+varieties of marine life can be seen in it. A Royal Game Warden
+continuously watches over the pool to ensure that its fragile ecosystem
+is maintained. The pool is a wonderful place to swim a few laps, or to
+enjoy a few carefree hours of fishing.
+Obvious exits: east.
+> exam pool
+You see nothing extraordinary.
+> e
+[Palace, grounds]
+A sand covered path leads from the gate to the front entrance of the
+Royal Palace. Lining the path are beautiful flowers and trees are tended
+to by the Royal gardener. His work is exemplary. One could spend many
+hours just staring in wonderment at the profusion of flora. The palace
+itself is the work of another artisan at the top of his profession.
+Broad, blue marbled steps lead up to a series of fluted marble pillars.
+The pillars and their entablature are sculpted to look like young nymphs.
+Large, potted plants sit between the pillars, except for the entryway,
+and the vines of the plants have started to grow their way up the pillars,
+adding even more beauty to the palace. Through the front entryway, one
+can see various functionaries running about. A gate leads back to the city.
+Obvious exits: east, west.
+> e
+[Palace, fountain]
+A majestic bluestone dolphin stares somberly into the sky from the empty
+fountain in the center of this grove. Gray branches rattle in a sharp gust of
+wind. Fur-clad, a single sojourner paces beside the stone benches here, too
+deep in meditation to notice the grove's stark beauty. A small path leads
+, through the trees, to a somber building.
+Obvious exits: west.
+> go pat
+[Palace, mausoleum]
+A white marble building, streaked with golden flecks, sits on top of a small
+hill. Stone steps lead up to the arch which offers entrance to the building.
+Brightly burning torches line the path, their illuminating glow fed by an
+eternal magic. On either side of the arch is a beautiful golden statue,
+standing guard over the young woman buried within with an eternal vigilance.
+A silver plaque is set into the stone above the arch, flowing script
+engraved into its surface. The branches of an ancient oak tree hang gently
+over the building, almost cradling it within their leafy demesne. Thick
+roots thrust from the ground and wend their way to the west forming the
+edges of path.
+Obvious exits: west.
+> 
+ ** Durek has just disconnected.
+> read plaqu
+    "May her brilliant light never dim, and be,"
+    "eternally, a beacon for others to follow."
+     May Rorin ever watch over you, daughter.
+
+         Princess Solaria Kentaurus
+                992-1018
+> look w
+[Palace, mausoleum]
+Emerald green vines, bursting with beautiful roses of all hues, are draped
+across the white marble mausoleum which sits in the middle of this clearing.
+Broad steps, streaked with gold and silver flecks, lead up to a carved arch.
+On either side of the arch a statue has been placed, the heads of the statues
+bowed in reverence. The mighty roots of the barely visible oak tree to the
+east protrude from the ground and join in front of the mausoleum to form
+what look like a pair of cupped hands. Within the hands of the oak roots
+burns a brilliant golden flame. The magnificent seal of the of the Kentaurus
+family has been placed above the arch.
+> w
+[Palace, mausoleum]
+Emerald green vines, bursting with beautiful roses of all hues, are draped
+across the white marble mausoleum which sits in the middle of this clearing.
+Broad steps, streaked with gold and silver flecks, lead up to a carved arch.
+On either side of the arch a statue has been placed, the heads of the statues
+bowed in reverence. The mighty roots of the barely visible oak tree to the
+east protrude from the ground and join in front of the mausoleum to form
+what look like a pair of cupped hands. Within the hands of the oak roots
+burns a brilliant golden flame. The magnificent seal of the of the Kentaurus
+family has been placed above the arch.
+Obvious exits: east.
+> 
+ ** Laurelin has just left the Realms.
+> look arc
+The words, "Forever in our hearts, forever in our memories", are elegantly
+scripted on the arch, flowing between the intricate carvings of leaves and
+flowers.
+[Inside Mausoleum]
+Four marble sarcophagi rest upon the floor, each one with a carving atop
+the lid. Golden braziers, each at one corner of the room, cast an eternal
+light across the room, forcing all darkness far from this place.
+Obvious exits: out.
+> 
+You return to normal speed.
+> go arc
+[Inside Mausoleum]
+Four marble sarcophagi rest upon the floor, each one with a carving atop
+the lid. Golden braziers, each at one corner of the room, cast an eternal
+light across the room, forcing all darkness far from this place.
+Obvious exits: out.
+> exam sarc
+Artfully carved into the lid is a moving representation of King Frederick
+Kentaurus the III. His eyes are closed and his hands are clasped on the
+pommel of a brilliant greatsword. There is some writing at the top of the
+sarcophagus.
+> read sarc
+       "King Frederick Kentaurus the III"
+                "956-1023"
+    "May his strength and wisdom ever guide us."
+> exam 2 sarc
+Queen Mattera's beauty and grace have been elegantly captured in the
+carving of her. Her eyes are peacefully closed and her gentle hands
+are clasped over a single white rose. There is some writing at the top
+of the sarcophagus.
+> read 2 sarc
+        "Queen Mattera Kentaurus"
+              "960-1023"
+"May her beauty and grace ever echo down the halls of time."
+> exam 3 sarc
+The innocence of the young Princess, Liriama, has been captured in
+captivating detail by the sculptor. Her delicate face is lit by
+a peaceful smile and her tiny hands are clasped over a heart-shaped
+locket.
+> read 3 sarc
+        "Princess Liriama Kentaurus"
+             "1009-1023"
+  "A child's smile will ever hold the dark at bay."
+> time
+It is Melma 10, 1045 (Year of the Wyrm).
+It is night.
+The Great Moon is gibbous waning and Phulcrus is full.
+> exam 4 sar
+The tiniest sarcophagus holds the remains of Prince Frederick the IV.
+The carving on the lid portrays the young prince with a beatific smile
+that could only appear on one so young, one so unsullied by the world.
+His tiny hands are clasped over a beautiful scepter, the one he might
+have one day held...
+> read 4 sarc
+                 "Prince Frederick Kentaurus the IV"
+                "           1018-1023"
+"The mind's eye will forever hold your laughter as it brightens eternity."
+> exam 5 sar
+What are you referring to?  Please be more specific.
+> fur
+You furrow your brow.
+> o
+[Palace, mausoleum]
+Emerald green vines, bursting with beautiful roses of all hues, are draped
+across the white marble mausoleum which sits in the middle of this clearing.
+Broad steps, streaked with gold and silver flecks, lead up to a carved arch.
+On either side of the arch a statue has been placed, the heads of the statues
+bowed in reverence. The mighty roots of the barely visible oak tree to the
+east protrude from the ground and join in front of the mausoleum to form
+what look like a pair of cupped hands. Within the hands of the oak roots
+burns a brilliant golden flame. The magnificent seal of the of the Kentaurus
+family has been placed above the arch.
+Obvious exits: east.
+> e
+[Palace, mausoleum]
+A white marble building, streaked with golden flecks, sits on top of a small
+hill. Stone steps lead up to the arch which offers entrance to the building.
+Brightly burning torches line the path, their illuminating glow fed by an
+eternal magic. On either side of the arch is a beautiful golden statue,
+standing guard over the young woman buried within with an eternal vigilance.
+A silver plaque is set into the stone above the arch, flowing script
+engraved into its surface. The branches of an ancient oak tree hang gently
+over the building, almost cradling it within their leafy demesne. Thick
+roots thrust from the ground and wend their way to the west forming the
+edges of path.
+Obvious exits: west.
+> look arc
+You see nothing extraordinary.
+Uninitialized room!
+> go pat
+[Palace, fountain]
+A majestic bluestone dolphin stares somberly into the sky from the empty
+fountain in the center of this grove. Gray branches rattle in a sharp gust of
+wind. Fur-clad, a single sojourner paces beside the stone benches here, too
+deep in meditation to notice the grove's stark beauty. A small path leads
+, through the trees, to a somber building.
+Obvious exits: west.
+> w
+[Palace, grounds]
+A sand covered path leads from the gate to the front entrance of the
+Royal Palace. Lining the path are beautiful flowers and trees are tended
+to by the Royal gardener. His work is exemplary. One could spend many
+hours just staring in wonderment at the profusion of flora. The palace
+itself is the work of another artisan at the top of his profession.
+Broad, blue marbled steps lead up to a series of fluted marble pillars.
+The pillars and their entablature are sculpted to look like young nymphs.
+Large, potted plants sit between the pillars, except for the entryway,
+and the vines of the plants have started to grow their way up the pillars,
+adding even more beauty to the palace. Through the front entryway, one
+can see various functionaries running about. A gate leads back to the city.
+Obvious exits: east, west.
+> go ent
+[Palace, entrance]
+This grand, entrance hall is filled with activity almost every hour of the day.
+Various court functionaries scurry about on errands. The palace is as awe
+inspiring inside as it is outside. Large scale paintings of the Royal Family
+and sculptures adorn the highly polished blue stone walls. The floor has been
+inlaid with a tile mosaic of the Royal Family Crest. A clerk sits behind a
+polished maple desk. His job is to greet visitors and take their names and
+business.
+Obvious exits: north, east, west, out.
+> exam desk
+What are you referring to?  Please be more specific.
+> w
+[Palace]
+A large number of doors line the western wall of this north-south hallway. The
+doors all lead to the spartan living quarters of the palace servants.
+Obvious exits: north, east.
+> n
+[Palace, hallway]
+An imposing onyx statue of King Frederick I stands in the middle of this
+intersecting hallway. Delightful smells waft from behind a door to the west.
+Obvious exits: north, south, east.
+> look n
+[Palace, banquet hall]
+Gleaming silverware and beautiful china sit on top of a polished table in the
+center of this large hall. The table is enormous with enough room to seat fifty
+people comfortably in the intricately carved chairs placed around the table.
+Above the table, a crystal chandelier sparkles with light and loveliness.
+> n
+[Palace, banquet hall]
+Gleaming silverware and beautiful china sit on top of a polished table in the
+center of this large hall. The table is enormous with enough room to seat fifty
+people comfortably in the intricately carved chairs placed around the table.
+Above the table, a crystal chandelier sparkles with light and loveliness.
+Obvious exits: south, west.
+> w
+[Palace, kitchen]
+A variety of culinary items said to predate the Cataclysm dominate this room.
+They range from boxes that keep things cold all the time, to ovens that don't
+require fire to work. In the center sits a wooden table used by the cooks to
+prepare food. Pots and pans hang over the table from a ceiling rack. A large
+staff is always busy preparing food, thus the room is filled with delightful
+smells.
+Obvious exits: east.
+> e
+[Palace, banquet hall]
+Gleaming silverware and beautiful china sit on top of a polished table in the
+center of this large hall. The table is enormous with enough room to seat fifty
+people comfortably in the intricately carved chairs placed around the table.
+Above the table, a crystal chandelier sparkles with light and loveliness.
+Obvious exits: south, west.
+> s
+[Palace, hallway]
+An imposing onyx statue of King Frederick I stands in the middle of this
+intersecting hallway. Delightful smells waft from behind a door to the west.
+Obvious exits: north, south, east.
+> e
+[Palace, waiting room]
+A great set of golden double doors, inlaid with beautiful faceted rubies and
+the Royal Crest block the entrance to the throne room. Arrayed against the
+walls are various couches and chairs used by those who await an audience with
+the king. A herald sits behind an impressive, hexagonal desk, charged with the
+task of announcing visitors to the king.
+Obvious exits: south, east, west.
+> w
+[Palace, hallway]
+An imposing onyx statue of King Frederick I stands in the middle of this
+intersecting hallway. Delightful smells waft from behind a door to the west.
+Obvious exits: north, south, east.
+> open door
+It is locked.
+> pre 114
+You prepare the Mystic Key spell.
+ [Round: 3 sec]
+R> cast door
+You gesture at a door.
+[Success: 95%, Roll 65] Success!
+You hear a click from within a door.
+> open door
+You open a door.
+> go door
+[Palace, kitchen]
+A variety of culinary items said to predate the Cataclysm dominate this room.
+They range from boxes that keep things cold all the time, to ovens that don't
+require fire to work. In the center sits a wooden table used by the cooks to
+prepare food. Pots and pans hang over the table from a ceiling rack. A large
+staff is always busy preparing food, thus the room is filled with delightful
+smells.
+Obvious exits: east.
+> e
+[Palace, banquet hall]
+Gleaming silverware and beautiful china sit on top of a polished table in the
+center of this large hall. The table is enormous with enough room to seat fifty
+people comfortably in the intricately carved chairs placed around the table.
+Above the table, a crystal chandelier sparkles with light and loveliness.
+Obvious exits: south, west.
+> s
+[Palace, hallway]
+An imposing onyx statue of King Frederick I stands in the middle of this
+intersecting hallway. Delightful smells waft from behind a door to the west.
+Obvious exits: north, south, east.
+> s
+[Palace]
+A large number of doors line the western wall of this north-south hallway. The
+doors all lead to the spartan living quarters of the palace servants.
+Obvious exits: north, east.
+> exam door
+What are you referring to?  Please be more specific.
+> e
+[Palace, entrance]
+This grand, entrance hall is filled with activity almost every hour of the day.
+Various court functionaries scurry about on errands. The palace is as awe
+inspiring inside as it is outside. Large scale paintings of the Royal Family
+and sculptures adorn the highly polished blue stone walls. The floor has been
+inlaid with a tile mosaic of the Royal Family Crest. A clerk sits behind a
+polished maple desk. His job is to greet visitors and take their names and
+business.
+Obvious exits: north, east, west, out.
+> e
+[Palace, hallway]
+This long north-south running hallway annexes the various administrative
+offices needed to keep the palace running in tiptop shape.
+Obvious exits: north, west.
+> n
+[Palace]
+Standing in the center of this intersection is an well-crafted elkyri statue of
+King Frederick II, the present king's grandfather.
+Obvious exits: north, south, west.
+> gaze helm
+You gaze at a royal helm bearing the crest of King Frederick II.
+> gaze stat
+You gaze at an elkyri statue of King Frederick II.
+> exam stat
+You see nothing extraordinary.
+> look stat
+You see nothing extraordinary.
+> w
+[Palace, waiting room]
+A great set of golden double doors, inlaid with beautiful faceted rubies and
+the Royal Crest block the entrance to the throne room. Arrayed against the
+walls are various couches and chairs used by those who await an audience with
+the king. A herald sits behind an impressive, hexagonal desk, charged with the
+task of announcing visitors to the king.
+Obvious exits: south, east, west.
+> e
+[Palace]
+Standing in the center of this intersection is an well-crafted elkyri statue of
+King Frederick II, the present king's grandfather.
+Obvious exits: north, south, west.
+> n
+[Palace]
+A plush carpet covers the floor of this hallway. Soft light streams in from a
+window of milky glass. Various potted plants also sit on the floor lending a
+delightful fragrance to the area. There is an titanium door, an oak door, and a
+black door.
+Obvious exits: south.
+> open tit door
+It is locked.
+> pre 114
+You prepare the Mystic Key spell.
+ [Round: 3 sec]
+R> cas tit door
+[Wait 1 seconds...]
+R> cas tit door
+You gesture at a titanium door.
+[Success: 95%, Roll 73] Success!
+A titanium door shudders for a moment.
+> pre 210
+You prepare the Haste spell.
+ [Round: 3 sec]
+R> cast
+You gesture.
+[Success: 95%, Roll 82] Success!
+You find yourself able to move incredibly fast.
+> pre 114
+You prepare the Mystic Key spell.
+ [Round: 1 sec]
+R> cas tit door
+pre 114
+You gesture at a titanium door.
+[Success: 95%, Roll 10] Success!
+A titanium door shudders for a moment.
+> You prepare the Mystic Key spell.
+ [Round: 1 sec]
+R> cas tit door
+pre 114
+You gesture at a titanium door.
+[Success: 95%, Roll 40] Success!
+A titanium door shudders for a moment.
+> You prepare the Mystic Key spell.
+ [Round: 1 sec]
+R> cas tit door
+pre 114
+You gesture at a titanium door.
+[Success: 95%, Roll 8] Success!
+A titanium door shudders for a moment.
+> You prepare the Mystic Key spell.
+ [Round: 1 sec]
+R> cas tit door
+pre 114
+You gesture at a titanium door.
+[Success: 95%, Roll 100] Extreme failure!
+> You prepare the Mystic Key spell.
+ [Round: 1 sec]
+R> cas tit door
+pre 114
+You gesture at a titanium door.
+[Success: 95%, Roll 23] Success!
+A titanium door shudders for a moment.
+> You prepare the Mystic Key spell.
+ [Round: 1 sec]
+R> look
+[Palace]
+A plush carpet covers the floor of this hallway. Soft light streams in from a
+window of milky glass. Various potted plants also sit on the floor lending a
+delightful fragrance to the area. There is an titanium door, an oak door, and a
+black door.
+Obvious exits: south.
+> open 2 door
+It is locked.
+> cas 2 door
+pre 114
+You gesture at a black door.
+[Success: 95%, Roll 98] Failure.
+> You prepare the Mystic Key spell.
+ [Round: 1 sec]
+R> cas 2 door
+pre 114
+You gesture at a black door.
+[Success: 95%, Roll 8] Success!
+A black door shudders for a moment.
+> You prepare the Mystic Key spell.
+ [Round: 1 sec]
+R> cas 2 door
+pre 114
+You gesture at a black door.
+[Success: 95%, Roll 28] Success!
+A black door shudders for a moment.
+> You prepare the Mystic Key spell.
+ [Round: 1 sec]
+R> cas 2 door
+pre 114
+You gesture at a black door.
+[Success: 95%, Roll 71] Success!
+A black door shudders for a moment.
+> You prepare the Mystic Key spell.
+ [Round: 1 sec]
+R> cas 2 door
+pre 114
+You gesture at a black door.
+[Success: 95%, Roll 53] Success!
+A black door shudders for a moment.
+> You prepare the Mystic Key spell.
+ [Round: 1 sec]
+R> open 3 door
+It is locked.
+> cas 3 door
+pre 114
+You gesture at a titanium door.
+[Success: 95%, Roll 71] Success!
+A titanium door shudders for a moment.
+> You prepare the Mystic Key spell.
+ [Round: 1 sec]
+R> cas 3 door
+pre 114
+You gesture at a titanium door.
+[Success: 95%, Roll 28] Success!
+A titanium door shudders for a moment.
+> You prepare the Mystic Key spell.
+ [Round: 1 sec]
+R> cas 3 door
+pre 114
+You gesture at a titanium door.
+[Success: 95%, Roll 88] Success!
+A titanium door shudders for a moment.
+> You prepare the Mystic Key spell.
+ [Round: 1 sec]
+R> cas door
+pre 114
+You gesture at an oak door.
+[Success: 95%, Roll 33] Success!
+An oak door shudders for a moment.
+> You prepare the Mystic Key spell.
+ [Round: 1 sec]
+R> cas door
+pre 114
+You gesture at an oak door.
+[Success: 95%, Roll 86] Success!
+You hear a click from within an oak door.
+> You prepare the Mystic Key spell.
+ [Round: 1 sec]
+R> cas door
+pre 114
+You gesture at an oak door.
+[Success: 95%, Roll 86] Success!
+An oak door shudders for a moment.
+> You prepare the Mystic Key spell.
+ [Round: 1 sec]
+R> open oak door
+You open an oak door.
+> rel
+You release your prepared spell.
+> go oak door
+[Palace, bedroom]
+It is too dark to see anything.
+Obvious exits: none.
+> tap staf
+You rap your staff on the ground.
+A small orb of light appears and floats beside you.
+> look
+[Palace, bedroom]
+The former bedchamber of the dead King, this room is now a cheerless place.
+Plaster dust hangs in the air where workmen have been tearing at the walls,
+searching for the beginning of the secret passage used when Frederick was
+murdered. The furniture which remains is covered with tarpulins.
+Obvious exits: none.
+> sear
+You search the area.
+ [Round: 2 sec]
+R> exam bed
+What are you referring to?  Please be more specific.
+> go doo
+[Palace]
+A plush carpet covers the floor of this hallway. Soft light streams in from a
+window of milky glass. Various potted plants also sit on the floor lending a
+delightful fragrance to the area. There is an titanium door, an oak door, and a
+black door.
+Obvious exits: south.
+> open bla door
+It is locked.
+> open 4 door
+What are you referring to?  Please be more specific.
+> cas bla door
+pre 114
+You have not prepared a spell.
+> You prepare the Mystic Key spell.
+ [Round: 1 sec]
+R> cas bla door
+pre 114
+You gesture at a black door.
+[Success: 95%, Roll 11] Success!
+A black door shudders for a moment.
+> You prepare the Mystic Key spell.
+ [Round: 1 sec]
+R> cas bla door
+pre 114
+You gesture at a black door.
+[Success: 95%, Roll 94] Success!
+A black door shudders for a moment.
+> You prepare the Mystic Key spell.
+ [Round: 1 sec]
+R> cas bla door
+pre 114
+You gesture at a black door.
+[Success: 95%, Roll 82] Success!
+A black door shudders for a moment.
+> You prepare the Mystic Key spell.
+ [Round: 1 sec]
+R> cas bla door
+pre 114
+You gesture at a black door.
+[Success: 95%, Roll 6] Success!
+A black door shudders for a moment.
+> You prepare the Mystic Key spell.
+ [Round: 1 sec]
+R> rel
+s
+You release your prepared spell.
+> [Palace]
+Standing in the center of this intersection is an well-crafted elkyri statue of
+King Frederick II, the present king's grandfather.
+Obvious exits: north, south, west.
+> s
+[Palace, hallway]
+This long north-south running hallway annexes the various administrative
+offices needed to keep the palace running in tiptop shape.
+Obvious exits: north, west.
+> w
+[Palace, entrance]
+This grand, entrance hall is filled with activity almost every hour of the day.
+Various court functionaries scurry about on errands. The palace is as awe
+inspiring inside as it is outside. Large scale paintings of the Royal Family
+and sculptures adorn the highly polished blue stone walls. The floor has been
+inlaid with a tile mosaic of the Royal Family Crest. A clerk sits behind a
+polished maple desk. His job is to greet visitors and take their names and
+business.
+Obvious exits: north, east, west, out.
+> go doo
+What are you referring to?  Please be more specific.
+> n
+[Palace, courtyard]
+The cobble stoned courtyard is open to the sky. Various sculptures, plants,
+and granite benches fill the courtyard. The courtyard has an overall
+pleasing, aesthetic quality, enhanced by the beautiful songs of the court
+nightingales. Most of the sculptures are well-made renditions of the
+various gods worshipped by the people of Fayd. All the gods are represented
+except for, of course, Dahkahn.
+Some pebbles are here.
+Obvious exits: north, south.
+> n
+[Palace, waiting room]
+A great set of golden double doors, inlaid with beautiful faceted rubies and
+the Royal Crest block the entrance to the throne room. Arrayed against the
+walls are various couches and chairs used by those who await an audience with
+the king. A herald sits behind an impressive, hexagonal desk, charged with the
+task of announcing visitors to the king.
+Obvious exits: south, east, west.
+> open door
+It is locked.
+> pre 114
+You prepare the Mystic Key spell.
+ [Round: 1 sec]
+R> cast door
+pre 114
+You gesture at a golden door.
+[Success: 95%, Roll 55] Success!
+A golden door shudders for a moment.
+> You prepare the Mystic Key spell.
+ [Round: 1 sec]
+R> cast door
+pre 114
+You gesture at a golden door.
+[Success: 95%, Roll 29] Success!
+A golden door shudders for a moment.
+> You prepare the Mystic Key spell.
+ [Round: 1 sec]
+R> cast door
+pre 114
+You gesture at a golden door.
+[Success: 95%, Roll 28] Success!
+A golden door shudders for a moment.
+> You prepare the Mystic Key spell.
+ [Round: 1 sec]
+R> cast door
+pre 114
+You gesture at a golden door.
+[Success: 95%, Roll 80] Success!
+A golden door shudders for a moment.
+> You prepare the Mystic Key spell.
+ [Round: 1 sec]
+R> cast door
+pre 114
+You gesture at a golden door.
+[Success: 95%, Roll 67] Success!
+A golden door shudders for a moment.
+> You prepare the Mystic Key spell.
+ [Round: 1 sec]
+R> cast door
+pre 114
+You gesture at a golden door.
+[Success: 95%, Roll 97] Failure.
+> You prepare the Mystic Key spell.
+ [Round: 1 sec]
+R> rel
+You release your prepared spell.
+> open door
+It is locked.
+> look
+[Palace, waiting room]
+A great set of golden double doors, inlaid with beautiful faceted rubies and
+the Royal Crest block the entrance to the throne room. Arrayed against the
+walls are various couches and chairs used by those who await an audience with
+the king. A herald sits behind an impressive, hexagonal desk, charged with the
+task of announcing visitors to the king.
+Obvious exits: south, east, west.
+> exam desk
+This unusual desk has five sides. The sixth side is an opening in which somone
+may sit in a chair.
+> who
+Issasa             Krystian           Rion               Kylie              
+Chandra            Durek              
+
+
+There are 6 adventurers in the Realms.
+
+> health
+You have 276/276 body points.
+You have a scorched back, a nicked and scorched right leg, a singed left leg, a
+singed right hand and a nicked and banged-up left hand.
+> w
+[Palace, hallway]
+An imposing onyx statue of King Frederick I stands in the middle of this
+intersecting hallway. Delightful smells waft from behind a door to the west.
+Obvious exits: north, south, east.
+> n
+[Palace, banquet hall]
+Gleaming silverware and beautiful china sit on top of a polished table in the
+center of this large hall. The table is enormous with enough room to seat fifty
+people comfortably in the intricately carved chairs placed around the table.
+Above the table, a crystal chandelier sparkles with light and loveliness.
+Obvious exits: south, west.

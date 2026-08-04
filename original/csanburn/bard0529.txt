@@ -1,0 +1,6216 @@
+
+Gwydion sings, "Think on the battle-cost.
+                This time, the wolfling lost,
+                Beaten and broken and blind.
+                Better beware, my lord,
+                Better prepare, my lord...
+                I was the least of my kind."
+s> 
+Gwydion strikes the drum one mighty blow with the last word of the song, closes
+his eyes, and howls to the sky.
+s> 
+Moryan disconnects.
+s> 
+Rion listens carefully to Gwydion.
+s> 
+Burne whistles.
+s> 
+Feras smiles.
+s> 
+Gwydion bows.
+s> 
+Sy applauds.
+s> 
+Burne whistles.
+s> 
+Burne whistles.
+s> 
+Amaryllys applauds.
+s> 
+Irienne applauds.
+s> 
+Feras drinks some emerald wine.
+s> 
+Young applauds.
+s> 
+Miria applauds.
+s> 
+Burne howls.
+s> 
+Marcolan smiles.
+s> 
+Marcolan applauds.
+s> stand
+You struggle to your feet under the weight of all your equipment.
+ [Round: 2 sec]
+You rise from your comfortable seat in the lush grass.
+R> sal gwyd
+You salute Gwydion.
+> sit
+You sit.
+You find a comfortable spot and sink down into the lush, comfortable green
+grass.
+s> 
+Leah applauds this time without blushing.
+s> 
+Amaryllys raises a toast to Gwydion!
+s> 
+Leah applauds.
+s> 
+Amaryllys applauds.
+s> 
+Burne struggles to his feet.
+s> 
+Burne rises from his comfortable seat in the lush grass.
+s> 
+Fafnir smiles.
+s> 
+Leah applauds.
+s> 
+Veronica applauds.
+s> 
+Burne bows towards Gwydion.
+s> 
+Veronica applauds.
+s> 
+Veronica applauds.
+s> 
+Wolfbane applauds.
+s> 
+Gwydion puts away the drum.
+s> 
+Burne sits down.
+s> 
+Burne finds a comfortable spot and sinks down into the lush, comfortable green
+grass.
+s> 
+Gwydion sits down.
+s> 
+Gwydion finds a comfortable spot and sinks down into the lush, comfortable
+green grass.
+s> 
+Gwydion wields a shimmering bardic harp of richly polished walnut, with subtly
+intricate patterns of rosewood inlay.
+s> 
+Leah smiles at Fafnir.
+s> 
+Burne says, "'''''d'd''d''d'd''d"
+s> 
+Sy sits down.
+s> 
+Sy finds a comfortable spot and sinks down into the lush, comfortable green
+grass.
+s> 
+Rion applauds.
+s> 
+Feras drinks some emerald wine.
+s> 
+Rion applauds.
+s> 
+Burne arches his eyebrow.
+s> 
+ ** Burne has just left the Realms.
+s> 
+Burne exits.
+s> 
+Burne arrives.
+s> 
+Wolfbane says, "very good story gwydion very true to form i might add"
+s> 
+Amaryllys rubs a well-worn black rosewood lyre painted with a gilded unicorn
+with no horn.
+s> 
+Beautifully melodic strains of music emanate from the lyre and drift through
+the air, filling you with a range of strong emotions.
+s> 
+Burne nods to Gwydion.
+s> 
+Amaryllys blushes.
+s> 
+Burne mutters something you can't quite make out.
+s> 
+Amaryllys coughs.
+s> 
+Gwydion says, "I seem to have put her majesty to sleep. Bad sign, I'd say."
+s> 
+Amaryllys smiles at Gwydion.
+s> 
+Young says, "No, she had to go to the powder room"
+s> 
+Rion says, "i liked your song"
+s> 
+Wolfbane chuckles at Gwydion.
+s> 
+Rion smiles at Gwydion.
+s> 
+Young smiles at Gwydion.
+s> 
+Wolfbane nods to Rion.
+s> 
+Burne says, "It was very good"
+s> 
+Amaryllys says, "Only under some circumstances.."
+s> 
+Sy chuckles at Young.
+s> 
+Amaryllys smiles at Gwydion.
+s> 
+Gwydion says, "If it's alright, I'll wait for her to return."
+s> 
+Moryan arrives.
+s> 
+Young says, "Yes, please"
+s> 
+Moryan coughs.
+s> 
+Wolfbane says, "sounds like you under certain circumstances"
+s> 
+Young nods to Gwydion.
+s> 
+Gwydion smiles at Moryan.
+s> 
+Wolfbane smiles at Rion.
+s> 
+Young is now guarding Moryan.
+s> 
+Irienne gazes around the area, carefully scrutinizing every unfamiliar face.
+s> 
+Feras drinks some emerald wine.
+s> 
+Feras closes his eyes.
+s> 
+Gwydion says, "Now to change the mood just a bit."
+s> 
+Rion blinks.
+s> 
+Wolfbane listens carefully to Gwydion.
+s> 
+Gwydion plays a martial progression, and then pauses. After a moment, he begins
+to sing, his voice carrying the rythmn as the harp adds bold accenting chords.
+s> 
+Burne lays down.
+s> 
+Feras ponders.
+s> 
+Feras opens his eyes.
+s> 
+Wolfbane nods to Rion.
+s> 
+Gwydion sings, "What boy is this who blocks my way, his hand upon his sword?
+                A challenge, then. Another pup who will not be ignored."
+s> 
+Burne smiles.
+s> 
+Gwydion sings, "He lusts for glory, longs for fame... he wants it all today.
+                He thinks an aging swordsman will be weak and easy prey."
+s> 
+Wolfbane listens carefully to Gwydion.
+s> 
+Gwydion rolls into the refrain, the harp strutting along with an insolent
+counterpoint.
+s> 
+Gwydion sings, "It's beat and bind and cut and thrust.
+                It's eye and arm and breath.
+                It's nerve and brain and steel and blood...
+                The swordsman's dance of death."
+s> 
+Gwydion plays the last line of chords again, and once again pauses.
+s> 
+Gwydion sings, "Now hear me, boy, and listen well, before we draw the blade.
+                If you would step the dance of death, the piper must be paid."
+s> 
+Moryan leands forward, listening.
+s> 
+Irienne pulls a slight face.
+s> 
+Feras drinks some emerald wine.
+s> 
+Gwydion sings, "'Tis true, I'm not now what I was, my hair and beard are gray.
+                But if you'd see tomorrow's dawn, best walk away today."
+s> 
+Gwydion sings, "It's beat and bind and cut and thrust.
+                It's eye and arm and breath.
+                It's nerve and brain and steel and blood...
+                The swordsman's dance of death."
+s> 
+Sy smiles.
+s> 
+Wolfbane listens carefully to Gwydion.
+s> 
+Burne taps his foot.
+s> 
+Burne taps his foot.
+s> 
+Gwydion again reprises the chords, and pauses briefly.
+s> 
+Moryan smiles.
+s> 
+Gwydion sings, "You think your youthful speed and zeal will be the death of me?
+                My head holds far more deadly tricks than you would live to
+see!"
+s> 
+Sy listens to the music and singing intently.
+s> 
+Gwydion sings, "My wrist and arm are tempered steel, while yours are forming
+clay.
+                I killed my first before your birth! I'll kill YOU, if you
+stay."
+s> 
+Gwydion sings, "It's beat and bind and cut and thrust.
+                It's eye and arm and breath.
+                It's nerve and brain and steel and blood...
+                The swordsman's dance of death."
+s> 
+Fafnir listens to his surroundings closely.
+s> 
+Gwydion flows immediately into the verse, the harp speaking now with more
+authority as it follows his voice, accenting the words with a cocky arrogance.
+s> 
+Burne hums along slightly with the song.
+s> 
+Leah listens carefully to Gwydion.
+s> 
+Gwydion sings, "It's all for naught. Your sword leaps out. Mine follows in
+reply.
+                It's sad, for I know what you don't... I know that you can
+die."
+s> 
+Gwydion sings, "No time for words, but ponder this, while choking on your
+blood...
+                Old swordsmen get to BE that way...
+                    ...by being VERY good!"
+s> 
+Gwydion sings, "It's beat and bind and cut and thrust.
+                It's eye and arm and breath.
+                It's nerve and brain and steel and blood...
+                The swordsman's dance of death."
+s> 
+Amaryllys grins.
+s> 
+Feras sniffs.
+s> 
+Miria chuckles.
+s> 
+Moryan smiles.
+s> 
+Burne smiles.
+s> 
+Gwydion reprises the final chords, let's them ring, and bows with a grin.
+s> 
+Young applauds.
+s> 
+Moryan chuckles.
+s> 
+Sy applauds.
+s> 
+Elriss applauds.
+s> 
+Moryan applauds.
+s> 
+Marcolan applauds.
+s> 
+Burne applauds.
+s> 
+Burne applauds.
+s> 
+Leah applauds.
+s> 
+Burne applauds.
+s> 
+Moryan says, "Very well sun"
+s> 
+Miria applauds.
+s> 
+Burne applauds.
+s> 
+Veronica applauds.
+s> 
+Moryan blinks at Veronica.
+s> 
+Burne whistles.
+s> 
+Veronica whistles at Gwydion.
+s> 
+Gwydion smiles.
+s> 
+Feras drinks some emerald wine.
+s> 
+Leah applauds.
+s> 
+Sy whistles loudly!
+s> 
+Fafnir applauds.
+s> 
+Moryan suddenly blushes for no apparent reason.
+s> 
+Gwydion asks, "Thank you. One more, then?"
+s> 
+Gwydion ponders.
+s> 
+Wolfbane says, "please"
+s> 
+Burne exclaims, "Go ahead!"
+s> 
+Moryan says, "Aye.. please."
+s> 
+Sy nods.
+s> 
+Moryan gazes at Veronica.
+s> 
+Sy nods.
+s> 
+Burne applauds.
+s> 
+Gwydion smiles.
+s> 
+Veronica smiles at Moryan.
+s> 
+Fafnir nods.
+s> 
+Veronica cocks her head to the side.
+s> 
+Rion furrows his brow.
+s> 
+Moryan gazes at Elriss.
+s> 
+Feras casts his gaze across the area.
+s> 
+Feras furrows his brow.
+s> 
+Gwydion says, "Chances are that several of oyu have heard this one already..."
+s> 
+Marcolan smiles at Irienne.
+s> 
+Moryan listens carefully to Gwydion.
+s> 
+Wolfbane smiles at Gwydion.
+s> 
+Irienne leans on Marcolan.
+s> 
+Gwydion begins to play, oddly syncopated arpeggios in the upper register
+against an unpredictable bass line. Somehow, the rhythmns hold together,
+evoking a hypnotic, other-worldly quality...
+s> 
+Moryan coughs.
+s> 
+Moryan shakes her head at Elriss.
+s> 
+Gwydion sings, "I lived through many varied shapes
+                Before I gained this form.
+                Sword blade, raindrop, shining star,
+                The thunder of a storm."
+s> 
+Burne arches his eyebrow.
+s> 
+Gwydion 's harp spills mesmerizing notes like gentle rain, a subtle
+counter-rythmn in the bass thrumming like distant thunder.
+s> 
+Wolfbane listens carefully to Gwydion.
+s> 
+Feras closes his eyes.
+s> 
+Feras listens to his surroundings closely.
+s> 
+Gwydion sings, "I have been a written word
+                And I have been a book.
+                I've been a bridge that passed above
+                Ten rivers and a brook."
+s> 
+Gwydion lays a pattern in the bass, a solid foundation for the midrange notes
+that tumble over each other, making you think of a stream rushing to the sea.
+s> 
+Sy closes his eyes listening.
+s> 
+Gwydion weaves an unexpected dominant into the pattern... instead of clashing
+dissonantly, it flashes brightly like a glimpse of sun through the clouds.
+s> 
+Moryan smiles.
+s> 
+Fafnir listens to his surroundings closely.
+s> 
+Gwydion sings, "I have been a lantern's light,
+                An eagle flying free.
+                I've commanded men in war,
+                And sailed upon the sea."
+s> 
+Leah tilts her head listening thoughtfully.
+s> 
+Gwydion flicks a few strings, and you seem to hear the cry of the gulls riding
+the wind that blows through the rigging, the water splashing away from the
+bow...
+s> 
+Wolfbane listens carefully to Gwydion.
+s> 
+Gwydion gradually builds a bold counter-melody that slowly banishes the sounds
+of the sea and brings images of valour on the battlefield...
+s> 
+Gwydion sings, "I have been a warrior's sword,
+                And I have been his shield.
+                I've been the string set in a harp,
+                And viper in the field."
+s> act shifts uncomfortably in the grass as he listens.
+Moordread shifts uncomfortably in the grass as he listens.
+s> 
+Gwydion settles the music into a broad, repetitive pattern, evoking a sense of
+eternal continuation... the cycle of birth, life, death and rebirth.
+s> 
+Gwydion sings, "I have been the water's foam
+                And the stone inside a mill.
+                Oak tree in a sacred grove
+                And snake upon a hill."
+s> 
+Irienne closes her eyes.
+s> 
+Gwydion again subtly alters the theme, and images appear of a solitary harper
+playing to the stars...
+s> 
+Gwydion lets the music swell... You feel lifted upon its sound, carried up and
+up, until you seem to see the entire world laid out below you as from a vast
+and unimaginable height...
+s> 
+Moryan smiles warmly, her feet tapping to the musice.
+s> 
+Gwydion sings, "I have been a shining star
+                And know the secrets held therein
+                Of stars before the earth was made...
+                Nothing is that I've not been."
+s> 
+Amaryllys closes her eyes.
+s> 
+Fafnir smiles.
+s> 
+Amaryllys sighs.
+s> 
+Gwydion brings the music down, softer and softer, notes gently drifting like
+leaves floating on the breeze. Finally, the music ends, the last notes
+lingering in space as they slowly fade away...
+s> 
+Burne blinks.
+s> 
+Burne seems dissasociated.
+s> 
+Gwydion struggles to his feet.
+s> 
+Gwydion rises from his comfortable seat in the lush grass.
+s> 
+Young applauds.
+s> 
+Moryan smiles.
+s> 
+Gwydion bows.
+s> 
+Veronica applauds.
+s> 
+Burne applauds.
+s> 
+Wolfbane applauds.
+s> 
+Elriss applauds.
+s> 
+Amaryllys applauds.
+s> 
+Sy opens his eyes.
+s> 
+Rion applauds.
+s> 
+Veronica whistles at Gwydion.
+s> 
+Rion applauds.
+s> 
+Amaryllys applauds.
+s> 
+Burne applauds.
+s> 
+Burne applauds.
+s> 
+Leah smiles.
+s> 
+Burne applauds.
+s> 
+Burne applauds.
+s> 
+Amaryllys raises a toast to Gwydion!
+s> 
+Gwydion puts away a shimmering bardic harp of richly polished walnut, with
+subtly intricate patterns of rosewood inlay.
+s> 
+Sy smiles at Gwydion.
+s> 
+Moryan says, "Utterly breathtaking Gwydion."
+s> 
+Sy applauds.
+s> 
+Miria applauds.
+s> 
+Young whistles.
+s> nod
+You nod.
+s> 
+Leah applauds.
+s> 
+Fafnir applauds.
+s> 
+Rion says, "well done, Gwydion"
+s> 
+Elriss says, "Very nicely done."
+s> 
+Feras says, "Excellent as always Gwyd.."
+s> 
+Gwydion bows towards Moryan.
+s> 
+Burne says, "Indeed"
+s> 
+Veronica exclaims, "Bravo!"
+s> 
+Wolfbane nods to Moryan.
+s> 
+Feras raises a toast to Gwydion!
+s> 
+Moryan smiles.
+s> 
+Irienne smiles.
+s> 
+Feras drinks some emerald wine.
+s> 
+Gwydion leaves the platform.
+s> 
+Young says, "Masterful musicianship Gwydion"
+s> 
+Burne says, "Nothing like a bardic wolfking"
+s> 
+Burne says, "wolfling"
+s> 
+Amaryllys smiles at Burne.
+s> 
+Wolfbane nods to Burne.
+s> 
+Moryan smiles.
+s> 
+Gwydion says, "Thank you."
+s> 
+Gwydion smiles.
+s> 
+Feras ponders.
+s> 
+Moryan asks, "Is there anyone else that wishes to perform?"
+s> 
+Amaryllys stands up.
+s> 
+Amaryllys rises from her comfortable seat in the lush grass.
+s> 
+Burne ponders.
+s> 
+Amaryllys curtsies towards Moryan.
+s> 
+Burne struggles to his feet.
+s> 
+Burne rises from his comfortable seat in the lush grass.
+s> 
+Moryan smiles at Amaryllys.
+s> 
+Fafnir says, "Your ancestors have blessed you with a golden voice"
+s> 
+Burne shakes his head back and forth.
+s> 
+Burne sits down.
+s> 
+Burne finds a comfortable spot and sinks down into the lush, comfortable green
+grass.
+s> 
+Young smiles at Amaryllys.
+s> 
+Amaryllys gestures at Burne.
+s> 
+Sy beams at Amaryllys.
+s> 
+Moryan listens to her surroundings closely.
+s> 
+Gwydion puts a shimmering bardic harp of richly polished walnut, with subtly
+intricate patterns of rosewood inlay in the bag.
+s> 
+Leah smiles at Amaryllys.
+s> 
+Gwydion closes a worn silvery blue bag with a gold silk drawstring.
+s> 
+Amaryllys says, "Please, if you wish.."
+s> 
+Amaryllys smiles at Burne.
+s> 
+Gwydion opens a forest green leather satchel.
+s> 
+Burne says, "Nah, I haven't played in forever"
+s> 
+Gwydion puts a well-worn rosewood bhodran with nearly illegible designs painted
+on the single goatskin drumhead in the satchel.
+s> 
+Burne says, "I can't sing"
+s> 
+Gwydion nods to Wolfbane.
+s> 
+Burne says, "And I don't have my instrument anymore"
+s> 
+Gwydion closes a forest green leather satchel.
+s> 
+Amaryllys asks, "What instrument?"
+s> 
+Burne chuckles.
+s> 
+Amaryllys listens carefully to Burne.
+s> 
+Burne says, "Flute"
+s> 
+Young opens a violet leather backpack.
+s> 
+Burne chuckles.
+s> 
+Gwydion opens a forest green leather satchel.
+s> 
+Young removes a battered wooden flute shaped like a cobra snake and painted in
+faded colors from the backpack.
+s> 
+Amaryllys ponders.
+s> 
+Amaryllys taps a rosewood flute.
+s> 
+Young gives a battered wooden flute shaped like a cobra snake and painted in
+faded colors to Burne.
+s> 
+Gwydion smiles.
+s> 
+Amaryllys chuckles.
+s> 
+Young smiles at Burne.
+s> 
+Burne ponders.
+s> 
+Amaryllys sits down.
+s> 
+Amaryllys finds a comfortable spot and sinks down into the lush, comfortable
+green grass.
+s> 
+Gwydion closes a forest green leather satchel.
+s> 
+Sy grins.
+s> 
+Wolfbane says, "you do your father proud Gwydion for i did not know him but i
+know he smiles down upon you"
+s> 
+Amaryllys gestures at Burne.
+s> 
+Wolfbane smiles at Gwydion.
+s> 
+Burne says, "I couldn't possibly......."
+s> 
+Gwydion smiles at Wolfbane.
+s> 
+Amaryllys nods to Burne.
+s> 
+Young nods to Burne.
+s> 
+Gwydion says, "Thank you, Wolfbane."
+s> 
+Burne shakes his head back and forth.
+s> 
+Burne ponders.
+s> 
+Gwydion sits down.
+s> 
+Gwydion finds a comfortable spot and sinks down into the lush, comfortable
+green grass.
+s> 
+Irienne frowns.
+s> 
+Feras drinks some emerald wine.
+s> 
+Young says, "Cmon Burne, ya must haf some ditty"
+s> 
+Moryan gazes at Burne.
+s> 
+Moryan smiles.
+s> 
+Young smiles at Burne.
+s> 
+Irienne scrutinizes Burne's features carefully.
+s> 
+Fafnir says, "go ahead and give it a shot"
+s> 
+Burne attempts to play a few scales on the flute.
+s> 
+Burne says, "But I don't like....."
+s> 
+Burne struggles to his feet.
+s> 
+Burne rises from his comfortable seat in the lush grass.
+s> 
+Sy says, "Maybe you should go Ammie and let Burne collect himself"
+s> 
+Burne says, "argh.."
+s> 
+Nord tickles Miria.
+s> 
+Burne sits down.
+s> 
+Burne finds a comfortable spot and sinks down into the lush, comfortable green
+grass.
+s> 
+Burne ponders.
+s> 
+Miria chuckles.
+s> 
+Moryan chuckles.
+s> 
+Moryan gazes at Burne.
+s> 
+Moryan asks, "Do you wish to wait?"
+s> 
+Burne says, "Oh, what the hell"
+s> 
+Young applauds.
+s> 
+Leah smiles.
+s> 
+Wolfbane chuckles at Burne.
+s> 
+Nord applauds.
+s> 
+Feras coughs.
+s> 
+Moryan raises an eyebrow towards Burne.
+s> 
+Feras drinks some emerald wine.
+s> 
+Amaryllys grins.
+s> 
+Gwydion grins.
+s> 
+Burne says, "I'll screw it up, and it might sound flat; I had a problem with
+that"
+s> 
+Veronica smiles at Elriss.
+s> 
+Amaryllys murmurs, "Go for it!"
+s> 
+Burne struggles to his feet.
+s> 
+Burne rises from his comfortable seat in the lush grass.
+s> 
+Burne raises the flute to his lips
+s> 
+ ** Sierron has just disconnected.
+s> 
+Burne plays a low tune softly, conjuering memories of ancient lands far away.
+s> fat
+Mana: 44/44
+Psi: 88/88
+Fatigue: 227/227
+s> 
+Leah listens carefully to Burne.
+s> 
+Gwydion closes his eyes.
+s> 
+Wolfbane smiles at Rion.
+s> 
+Gwydion smiles.
+s> 
+Amaryllys closes her eyes, a farawy look on her face.
+s> 
+Burne 's finger slips and plays a C flat instead of a C natural.
+s> 
+Burne growls.
+s> 
+Wolfbane listens carefully to Burne.
+s> 
+The scintillating curtain of light surrounding Miria fades.
+s> 
+Feras stands up.
+s> 
+Feras rises from his comfortable seat in the lush grass.
+s> 
+Moryan listens carefully to Burne.
+s> 
+Feras goes west.
+s> 
+Burne continues the melody as if there were no mistake made at all. The notes
+form psychadellic visions of beautiful forms and hidden shapes in the eyes of
+the audience.
+s> 
+Sy casts his gaze across the area.
+s> 
+Moryan smiles.
+s> 
+Feras arrives.
+s> 
+Burne picks up the pace, playing a more definite and high-pitched song, the
+voices of unseen characters reassuring the listeners and relaxing their minds
+s> 
+Gwydion taps his foot.
+s> 
+Sy leans back in the grass comfortably.
+s> 
+Fafnir listens carefully to Burne.
+s> 
+Leah smiles.
+s> 
+Rion nods to Wolfbane.
+s> 
+Burne continues to speed up the song, and random images of fitful scenes of
+childhood begin to fizzle and form in the minds of all.
+s> 
+Feras sits next to Rion
+s> 
+Feras sits down.
+s> 
+Feras finds a comfortable spot and sinks down into the lush, comfortable green
+grass.
+s> 
+Veronica smiles.
+s> 
+Young chuckles at Sy.
+s> 
+Rion smiles at Feras.
+s> 
+Feras listens to his surroundings closely.
+s> 
+Moryan pushes her hair back from her shoulders, as she listens to the music.
+s> 
+Feras casts his gaze across the area.
+s> 
+Burne pauses abruptly, and again plays the low, harmonic sounds of memories and
+faded times of yore.
+s> 
+Feras drinks some emerald wine.
+s> 
+Elriss seems to noticeably glance at the Queen as she pushes her hair back, and
+quickly turns back to the performer.
+s> 
+Elarin arrives.
+s> 
+Elarin leans on Fafnir.
+s> 
+Elarin winks at Miria.
+s> 
+Elarin sits down.
+s> 
+Elarin finds a comfortable spot and sinks down into the lush, comfortable green
+grass.
+s> 
+Leah smiles at Elarin.
+s> 
+Elarin smiles at Leah.
+s> 
+Rion waves to Elarin.
+s> 
+Elarin waves to Rion.
+s> 
+Wolfbane nods to Moryan.
+s> 
+Elarin stands up.
+s> 
+Elarin rises from his comfortable seat in the lush grass.
+s> 
+Elarin bows towards Moryan.
+s> 
+Elarin sits down.
+s> 
+Elarin finds a comfortable spot and sinks down into the lush, comfortable green
+grass.
+s> 
+Burne stops suddenly, forgetting the next chord only for an instant, then
+revives the tune, this time staring into this instrument.
+s> 
+Moryan smiles at Elarin.
+s> 
+Young smiles at Burne.
+s> 
+Rion furrows his brow.
+s> 
+Leah listens to her surroundings closely.
+s> 
+Wolfbane leans on Rion.
+s> 
+Wolfbane listens carefully to Burne.
+s> 
+Feras chuckles softly and nods his head to the rhythm
+s> 
+Burne fills the ears of the audience with his attempts to make the melody
+perfect, and again their minds are at rest with the envisions of playful
+childhoos and other assorted memories.
+s> 
+Leah smiles thoughtfully.
+s> 
+Fafnir listens carefully to Burne.
+s> 
+Burne , more relaxed now, begins to slow the rhythm and wind down the tune,
+slowing the images and yet making them more colourful and distinct.
+s> 
+Feras drinks some emerald wine.
+s> 
+Feras licks his lips.
+s> 
+Irienne bites her lower lip.
+s> 
+Leah 's face hints of a little grin as glances over at Elarin.
+s> 
+Rion watches Burne closely
+s> 
+Rion listens to his surroundings closely.
+s> 
+Elarin winks at Leah.
+s> 
+Burne is near the end and all the while conjuering lower notes and almost
+unconsciously creating the visions of what could be  in the future
+s> 
+Leah listens carefully to Burne.
+s> 
+Moryan idly spins her ring as she listens.
+s> 
+Leah ponders.
+s> 
+Burne finally ends the piece, holding a low E flat almost, as if, forever,
+filling those who listen with the peaceful thought that the times to come will
+be better than they are now.
+s> 
+Burne sighs.
+s> 
+Moryan smiles.
+s> 
+Young applauds.
+s> 
+Gwydion sighs.
+s> 
+Elriss applauds.
+s> 
+Sy smiles.
+s> 
+Rion applauds.
+s> 
+Burne says, "I'm sorry, I...."
+s> 
+Wolfbane applauds.
+s> 
+Gwydion opens his eyes.
+s> 
+Sy applauds.
+s> 
+Young applauds.
+s> 
+Gwydion struggles to his feet.
+s> 
+Gwydion rises from his comfortable seat in the lush grass.
+s> 
+Fafnir smiles at Burne.
+s> 
+Amaryllys applauds.
+s> 
+Gwydion applauds.
+s> 
+Burne shrugs.
+s> 
+Amaryllys applauds.
+s> 
+Feras raises a toast to Burne!
+s> 
+Amaryllys applauds.
+s> 
+Leah smiles at Burne.
+s> nod
+
+Young applauds.
+s> You nod.
+s> 
+Irienne applauds.
+s> 
+Amaryllys smiles at Gwydion.
+s> 
+Miria applauds.
+s> 
+Gwydion exclaims, "Bravo!"
+s> 
+Elarin applauds.
+s> 
+Leah applauds.
+s> 
+Burne smiles.
+s> 
+Marcolan smiles at Burne.
+s> 
+Moryan listens carefully to Burne.
+s> 
+Feras drinks some emerald wine.
+s> 
+Fafnir applauds.
+s> 
+Gwydion applauds.
+s> 
+Marcolan applauds.
+s> 
+Sy applauds.
+s> 
+Amaryllys joins Gwydion in his ovation.
+s> 
+Amaryllys stands up.
+s> 
+Amaryllys rises from her comfortable seat in the lush grass.
+s> 
+Amaryllys applauds.
+s> 
+Amaryllys raises a toast to Burne!
+s> 
+Feras sniffs some emerald wine.
+s> whisp wolfban Hate to interrupt but must before I forget again. I wanted to offer to help out around your new place. Other than the band I don't do much so have free time if you can use me
+You whisper to Wolfbane.
+s> 
+Amaryllys exclaims, "That was wonderful!"
+s> 
+Burne asks, "I, really.......you liked it?"
+s> 
+Moryan says, "beautiful music."
+s> 
+The glowing outline of armor fades from around Young.
+s> 
+Young says, "A marvelous piece"
+s> 
+Gwydion smiles at Burne.
+s> 
+Young smiles at Burne.
+s> 
+Burne smiles at Sy.
+s> 
+Sy nods to Burne.
+s> 'A most haunting melody
+You say, "A most haunting melody"
+s> 
+Sy grins.
+s> 
+Wolfbane whispers to you, "yes i am offering you a position of one of my
+knights"
+s> 
+Wolfbane smiles at you.
+s> 
+Burne says, "I, uh...thanks."
+s> rais
+You raise your eyebrow.
+s> 
+Moryan smiles.
+s> 
+Moryan asks, "Do you have another? or are you finished?"
+s> 
+Burne asks, "Oh....who's flute was this?"
+s> 
+Young says, "MIne"
+s> 
+Young smiles at Burne.
+s> 
+Burne says, "I could try"
+s> whisp wolfb er, I was just thinking of guard duty or something...are you sure?
+You whisper to Wolfbane.
+s> 
+Moryan says, "You have the option to do up to 3"
+s> 
+Burne says, "I don't remember that much"
+s> 
+Moryan smiles.
+s> 
+Wolfbane nods to you.
+s> 
+Burne nods.
+s> 
+Burne ponders.
+s> 
+Leah gazes out to the horizon her mind still holding the thought of the
+flutesong.
+s> 
+Moryan says, "I don't want to rob you of your chance."
+s> 
+Gwydion sits down.
+s> 
+Gwydion finds a comfortable spot and sinks down into the lush, comfortable
+green grass.
+s> 
+Amaryllys sits down.
+s> 
+Amaryllys finds a comfortable spot and sinks down into the lush, comfortable
+green grass.
+s> 
+Amaryllys smiles at Gwydion.
+s> 
+Miria's eyes return to normal.
+s> 
+Gwydion smiles at Amaryllys.
+s> 
+Burne says, "Oh, wait. I remember this tune. It's shorter, so don't pull out
+your pillows this time please"
+s> 
+Wolfbane whispers to you, "when the place is done im gonna do a formal
+knighting if you accept"
+s> 
+Gwydion chuckles.
+s> 
+Feras sniffs.
+s> 
+Young smiles.
+s> 
+Amaryllys leans over and murmurs something to Gwydion.
+s> 
+Burne tries to relax his muscles.
+s> 
+Wolfbane snores.
+s> 
+Gwydion listens carefully to Amaryllys.
+s> 
+Feras leans back on his elbow
+s> 
+Burne smiles.
+s> 
+Amaryllys smiles warmly.
+s> 
+Wolfbane snores.
+s> 
+Young pokes Wolfbane.
+s> 
+Leah nudges Wolfbane.
+s> 
+Young pokes Wolfbane.
+s> 
+Moryan gazes at Wolfbane.
+s> 
+Gwydion smiles.
+s> 
+Wolfbane blinks.
+s> 
+Wolfbane says, "sorry"
+s> 
+Wolfbane blushes.
+s> 
+Wolfbane listens carefully to Burne.
+s> whisp wolfb I guess if you're crazy enough to want me for the position I'd be glad to accept
+You whisper to Wolfbane.
+s> 
+Wolfbane smiles at you.
+s> 
+Burne waits for a few moments, then immediately begins to spin a web of
+chaotic, yet refined and graceful notes, which seem to endlessly fit together.
+The way the piece actually makes sense is perplexing.
+s> 
+Wolfbane whispers to you, "then my two knights are you and rion"
+s> 
+Gwydion grins.
+s> 
+Irienne frowns.
+s> 
+Young looks perplexed.
+s> 
+Leah ponders.
+s> 
+Feras drinks some emerald wine.
+s> 
+Irienne marcolan Oh, I'll N-NEVER understand music...
+s> 
+Irienne says, "stat"
+s> 
+Gwydion taps his fingers along with the complex polyrhythms.
+s> 
+Rion furrows his brow.
+s> 
+Irienne struggles to her feet.
+s> 
+Irienne rises from her comfortable seat in the lush grass.
+s> 
+Irienne's group goes west.
+s> 
+Marcolan smiles iri
+s> 
+You feel the touch of Wolfbane's mind:
+"yep"
+s> 
+Marcolan struggles to his feet.
+s> 
+Marcolan rises from his comfortable seat in the lush grass.
+s> 
+ ** Irienne has just disconnected.
+s> whisp wolfb Hearts kid Rion, good choice. Just hope the young kid doesn't make me look bad
+You whisper to Wolfbane.
+s> 
+Burne the melody, fast as it is, speeds and becomes more primordial. It
+inspires feelings of ancestral strength and power in even the most civilized
+souls.
+s> 
+You feel the touch of Wolfbane's mind:
+"heros"
+s> 
+Wolfbane nods to Rion.
+s> 
+Wolfbane gives you a small dark gold key emblazoned with the crest of Count
+Wolfbane Crag.
+s> 
+Moryan smiles softly, relazing and simply enjoying the music.
+s> 
+Sy litens to the meledoy squinting, drawing it in.
+s> 
+Burne 's eyes seem to burn with the flute, creating sparks of energy and
+jubilation in the hearts of all those in the audience.
+s> 
+Wolfbane whispers to you, "opens all the locks on our lands"
+s> act looks about himself for a pocket.
+Moordread looks about himself for a pocket.
+s> 
+Wolfbane whispers to you, "there is also a knights room among the barracks"
+s> 
+Wolfbane nods to Rion.
+s> 
+Young taps his foot to the rhythm.
+s> 
+Wolfbane comforts Rion.
+s> 
+Burne frantically flails his fingers about the openings in the instrument,
+reveling in the chaotic and yet somehow enjoyable notes and chords.
+s> whisp wolfb Excellent, no more sleeping in the warroom. :)
+You whisper to Wolfbane.
+s> 
+Rion listens to the melody
+s> 
+Wolfbane smiles at you.
+s> 
+Gwydion grins.
+s> 
+Wolfbane whispers to you, "i believe your two will work good together age and
+wisdom with youth and vigor"
+s> 
+Feras drinks some emerald wine.
+s> 
+Wolfbane glares at Elarin.
+s> 
+Burne is about to leap into a faster rhythm, but realizes that the listeners
+would not be able to take it and so keeps with the fast-paced and joy-filled
+music.
+s> 
+Elarin chuckles at Wolfbane.
+s> 
+Leah smiles.
+s> 
+Wolfbane mutters something you can't quite make out.
+s> 
+Wolfbane listens carefully to Burne.
+s> 
+Fafnir smiles.
+s> 
+Moryan gazes about, watching the reactions of the audience.
+s> 
+Gwydion reaches absent-mindedly for his harp, stops, looks around, and blushes.
+s> 
+Rion listens, his face a mixture of sadness and mystery
+s> 
+Wolfbane leans on Rion.
+s> 
+Amaryllys exchanges a glance with Gwydion, nodding in recognition of his
+action.
+s> 
+Burne braces himself, continuing to emote abrasive notes and expanding the
+consciousness of his audience's anarchic ideas.
+s> 
+Amaryllys touches a soft gray wrymwood lyre.
+s> 
+Sy stares into space intent on listening to the subtlties of the melody.
+s> 
+Gwydion winks at Amaryllys.
+s> whisp wolfb I hope so but I'm still getting some youth potion if Raningeth can make it
+You whisper to Wolfbane.
+s> 
+Amaryllys looks away, blushing softly.
+s> 
+Burne brings the music to a fast and relentless climax, nearly screechintes
+s> 
+Wolfbane chuckles at you.
+s> 
+Feras drinks some emerald wine.
+s> whisp wolfb Just had a birthday last week....:(
+You whisper to Wolfbane.
+s> 
+Wolfbane comforts you.
+s> 
+Leah sits with a slightly perplexed look on her face yet seems to be enjoying
+the music.
+s> act taps his sword hilt in time with Burne's music.
+Moordread taps his sword hilt in time with Burne's music.
+s> 
+Wolfbane smiles at Rion.
+s> 
+Burne suddenly ends the piece, the final note a symbol of the neverending, and
+ceaseless, hunger within us all to be violent without consequence.
+s> 
+Wolfbane smiles at Rion.
+s> 
+Gwydion applauds.
+s> 
+Veronica furrows her brow.
+s> 
+Marcolan applauds.
+s> 
+Young applauds.
+s> 
+Gwydion applauds.
+s> 
+Wolfbane applauds.
+s> 
+Gwydion applauds.
+s> 
+Moryan says, "very.. thought invoking piece."
+s> 
+Moryan smiles.
+s> 
+Elarin applauds.
+s> 
+Sy says, "Wow, never heard anything like it..."
+s> 
+Moryan applauds.
+s> 
+Elriss applauds.
+s> 
+Fafnir applauds.
+s> 
+Leah applauds.
+s> 
+Sy exclaims, "Excellent!"
+s> 
+Rion applauds.
+s> 
+Sy applauds.
+s> 
+Moryan smiles at Burne.
+s> 
+Feras drinks some emerald wine.
+s> 
+Young says, "Nifty tonal variation"
+s> 
+Amaryllys applauds.
+s> 
+Young smiles at Burne.
+s> whisp wolfb Thought invoking all right...I thought it  would never end
+You whisper to Wolfbane.
+s> 
+Leah smiles.
+s> 
+Feras licks his lips.
+s> 
+Burne asks, "You said, milady, that we were allowed three pieces?"
+s> 
+Wolfbane nods to you.
+s> 
+You feel the touch of Sierron's mind:
+"greetings"
+s> 
+Burne ponders.
+s> 
+Moryan says, "Aye, I did."
+s> 
+Amaryllys grins and nudges Gwydion, leaning over to whisper to him.
+s> 
+Wolfbane leans on Veronica.
+s> 
+Burne nods.
+s> 
+Wolfbane closes his eyes.
+s> think Hello Sierron
+You project your thoughts.
+s> 
+You feel the touch of Young's mind:
+"Howdy Sierron"
+s> 
+Wolfbane listens to his surroundings closely.
+s> 
+Gwydion listens carefully to Amaryllys.
+s> 
+You feel the touch of Leah's mind:
+"Hi, Sierron!"
+s> 
+Amaryllys grins.
+s> 
+Gwydion chuckles.
+s> 
+Burne says, "All right"
+s> 
+You feel the touch of Wolfbane's mind:
+"heya sierron"
+s> 
+Burne says, "Why not"
+s> 
+You feel the touch of Sierron's mind:
+"hello Moord, young, Leah, count wolfie"
+s> 
+Young smiles at Burne.
+s> 
+Burne says, "If I can remember this one...."
+s> 
+Burne ponders.
+s> 
+Elarin gazes at Wolfbane, and chuckles softly to himself.
+s> 
+Sierron arrives.
+s> 
+Leah smiles at Sierron.
+s> 
+Sierron smiles.
+s> 
+Amaryllys nods to Gwydion.
+s> 
+Sy waves to Sierron.
+s> 
+Sierron bows towards Leah.
+s> 
+Gwydion grins.
+s> 
+Wolfbane opens his eyes.
+s> 
+Sierron bows towards Sy.
+s> 
+Wolfbane casts his gaze across the area.
+s> 
+Sierron bows towards Moryan.
+s> 
+Moryan smiles at Young.
+s> 
+Wolfbane hugs Sierron.
+s> 
+Moryan nods to Sierron.
+s> 
+Young thumps Wolfbane on the head!
+s> 
+Sierron hugs Wolfbane.
+s> smi sierr
+You smile at Sierron.
+s> 
+Sierron sits down.
+s> 
+Sierron finds a comfortable spot and sinks down into the lush, comfortable
+green grass.
+s> 
+Wolfbane raises an eyebrow towards Young.
+s> 
+Moryan smiles at Young.
+s> 
+Wolfbane says, "ouch"
+s> 
+Burne slowly raises the flute to his lips, and unlike the last piece, begins a
+slow and undulating harmonic song of regrets and losses.
+s> 
+Wolfbane rubs his head
+s> 
+Moryan smiles at Wolfbane.
+s> 
+Wolfbane mutters something you can't quite make out.
+s> 
+Sierron smiles at you.
+s> gaze young
+You gaze at Young.
+s> 
+Sierron icily states, "morning, Queen."
+s> 
+Moryan listens carefully to Burne.
+s> 
+Sierron smiles at Moryan.
+s> 
+Young smiles at you.
+s> 
+Wolfbane says, "i was payin attention"
+s> 
+Wolfbane mutters something you can't quite make out.
+s> 
+Leah listens carefully to Burne.
+s> 
+Amaryllys shivers, as if the music has stirred something in her.
+s> 
+Wolfbane squirms and tries to scratch his back through his armor.
+s> 
+Wolfbane squirms and tries to scratch his back through his armor.
+s> 
+Wolfbane squirms and tries to scratch his back through his armor.
+s> 
+Wolfbane squirms and tries to scratch his back through his armor.
+s> 
+Rion appears to become weaker.
+s> 
+Sierron listens to his surroundings closely.
+s> 
+Young listens carefully to Burne.
+s> 
+Wolfbane says, "ants!"
+s> 
+Wolfbane squirms and tries to scratch his back through his armor.
+s> winc
+You wince.
+s> 
+Wolfbane squirms and tries to scratch his back through his armor.
+s> 
+Wolfbane squirms and tries to scratch his back through his armor.
+s> 
+Wolfbane mutters something you can't quite make out.
+s> 
+Elarin pokes Wolfbane.
+s> 
+Moryan quiets, her face growing quiet and thoughtful as she listens.
+s> 
+Burne seems to revel in the sad, emotional song, and albeit the lonly and
+heart-breaking images it may conjuer, he continues.
+s> act pours a glass of water down the back of Wolfbane's armor, washing the ants out.
+Moordread pours a glass of water down the back of Wolfbane's armor, washing the
+ants out.
+s> 
+Leah quietly picks up a stick and hands it to Wolfbane whispering to him, 'here
+use this'
+s> 
+ ** Fafnir has just left the Realms.
+s> 
+Fafnir exits.
+s> list burn
+You listen carefully to Burne.
+s> 
+Marcolan whispers to you, "You made sure that was really cold water, right?"
+s> 
+Wolfbane listens carefully to Burne.
+s> 
+Wolfbane smiles at Leah.
+s> whisp marco The coldest I had but it wasn't cold enough :)
+You whisper to Marcolan.
+s> 
+Moryan wipes a tear from her cheek, her eyes closing to listen to the music.
+s> 
+Rion listens to his surroundings closely.
+s> 
+Wolfbane uses a stick to scratch an itch
+s> 
+Burne increases the dynamics of the piece, the volume ascending, the saddening
+notes becoming longer and more punctual, then releasing his captivating hold on
+the hearts of the audience.
+s> 
+Wolfbane squirms and tries to scratch his back through his armor.
+s> 
+Wolfbane sighs.
+s> 
+Elarin hands a clean T'kasta kerchief to Moryan.
+s> 
+Wolfbane listens carefully to Burne.
+s> 
+Young sighs.
+s> 
+Leah smiles at Wolfbane.
+s> 
+Sierron listens to his surroundings closely.
+s> 
+Moryan opens her eyes.
+s> 
+Moryan smiles at Elarin.
+s> 
+Elarin smiles at Moryan.
+s> 
+Sierron returns to normal speed.
+s> 
+Feras drinks some emerald wine.
+s> 
+Young watches Elarin carefully.
+s> 
+Burne then moves the piece to a faster, livlier tune, unimpressed even by his
+own sad song.
+s> 
+Elarin winks at Young.
+s> 
+Wolfbane sighs.
+s> 
+Young nods to Elriss.
+s> 
+Young nods to Elarin.
+s> 
+ ** Conor has just left the Realms.
+s> 
+Burne still plays soft and delecate, tear-provoking notes, but they are part of
+a more energetic song now.
+s> 
+Feras appears to become weaker.
+s> 
+Wolfbane smiles at Moryan.
+s> 
+Burne instantaneuosly breaks into a sad and yet thought-provoking tune. The
+images of sad and distant loved ones leaves the minds of the listeners.
+s> 
+Veronica takes a seat next to Moryan.
+s> 
+Wolfbane ponders.
+s> 
+Veronica sits down.
+s> 
+Veronica finds a comfortable spot and sinks down into the lush, comfortable
+green grass.
+s> 
+Leah smiles a sad, thoughtful smile.
+s> 
+Moryan smiles softly at Veronica.
+s> 
+Veronica gives Moryan a gentle hug.
+s> 
+Moryan returns the hug, then quietly composes herself.
+s> 
+Elarin winks at Wolfbane.
+s> 
+Burne increases the tempo, the audience experiencing thoughts of lonesomness
+and still glee at the same time. The soft, tiring rhythm is no longer so sad.
+s> 
+You feel the touch of Aishua's mind:
+"Hello, everyone."
+s> 
+You feel the touch of Wolfbane's mind:
+"heya aishua"
+s> 
+You feel the touch of Elarin's mind:
+"hiya"
+s> 
+You feel the touch of Young's mind:
+"Howdy Aishua"
+s> 
+You feel the touch of Leah's mind:
+"hello again, Aishua!"
+s> 
+You feel the touch of Rion's mind:
+"hi Aishua"
+s> 
+ ** Ioen has just left the Realms.
+s> 
+Sierron listens to his surroundings closely.
+s> 
+Burne replaces the hugs and tears of the audience with hugs of general
+congratulations and tears of joy.
+s> 
+Young smiles.
+s> 
+Sy smiles thoughtfully.
+s> 
+Moryan smiles at Veronica.
+s> 
+Wolfbane finds a tiny ant hill beside his hand and buries it by rubbing his
+hand over it
+s> 
+Moryan nods to Veronica.
+s> 
+Aishua arrives.
+s> 
+Veronica smiles at Moryan.
+s> 
+Burne slows the peace, the mind-jarring compilation of lonly and happy visions
+slowing as well.
+s> 
+Wolfbane whistles innocently.
+s> 
+Wolfbane listens carefully to Burne.
+s> 
+The brilliant prismatic globe around Miria vanishes.
+s> 
+Leah ponders.
+s> 
+Burne gradually ends the melody, the audience's minds at rest, their emotions
+and visions coming to a halt.
+s> 
+Sy smiles at Burne.
+s> 
+Amaryllys applauds.
+s> 
+Moryan nods to Wolfbane.
+s> 
+Young applauds.
+s> 
+Sy applauds.
+s> 
+Gwydion applauds.
+s> 
+Wolfbane applauds.
+s> 
+Moryan smiles.
+s> 
+Leah smiles at Burne.
+s> 
+Gwydion applauds.
+s> 
+Elarin applauds.
+s> 
+Wolfbane beams happily.
+s> 
+Aishua applauds.
+s> 
+Wolfbane applauds.
+s> 
+Sierron applauds.
+s> 
+Leah applauds.
+s> 
+Gwydion smiles at Burne.
+s> 
+Moryan applauds.
+s> 
+Young applauds.
+s> 
+Wolfbane applauds.
+s> 
+Wolfbane applauds.
+s> 
+Gwydion applauds.
+s> 
+Feras smiles crookedly and takes another drink from his glass.
+s> 
+Elriss applauds.
+s> 
+Burne gives a battered wooden flute shaped like a cobra snake and painted in
+faded colors to Young.
+s> 
+Amaryllys smiles at Burne.
+s> 
+Moryan says, "beautiful music."
+s> nod
+You nod.
+s> 
+Young bows towards Burne.
+s> 
+Burne says, "Wow"
+s> 
+Young says, "Nice to hear it used properly"
+s> 
+Young smiles at Burne.
+s> 
+Burne says, "I'm surprised with myself"
+s> 
+Young puts a battered wooden flute shaped like a cobra snake and painted in
+faded colors in the backpack.
+s> 
+Young closes a violet leather backpack.
+s> 
+Sy says, "Really complex, have to admit my ear strained. But amazing imagery"
+s> 
+Burne grins.
+s> 
+Sierron leans on Wolfbane.
+s> 
+Moryan gestures at Amaryllys.
+s> 
+Burne blushes.
+s> 
+Burne sits down.
+s> 
+Burne finds a comfortable spot and sinks down into the lush, comfortable green
+grass.
+s> 
+Moryan says, "Your turn I believe."
+s> 
+Moryan smiles.
+s> 
+Amaryllys blushes.
+s> 
+Amaryllys stands up.
+s> 
+Amaryllys rises from her comfortable seat in the lush grass.
+s> 
+Wolfbane says, "no sleepin either the ants dont like that"
+s> 
+Elarin picks a bug out of his eye while mutterin.
+s> 
+Amaryllys curtsies towards Moryan.
+s> 
+Wolfbane smiles at Sierron.
+s> 
+Sierron chuckles at Wolfbane.
+s> 
+Leah absentmindedly plucks a few blades of grass from the lawn.
+s> 
+Sierron icily states, "I can't sleep, remember?"
+s> 
+Wolfbane squirms and tries to scratch his back through his armor.
+s> 
+Aishua smiles.
+s> 
+Aishua goes west.
+s> 
+Wolfbane says, "good thing"
+s> 
+Wolfbane mutters something you can't quite make out.
+s> 
+Amaryllys stands in the center of a cleared spot in the amphitheater, slowly
+turning in a circle.
+s> 
+Wolfbane listens carefully to Amaryllys.
+s> 
+Amaryllys closes her eyes.
+s> 
+Amaryllys says, "Shilmardryn..."
+s> 
+Burne thumps Wolfbane's back, destroying all the ants but at the same time
+brusing Wolfbane.
+s> 
+Wolfbane winces.
+s> 
+Burne chuckles.
+s> 
+Wolfbane nods to Burne.
+s> 
+Amaryllys speaks the word softly, infusing it with a silvery magic that
+shimmers in the air.
+s> 
+Wolfbane mutters 'thanks'
+s> 
+Feras cocks his head to the side.
+s> 
+Amaryllys says, "The word may sit awkwardly on your tongue.."
+s> 
+Wolfbane listens carefully to Amaryllys.
+s> 
+Elarin watches as Wolfbane eat a magic bannana and a tiny hand sized Malestorm
+appears over the anthill.
+s> look ama
+Enormous eyes the color of a stormy sky flick quickly from your gaze. Icy
+silver strands glimmer in deep indigo hair that brushes the backs of her knees
+and nearly obscures her delicate aelfen form.
+She is wearing a red glass necklace, some smooth black leather breeches cut
+just loose enough for comfort, a pale blue leather vest that allows a peek at
+the snow-white lace beneath it and an elkyri talisman.
+She appears to be healthy.
+s> 
+Amaryllys says, "but it slips over mine as easily as the silvery waters of the
+rivers that flow through her valleys."
+s> 
+ ** Sierron has just disconnected.
+s> 
+Sierron disconnects.
+s> skil
+
+#  Skill                     Level     
+-- -----                     -----     
+6  Dodging & Parrying        30        
+13 Edged Weapons             33        
+26 Psionics                  1         
+27 Mind over Mind            2         
+28 Mind over Matter          12        
+32 Sagecraft                 1         
+
+Weapon Specialization     Level
+---------------------     -----
+Broadsword                5    
+s> 
+Wolfbane ponders.
+s> 
+Wolfbane listens carefully to Amaryllys.
+s> 
+Amaryllys smiles softly, her eyes lighting from within with a memory.
+s> 
+ ** Lelldorin has just left the Realms.
+s> 
+Amaryllys says, "Nestled in the crook of three mountains.."
+s> 
+Rion casts his gaze across the area.
+s> 
+Wolfbane listens to his surroundings closely.
+s> 
+Rion listens carefully to Amaryllys.
+s> 
+Amaryllys says, "blessed by the gods with warm winds in winter.."
+s> 
+Amaryllys says, "and cool rain in summer.."
+s> 
+Gwydion listens carefully to Amaryllys.
+s> 
+Amaryllys looks around with a soft smile.
+s> 
+Amaryllys says, "It is my home."
+s> 
+Feras drinks some emerald wine.
+s> 
+Wolfbane smiles at Amaryllys.
+s> 
+Leah smiles.
+s> 
+Amaryllys says, "T'was here that my great-great grandmother came.."
+s> 
+Young listens carefully to Amaryllys.
+s> 
+Burne lays down.
+s> 
+Amaryllys says, "leading a band of ragged children.."
+s> 
+Amaryllys says, "riding on the back of a majeistic silver unicorn.."
+s> 
+Moryan curls her legs up under her, while listening to Amaryllys.
+s> 
+Amaryllys says, "it was here the children made a home in the trees.."
+s> 
+Amaryllys says, "refugees from a plague that had killed their parents.. the
+unicorns adopted them.."
+s> 
+Amaryllys smiles.
+s> 
+Fenwick arrives.
+s> 
+Amaryllys says, "each 'corn bonding with a child.. sharing with them its
+memories and its knowlege of the valley.."
+s> 
+ ** Moulin has just disconnected.
+s> 
+Fenwick fiddles with his appearance.
+s> 
+Fenwick removes his disguise.
+s> 
+Conor smiles.
+s> 
+Feras arches his eyebrow.
+s> 
+Gwydion waves to Conor.
+s> 
+Conor exclaims, "hello all!"
+s> 
+Gwydion smiles.
+s> 
+Burne says, "Shhhh"
+s> 
+Gwydion says, "Shh"
+s> 
+Young smiles at Conor.
+s> 
+Gwydion points at Amaryllys.
+s> 
+Amaryllys says, "And it was here that my great-great grandmother fell in love..
+and married.."
+s> 
+Conor says, "oh"
+s> 
+Leah listens carefully to Amaryllys.
+s> 
+Gwydion grins.
+s> 
+Conor walks to the back.
+s> 
+Rion gazes at Amaryllys.
+s> 
+Amaryllys says, "and bore a chlld.. the first child born after the plague.. the
+first child ever to.. well.. it happened like this.."
+s> 
+Amaryllys says, "The unicorns bonded so closely that they shared all thoughts,
+all feelings.. all.. with their bondmates.."
+s> 
+Amaryllys says, "And when my great-great grandmother's time came.."
+s> 
+Moryan listens carefully to Amaryllys.
+s> 
+Amaryllys gazes around, shaking her head..
+s> 
+Amaryllys shivers.
+s> 
+Veronica stands up.
+s> 
+Veronica rises from her comfortable seat in the lush grass.
+s> 
+Burne gazes at Veronica.
+s> 
+Leah listens thoughtfully to Amaryllys.
+s> 
+Amaryllys says, "They had never felt anything the like.. the great silver 'corn
+shook the trees with his bellows.."
+s> 
+Amaryllys says, "and the others in the herd.. milled restlessly.. unable to
+still themselves or the pain of their leader.."
+s> 
+Feras drinks some emerald wine.
+s> 
+Veronica smiles at Rion.
+s> 
+Amaryllys says, ".. they gathered in the clearing below the village.. and one
+by one, their bondmates arrived.."
+s> 
+Amaryllys says, "gathering with them, soothing, stroking silvered and pale
+flanks.."
+s> 
+Leah appears to become weaker.
+s> 
+Amaryllys says, "and as they stilled.. they gathered in a circle around the
+great silver 'corn.. pressing against him.."
+s> 
+Amaryllys says, "supporting him with their own bodies.. and minds.."
+s> 
+Leah ponders.
+s> 
+Burne feels solemn.
+s> 
+Amaryllys says, "as the pain grew more and more unbearable.."
+s> 
+Amaryllys says, "The day wore on and on.."
+s> 
+Wolfbane listens carefully to Amaryllys.
+s> 
+Amaryllys says, "the children attended the unicorns.. each to their bondmate..
+with the exception of my great-great grandmother. who was of course.. otherwise
+occupied.."
+s> 
+Amaryllys smiles wryly.
+s> 
+Amaryllys says, "Just as the last crescent light of the sun slipped below the
+mountain to the west.."
+s> 
+Moryan listens carefully to Amaryllys.
+s> 
+Amaryllys says, "the great silver 'corn gave an enourmous bellow.. one that
+shook the very hills.. he lifted his horn and trumpeted to the sky..."
+s> 
+Leah leans forward
+s> 
+Elriss's skin appears to become less rigid.
+s> 
+Rion furrows his brow.
+s> 
+Amaryllys says, "And this time there was no pain in the sound.."
+s> 
+Amaryllys smiles.
+s> 
+Amaryllys says, "it was a clarion call of brilliant joy that lit the sky just
+as the stars began to appear."
+s> act moves over a bit into more comfortable grass.
+Moordread moves over a bit into more comfortable grass.
+s> who
+Burne              Nord               Miria              Teraysha           
+Marcolan           Amaryllys          Sy                 Veronica           
+Leah               Wolfbane           Gwydion            Young              
+Aishua             Conor              Elriss             Feras              
+Rion               Moordread          Elarin             Airgid             
+
+
+
+There are 20 adventurers in the Realms.
+
+s> 
+Amaryllys says, "And still the unicorns and children remained in the clearing
+beneath the stars.. waiting.."
+s> 
+Amaryllys says, "till the light of the moon illuminated the narrow path that
+led from the village to the clearing where they stood.."
+s> 
+Veronica's blending effect wears off.
+s> 
+Amaryllys says, "and in her soft light, two figures walked slowly..."
+s> 
+Amaryllys smiles.
+s> 
+Gwydion listens carefully to Amaryllys.
+s> 
+Amaryllys says, "My great great grandmother Marya.."
+s> 
+Rion gazes at Amaryllys.
+s> 
+Leah smiles.
+s> 
+Young smiles at Amaryllys.
+s> 
+Wolfbane listens carefully to Amaryllys.
+s> 
+Amaryllys says, "leaning lightly on the arm of  her husband Deshan.."
+s> 
+Amaryllys says, "and in her arms.. a tiny bundle slept peacefully.."
+s> 
+Wolfbane smiles at Amaryllys.
+s> 
+Burne nods.
+s> 
+Feras cocks his head to the side.
+s> 
+Moryan smiles.
+s> 
+Amaryllys says, "The unicorns parted.. one by one stepping aside.."
+s> 
+Burne leans on a backpack.
+s> 
+Amaryllys says, "until they formed a path to the great silver 'corn who stood
+in their midst.. and Marya walked forward... head held high.."
+s> 
+Amaryllys says, "to meet her bondmate."
+s> 
+Amaryllys says, "A ripple of unease washed through the children and unicorns as
+she slowly approached him.. and he lifted his gloriously maned head to look
+into her eyes.."
+s> 
+Amaryllys says, "..then slowly... ever so slowly..."
+s> 
+Moryan cocks her head to the side.
+s> 
+Amaryllys says, "lowered his horn to touch the infant's forehead."
+s> 
+Gwydion smiles.
+s> 
+Wolfbane smiles.
+s> 
+Leah ponders.
+s> 
+Feras drinks some emerald wine.
+s> 
+Amaryllys says, "As silver horn met infant skin, there was a brilliant spark.."
+s> 
+Wolfbane listens carefully to Amaryllys.
+s> 
+Amaryllys says, "and when he lifted his head.."
+s> 
+Amaryllys says, "a golden star glimmered softly on the child's forehead."
+s> 
+Wolfbane smiles.
+s> 
+Leah smiles.
+s> 
+Young nods.
+s> 
+Amaryllys says, "He gazed around at all assembled.. golden eyes whirling with
+love.."
+s> 
+Rion whispers, "cool"
+s> 
+Wolfbane nods to Rion.
+s> 
+Wolfbane listens carefully to Amaryllys.
+s> 
+Amaryllys says, "and a clear bell-like voice sounded through the clearing as
+the child's eyes opened.. to look into those of the 'corn.."
+s> 
+Amaryllys recites, "Her name is Sheyelle.. sister to unicorns.."
+s> 
+Amaryllys recites, "Welcome her!"
+s> 
+Amaryllys says, "and one by one.. the unicorns stepped forward..."
+s> 
+Feras scratches his head.
+s> 
+Amaryllys says, "each touching horn to forehead.. and then stepping aside.."
+s> 
+Moryan smiles at Wolfbane.
+s> 
+Wolfbane smiles at Moryan.
+s> 
+Amaryllys says, "The child gazed into the eyes of each as if aware of them..
+and through it all.. Marya stood proudly.. holding the child who was the
+beginning of a new era.."
+s> 
+Amaryllys says, "Sister to unircorns."
+s> 
+Wolfbane smiles at Amaryllys.
+s> 
+Gwydion smiles.
+s> 
+Conor goes west.
+s> 
+Nord appears to become weaker.
+s> 
+Amaryllys says, "That was the first naming.. but far from the last.."
+s> 
+Conor arrives.
+s> 
+Amaryllys says, "For three generations, each child was greeted in this way.."
+s> 
+Wolfbane smiles.
+s> 
+Young smiles at Amaryllys.
+s> 
+Amaryllys says, "each child bonded to a unicorn.. and grew mind and mind with
+that unicorn.. and another child.."
+s> 
+Moryan cocks her head to the side.
+s> 
+Wolfbane listens carefully to Amaryllys.
+s> 
+Amaryllys says, "In the year of my birth, there came great troubles.."
+s> 
+Amaryllys shivers.
+s> exp
+Level: 41
+Build Points to date: 433
+Unspent Build Points: 2
+Experience Points until next Build Point: 15371
+s> 
+Wolfbane listens carefully to Amaryllys.
+s> 
+Amaryllys says, "Chaos reached out a finger to touch the land.."
+s> 
+Elarin snorts.
+s> 
+Leah sighs.
+s> 
+Burne shakes his head back and forth.
+s> 
+Amaryllys says, ".. and the tales raced ahead to Shilmardryn.. of villages
+sacked and burned.."
+s> 
+Leah furrows her brow.
+s> 
+Wolfbane sighs.
+s> 
+Amaryllys says, "with never a soldier seen.."
+s> 
+Amaryllys says, "never a firebrand lit.."
+s> 
+Moryan frowns.
+s> 
+Amaryllys says, "it came upon us like a dark cloud.. from afar they saw it
+gathering.. and as it came down upon us.."
+s> 
+Leah looks down her face saddened and slightly pale.
+s> 
+Rion frowns.
+s> 
+Amaryllys says, "the children, now grown and with grandchildren.."
+s> 
+Wolfbane listens carefully to Amaryllys.
+s> 
+Amaryllys says, "gathered in the clearing.. each with their bonded 'corn..
+unicorn, aelfen, unicorn around in a ring.."
+s> 
+Amaryllys says, "all buy my mother.. who was great with child.."
+s> 
+Wolfbane listens carefully to Amaryllys.
+s> 
+Amaryllys says, "as the cloud gathered, the circle closed.. each aelfen laying
+a hand on the flank of the 'corn nearest.."
+s> 
+Feras drinks some emerald wine.
+s> 
+Amaryllys says, "and as the circle was completed.. the great silver 'corn
+raised his head and bellowed to the sky.."
+s> 
+Amaryllys says, "and each of the 'corns answered in kind.. and from their
+horns.."
+s> 
+Amaryllys says, "shot golden and silver light.. that arced into the night
+sky.."
+s> 
+Young blinks.
+s> 
+Gwydion listens carefully to Amaryllys.
+s> 
+Amaryllys says, "... meeting high above the village to form a net.. a dome of
+protection.."
+s> 
+Amaryllys says, "just as the lights met.. a finger of darkness reached from the
+sky and battered against the dome.."
+s> 
+Moryan listens carefully to Amaryllys.
+s> 
+Burne sits up.
+s> 
+Amaryllys says, "Shaking it.. setting the unicorns trembling as they tried to
+hold against it.."
+s> 
+Leah closes her eyes.
+s> 
+Leah sighs.
+s> 
+ ** Teraysha has just disconnected.
+s> 
+Burne leans back on his elbows.
+s> 
+Amaryllys says, "My people begain a song.. a low, soft note.. and as it rose on
+the wind..."
+s> 
+Amaryllys says, "pale lights of shimmering green and yellow began to weave
+through the silver and gold.. filling the empty spaces where the darkness crept
+in.."
+s> 
+Amaryllys says, "again and again, the darkness battered the dome.."
+s> 
+Wolfbane smiles.
+s> 
+Burne sighs.
+s> 
+Amaryllys says, "each blow stronger.. the lights dimming slowly.. brightening..
+ony to dim again.."
+s> 
+Moryan plucks a few strands of grass while listening to the story.
+s> 
+The prismatic globe around Young vanishes.
+s> 
+Amaryllys says, "until it seemed certain that the darkness would win.. just
+before dawn.."
+s> 
+Amaryllys says, "as the lights dimmed to nearly nothing.. a silent figure
+slipped into the circle.."
+s> 
+Leah listens carefully to Amaryllys.
+s> 
+Amaryllys says, "taking her place beside the silver 'corn.."
+s> 
+Burne spits forth a stream of explitives.
+s> 
+Amaryllys says, "a ripple ran through the circle.. none wanted my mother to
+risk such a thing.."
+s> 
+Burne arches his eyebrow.
+s> 
+Wolfbane listens carefully to Amaryllys.
+s> 
+Amaryllys says, "but she stood firm.. her hand cool against the flank of her
+bondmate.."
+s> 
+Amaryllys says, "and as she closed her eyes.."
+s> 
+Moryan gazes over at Burne before turning back to the story teller.
+s> 
+Amaryllys says, "a soft blue light began to glow.. weaving in and out of the
+other colors.."
+s> 
+Feras drinks some emerald wine.
+s> 
+Amaryllys says, "suffusing them all, brightening even the silver and gold.."
+s> 
+Amaryllys says, "until every chink in the net was filled.."
+s> 
+Amaryllys closes her eyes.
+s> 
+Amaryllys says, "The dark cloud gathered itself for a final attack..."
+s> 
+Gwydion listens carefully to Amaryllys.
+s> pond
+You ponder for a moment.
+s> 
+Leah shivers.
+s> 
+Amaryllys says, "lashing out with all its might against the dome of light and
+peace... battering.."
+s> 
+Wolfbane listens carefully to Amaryllys.
+s> 
+Wolfbane sighs.
+s> 
+Amaryllys says, "The darkness ran down the threads of light, racing toward the
+defenders.."
+s> 
+The glowing outline of armor fades from around Nord.
+s> 
+Wolfbane gasps.
+s> 
+Wolfbane listens carefully to Amaryllys.
+s> 
+Amaryllys says, "The silver corn lifted his head high and blew a single
+piercing note through his horn... and the thousand points of darkness gathered
+into one.."
+s> 
+Amaryllys says, "and raced with deadly accuracy toward him.."
+s> 
+Leah furrows her brow.
+s> 
+Rion growls.
+s> 
+Amaryllys says, "He took the brunt of the attack.."
+s> 
+Wolfbane listens carefully to Amaryllys.
+s> 
+Amaryllys touches a soft gray wrymwood lyre.
+s> 
+ ** Sy has just disconnected.
+s> 
+Sy disconnects.
+s> 
+Amaryllys touches a well-worn black rosewood lyre painted with a gilded unicorn
+with no horn.
+s> 
+ ** Elriss has just disconnected.
+s> 
+Elriss disconnects.
+s> 
+Gwydion winces.
+s> 
+Feras ponders.
+s> 
+Young frowns.
+s> 
+Amaryllys says, "It burned his horn to cinders.. to a blackened nub in the
+center of his forehead.."
+s> 
+Rion winces.
+s> 
+Wolfbane sighs.
+s> 
+Leah sighs.
+s> 
+Moryan sighs.
+s> 
+Amaryllys says, "the darkness, blunted by his strength, shimmered from corn to
+corn.."
+s> 
+Amaryllys says, "and was reflected back.. racing back up the dome.. flickering
+in the slowly brightening sky.."
+s> 
+Amaryllys says, "to burst into sparkling stars and shimmering fountains of
+light that scattered the last of the cloud of chaos.."
+s> 
+Amaryllys says, "victory belonged to Shilmardryn.. but the cost was high.."
+s> 
+Wolfbane listens carefully to Amaryllys.
+s> 
+Leah ponders.
+s> 
+Amaryllys says, "as the dome of light slowly faded.. there was a loud cry.."
+s> 
+Amaryllys says, "and my mother crumpled to the ground.."
+s> 
+Wolfbane listens carefully to Amaryllys.
+s> 
+Wolfbane sighs.
+s> 
+Rion sighs.
+s> 
+Amaryllys says, "Cursing softy, my father gathered her in his arms, and hurried
+her home.. and once again.."
+s> 
+Amaryllys says, "unicorns and aelfen kept vigil in the clearing.. birth
+vigil.."
+s> 
+Leah wipes a small tear from her cheek.
+s> 
+Wolfbane comforts Leah.
+s> 
+Wolfbane listens carefully to Amaryllys.
+s> 
+Amaryllys says, "but this time.. when the final clarion call came.. it was full
+of hollow sadness.."
+s> 
+Wolfbane sighs.
+s> 
+Amaryllys says, "and when the moon lit the path from the village to the
+clearing.."
+s> 
+Amaryllys says, "only one figure walked into the light.."
+s> 
+Leah 's eyes stay fixed on the grass as she listens
+s> 
+Amaryllys says, "The unicorns stepped aside.. clearing the way to their
+center.."
+s> 
+Amaryllys says, "Where stood the great silver 'corn.. his once proud horn now a
+blackened nub.."
+s> 
+Rion looks visibly upset
+s> 
+Amaryllys says, "my father stepped through them... walking to the 'corn, and
+softly placed one hand on his mane.."
+s> 
+Wolfbane gives Rion a backrub.
+s> 
+Amaryllys says, "He raised his eyes, resting them upon my sleeping face.."
+s> 
+Amaryllys says, "then with a soft sigh, turned and walked toward the edge of
+the wood."
+s> 
+Amaryllys blinks away tears.
+s> 
+Amaryllys says, "One by one, the other unicorns filed by him.. pausing a
+moment.."
+s> 
+Amaryllys says, "but none touched horn to forehead.."
+s> 
+Gwydion sighs.
+s> 
+Amaryllys says, "and as they reached the edge of the clearing, they simply
+melted into the darkness.."
+s> 
+Leah sighs.
+s> 
+Amaryllys says, "until at last, only the silver unicorn remained."
+s> 
+Amaryllys says, "He gazed back over the clearing, then in a clear, bell like
+voice he spoke.."
+s> 
+Amaryllys recites, "Grieve not for Sheyelle, for she rides the night winds with
+me.."
+s> 
+Amaryllys recites, "As for the child,..."
+s> 
+Amaryllys recites, "Name her what you will.."
+s> 
+Young gazes at Amaryllys.
+s> 
+Amaryllys recites, "I will carry her true name with me... till her time is
+come."
+s> 
+Amaryllys says, "And with that.. he too melted into the forest."
+s> 
+Feras ponders.
+s> 
+Feras drinks some emerald wine.
+s> 
+Amaryllys says, "My father named my Amaryllys, for the flowers that my mother
+loved.. as my great-grandmother was the first of an era.."
+s> 
+Amaryllys says, "so too am I.. the first of three generations to be raised
+unbonded... and unnamed."
+s> 
+Gwydion sighs.
+s> 
+Amaryllys lowers her eyes, then curtsies and takes her seat.
+s> 
+Moryan smiles sadly.
+s> 
+Amaryllys sits down.
+s> 
+Amaryllys finds a comfortable spot and sinks down into the lush, comfortable
+green grass.
+s> 
+Young ponders.
+s> 
+Young applauds.
+s> 
+Wolfbane says, "well told"
+s> 
+Moryan says, "a very sad story"
+s> 
+Burne applauds.
+s> 
+Wolfbane smiles at Amaryllys.
+s> 
+Rion says, "thats such a very sad tale"
+s> 
+Feras drinks some emerald wine.
+s> 
+Rion sighs.
+s> 
+Feras drinks some emerald wine.
+s> 
+Burne nods.
+s> 
+Rion touches Amaryllys.
+s> 
+Rion says, "all will be well soon i think"
+s> 
+Moryan casts her gaze across the area.
+s> 
+Leah smiles and says softly to Amaryllys,'that was very stirring. Thank you'
+s> nod
+You nod.
+s> 
+Gwydion says, "I applaud the performance, if not the events."
+s> 
+Gwydion applauds.
+s> 
+Moryan asks, "Is there anyone else to perform?"
+s> 
+Conor applauds.
+s> 
+Conor says, "Very well told indeed."
+s> 
+Conor smiles.
+s> 
+Conor coughs.
+s> 
+Out of the corner of your eye, you glimpse a silver form as it slips into the
+shadows.
+s> 
+Conor says, "I'm late but if the audience is willing to listen then I will take
+the stage."
+s> 
+Gwydion blinks.
+s> 
+Young casts his gaze across the area.
+s> 
+Gwydion casts his gaze across the area.
+s> 
+Young searches the area.
+s> 
+Moryan casts her gaze across the area.
+s> 
+Conor casts his gaze across the area.
+s> 
+Young incants a spell.
+s> 
+Young narrows his eyes and gazes intently about the area.
+s> 
+Burne struggles to his feet.
+s> 
+Burne rises from his comfortable seat in the lush grass.
+s> 
+Young nods.
+s> 
+Rion smiles.
+s> 
+Burne searches the area.
+s> 
+Moryan says, "Aye, please take the stage if you would."
+s> 
+Leah furrows her brow.
+s> 
+Moryan gestures towards a grassy platform slightly raised at the east end of
+the bowl.
+s> 
+Burne sits down.
+s> 
+Burne finds a comfortable spot and sinks down into the lush, comfortable green
+grass.
+s> 
+Leah listens to her surroundings closely.
+s> 
+Amaryllys raises an eyebrow towards Rion.
+s> 
+Conor bounds onto the stage.
+s> 
+Conor strides up onto the platform at the east end of the bowl.
+s> 
+Gwydion listens carefully to Conor.
+s> 
+Feras grunts.
+s> 
+Wolfbane smiles at Conor.
+s> 
+Feras lays down.
+s> 
+Amaryllys shakes her head at Rion.
+s> 
+Conor paces back and forth for a moment as if deep in thought.
+s> 
+Feras closes his eyes.
+s> 
+Leah smiles at Amaryllys.
+s> 
+Conor turns to you.
+s> 
+Conor says, "Well, I was going to tell a story of such importance that it
+forever would  burned into your minds..."
+s> 
+Rion gazes at Amaryllys.
+s> 
+Conor says, "but I forgot how it goes...so i'll instead tell one which is
+thinly disguised as a comedy sketch."
+s> 
+Amaryllys touches Rion.
+s> 
+Young chuckles.
+s> 
+Gwydion chuckles.
+s> 
+Moryan chuckles.
+s> 
+Wolfbane chuckles at Conor.
+s> 
+Conor smiles.
+s> 
+Amaryllys touches her finger to her lips and gestures to the stage.
+s> 
+Conor says, "I'll be playing two parts..."
+s> 
+Rion gazes at Conor.
+s> 
+Wolfbane listens carefully to Conor.
+s> 
+Conor says, "Fenwick the merchant..."
+s> 
+Feras opens his eyes.
+s> 
+Feras furrows his brow.
+s> 
+Conor says, "and..Gibbon the troubadour"
+s> 
+Feras sits up.
+s> 
+Feras rubs his eyes
+s> 
+Conor says, "when I turn to the left I will be playing Fenwick"
+s> 
+Young says, "Oh my, not the old Merchant and the Troubadour tale"
+s> 
+Feras stands up.
+s> 
+Feras rises from his comfortable seat in the lush grass.
+s> 
+Conor says, "to the right I will be Gibbon"
+s> 
+Feras goes west.
+s> 
+Amaryllys nudges Young.
+s> 
+Conor exclaims, "everyone got it straight?!"
+s> 
+ ** Feras has just left the Realms.
+s> 
+Wolfbane nods to Conor.
+s> 
+Gwydion grins.
+s> 
+Conor says, "alright then...."
+s> 
+Conor says, "Our scene opens in a small port town bustling with excitement as
+villagers make their way through the narrow streets and the shopkeepers hawk
+their wares."
+s> 
+Conor says, "The sounds of animals on their way to market fills the air."
+s> 
+Conor says, "Enter Gibbon the Troubadour, whistling, as he has just pulled into
+port from a long and tiring journey."
+s> 
+Wolfbane listens carefully to Conor.
+s> 
+Conor says, "Making a beeline for the pub, poor Gibbon is accosted by Fenwick
+the merchant."
+s> 
+Conor turns to his left.
+s> 
+Gwydion chuckles.
+s> 
+ ** Leah has just disconnected.
+s> 
+Leah disconnects.
+s> 
+Conor exclaims, "Good day to you minstrel!"
+s> 
+Conor turns to his right.
+s> 
+Leah arrives.
+s> 
+Conor says, "Good day to you merchant."
+s> 
+Conor turns to his left.
+s> 
+ ** Rion has just disconnected.
+s> 
+Rion disconnects.
+s> 
+Gwydion chuckles.
+s> 
+Burne smirks.
+s> 
+Conor says, "Please sir, come in and see my wares"
+s> 
+Rion arrives.
+s> 
+Conor turns to his right.
+s> 
+Rion sighs.
+s> 
+Conor says, "Ah not today my fine fellow, I must be about my business"
+s> 
+Conor turns to his left.
+s> 
+Conor says, "Oh come on, just have a look"
+s> 
+Conor turns to his right.
+s> 
+Rion casts his gaze across the area.
+s> 
+Gwydion chuckles.
+s> 
+Wolfbane listens to his surroundings closely.
+s> 
+Conor says, "But I must away sir, I go to sing at the tavern."
+s> 
+Conor turns to his left.
+s> 
+Conor says, "Surly you have but a few moments sir, I haven't had a customer all
+day, I beg you"
+s> 
+Conor turns to his right.
+s> 
+Conor says, "Well..."
+s> 
+Conor turns to his left.
+s> 
+Young chuckles.
+s> 
+Conor exclaims, "Oh please sir...please. Please, PLEASE!"
+s> 
+Conor turns to his right.
+s> 
+Wolfbane chuckles.
+s> 
+Conor says, "Alright, alright"
+s> 
+Conor turns to his left.
+s> 
+Conor says, "Oh bless you sir"
+s> 
+Conor turns to his right.
+s> 
+Conor asks, "So what are you selling then?"
+s> 
+Conor turns to his left.
+s> 
+Conor says, "Why...Horses sir."
+s> 
+Conor turns to his right.
+s> 
+Conor asks, "Horses?"
+s> 
+Conor turns to his left.
+s> 
+Burne counts his money.
+s> 
+Conor says, "Yes sir."
+s> 
+Conor turns to his right.
+s> 
+Conor asks, "Where?"
+s> 
+Conor turns to his left.
+s> 
+Conor says, "Right here sir."
+s> 
+Conor turns to his right.
+s> 
+Conor asks, "You call those horses?"
+s> 
+Conor turns to his left.
+s> 
+Wolfbane listens carefully to Conor.
+s> 
+Conor says, "Well, only the finest horses in all the village."
+s> 
+Conor turns to his right.
+s> 
+ ** Burne has just left the Realms.
+s> 
+Burne exits.
+s> 
+Conor says, "They look like rejects from the glue factory."
+s> 
+Conor turns to his left.
+s> 
+Moryan chuckles.
+s> 
+Wolfbane chuckles.
+s> 
+Wolfbane listens carefully to Conor.
+s> 
+Conor says, "Oh no sir, the rejects are over there."
+s> 
+Young giggles.
+s> 
+Wolfbane listens carefully to Conor.
+s> 
+Conor motions to a point on the stage
+s> 
+Conor turns to his right.
+s> 
+Conor asks, "What, behind that pile?"
+s> 
+Conor turns to his left.
+s> 
+Conor says, "They are that pile sir."
+s> 
+ ** Veronica has just disconnected.
+s> 
+Veronica disconnects.
+s> 
+Conor turns to his right.
+s> 
+Gwydion chuckles.
+s> 
+Wolfbane chuckles.
+s> 
+Wolfbane listens carefully to Conor.
+s> 
+Conor asks, "Ah...yes...Well, don't you think you should dispose of them?"
+s> 
+Young laughs.
+s> 
+Conor turns to his left.
+s> 
+Conor says, "Oh no sir, they keep the flies off the other horses"
+s> 
+Marcolan smiles.
+s> 
+Conor turns to his right.
+s> 
+Moryan twists up her face in an expression of pain.
+s> 
+Gwydion laughs.
+s> 
+Wolfbane laughs.
+s> 
+Leah furrows her brow.
+s> 
+Conor says, "Can't argue with that."
+s> 
+Conor turns to his left.
+s> pond
+You ponder for a moment.
+s> 
+Rion grins.
+s> 
+Conor says, "Also I'm goin to use their hides to make some new clothes for me
+and the missus."
+s> 
+Conor turns to his right.
+s> 
+Conor asks, "Are you curing them?"
+s> 
+Conor turns to his left.
+s> 
+Conor says, "I'm afraid it's to late for that sir."
+s> 
+Wolfbane whispers to Moryan 'thats why i keep Young around.'
+s> 
+Conor looks sad
+s> 
+Gwydion laughs.
+s> 
+Wolfbane smiles at Moryan.
+s> 
+Conor turns to his right.
+s> 
+Young laughs.
+s> 
+Elarin chuckles at Young.
+s> 
+Conor says, "Yes...wel I must be off."
+s> 
+Moryan chuckles at Wolfbane.
+s> 
+Conor turns to his left.
+s> 
+Conor says, "But you haven't even looked at the merchandise."
+s> 
+Conor turns to his right.
+s> 
+Conor says, "To be truthful sir, I don't have very much money."
+s> 
+Conor turns to his left.
+s> 
+Gwydion mutters "Of course not, he's a musician"
+s> 
+Conor says, "Ah...well that's the beauty part sir. You don't need much money."
+s> 
+Gwydion whistles innocently.
+s> 
+Conor turns to his right.
+s> 
+Wolfbane listens carefully to Conor.
+s> 
+Conor asks, "I don't?"
+s> 
+Conor turns to his left.
+s> 
+Miria blinks.
+s> 
+Conor asks, "Oh no sir, I mean look...Would you pay much money for these
+horses?"
+s> 
+Conor turns to his right.
+s> 
+Young smiles.
+s> 
+Gwydion chuckles.
+s> 
+Wolfbane grins.
+s> 
+Conor says, "Once more your logic is irrefutable...lead on sir."
+s> 
+Conor turns to his left.
+s> 
+Conor says, "Thank you sir...Now this first model is a real beauty, shiny coat,
+low mileage, new shoes, and not a scratch on her. Why, this horse was only
+ridden by a little old lady on Sundays to go to temple."
+s> 
+Conor turns to his right.
+s> 
+Conor arches his eyebrow.
+s> 
+Gwydion grins.
+s> 
+Conor asks, "Well, what happened to it's back?"
+s> 
+Wolfbane chuckles.
+s> 
+Conor turns to his left.
+s> 
+Conor asks, "Whatsa...What's wrong with it?"
+s> 
+Conor turns to his right.
+s> 
+ ** Airgid has just left the Realms.
+s> 
+Conor says, "Well, considering that, that particular horses's back is sitting
+where it's stomach should be, I should say that theres plenty wrong with it."
+s> 
+Conor turns to his left.
+s> 
+Moryan chuckles.
+s> 
+Conor furrows his brow.
+s> 
+Wolfbane listens carefully to Conor.
+s> 
+Conor says, "Ah...Yes sir, I can see you have a keen eye for horse.
+Unfortunately the little old lady who rode that, had a weight problem."
+s> 
+Conor turns to his right.
+s> 
+Conor asks, "How much?"
+s> 
+Conor turns to his left.
+s> 
+Conor says, "Um...About five hundred pounds sir."
+s> 
+Conor pauses
+s> 
+Miria laughs.
+s> 
+Young chuckles.
+s> 
+Sy arrives.
+s> 
+Rion grins.
+s> 
+Conor turns to his right.
+s> 
+Gwydion grins.
+s> 
+Gwydion grins.
+s> 
+Conor says, "I should think it was the horse that had the weight problem."
+s> 
+Conor turns to his left.
+s> 
+Conor says, "Ah very funny sir, thou hast wit."
+s> 
+Conor turns to his right.
+s> 
+Gwydion chuckles.
+s> 
+Conor says, "Yes, well."
+s> 
+Conor turns to his left.
+s> 
+ ** Wolfbane has just disconnected.
+s> 
+Wolfbane disconnects.
+s> 
+Wolfbane arrives.
+s> 
+You feel the touch of Donnald's mind:
+"hello everyone"
+s> 
+Teraysha arrives.
+s> 
+You feel the touch of Young's mind:
+"Howdy Donnald"
+s> 
+Wolfbane hugs Teraysha.
+s> 
+Rion waves to Teraysha.
+s> 
+Elarin waves to Teraysha.
+s> 
+You feel the touch of Leah's mind:
+"hello, Donnald!"
+s> 
+Teraysha beams at Wolfbane.
+s> 
+You feel the touch of Rion's mind:
+"hiya Donnald"
+s> 
+Sy smiles at Teraysha.
+s> 
+Leah beams at Teraysha.
+s> 
+Conor exclaims, "Come sir, forget about that one. You obviously know too much
+about horses to settle for anything second rate. Now over here we have our top
+of the line. I call this one El Diablo, he's got a lot of spirit so don't get
+to close!"
+s> 
+Leah hugs Teraysha.
+s> 
+Teraysha smiles and slips into a seat between Sy and Leah.
+s> 
+Teraysha sits down.
+s> 
+Teraysha finds a comfortable spot and sinks down into the lush, comfortable
+green grass.
+s> 
+Conor turns to his right.
+s> 
+Leah leans on Teraysha.
+s> 
+You feel the touch of Donnald's mind:
+"hi young, leah, and rion"
+s> 
+Conor says, "Right...I wouldnt want him to fall on me."
+s> 
+Amaryllys listens to her surroundings closely.
+s> 
+You feel the touch of Aishua's mind:
+"Hello, Donnald."
+s> 
+You feel the touch of Cypress's mind:
+"Hi! Donnald"
+s> 
+Conor turns to his left.
+s> 
+Conor says, "You hurt me sir."
+s> 
+Conor turns to his right.
+s> 
+Amaryllys giggles.
+s> 
+You feel the touch of Donnald's mind:
+"hi cypress and aishua"
+s> 
+Conor asks, "Well look at him, and why is he sitting like that?"
+s> 
+Conor turns to his left.
+s> 
+Teraysha smiles at Leah.
+s> 
+Conor says, "Oh ah...Well all champion stallions sit like that, it's a sign of
+good breeding."
+s> 
+Conor turns to his right.
+s> 
+Wolfbane arches his eyebrow.
+s> 
+Gwydion arches his eyebrow.
+s> 
+Conor exclaims, "It's a sigh that someone's cut his back legs off!"
+s> 
+Moryan twists up her face in an expression of pain.
+s> 
+Sy snickers.
+s> 
+Young giggles.
+s> 
+Conor turns to his left.
+s> 
+Wolfbane winces.
+s> 
+Teraysha leans on Sy.
+s> 
+Wolfbane listens carefully to Conor.
+s> 
+Amaryllys raises an eyebrow towards Conor.
+s> 
+Conor says, "Well...yeah, that too...But he's a good horse sir, look at those
+teeth, look at that fine muscle tone. Why this very horse the King once rode.
+He's smart, he's loyal, why, he even saved my life once."
+s> list
+You listen.
+s> 
+Conor turns to his right.
+s> 
+Gwydion arches his eyebrow.
+s> who
+Donnald            Nord               Teraysha           Miria              
+Leah               Marcolan           Amaryllys          Rion               
+Sy                 Wolfbane           Cypress            Gwydion            
+Young              Aishua             Conor              Moordread          
+Elarin             
+
+
+There are 17 adventurers in the Realms.
+
+s> 
+Wolfbane listens carefully to Conor.
+s> 
+Conor exclaims, "Well then why in heavens name did you cut his back legs off?!"
+s> 
+Conor turns to his left.
+s> look
+[Heroes Rest, ampitheatre]
+Majestic willow trees rise gracefully in a colorful circle around a
+bowl shaped area of the compound. The lush, grassy ground descends
+,in almost tiered steps, from west to east where it gently ends in
+sort of a raised platform. The natural acoustics of the area make
+it a perfect spot for performers to sing their songs or tell their
+tales from the platform at the bottom of the bowl.
+You see Nord (sitting), Teraysha (sitting), Miria (sitting), Leah (sitting),
+Marcolan, Moryan (sitting), Amaryllys (sitting), Rion (sitting), Sy (sitting),
+Wolfbane (sitting), Gwydion (sitting), Young, Conor and Elarin (sitting). 
+Obvious exits: west.
+s> 
+Conor exclaims, "Sir, you can't eat such a fine animal all this all at once!"
+s> 
+Gwydion winces.
+s> 
+Conor turns to his right.
+s> 
+Young laughs.
+s> 
+Wolfbane laughs.
+s> 
+Sy grins.
+s> 
+Conor exclaims, "You ate him?!!"
+s> 
+Conor turns to his left.
+s> 
+Leah's face grows pale.
+s> 
+Conor says, "Just his back legs sir."
+s> 
+Conor turns to his right.
+s> 
+Moryan rubs her temples with her fingertips.
+s> 
+Leah bites her lower lip.
+s> 
+Conor asks, "Well, how do you ride him?"
+s> 
+Conor turns to his left.
+s> 
+Wolfbane fidgets nervously.
+s> 
+Wolfbane listens carefully to Conor.
+s> 
+Conor says, "Oh, I wouldnt try if I were you sir. Ever since I cut his back
+legs, he's been very suspicous."
+s> 
+Moryan groans.
+s> 
+Conor turns to his right.
+s> 
+Veronica arrives.
+s> 
+Wolfbane chuckles.
+s> 
+Rion winces.
+s> 
+Leah smiles at Veronica.
+s> 
+Amaryllys makes a face.
+s> 
+Conor says, "Yes, well I don't think i'd have much time to take care of a horse
+like that."
+s> 
+Conor turns to his left.
+s> 
+Veronica smiles at Leah.
+s> 
+Conor says, "You dont have to sir, he's used to pulling his own weight."
+s> 
+Conor pauses
+s> 
+Moryan shakes her head back and forth.
+s> 
+Wolfbane groans.
+s> 
+Sy snickers.
+s> 
+Conor turns to his right.
+s> 
+Rion coughs.
+s> sigh
+You sigh.
+s> 
+Elarin laughs.
+s> 
+Miria shakes her head back and forth.
+s> 
+Elarin pokes Miria.
+s> 
+Elarin chuckles.
+s> 
+Conor says, "Ah...you have a bit of wit yourself good merchant."
+s> 
+Conor turns to his left.
+s> 
+Miria chuckles.
+s> 
+Conor says, "Thank you sir."
+s> 
+Conor smiles.
+s> 
+Conor turns to his right.
+s> 
+Wolfbane tries to count his money but finds he has nothing.
+s> 
+Conor says, "Now if you'll exscuse me...."
+s> 
+Elarin gives Wolfbane some money.
+s> 
+Conor turns to his left.
+s> 
+Rion gives Wolfbane some money.
+s> 
+Wolfbane pokes Elarin.
+s> 
+Wolfbane gives Rion some money.
+s> 
+Conor asks, "Wait, please sir, I'm sure I have the right horse for you. How
+about this one?"
+s> 
+Wolfbane nods to Marcolan.
+s> 
+Conor turns to his right.
+s> 
+Wolfbane listens carefully to Conor.
+s> 
+Conor asks, "Should his legs be sticking up in the air like that?"
+s> 
+Conor turns to his left.
+s> 
+Veronica chuckles.
+s> 
+Amaryllys coughs.
+s> 
+Wolfbane chuckles.
+s> 
+Leah gulps.
+s> 
+Elarin chuckles.
+s> 
+Conor says, "Ah, never mind. How about this one? She's young, she's strong,
+she's gentle."
+s> 
+Conor turns to his right.
+s> 
+Conor says, "She's got horns."
+s> 
+Conor turns to his left.
+s> 
+Moryan listens carefully to Conor.
+s> 
+Wolfbane arches his eyebrow.
+s> 
+Young smiles.
+s> 
+Conor says, "Yes sir, at no extra charge."
+s> 
+Conor turns to his right.
+s> 
+Young chuckles.
+s> 
+Miria chuckles.
+s> 
+Moryan pokes Wolfbane.
+s> 
+Veronica grins.
+s> 
+Rion smirks.
+s> 
+Wolfbane grins.
+s> 
+ ** Gwydion has just disconnected.
+s> 
+Gwydion disconnects.
+s> 
+ ** Sy has just disconnected.
+s> 
+Sy disconnects.
+s> 
+Conor says, "Now look! I may not know much about horses, but I do know enough
+about them to tell that this is in fact a cow."
+s> 
+Conor turns to his left.
+s> 
+Wolfbane laughs.
+s> 
+Conor says, "She's very strong sir."
+s> 
+Conor turns to his right.
+s> 
+Wolfbane listens carefully to Conor.
+s> 
+Conor exclaims, "That's as may be, but it's still a cow!"
+s> 
+Conor turns to his left.
+s> 
+Elarin chuckles.
+s> 
+Conor says, "Make me an offer."
+s> 
+Conor turns to his right.
+s> 
+Conor asks, "Looke, what would I do with a cow?"
+s> 
+Conor turns to his left.
+s> 
+Conor says, "Well...you could eat it."
+s> 
+Conor turns to his right.
+s> 
+Sy arrives.
+s> 
+Conor asks, "Yes, that's true enough, but, how could I carry the extra meat?"
+s> 
+Wolfbane listens carefully to Conor.
+s> 
+Conor turns to his left.
+s> 
+Conor says, "Why, you could load it onto your horse."
+s> 
+Conor turns to his right.
+s> 
+You feel a tingle in your mind. Cypress thinks to you, "Hi!."
+s> 
+Young smiles.
+s> 
+Conor says, "But I don't have a horse"
+s> 
+Conor turns to his left.
+s> 
+Conor asks, "No?"
+s> 
+Conor turns to his right.
+s> 
+Conor says, "No"
+s> 
+Conor turns to his left.
+s> 
+Moryan chuckles at Marcolan.
+s> 
+Rion smirks.
+s> 
+Conor says, "Well than you've come to the right place sir. How about this one,
+he's young, strong, reliabl........"
+s> contact cypress Hello Cypress! I'm at the heroes amphitheatre listening to stories and songs if you care to come by
+You contact Cypress with your thoughts.
+ [Round: 2 sec]
+Rs> 
+Moryan groans.
+s> 
+Conor bows.
+s> 
+Veronica grins.
+s> 
+Miria laughs.
+s> 
+Marcolan chuckles.
+s> 
+Moryan chuckles.
+s> 
+Wolfbane laughs.
+s> 
+Elarin laughs.
+s> 
+Miria applauds.
+s> 
+Young applauds.
+s> 
+Sy chuckles.
+s> 
+Leah grins.
+s> 
+Moryan applauds.
+s> 
+Elarin applauds.
+s> 
+Elarin applauds.
+s> 
+Rion applauds.
+s> 
+Sy applauds.
+s> 
+Rion applauds.
+s> 
+Miria applauds.
+s> 
+Veronica applauds.
+s> 
+Leah applauds.
+s> 
+Wolfbane taps Conor on the shoulder.
+s> 
+Rion laughs.
+s> 
+Conor says, "An excellent audience you were"
+s> 
+Conor applauds.
+s> 
+You feel a tingle in your mind. Cypress thinks to you, "tell me how to get
+there."
+s> fur
+You furrow your brow.
+s> 'Did the guy get a horse or not?
+You ask, "Did the guy get a horse or not?"
+s> 
+Moryan smiles.
+s> 
+Wolfbane says, "why didnt the merchant eat the cow instead of the horeses
+legs?"
+s> rais
+You raise your eyebrow.
+s> 
+Miria laughs.
+s> 
+Wolfbane listens carefully to Conor.
+s> 
+Leah chuckles at you.
+s> 
+Conor says, "Thats another story"
+s> 
+Conor grins.
+s> 
+Veronica grins.
+s> 
+Marcolan asks, "Is this for court bard, or court gester?"
+s> 
+Marcolan furrows his brow.
+s> 
+Moryan says, "um.. another time"
+s> 
+Moryan smiles at Conor.
+s> 
+Wolfbane chuckles.
+s> 
+Leah smiles.
+s> 
+Moryan ponders.
+s> 
+You feel the touch of Garin's mind:
+"Greetings."
+s> 
+Gwydion arrives.
+s> contact cypres From the Fayd gate, s, sw, se, s, go arch, e
+
+Conor says, "actually I saw the gathering here...i'm not in the running I don't
+think"
+s> You contact Cypress with your thoughts.
+ [Round: 2 sec]
+Rs> 
+Moryan smiles.
+s> 
+Conor steps down from the stage
+s> 
+You feel the touch of Aishua's mind:
+"Hello, Garin."
+s> 
+You feel the touch of Wolfbane's mind:
+"hail arms brother"
+s> 
+Moryan stands up.
+s> 
+You feel the touch of Donnald's mind:
+"greetins garin"
+s> 
+Miria chuckles.
+s> 
+You feel the touch of Veronica's mind:
+"Hi, Garin!"
+s> 
+You feel the touch of Young's mind:
+"Hail Arms Brother Garin"
+s> 
+Conor says, "Just couldnt resists an audience"
+s> 
+Marcolan says, "You might be..."
+s> 
+You feel the touch of Rion's mind:
+"hey Garin"
+s> 
+Marcolan asks, "how fast can you run?"
+s> 
+Moryan smoothes out her skirts, shaking off the grass.
+s> 
+Gwydion grins.
+s> 
+Marcolan listens carefully to Conor.
+s> 
+Moryan chuckles.
+s> 
+Conor chuckles.
+s> 
+You feel the touch of Garin's mind:
+"Howdy Guildmaster, Arms brothers."
+s> 
+Conor says, "quite fast I think"
+s> 
+Conor rubs some worn black leather boots that reflect the miles upon miles of
+walking they have done.
+s> 
+Moryan says, "I'd like to thank you all for coming, and all of you for your
+hard work, and your wonderful talents."
+s> think Hail Armsbrother Garin
+You project your thoughts.
+s> 
+You feel the touch of Cypress's mind:
+"Hi! Rion"
+s> 
+Elarin smiles at Moryan.
+s> 
+Moryan says, "My choice today by no means infers you don't have enough talent
+to perform at the palace, I'm mostly looking for someone with a variety to
+entertain with."
+s> 
+You feel the touch of Rion's mind:
+"Hi Cypress"
+s> 
+Wolfbane listens carefully to Moryan.
+s> 
+Moryan says, "All of you will be welcome to perform at the palace."
+s> 
+You feel the touch of Wolfbane's mind:
+"heya cypress"
+s> 
+Gwydion smiles.
+s> 
+Young smiles.
+s> 
+Sy beams happily.
+s> 
+Moryan says, "Um.."
+s> 
+Leah smiles at Moryan.
+s> 
+You feel the touch of Cypress's mind:
+"Hi! Wolfie"
+s> 
+Moryan says, "at approprtiate times."
+s> 
+Elriss arrives.
+s> 
+Moryan gazes at Sy.
+s> 
+Veronica grins.
+s> 
+Gwydion chuckles.
+s> 
+Amaryllys laughs.
+s> 
+Miria chuckles.
+s> 
+Sy snickers.
+s> 
+Moryan smiles slightly.
+s> 
+Sy nods.
+s> 
+Wolfbane says, "cept maybe sy i dont think we got enough instraments for him"
+s> 
+Teraysha raises an eyebrow towards Sy.
+s> 
+Wolfbane smiles at Moryan.
+s> 
+Teraysha nudges Sy.
+s> 
+Gwydion laughs.
+s> 
+Moryan chuckles.
+s> 
+Moryan says, "I'll leave that up to the choice I make.. You can work through
+the royal bard."
+s> 
+Moryan grins.
+s> 
+Leah plucks a few more blades of grass from the ground
+s> 
+Gwydion says, "I could make a career out of building guitars for him, though."
+s> 
+Wolfbane nods to Gwydion.
+s> 
+Wolfbane says, "true"
+s> 
+Teraysha raises an eyebrow towards Sy.
+s> 
+Teraysha leans on Sy.
+s> 
+Moryan says, "At this time, .. and this is a very difficult choice.. but I
+award the position of Royal Bard to Gwydion."
+s> 
+Teraysha stroke's a delicate baby girl with sparkling green eyes, fiery curls
+and a winsome smile's cheek tenderly.
+s> 
+Moryan smiles at Gwydion.
+s> 
+Sy raises a toast to Gwydion!
+s> 
+Gwydion struggles to his feet.
+s> 
+Gwydion rises from his comfortable seat in the lush grass.
+s> 
+Rion applauds.
+s> 
+Elriss applauds.
+s> 
+Leah beams at Gwydion.
+s> 
+Young applauds.
+s> 
+Young applauds.
+s> 
+Wolfbane beams at Gwydion.
+s> 
+Leah applauds.
+s> 
+Sy applauds.
+s> 
+Wolfbane raises a toast to Gwydion!
+s> 
+Veronica applauds.
+s> 
+Amaryllys applauds.
+s> 
+Veronica raises a toast to Gwydion!
+s> 
+Amaryllys applauds.
+s> 
+Elriss says, "Congratulations, Gwydion."
+s> 
+Conor applauds.
+s> 
+Leah applauds.
+s> 
+Amaryllys raises a toast to Gwydion!
+s> 
+Conor applauds.
+s> 
+Gwydion bows deeply to Moryan.
+s> 
+Elarin applauds.
+s> 
+Elriss stands up.
+s> 
+Elriss rises from his comfortable seat in the lush grass.
+s> 
+Wolfbane says, "grats gqydion"
+s> 
+Leah exclaims, "congratulations!"
+s> 
+Sy exclaims, "Bravo!"
+s> 
+Leah beams at Gwydion.
+s> contact cypress I hope you are doing well, it's been some time since I saw you last
+You contact Cypress with your thoughts.
+ [Round: 2 sec]
+Rs> 
+Rion struggles to his feet.
+Rs> 
+Rion rises from his comfortable seat in the lush grass.
+Rs> 
+Moryan says, "Along with everything I'd mentioned already.."
+Rs> 
+Miria struggles to her feet.
+Rs> 
+Miria rises from her comfortable seat in the lush grass.
+Rs> 
+Conor exclaims, "If the shoe fits!"
+s> 
+Miria grunts.
+s> 
+Wolfbane struggles to his feet.
+s> 
+Wolfbane rises from his comfortable seat in the lush grass.
+s> 
+Moryan says, "this was found in the royal vaults.."
+s> 
+Conor shakes hands with Gwydion.
+s> 
+Wolfbane bows towards Gwydion.
+s> 
+Leah struggles to her feet.
+s> 
+Leah rises from her comfortable seat in the lush grass.
+s> 
+Wolfbane gazes at Moryan.
+s> 
+Moryan gazes at a polished rosewood lonriset inset with a pure white lily on a
+field of sparkling sapphire blue.
+s> 
+Elarin says, "woo hoo!"
+s> 
+Elarin dips Miria.
+s> 
+Elarin coughs.
+s> 
+You feel a tingle in your mind. Cypress thinks to you, "I'm alright and yes
+it's been awhile."
+s> 
+Moryan asks, "Perhaps you will know how to play it?"
+s> 
+Gwydion whistles.
+s> 
+Moryan gives a polished rosewood lonriset inset with a pure white lily on a
+field of sparkling sapphire blue to Gwydion.
+s> 
+Moryan smiles.
+s> 
+Nord struggles to his feet.
+s> 
+Nord rises from his comfortable seat in the lush grass.
+s> 
+Gwydion gazes at a polished rosewood lonriset inset with a pure white lily on a
+field of sparkling sapphire blue.
+s> 
+Wolfbane says, "wow"
+s> 
+Young whistles.
+s> 
+Gwydion ponders.
+s> 
+Leah 's eye open wide at the sight of the instrument Gwydion holds in his hand.
+s> 
+Amaryllys gazes at the instrument, wide-eyed.
+s> 
+Moryan says, "it was modified slightly.. but it is alovely instrument."
+s> stand
+You struggle to your feet under the weight of all your equipment.
+ [Round: 2 sec]
+You rise from your comfortable seat in the lush grass.
+R> 
+Gwydion rubs a polished rosewood lonriset inset with a pure white lily on a
+field of sparkling sapphire blue.
+> 
+Conor nods to Gwydion.
+> 
+Moryan smiles.
+> 
+Conor says, "worthy of a master bard"
+> 
+Lyrical sounds emanate from the lonriset, as Gwydion's fingers gently pluck at
+the strings, enhancing the enchanting song that flows from his lips.
+> contact cypress Did my directions make any sense?
+You contact Cypress with your thoughts.
+ [Round: 2 sec]
+R> 
+Leah blinks.
+> 
+Moryan smiles.
+> 
+Gwydion smiles.
+> 
+Young nods.
+> 
+Wolfbane smiles at Gwydion.
+> 
+Rion says, "nice"
+> 
+Wolfbane says, "a true master"
+> 
+Wolfbane nods.
+> 
+Leah smiles at Gwydion.
+> 
+Donnald's group arrives.
+> 
+Gwydion says, "A magnificent instrument, your Majesty."
+> 
+Moryan says, "as soon as your room is completed, I'll send you word."
+> 
+Amaryllys beams happily.
+> 
+Moryan smiles at Gwydion.
+> 
+Donnald waves.
+> 
+Moryan says, "Worthy of a master bard's hands."
+> 
+Gwydion bows towards Moryan.
+> 
+Wolfbane shakes hands with Donnald.
+> 
+Donnald disbands his group.
+> 
+Elarin says, "and he's not bad at killing weres either"
+> 
+Donnald sits down.
+> 
+Donnald finds a comfortable spot and sinks down into the lush, comfortable
+green grass.
+> 
+Wolfbane nods to Moryan.
+> 
+Young shakes hands with Gwydion.
+> 
+Donnald shakes hands with Wolfbane.
+> 
+Gwydion smiles.
+> 
+Gwydion says, "Thank you for this honour."
+> 
+Please report up your level if you attended the Bardic event!!
+> 
+Moryan smiles.
+> 
+Conor says, "No second show kid"
+> 
+Conor gazes at Donnald.
+> 
+Conor grins.
+> 
+Donnald bows towards Conor.
+> 
+Cypress smiles.
+> exp
+Level: 41
+Build Points to date: 433
+Unspent Build Points: 2
+Experience Points until next Build Point: 15371
+> 
+Conor slips on a long jacket woven from a rainbow assortment of patchwork
+fabrics.
+> 
+Young casts his gaze across the area.
+> report Level 41
+Your message has been reported to the online GameMaster staff.
+> 
+Wolfbane takes Rion by the hand.
+> 
+Wolfbane's group goes west.
+> 
+Elarin stands up.
+> 
+Elarin rises from his comfortable seat in the lush grass.
+> 
+You have been awarded 100000 experience points.
+> look
+
+Gwydion rubs a polished rosewood lonriset inset with a pure white lily on a
+field of sparkling sapphire blue.
+> [Heroes Rest, ampitheatre]
+Majestic willow trees rise gracefully in a colorful circle around a
+bowl shaped area of the compound. The lush, grassy ground descends
+,in almost tiered steps, from west to east where it gently ends in
+sort of a raised platform. The natural acoustics of the area make
+it a perfect spot for performers to sing their songs or tell their
+tales from the platform at the bottom of the bowl.
+You see Donnald (sitting), Nord, Teraysha (sitting), Miria, Leah, Marcolan,
+Moryan, Amaryllys (sitting), Sy (sitting), Cypress, Veronica, Young, Conor,
+Gwydion, Elriss and Elarin. 
+Obvious exits: west.
+> 
+Donnald asks, "care to join me cypress?"
+> 
+Donnald stands up.
+> 
+Donnald rises from his comfortable seat in the lush grass.
+> gaze cypr
+You gaze at Cypress.
+> blush
+You blush.
+> 
+Conor says, "I entertain at parties to those that have residences."
+> whisp cypr Duh...sorry, didn't see  you arrive :)
+You whisper to Cypress.
+> 
+Leah sits down next to Teraysha
+> 
+Miria chuckles at Nord.
+> 
+Leah sits down.
+> 
+Leah finds a comfortable spot and sinks down into the lush, comfortable green
+grass.
+> 
+Gwydion smiles at Conor.
+> 
+Elriss dusts himself off, brushing stray blades of grass off himself.
+> 
+Conor stands next to Gwydion...drooling over his shoulder
+> 
+Anyone else get missed for exp that was there? Tickles Garin
+> 
+Amaryllys stands up.
+> 
+Amaryllys rises from her comfortable seat in the lush grass.
+> 
+Amaryllys stretches her arms lazily.
+> 
+Gwydion says, "I think I remember discussing a Mummer's Play with you once upon
+a time, Conor..."
+> 
+Cypress whispers to you, "*giggle*"
+> 
+Sy stands up leaving a Sy shaped depression in the grass.
+> 
+Sy struggles to his feet.
+> 
+Sy rises from his comfortable seat in the lush grass.
+> 
+Conor says, "Yes...somewhere back in the mists of time"
+> 
+Conor smiles.
+> 
+Cypress whispers to you, "feel like hunting with donnald a bit and saving me?"
+> 
+Sy stretches his arms lazily.
+> 
+Cypress smiles at Donnald.
+> 
+Leah ponders.
+> 
+Conor says, "Lets talk about it anon"
+> 
+Gwydion says, "I think we might have a place to stage one, now."
+> 
+Gwydion grins.
+> 
+Cypress says, "sure"
+> 
+Donnald smiles at Cypress.
+> 
+Conor says, "I'm in Fayd for the winter"
+> 
+Cypress is now following Donnald.
+> 
+Gwydion smiles at Conor.
+> 
+Cypress gazes at you.
+> 
+Cypress asks, "Want to hunt a bit?"
+> beam
+You beam happily.
+> 'I'd love to
+
+Donnald nods.
+> 
+Cypress points at Donnald.
+> You say, "I'd love to"
+> act bows to Cypress.
+Moordread bows to Cypress.
+> 
+Cypress says, "follow him"
+> 
+Teraysha struggles to her feet.
+> 
+Teraysha rises from her comfortable seat in the lush grass.
+> 
+Cypress smiles.
+> nod
+You nod.
+> 
+Teraysha leans on Sy.
+> fol donn
+You are now following Donnald.
+J> 
+Leah smiles at Elarin.
+J> 
+Marcolan whispers to you, "Need a guard or you ok there now?"
+J> 
+Sy nuzzles Teraysha affectionately.
+J> exp
+Level: 41
+Build Points to date: 437
+Unspent Build Points: 6
+Experience Points until next Build Point: 17771
+J> 
+Donnald shakes hands with you.
+J> 
+Moryan says, "I'd like to invite you Duchess, Baron.."
+J> 
+Moryan casts her gaze across the area.
+J> 
+Conor says, "well...my stomach is telling me it's wel past dinner time."
+J> whisp marc Did ok last trip there :)
+You whisper to Marcolan.
+J> 
+Sy kisses Teraysha and the children all on the forehead.
+J> 
+Elarin smiles at Leah.
+J> 
+Donnald smiles at you.
+J> 
+Marcolan whispers to you, "Good. :)"
+J> 
+Moryan says, "To the palace for some refreshments and talk."
+J> 
+Teraysha smiles up at Sy.
+J> 
+Veronica smiles at Moryan.
+J> 
+Marcolan removes a riyong mushroom from the beltpouch.
+J> 
+Marcolan gives you a riyong mushroom.
+J> 
+Marcolan removes a riyong mushroom from the beltpouch.
+J> 
+Marcolan gives you a riyong mushroom.
+J> 
+Marcolan removes a riyong mushroom from the beltpouch.
+J> 
+Marcolan gives you a riyong mushroom.
+J> 
+Marcolan removes a riyong mushroom from the beltpouch.
+J> 
+Marcolan gives you a riyong mushroom.
+J> 
+Conor says, "I think i'll find a plate and a maid to satiate myself with."
+J> 
+Conor winks.
+J> chuck
+You chuckle.
+J> sal marco
+
+Gwydion chuckles.
+J> You salute Marcolan.
+J> 
+Teraysha touches a delicate baby girl with sparkling green eyes, fiery curls
+and a winsome smile.
+J> 
+Veronica exclaims, "That'd be wonderful!"
+J> 
+Teraysha touches a large baby boy with black hair and eyes of a curious color
+green.
+J> 
+Moryan smiles.
+J> 
+Elriss says, "I'd be honored, your Highness."
+J> 
+Marcolan salutes you.
+J> 
+Elriss bows towards Moryan.
+J> 
+Donnald's group goes west.
+J> 
+You follow Donnald.
+[Heroes Rest, courtyard]
+You see Donnald, Rion, Wolfbane and Cypress. A marble fountain with flecks of
+pink running through its surface is here.
+Obvious exits: s, e.
+J> 
+Wolfbane smirks.
+J> 
+Donnald's group goes south.
+J> 
+You follow Donnald.
+[Heroes Rest, before building]
+You see Donnald and Cypress. 
+Obvious exits: n.
+J> sal wolf
+What are you referring to?  Please be more specific.
+J> 
+Donnald's group goes north.
+J> 
+You follow Donnald.
+[Heroes Rest, courtyard]
+You see Donnald, Rion, Wolfbane and Cypress. A marble fountain with flecks of
+pink running through its surface is here.
+Obvious exits: s, e.
+J> sal wolf
+You salute Wolfbane.
+J> 
+Wolfbane disbands his group.
+J> sal rio
+You salute Rion.
+J> 
+Wolfbane salutes you.
+J> 
+Rion says, "yeah but in addressing Counts or Earls.."
+J> 
+Wolfbane goes through a vine covered arch.
+J> 
+Donnald waves.
+J> 
+Amaryllys arrives.
+J> 
+Young's group arrives.
+J> 
+Donnald's group goes through a vine covered arch.
+J> 
+You follow Donnald.
+[Grassland, path fork]
+You see Donnald, Wolfbane and Cypress. 
+Obvious exits: n, se, sw.
+J> 
+Wolfbane goes north.
+J> 
+Amaryllys arrives through a vine covered arch.
+J> 
+Young's group arrives through a vine covered arch.
+J> 
+Young's group goes north.
+J> 
+Donnald's group goes north.
+J> 
+You follow Donnald.
+[Grassland, high grass]
+You see Donnald, Moryan, Cypress, Veronica, Young and Elriss. 
+Obvious exits: s, nw.
+J> 
+Young's group goes northwest.
+J> 
+Conor arrives.
+J> 
+ ** Amaryllys has just disconnected.
+J> 
+Donnald's group goes south.
+J> 
+You follow Donnald.
+[Grassland, path fork]
+You see Donnald and Cypress. 
+Obvious exits: n, se, sw.
+J> 
+Donnald's group goes southeast.
+J> 
+You follow Donnald.
+[Grassland, field]
+You see Donnald and Cypress. 
+Obvious exits: nw, sw.
+J> 
+ ** Conor has just left the Realms.
+J> 
+Donnald's group goes southwest.
+J> 
+You follow Donnald.
+[Grassland, lowland]
+You see Donnald and Cypress. 
+Obvious exits: s, ne, nw.
+J> 
+Donnald asks, "where to ?"
+J> 
+A wooly sheep wanders in.
+J> 
+Cypress ponders.
+J> 
+Cypress says, "you two decide"
+J> 
+Donnald asks, "let me ask  where do you two normaly hunt?"
+J> 
+A wooly sheep snuffles.
+J> pond
+You ponder for a moment.
+J> 'We've been at the wastes
+You say, "We've been at the wastes"
+J> 'Mals keep
+You say, "Mals keep"
+J> 
+ ** Elriss has just left the Realms.
+J> 'E-giants
+You say, "E-giants"
+J> 
+You feel the touch of Rion's mind:
+"nite!"
+J> pond
+You ponder for a moment.
+J> 
+A wooly sheep wanders south.
+J> 
+A wooly sheep wanders in.
+J> 
+Cypress places an eldritch helm onto her head.
+J> 
+Donnald says, "opps   you should lead moor"
+J> 
+A wooly sheep paws the ground looking for greens.
+J> rais
+You raise your eyebrow.
+J> 
+Cypress closes a backpack.
+J> 
+ ** Rion has just disconnected.
+J> 
+Cypress slips a gulivira lizardskin cape over her back.
+J> 
+Donnald says, "cn handle muls a bit  but not giants"
+J> 
+A rattlesnake arrives.
+J> 
+Donnald advances towards a rattlesnake.
+J> wie bro
+
+Donnald swings at a rattlesnake with his randar greatsword.
+ [ToHit: 5, Roll: 92] Hit!
+ Grisly slash to head. [18 Damage]
+J> You wield a fiery randar broadsword with the name Moordread scratched on the
+blade.
+J> 
+Cypress concentrates intently on a rattlesnake.
+J> 
+An invisible blow strikes a rattlesnake.
+ Devastating blow to tail. [3 Damage]
+ It collapses, dead.
+J> wie shie
+You wield an eldritch diamontine shield.
+ [Round: 3 sec]
+RJ> 
+The sky darkens and becomes overcast.
+RJ> 
+Donnald skins a rattlesnake.
+J> 
+Cypress smiles.
+J> 
+Donnald searches a rattlesnake.
+J> 'Not the egiants?
+You ask, "Not the egiants?"
+J> 
+Donnald disbands his group.
+> pond
+You ponder for a moment.
+> 
+Donnald is now following Moordread.
+> 
+A ranger arrives.
+> 
+Cypress is now following Moordread.
+> 'Probably shouldn't try wastes then
+
+A wooly sheep wanders south.
+> You say, "Probably shouldn't try wastes then"
+> 
+Donnald says, "i hunt goblins and shark"
+> 
+A ranger goes northwest.
+> 'Let's see how you do on some undead
+You say, "Let's see how you do on some undead"
+> look
+[Grassland, lowland]
+Two paths from the north descend and meet in this lowland. The grass in this
+depression is very tall and thick, completely obscuring the soft ground under
+your feet, except for a narrow ragged crevice of rock that juts from the soil.
+From the crevice you hear a great deal of hissing and slithering as snakes
+position themselves, en masse, for hibernation. To the south the ground begins
+to rise.
+You see Donnald and Cypress. A rattlesnake skin is here.
+Obvious exits: south, northeast, northwest.
+> 
+Cypress says, "ohhh sharks I could kill a few of those"
+> 
+A wooly sheep wanders in.
+> pond
+You ponder for a moment.
+> 
+Cypress says, "ok the undead is good too"
+> 
+Donnald asks, "which kind of undead?"
+> 
+Cypress giggles.
+> 'Greater skeletons, zovembies
+You say, "Greater skeletons, zovembies"
+> 
+Donnald concentrates intently on a randar necklace.
+> 
+The glowing outline of armor appears around Donnald.
+> 
+Cypress says, "I remember those things"
+> 
+Donnald says, "sure i guess"
+> nod
+You nod.
+> 
+ ** Miria has just left the Realms.
+> 'Can't hurt to try can it?
+You ask, "Can't hurt to try can it?"
+> shr
+You shrug.
+> look
+[Grassland, lowland]
+Two paths from the north descend and meet in this lowland. The grass in this
+depression is very tall and thick, completely obscuring the soft ground under
+your feet, except for a narrow ragged crevice of rock that juts from the soil.
+From the crevice you hear a great deal of hissing and slithering as snakes
+position themselves, en masse, for hibernation. To the south the ground begins
+to rise.
+You see Donnald, Cypress and a wooly sheep. A rattlesnake skin is here.
+Obvious exits: south, northeast, northwest.
+> 
+Donnald nods.
+> nw
+Your group follows you.
+[Grassland, large hill]
+You see Donnald and Cypress. 
+Obvious exits: ne, se.
+> 
+ ** Nord has just left the Realms.
+> 
+Donnald says, "exactly"
+> 'maybe alittle
+You say, "maybe alittle"
+> ne
+Your group follows you.
+[Grassland, path fork]
+You see Donnald, Cypress and a royal ranger. 
+Obvious exits: n, se, sw.
+> n
+Your group follows you.
+[Grassland, high grass]
+You see Donnald and Cypress. 
+Obvious exits: s, nw.
+> nw
+Your group follows you.
+[Outside Fayd, southern wall]
+You see Donnald, Cypress and a royal ranger. 
+Obvious exits: e, w, se.
+> e
+
+A ranger goes east.
+> Your group follows you.
+[Outside Fayd, southeast wall]
+You see Donnald, Cypress, a royal ranger and a rattlesnake. 
+Obvious exits: w, ne.
+> ne
+Your group follows you.
+[Outside Fayd, eastern wall]
+You see Donnald and Cypress. 
+Obvious exits: n, sw.
+> 
+ ** Young has just left the Realms.
+> n
+Your group follows you.
+[Fayd Gate, exterior]
+You see Donnald and Cypress. A large iron gate is here.
+Obvious exits: s, e, nw.
+> nw
+Your group follows you.
+[Outside Fayd, northern wall]
+You see Donnald and Cypress. 
+Obvious exits: n, w, nw, se.
+> nw
+Your group follows you.
+[Foothills, grass]
+You see Donnald and Cypress. 
+Obvious exits: n, se.
+> n
+Your group follows you.
+[Foothills, scrub growth]
+You see Donnald and Cypress. Some cotton is here.
+Obvious exits: s, nw.
+> nw
+Your group follows you.
+[Grasslands]
+You see Donnald and Cypress. Some cotton is here.
+Obvious exits: e, ne, nw, se.
+> nw
+Your group follows you.
+[Foothills, the keep]
+You see Donnald and Cypress. A plain gray stone is here.
+Obvious exits: se.
+> go mist
+Your group follows you.
+[Dark Keep]
+You see Donnald and Cypress. A bridge and a moat are here.
+Obvious exits: ne.
+> ne
+Your group follows you.
+[Dark Keep, outside]
+You see Donnald and Cypress. A greatsword, a greatsword, a greatsword, a
+greatsword, a greatsword, a greatsword, a greatsword, a greatsword and a
+greatsword are here.
+Obvious exits: n, sw.
+> n
+Your group follows you.
+[Dark Keep, outside]
+You see Donnald and Cypress. A bush is here.
+Obvious exits: s.
+> sear
+You search the area.
+ [Round: 2 sec]
+You spot a small crevice in the side of the mountain, well concealed by the
+scraggly bushes.
+R> 'search and enter the crevice
+You say, "search and enter the crevice"
+> guar cyp
+You are now guarding Cypress.
+ [Round: 2 sec]
+R> 
+Donnald searches the area.
+R> guar don
+You are now guarding Donnald.
+ [Round: 2 sec]
+R> stat
+
+Cypress searches the area.
+> 
+You are a master of the Crimson Band.
+Level: 41
+Build Points to date: 437
+Unspent Build Points: 6
+Experience Points until next Build Point: 17771
+Quickness: 126    Constitution: 130    Strength:  132    Agility: 50 
+Willpower: 71     Perception:   109    Empathy:   36 
+Age:       38     Height:       5'1    Weight:    167    Load: 125
+
+Current Attack Modifier: 200 (-14) [Wary]
+Current Defend Modifier: 325
+
+Body Points: 231/231
+Mana: 44/44
+Psi: 81/88
+Fatigue: 227/227
+[Type SPELLS or SKILLS for more information.]
+> 
+Donnald searches the area.
+> 
+Cypress goes through a crevice.
+> look
+[Dark Keep, outside]
+A small trail ends at this spot. The black, malignant walls of the keep impede
+progress to the west, whilst the sheer walls of the mountains offer no progress
+to the north and east. A collection of scraggly bushes grow along the side of
+the mountain.
+You see Donnald. 
+Obvious exits: south.
+> 
+Donnald goes through a crevice.
+> go crev
+[Cave]
+You see Donnald and Cypress. A large orb is here.
+Obvious exits: o.
+The orb's light fills you with a feeling of goodness. You could swear that you
+hear a whispering in your mind, coming from the inside of the orb.
+> 
+Cypress beams happily.
+> 'orlin
+You say, "orlin"
+As the name is said the orb's light seems to grow stronger.
+> tap orb
+You tap a large orb.
+> tap orb
+You tap a large orb.
+> tap orb
+You tap a large orb.
+As Moordread taps the orb for the third time it slowly begins to descend into
+the floor. After a few moments it fully disappears and is replaced by a
+stairway spiraling down into the darkness.
+> 
+Cypress says, "I was getting a bit scared for a sec"
+> 'Take the stairs
+You say, "Take the stairs"
+> comf cyp
+You comfort Cypress.
+> 'it's safe here
+You say, "it's safe here"
+> 
+The orb and pedestal rise to cover the stairway as Cypress descends.
+> gaze
+You gaze about the area.
+> 'orlin
+You say, "orlin"
+As the name is said the orb's light seems to grow stronger.
+> tap orb
+You tap a large orb.
+> tap orb
+You tap a large orb.
+> tap orb
+You tap a large orb.
+As Moordread taps the orb for the third time it slowly begins to descend into
+the floor. After a few moments it fully disappears and is replaced by a
+stairway spiraling down into the darkness.
+> 'Next
+You say, "Next"
+> smi donn
+You smile at Donnald.
+> 
+Donnald taps a large orb.
+> 
+Donnald taps a large orb.
+> 
+Donnald taps a large orb.
+> 
+Donnald taps a large orb.
+> poi stair
+You point at a stairway.
+> 
+The orb and pedestal rise to cover the stairway as Donnald descends.
+> 'orlin
+You say, "orlin"
+As the name is said the orb's light seems to grow stronger.
+> tap orb
+You tap a large orb.
+> tap orb
+tap orb
+You tap a large orb.
+> You tap a large orb.
+As Moordread taps the orb for the third time it slowly begins to descend into
+the floor. After a few moments it fully disappears and is replaced by a
+stairway spiraling down into the darkness.
+> cli stair
+The orb and pedestal appear to cover the stairway again as you descend.
+[Laboratory]
+You see Donnald and Cypress. A red light and a dark opening leading into the
+shadowy depths are here.
+Obvious exits: none.
+> pond
+You ponder for a moment.
+> poi red light
+You point at a red light.
+> 
+You feel the touch of Aishua's mind:
+"Teraysha?"
+> go light
+[Skull House, office]
+Obvious exits: o.
+> look
+[Skull House, office]
+A former office of some sort, judging by the twisted and broken masses of
+tables and other furnishings, the entire room looks as if a firestorm ravaged
+it. Shattered pieces of wood and stone lie strewn haphazardly across the room,
+their former functions undiscernible. The walls and floor are charred with
+soot. The only item in the room that is unbroken and whole is a strange
+painting that looks as if someone just splashed black paint upon it. There is
+nothing but a picture of a black void.
+Obvious exits: out.
+> 
+Donnald arrives through a red light.
+> 
+Cypress arrives through a red light.
+> 
+You feel the touch of Teraysha's mind:
+"Yes, Aishua?"
+> hold don
+Moordread takes Donnald by the hand.
+> hold cyp
+Moordread takes Cypress by the hand.
+> o
+Your group follows you.
+[Skull House, corridor]
+You see Donnald and Cypress. 
+Obvious exits: s.
+> d
+You can't go down!
+> s
+Your group follows you.
+[Skull House, landing]
+You see Donnald and Cypress. A rakshasha hide is here.
+Obvious exits: n, e, w, d.
+> d
+Your group follows you.
+[Skull House]
+You see Donnald and Cypress. 
+Obvious exits: e, w, u.
+> go open
+Your group follows you.
+[Courtyard, skull mansion]
+You see Donnald and Cypress. 
+Obvious exits: s, se, sw.
+> s
+Your group follows you.
+[Keep, statue]
+You see Donnald and Cypress. A statue is here.
+Obvious exits: n, s, e, w, ne, nw, se, sw.
+> 
+A zovembie arrives.
+> 
+A zovembie incants a spell.
+> guar cyp
+You are now guarding Cypress.
+ [Round: 2 sec]
+R> adv zov
+You advance towards a zovembie.
+> a zov
+You thrust at a zovembie with your fiery randar broadsword.
+ [ToHit: 5, Roll: 38] Hit!
+ Minor slash to head. [24 Damage]
+ The broadsword radiates intense heat!
+ Insignificant burn to left hand. [6 Damage]
+ [Round: 1 sec]
+R> a zov
+
+Cypress concentrates intently on a zovembie.
+> 
+An invisible blow crushes a zovembie!
+ Solid blow to head. [14 Damage]
+> You thrust at a zovembie with your fiery randar broadsword.
+ [ToHit: 5, Roll: 7] Hit!
+ Fine slash to head. [25 Damage]
+ [Round: 1 sec]
+R> 
+Donnald advances towards a zovembie.
+R> a zov
+
+A zovembie gestures.
+A ghostly shield hovers before a zovembie.
+> You swing at a zovembie with your fiery randar broadsword.
+ [ToHit: 5, Roll: 71] Hit!
+ Superb slash to head. [32 Damage]
+ The broadsword radiates intense heat!
+ Serious burn to head. [13 Damage]
+ [Round: 1 sec]
+R> a zov
+You thrust at a zovembie with your fiery randar broadsword.
+ [ToHit: 5, Roll: 88] Hit!
+ Superb slash to head. [22 Damage]
+ [Round: 1 sec]
+R> a zov
+You swing at a zovembie with your fiery randar broadsword.
+ [ToHit: 5, Roll: 65] Hit!
+ Masterful strike to head. [33 Damage]
+ It falls to the ground with convulsive movements.
+ [Round: 1 sec]
+R> 
+The ghostly shield protecting a zovembie slowly fades.
+> 
+Donnald is now following a zovembie.
+> 
+You feel the touch of Aishua's mind:
+"Are you going to be at home, any time soon? I'm in the area, thought I might
+stop by..."
+> 
+Donnald advances towards a zovembie.
+> pond
+You ponder for a moment.
+> drop mush
+You drop a riyong mushroom.
+> drop mush
+drop mush
+You drop a riyong mushroom.
+> You drop a riyong mushroom.
+> drop mush
+You drop a riyong mushroom.
+> drop mush
+You don't have that.
+> 
+You feel the touch of Teraysha's mind:
+"we're just heading back to town now, Aishua"
+> health
+You have 231/231 body points.
+You have a nicked, bludgeoned, grazed and scorched head, a lacerated,
+bludgeoned and scorched body, a nicked, fractured, grazed and singed back, a
+nicked, banged-up and scorched right arm, a lacerated and singed left arm, a
+lacerated, banged-up and singed right leg, a nicked and banged-up left leg, a
+nicked and singed right hand and a nicked, banged-up and singed left hand.
+> 
+ ** Gwydion has just left the Realms.
+> 
+A greater ghoul arrives.
+> 
+You feel the touch of Aishua's mind:
+"Ahh, all right."
+> 
+A greater ghoul advances towards Donnald.
+> 
+A greater ghoul slashes at Donnald with its claws.
+ [ToHit: 20, Roll: 38] Hit!
+ Puny slash to right arm. [9 Damage]
+ Donnald is poisoned!
+> 'Plenty of mushrooms for everyone
+You say, "Plenty of mushrooms for everyone"
+> 
+Cypress concentrates intently on a ghoul.
+> 
+An invisible blow smashes a greater ghoul!
+ Solid blow to head. [22 Damage]
+> 
+Donnald swings at a greater ghoul with his randar greatsword.
+ [ToHit: 87, Roll: 6] Miss.
+> ret
+guar don
+You are not currently engaging any opponents.
+> You step forward in defense of Donnald!
+ [Round: 2 sec]
+R> 
+Cypress concentrates intently on a ghoul.
+> 
+An invisible blow crushes a greater ghoul!
+ Solid blow to right leg. [13 Damage]
+> 
+Donnald thrusts at a greater ghoul with his randar greatsword.
+ [ToHit: 87, Roll: 77] Miss.
+> 
+The sun sets in the west.
+> 
+Cypress concentrates intently on a ghoul.
+> 
+An invisible blow pounds a greater ghoul.
+ Solid blow to body. [16 Damage]
+> 
+A greater ghoul advances towards Moordread.
+> 
+A greater ghoul slashes at Moordread with its claws.
+ [ToHit: 95, Roll: 44] Miss.
+> 
+Cypress concentrates intently on a ghoul.
+> 
+An invisible blow smashes a greater ghoul!
+ Solid blow to left leg. [11 Damage]
+> 
+Cypress concentrates intently on a ghoul.
+> 
+An invisible blow strikes a greater ghoul.
+ Solid blow to head. [13 Damage]
+> 
+A greater ghoul slashes at Moordread with its claws.
+ [ToHit: 95, Roll: 86] Miss.
+> 'Tough to hit?
+You ask, "Tough to hit?"
+> list don
+You listen carefully to Donnald.
+> 
+A greater ghoul arrives.
+> 
+A greater ghoul advances towards Moordread.
+> 
+A greater ghoul slashes at Moordread with its claws.
+ [ToHit: 95, Roll: 98] Excellent Hit!
+ Puny slash to head. [5 Damage]
+ Moordread is poisoned!
+P> 
+Cypress concentrates intently on a ghoul.
+P> 
+An invisible blow smashes a greater ghoul!
+ Solid blow to right leg. [12 Damage]
+P> glare gho
+You glare at a greater ghoul.
+P> 
+A greater ghoul slashes at Moordread with its claws.
+ [ToHit: 95, Roll: 14] Miss.
+P> 
+Donnald nods.
+P> 
+Cypress comforts you.
+P> 
+A greater ghoul slashes at Moordread with its claws.
+ [ToHit: 95, Roll: 38] Miss.
+P> 
+Cypress concentrates intently on a ghoul.
+P> 
+An invisible blow strikes a greater ghoul.
+ Solid blow to body. [13 Damage]
+P> 
+Poison burns in your veins.
+P> 
+A greater ghoul slashes at Moordread with its claws.
+ [ToHit: 95, Roll: 99] Excellent Hit!
+ Puny slash to right arm. [3 Damage]
+ Moordread is poisoned!
+P> 
+Donnald skins a zovembie.
+P> 
+Cypress concentrates intently on a ghoul.
+P> 
+An invisible blow strikes a greater ghoul.
+ Feeble blow to right hand. [3 Damage]
+P> 
+A greater ghoul slashes at Moordread with its claws.
+ [ToHit: 95, Roll: 42] Miss.
+P> 
+Donnald searches a zovembie.
+P> 
+Cypress concentrates intently on a ghoul.
+P> 
+An invisible blow strikes a greater ghoul.
+ Solid blow to head. [12 Damage]
+P> 
+A greater ghoul slashes at Moordread with its claws.
+ [ToHit: 95, Roll: 22] Miss.
+P> 
+Cypress concentrates intently on a ghoul.
+P> 
+An invisible blow pounds a greater ghoul.
+ Feeble blow to left hand. [4 Damage]
+P> 
+A greater ghoul slashes at Moordread with its claws.
+ [ToHit: 95, Roll: 64] Miss.
+P> 
+Cypress moves considerably faster.
+P> 
+Cypress concentrates intently.
+P> 
+A greater ghoul slashes at Moordread with its claws.
+ [ToHit: 95, Roll: 16] Miss.
+P> 
+Cypress concentrates intently.
+P> 'Ok, let's hit sharkors, I'm getting poisoned like crazy here
+You say, "Ok, let's hit sharkors, I'm getting poisoned like crazy here"
+P> 
+A greater ghoul slashes at Moordread with its claws.
+ [ToHit: 95, Roll: 11] Miss.
+P> 
+Cypress concentrates intently on a ghoul.
+P> 
+Frost crystalizes on a greater ghoul.
+ It is immune to the attack!
+P> look
+[Keep, statue]
+Prominently displayed in the exact center of the keep courtyard is a jet black
+statue. The statue is carved entirely out of marble and is undoubtedly of
+incalculable worth. Standing here, there is an almost urgent compulsion to look
+at the statue. The courtyard extends in all directions from here. To the north
+is a disturbing building. There are also rectangular buildings to the east and
+west.
+You see Donnald, Cypress, a greater ghoul and a greater ghoul. Some gold coins,
+some silver coins, a zovembie finger, a riyong mushroom, a riyong mushroom, a
+riyong mushroom and a riyong mushroom are here.
+Obvious exits: north, south, east, west, northeast, northwest, southeast,
+southwest.
+P> 
+A greater ghoul slashes at Moordread with its claws.
+ [ToHit: 95, Roll: 6] Miss.
+P> 
+Cypress concentrates intently.
+P> get mush
+You take a riyong mushroom.
+P> get mush
+get mush
+You take a riyong mushroom.
+P> get mush
+You take a riyong mushroom.
+P> get mush
+get mush
+You take a riyong mushroom.
+P> You already have that.
+P> You already have that.
+P> get mush
+You already have that.
+P> 
+Poison burns in your veins.
+P> 
+A greater ghoul slashes at Moordread with its claws.
+ [ToHit: 95, Roll: 71] Miss.
+P> 
+Cypress concentrates intently on a ghoul.
+P> 
+Liquids in the area of a greater ghoul vaporize.
+ Insignificant burn to right hand. [4 Damage]
+P> 
+Donnald takes some gold coins.
+P> 
+Cypress concentrates intently on a ghoul.
+P> 
+Liquids in the area of a greater ghoul vaporize.
+ Severe burn to head. [20 Damage]
+P> 'ready?
+You ask, "ready?"
+P> 
+Donnald takes some silver coins.
+P> 
+Cypress concentrates intently on a ghoul.
+P> 
+Liquids in the area of a greater ghoul vaporize.
+ Serious burn to right arm. [8 Damage]
+P> 
+A greater ghoul slashes at Moordread with its claws.
+ [ToHit: 95, Roll: 50] Miss.
+P> 
+Cypress concentrates intently on a ghoul.
+P> 
+A raging inferno of white flame immolates a greater ghoul!
+ Ghastly burn to left arm. [15 Damage]
+P> a gho
+You swing at a greater ghoul with your fiery randar broadsword.
+ [ToHit: 5, Roll: 25] Hit!
+ Masterful strike to left hand. [6 Damage]
+ [Round: 1 sec]
+RP> 
+Donnald is now following Moordread.
+P> a gho
+
+A greater ghoul slashes at Moordread with its claws.
+ [ToHit: 95, Roll: 37] Miss.
+P> You thrust at a greater ghoul with your fiery randar broadsword.
+ [ToHit: 5, Roll: 91] Hit!
+ Grisly slash to back. [40 Damage]
+ It collapses, dead.
+ [Round: 1 sec]
+RP> 
+Donnald nods.
+P> skin gh
+You might want to wait till it is dead.
+P> look
+[Keep, statue]
+Prominently displayed in the exact center of the keep courtyard is a jet black
+statue. The statue is carved entirely out of marble and is undoubtedly of
+incalculable worth. Standing here, there is an almost urgent compulsion to look
+at the statue. The courtyard extends in all directions from here. To the north
+is a disturbing building. There are also rectangular buildings to the east and
+west.
+You see Donnald, Cypress, a greater ghoul (dead) and a greater ghoul. A
+zovembie finger is here.
+Obvious exits: north, south, east, west, northeast, northwest, southeast,
+southwest.
+P> 
+A zovembie arrives.
+P> 
+A greater ghoul is now guarding a zovembie.
+P> 
+A zovembie incants a spell.
+P> hold cyp
+She is already in your group.
+P> s
+You must RETREAT before you can move away while engaged!
+P> ret
+s
+You retreat.
+P> Your group follows you.
+[Keep, courtyard]
+You see Donnald and Cypress. A gate is here.
+Obvious exits: n, e, w, ne, nw.
+P> ret
+s
+You are not currently engaging any opponents.
+P> You can't go south!
+P> open gate
+It is already open.
+P> go gate
+Your group follows you.
+[Keep, gate]
+You see Donnald and Cypress. A bridge is here.
+Obvious exits: none.
+Flames spew forth from the small holes in the walls of the room!
+Moordread screams in agony as fire plays over his body!
+ Insignificant burn to back. [5 Damage]
+P> 
+Poison burns in your veins.
+P> winc
+You wince.
+P> go brid
+You move across the bridge, nearly falling into the bloody moat as one section
+gives way a bit.
+Your group follows you.
+[Dark Keep]
+You see Donnald and Cypress. A bridge and a moat are here.
+Obvious exits: ne.
+P> go mist
+Nausea and horror bombard your senses as you cross through the sickly mist.
+Your group follows you.
+[Foothills, the keep]
+You see Donnald and Cypress. A plain gray stone is here.
+Obvious exits: se.
+P> se
+Your group follows you.
+[Grasslands]
+You see Donnald and Cypress. Some cotton is here.
+Obvious exits: e, ne, nw, se.
+P> se
+Your group follows you.
+[Foothills, scrub growth]
+You see Donnald and Cypress. Some cotton is here.
+Obvious exits: s, nw.
+P> s
+Your group follows you.
+[Foothills, grass]
+You see Donnald and Cypress. 
+Obvious exits: n, se.
+P> se
+Your group follows you.
+[Outside Fayd, northern wall]
+You see Donnald and Cypress. 
+Obvious exits: n, w, nw, se.
+P> se
+Your group follows you.
+[Fayd Gate, exterior]
+You see Donnald and Cypress. A large iron gate is here.
+Obvious exits: s, e, nw.
+P> s
+Your group follows you.
+[Outside Fayd, eastern wall]
+You see Donnald and Cypress. 
+Obvious exits: n, sw.
+P> sw
+Your group follows you.
+[Outside Fayd, southeast wall]
+You see Donnald and Cypress. 
+Obvious exits: w, ne.
+P> w
+Your group follows you.
+[Outside Fayd, southern wall]
+You see Donnald and Cypress. 
+Obvious exits: e, w, se.
+P> se
+Your group follows you.
+[Grassland, high grass]
+You see Donnald and Cypress. 
+Obvious exits: s, nw.
+P> s
+Your group follows you.
+[Grassland, path fork]
+You see Donnald and Cypress. 
+Obvious exits: n, se, sw.
+P> se
+Your group follows you.
+[Grassland, field]
+You see Donnald and Cypress. 
+Obvious exits: nw, sw.
+P> sw
+Your group follows you.
+[Grassland, lowland]
+You see Donnald and Cypress. A rattlesnake skin is here.
+Obvious exits: s, ne, nw.
+P> s
+Your group follows you.
+[Grassland, knoll]
+You see Donnald and Cypress. 
+Obvious exits: n, s.
+P> s
+Your group follows you.
+[Grassland, flats]
+You see Donnald and Cypress. 
+Obvious exits: n, s.
+P> s
+Your group follows you.
+[Grassland, small rise]
+You see Donnald and Cypress. A rocky trail is here.
+Obvious exits: n, e, w.
+P> go tra
+Your group follows you.
+[Inner Sea, rocky shore]
+You see Donnald and Cypress. A rocky trail is here.
+Obvious exits: e, w.
+P> e
+Your group follows you.
+[Inner Sea, sandy beach]
+You see Donnald and Cypress. A statue and a sharkhor spleen are here.
+Obvious exits: w, se.
+P> gaze
+You gaze about the area.
+P> guar cyp
+You are now guarding Cypress.
+ [Round: 2 sec]
+RP> 
+Cypress concentrates intently.
+RP> 
+Poison burns in your veins.
+P> psi 42
+You stop maintaining Speed.
+You slow down considerably.
+P> fat
+Mana: 44/44
+Psi: 88/88
+Fatigue: 227/227
+P> 
+Donnald sighs.
+P> 
+A few initiates of the Knights of Amilor gaze warily out at the rolling waters
+of the Inner Sea while they stand vigilant guard near the statue to Amilor.
+P> rais
+You raise your eyebrow.
+P> 
+Cypress comforts Donnald.
+P> health
+You have 195/231 body points.
+You are currently suffering from poison (level 4).
+You have a nicked, bludgeoned, grazed and scorched head, a lacerated,
+bludgeoned and scorched body, a nicked, fractured, grazed and singed back, a
+nicked, banged-up and scorched right arm, a lacerated and singed left arm, a
+lacerated, banged-up and singed right leg, a nicked and banged-up left leg, a
+nicked and singed right hand and a nicked, banged-up and singed left hand.
+P> 
+Cypress asks, "this isn't good either?"
+P> 
+Poison burns in your veins.
+P> 
+Donnald says, "guess i am doomed to be a little guy"
+P> 
+Cypress gazes at Donnald.
+P> 'Not with enough practice
+You say, "Not with enough practice"
+P> 
+Donnald says, "poisoned"
+P> 
+A few initiates of the Knights of Amilor gaze warily out at the rolling waters
+of the Inner Sea while they stand vigilant guard near the statue to Amilor.
+P> 
+Cypress says, "no you aren't"
+P> 
+A sharkhor arrives.
+P> give mush to donn
+
+ ** Marcolan has just left the Realms.
+P> You'll have to unwield to do that.
+P> 
+A sharkhor advances towards Moordread.
+P> 
+A sharkhor snaps at Moordread with its teeth.
+ [ToHit: 95, Roll: 78] Miss.
+P> 
+Cypress concentrates intently on a sharkhor.
+P> 
+An invisible blow strikes a sharkhor.
+ Solid blow to fin. [7 Damage]
+P> 
+Donnald advances towards a sharkhor.
+P> drop mush
+You drop a riyong mushroom.
+P> 
+Cypress concentrates intently on a sharkhor.
+P> 
+An invisible blow crushes a sharkhor!
+ Solid blow to tail. [6 Damage]
+P> 
+Cypress concentrates intently on a sharkhor.
+P> 
+An invisible blow strikes a sharkhor.
+ Crushing blow to head. [13 Damage]
+P> drop mush
+You drop a riyong mushroom.
+P> drop mush
+You drop a riyong mushroom.
+P> drop mush
+You drop a riyong mushroom.
+P> drop mush
+You don't have that.
+P> drop mush
+You don't have that.
+P> 
+Donnald swings at a sharkhor with his randar greatsword.
+ [ToHit: 7, Roll: 27] Hit!
+ Minor slash to fin. [9 Damage]
+P> 
+Cypress concentrates intently on a sharkhor.
+P> 
+An invisible blow pounds a sharkhor.
+ Crushing blow to right arm. [8 Damage]
+P> 
+Poison burns in your veins.
+P> 
+A sharkhor snaps at Donnald with its teeth.
+ [ToHit: 95, Roll: 3] Miss.
+P> 
+Cypress concentrates intently on a sharkhor.
+P> 
+An invisible blow crushes a sharkhor!
+ Solid blow to tail. [6 Damage]
+P> 
+Cypress concentrates intently on a sharkhor.
+P> 
+An invisible blow smashes a sharkhor!
+ Crushing blow to right hand. [6 Damage]
+P> 
+Donnald swings at a sharkhor with his randar greatsword.
+ [ToHit: 7, Roll: 87] Hit!
+ Grisly slash to head. [15 Damage]
+P> 'Eat all the mushroom you need
+
+Cypress concentrates intently on a sharkhor.
+P> You say, "Eat all the mushroom you need"
+P> 
+Cypress concentrates intently on a sharkhor.
+P> 
+An invisible blow strikes a sharkhor.
+ Devastating blow to right arm. [5 Damage]
+P> 
+Donnald swings at a sharkhor with his randar greatsword.
+ [ToHit: 7, Roll: 13] Hit!
+ Superb slice juliennes head!
+ It falls to the ground, its cold, black eyes staring at you.
+P> look don
+You see Donnald Hamerson, an aging male wolfling.
+He is of medium height, average weight and incredibly muscular.
+He has gray eyes, tan skin and unkempt light brown hair.
+He is wearing a shimmering gray wrymwood watch carved into the likeness of a
+phase spider hanging by a band of woven spinnerets, some black titanium
+sunglasses, a deep brown leather backpack with several colorful feathers and
+beaded thongs dangling from it, a lizard skin beltpouch its drawstrings
+threaded with opal beads, some eldritch leather armor, an eldritch helm and a
+randar necklace.
+He is wielding a randar greatsword.
+He is outlined in glowing armor.
+He looks a bit under the weather.
+He has a grazed back, a nicked right arm and a nicked left arm.
+P> 
+Cypress concentrates intently.
+P> 
+Donnald takes a bite of a riyong mushroom.
+P> 
+Donnald looks a little better.
+P> pond
+You ponder for a moment.
+P> 
+A calumran crab scuttles in.
+P> 
+A few initiates of the Knights of Amilor gaze warily out at the rolling waters
+of the Inner Sea while they stand vigilant guard near the statue to Amilor.
+P> drop vial
+What are you referring to?  Please be more specific.
+P> 
+Cypress concentrates intently on a crab.
+P> inv
+You are carrying: 
+  A small dark gold key emblazoned with the crest of Count Wolfbane Crag
+  Some worn black leather boots (worn)
+  Some steel shoulder guards buffed to a high polish (worn)
+  Some heavy steel thigh guards buffed to a high polish (worn)
+  Some gleaming plasteel gauntlets (worn)
+  A porcelain flask (open)
+  A fiery randar broadsword with the name Moordread scratched on the blade
+(wielded)
+  A black crystal necklace (worn)
+  Some eldritch steel-rimmed armor (worn)
+  Your object
+  A light brown tunic (worn)
+  Some dark brown breeches (worn)
+  A magenta crystal pendant (worn)
+  A dented and rusty helm pitted and scarred with years of use (worn)
+  A torch
+  A finely crafted crimson tabard embroidered with the gleaming silver eagle of
+the Crimson Band (worn)
+  An eldritch diamontine shield (wielded)
+  A quartz talisman (worn)
+  A quartz pendant (worn)
+  A ruby studded silver ring of the Crimson Band (worn)
+  A region map
+  A crystal flask (open)
+P> 
+Donnald takes a riyong mushroom.
+P> 
+A calumran crab advances towards Donnald.
+P> 
+A calumran crab swings at Donnald with its massive claw.
+ [ToHit: 95, Roll: 100] Excellent Hit!
+ Feeble blow to right hand. [3 Damage]
+P> drop flas
+You drop a porcelain flask.
+P> 
+Cypress concentrates intently on a crab.
+P> 
+A globe of nearly absolute cold surrounds a calumran crab.
+ Ghastly burn to underbelly. [41 Damage]
+P> 
+Donnald swings at a calumran crab with his randar greatsword.
+ [ToHit: 5, Roll: 5] Hit!
+ Grisly slash to body. [15 Damage]
+P> 
+Cypress concentrates intently on a crab.
+P> 
+A thin shell of ice forms around a calumran crab.
+ Ghastly burn to underbelly. [26 Damage]
+ It collapses, spilling greenish fluids across the sand.
+P> 
+Poison burns in your veins.
+P> 
+Donnald fails to skin a sharkhor.
+P> 'strength potion in one of those flasks
+You say, "strength potion in one of those flasks"
+P> 
+Donnald fails to skin a calumran crab.
+P> drop flas
+You drop a crystal flask.
+P> 'That should help a bit
+You say, "That should help a bit"
+P> 
+Donnald searches a sharkhor.
+P> inv
+You are carrying: 
+  A small dark gold key emblazoned with the crest of Count Wolfbane Crag
+  Some worn black leather boots (worn)
+  Some steel shoulder guards buffed to a high polish (worn)
+  Some heavy steel thigh guards buffed to a high polish (worn)
+  Some gleaming plasteel gauntlets (worn)
+  A fiery randar broadsword with the name Moordread scratched on the blade
+(wielded)
+  A black crystal necklace (worn)
+  Some eldritch steel-rimmed armor (worn)
+  Your object
+  A light brown tunic (worn)
+  Some dark brown breeches (worn)
+  A magenta crystal pendant (worn)
+  A dented and rusty helm pitted and scarred with years of use (worn)
+  A torch
+  A finely crafted crimson tabard embroidered with the gleaming silver eagle of
+the Crimson Band (worn)
+  An eldritch diamontine shield (wielded)
+  A quartz talisman (worn)
+  A quartz pendant (worn)
+  A ruby studded silver ring of the Crimson Band (worn)
+  A region map
+P> 
+A few initiates of the Knights of Amilor gaze warily out at the rolling waters
+of the Inner Sea while they stand vigilant guard near the statue to Amilor.
+P> 
+Donnald searches a calumran crab.
+P> 
+Donnald shrugs.
+P> 
+Cypress points at a fire agate.
+P> 
+Poison burns in your veins.
+P> 
+Cypress says, "cool"
+> 
+Donnald says, "tak eit"
+> 
+Cypress beams happily.
+> grin
+You grin.
+> 
+Cypress gazes at you.
+> nod
+You nod.
+> 
+A few initiates of the Knights of Amilor gaze warily out at the rolling waters
+of the Inner Sea while they stand vigilant guard near the statue to Amilor.
+> 
+Cypress takes a fire agate.
+> 'I like the firey gems
+You say, "I like the firey gems"
+> 'Fire agate, fire opal
+You say, "Fire agate, fire opal"
+> pond
+You ponder for a moment.
+> 
+Donnald takes a porcelain flask.
+> 
+Donnald opens a crystal flask.
+> 'Seems like theres another
+You say, "Seems like theres another"
+> 
+Donnald closes a crystal flask.
+> 
+A few initiates of the Knights of Amilor gaze warily out at the rolling waters
+of the Inner Sea while they stand vigilant guard near the statue to Amilor.
+> 
+Donnald drinks a reeking potion.
+> 
+Donnald looks a little better.
+> 
+Cypress says, "I still need to get my earrings from Hyena"
+> 
+Donnald drinks a reeking potion.
+> 
+Nothing happens.
+> 
+As Donnald places a crystal flask into a slime mold, it dissolves away!
+> 'Still?
+You ask, "Still?"
+> 
+Donnald grins.
+> list cyp
+You listen carefully to Cypress.
+> 
+Cypress nods.
+> 
+Donnald's slime belches and bubbles before coming to rest.
+> 'Think he has them finished yet?
+
+Donnald drinks a cyan potion.
+> 
+Donnald radiates with magical strength.
+> You ask, "Think he has them finished yet?"
+> 
+Cypress says, "I haven't seen him"
+> 
+A sharkhor arrives.
+> 
+As Donnald places a porcelain flask into a slime mold, it dissolves away!
+> 
+Donnald advances towards a sharkhor.
+> 
+Donnald swings at a sharkhor with his randar greatsword.
+ [ToHit: 7, Roll: 59] Hit!
+ Grisly slash to head. [39 Damage]
+> 
+Cypress concentrates intently on a sharkhor.
+> 
+Frost crystalizes on a sharkhor.
+ Ghastly burn to body. [21 Damage]
+> 
+Donnald's slime belches and bubbles before coming to rest.
+> 
+A few initiates of the Knights of Amilor gaze warily out at the rolling waters
+of the Inner Sea while they stand vigilant guard near the statue to Amilor.
+> 
+A sharkhor arrives.
+> 
+Cypress concentrates intently on a sharkhor.
+> 
+Frost crystalizes on a sharkhor.
+ Insignificant burn to right hand. [5 Damage]
+> 
+Cypress concentrates intently on a sharkhor.
+> 
+Some of a sharkhor's internal fluids freeze solid.
+ Severe burn to head. [34 Damage]
+> 
+Donnald swings at a sharkhor with his randar greatsword.
+ [ToHit: 7, Roll: 1] Weapon Clash! [Strength: 6, 2d100 Roll: 122]
+> 
+A sharkhor thrusts at Donnald with its bone trident.
+ [ToHit: 95, Roll: 88] Miss.
+> 
+Cypress concentrates intently on a sharkhor.
+> 
+A thin shell of ice forms around a sharkhor.
+ Ghastly burn to head. [24 Damage]
+> 
+Cypress concentrates intently on a sharkhor.
+> 
+Some of a sharkhor's internal fluids freeze solid.
+ Ghastly burn to tail. [8 Damage]
+> 
+Donnald swings at a sharkhor with his randar greatsword.
+ [ToHit: 7, Roll: 96] Excellent Hit!
+ Slash to spine exposes innards.
+ It falls to the ground, its cold, black eyes staring at you.
+> 
+A sharkhor thrusts at Donnald with its bone trident.
+ [ToHit: 95, Roll: 38] Miss.
+> adv sha
+You advance towards a sharkhor.
+> a sha
+You swing at a sharkhor with your fiery randar broadsword.
+ [ToHit: 5, Roll: 67] Hit!
+ Awful gut wound pierces belly to back.
+ It falls to the ground, its cold, black eyes staring at you.
+ [Round: 3 sec]
+R> 
+Cypress says, "I don't know if he does or not"
+> skin sha
+sear sha
+You fail to salvage an intact specimen.
+> You search a sharkhor.
+You find a bone trident, some gold coins, some silver coins and some copper
+coins.
+ [Round: 5 sec]
+R> 
+A sharkhor arrives.
+R> 
+Cypress concentrates intently on a sharkhor.
+> 
+Frost crystalizes on a sharkhor.
+ Minor burn to left arm. [11 Damage]
+> 'I haven't seen him lately either
+
+Cypress concentrates intently on a sharkhor.
+> 
+An intense freezing blast supercools soft matter on a sharkhor brittle.
+ Serious burn to left arm. [15 Damage]
+> 
+Donnald advances towards a sharkhor.
+> You say, "I haven't seen him lately either"
+> 
+Donnald swings at a sharkhor with his randar greatsword.
+ [ToHit: 7, Roll: 45] Hit!
+ Superb slash to body. [18 Damage]
+> 
+Cypress concentrates intently on a sharkhor.
+> 
+Frost crystalizes on a sharkhor.
+ Severe burn to right arm. [11 Damage]
+> 
+A sharkhor thrusts at Donnald with its bone trident.
+ [ToHit: 95, Roll: 22] Miss.
+> 
+Cypress concentrates intently on a sharkhor.
+> 
+A globe of nearly absolute cold surrounds a sharkhor.
+ Ghastly burn to left arm. [16 Damage]
+> 
+A few initiates of the Knights of Amilor gaze warily out at the rolling waters
+of the Inner Sea while they stand vigilant guard near the statue to Amilor.
+> 
+Cypress concentrates intently on a sharkhor.
+> 
+A thin shell of ice forms around a sharkhor.
+ Ghastly burn to tail. [6 Damage]
+ It falls to the ground, its cold, black eyes staring at you.
+> skin sha
+sear sha
+You remove a sharkhor tooth.
+> You search a sharkhor.
+You find a bone trident, some gold coins, some silver coins and some copper
+coins.
+ [Round: 5 sec]
+R> 
+Donnald skins a sharkhor.
+R> 
+Donnald searches a sharkhor.
+R> look
+[Inner Sea, sandy beach]
+To the north a sheer cliff face gradually changes into the smooth, sloping
+expanse of beach, unmarred by even a single rock. Facing the sea is a statue of
+Amilor, Lord of the Deep, obviously placed here for ritual services by his
+followers. Large morcryl shells have been piled all around the base of the
+statue.
+You see Donnald and Cypress. A bone trident, a small bloodstone, a sharkhor
+spleen, a bone trident, some gold coins, some silver coins, some copper coins,
+a bone trident, some gold coins, some silver coins, some copper coins, a
+sharkhor tooth, a sharkhor tooth, a riyong mushroom, a riyong mushroom, a
+riyong mushroom and a crystal flask are here.
+Obvious exits: west, southeast.
+R> 
+Donnald says, "hyena was on earler"
+> 
+Cypress asks, "I'm sorry...how rude of me...do you two know each other?"
+> 
+The glowing outline of armor fades from around Donnald.
+> 'rewield the sword to gain the benifits of the strength
+You say, "rewield the sword to gain the benifits of the strength"
+> smi donn
+You smile at Donnald.
+> 
+A few initiates of the Knights of Amilor gaze warily out at the rolling waters
+of the Inner Sea while they stand vigilant guard near the statue to Amilor.
+> 'I believe we've met
+You say, "I believe we've met"
+> 
+Donnald puts away a randar greatsword.
+> 
+Donnald wields a randar greatsword.
+> 
+Donnald says, "in passing a few times"
+> 
+Cypress wields an eldritch red titanium shield emblazoned with a snarling wolf
+locked in combat with a black serpent.
+> 'Perhaps in the dens once or twice
+You say, "Perhaps in the dens once or twice"
+> 
+Donnald nods.
+> 
+Gentle rain begins to fall from the sky.
+> 
+Cypress smiles.
+> 
+A few initiates of the Knights of Amilor gaze warily out at the rolling waters
+of the Inner Sea while they stand vigilant guard near the statue to Amilor.
+> 
+Cypress says, "my manners aren't always the best"
+> 
+A sharkhor arrives.
+> 
+Cypress blushes.
+> 
+Cypress concentrates intently on a sharkhor.
+> 
+An intense freezing blast supercools soft matter on a sharkhor brittle.
+ Serious burn to right leg. [15 Damage]
+> 'The name is Moordread by the way, nice to meet you wolf-brother
+You say, "The name is Moordread by the way, nice to meet you wolf-brother"
+> 
+Donnald says, "they are fine cyp"
+> 
+A sharkhor thrusts at Cypress with its bone trident.
+ [ToHit: 95, Roll: 41] Miss.
+> 
+Cypress concentrates intently on a sharkhor.
+> 
+Frost crystalizes on a sharkhor.
+ Minor burn to tail. [5 Damage]
+> 
+Donnald advances towards a sharkhor.
+> hands don
+
+Donnald swings at a sharkhor with his randar greatsword.
+ [ToHit: 5, Roll: 88] Hit!
+ Good strike to left leg. [12 Damage]
+> You shake hands with Donnald.
+> 
+Cypress concentrates intently on a sharkhor.
+> 
+A globe of nearly absolute cold surrounds Cypress.
+ Minor burn to right leg. [21 Damage]
+> 
+Donnald swings at a sharkhor with his randar greatsword.
+ [ToHit: 5, Roll: 69] Hit!
+ Superb slash to fin. [17 Damage]
+> 
+Cypress concentrates intently on a sharkhor.
+> 
+A globe of nearly absolute cold surrounds a sharkhor.
+ Cutting cold tears off dermal layer, fast-freezing entrails.
+ It falls to the ground, its cold, black eyes staring at you.
+> 'We were just busy is all
+You say, "We were just busy is all"
+> 
+Donnald shakes hands with you.
+> 
+A few initiates of the Knights of Amilor gaze warily out at the rolling waters
+of the Inner Sea while they stand vigilant guard near the statue to Amilor.
+> 
+Donnald skins a sharkhor.
+> 
+Donnald goes southeast.
+> look
+[Inner Sea, sandy beach]
+To the north a sheer cliff face gradually changes into the smooth, sloping
+expanse of beach, unmarred by even a single rock. Facing the sea is a statue of
+Amilor, Lord of the Deep, obviously placed here for ritual services by his
+followers. Large morcryl shells have been piled all around the base of the
+statue.
+You see Cypress and a sharkhor (dead). A bone trident, a small bloodstone, a
+sharkhor spleen, a bone trident, some gold coins, some silver coins, some
+copper coins, a bone trident, some gold coins, some silver coins, some copper
+coins, a sharkhor tooth, a sharkhor tooth, a sharkhor tail, a riyong mushroom,
+a riyong mushroom, a riyong mushroom and a crystal flask are here.
+Obvious exits: west, southeast.
+> 
+Donnald arrives.
+> 
+Donnald is now following Moordread.
+> 
+Donnald searches a sharkhor.
+> 
+Small puddles are formed by the rain.
+> exp
+Level: 41
+Build Points to date: 437
+Unspent Build Points: 6
+Experience Points until next Build Point: 17376
+> look
+[Inner Sea, sandy beach]
+To the north a sheer cliff face gradually changes into the smooth, sloping
+expanse of beach, unmarred by even a single rock. Facing the sea is a statue of
+Amilor, Lord of the Deep, obviously placed here for ritual services by his
+followers. Large morcryl shells have been piled all around the base of the
+statue.
+You see Donnald and Cypress. A bone trident, a small bloodstone, a sharkhor
+spleen, a bone trident, some gold coins, some silver coins, some copper coins,
+a bone trident, some gold coins, some silver coins, some copper coins, a
+sharkhor tooth, a sharkhor tooth, a bone trident, a tiny amethyst, a sharkhor
+tail, a riyong mushroom, a riyong mushroom, a riyong mushroom and a crystal
+flask are here.
+Obvious exits: west, southeast.
+> 
+A few initiates of the Knights of Amilor gaze warily out at the rolling waters
+of the Inner Sea while they stand vigilant guard near the statue to Amilor.
+> 
+A sharkhor priest waddles in.
+> 
+Cypress asks, "I've been away a few days...anything happen in town?"
+> pond
+You ponder for a moment.
+> 
+Cypress concentrates intently on a priest.
+> 
+A globe of nearly absolute cold surrounds a sharkhor priest.
+ Ghastly burn to back. [33 Damage]
+> adv pri
+You advance towards a priest.
+> a pri
+You swing at a sharkhor priest with your fiery randar broadsword.
+ [ToHit: 5, Roll: 58] Hit!
+ Masterful strike to head. [24 Damage]
+ The broadsword radiates intense heat!
+ Ghastly burn to right arm. [25 Damage]
+ It falls to the ground snarling, "Calumra will avenge me!"
+ [Round: 3 sec]
+R> 
+The glowing outline of armor fades from around a priest.
+R> 
+Donnald ponders.
+R> skni pri
+sear pri
+"skni" is not understood.
+> You search a sharkhor priest.
+You find a coffer.
+ [Round: 5 sec]
+R> gaze coff
+You gaze at a coffer.
+R> 
+Donnald puts away a randar greatsword.
+> 
+Donnald fiddles with the lock on a coffer but fails to pick it.
+> 
+A few initiates of the Knights of Amilor gaze warily out at the rolling waters
+of the Inner Sea while they stand vigilant guard near the statue to Amilor.
+> 'I heard that a dark menacing figure has been spotted lately
+You say, "I heard that a dark menacing figure has been spotted lately"
+> 
+Cypress shivers.
+> 
+Donnald fiddles with the lock on a coffer but fails to pick it.
+> nod cyp
+You nod to Cypress.
+> 
+Donnald says, "the one that took silence earler"
+> 
+You hear a click as Donnald succeeds in picking the lock on a coffer.
+> 
+Cypress gazes at you.
+> 
+Cypress gazes at Donnald.
+> 'Probably 
+You say, "Probably"
+> 
+Cypress says, "I have guards"
+> 
+A few initiates of the Knights of Amilor gaze warily out at the rolling waters
+of the Inner Sea while they stand vigilant guard near the statue to Amilor.
+> 
+Donnald wields a randar greatsword.
+> 
+Cypress smiles.
+> 
+Donnald nods.
+> 'I heard it was seeking Fafnir's scales
+You say, "I heard it was seeking Fafnir's scales"
+> 
+Donnald grins.
+> 
+Donnald opens a coffer.
+> 
+Donnald takes a coffer.
+> 'Yes, so run to safety while we keep it busy
+You say, "Yes, so run to safety while we keep it busy"
+> nod cyp
+You nod to Cypress.
+> 
+Donnald pouts.
+> 
+Cypress asks, "Why is that?"
+> 
+A sharkhor priest's group arrives.
+> 
+A few initiates of the Knights of Amilor gaze warily out at the rolling waters
+of the Inner Sea while they stand vigilant guard near the statue to Amilor.
+> 
+The rain continues to sprinkle you.
+> 
+A sharkhor is now guarding a priest.
+> 'I don't know why it wants them
+You say, "I don't know why it wants them"
+> adv sh
+a sh
+You advance towards a sharkhor.
+> You swing at a sharkhor with your fiery randar broadsword.
+ [ToHit: 5, Roll: 52] Hit!
+ Minor slash to tail. [8 Damage]
+ [Round: 3 sec]
+R> 
+Donnald drops a coffer.
+R> .
+You thrust at a sharkhor with your fiery randar broadsword.
+ [ToHit: 5, Roll: 23] Hit!
+ Superb slash to body. [27 Damage]
+ The broadsword radiates intense heat!
+ Severe burn to right hand. [16 Damage]
+ [Round: 3 sec]
+R> 
+Donnald advances towards a sharkhor.
+R> 
+Donnald thrusts at a sharkhor with his randar greatsword.
+ [ToHit: 5, Roll: 25] Hit!
+ Brutal abdominal cut results in disembowelment.
+ It falls to the ground, its cold, black eyes staring at you.
+R> 
+A sharkhor priest advances towards Donnald.
+> 
+A sharkhor priest snaps at Donnald with its teeth.
+ [ToHit: 95, Roll: 55] Miss.
+> adv pri
+a pri
+You advance towards a priest.
+> You swing at a sharkhor priest with your fiery randar broadsword.
+ [ToHit: 5, Roll: 51] Hit!
+ Fine slash to left leg. [19 Damage]
+ The broadsword radiates intense heat!
+ Ghastly burn to left arm. [32 Damage]
+ [Round: 3 sec]
+R> 
+A sharkhor priest closes its eyes and begins muttering arcane words.
+> 
+Donnald thrusts at a sharkhor priest with his randar greatsword.
+ [ToHit: 12, Roll: 27] Hit!
+ Terrible gouge skewers spleen.
+ It falls to the ground snarling, "Calumra will avenge me!"
+> 
+The glowing outline of armor fades from around a priest.
+> skin pri
+sear pri
+You remove a sharkhor hide.
+> You search a sharkhor priest.
+You find a gold coin, some silver coins and a copper coin.
+ [Round: 5 sec]
+R> 
+Donnald skins a sharkhor.
+R> 
+Donnald searches a sharkhor.
+R> 
+A few initiates of the Knights of Amilor gaze warily out at the rolling waters
+of the Inner Sea while they stand vigilant guard near the statue to Amilor.
+> 'Probably for some foul spell
+You say, "Probably for some foul spell"
+> 
+Donnald nods.
+> 
+ ** Nord has just left the Realms.
+> 
+Donnald appears to become weaker.
+> 
+A sharkhor arrives.
+> 
+Donnald advances towards a sharkhor.
+> 
+Donnald thrusts at a sharkhor with his randar greatsword.
+ [ToHit: 5, Roll: 4] Miss.
+> 
+A few initiates of the Knights of Amilor gaze warily out at the rolling waters
+of the Inner Sea while they stand vigilant guard near the statue to Amilor.
+> 
+Cypress asks, "so what do we know about this being?"
+> 
+A sharkhor snaps at Donnald with its teeth.
+ [ToHit: 95, Roll: 52] Miss.
+> 
+Cypress concentrates intently on a sharkhor.
+> 
+Frost crystalizes on a sharkhor.
+ Serious burn to body. [21 Damage]
+> 
+Donnald swings at a sharkhor with his randar greatsword.
+ [ToHit: 5, Roll: 62] Hit!
+ Fine slash to right leg. [15 Damage]
+> 
+Cypress concentrates intently on a sharkhor.
+> 
+Some of a sharkhor's internal fluids freeze solid.
+ Serious burn to left hand. [8 Damage]
+> 
+Cypress concentrates intently on a sharkhor.
+> 
+Donnald swings at a sharkhor with his randar greatsword.
+ [ToHit: 5, Roll: 49] Hit!
+ Fine slash to body. [9 Damage]
+> 
+Cypress concentrates intently on a sharkhor.
+> 
+Some of a sharkhor's internal fluids freeze solid.
+ Ghastly burn to left arm. [16 Damage]
+> 
+A sharkhor snaps at Donnald with its teeth.
+ [ToHit: 95, Roll: 3] Miss.
+> 
+Cypress concentrates intently on a sharkhor.
+> 
+Some of a sharkhor's internal fluids freeze solid.
+ Ghastly burn to fin. [15 Damage]
+ It falls to the ground, its cold, black eyes staring at you.
+> 
+Donnald skins a sharkhor.
+> 
+Donnald searches a sharkhor.
+> 
+Donnald puts away a randar greatsword.
+> 
+Donnald fiddles with the lock on a chest but fails to pick it.
+> 
+A few initiates of the Knights of Amilor gaze warily out at the rolling waters
+of the Inner Sea while they stand vigilant guard near the statue to Amilor.
+> 
+A sharkhor arrives.
+> 
+Cypress whispers to you, "did I miss anything?"
+> 
+A sharkhor thrusts at Moordread with its bone trident.
+ [ToHit: 95, Roll: 6] Miss.
+> 
+Donnald fiddles with the lock on a chest but fails to pick it.
+> 
+Cypress concentrates intently on a sharkhor.
+> 
+An intense freezing blast supercools soft matter on a sharkhor brittle.
+ Minor burn to right arm. [13 Damage]
+> 
+Cypress concentrates intently on a sharkhor.
+> 
+Ice erupts from the ground and spreads across a sharkhor!
+ Severe burn to body. [27 Damage]
+> 
+Cypress concentrates intently on a sharkhor.
+> 
+Ice erupts from the ground and spreads across a sharkhor!
+ Severe burn to right arm. [15 Damage]
+> 
+A sharkhor thrusts at Donnald with its bone trident.
+ [ToHit: 95, Roll: 36] Miss.
+> 
+Cypress concentrates intently on a sharkhor.
+> 
+Frost crystalizes on a sharkhor.
+ Severe burn to right leg. [9 Damage]
+> 
+You hear a click as Donnald succeeds in picking the lock on a chest.
+> 
+Cypress concentrates intently on a sharkhor.
+> 
+Ice erupts from the ground and spreads across a sharkhor!
+ Ghastly burn to left hand. [6 Damage]
+> 
+Cypress concentrates intently on a sharkhor.
+> 
+An intense freezing blast supercools soft matter on a sharkhor brittle.
+ Ghastly burn to left leg. [15 Damage]
+ It falls to the ground, its cold, black eyes staring at you.
+> whisp cypr Nope, just killin sharks 
+
+ ** Marcolan has just left the Realms.
+> 
+The rain continues to sprinkle you.
+> You whisper to Cypress.
+> skin sh
+sear sh
+You remove a sharkhor tooth.
+> You search a sharkhor.
+You find a bone trident, some gold coins, some silver coins and a copper coin.
+ [Round: 5 sec]
+R> 
+A few initiates of the Knights of Amilor gaze warily out at the rolling waters
+of the Inner Sea while they stand vigilant guard near the statue to Amilor.
+R> 
+Donnald opens a chest.
+R> 
+Donnald says, "there is a croll int eh chest"
+> 
+Donnald wields a randar greatsword.
+> 'I heard someone call the figure a chaos demon
+You say, "I heard someone call the figure a chaos demon"
+> 
+Donnald counts his money.
+> 
+A few initiates of the Knights of Amilor gaze warily out at the rolling waters
+of the Inner Sea while they stand vigilant guard near the statue to Amilor.
+> 'But that doesn't tell me anything
+You say, "But that doesn't tell me anything"
+> 
+Donnald takes some gold coins.
+> 
+Donnald takes some silver coins.
+> 
+Donnald takes a copper coin.
+> 
+Donnald takes some gold coins.
+> 
+Donnald takes some silver coins.
+> 
+Donnald takes some copper coins.
+> 
+Donnald takes some gold coins.
+> 
+Donnald takes some silver coins.
+> 
+Donnald takes some copper coins.
+> 
+Donnald takes some gold coins.
+> 
+Donnald removes some gold coins from the coffer.
+> 
+Donnald removes some silver coins from the coffer.
+> 
+Donnald takes a gold coin.
+> 
+Donnald takes some silver coins.
+> 
+Donnald takes a copper coin.
+> 
+Donnald takes some silver coins.
+> 
+Donnald takes some copper coins.
+> 
+Donnald removes some gold coins from the chest.
+> 
+Donnald removes some silver coins from the chest.
+> look
+[Inner Sea, sandy beach]
+To the north a sheer cliff face gradually changes into the smooth, sloping
+expanse of beach, unmarred by even a single rock. Facing the sea is a statue of
+Amilor, Lord of the Deep, obviously placed here for ritual services by his
+followers. Large morcryl shells have been piled all around the base of the
+statue.
+You see Donnald and Cypress. A sharkhor tooth, a sharkhor tooth, a bone
+trident, a bone trident, a small bloodstone, a sharkhor spleen, a bone trident,
+a bone trident, a sharkhor tail, a bone trident, a sharkhor tooth, a sharkhor
+tooth, a bone trident, a tiny amethyst, a coffer, a sharkhor tail, a sharkhor
+hide, a chest, a riyong mushroom, a riyong mushroom, a riyong mushroom and a
+crystal flask are here.
+Obvious exits: west, southeast.
+> 
+Donnald takes a small bloodstone.
+> 
+Cypress says, "demon is never a good word"
+> heads
+You shake your head.
+> 
+Donnald nods.
+> psi
+#    Discipline
+---  -----------------------------------------
+1    Matter Awakening
+2    Kinetic Thrust
+3    Levitate [Active: 1 psi/min]
+4    Pyrokinetics
+5    Cryokinetics
+6    Capacitance
+7    Electrify
+8    Strengthen Steel
+9    Manipulate Lock
+10   Wall of Force [Active: 1 psi/min]
+11   Flight [Active: 2 psi/min]
+18   Mind Awakening
+19   Telepathy
+20   Contact [Active: 1 psi/min]
+42   Speed
+
+[Type PSI <Discipline #> to invoke a power and PROJECT <Target> to direct it at
+a creature or object]
+> 
+A few initiates of the Knights of Amilor gaze warily out at the rolling waters
+of the Inner Sea while they stand vigilant guard near the statue to Amilor.
+> fat
+Mana: 44/44
+Psi: 88/88
+Fatigue: 227/227
+> 
+Donnald takes a tiny amethyst.
+> 
+A sharkhor priest's group arrives.
+> psi 2
+You concentrate...
+[Success: 30%, Roll 67] Failure.
+ [Round: 5 sec]
+R> 
+Donnald takes a chest.
+R> 
+Cypress puts away an eldritch red titanium shield emblazoned with a snarling
+wolf locked in combat with a black serpent.
+R> 
+As Donnald places a chest into a slime mold, it dissolves away!
+R> adv pri
+a pri
+[Wait 1 seconds...]
+R> [Wait 1 seconds...]
+R> adv pri
+a pri
+You advance towards a priest.
+> You thrust at a sharkhor priest with your fiery randar broadsword.
+ [ToHit: 5, Roll: 34] Hit!
+ Superb slash to body. [23 Damage]
+ [Round: 3 sec]
+R> 
+Donnald's slime belches and bubbles before coming to rest.
+R> 
+A sharkhor thrusts at Moordread with its bone trident.
+ [ToHit: 95, Roll: 29] Miss.
+R> 
+A sharkhor priest snaps at Moordread with its teeth.
+ [ToHit: 95, Roll: 74] Miss.
+R> .
+You swing at a sharkhor priest with your fiery randar broadsword.
+ [ToHit: 5, Roll: 14] Hit!
+ Good strike to right arm. [12 Damage]
+ The broadsword radiates intense heat!
+ Ghastly burn to right hand. [18 Damage]
+ [Round: 3 sec]
+R> 
+Cypress concentrates intently on a sharkhor.
+R> 
+Frost crystalizes on a sharkhor.
+ Minor burn to right leg. [10 Damage]
+R> 
+Donnald advances towards a sharkhor priest.
+R> 
+Cypress concentrates intently on a sharkhor.
+> .
+You thrust at a sharkhor priest with your fiery randar broadsword.
+ [ToHit: 5, Roll: 84] Hit!
+ Deep uppercut elongates posterior groove to neck.
+ It falls to the ground snarling, "Calumra will avenge me!"
+ [Round: 3 sec]
+R> 
+The glowing outline of armor fades from around a priest.
+R> 
+Cypress concentrates intently on a sharkhor.
+R> 
+Some of a sharkhor's internal fluids freeze solid.
+ Ghastly burn to body. [34 Damage]
+R> 
+Cypress concentrates intently on a sharkhor.
+> 
+A globe of nearly absolute cold surrounds a sharkhor.
+ Frosty blast glaciates circulatory system.
+ It falls to the ground, its cold, black eyes staring at you.
+> skin pri
+sear pri
+You remove a sharkhor hide.
+> You search a sharkhor priest.
+You find some copper coins.
+ [Round: 5 sec]
+R> 
+A few initiates of the Knights of Amilor gaze warily out at the rolling waters
+of the Inner Sea while they stand vigilant guard near the statue to Amilor.
+> 
+Cypress takes a coffer.
+> 
+As Cypress places a coffer into a slime mold, it dissolves away!
+> 
+The rain continues to sprinkle you.
+> 
+Cypress's slime belches and bubbles before coming to rest.
+> 
+Donnald skins a sharkhor.
+> 
+Donnald searches a sharkhor.
+> 
+Cypress wields an eldritch red titanium shield emblazoned with a snarling wolf
+locked in combat with a black serpent.
+> whisp cypr I'm afraid I've been here about 3 hours and can't stay a whole lot longer :(
+You whisper to Cypress.
+> 
+Donnald takes a gold coin.
+> 
+Donnald takes a silver coin.
+> 
+Donnald takes some copper coins.
+> 
+ ** Graul has just disconnected.
+> 
+A few initiates of the Knights of Amilor gaze warily out at the rolling waters
+of the Inner Sea while they stand vigilant guard near the statue to Amilor.
+> 
+Donnald says, "cool looking shirld"
+> nod
+You nod.
+> 
+Cypress whispers to you, "oh sorry don't let me keep you *smile*"
+> 
+Cypress says, "thanks"

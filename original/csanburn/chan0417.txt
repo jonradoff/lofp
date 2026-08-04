@@ -1,0 +1,3023 @@
+
+ ** Immanuel has just left the Realms.
+> look cele
+Chestnut hair ripples in waves over Celesinia's shoulders, framing soft,ample
+curves. Her warm brown eyes seem to be always on the verge of laughter, and
+full soft lips curve into an inviting smile. A lotus is tattooed on one wrist.
+She is wearing some soft black doeskin boots laced with bright red ribbons to
+her knees, a gold hoop earring that flashes and sparkles against her dark hair,
+a simple white cotton blouse that bares her deeply tanned shoulders and a
+bright red cotton skirt that swirls around her as she moves revealing glimpses
+of smooth skin.
+She is being guarded by a winged wolvian.
+She appears to be healthy.
+> 
+Celesinia says, "The burning tower.."
+> 
+Celesinia says, "Crossed by Elorna.."
+> 
+Prudence arches her eyebrow.
+> fid
+You fidget nervously.
+> 
+Celesinia says, "And the Devourer overshadowing it all."
+> 
+Prudence blinks at Celesinia.
+> 
+Prudence opens a backpack.
+> 
+The air before you crystalizes into the form of Firestar!
+> 
+Firestar smiles.
+> 
+Prudence removes a thesnia leaf from the backpack.
+> 
+Firestar says, "Hello"
+> 
+Elarin arrives through some wooden swinging doors that only occupy half of
+their doorway.
+> 
+Prudence takes a bite of a thesnia leaf.
+> 
+Prudence seems changed.
+> 
+A small brown ferret climbs up on Firestar's shoulder and waves at you.
+> 
+Celesinia curtsies towards Firestar.
+> 
+Prudence giggles.
+> 
+Celesinia says, "Gnome.. Firestar, I presume.."
+> 
+Prudence closes a backpack.
+> 
+Firestar says, "How may I be of Service"
+> nod cele
+You nod to Celesinia.
+> 
+Firestar says, "Yes I am Firestar Ironheart."
+> 
+Celesinia asks, "I need to speak with you urgently. You are the one of the
+Roses?"
+> 
+Firestar taps a darkened silver armband emblazoned with a flawless ruby red
+rose surrounded by a twisted vine of thorns.
+> 
+Celesinia nods to Firestar.
+> 
+Firestar says, "yes"
+> 
+Celesinia asks, "Are there more of your number about?"
+> 
+Celesinia rubs some ornate black cards decorated with colorful pictures and
+symbols.
+> 
+Firestar says, "I don't think so"
+> 
+Celesinia nervously plays with the deck of cards.
+> 
+Celesinia sighs.
+> 
+Firestar says, "Would you like to speak here or somewhere private"
+> 
+Celesinia casts her gaze across the area.
+> 
+Celesinia leans close and murmurs something softly to Firestar.
+> gaze
+You gaze about the area.
+> look
+[Saloon]
+This good-sized barroom is filled with the sounds of laughter and clinking
+glasses produced by the many patrons who occupy its round wooden tables and
+lean against the impressive, stained oak bar. The wall behind the bar is
+mostly occupied by a large, silvered mirror which seems to double the size
+of the room. A portrait hangs just between the mirror and a narrow wooden
+stairway. Also at the back of the room, on the east and west walls, a door
+and an archway face each other along the length of the bar, each made from
+the same type of fine, polished oak as the bar, the stairway and the tables.
+You see Firestar, Elarin, Celesinia, Prudence and a winged wolvian. 
+Obvious exits: east, west.
+> look fire
+You see Firestar Ironheart, a Gnomish woodsman.
+He's a very, very short, wrinkled little person with an extremely
+large nose, twinkling eyes and a long gray beard.
+He is wearing some ruby-encrusted silver shadowsteel bracers, a floor-length
+dark gray cape fringed with golden thread and emblazoned with a golden owl
+sigil, some gauntlets, a gray robe bearing the embroidered emblem of a small
+ferret outlined against an oak leaf, a gray forester cap, an emerald inset
+silver medallion engraved with a guardian gnome standing beside a large silver
+oak tree, a cold wrought onyx ring bearing the device of a black sun rising,
+some black leather boots with brass eyelets and thick leather laces, some soft
+leather armor studded and reinforced with dark aelfen steel, a black leather
+belt with a silver buckle shaped like a ferret, a silver inlaid leather
+scabbard set with irregular pieces of amethyst, some randar bracers which are
+highly polished, with precisely riveted edges, a gray leather pouch, a clear
+crystal pin shaped like a large teardrop, a gray leather beltpouch, some gray
+gloves with silver oaks on them, layered with a fine elkyri mesh, a darkened
+silver armband emblazoned with a flawless ruby red rose surrounded by a twisted
+vine of thorns, a mahogany leather pouch, a silver ring inset with a brilliant
+sapphire and a crystal beaded necklace from which hangs a charm of a spotted
+leopard of polished ivory.
+He is surrounded by a prismatic globe.
+He is outlined in glowing armor.
+He is protected by a ghostly, hovering shield.
+A translucent red sphere surrounds him.
+A bright orange glow emanates from him.
+He has distinctly feline eyes.
+He appears to be healthy.
+> 
+Firestar listens carefully to Celesinia.
+> look elar
+You see Elarin Damarian, a young male drakin.
+He is of medium height, huge and incredibly muscular.
+He has red eyes and his scales are jet black with sea green bands.
+He is wearing some red enamelled bracers etched with gold filigree and inset
+with faceted yellow topaz, some ancient silvery gauntlets which are engraved
+with the symbol of Elarin's clan, an eldritch helm, some deeplander boots, some
+ghostly white shoulder guards, a black crystal necklace, a large gold ring
+craved to resemble a great golden dragon, poised to strike, a flowing ebony
+silk robe embroidered with the symbol of the T'Kasta in silver threads and a
+gray crystal torc bearing the mark of the T'Kasta.
+he is covered with tiny flakes of snow.
+He appears to be healthy.
+> look
+[Saloon]
+This good-sized barroom is filled with the sounds of laughter and clinking
+glasses produced by the many patrons who occupy its round wooden tables and
+lean against the impressive, stained oak bar. The wall behind the bar is
+mostly occupied by a large, silvered mirror which seems to double the size
+of the room. A portrait hangs just between the mirror and a narrow wooden
+stairway. Also at the back of the room, on the east and west walls, a door
+and an archway face each other along the length of the bar, each made from
+the same type of fine, polished oak as the bar, the stairway and the tables.
+You see Firestar, Elarin, Celesinia, Prudence and a winged wolvian. 
+Obvious exits: east, west.
+> 
+Firestar nods.
+> 
+Prudence whispers to you, "sure wish Rion and Saxon were here."
+> 
+Elarin goes through some wooden swinging doors that occupy only half of their
+doorway.
+> whisp prud Yeah, you and me both. Darn them anyway
+You whisper to Prudence.
+> 
+Prudence concentrates intently.
+> 
+Celesinia ponders.
+> 
+Prudence nods to you.
+> 
+Prudence concentrates intently.
+> fid
+You fidget nervously.
+> 
+Prudence concentrates intently.
+> 
+Celesinia says, "I think that far may not be necessary... I shall tell you what
+I fear.."
+> 
+Firestar nods.
+> 
+Celesinia says, "and then it is in your hands."
+> 
+Celesinia gazes at you.
+> 
+Prudence whispers to you, "I'll thump them later."
+> 
+Prudence raises an eyebrow towards Celesinia.
+> 
+Celesinia blinks, shakes her head and then blinks again.
+> 
+Firestar nods to Celesinia.
+> 
+Celesinia touches you.
+> 
+Nord arrives through some wooden swinging doors that only occupy half of their
+doorway.
+> act looks tiredly at Celesinia.
+Chandra looks tiredly at Celesinia.
+> 
+You feel the strength leave you.
+> 
+Celesinia says, "I would read your cards later, m'lady."
+> nod cele
+You nod to Celesinia.
+> 
+All1 those that tussled with the zharkiers please report up your levels.
+> 
+ ** Yurick has just left the Realms.
+> 
+Celesinia is now following Firestar.
+> 'I would like that
+You say, "I would like that"
+> exp
+Level: 96
+Build Points to date: 987
+Unspent Build Points: 0
+Experience Points until next Build Point: 24732
+> 
+Firestar says, "We shall be right back"
+> 
+Firestar's group goes through some wooden swinging doors that occupy only half
+of their doorway.
+> report Level 96
+Your message has been reported to the online GameMaster staff.
+> 
+Nord goes through some wooden swinging doors that occupy only half of their
+doorway.
+> pre 403
+You have already prepared a spell.
+> rel
+You release your prepared spell.
+> pre 403
+You prepare the Mindlink spell.
+ [Round: 3 sec]
+R> 
+Prudence comforts you.
+R> cast
+pre 209
+You gesture.
+[Success: 95%, Roll 59] Success!
+You feel the power of your mind expanding.
+> You prepare the Strength III spell.
+ [Round: 3 sec]
+R> 
+You feel the touch of Therin's mind:
+"Does getting killed by them 3 times count"
+R> cas
+[Wait 1 seconds...]
+R> 
+Prudence asks, "are you sure you're ok?"
+> cas
+You gesture.
+[Success: 95%, Roll 49] Success!
+You feel incredibly strong.
+> pond
+You ponder for a moment.
+> 
+You feel the touch of Prudence's mind:
+"it should I kept getting hit too."
+> 'I just get tired quickly it seems
+You say, "I just get tired quickly it seems"
+> 
+Prudence nods to you.
+> 
+You feel the touch of Immanuel's mind:
+"Depends on what you're counting."
+> 
+Prudence says, "that's normal."
+> read menu
+What are you referring to?  Please be more specific.
+> read sign
+Brew and wine       Price
+-------------       -----
+Ale                 16 Pennies
+Champagne            2 Crowns
+Emerald Wine        25 Shillings
+Grog                 7 Pennies
+Honey Mead           3 Shillings
+
+Hard stuff          Price
+----------          -----
+Effervescent Frappe 2 Crowns
+Shartan Toddy       3 Crowns
+Dragonslayer Tonic  3 Crowns
+Faydish Fizz        2 Crowns
+
+We have rolls! Chicken, beef and vegetable, 12 Shillings each!
+> 
+Prudence whispers to you, "I read it in that book."
+> smi prud
+You smile at Prudence.
+> 
+You feel the touch of Krikton's mind:
+"Good night fayd till me and my children come out an play again"
+> 
+Prudence smiles.
+> 'I'm glad then, was afraid I was sick
+You say, "I'm glad then, was afraid I was sick"
+> 
+You feel the touch of Veronica's mind:
+"Goodbye, good riddance!"
+> 
+You feel the touch of Elarin's mind:
+"i think proper grammar is children and I"
+> 
+ ** Krikton has just left the Realms.
+> 
+You feel the touch of Prudence's mind:
+"Um can you just keep them at home."
+> 
+Prudence shakes her head at you.
+> time
+It is Melma 3, 1045 (Year of the Wyrm).
+It is late night.
+> 
+You feel the touch of Immanuel's mind:
+"Children and me."
+> 
+Prudence whispers to you, "nope you should rest more and drink more milk."
+> nod
+You nod.
+> 'I'll stop by the dairy when they open
+You say, "I'll stop by the dairy when they open"
+> 
+Prudence concentrates intently.
+> 
+Prudence nods to you.
+> 
+Prudence smiles.
+> 
+Prudence says, "good."
+> lean chair
+You lean on a chair.
+> 
+Prudence concentrates intently.
+> look
+[Saloon]
+This good-sized barroom is filled with the sounds of laughter and clinking
+glasses produced by the many patrons who occupy its round wooden tables and
+lean against the impressive, stained oak bar. The wall behind the bar is
+mostly occupied by a large, silvered mirror which seems to double the size
+of the room. A portrait hangs just between the mirror and a narrow wooden
+stairway. Also at the back of the room, on the east and west walls, a door
+and an archway face each other along the length of the bar, each made from
+the same type of fine, polished oak as the bar, the stairway and the tables.
+You see Prudence and a winged wolvian. 
+Obvious exits: east, west.
+> 
+Prudence concentrates intently.
+> exp
+Level: 96
+Build Points to date: 987
+Unspent Build Points: 0
+Experience Points until next Build Point: 24699
+> 
+Prudence concentrates intently.
+> 
+Prudence concentrates intently.
+> 
+Prudence smiles.
+> report Level 96
+Your message has been reported to the online GameMaster staff.
+> 
+Prudence ponders.
+> exp
+Level: 96
+Build Points to date: 987
+Unspent Build Points: 0
+Experience Points until next Build Point: 24699
+> gaze
+You gaze about the area.
+> look
+[Saloon]
+This good-sized barroom is filled with the sounds of laughter and clinking
+glasses produced by the many patrons who occupy its round wooden tables and
+lean against the impressive, stained oak bar. The wall behind the bar is
+mostly occupied by a large, silvered mirror which seems to double the size
+of the room. A portrait hangs just between the mirror and a narrow wooden
+stairway. Also at the back of the room, on the east and west walls, a door
+and an archway face each other along the length of the bar, each made from
+the same type of fine, polished oak as the bar, the stairway and the tables.
+You see Prudence and a winged wolvian. 
+Obvious exits: east, west.
+> 
+Prudence asks, "so now what?"
+> 
+Prudence grins.
+> 
+You feel the touch of Rion's mind:
+"hi"
+> 'Wonder where Teraysha got to
+You say, "Wonder where Teraysha got to"
+> rais
+You raise your eyebrow.
+> 
+Prudence says, "oh here we go."
+> 
+ ** Immanuel has just disconnected.
+> 
+You feel the touch of Elarin's mind:
+"hey there Rion"
+> 
+Prudence giggles.
+> think Hey there Rion!
+You project your thoughts.
+> 
+You feel the touch of Veronica's mind:
+"Hi Rion!"
+> 
+You feel the touch of Prudence's mind:
+"Hi Rion."
+> 
+You feel the touch of Therin's mind:
+"hi rion"
+> 
+You feel the touch of Rion's mind:
+"Hey Elarin, Chandra, Veronica, Prudence :)"
+> 
+You feel the touch of Rion's mind:
+"hiya Therin"
+> 
+You feel the touch of Wolfbane's mind:
+"heya rion!"
+> 
+You feel the touch of Rion's mind:
+"Hi Wolfbane!"
+> 
+You feel the touch of Rion's mind:
+"hey wolfbane, can i talk to you a sec?"
+> 
+You feel the touch of Wolfbane's mind:
+"yeah in bc bein a healer"
+> 
+Prudence furrows her brow.
+> 
+Prudence goes out through the swinging doors.
+> 
+You have been awarded 90000 experience points.
+> 
+ ** Marcolan has just left the Realms.
+> 
+Anyone that did not get exp for the zharkier attack please report up again.
+> fat
+Mana: 381/381
+Psi: 276/276
+Fatigue: 232/232
+> exp
+Level: 96
+Build Points to date: 988
+Unspent Build Points: 1
+Experience Points until next Build Point: 42299
+> look
+[Saloon]
+This good-sized barroom is filled with the sounds of laughter and clinking
+glasses produced by the many patrons who occupy its round wooden tables and
+lean against the impressive, stained oak bar. The wall behind the bar is
+mostly occupied by a large, silvered mirror which seems to double the size
+of the room. A portrait hangs just between the mirror and a narrow wooden
+stairway. Also at the back of the room, on the east and west walls, a door
+and an archway face each other along the length of the bar, each made from
+the same type of fine, polished oak as the bar, the stairway and the tables.
+You see a winged wolvian. 
+Obvious exits: east, west.
+> 
+ ** Veronica has just left the Realms.
+> go doo
+A wolvian follows you.
+[Bazaar Southeast]
+You see a winged wolvian. A large wooden building is here.
+Obvious exits: n, w, nw.
+> nw
+A wolvian follows you.
+[Bazaar Center]
+You see Airgid, Dane, Elarin, Veronica, Sy, Prudence, Miria, a lawkeeper, a
+crimson-band guard, a lawkeeper, a commoner, a winged wolvian and a spectral
+warrior. A large marble fountain, a wooden bin, a newsboard, a tiny faceted
+amethyst, a jasper, a small carnelian, a small amethyst, a crystal flask, a
+bloodstone, a jade vial and a bloodstone are here.
+Obvious exits: n, s, e, w, ne, nw, se, sw.
+> 
+Prudence goes southeast.
+> 
+Prudence arrives.
+> gaze
+You gaze about the area.
+> 
+Veronica winks at a crimson-band guard.
+> 
+Dane yowls.
+> 
+Prudence smiles at you.
+> 
+A spectral warrior gazes at the surroundings.
+> 
+A commoner arrives.
+> 
+A crimson-band guard is now guarding you.
+> look dan
+You see Dane Stonebreaker, High Lord of the Crimson Band.  He stares
+back at you with smouldering red eyes. His immense barrel-chest and thickly
+muscled arms are covered with battle hardened crimson and jet black scales.
+He is wearing some crisp white ursine-skin gloves, a golden metal torc, a small
+platinum talisman set with a glittering amethyst, some brown leather boots with
+thick soles, some crimson memarin thigh guards embossed with the flying eagle
+of the Crimson Band upon them, some heavy gauntlets made from the scales of a
+black dragon, a ruby studded silver ring of the Crimson Band, a mysterious
+crimson leather beltpouch, a finely crafted crimson tabard embroidered with the
+gleaming silver eagle of the Crimson Band, a small ornate platinum ring with a
+cylinder of blown glass containing a bubbling crimson fluid, a dark blue plaid
+kilt with muted gold and crimson striping, fastened with a gold kilt-pin, a
+sturdy crimson suede harness reinforced with bands of onyx-studded gold and
+worn slung over one shoulder, some silver spurs of chivalry, a glittering black
+dragon helm, some randar bracers studded with polished rubies and inscribed
+with arcane runes, some randar shoulder guards with a short black cape hung
+from the back and a marble medallion.
+He has distinctly feline eyes.
+He appears to be healthy.
+> smi guar
+
+Miria goes east.
+> You smile at a crimson-band guard.
+> 
+Prudence says, "Was just coming back to find you."
+> 
+Prudence gazes at a crimson-band guard.
+> 
+Sy shrugs.
+> 
+Prudence smiles.
+> 
+Someone sighs.
+> 'Was day dreaming
+You say, "Was day dreaming"
+> 
+Sy says, "Another nut case"
+> smi prud
+You smile at Prudence.
+> 
+Dane incants a spell.
+> 
+Sy drinks some sparkling ale.
+> 
+Dane narrows his eyes and gazes intently about the area.
+> 
+Prudence nods to you.
+> 
+Prudence asks, "what?"
+> 
+Prudence gazes at Sy.
+> list sy
+You listen carefully to Sy.
+> 
+Sy says, "Who sent the zharks"
+> fat
+Mana: 381/381
+Psi: 276/276
+Fatigue: 232/232
+> 
+ ** Myrdhyn has just left the Realms.
+> nod sy
+You nod to Sy.
+> 
+Prudence says, "oh."
+> 
+Prudence nods.
+> 'Oh yes, a nut and a half
+You say, "Oh yes, a nut and a half"
+> 
+Elarin chuckles.
+> 
+Sy asks, "Just some random mad man?"
+> 
+A commoner goes southwest.
+> 
+Elarin says, "but if the shoe fits"
+> 
+A commoner goes northeast.
+> 
+Elarin gazes at Prudence.
+> 
+Elarin chuckles.
+> 
+Elarin giggles.
+> 
+The heavy rain continues.
+> 
+Prudence thumps Elarin on the head!
+> 
+A commoner arrives.
+> 
+Prudence says, "very funny."
+> 
+Marcolan arrives.
+> 
+Prudence grins.
+> exp
+Level: 96
+Build Points to date: 988
+Unspent Build Points: 1
+Experience Points until next Build Point: 42299
+> 
+Marcolan goes northeast.
+> who
+Firestar           Airgid             Dane               Elarin             
+Veronica           Marcolan           Therin             Sy                 
+Wolfbane           Prudence           Miria              Leah               
+Chandra            Rion               Nord               
+
+
+There are 15 adventurers in the Realms.
+
+> 
+Elarin leans on Prudence.
+> 
+Prudence smiles at Elarin.
+> 
+Dane returns to normal speed.
+> 
+Marcolan arrives.
+> 
+Veronica furrows her brow.
+> 
+Marcolan ponders.
+> 
+Veronica removes a gas mask.
+> 
+A commoner arrives.
+> pre 225
+You prepare the Invisibility spell.
+ [Round: 3 sec]
+R> 
+ ** Nord has just left the Realms.
+R> 
+Marcolan raises an eyebrow towards Veronica.
+R> 'brb
+You say, "brb"
+R> cast
+You gesture.
+[Success: 95%, Roll 64] Success!
+You feel a tingling sensation.
+H> 
+Veronica rolls her eyes.
+H> se
+[Bazaar Southeast]
+A large wooden building is here.
+Obvious exits: n, w, nw.
+H> go doo
+[Saloon]
+Obvious exits: e, w.
+H> w
+[Saloon, casino]
+Obvious exits: none.
+H> 
+ ** Airgid has just left the Realms.
+H> 
+ ** Dane has just left the Realms.
+H> go doo
+What are you referring to?  Please be more specific.
+H> look e
+That way is blocked.
+H> look arc
+The archway is fashioned from fine, dark-stained oak wood, carved to resemble
+two stacks of dice (threes and fours facing outward) supporting a segmented
+roulette wheel. Beyond it you see the saloon proper.
+[Saloon]
+Obvious exits: e, w.
+H> pre 210
+You prepare the Haste spell.
+ [Round: 3 sec]
+RH> cast
+pre 225
+You suddenly fade into view.
+You gesture.
+[Success: 95%, Roll 52] Success!
+You find yourself able to move incredibly fast.
+> You prepare the Invisibility spell.
+ [Round: 1 sec]
+R> rel
+You release your prepared spell.
+> pre 403
+You prepare the Mindlink spell.
+ [Round: 1 sec]
+R> cas
+pre 225
+You gesture.
+[Success: 95%, Roll 25] Success!
+You feel the power of your mind expanding.
+> You prepare the Invisibility spell.
+ [Round: 1 sec]
+R> cas
+[Wait 1 seconds...]
+R> cas
+You gesture.
+[Success: 95%, Roll 41] Success!
+You feel a tingling sensation.
+H> go arc
+[Saloon]
+Obvious exits: e, w.
+H> o
+[Bazaar Southeast]
+A large wooden building is here.
+Obvious exits: n, w, nw.
+H> nw
+[Bazaar Center]
+You see Veronica, Therin (kneeling), Sy, Wolfbane, Prudence, Rion, Nord, a
+lawkeeper, a merchant, a crimson-band guard, a lawkeeper and a winged wolvian.
+A large marble fountain, a wooden bin, a newsboard, a tiny faceted amethyst, a
+jasper, a small carnelian, a small amethyst, a crystal flask, a bloodstone, a
+jade vial and a bloodstone are here.
+Obvious exits: n, s, e, w, ne, nw, se, sw.
+H> 
+Rion says, "yep there's like maybe..."
+H> 
+You feel the touch of Therin's mind:
+"Any armores about"
+H> 
+Rion counts
+H> 
+A merchant goes southeast.
+H> 
+Wolfbane says, "he is number and im number two"
+H> hug rio
+You hug Rion.
+H> 
+Wolfbane ponders.
+H> 
+Rion says, "about 9 i think now"
+H> pre 210
+
+Veronica says, "I meant the, as in, the best."
+H> You prepare the Haste spell.
+ [Round: 1 sec]
+RH> look rio
+You see a tanned, slender wolfling of about twenty. Sapphire blue eyes
+sparkle with the sheer joy of living, and the firm set of his chin speaks of
+determination and strength. His sandy blond hair is tousled and windblown.
+He is wearing a steel gray helm inset with a gleaming silver wolf on one side,
+some gleaming white shoulder guards studded with blazing yellow topaz, some
+gleaming white shin guards studded with blazing yellow topaz, a blackened steel
+scabbard trimmed in tarnished silver, some supple leather gloves with small
+squares of metal sewn into the back for protection, a sterling silver pin
+shaped like a flight of dragons soaring through the center of a star, a
+mysterious ring, some gleaming dark deeplander armor etched with a wolf
+silhouetted against a full moon, a strange ring seemingly composed of crystal
+which phases in out of existence and some small black boots.
+He is behind a wall of force.
+He appears to be healthy.
+He has a grazed head, a grazed body, a grazed back, a grazed right arm, a
+grazed left arm, a grazed right leg, a grazed and singed right hand and a
+grazed and singed left hand.
+H> cast
+You suddenly fade into view.
+You gesture.
+[Success: 95%, Roll 28] Success!
+Nothing happens.
+> 
+Rion is now guarding you.
+> pre 133
+You prepare the Globe of Protection II spell.
+ [Round: 1 sec]
+R> cas rio
+
+Wolfbane says, "wait that didnt come out right"
+> You gesture in a circle around Rion.
+[Success: 95%, Roll 58] Success!
+A brilliant prismatic globe encircles Rion.
+> pre 209
+
+Rion hugs you.
+> You prepare the Strength III spell.
+ [Round: 1 sec]
+R> 
+Nord goes west.
+R> cas rio
+
+A lost mutt wanders in.
+R> You gesture at Rion.
+[Success: 95%, Roll 27] Success!
+Rion radiates with magical strength.
+> 
+Wolfbane mutters something you can't quite make out.
+> 
+Rion beams at Veronica.
+> 
+Veronica chuckles at Wolfbane.
+> 
+Rion asks, "the best huh?"
+> 
+Rion grins.
+> 
+Prudence returns to normal.
+> 
+A merchant arrives.
+> 
+Veronica nods to Rion.
+> 
+Rion says, "cool"
+> smi rio
+You smile at Rion.
+> 
+The heavy rain continues.
+> 
+Rion says, "sumbody thinks i'm important"
+> 
+Rion twirls around and around.
+> 
+Rion grins.
+> 
+Prudence concentrates intently.
+> 
+A merchant goes south.
+> 
+Wolfbane raises an eyebrow towards Rion.
+> 
+Sy smiles.
+> 
+Veronica raises an eyebrow towards Rion.
+> 'Me for one
+You say, "Me for one"
+> 
+ ** Nord has just left the Realms.
+> 
+Prudence concentrates intently.
+> gaze rio
+You gaze at Rion.
+> 
+Veronica says, "You are important."
+> 
+Prudence concentrates intently.
+> 
+Wolfbane says, "oh i tell ya that and ya dont listen to me"
+> 
+Wolfbane rolls his eyes.
+> 
+Rion tickles Wolfbane.
+> smi wolfb
+
+Veronica leans on Wolfbane.
+> You smile at Wolfbane.
+> 
+Prudence smiles at Wolfbane.
+> 
+A trader arrives.
+> 
+Rion casts his gaze across the area.
+> 
+Wolfbane says, "so'd ya miss me?"
+> 
+Rion gulps.
+> 
+A trader flees southwest.
+> 'He doesn't believe much I tell him either
+
+Wolfbane listens carefully to Veronica.
+> You say, "He doesn't believe much I tell him either"
+> smi wolfb
+You smile at Wolfbane.
+> 
+Therin puts away a damaged ensorcelled long sword.
+> 
+Wolfbane nods to you.
+> 
+Therin puts away a fiery randar papenheimer.
+> curts ther
+
+With a steady clip clop of hooves, and a quiet jingling of harness bells, a
+charming horse-drawn carriage arrives from the south.
+> 
+The rain pours relentlessly for a few more moments, but then suddenly ends. As
+the clouds part, a rainbow can be seen stretched across the horizon.
+> 
+Trees creak and bend as the wind howls. The pelting rain only grows in
+intensity.
+> 
+A trader arrives.
+> You curtsy towards Therin.
+> 
+Veronica exclaims, "Oh, of course, yes!"
+> 
+Wolfbane beams at Veronica.
+> 
+ ** Laurelin has just left the Realms.
+> 
+A lost mutt wags its tail.
+> 
+Prudence casts her gaze across the area.
+> 
+Wolfbane says, "i love it when women lie to me"
+> 
+Sy looks up.
+> 
+With a jingle of harness bells, a regal looking horse pulls a carriage to the
+north.
+> 
+A merchant arrives.
+> 
+Wolfbane beams happily.
+> 
+A trader flees south.
+> 
+Wolfbane nuzzles Veronica affectionately.
+> 
+Rion nudges Wolfbane.
+> 
+Sy puts away a shiny plasteel greatbow equipped with a high tech laser
+bowsight.
+> 'You do?
+You ask, "You do?"
+> 
+Therin gazes at the raging sky
+> 
+Sy dons an inky black leather trenchcoat.
+> nod ther
+You nod to Therin.
+> 
+Rion says, "i don't"
+> 
+Wolfbane listens carefully to Rion.
+> 
+Veronica says, "You and Rion and Saxon and Miria and Immanuel and Estara and
+Jayd and Greythan and Tomas and.."
+> 
+A commoner arrives.
+> 
+Rion shakes his head back and forth.
+> 'Nasty weather
+You say, "Nasty weather"
+> 
+Veronica says, "Geez, everyone"
+> 
+A lost mutt wanders east.
+> 
+Prudence nods to you.
+> 
+Wolfbane chuckles at Veronica.
+> 
+Sy closes an inky black leather trenchcoat.
+> 
+A trader arrives.
+> 
+Rion ponders.
+> 
+A trader flees northeast.
+> 
+Wolfbane says, "only if they are sayin the right things chandra"
+> 'Everyone? Even...Tobias?
+You ask, "Everyone? Even...Tobias?"
+> 
+Wolfbane winks at you.
+> 
+Therin stretches his arms up towards the falling rain
+> 
+The rain begins to falter, hinting that the worst of the storm might be over.
+> 
+A beggar arrives.
+> gig
+You giggle.
+> gaze ther
+You gaze at Therin.
+> 
+A beggar flees northwest.
+> 'Wow
+You say, "Wow"
+> 
+A lost mutt wanders in.
+> 'Way to stop the storm
+
+Veronica says, "I don't recall a Tobias."
+> You say, "Way to stop the storm"
+> 
+Prudence smiles at Rion.
+> 
+Veronica ponders.
+> smi ther
+You smile at Therin.
+> 
+A slight breeze causes ripples to glide over the surface of the fountain's
+water.
+> 
+Therin smiles at you.
+> 
+A lost mutt pants.
+> 
+Rion gazes at Prudence.
+> 
+A lost mutt wanders east.
+> 
+Therin whispers to you, "I wish"
+> 
+You feel the touch of Elarin's mind:
+"Firestar? are you still occupied sir?"
+> 
+The rain thins to a drizzle.
+> 
+You feel the touch of Firestar's mind:
+"yes"
+> 
+Wolfbane says, "report back to the citadel"
+> 
+You feel the touch of Elarin's mind:
+"*nod*"
+> whisp ther *grin* You have good timing, if nothing else
+You whisper to Therin.
+> 
+Wolfbane gazes at a crimson-band guard.
+> 
+A guard goes east.
+> 
+Wolfbane gazes into the distance.
+Wolfbane says, "I command you to begone!"
+> 
+A lost mutt wanders in.
+> 
+Rion ponders.
+> 
+Wolfbane says, "hey veronica guess what"
+> 
+Wolfbane smiles at Veronica.
+> 
+Veronica listens carefully to Wolfbane.
+> 
+A lost mutt wanders east.
+> 
+Wolfbane says, "i got married and im a lord now"
+> 
+Wolfbane winks at Veronica.
+> 
+Veronica pushes Wolfbane!
+> 
+Therin whispers to you, "I guess, when teh zharkies where here my timming was
+bad i got dead three times trying to hide from them"
+> 
+Veronica exclaims, "Get out!"
+> 
+A merchant goes south.
+> 
+Veronica asks, "Who did you marry?"
+> 
+You return to normal speed.
+> 
+Clouds overhead disperse somewhat, revealing bits of the sky.
+> 
+A lost mutt wanders in.
+> 
+Wolfbane says, "sun"
+> 
+Wolfbane nods to Veronica.
+> 
+A merchant arrives.
+> 
+Veronica asks, "Sun the healer?"
+> 
+Veronica asks, "She is an eph?"
+> 
+Rion says, "he's an Emperor now"
+> 
+Rion nods to Veronica.
+> 
+A trader arrives.
+> 
+Rion ducks.
+> 
+Wolfbane says, "sun the guildmistress of the arcana"
+> 
+A commoner goes northwest.
+> 
+A lost mutt wanders southwest.
+> 
+Prudence gropes around, trying to hide.
+> 
+Rion gropes around, trying to hide.
+> 
+Rion gropes around, trying to hide.
+> 
+Veronica raises a toast to Wolfbane!
+> 
+Wolfbane thumps Rion on the head!
+> 
+Rion concentrates intently.
+> 
+A trader flees southeast.
+> whisp ther Actually three isn't real high, some others died at least 3 times
+You whisper to Therin.
+> 
+Rion mutters something you can't quite make out.
+> 
+Prudence giggles.
+> 
+Wolfbane says, "imnot"
+> 
+Rion says, "i hate heavy armor"
+> 
+Wolfbane mutters something you can't quite make out.
+> 
+Veronica nods to Rion.
+> 
+A trader arrives.
+> 
+Rion sighs.
+> 
+Prudence removes an eldritch helm with a hole cut in the back for her ponytail
+from her head.
+> 
+Veronica incants a spell.
+> 
+Veronica gestures at Rion.
+Rion blends in with the environment.
+> 
+Prudence removes some rough faded black armor, revealing a sea green velvet
+blouse.
+> 
+Veronica incants a spell.
+> 
+Veronica gestures at Rion.
+Rion blends in with the environment.
+> 
+Veronica incants a spell.
+> 
+Rion beams at Veronica.
+> 
+A trader flees south.
+> 
+Rion disbands his group.
+> 
+Prudence giggles.
+> 
+A lost mutt wanders in.
+> 
+Veronica grins.
+> 
+Rion reveals himself.
+> 
+Rion is now following Prudence.
+> 
+Veronica gestures at Prudence.
+Prudence blends in with the environment.
+> 
+The clouds overhead drift away, leaving only clear skies.
+> 
+Veronica incants a spell.
+> 
+Veronica gestures at Prudence.
+Prudence blends in with the environment.
+> 
+A trader arrives.
+> 
+Veronica incants a spell.
+> 
+Veronica gestures at Prudence.
+Prudence blends in with the environment.
+> 
+A lost mutt pants.
+> 
+You feel the strength leave you.
+> 
+Prudence says, "excuse us just a moment plese."
+> 
+The smell of garbage wafts by.
+> 
+A trader flees northeast.
+> 
+Prudence smiles.
+> 
+Sy opens an inky black leather trenchcoat.
+> 
+Veronica reveals herself.
+> 
+Veronica grins.
+> 
+Veronica stops following Wolfbane.
+> 
+Prudence says, "er please."
+> 
+Therin whispers to you, "true but i was runing from them, not trying to fight
+them, but oh well...guess thats the roll of the dice"
+> 
+Wolfbane tickles Veronica.
+> 
+Prudence's group goes southeast.
+> 
+Veronica whistles.
+> 
+Wolfbane says, "altho my sargent at arms went nuts and killed the king"
+> 
+Wolfbane sighs.
+> whisp ther *nod*
+You whisper to Therin.
+> 
+A merchant goes northwest.
+> 
+Veronica nods to Wolfbane.
+> 
+A trader arrives.
+> 
+Veronica asks, "What was that all about?"
+> 
+A merchant arrives.
+> 
+Veronica shakes her head back and forth.
+> sigh
+You sigh.
+> 
+A trader flees north.
+> 
+Wolfbane says, "she thought it was the time of regulas"
+> 
+A trader arrives.
+> 
+Sy comforts you.
+> 
+Veronica says, "It's so conflicting, I have such admiration for Warsprite."
+> 
+Therin pets a lost mutt.
+> 
+A trader flees northwest.
+> 
+A lost mutt wanders northwest.
+> fat
+Mana: 381/381
+Psi: 276/276
+Fatigue: 232/232
+> 
+Wolfbane says, "something went wrong with her memory banks"
+> 
+Veronica nods.
+> 
+Veronica frowns.
+> 
+Sy asks, "Not really her fault eh?"
+> 
+Wolfbane says, "thinks im the leader of the blood guard"
+> 
+Wolfbane sighs.
+> 
+A merchant goes northwest.
+> 
+A lost kitten energetically bounds in.
+> 
+Wolfbane says, "and also thinks im a werewolf"
+> 
+Therin pets a lost kitten.
+> 
+Wolfbane frowns.
+> fur
+You furrow your brow.
+> 
+Veronica asks, "What do you think will happen now?"
+> list squir
+You whisper to the squirrel, asking it if sees any imps.
+> 
+Sy asks, "Whats she call you? Wolvesbane?"
+> 
+Veronica leans on a large marble fountain.
+> 
+Your squirrel runs down your arm and begins to sniff about the area.
+> 
+Your squirrel responds with a series of clicking noises.
+> 
+A lost kitten energetically bounds southeast.
+> 
+Wolfbane nods to Sy.
+> 
+Wolfbane says, "well last i seen her she seems to be comin to her sences"
+> 
+Sy blinks at Wolfbane.
+> 
+You feel the touch of Wolfbane's mind:
+"greetings initiate"
+> 
+Wolfbane nods to Sy.
+> pre 403
+You prepare the Mindlink spell.
+ [Round: 3 sec]
+R> cast
+[Wait 1 seconds...]
+R> cast
+You gesture.
+[Success: 95%, Roll 84] Success!
+You feel the power of your mind expanding.
+> look
+[Bazaar Center]
+You revel in the tumult as the center of the bazaar overwhelms your senses
+with its smell and sizzle of roast mutton, its cries of hawkers and cajoling
+merchants. Street dancers, minstrels, and half-clad jugglers amuse the
+crowds near a large marble fountain.  A large statue is almost as formidable
+a presence as the fountain.
+You see Veronica, Therin (kneeling), Sy, Wolfbane, a lawkeeper, a lawkeeper and
+a winged wolvian. A wooden bin, a newsboard, a tiny faceted amethyst, a jasper,
+a small carnelian, a small amethyst, a crystal flask, a bloodstone, a jade vial
+and a bloodstone are here.
+Obvious exits: north, south, east, west, northeast, northwest, southeast,
+southwest.
+> 
+You feel the touch of Young's mind:
+"Hail Guildmaster Wolfbane"
+> 
+Sy exclaims, "Thats great news!"
+> 
+Wolfbane says, "for at least a few moments"
+> 
+Sy ponders.
+> 
+Sy says, "its a start"
+> 
+Veronica asks, "What is the Queen doing about this, do you know?"
+> 
+With a steady clip clop of hooves, and a quiet jingling of harness bells, a
+charming horse-drawn carriage arrives from the south.
+> 
+Wolfbane says, "but fyre got ahold of her and she went off to him"
+> 
+With a jingle of harness bells, a regal looking horse pulls a carriage to the
+north.
+> 
+You feel the touch of Dante's mind:
+"Me Faldor...me in town today to do special work on weapons and armour for big
+coins."
+> 
+A lost mutt wanders in.
+> 
+Veronica arches her eyebrow.
+> 
+A beggar arrives.
+> 
+You feel the touch of Wolfbane's mind:
+"what kind of work?"
+> sigh
+You sigh.
+> 
+Sy snickers.
+> 
+A lost kitten energetically bounds in.
+> 
+Therin pets a lost kitten.
+> 
+You feel the touch of Dante's mind:
+"You ask me tell answer."
+> 'Why is it no one comes with magic spells and such?
+You ask, "Why is it no one comes with magic spells and such?"
+> 
+A lost kitten energetically bounds south.
+> 
+Veronica does a little jig!
+> 
+Veronica is now following Wolfbane.
+> 
+Veronica exclaims, "To the forge eh!"
+> 
+Wolfbane says, "so is leavin as soon as someone claims the crown"
+> 
+Sy is now following Wolfbane.
+> 
+Young reveals himself.
+> 
+Young is now following Wolfbane.
+> 
+Veronica exclaims, "Hi Young!"
+> 
+Wolfbane's group goes west.
+> pond
+
+You feel the touch of Therin's mind:
+"I need something fixed"
+> You ponder for a moment.
+> look
+[Bazaar Center]
+You revel in the tumult as the center of the bazaar overwhelms your senses
+with its smell and sizzle of roast mutton, its cries of hawkers and cajoling
+merchants. Street dancers, minstrels, and half-clad jugglers amuse the
+crowds near a large marble fountain.  A large statue is almost as formidable
+a presence as the fountain.
+You see Therin (kneeling), a lawkeeper, a beggar, a lawkeeper, a winged wolvian
+and a lost mutt. A wooden bin, a newsboard, a tiny faceted amethyst, a jasper,
+a small carnelian, a small amethyst, a crystal flask, a bloodstone, a jade vial
+and a bloodstone are here.
+Obvious exits: north, south, east, west, northeast, northwest, southeast,
+southwest.
+> 
+A beggar goes south.
+> 
+Therin says, "where did everybody go"
+> 
+A lost kitten energetically bounds in.
+> 'The forge to visit with Dante I think
+You say, "The forge to visit with Dante I think"
+> 
+Therin pets a lost kitten.
+> 
+Therin struggles to his feet.
+> 
+A lost kitten meows.
+> 
+Therin says, "Well maybe i should go, my sword is broken"
+> nod
+You nod.
+> 'I'd think they could fix it
+You say, "I'd think they could fix it"
+> 
+Miria's group arrives.
+> 
+Miria disbands her group.
+> look
+[Bazaar Center]
+You revel in the tumult as the center of the bazaar overwhelms your senses
+with its smell and sizzle of roast mutton, its cries of hawkers and cajoling
+merchants. Street dancers, minstrels, and half-clad jugglers amuse the
+crowds near a large marble fountain.  A large statue is almost as formidable
+a presence as the fountain.
+You see Marcolan, Therin, Miria, a lawkeeper, a lawkeeper, a winged wolvian, a
+lost kitten and a lost mutt. A wooden bin, a newsboard, a tiny faceted
+amethyst, a jasper, a small carnelian, a small amethyst, a crystal flask, a
+bloodstone, a jade vial and a bloodstone are here.
+Obvious exits: north, south, east, west, northeast, northwest, southeast,
+southwest.
+> 
+Therin bows.
+> 
+Miria smiles.
+> 
+Marcolan bows towards Therin.
+> curt ther
+You curtsy towards Therin.
+> 
+Marcolan bows towards you.
+> 
+Therin bows towards Marcolan.
+> 
+A lost mutt's ears perk up.
+> smi marc
+You smile at Marcolan.
+> 
+A lost kitten energetically bounds south.
+> 
+Therin goes west.
+> 
+A lost kitten energetically bounds in.
+> 
+Marcolan says, "Thank you both for the spells during the..."
+> 
+Marcolan ponders.
+> 
+A lost mutt wanders southeast.
+> 
+Marcolan says, "problems earlier."
+> 
+Marcolan smiles.
+> 
+Miria chuckles.
+> nod
+You nod.
+> 
+A lost mutt wanders in.
+> 
+A lost mutt wanders north.
+> 
+A slight breeze causes ripples to glide over the surface of the fountain's
+water.
+> 'Anything to help keep everyone safe
+You say, "Anything to help keep everyone safe"
+> 
+A lost mutt wanders in.
+> 
+Marcolan smiles at you.
+> 
+Marcolan takes a tiny faceted amethyst.
+> 
+Marcolan takes a jasper.
+> 
+Marcolan takes a small carnelian.
+> 
+Marcolan takes a small amethyst.
+> 
+Marcolan takes a bloodstone.
+> 
+Marcolan takes a bloodstone.
+> 
+A lost mutt wags its tail.
+> 
+Miria incants a spell.
+> 
+A commoner runs by.
+> 
+Miria gestures at Chandra.
+You feel incredibly strong.
+> 'People shouldn't have to worry about that in our city
+You say, "People shouldn't have to worry about that in our city"
+> 
+Miria gives you a brilliant emerald.
+> blink
+You blink.
+> 
+Marcolan nods to you.
+> 
+Marcolan says, "Agreed."
+> 'Wow, what's this?
+
+A lost mutt wanders southwest.
+> You ask, "Wow, what's this?"
+> 
+A lost kitten energetically bounds northeast.
+> look
+[Bazaar Center]
+You revel in the tumult as the center of the bazaar overwhelms your senses
+with its smell and sizzle of roast mutton, its cries of hawkers and cajoling
+merchants. Street dancers, minstrels, and half-clad jugglers amuse the
+crowds near a large marble fountain.  A large statue is almost as formidable
+a presence as the fountain.
+You see Marcolan, Miria, a lawkeeper, a lawkeeper and a winged wolvian. A
+wooden bin, a newsboard, a crystal flask and a jade vial are here.
+Obvious exits: north, south, east, west, northeast, northwest, southeast,
+southwest.
+> 
+Miria says, "For some of the root you invested in us today."
+> 
+A beggar arrives.
+> 
+A lost mutt wanders in.
+> pond
+You ponder for a moment.
+> 
+ ** Durek has just left the Realms.
+> 'I didn't use too much, but thanks 
+You say, "I didn't use too much, but thanks"
+> smi
+You smile.
+> 
+Miria nods.
+> 
+Marcolan says, "Reminds me, I need to run to Ilzar and buy a bit of root."
+> 
+Marcolan counts his money.
+> 
+Marcolan mutters something you can't quite make out.
+> 
+Nord arrives.
+> 'cheaper there?
+You ask, "cheaper there?"
+> 
+Marcolan says, "Still 2.5 million darktar."
+> 
+A beggar goes west.
+> 
+Miria says, "People seem to forget a rezzer can go broke during one of those
+attacks."
+> 
+Marcolan says, "No, just something to spend darktar on."
+> 'Sounds like alot
+You say, "Sounds like alot"
+> 
+Miria waves to Nord.
+> 
+Marcolan bows towards Nord.
+> 
+A lost mutt wanders south.
+> 
+Nord bows.
+> 'Yeah, with people dying two and three times
+You say, "Yeah, with people dying two and three times"
+> 
+A lost mutt wanders in.
+> curts nor
+You curtsy towards Nord.
+> 
+Marcolan nods to you.
+> 
+Miria says, "Sit down Nord."
+> health
+You have 276/276 body points.
+You have a nicked left arm and a singed left hand.
+> 
+Miria gazes at Nord.
+> 
+Marcolan says, "That huge zharkier got me twice."
+> 
+Nord appears to become weaker.
+> 
+A lost mutt wanders northeast.
+> 
+Marcolan says, "Kept stunning me."
+> 
+Nord says, "dangerous to sit down here"
+> 
+Nord grins.
+> 'He was a nasty one
+You say, "He was a nasty one"
+> 
+Miria says, "Well, we got him once."
+> 
+Marcolan nods to Miria.
+> 
+Miria chuckles.
+> 
+Marcolan smiles.
+> 
+A lost mutt wanders in.
+> 'I think most of the danger is past
+You say, "I think most of the danger is past"
+> look me
+You gaze upon your own reflection...
+You see Chandra McFearless, a petite female wolfing woman with long blonde
+hair ending in a riot of curls. Bright blue eyes gaze out at the world with
+wonderment and they sparkle with the mysteries of nature and magic.
+She is wearing a moonstone anklet, a glowing white crystal amulet, a delicate
+white alzyron ring masterfully set with a brilliant icy white diamond, some
+exquisite blue diamond earrings encased in a thin sheath of pure white gold
+polished to a high sheen, a delicate white alzyron necklace with a shimmering
+rose pendant cut from a flawless white diamond, a sterling silver pin shaped
+like a wolf with topaz yellow eyes, a royal helm bearing the crest of King
+Frederick II, a delicate gold comb fashioned in the shape of a hunting wolf
+with ruby eyes, a shimmering snow-white satin gown with a delicate lace bodice
+trimmed with icy blue silk and sapphires, some soft snow-white satin slippers
+with laces of icy blue silk twining up her delicate ankles, some delicate white
+lace gloves lined with palest pink silk and a delicate white gold bracelet
+engraved with a beautiful butterfly inlaid with four perfect sapphires for
+wings.
+She looks tired and stressed out.
+She radiates with magical strength.
+She appears to be healthy.
+She has a nicked left arm and a singed left hand.
+> 'for a bit
+
+Marcolan says, "After that he ran every time you came in."
+> You say, "for a bit"
+> 
+Marcolan smiles at Miria.
+> comm guar me
+
+A winged wolvian is now guarding you.
+> > comm guar nord
+A winged wolvian acknowledges your command.
+> 
+A lost mutt wanders east.
+> 
+Miria says, "Okay, now you are safe."
+> nod
+You nod.
+> look nord
+His weathered face is crosscrossed with dozens of scars.  Much of his
+hair has been burned away by the flames of the Black Sun.  A bloody bandage
+wraps around his head and eyes.
+He is wearing some randar shoulder guards inlaid with brilliant fiery silver
+which glows faintly red, some randar bracers streaked with rivers of flowing
+silver forming a web of glinting light, some gleaming silver gauntlets
+enveloped in swirling crimson flames, blazing forth from a golden sunburst,
+some silver dragon scale bracers whose polished irridescent surface splits the
+light into a dazzling rainbow, a worn leather sheath hung from a circle of
+steel engraved with an open hand at a sunburst's center, some eldritch leather
+armor with light plates of randar metal over the shoulders, arms, and thighs, a
+tarnished silver ring with faded engraving, a gas mask emblazoned with the
+Sun-in-glory in brilliant gold, a slender golden ring that glows white hot, sun
+pure in its energy, some fiery titanium shin guards with a golden sunburst upon
+each leg, some worn leather boots with tarnished silver buckles, a gleaming
+platinum pendant that has melted into a tear drop shape, a brilliant silver
+helm with a golden chainmail coif that drapes down the back, a simple white
+silk robe that buttons across the shoulder and down the side, a silver eyepatch
+in the shape of a crescent moon, a fiery platinum badge engraved with the image
+of a blazing sun gripped within a gleaming golden hand and some randar ring
+mail gloves with a deep black enameled finish.
+He is behind a wall of force.
+He is outlined in glowing armor.
+He is protected by a ghostly, hovering shield.
+A translucent blue sphere surrounds him.
+He is being guarded by a winged wolvian.
+He appears to be healthy.
+He has a lacerated, fractured and scorched head, a lacerated, fractured and
+scorched body, a seriously gashed back, a lacerated, bludgeoned and slightly
+punctured right arm, a lacerated and bludgeoned left arm, a lacerated,
+bludgeoned, deeply punctured and singed right leg, a lacerated, bludgeoned and
+grazed left leg, a lacerated and banged-up right hand and a nicked and
+bludgeoned left hand.
+> 
+Miria chuckles.
+> 
+Nord shivers.
+> 
+Marcolan says, "Excuse me."
+> 
+Marcolan bows towards you.
+> 
+Miria smiles at Marcolan.
+> 
+Marcolan bows towards Miria.
+> 
+A lost mutt wanders in.
+> 
+Marcolan bows towards Nord.
+> pre 209
+You prepare the Strength III spell.
+ [Round: 3 sec]
+R> 
+Marcolan goes east.
+> 
+A lost mutt wanders northwest.
+> cast nord
+You gesture at Nord.
+[Success: 95%, Roll 56] Success!
+Nord radiates with magical strength.
+> pre 209
+You prepare the Strength III spell.
+ [Round: 3 sec]
+R> 
+Miria gazes at Nord.
+R> cas nor
+pre 209
+You gesture at Nord.
+[Success: 95%, Roll 70] Success!
+Nord radiates with magical strength.
+> You prepare the Strength III spell.
+ [Round: 3 sec]
+R> 
+Miria taps her foot.
+> cas nor
+pre 209
+You gesture at Nord.
+[Success: 95%, Roll 50] Success!
+Nord radiates with magical strength.
+> You prepare the Strength III spell.
+ [Round: 3 sec]
+R> 
+A lost mutt wanders in.
+R> cas nor
+pre 209
+You gesture at Nord.
+[Success: 95%, Roll 17] Success!
+Nord radiates with magical strength.
+> You prepare the Strength III spell.
+ [Round: 3 sec]
+R> 
+With a steady clip clop of hooves, and a quiet jingling of harness bells, a
+charming horse-drawn carriage arrives from the south.
+R> cas nor
+You gesture at Nord.
+[Success: 95%, Roll 84] Success!
+Nord radiates with magical strength.
+> pre 210
+You prepare the Haste spell.
+ [Round: 3 sec]
+R> 
+A lost mutt's ears perk up.
+R> cast
+You gesture.
+[Success: 95%, Roll 70] Success!
+You find yourself able to move incredibly fast.
+> pre 225
+You prepare the Invisibility spell.
+ [Round: 1 sec]
+R> 
+Nord smiles at you.
+> 
+With a jingle of harness bells, a regal looking horse pulls a carriage to the
+north.
+> 
+A lost kitten energetically bounds in.
+> 'I'll turn you invisible if things get rough
+You say, "I'll turn you invisible if things get rough"
+> 
+A lost kitten yawns.
+> 
+Miria asks, "You notice he is trying to ignore us and not sit down?"
+> 
+The sun begins to rise in the east.
+> 
+Miria raises an eyebrow towards you.
+> 
+Marcolan arrives.
+> 
+Miria smiles.
+> 
+Marcolan gives you some mandrake root.
+> 
+Marcolan gives you some mandrake root.
+> 
+Marcolan gives you some mandrake root.
+> 
+Marcolan gives you some mandrake root.
+> 
+Marcolan gives you some mandrake root.
+> whist
+
+A beggar arrives.
+> You whistle.
+> 
+A lost kitten energetically bounds northwest.
+> 
+Marcolan smiles at you.
+> 'Thanks
+You say, "Thanks"
+> hug marc
+
+A lost mutt wanders northwest.
+> You hug Marcolan.
+> 
+Marcolan nods.
+> 
+A lost kitten energetically bounds in.
+> 
+Marcolan says, "The very least I could do."
+> 
+A beggar goes northwest.
+> 
+A lost mutt wanders in.
+> 
+Nord says, "I need a place to sit down where my back is against a wall"
+> 
+Nord grins.
+> 
+A lost mutt's ears perk up.
+> 
+Miria points at a large marble fountain.
+> nod
+You nod.
+> 
+Marcolan ponders.
+> 'Nice marble
+You say, "Nice marble"
+> 
+Miria says, "the fountain will work well"
+> 
+Miria nods.
+> 
+A lost kitten energetically bounds south.
+> 
+A beggar arrives.
+> 
+A lost mutt wags its tail.
+> 
+A lost kitten energetically bounds in.
+> 
+Nord says, "get wet from the dancing nymphs"
+> 
+A lost mutt pants.
+> time
+It is Melma 3, 1045 (Year of the Wyrm).
+It is early morning.
+The Great Moon is gibbous waxing and Phulcrus is gibbous waxing.
+> 
+Miria chuckles.
+> 
+Nord says, "then I'll have a cold"
+> 
+Nord sniffs.
+> 
+A lost kitten energetically bounds northeast.
+> 
+Nord sniffs.
+> 'Nymphs, at this hour?
+You ask, "Nymphs, at this hour?"
+> 
+Marcolan says, "Naw, its spring."
+> 
+You feel the touch of Elarin's mind:
+"in a few Marc, whats up?"
+> 
+Marcolan smiles at Nord.
+> 
+Miria says, "And it is warm and sunny"
+> who
+Firestar           Airgid             Angus              Elarin             
+Veronica           Marcolan           Therin             Sy                 
+Wolfbane           Prudence           Miria              Leah               
+Chandra            Rion               Nord               Young              
+
+
+
+There are 16 adventurers in the Realms.
+
+> exp
+Level: 96
+Build Points to date: 988
+Unspent Build Points: 1
+Experience Points until next Build Point: 42189
+> 
+You feel the touch of Elarin's mind:
+"ah, thanx *smile*"
+> 
+A lost mutt wanders east.
+> 
+Marcolan says, "Be well."
+> 
+Marcolan bows.
+> 
+Marcolan goes northeast.
+> 
+Nord waves.
+> 
+Miria waves.
+> 
+A lost mutt wanders in.
+> 
+Miria stomach grumbles
+> smi
+You smile.
+> fat
+Mana: 381/381
+Psi: 276/276
+Fatigue: 232/232
+> 
+Miria says, "I'm starving.."
+> who
+Firestar           Airgid             Angus              Elarin             
+Veronica           Marcolan           Therin             Sy                 
+Wolfbane           Prudence           Miria              Leah               
+Chandra            Rion               Nord               Young              
+
+
+
+There are 16 adventurers in the Realms.
+
+> look w
+
+Miria waves.
+> [Bazaar West]
+The Armorer's Guild buys a surprising variety of old and damaged weapons from
+local adventurers and melts them down to make the new weaponry and armor on
+display. Would be owners may examine the manuscript on the table to see what
+new equipment can be afforded. Main Street continues west behind the stalls.
+A table is there.
+> curts mir
+You curtsy towards Miria.
+> 
+Miria goes southeast.
+> 
+A lost kitten energetically bounds in.
+> pet kit
+You pet a lost kitten.
+> look
+[Bazaar Center]
+You revel in the tumult as the center of the bazaar overwhelms your senses
+with its smell and sizzle of roast mutton, its cries of hawkers and cajoling
+merchants. Street dancers, minstrels, and half-clad jugglers amuse the
+crowds near a large marble fountain.  A large statue is almost as formidable
+a presence as the fountain.
+You see Nord, a lawkeeper, a beggar, a lawkeeper, a winged wolvian, a lost
+kitten and a lost mutt. A wooden bin, a newsboard, a crystal flask and a jade
+vial are here.
+Obvious exits: north, south, east, west, northeast, northwest, southeast,
+southwest.
+> who
+Firestar           Airgid             Angus              Elarin             
+Veronica           Marcolan           Therin             Sy                 
+Wolfbane           Prudence           Miria              Leah               
+Chandra            Rion               Nord               Young              
+
+
+
+There are 16 adventurers in the Realms.
+
+> gaze
+You gaze about the area.
+> 
+A lost mutt wanders northwest.
+> 'Surely everyone didn't go to visit that smith Dante?
+You ask, "Surely everyone didn't go to visit that smith Dante?"
+> gaze
+You gaze about the area.
+> 
+A lost mutt wanders in.
+> 
+Nord arches his eyebrow.
+> 
+Nord asks, "what smith?"
+> 
+A beggar goes west.
+> 
+You return to normal speed.
+> 'Dante, said he could work on weapons if anyone wanted
+You say, "Dante, said he could work on weapons if anyone wanted"
+> 
+ ** Marcolan has just left the Realms.
+> 
+A beggar arrives.
+> 
+A commoner arrives.
+> 
+Nord says, "if he can make armor or weapons...everyone is there"
+> 'I think he's at the town forge
+You say, "I think he's at the town forge"
+> pond
+You ponder for a moment.
+> 
+Nord says, "get in line"
+> 'Everyone but you, me and miria
+You say, "Everyone but you, me and miria"
+> 
+A beggar goes west.
+> 
+A lost mutt wanders north.
+> 
+Nord grins.
+> 
+The fountain splutters and gurgles as water funnels down its many levels.
+> 
+A beggar arrives.
+> 
+A commoner goes west.
+> 
+A lost mutt wanders in.
+> 'Maybe we should go too
+You say, "Maybe we should go too"
+> pond
+You ponder for a moment.
+> 
+A beggar goes east.
+> 
+A commoner arrives.
+> 
+A lost mutt wags its tail.
+> 
+Airgid phases in.
+> 
+Nord says, "hmm...now that i know I may stop by"
+> 
+A commoner goes southwest.
+> 
+A lost mutt wanders northwest.
+> nod
+You nod.
+> 
+A beggar arrives.
+> 
+A lost kitten yawns.
+> 'Might as well, nothing going on here now
+You say, "Might as well, nothing going on here now"
+> smi wolv
+
+Nord says, "have to check my metals"
+> You smile at a winged wolvian.
+> comm foll me
+A winged wolvian acknowledges your command.
+> 
+A commoner arrives.
+> 
+Nord waves.
+> wave
+You wave.
+> 
+Nord goes southeast.
+> 
+A lost kitten energetically bounds southeast.
+> w
+A wolvian follows you.
+[Bazaar West]
+You see a winged wolvian. A table is here.
+Obvious exits: n, s, e, w, ne, se.
+> w
+A wolvian follows you.
+[Main Street]
+You see a winged wolvian. 
+Obvious exits: e, w.
+> w
+A wolvian follows you.
+[Main Street]
+You see a winged wolvian. 
+Obvious exits: e, w.
+> w
+A wolvian follows you.
+[Main Street]
+You see a winged wolvian. A huge stone building and a small building are here.
+Obvious exits: e, w.
+> w
+A wolvian follows you.
+[Main Street & Elm]
+You see a winged wolvian. 
+Obvious exits: n, e, w.
+> w
+A wolvian follows you.
+[Kai's Corner]
+You see a winged wolvian. A simple gray townhouse and a building are here.
+Obvious exits: s, e, w, sw.
+> sw
+A wolvian follows you.
+[Commerce Street]
+You see a winged wolvian. A rickety building housing the Adventurers' Guild is
+here.
+Obvious exits: ne, sw.
+> sw
+A wolvian follows you.
+[Commerce Street]
+You see a winged wolvian. A wide stone building with a finely carved rosewood
+doorway is here.
+Obvious exits: w, ne.
+> w
+A wolvian follows you.
+[Commerce Street]
+You see a winged wolvian. A large stone building is here.
+Obvious exits: e, sw.
+> sw
+A wolvian follows you.
+[Commerce Street]
+You see Veronica, Therin (kneeling), Sy, Wolfbane, Young and a winged wolvian.
+A black iron gate and a chest are here.
+Obvious exits: s, ne.
+> go gate
+It is closed.
+> 
+Veronica nods to Young.
+> gaze
+You gaze about the area.
+> gaze gate
+You gaze at a black iron gate.
+> 
+Young smiles at you.
+> 
+Veronica smiles at you.
+> 
+Sy says, "Shouldnt drink this stuff onan empty stomach"
+> 
+Airgid arrives.
+> 'Is there where you all got to?
+You ask, "Is there where you all got to?"
+> grin
+You grin.
+> 
+Veronica nods to you.
+> 
+Veronica says, "We're waiting to see Faldor."
+> 
+Therin says, "We have to take turns"
+> 'Faldor?
+You ask, "Faldor?"
+> pond
+You ponder for a moment.
+> 
+ ** Myrdhyn has just left the Realms.
+> 
+Veronica says, "He's a murg weaponsmith."
+> 'Oh, I thought he had another name
+You say, "Oh, I thought he had another name"
+> 
+ ** Marcolan has just left the Realms.
+> 
+Veronica says, "He says he'll make our weapons better, armor better, for big
+money."
+> 
+Veronica ponders.
+> 
+Veronica says, "Maybe he did."
+> 
+Therin struggles to his feet.
+> 'Wow, wonder if can do anything with my weapon
+You say, "Wow, wonder if can do anything with my weapon"
+> 
+Therin goes northeast.
+> 
+Sy gazes at a black iron gate.
+> 
+Young places an intricate ebony helm masterfully molded into the form of a
+leaping crimson-eyed dragon onto his head.
+> 
+Young removes an intricate ebony helm masterfully molded into the form of a
+leaping crimson-eyed dragon from his head.
+> 
+Fluffy clouds move into the sky.
+> 
+Airgid ponders.
+> 
+Veronica smiles at Airgid.
+> 
+Young smiles at Airgid.
+> 
+Veronica says, "Hello."
+> 
+Airgid says, "Kvaahn"
+> 
+Young asks, "Howy doin airgid?"
+> 
+Therin arrives.
+> 
+Airgid asks, "good and you?"
+> 
+Therin sits down.
+> 
+Young smiles.
+> 
+Young nods.
+> look
+[Commerce Street]
+Foundries, factories, and decrepit warehouses recoil with the thump of
+machinery and the clank of tools. Pollutants deposit more grime on the dinghy
+buildings which suffocate here. People hurry past to find cleaner surroundings.
+A black gate leads into a yard.
+You see Airgid, Veronica, Therin (sitting), Sy, Wolfbane, Young and a winged
+wolvian. A chest is here.
+Obvious exits: south, northeast.
+> 
+Young says, "ok, thanx"
+> look in ches
+It is closed.
+> 
+Sy leans on a black iron gate.
+> inv
+You are carrying: 
+  A polished opal
+  Some mandrake root
+  A brilliant emerald
+  Some mandrake root
+  A zharkier eye
+  An aquamarine
+  A furry tail
+  A jacinth anklet
+  A furry tail
+  A furry tail
+  A chipped aquamarine
+  A faceted aquamarine
+  A moonstone anklet (worn)
+  A diamond
+  A blue garnet
+  A turkey feather
+  A flawless white gold necklace with a fiery blue diamond pendant that glows
+with a deep blue light of its own
+  A large malachite stone
+  Some mandrake root
+  A creod staff
+  A carrot
+  A glowing white crystal amulet (worn)
+  Some mandrake root
+  Some mandrake root
+  Some mandrake root
+  Some mandrake root
+  A small white gold locket with a slender chain
+  A flowing deep blue cape embroiderd with a stunning serpentine gold and blue
+dragon
+  A delicate white alzyron ring masterfully set with a brilliant icy white
+diamond (worn)
+  A fiery platinum idol with a glowing sunburst depicted on the front.
+  A tiny white gold case
+  Some mandrake root
+  Some bunnies
+  Some exquisite blue diamond earrings encased in a thin sheath of pure white
+gold polished to a high sheen (worn)
+  A delicate white silver case covered in soft blue silk embroidered with tiny
+gold and blue butterflies
+  A huge emerald
+  A delicate white alzyron necklace with a shimmering rose pendant cut from a
+flawless white diamond (worn)
+  A snow-white squirrel
+  A sterling silver pin shaped like a wolf with topaz yellow eyes (worn)
+  A bright blue blouse with an embroidered wolf across the back (worn)
+  Some midnight blue pants (worn)
+  A black silk pouch with a flowing 'C' embroidered in silver thread (open)
+  A royal helm bearing the crest of King Frederick II (worn)
+  Some mandrake root (open)
+  Some mandrake root
+  Some chocolate covered strawberries dipped in whipped cream
+  Some black framed violet sunglasses with silver starbursts on each lens
+  A tiny crystal fountain with a rainbow of colors emanating from deep within
+its essence
+  A blue and gray cloak with a silver wolf head clasp (open)
+  A white gold medallion embossed with the McFearless family walking in the
+peaceful forest of Grymwood
+  A delicate gold comb fashioned in the shape of a hunting wolf with ruby eyes
+(worn)
+  An elegant white leather case with the crest of King Frederick IV embossed in
+gold leaf (open)
+  Some shadow fur gloves
+  A shimmering snow-white satin gown with a delicate lace bodice trimmed with
+icy blue silk and sapphires (worn)
+  Some soft snow-white satin slippers with laces of icy blue silk twining up
+her delicate ankles (worn)
+  A delicate white gold circlet inset with a single deep blue icy sapphire
+(open)
+  Some delicate white lace gloves lined with palest pink silk (worn)
+  A lens
+  A slender gray cat (open)
+  Some shadow fur panties (worn)
+  Some pink sneakers with a wave emblazoned on the tongues
+  Some shadow fur socks
+  Your object
+  A delicate white gold bracelet engraved with a beautiful butterfly inlaid
+with four perfect sapphires for wings (worn)
+  A pink ribbon
+  A small brown leather book
+  A silvery blue bottle engraved with the writing, "Regeneration" (open)
+  An indigo rose
+  A tiny flawless blue garnet
+  A tiny chipped tourmaline stone
+  A small chipped jacinth
+  A zharkier eye
+  A zharkier eye
+  Some mandrake root
+  Some mandrake root
+  Some mandrake root
+> 
+Sy removes a wide blue plastic helm with a golden eagle inscribed over the
+visor from his head.
+> 
+Sy shakes out his dreadlocks.
+> 
+Airgid gives a wolfling scalp to Wolfbane.
+> 
+Sy removes some steel sunglasses.
+> 
+Sy squints.
+> 
+Airgid says, "I think thats yours"
+> 'I could use something to eat I guess
+You say, "I could use something to eat I guess"
+> wave
+You wave.
+> ne
+A wolvian follows you.
+[Commerce Street]
+You see a winged wolvian. A large stone building is here.
+Obvious exits: e, sw.
+> e
+A wolvian follows you.
+[Commerce Street]
+You see a winged wolvian. A wide stone building with a finely carved rosewood
+doorway is here.
+Obvious exits: w, ne.
+> ne
+ne
+A wolvian follows you.
+[Commerce Street]
+You see a winged wolvian. A rickety building housing the Adventurers' Guild is
+here.
+Obvious exits: ne, sw.
+> A wolvian follows you.
+[Kai's Corner]
+You see a winged wolvian. A simple gray townhouse and a building are here.
+Obvious exits: s, e, w, sw.
+> e
+A wolvian follows you.
+[Main Street & Elm]
+You see a winged wolvian. 
+Obvious exits: n, e, w.
+> e
+A wolvian follows you.
+[Main Street]
+You see a winged wolvian. A huge stone building and a small building are here.
+Obvious exits: e, w.
+> e
+e
+A wolvian follows you.
+[Main Street]
+You see a winged wolvian. 
+Obvious exits: e, w.
+> A wolvian follows you.
+[Main Street]
+You see a winged wolvian. 
+Obvious exits: e, w.
+> e
+A wolvian follows you.
+[Bazaar West]
+You see a winged wolvian. A table is here.
+Obvious exits: n, s, e, w, ne, se.
+> e
+A wolvian follows you.
+[Bazaar Center]
+You see a winged wolvian. A large marble fountain, a wooden bin, a newsboard, a
+crystal flask and a jade vial are here.
+Obvious exits: n, s, e, w, ne, nw, se, sw.
+> se
+A wolvian follows you.
+[Bazaar Southeast]
+You see Nord and a winged wolvian. A large wooden building is here.
+Obvious exits: n, w, nw.
+> 
+Nord goes north.
+> go arc
+A wolvian follows you.
+[Farmers Market]
+You see a winged wolvian. 
+Obvious exits: s, o.
+> s
+A wolvian follows you.
+[Farmers Market, South End]
+You see a winged wolvian. 
+Obvious exits: n.
+> s
+You can't go south!
+> cli stair
+A wolvian follows you.
+[The Creamery]
+You see a winged wolvian. 
+Obvious exits: none.
+> buy milk
+You hand over your money and retrieve your milk.
+> go doo
+What are you referring to?  Please be more specific.
+> o
+You can't go out!
+> go doo
+What are you referring to?  Please be more specific.
+> cli stair
+A wolvian follows you.
+[Farmers Market, South End]
+You see a winged wolvian. 
+Obvious exits: n.
+> n
+A wolvian follows you.
+[Farmers Market]
+You see a winged wolvian. 
+Obvious exits: s, o.
+> n
+You can't go north!
+> o
+A wolvian follows you.
+[Bazaar Southeast]
+You see a winged wolvian. A large wooden building is here.
+Obvious exits: n, w, nw.
+> nw
+A wolvian follows you.
+[Bazaar Center]
+You see a winged wolvian. A large marble fountain, a wooden bin, a newsboard, a
+crystal flask and a jade vial are here.
+Obvious exits: n, s, e, w, ne, nw, se, sw.
+> fat
+Mana: 381/381
+Psi: 276/276
+Fatigue: 232/232
+> pre 210
+You have already prepared a spell.
+> 
+A lost kitten energetically bounds in.
+> rel
+You release your prepared spell.
+> comm guar me
+
+A winged wolvian is now guarding you.
+> > pre 210
+You prepare the Haste spell.
+ [Round: 3 sec]
+R> cast
+pre 403
+[Wait 1 seconds...]
+R> [Wait 1 seconds...]
+R> cast
+pre 403
+You gesture.
+[Success: 95%, Roll 19] Success!
+You find yourself able to move incredibly fast.
+> You prepare the Mindlink spell.
+ [Round: 1 sec]
+R> cast
+pre 403
+You gesture.
+[Success: 95%, Roll 2] Spectacular success!
+You feel the power of your mind expanding.
+> You prepare the Mindlink spell.
+ [Round: 1 sec]
+R> cast
+pre 403
+You gesture.
+[Success: 95%, Roll 27] Success!
+You feel the power of your mind expanding.
+> You prepare the Mindlink spell.
+ [Round: 1 sec]
+R> cas
+You gesture.
+[Success: 95%, Roll 3] Success!
+You feel the power of your mind expanding.
+> pre 209
+You prepare the Strength III spell.
+ [Round: 1 sec]
+R> 
+A lost kitten energetically bounds south.
+R> cas
+pre 209
+You gesture.
+[Success: 95%, Roll 33] Success!
+You feel incredibly strong.
+> You prepare the Strength III spell.
+ [Round: 1 sec]
+R> cas
+pre 209
+You gesture.
+[Success: 95%, Roll 60] Success!
+You feel incredibly strong.
+> You prepare the Strength III spell.
+ [Round: 1 sec]
+R> cas
+pre 209
+You gesture.
+[Success: 95%, Roll 13] Success!
+You feel incredibly strong.
+> You prepare the Strength III spell.
+ [Round: 1 sec]
+R> cas
+You gesture.
+[Success: 95%, Roll 89] Success!
+You feel incredibly strong.
+> 
+You feel the touch of Faldor's mind:
+"Ok...fury wolf man can come in now."
+> w
+A wolvian follows you.
+[Bazaar West]
+You see a winged wolvian. A table is here.
+Obvious exits: n, s, e, w, ne, se.
+> 
+The clatter of hooves echoes through the bazaar.
+> w
+A wolvian follows you.
+[Main Street]
+You see a winged wolvian. 
+Obvious exits: e, w.
+> w
+A wolvian follows you.
+[Main Street]
+You see a winged wolvian. 
+Obvious exits: e, w.
+> w
+A wolvian follows you.
+[Main Street]
+You see a winged wolvian. A huge stone building and a small building are here.
+Obvious exits: e, w.
+> e
+e
+A wolvian follows you.
+[Main Street]
+You see a winged wolvian. 
+Obvious exits: e, w.
+> A wolvian follows you.
+[Main Street]
+You see a winged wolvian. 
+Obvious exits: e, w.
+> e
+A wolvian follows you.
+[Bazaar West]
+You see a winged wolvian. A table is here.
+Obvious exits: n, s, e, w, ne, se.
+> e
+A wolvian follows you.
+[Bazaar Center]
+You see a commoner and a winged wolvian. A large marble fountain, a wooden bin,
+a newsboard, a crystal flask and a jade vial are here.
+Obvious exits: n, s, e, w, ne, nw, se, sw.
+> se
+A wolvian follows you.
+[Bazaar Southeast]
+You see a winged wolvian. A large wooden building is here.
+Obvious exits: n, w, nw.
+> go doo
+A wolvian follows you.
+[Saloon]
+You see a winged wolvian. 
+Obvious exits: e, w.
+> read sign
+Brew and wine       Price
+-------------       -----
+Ale                 16 Pennies
+Champagne            2 Crowns
+Emerald Wine        25 Shillings
+Grog                 7 Pennies
+Honey Mead           3 Shillings
+
+Hard stuff          Price
+----------          -----
+Effervescent Frappe 2 Crowns
+Shartan Toddy       3 Crowns
+Dragonslayer Tonic  3 Crowns
+Faydish Fizz        2 Crowns
+
+We have rolls! Chicken, beef and vegetable, 12 Shillings each!
+> buy beef roll
+You hand over your money and retrieve your roll.
+> nw
+You can't go northwest!
+> o
+A wolvian follows you.
+[Bazaar Southeast]
+You see a winged wolvian. A large wooden building is here.
+Obvious exits: n, w, nw.
+> w
+A wolvian follows you.
+[Bazaar South]
+You see a winged wolvian. 
+Obvious exits: n, s, e, w, ne, nw.
+> n
+A wolvian follows you.
+[Bazaar Center]
+You see a winged wolvian and a lost kitten. A large marble fountain, a wooden
+bin, a newsboard, a crystal flask and a jade vial are here.
+Obvious exits: n, s, e, w, ne, nw, se, sw.
+> w
+A wolvian follows you.
+[Bazaar West]
+You see a winged wolvian. A table is here.
+Obvious exits: n, s, e, w, ne, se.
+> w
+A wolvian follows you.
+[Main Street]
+You see a winged wolvian. 
+Obvious exits: e, w.
+> w
+A wolvian follows you.
+[Main Street]
+You see a winged wolvian. 
+Obvious exits: e, w.
+> w
+A wolvian follows you.
+[Main Street]
+You see a winged wolvian. A huge stone building and a small building are here.
+Obvious exits: e, w.
+> w
+A wolvian follows you.
+[Main Street & Elm]
+You see a winged wolvian. A horse-drawn carriage is here.
+Obvious exits: n, e, w.
+> w
+A wolvian follows you.
+[Kai's Corner]
+You see a winged wolvian. A simple gray townhouse and a building are here.
+Obvious exits: s, e, w, sw.
+> sw
+A wolvian follows you.
+[Commerce Street]
+You see a winged wolvian. A rickety building housing the Adventurers' Guild is
+here.
+Obvious exits: ne, sw.
+> sw
+A wolvian follows you.
+[Commerce Street]
+You see a winged wolvian. A wide stone building with a finely carved rosewood
+doorway is here.
+Obvious exits: w, ne.
+> w
+A wolvian follows you.
+[Commerce Street]
+You see a winged wolvian. A large stone building is here.
+Obvious exits: e, sw.
+> sw
+A wolvian follows you.
+[Commerce Street]
+You see Airgid, Veronica, Therin (sitting), Sy, Wolfbane, Nord, Young and a
+winged wolvian. A black iron gate and a chest are here.
+Obvious exits: s, ne.
+> 
+ ** Elarin has just left the Realms.
+> 
+Nord gazes at Wolfbane.
+> 
+Young pokes Wolfbane.
+> 
+Young pokes Wolfbane.
+> 
+Young pokes Wolfbane.
+> eat rol
+You take a bite of the roll.
+The taste of beef, combined with the pungency of onions and garlic cooked to
+perfection in a light sauce of cumin, paprika and wine, explodes in your mouth,
+sending waves of pleasure flowing across your taste buds and into your stomach.
+> 
+Airgid says, "he's getting like Dolk"
+> sip milk
+You drink the milk from a glass.
+The cold, creamy milk is delightfully refreshing.
+> 
+Young nods to Airgid.
+> 
+Nord says, "shell shocked"
+> 
+Sy asks, "Someone should go next eh, then Wolf?"
+> 
+Elarin arrives through a black iron gate.
+> 
+Nord says, "Fayd to Wolfbane"
+> 
+Nord says, "Fayd to Wolfbane"
+> 
+Elarin taps a fiery randar longsword engraved with the writing, "T'kasta".
+> 
+Elarin taps a fiery randar longsword with a dragon shaped hilt and blade
+engraved with the symbol of the T'kasta.
+> 
+Elarin grins.
+> 
+You feel the touch of Myrdhyn's mind:
+"My deepest thanks to everyone who helped put out the fire."
+> 
+Elarin goes northeast.
+> 'Fire?
+You ask, "Fire?"
+> 
+Young exclaims, "hes lost!"
+> 
+You feel the touch of Veronica's mind:
+"The wolf bumped his head and is having a slight amnesia problem, can someone
+else go?"
+> 
+You feel the touch of Elarin's mind:
+"ok Marc, where might i find you sir"
+> 
+You feel the touch of Faldor's mind:
+"Wolfman you coming or not?"
+> 
+Nord asks, "anyone home?"
+> 
+You feel the touch of Young's mind:
+"Not"
+> pre 225
+You prepare the Invisibility spell.
+ [Round: 1 sec]
+R> look
+[Commerce Street]
+Foundries, factories, and decrepit warehouses recoil with the thump of
+machinery and the clank of tools. Pollutants deposit more grime on the dinghy
+buildings which suffocate here. People hurry past to find cleaner surroundings.
+A black gate leads into a yard.
+You see Airgid, Veronica, Therin (sitting), Sy, Wolfbane, Nord, Young and a
+winged wolvian. A chest is here.
+Obvious exits: south, northeast.
+> 
+Wolfbane goes through a black iron gate.
+> 
+Nord chuckles.
+> rel
+
+Young chuckles.
+> You release your prepared spell.
+> 
+Airgid chuckles.
+> 
+Veronica laughs.
+> 
+Sy rolls his eyes.
+> 
+You feel the touch of Young's mind:
+"chek dat"
+> 
+Therin laughs.
+> 
+The sun rises in the east.
+> grin
+You grin.
+> who
+Firestar           Airgid             Angus              Elarin             
+Veronica           Myrdhyn            Therin             Sy                 
+Wolfbane           Prudence           Miria              Leah               
+Chandra            Rion               Nord               Young              
+
+
+
+There are 16 adventurers in the Realms.
+
+> 
+Airgid smiles.
+> 
+Airgid bows.
+> 
+Airgid goes northeast.
+> ne
+A wolvian follows you.
+[Commerce Street]
+You see a winged wolvian. A large stone building is here.
+Obvious exits: e, sw.
+> e
+A wolvian follows you.
+[Commerce Street]
+You see a winged wolvian. A wide stone building with a finely carved rosewood
+doorway is here.
+Obvious exits: w, ne.
+> go doo
+A wolvian follows you.
+[Crafter Hall, Foyer]
+You see a winged wolvian. 
+Obvious exits: o.
+> look arc
+You see nothing extraordinary.
+[Jeweler Workshop]
+Obvious exits: n, ne.
+> go arc
+A wolvian follows you.
+[Jeweler Workshop]
+You see a winged wolvian. 
+Obvious exits: n, ne.
+> look n
+[Weaver Workshop]
+The northwest portion of the room is the largest of the three areas. The reason
+is apparent when you take in the immense series of looms that cover the entire
+north wall. A pair of workbenches partition off the area from the others while
+the center of the floor is taken up by various spinning wheels, a cauldron for
+use with dyes, and a large contraption of indeterminate use. The polished oak
+stairway leading upstairs dominates the southeast corner of the room as well,
+which combines with everything else to make this large area look much smaller
+than it truly is. Dozens of craftsman could work here without crowding.
+> look ne
+[Alchemy Workshop]
+The immense room is divided here by the long workbenches covered with all
+manner of alchemical gear. Small burners and grinding plates, glass tubes and
+metal tools, all are neatly placed about on the benches. The northeastern
+corner of the room is dominated by a very large cauldron from which steam
+rises occasionaly. The southwestern area is taken up by a polished oak spiral
+stairway that leads up through a hole in the ceiling.
+> 
+ ** Elarin has just left the Realms.
+> go arc
+A wolvian follows you.
+[Crafter Hall, Foyer]
+You see a winged wolvian. 
+Obvious exits: o.
+> o
+A wolvian follows you.
+[Commerce Street]
+You see a winged wolvian. A wide stone building with a finely carved rosewood
+doorway is here.
+Obvious exits: w, ne.
+> w
+A wolvian follows you.
+[Commerce Street]
+You see a winged wolvian. A large stone building is here.
+Obvious exits: e, sw.
+> sw
+A wolvian follows you.
+[Commerce Street]
+You see Veronica, Therin (sitting), Sy, Nord, Young and a winged wolvian. A
+black iron gate and a chest are here.
+Obvious exits: s, ne.
+> exam silk
+
+Young opens a chest.
+> What are you referring to?  Please be more specific.
+> 
+Young takes a chest.
+> look in ches
+What are you referring to?  Please be more specific.
+> 
+As Young places a chest into a slime mold, it dissolves away!
+> 
+Young's slime belches and bubbles before coming to rest.
+> 
+Nord goes northeast.
+> pre 215
+You prepare the Scry spell.
+ [Round: 1 sec]
+R> 
+Sy says, "Well, Im going to use this time to drum up a few crowns"
+> 
+Therin falls on the ground when the chest opens
+> mark
+Marked areas:
+1: Bazaar Center
+2: Living Room
+3: Rainforest, understory
+4: Deep Forest
+5: Under Keep, basement
+6: Wolfling Den
+7: Ria's Cloud- Great Room
+8: Across Plaza
+9: Black Tower, inside
+> 
+You feel the touch of Elarin's mind:
+"anyone want a free eldritched uquart greatbow? i need room in my deposit
+box..."
+> 
+Sy waves.
+> 
+Sy goes northeast.
+> 
+ ** Nord has just left the Realms.
+> cast 4
+You gesture into the air.
+[Success: 95%, Roll 57] Success!
+You have a vision...
+[Deep Forest]
+Obvious exits: sw.
+> fat
+Mana: 371/381
+Psi: 276/276
+Fatigue: 232/232
+> 
+Young smiles.
+> 
+Young says, "Sorry"
+> 
+Young smiles at Therin.
+> 
+Therin says, "Thats okay....grounds softer"
+> 
+Veronica goes northeast.
+> ne
+A wolvian follows you.
+[Commerce Street]
+You see Veronica and a winged wolvian. A large stone building is here.
+Obvious exits: e, sw.
+> 
+Veronica goes southwest.
+> e
+A wolvian follows you.
+[Commerce Street]
+You see a winged wolvian. A wide stone building with a finely carved rosewood
+doorway is here.
+Obvious exits: w, ne.
+> ne
+ne
+A wolvian follows you.
+[Commerce Street]
+You see a winged wolvian. A rickety building housing the Adventurers' Guild is
+here.
+Obvious exits: ne, sw.
+> A wolvian follows you.
+[Kai's Corner]
+You see a winged wolvian. A simple gray townhouse and a building are here.
+Obvious exits: s, e, w, sw.
+> e
+A wolvian follows you.
+[Main Street & Elm]
+You see a winged wolvian. 
+Obvious exits: n, e, w.
+> e
+A wolvian follows you.
+[Main Street]
+You see a winged wolvian. A huge stone building and a small building are here.
+Obvious exits: e, w.
+> e
+A wolvian follows you.
+[Main Street]
+You see a winged wolvian. 
+Obvious exits: e, w.
+> e
+A wolvian follows you.
+[Main Street]
+You see a winged wolvian. 
+Obvious exits: e, w.
+> e
+A wolvian follows you.
+[Bazaar West]
+You see a winged wolvian. A table is here.
+Obvious exits: n, s, e, w, ne, se.
+> 
+ ** Durek has just left the Realms.
+> e
+A wolvian follows you.
+[Bazaar Center]
+You see Airgid, a lawkeeper and a winged wolvian. A large marble fountain, a
+wooden bin, a newsboard, a crystal flask and a jade vial are here.
+Obvious exits: n, s, e, w, ne, nw, se, sw.
+> 
+Airgid smiles.
+> pre 224
+You prepare the Fly spell.
+ [Round: 1 sec]
+R> cast
+You gesture.
+[Success: 95%, Roll 47] Success!
+You feel much lighter.
+> 
+You return to normal speed.
+> 
+With a steady clip clop of hooves, and a quiet jingling of harness bells, a
+charming horse-drawn carriage arrives from the south.
+> pre 225
+You prepare the Invisibility spell.
+ [Round: 3 sec]
+R> cast
+[Wait 1 seconds...]
+R> cast
+You gesture.
+[Success: 95%, Roll 7] Success!
+You feel a tingling sensation.
+H> fly
+You rise a few feet off the ground.
+FH> asc
+[Sky above Fayd]
+Obvious exits: n, s, e, w, ne, nw, se, sw.
+ [Round: 5 sec]
+RFH> who
+Firestar           Airgid             Angus              Elarin             
+Veronica           Myrdhyn            Therin             Sy                 
+Wolfbane           Prudence           Miria              Leah               
+Chandra            Rion               Nord               Young              
+
+
+
+There are 16 adventurers in the Realms.
+
+FH> x
+
+ ** Chandra has just left the Realms.
+FH> 
+
+Character Manager V1.00
+
+ 1 => Moordread
+ 2 => Morti
+ 3 => Bubba
+
+ C => Create new character
+ D => Delete current character
+ P => Play Legends of Future Past
+ X => Exit to NovaLink
+
+
+Active character: Bubba (#3)
+
+Select: /bye
+
+
+Thank you for using NovaLink.
+
+Connect time this session: 120 minutes.
+
+Have a nice evening!
+
+NovaLink is an online service of NovaLink USA Corporation,
+200 Friberg Parkway, Suite 4003, Westborough, MA 01581. Service: 800-274-2814.
+
+
+
+
+
+
+
+
+
+Invalid selection.
+
+Character Manager V1.00
+
+ 1 => Moordread
+ 2 => Morti
+ 3 => Bubba
+
+ C => Create new character
+ D => Delete current character
+ P => Play Legends of Future Past
+ X => Exit to NovaLink
+
+
+Active character: Bubba (#3)
+

@@ -1,0 +1,71 @@
+; Contains modern (2026+) fixes for broken behaviors that probably also existed in the original game
+;
+; Nobody could figure out how to get out of the Rare Weapon Exchange!
+;
+NUMBER 345
+NAME Rare Weapons Exchange, parlor
+INDOOR_GROUND
+DEEPCAVE
+CALL 33
+*DESCRIPTION_START
+This room is paneled from floor to ceiling in the finest mirmach. Plush leather chairs give the weapons aficionado a place to rest and chat on their favorite subject. On one wall, a portrait of the High Lord of the Crimson Band shows him with a bejeweled greatsword at his side. He was a very big customer of this shop. There is a parchment sign tacked to the wall.
+*DESCRIPTION_END
+ITEM 0 350 ADJ1=535 ADJ2=143
+ITEM 1 345 ADJ1=482
+ITEM 2 204 ADJ1=361
+ITEM 3 86 ADJ1=239 ADJ2=180
+ITEM 9 693 ADJ1=10
+
+*DESCRIPTION_START ITEM EXAM 1
+You notice the signature of Indelfo Marc in the corner.
+*DESCRIPTION_END
+IFPREVERB PUSH 0
+  CLEARVERB
+	ECHO GROUP You enter the revolving door.
+	ECHO OTHGROUP %P enters the revolving door.
+	MOVE 259
+	AFFECT 259
+	ECHO OTHGROUP %P comes through the revolving door.
+	AFFECT 345
+ENDIF
+IFPREVERB PUSH 0
+  CLEARVERB
+	ECHO GROUP You enter the revolving door.
+	ECHO OTHGROUP %P enters the revolving door.
+	MOVE 259
+	AFFECT 259
+	ECHO OTHGROUP %P comes through the revolving door.
+	AFFECT 345
+ENDIF
+*DESCRIPTION_START ITEM READ 2
+                 Old Warrior Favorites
+                ---------------------
+            Claidhmore             55 Crowns
+            Papenheimer            70 Crowns
+            Scimitar               65 Crowns
+            Poniard                10 Crowns
+
+       Gentlemen's                       Drakin
+       -----------                       ------
+Epee            30 Crowns       Katana            25 Crowns
+Foil            20 Crowns       Kusari-gama       25 Crowns
+Rapier          62 Crowns       Naginata          51 Crowns
+                                Sai                7 Crowns
+                                Wakizashi         19 Crowns
+*DESCRIPTION_END
+; Old Warrior Favorites
+STOREITEM 502 -1 5500
+STOREITEM 501 -1 7000
+STOREITEM 36 -1 6500
+STOREITEM 503 -1 1000
+; Gentlemen's
+STOREITEM 499 -1 3000
+STOREITEM 498 -1 2000
+STOREITEM 32 -1 6200
+; Drakin
+STOREITEM 22 -1 2500
+STOREITEM 23 -1 2500
+STOREITEM 27 -1 5100
+STOREITEM 35 -1 700
+STOREITEM 48 -1 1900
+;

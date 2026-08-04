@@ -1,0 +1,2858 @@
+
+A beggar arrives.
+> 
+Myrdhyn smiles at Lysis.
+> look lys
+Silken red hair falls in a rippling wave over smooth, tanned shoulders to
+trim athletic thighs. Deep green eyes are shadowed by lush lashes that lay
+against porcelain skin. Soft curves belie the strength of the muscles beneath.
+She is wearing some fine black chain mail with a subtle pattern of gray links
+that form a silver rose and a smooth close-fitting silver suit trimmed with
+royal blue piping that outlines her curves with precision.
+She appears to be healthy.
+> 
+Kulgan shrugs as if such things aren't important
+> 
+You feel a tingle in your mind. Cypress thinks to you, "yep I sure did, but
+thanks for asking."
+> 
+Lysis says, "I always preferred the saloon to that Amphitheater. Particularly
+in winter."
+> 
+A trader arrives.
+> 
+Pockets nods.
+> 
+Young smiles at Lysis.
+> 
+Airgid's blending effect wears off.
+> 
+Young raises a toast to Lysis!
+> 
+Myrdhyn quietly says, "perhaps the saloon near Heroes rest then."
+> smi lys
+You smile at Lysis.
+> 
+A priest arrives.
+> 
+Hyena waves to you.
+> 'I don't believe I've had the pleasure
+You say, "I don't believe I've had the pleasure"
+> 
+A beggar goes north.
+> act bows grandly to Lysis.
+Moordread bows grandly to Lysis.
+> 
+You feel the touch of Rion's mind:
+"hi"
+> 
+A priest goes southeast.
+> 
+A beggar arrives.
+> 
+Lysis smiles at you.
+> 
+You feel the touch of Hyena's mind:
+"Hi"
+> 
+You feel the touch of Young's mind:
+"Howdy Rion"
+> 
+You feel the touch of Wolfbane's mind:
+"greetings sir rion"
+> 
+Saryon rasps, "Hmm, I'll have to make sure I attend the next council meeting."
+> 'Moordread is my name good lady
+You say, "Moordread is my name good lady"
+> 
+Lysis chuckles.
+> smi lys
+You smile at Lysis.
+> 
+Myrdhyn quietly says, "Wouldn't want those from Ilzar to complain they were
+missed."
+> 
+You feel the touch of Mokiah's mind:
+"Dagas, Rion"
+> 
+Young says, "And they would"
+> 
+Young nods to Myrdhyn.
+> 
+Lysis says, "I see you have perfected the art of the graceful bow, Moordread."
+> contact rion Well met Sir Rion
+You are unable to make mental contact with such a person.
+ [Round: 2 sec]
+R> 
+Myrdhyn quietly says, "Listening to them whine is annoying."
+R> 
+Kulgan says, "Why not Myrdhyn, those from Yarin were overlooked"
+R> 
+A beggar goes northeast.
+> 
+Kulgan shrugs.
+> 
+Saryon chuckles.
+> 
+With a steady clip clop of hooves, and a quiet jingling of harness bells, a
+charming horse-drawn carriage arrives from the south.
+> 
+Myrdhyn quietly says, "No, I am here."
+> 
+Myrdhyn smiles at Kulgan.
+> 'Many years of practice and it serves me well
+You say, "Many years of practice and it serves me well"
+> 
+Hyena smiles at you.
+> 
+Lysis gazes wistfully to the southeast.
+> 
+With a jingle of harness bells, a regal looking horse pulls a carriage to the
+north.
+> 
+A priest arrives.
+> 
+You feel the touch of Saxon's mind:
+"Heya Sir Rion, sir, how ya doing Sir?"
+> look se
+[Bazaar Southeast]
+This corner of the bazaar has been the focus of an urban renewal project
+for over a year, now, and it is really shaping up nicely. A newly painted
+arch with a bronze plaque leads into a courtyard to the east, while to the
+south a pair of wooden doors lead into a building overlooking the bazaar.
+A large wooden building is there.
+> 
+Kulgan raises an eyebrow towards Myrdhyn.
+> 
+Lysis says, "I suppose I might have time for a drink there later."
+> 
+A trader goes north.
+> 
+Myrdhyn nods to Lysis.
+> 
+A large cart loaded with barrels lumbers by.
+> 
+Myrdhyn quietly says, "I am sure of it."
+> 
+Lysis says, "The tavern at the Rest it is, then."
+> 
+You feel the touch of Cypress's mind:
+"Hi! Rion, Saxon"
+> 
+A priest goes north.
+> 
+Kulgan says, "You are not of Yarin unless something strange has happened I am
+unaware of"
+> 
+You feel the touch of Rion's mind:
+"Hey Aunt Cypress"
+> 
+Lysis's group goes east.
+> 
+A priest arrives.
+> 
+Lysis's group arrives.
+> 
+You feel the touch of Veronica's mind:
+"Hi Rion"
+> 
+Kulgan is now following Lysis.
+> 
+Saryon rasps, "Myrdhyn speaks for everyone of Fayd, don't you know that
+Kulgan?"
+> 
+You feel the touch of Saxon's mind:
+"Yes sir, Sir Rion sir, I'll cut it out sir, right away Sir Rion, sir!"
+> 
+You feel the touch of Myrdhyn's mind:
+"All those who wish to hear of the planes come to the tavern in Heroes rest."
+> 
+ ** Durek has just left the Realms.
+> 
+A hawker's cries catch your attention for a moment.
+> 
+A priest goes west.
+> 
+Veronica is now following Lysis.
+> 
+Myrdhyn quietly says, "I have been one in the Yarin Circle for a long time,
+unlike Saryon, I don't advertise."
+> 
+Lysis notices Veronica for the first time and nods to her.
+> 
+A trader arrives.
+> 
+Saryon chuckles.
+> 
+Veronica smiles at Lysis.
+> 
+Airgid says, "Do not worry about it Kulgan, things like that happen."
+> 
+A merchant arrives.
+> 
+Lysis says, "Greetings, Lady Veronica."
+> 
+Hyena chuckles.
+> 
+A merchant goes east.
+> 
+A trader goes north.
+> 
+A merchant arrives.
+> 
+You feel the touch of Saxon's mind:
+"In the forge Rion"
+> 
+A trader arrives.
+> 
+A merchant arrives.
+> 
+A trader goes east.
+> 
+Lysis's group goes east.
+> 
+A merchant goes north.
+> 
+Moire arrives.
+> 
+Moire nods to you.
+> look
+[Bazaar Center]
+You revel in the tumult as the center of the bazaar overwhelms your senses
+with its smell and sizzle of roast mutton, its cries of hawkers and cajoling
+merchants. Street dancers, minstrels, and half-clad jugglers amuse the
+crowds near a large marble fountain.  A large statue is almost as formidable
+a presence as the fountain.
+You see Moire and a merchant. A wooden bin and a newsboard are here.
+Obvious exits: north, south, east, west, northeast, northwest, southeast,
+southwest.
+> 
+A merchant goes east.
+> bow moir
+You bow towards Moire.
+> 
+Moire says, "an' 'ow be ye"
+> 'Hello Moire!
+You exclaim, "Hello Moire!"
+> smi
+You smile.
+> 
+A trader arrives.
+> 
+Moire asks, "smilin' are we?  An' why be thet?"
+> 
+Moire listens carefully to you.
+> 'I am well good lady, and you?
+You ask, "I am well good lady, and you?"
+> 
+Moire shudders.
+> 
+Moire asks, "good lady?"
+> 
+Moire reaches over and feels your forehead.
+> 
+A trader goes west.
+> 'I'm in the presence of one such as you, there is plenty to smile about
+You say, "I'm in the presence of one such as you, there is plenty to smile
+about"
+> 
+Moire asks, "ye be daft man?"
+> 
+Moire rolls her eyes.
+> 
+A merchant arrives.
+> grin
+You grin.
+> 
+A trader arrives.
+> 
+Moire shakes her head back and forth.
+> 'You are female if I'm not mistaken
+You say, "You are female if I'm not mistaken"
+> 
+Moire says, "too many blows t' the 'ead"
+> 
+A merchant goes north.
+> 
+Moire chuckles.
+> 
+Moire says, "aye, thet I be"
+> 
+You hear part of a heated argument somewhere nearby.
+> 
+Moire says, "las' I checked anywise"
+> nod
+You nod.
+> 
+You feel the touch of Myrdhyn's mind:
+"Any more coming to the tavern?"
+> 'And good to look upon as well
+You say, "And good to look upon as well"
+> 
+A trader goes southeast.
+> 'Hence, good lady
+You say, "Hence, good lady"
+> 
+Moire asks, "this weathered form?"
+> 
+Moire chuckles.
+> smi
+You smile.
+> 
+Moire says, "well, then I'll be 'avin' t' see where I kin fin' some o' them
+glasses"
+> 
+Moire chuckles.
+> 'Not so weathered to a keen eye
+You say, "Not so weathered to a keen eye"
+> 
+A trader arrives.
+> 
+Moire ponders.
+> look moir
+You see Moire Doeltenga, a young woman.
+She is tall and thin though her body is well toned.
+She has curly blonde hair that brushes her shoulders and tanned skin.
+She is wearing some knee-high black leather boots with wide cuffs polished to a
+high luster and barnacles speckling the heel, a delicate fiery platinum
+bracelet etched with a scene of mermaids perched upon a stone jutting from the
+ocean, a black visored helm with silver horns chased with obsidian, some elkyri
+studded thigh guards engraved with black roses, some supple leather archer's
+gloves tanned by time to a rich cognac color, a gold hoop earring studded with
+rubies, some eldritch leather armor, a delicate silver gorget made of thin
+strands of sparkling emeralds which drape into a graceful "v", some gauntlets
+depicting fierce looking wolves with a look of extreme pride in their eyes and
+a small black silk eyepatch inset with an eye agate in the center.
+She is surrounded by a prismatic globe.
+She is outlined in glowing armor.
+She is protected by a ghostly, hovering shield.
+A translucent red sphere surrounds her.
+She appears to be healthy.
+> 
+Moire asks, "ye be wi'out a lass, eh?"
+> 
+Moire chuckles.
+> gaze
+You gaze about the area.
+> 'They all left for story telling
+You say, "They all left for story telling"
+> 
+ ** Wolfbane has just disconnected.
+> 
+Moire chuckles.
+> 
+Moire asks, "ha well then.  Wha' trouble d' ye be seein' t' start?"
+> 
+A hawker's cries catch your attention for a moment.
+> 'I figured they'd be there listening for hours, and I had other things on my mind
+You say, "I figured they'd be there listening for hours, and I had other things
+on my mind"
+> 
+A beggar arrives.
+> 
+Moire asks, "aye now?  An' pray tell wha' be thet?"
+> pond
+You ponder for a moment.
+> 'So far I had not decided for certain
+You say, "So far I had not decided for certain"
+> 'Be it...
+You say, "Be it..."
+> 'drinking, womanizing, gambling, or battle
+You say, "drinking, womanizing, gambling, or battle"
+> 
+A trader goes north.
+> 
+A priest arrives.
+> 'Or some combination of the above
+You say, "Or some combination of the above"
+> 
+A trader arrives.
+> 
+A door slams in a building near you.
+> 
+A beggar goes southwest.
+> 
+A beggar arrives.
+> 
+A beggar goes northeast.
+> 
+With a steady clip clop of hooves, and a quiet jingling of harness bells, a
+charming horse-drawn carriage arrives from the south.
+> 
+ ** Linnaeus has just disconnected.
+> 'What might be on your mind for the eve?
+You ask, "What might be on your mind for the eve?"
+> rais moir
+You raise an eyebrow towards Moire.
+> 
+With a jingle of harness bells, a regal looking horse pulls a carriage to the
+north.
+> 
+The sun rises in the east.
+> bow obj
+You look up.
+> 
+A trader goes southeast.
+> 'Er, the morn
+You say, "Er, the morn"
+> 
+A priest goes west.
+> 
+Moire chuckles.
+> 
+A beggar arrives.
+> 
+A priest arrives.
+> 
+Moire says, "well, I be 'eaded out t' 'aven t' do a bit o' cullin' o' them
+breedin' bird"
+> 
+Moire says, "s"
+> 
+ ** Avalon has just disconnected.
+> pond
+You ponder for a moment.
+> 
+A trader arrives.
+> 
+A priest goes north.
+> 'That sounds like a fair time, would you mind a bit of company?
+You ask, "That sounds like a fair time, would you mind a bit of company?"
+> 
+A merchant arrives.
+> 
+A merchant goes southeast.
+> 
+Moire says, "I woul' n' min' 't all"
+> 
+A beggar goes east.
+> grin
+You grin.
+> 
+Moire counts her money.
+> 'Let me finish getting dressed
+You say, "Let me finish getting dressed"
+> cough
+You cough.
+> wear arm
+
+Moire says, "though i need t' get a few more arrows"
+> You don some eldritch jet black armor painted with a hand holding a glimmering
+crystal ball which two eyes peer into.
+ [Round: 2 sec]
+R> 
+Moire nods.
+> 
+Moire says, "I'll meet ye 'ere"
+> nod
+You nod.
+> 
+Moire goes west.
+> 'Very good
+You say, "Very good"
+> wear guar
+You slip some steel shoulder guards buffed to a high polish over your back.
+> wear 2 guar
+You'll need to remove your upper layers of clothing to wear that.
+> 
+A merchant arrives.
+> rem guar
+You remove some steel shoulder guards buffed to a high polish.
+> wear 2 guar
+You don some heavy steel thigh guards buffed to a high polish.
+> wear guar
+You slip some steel shoulder guards buffed to a high polish over your back.
+> wear gau
+You slip some gleaming plasteel gauntlets onto your hands.
+> 
+A merchant arrives.
+> 
+A trader goes north.
+> 
+A merchant goes southeast.
+> wear helm
+You place a dented and rusty helm pitted and scarred with years of use onto
+your head.
+> wie bro
+You wield an icy randar broadsword.
+> 
+A beggar arrives.
+> wie shie
+You wield an eldritch diamontine shield.
+ [Round: 3 sec]
+R> stat
+
+You are a high master of the Crimson Band.
+Level: 48
+Build Points to date: 506
+Unspent Build Points: 0
+Experience Points until next Build Point: 4738
+Quickness: 126    Constitution: 130    Strength:  132    Agility: 50 
+Willpower: 81     Perception:   109    Empathy:   36 
+Age:       20     Height:       5'1    Weight:    167    Load: 175
+
+Current Attack Modifier: 258 (26) [Berserk]
+Current Defend Modifier: 335
+
+Body Points: 231/231
+Mana: 52/52
+Psi: 110/117
+Fatigue: 231/231
+[Type SPELLS or SKILLS for more information.]
+R> 
+A beggar arrives.
+R> 
+A merchant goes north.
+> look me
+You gaze upon your own reflection...
+You see a dashing wolfling whose soft gray eyes shine with a mysterious allure.
+Long, silvered hair brushes against his broad, well-built shoulders. The warmth
+of his smile and subtle grace of a seasoned warrior lend an air of sexuality.
+He is wearing some eldritch jet black armor painted with a hand holding a
+glimmering crystal ball which two eyes peer into, a ruby studded silver
+earring, some worn black leather boots, some steel shoulder guards buffed to a
+high polish, some heavy steel thigh guards buffed to a high polish, some
+gleaming plasteel gauntlets, a dented and rusty helm pitted and scarred with
+years of use, a finely crafted crimson tabard embroidered with the gleaming
+silver eagle of the Crimson Band, a ruby studded silver ring of the Crimson
+Band, a jade pendant and a red leather beltpouch.
+He is wielding an icy randar broadsword and an eldritch diamontine shield.
+The scent of some exotic cologne gently drifts from him.
+He is behind a wall of force.
+He appears to be healthy.
+> 
+A merchant arrives.
+> 
+A merchant arrives.
+> 
+A lost mutt wanders in.
+> psi
+#    Discipline
+---  -----------------------------------------
+1    Matter Awakening
+2    Kinetic Thrust
+3    Levitate [Active: 1 psi/min]
+4    Pyrokinetics
+5    Cryokinetics
+6    Capacitance
+7    Electrify
+8    Strengthen Steel
+9    Manipulate Lock
+10   Wall of Force [Active: 1 psi/min]
+11   Flight [Active: 2 psi/min]
+18   Mind Awakening
+19   Telepathy
+20   Contact [Active: 1 psi/min]
+42   Speed [Active: 2 psi/min]
+
+[Type PSI <Discipline #> to invoke a power and PROJECT <Target> to direct it at
+a creature or object]
+> inv
+You are carrying: 
+  A chest
+  A large bloodstone
+  A glass (open)
+  A long twisted tattoo of a thorny vine wrapped seductively around his thigh
+from knee to hip (worn)
+  A tiny chartreuse glass bottle
+  A misty white bottle
+  A blazing golden glass bottle
+  A small damaged diamond
+  A dark inky black card of Sierron saying, "I want a card of me!" and sitting
+on the fountain
+  Some eldritch jet black armor painted with a hand holding a glimmering
+crystal ball which two eyes peer into (worn)
+  An icy randar broadsword (wielded)
+  A small dark gold key emblazoned with the crest of Count Wolfbane Crag
+  An eldritch diamontine shield (wielded)
+  A ruby studded silver earring (worn)
+  A finely drawn tattoo of a faintly luminescent green moon silhouetting the
+form of a silvery wolf (worn)
+  Some worn black leather boots (worn)
+  Some steel shoulder guards buffed to a high polish (worn)
+  Some heavy steel thigh guards buffed to a high polish (worn)
+  Some gleaming plasteel gauntlets (worn)
+  Your object
+  Some dark brown breeches (worn)
+  A dented and rusty helm pitted and scarred with years of use (worn)
+  A torch
+  A finely crafted crimson tabard embroidered with the gleaming silver eagle of
+the Crimson Band (worn)
+  A ruby studded silver ring of the Crimson Band (worn)
+  A jade pendant (worn)
+  A maufra lichen
+  An embroidered tunic of cloth-of-gold (worn)
+  A glass (open)
+  A yellow bottle engraved with the writing, "Age Reduction"
+  A porcelain bottle (open)
+  A red leather beltpouch (worn) (open)
+  A smoked tongue
+  Some babich root
+  A moonstone inlaid flagon (open)
+  A brilliant carnelian
+  A large faceted carnelian
+  A malachite stone
+> e
+[Bazaar East]
+A comfortable building that houses the Sojourner's Hospice is here.
+Obvious exits: n, s, e, w, nw, sw.
+> e
+e
+[Main Street]
+Obvious exits: e, w.
+> [Main Street, Gatehouse]
+Obvious exits: w.
+> e
+You can't go east!
+> e
+You can't go east!
+> g gate
+[Under the Gatehouse]
+Obvious exits: none.
+> go 2 gate
+[Fayd Gate, exterior]
+A large iron gate is here.
+Obvious exits: s, e, nw.
+> s
+[Outside Fayd, eastern wall]
+Obvious exits: n, sw.
+> 
+ ** Miria has just disconnected.
+> contact moir You have a gem?
+You contact Moire with your thoughts.
+ [Round: 2 sec]
+R> sw
+[Wait 1 seconds...]
+R> sw
+[Outside Fayd, southeast wall]
+Obvious exits: w, ne.
+> w
+[Outside Fayd, southern wall]
+Obvious exits: e, w, se.
+> se
+[Grassland, high grass]
+Obvious exits: s, nw.
+> s
+[Grassland, path fork]
+Obvious exits: n, se, sw.
+> se
+[Grassland, field]
+Obvious exits: nw, sw.
+> sw
+[Grassland, lowland]
+Obvious exits: s, ne, nw.
+> 
+You feel a tingle in your mind. Moire thinks to you, "I be checkin' now."
+> s
+[Grassland, knoll]
+Obvious exits: n, s.
+> think I've an extra and can leave you one
+You project your thoughts.
+> 
+A wooly sheep arrives.
+> w
+You can't go west!
+> s
+[Grassland, flats]
+Obvious exits: n, s.
+> s
+[Grassland, small rise]
+A rocky trail and a worg pelt are here.
+Obvious exits: n, e, w.
+> s
+You can't go south!
+> w
+[Inner Sea Road]
+Obvious exits: e, sw.
+> e
+[Grassland, small rise]
+A rocky trail and a worg pelt are here.
+Obvious exits: n, e, w.
+> go tra
+[Inner Sea, rocky shore]
+A rocky trail is here.
+Obvious exits: e, w.
+> w
+[Inner Sea, jagged rocks]
+Obvious exits: e, sw.
+> 
+You feel a tingle in your mind. Moire thinks to you, "I 'as some."
+> sw
+[Inner Sea, slippery rocks]
+Obvious exits: w, ne.
+> w
+[Inner Sea, gulls]
+Obvious exits: e, w.
+> w
+[Inner Sea, water's edge]
+A rusty anchor and a sharkhor spleen are here.
+Obvious exits: e, sw.
+> 
+You feel a tingle in your mind. Moire thinks to you, "ye be there already?."
+> sw
+[Inner Sea, break waters]
+A jagged opening in the hull of a wrecked ship is here.
+Obvious exits: ne.
+> go open
+[Wrecked ship, inside]
+Obvious exits: none.
+> put carn in bowl
+You must be holding the carnelian.
+> think At the ship
+You project your thoughts.
+> get car
+You already have that.
+> get carn
+You remove a large faceted carnelian from the beltpouch.
+> 
+Moire arrives through a jagged opening in the hull of a wrecked ship.
+> 
+Moire nods.
+> grin
+You grin.
+> ign tor
+You light a torch.
+> 
+Moire places something in the bowl and then...disappears!
+> put carn in bowl
+The voice fills your mind again, "Your offering has been accepted, this
+location has been set. To return just state your desire to do so.", then you
+see your surroundings shimmer and you feel yourself being tugged across a long
+distance...
+[Sheltered Cove]
+You see Moire and a hooded constrictor. 
+Obvious exits: e, u.
+> 
+Moire concentrates intently.
+> 
+A hooded constrictor advances towards Moordread.
+> 
+A hooded constrictor snaps at Moordread with its teeth.
+ [ToHit: 95, Roll: 76] Miss.
+> 
+Moire wields an eldritch white elm greatbow carved into a rearing unicorn with
+a flowing mane and black blaze.
+> 
+Moire is now following Moordread.
+> 
+A hooded constrictor snaps at Moordread with its teeth.
+ [ToHit: 95, Roll: 14] Miss.
+> ret
+You retreat.
+> guar moir
+You are now guarding Moire.
+ [Round: 2 sec]
+R> a con
+You must ADVANCE towards your opponent to battle them
+with your current weapon.
+> 
+A hooded constrictor advances towards Moordread.
+> 
+A hooded constrictor snaps at Moordread with its teeth.
+ [ToHit: 95, Roll: 88] Miss.
+> ret
+
+A hooded constrictor arrives.
+> 
+A hooded constrictor advances towards Moordread.
+> 
+A hooded constrictor snaps at Moordread with its teeth.
+ [ToHit: 95, Roll: 99] Excellent Hit!
+ Puny slash to left leg. [6 Damage]
+ Moordread is poisoned!
+P> You retreat.
+P> u
+Moire follows you.
+[Cliff Stairs]
+You see Moire. A worn cliff is here.
+Obvious exits: u, d.
+P> roll
+You roll your eyes.
+P> u
+Moire follows you.
+[Cliff Edge]
+You see Moire. 
+Obvious exits: n, d.
+P> n
+Moire follows you.
+[Dune]
+You see Moire. 
+Obvious exits: s, nw.
+P> nw
+Moire follows you.
+[Jungle Edge]
+You see Moire. 
+Obvious exits: ne, se.
+P> ne
+Moire follows you.
+[Jungle Path]
+You see Moire. A green bush is here.
+Obvious exits: n, sw.
+P> n
+Moire follows you.
+[Jungle Path]
+You see Moire. 
+Obvious exits: s, ne.
+P> ne
+Moire follows you.
+[Rocky Path]
+You see Moire. 
+Obvious exits: nw, sw.
+P> nw
+Moire follows you.
+[Waterfall]
+You see Moire. Some shimmering mist and a wet black boulder are here.
+Obvious exits: n, se.
+P> n
+Moire follows you.
+[Jungle Edge]
+You see Moire. A colorful bird is here.
+Obvious exits: s.
+P> 
+Poison burns in your veins.
+P> go pat
+Moire follows you.
+[Top of Rise]
+You see Moire. 
+Obvious exits: d.
+P> d
+Moire follows you.
+[Haven, intersection]
+You see Moire. Some rubble is here.
+Obvious exits: n, u.
+P> cli rub
+Moire follows you.
+[Haven, ruins]
+You see Moire. Some rubble is here.
+Obvious exits: e.
+P> e
+Moire follows you.
+[Haven, ruins]
+You see Moire. 
+Obvious exits: w, ne, se.
+P> health
+You have 217/231 body points.
+You are currently suffering from poison (level 9).
+You have a nicked left leg.
+P> ret
+guar moir
+You are not currently engaging any opponents.
+P> You are now guarding Moire.
+ [Round: 2 sec]
+RP> 'Blasted venemous snakes
+You say, "Blasted venemous snakes"
+P> 
+Poison burns in your veins.
+P> 
+A sea wraith glides into the room and screams angrily at you.
+P> wie bro
+You are already wielding that.
+P> wie shie
+You are already wielding that.
+P> 
+A sea wraith incants a spell.
+P> adv wra
+You advance towards a wraith.
+P> a wra
+You swing at a sea wraith with your icy randar broadsword.
+ [ToHit: 5, Roll: 4] Miss.
+ [Round: 1 sec]
+RP> .
+[Wait 1 seconds...]
+RP> .
+
+A sea wraith gestures.
+A ghostly shield hovers before a wraith.
+P> You thrust at a sea wraith with your icy randar broadsword.
+ [ToHit: 5, Roll: 38] Hit!
+ Minor slash to head. [11 Damage]
+ The broadsword radiates intense cold!
+ Serious burn to head. [27 Damage]
+ [Round: 1 sec]
+RP> .
+You swing at a sea wraith with your icy randar broadsword.
+ [ToHit: 5, Roll: 72] Hit!
+ Passable strike to back. [16 Damage]
+ [Round: 1 sec]
+RP> .
+You thrust at a sea wraith with your icy randar broadsword.
+ [ToHit: 5, Roll: 85] Hit!
+ Passable strike to head. [14 Damage]
+ [Round: 1 sec]
+RP> .
+You swing at a sea wraith with your icy randar broadsword.
+ [ToHit: 5, Roll: 62] Hit!
+ Minor slash to body. [5 Damage]
+ The broadsword radiates intense cold!
+ Serious burn to left arm. [16 Damage]
+ [Round: 1 sec]
+RP> .
+You thrust at a sea wraith with your icy randar broadsword.
+ [ToHit: 5, Roll: 96] Excellent Hit!
+ Good strike to head. [12 Damage]
+ She is knocked to the ground!
+ [Round: 1 sec]
+RP> .
+You thrust at a sea wraith with your icy randar broadsword.
+ [ToHit: 5, Roll: 85] Hit!
+ Superb slash to back. [14 Damage]
+ [Round: 1 sec]
+RP> 
+A sea wraith arrives.
+RP> 
+A sea wraith stands up.
+RP> 
+The eyes of a sea wraith burn with black fire!
+RP> .
+You thrust at a sea wraith with your icy randar broadsword.
+ [ToHit: 5, Roll: 46] Hit!
+ Fine slash to right arm. [4 Damage]
+ The broadsword radiates intense cold!
+ Serious burn to right leg. [3 Damage]
+ [Round: 1 sec]
+RP> .
+You swing at a sea wraith with your icy randar broadsword.
+ [ToHit: 5, Roll: 46] Hit!
+ Masterful strike to body. [9 Damage]
+ She howls with anguish, "Not again!", as she falls.
+ [Round: 1 sec]
+RP> .
+You must ADVANCE towards your opponent to battle them
+with your current weapon.
+P> 
+A sea wraith incants a spell.
+P> adv wr
+You advance towards a wraith.
+P> a wr
+You swing at a sea wraith with your icy randar broadsword.
+ [ToHit: 5, Roll: 7] Hit!
+ Puny slash to body. [8 Damage]
+ [Round: 1 sec]
+RP> 
+Poison burns in your veins.
+RP> 
+A sea wraith gestures.
+Magic begins to form but then fizzles.
+RP> a wr
+You swing at a sea wraith with your icy randar broadsword.
+ [ToHit: 5, Roll: 70] Hit!
+ Puny slash to head. [6 Damage]
+ The broadsword radiates intense cold!
+ Insignificant burn to left hand. [6 Damage]
+ [Round: 1 sec]
+RP> a wr
+You swing at a sea wraith with your icy randar broadsword.
+ [ToHit: 5, Roll: 58] Hit!
+ Grazing strike to right leg. [6 Damage]
+ [Round: 1 sec]
+RP> a wr
+You swing at a sea wraith with your icy randar broadsword.
+ [ToHit: 5, Roll: 13] Hit!
+ Minor slash to back. [9 Damage]
+ [Round: 1 sec]
+RP> a wr
+You swing at a sea wraith with your icy randar broadsword.
+ [ToHit: 5, Roll: 30] Hit!
+ Minor slash to head. [18 Damage]
+ [Round: 1 sec]
+RP> a wr
+You swing at a sea wraith with your icy randar broadsword.
+ [ToHit: 5, Roll: 66] Hit!
+ Minor slash to head. [8 Damage]
+ The broadsword radiates intense cold!
+ Severe burn to back. [29 Damage]
+ [Round: 1 sec]
+RP> 
+Moire concentrates intently.
+RP> a wr
+You swing at a sea wraith with your icy randar broadsword.
+ [ToHit: 5, Roll: 51] Hit!
+ Good strike to body. [11 Damage]
+ The broadsword radiates intense cold!
+ Minor burn to left arm. [5 Damage]
+ [Round: 1 sec]
+RP> 
+A sea wraith incants a spell.
+RP> a wr
+You swing at a sea wraith with your icy randar broadsword.
+ [ToHit: 5, Roll: 98] Excellent Hit!
+ Grisly slash to back. [16 Damage]
+ She is knocked to the ground!
+ The broadsword radiates intense cold!
+ Glancing blow. [1 Damage]
+ [Round: 1 sec]
+RP> 
+Moire concentrates intently on a wraith.
+RP> 
+Energy arcs around a sea wraith.
+ Ghastly burn to head. [33 Damage]
+ She howls with anguish, "Not again!", as she falls.
+RP> a wr
+What are you referring to?  Please be more specific.
+P> a wr
+What are you referring to?  Please be more specific.
+P> 
+A sea wraith arrives.
+P> 
+A sea wraith incants a spell.
+P> exp
+Level: 48
+Build Points to date: 506
+Unspent Build Points: 0
+Experience Points until next Build Point: 4006
+P> 
+Moire concentrates intently on a wraith.
+P> 
+Static crackles around a sea wraith.
+ Insignificant burn to right hand. [4 Damage]
+P> adv wr
+You advance towards a wraith.
+P> a wr
+You swing at a sea wraith with your icy randar broadsword.
+ [ToHit: 5, Roll: 96] Excellent Hit!
+ Passable strike to left arm. [5 Damage]
+ The broadsword radiates intense cold!
+ Serious burn to back. [32 Damage]
+ [Round: 1 sec]
+RP> a wr
+You swing at a sea wraith with your icy randar broadsword.
+ [ToHit: 5, Roll: 72] Hit!
+ Minor slash to head. [16 Damage]
+ The broadsword radiates intense cold!
+ Minor burn to right hand. [7 Damage]
+ [Round: 1 sec]
+RP> 
+A sea wraith gestures at Moire.
+A wraith screams!
+Moordread reels in pain.
+Moire reels in pain.
+RP> 
+Moire concentrates intently on a wraith.
+P> 
+Static crackles around a sea wraith.
+ Serious burn to head. [18 Damage]
+P> a wr
+You swing at a sea wraith with your icy randar broadsword.
+ [ToHit: 5, Roll: 54] Hit!
+ Minor slash to right arm. [6 Damage]
+ [Round: 1 sec]
+RP> 
+Moire concentrates intently on a wraith.
+P> 
+Energy arcs around a sea wraith.
+ Ghastly burn to back. [26 Damage]
+P> a wr
+You swing at a sea wraith with your icy randar broadsword.
+ [ToHit: 5, Roll: 4] Miss.
+ [Round: 1 sec]
+RP> a wr
+You swing at a sea wraith with your icy randar broadsword.
+ [ToHit: 5, Roll: 72] Hit!
+ Passable strike to left leg. [3 Damage]
+ [Round: 1 sec]
+RP> 
+Moire concentrates intently on a wraith.
+RP> a wr
+
+A sea wraith incants a spell.
+RP> You swing at a sea wraith with your icy randar broadsword.
+ [ToHit: 5, Roll: 48] Hit!
+ Grisly slash to body. [12 Damage]
+ [Round: 1 sec]
+RP> 
+Moire concentrates intently on a wraith.
+P> 
+Static crackles around a sea wraith.
+ Ghastly burn to head. [17 Damage]
+ She howls with anguish, "Not again!", as she falls.
+P> a wr
+What are you referring to?  Please be more specific.
+P> 
+Poison burns in your veins.
+P> health
+You have 177/231 body points.
+You are currently suffering from poison (level 6).
+You have a nicked left leg.
+P> eat mush
+You take a bite of the mushroom.
+Moordread looks a little better.
+ [Round: 5 sec]
+The mushroom tastes very bitter.
+RP> health
+You have 193/231 body points.
+You are currently suffering from poison (level 6).
+You have a nicked left leg.
+RP> 
+A sea wraith glides into the room and screams angrily at you.
+P> adv wr
+You advance towards a wraith.
+P> a wr
+You swing at a sea wraith with your icy randar broadsword.
+ [ToHit: 5, Roll: 63] Hit!
+ Minor slash to head. [12 Damage]
+ The broadsword radiates intense cold!
+ Serious burn to head. [23 Damage]
+ [Round: 1 sec]
+RP> a wr
+You swing at a sea wraith with your icy randar broadsword.
+ [ToHit: 5, Roll: 55] Hit!
+ Puny slash to head. [6 Damage]
+ [Round: 1 sec]
+RP> a wr
+
+A sea wraith incants a spell.
+RP> You swing at a sea wraith with your icy randar broadsword.
+ [ToHit: 5, Roll: 81] Hit!
+ Puny slash to back. [7 Damage]
+ The broadsword radiates intense cold!
+ Severe burn to body. [39 Damage]
+ [Round: 1 sec]
+RP> a wr
+You swing at a sea wraith with your icy randar broadsword.
+ [ToHit: 5, Roll: 16] Hit!
+ Superb slash to body. [15 Damage]
+ [Round: 1 sec]
+RP> a wr
+You swing at a sea wraith with your icy randar broadsword.
+ [ToHit: 5, Roll: 70] Hit!
+ Superb slash to back. [12 Damage]
+ [Round: 1 sec]
+RP> a wr
+You swing at a sea wraith with your icy randar broadsword.
+ [ToHit: 5, Roll: 48] Hit!
+ Masterful strike to head. [17 Damage]
+ She howls with anguish, "Not again!", as she falls.
+ [Round: 1 sec]
+RP> 
+Poison burns in your veins.
+P> 'Far more wraithes than I care for
+You say, "Far more wraithes than I care for"
+P> 
+Moire nods.
+P> exp
+Level: 48
+Build Points to date: 506
+Unspent Build Points: 0
+Experience Points until next Build Point: 3393
+P> 
+Tendrils of mist and electric sparks suddenly swirl into a jolly roger!
+P> 
+A jolly roger says, "Aye, how'd ye like to join the dance, matey?" to
+Moordread.
+P> 
+A jolly roger swings at Moordread with his cutlass.
+ [ToHit: 95, Roll: 24] Miss.
+P> smi
+You smile.
+P> 'Aye
+You say, "Aye"
+P> 
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 82] Hit!
+ Passable shot to body. [14 Damage]
+P> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+P> adv rog
+You are already engaging that opponent.
+P> 
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 99] Excellent Hit!
+ Passable shot to head. [12 Damage]
+P> a rog
+
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+P> You thrust at a jolly roger with your icy randar broadsword.
+ [ToHit: 5, Roll: 96] Excellent Hit!
+ Passable strike to back. [15 Damage]
+ [Round: 1 sec]
+RP> 
+A jolly roger thrusts at Moordread with his cutlass.
+ [ToHit: 95, Roll: 62] Miss.
+RP> a rog
+
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 19] Hit!
+ Passable shot to head. [16 Damage]
+P> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+P> You swing at a jolly roger with your icy randar broadsword.
+ [ToHit: 5, Roll: 42] Hit!
+ Minor slash to back. [12 Damage]
+ The broadsword radiates intense cold!
+ He is immune to the attack!
+ [Round: 1 sec]
+RP> a rog
+
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 30] Hit!
+ Good shot to right arm. [4 Damage]
+P> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+P> You thrust at a jolly roger with your icy randar broadsword.
+ [ToHit: 5, Roll: 46] Hit!
+ Passable strike to back. [13 Damage]
+ [Round: 1 sec]
+RP> a rog
+
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 79] Hit!
+ Passable shot to head. [11 Damage]
+P> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+P> You thrust at a jolly roger with your icy randar broadsword.
+ [ToHit: 5, Roll: 44] Hit!
+ Fine slash to head. [13 Damage]
+ [Round: 1 sec]
+RP> 
+Poison burns in your veins.
+RP> a rog
+
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 45] Hit!
+ Good shot to right leg. [5 Damage]
+P> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+P> You swing at a jolly roger with your icy randar broadsword.
+ [ToHit: 5, Roll: 30] Hit!
+ Fine slash to head. [8 Damage]
+ The broadsword radiates intense cold!
+ He is immune to the attack!
+ [Round: 1 sec]
+RP> a rog
+
+A jolly roger swings at Moordread with his cutlass.
+ [ToHit: 95, Roll: 67] Miss.
+P> You thrust at a jolly roger with your icy randar broadsword.
+ [ToHit: 5, Roll: 54] Hit!
+ Grisly slash to head. [22 Damage]
+ He collapses in a jumble of bones which then dissolve into mist.
+ [Round: 1 sec]
+RP> 'Brought the wrong blade today
+You say, "Brought the wrong blade today"
+P> 
+Moire searches a jolly roger.
+P> gaze bro
+You gaze at an icy randar broadsword.
+P> 
+A jolly roger dances in, executing a quick quarter-turn as he does.
+P> 
+Moire chuckles.
+P> adv rog
+You advance towards a roger.
+P> shr
+You shrug.
+P> a rog
+You swing at a jolly roger with your icy randar broadsword.
+ [ToHit: 5, Roll: 2] Weapon Clash! [Strength: 6, 2d100 Roll: 122]
+ [Round: 1 sec]
+RP> 
+Moire takes a bloodstone.
+RP> a rog
+You thrust at a jolly roger with your icy randar broadsword.
+ [ToHit: 5, Roll: 2] Weapon Clash! [Strength: 6, 2d100 Roll: 75]
+ [Round: 1 sec]
+RP> 
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 22] Hit!
+ Good shot to right leg. [6 Damage]
+RP> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+RP> 
+A jolly roger swings at Moordread with his cutlass.
+ [ToHit: 95, Roll: 94] Miss.
+P> a rog
+
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 58] Hit!
+ Grazing shot to head. [10 Damage]
+P> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+P> You thrust at a jolly roger with your icy randar broadsword.
+ [ToHit: 5, Roll: 69] Hit!
+ Puny slash to right arm. [5 Damage]
+ [Round: 1 sec]
+RP> 
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 48] Hit!
+ Good shot to right arm. [6 Damage]
+P> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+P> 
+Poison burns in your veins.
+P> a rog
+You swing at a jolly roger with your icy randar broadsword.
+ [ToHit: 5, Roll: 63] Hit!
+ Puny slash to left leg. [5 Damage]
+ The broadsword radiates intense cold!
+ He is immune to the attack!
+ [Round: 1 sec]
+RP> a rog
+You swing at a jolly roger with your icy randar broadsword.
+ [ToHit: 5, Roll: 55] Hit!
+ Puny slash to right hand. [3 Damage]
+ [Round: 1 sec]
+RP> 
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 74] Hit!
+ Good shot to right arm. [3 Damage]
+P> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+P> a rog
+You swing at a jolly roger with your icy randar broadsword.
+ [ToHit: 5, Roll: 56] Hit!
+ Minor slash to head. [14 Damage]
+ The broadsword radiates intense cold!
+ He is immune to the attack!
+ [Round: 1 sec]
+RP> 
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 1] Miss.
+RP> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+RP> 
+A jolly roger swings at Moordread with his cutlass.
+ [ToHit: 95, Roll: 34] Miss.
+RP> a rog
+You swing at a jolly roger with your icy randar broadsword.
+ [ToHit: 5, Roll: 56] Hit!
+ Good strike to back. [21 Damage]
+ [Round: 1 sec]
+RP> 
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 60] Hit!
+ Good shot to right leg. [4 Damage]
+P> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+P> a rog
+You swing at a jolly roger with your icy randar broadsword.
+ [ToHit: 5, Roll: 78] Hit!
+ Good strike to body. [14 Damage]
+ The broadsword radiates intense cold!
+ He is immune to the attack!
+ [Round: 1 sec]
+RP> 
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 7] Hit!
+ Good shot to head. [13 Damage]
+P> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+P> a rog
+You swing at a jolly roger with your icy randar broadsword.
+ [ToHit: 5, Roll: 71] Hit!
+ Fine slash to body. [13 Damage]
+ [Round: 1 sec]
+RP> 
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 83] Hit!
+ Good shot to left hand. [3 Damage]
+P> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+P> a rog
+You swing at a jolly roger with your icy randar broadsword.
+ [ToHit: 5, Roll: 56] Hit!
+ Masterful strike to body. [16 Damage]
+ [Round: 1 sec]
+RP> a rog
+You swing at a jolly roger with your icy randar broadsword.
+ [ToHit: 5, Roll: 49] Hit!
+ Grisly slash to back. [15 Damage]
+ He collapses in a jumble of bones which then dissolve into mist.
+ [Round: 1 sec]
+RP> pond
+You ponder for a moment.
+P> 
+Moire searches a jolly roger.
+P> 
+ ** Trieste has just disconnected.
+P> 
+Moire counts her money.
+P> 
+Moire takes some silver coins.
+P> 'Actually the other is on loan to a pretty young lady
+You say, "Actually the other is on loan to a pretty young lady"
+P> 
+Poison burns in your veins.
+P> 
+Moire chuckles.
+P> fur
+You furrow your brow.
+P> 
+Moire says, "this does no' surprise me"
+P> grin
+You grin.
+P> 
+A jolly roger dances in, executing a quick quarter-turn as he does.
+P> 
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 32] Hit!
+ Good shot to right arm. [6 Damage]
+P> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+P> 
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 79] Hit!
+ Passable shot to head. [13 Damage]
+P> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+P> 'She was appreciative to have it
+
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 65] Hit!
+ Good shot to left arm. [3 Damage]
+P> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+P> You say, "She was appreciative to have it"
+P> 
+A jolly roger says, "Aye, how'd ye like to join the dance, matey?" to
+Moordread.
+P> 
+A jolly roger thrusts at Moordread with his cutlass.
+ [ToHit: 95, Roll: 43] Miss.
+P> adv rog
+You are already engaging that opponent.
+P> a rog
+
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 58] Hit!
+ Good shot to right hand. [3 Damage]
+P> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+P> You swing at a jolly roger with your icy randar broadsword.
+ [ToHit: 5, Roll: 60] Hit!
+ Puny slash to left leg. [5 Damage]
+ The broadsword radiates intense cold!
+ He is immune to the attack!
+ [Round: 1 sec]
+RP> 
+Poison burns in your veins.
+P> 
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 55] Hit!
+ Passable shot to head. [11 Damage]
+P> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+P> a rog
+You swing at a jolly roger with your icy randar broadsword.
+ [ToHit: 5, Roll: 96] Excellent Hit!
+ Minor slash to back. [16 Damage]
+ [Round: 1 sec]
+RP> 
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 89] Hit!
+ Good shot to left hand. [3 Damage]
+P> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+P> a rog
+You swing at a jolly roger with your icy randar broadsword.
+ [ToHit: 5, Roll: 62] Hit!
+ Minor slash to back. [12 Damage]
+ The broadsword radiates intense cold!
+ He is immune to the attack!
+ [Round: 1 sec]
+RP> 
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 5] Hit!
+ Good shot to right hand. [3 Damage]
+P> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+P> 
+A jolly roger swings at Moordread with his cutlass.
+ [ToHit: 95, Roll: 71] Miss.
+P> a rog
+You thrust at a jolly roger with your icy randar broadsword.
+ [ToHit: 5, Roll: 85] Hit!
+ Minor slash to head. [7 Damage]
+ [Round: 1 sec]
+RP> a rog
+You swing at a jolly roger with your icy randar broadsword.
+ [ToHit: 5, Roll: 44] Hit!
+ Fine slash to head. [14 Damage]
+ [Round: 1 sec]
+RP> a rog
+You swing at a jolly roger with your icy randar broadsword.
+ [ToHit: 5, Roll: 76] Hit!
+ Minor slash to left arm. [7 Damage]
+ [Round: 1 sec]
+RP> a rog
+You swing at a jolly roger with your icy randar broadsword.
+ [ToHit: 5, Roll: 45] Hit!
+ Grisly slash to head. [22 Damage]
+ The broadsword radiates intense cold!
+ He is immune to the attack!
+ [Round: 1 sec]
+RP> a rog
+
+Moire says, "aye, I'm sure she were"
+P> You swing at a jolly roger with your icy randar broadsword.
+ [ToHit: 5, Roll: 2] Weapon Clash! [Strength: 6, 2d100 Roll: 137]
+ [Round: 1 sec]
+RP> 
+Moire chuckles.
+P> a rog
+You swing at a jolly roger with your icy randar broadsword.
+ [ToHit: 5, Roll: 80] Hit!
+ Masterful strike to back. [11 Damage]
+ [Round: 1 sec]
+RP> 
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 33] Hit!
+ Good shot to left arm. [4 Damage]
+P> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+P> a rog
+You swing at a jolly roger with your icy randar broadsword.
+ [ToHit: 5, Roll: 1] Weapon Clash! [Strength: 6, 2d100 Roll: 108]
+ [Round: 1 sec]
+RP> 
+A jolly roger swings at Moordread with his cutlass.
+ [ToHit: 95, Roll: 2] Weapon Clash! [Strength: 44, 2d100 Roll: 160]
+RP> 
+A dadblasted gull hauls itself in.
+RP> a rog
+You swing at a jolly roger with your icy randar broadsword.
+ [ToHit: 5, Roll: 93] Hit!
+ Grisly slash to body. [10 Damage]
+ He collapses in a jumble of bones which then dissolve into mist.
+ [Round: 1 sec]
+RP> 
+Moire fires at a dadblasted gull with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 69] Hit!
+ Good shot to left wing. [12 Damage]
+P> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+P> 
+A dadblasted gull goes "squaaaark!" and pulls itself towards Moordread.
+P> 
+A dadblasted gull slashes at Moordread with its claws.
+ [ToHit: 95, Roll: 52] Miss.
+P> adv gul
+You are already engaging that opponent.
+P> 
+Moire fires at a dadblasted gull with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 45] Hit!
+ Good shot to back. [24 Damage]
+P> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+P> a gul
+You thrust at a dadblasted gull with your icy randar broadsword.
+ [ToHit: 5, Roll: 15] Hit!
+ Fine slash to left wing. [18 Damage]
+ [Round: 1 sec]
+RP> 
+A dadblasted gull slashes at Moordread with its claws.
+ [ToHit: 95, Roll: 100] Excellent Hit!
+ Puny slash to right hand. [4 Damage]
+RP> a gul
+
+Moire fires at a dadblasted gull with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 46] Hit!
+ Good shot to back. [19 Damage]
+P> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+P> You thrust at a dadblasted gull with your icy randar broadsword.
+ [ToHit: 5, Roll: 28] Hit!
+ Fine slash to head. [15 Damage]
+ [Round: 1 sec]
+RP> a gul
+You thrust at a dadblasted gull with your icy randar broadsword.
+ [ToHit: 5, Roll: 68] Hit!
+ Grisly slash to body. [19 Damage]
+ [Round: 1 sec]
+RP> 
+Moire fires at a dadblasted gull with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 34] Hit!
+ Shot to back creates peep-hole through heart.
+ It rolls over belly up, revealing the glint of swallowed treasure.
+RP> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+RP> a gul
+You must ADVANCE towards your opponent to battle them
+with your current weapon.
+P> sear rog
+You search a jolly roger.
+You find a cutlass, some gold coins and some silver coins.
+ [Round: 2 sec]
+RP> 
+Moire skins a dadblasted gull.
+RP> 
+Poison burns in your veins.
+P> look
+
+Moire searches a dadblasted gull.
+> [Haven, ruins]
+Large piles of rubble press against the broken road from either side of it.
+The rubble seems alive with a foul miasma of sickness and rot. The road
+forks around a stone building that is surprisingly enough still in good
+condition. The building is of ornate design, perhaps being the former
+residence of someone important, and has withstood the trials of the years
+to remain standing. A small cobblestone path winds its way past the
+sickly crab grass of the house's front lawn to a sturdy looking door.
+You see Moire. A cutlass, a cutlass, some gold coins, a cutlass, some silver
+coins, some gold coins, some silver coins, some copper coins and a gull tooth
+are here.
+Obvious exits: west, northeast, southeast.
+> 
+Tendrils of mist and electric sparks suddenly swirl into a jolly roger!
+> 
+A jolly roger says, "Aye, how'd ye like to join the dance, matey?" to
+Moordread.
+> 
+A jolly roger swings at Moordread with his cutlass.
+ [ToHit: 95, Roll: 74] Miss.
+> 
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 96] Excellent Hit!
+ Good shot to left leg. [6 Damage]
+ He is knocked to the ground!
+> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+> 
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 29] Hit!
+ Passable shot to body. [14 Damage]
+> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+> a rog
+You swing at a jolly roger with your icy randar broadsword.
+ [ToHit: 5, Roll: 16] Hit!
+ Minor slash to body. [18 Damage]
+ [Round: 1 sec]
+R> a rog
+You swing at a jolly roger with your icy randar broadsword.
+ [ToHit: 5, Roll: 21] Hit!
+ Puny slash to left hand. [4 Damage]
+ [Round: 1 sec]
+R> a rog
+You swing at a jolly roger with your icy randar broadsword.
+ [ToHit: 5, Roll: 4] Miss.
+ [Round: 1 sec]
+R> a rog
+
+A jolly roger stands up.
+> 
+Moire asks, "an' wha' fair lass were it?"
+> You swing at a jolly roger with your icy randar broadsword.
+ [ToHit: 5, Roll: 57] Hit!
+ Minor slash to back. [16 Damage]
+ The broadsword radiates intense cold!
+ He is immune to the attack!
+ [Round: 1 sec]
+R> 
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 71] Hit!
+ Good shot to left leg. [5 Damage]
+R> a rog
+
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+R> You are too exhausted to keep up your attacks.
+> a rog
+You are too exhausted to keep up your attacks.
+> 
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 87] Hit!
+ Passable shot to back. [11 Damage]
+> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+> 
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 11] Hit!
+ Good shot to left leg. [5 Damage]
+> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+> stat
+
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 71] Hit!
+ Good shot to right hand. [3 Damage]
+> 
+You are a high master of the Crimson Band.
+Level: 48
+Build Points to date: 506
+Unspent Build Points: 0
+Experience Points until next Build Point: 2816
+Quickness: 126    Constitution: 130    Strength:  132    Agility: 50 
+Willpower: 81     Perception:   109    Empathy:   36 
+Age:       20     Height:       5'1    Weight:    167    Load: 175
+
+Current Attack Modifier: 258 (26) [Berserk]
+Current Defend Modifier: 335
+
+Body Points: 172/231
+Mana: 52/52
+Psi: 110/117
+Fatigue: 0/231 (-25 ToHit Penalty)
+[Type SPELLS or SKILLS for more information.]
+> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+> 
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 53] Hit!
+ Good shot to right hand. [3 Damage]
+> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+> 
+A jolly roger swings at Moordread with his cutlass.
+ [ToHit: 95, Roll: 2] Weapon Clash! [Strength: 44, 2d100 Roll: 113]
+> pond
+You ponder for a moment.
+> inv
+
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 73] Hit!
+ Good shot to body. [13 Damage]
+> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+> You are carrying: 
+  A chest
+  A large bloodstone
+  A glass (open)
+  A long twisted tattoo of a thorny vine wrapped seductively around his thigh
+from knee to hip (worn)
+  A tiny chartreuse glass bottle
+  A misty white bottle
+  A blazing golden glass bottle
+  A small damaged diamond
+  A dark inky black card of Sierron saying, "I want a card of me!" and sitting
+on the fountain
+  Some eldritch jet black armor painted with a hand holding a glimmering
+crystal ball which two eyes peer into (worn)
+  An icy randar broadsword (wielded)
+  A small dark gold key emblazoned with the crest of Count Wolfbane Crag
+  An eldritch diamontine shield (wielded)
+  A ruby studded silver earring (worn)
+  A finely drawn tattoo of a faintly luminescent green moon silhouetting the
+form of a silvery wolf (worn)
+  Some worn black leather boots (worn)
+  Some steel shoulder guards buffed to a high polish (worn)
+  Some heavy steel thigh guards buffed to a high polish (worn)
+  Some gleaming plasteel gauntlets (worn)
+  Your object
+  Some dark brown breeches (worn)
+  A dented and rusty helm pitted and scarred with years of use (worn)
+  A burning torch
+  A finely crafted crimson tabard embroidered with the gleaming silver eagle of
+the Crimson Band (worn)
+  A ruby studded silver ring of the Crimson Band (worn)
+  A jade pendant (worn)
+  A maufra lichen
+  An embroidered tunic of cloth-of-gold (worn)
+  A glass (open)
+  A yellow bottle engraved with the writing, "Age Reduction"
+  A porcelain bottle (open)
+  A red leather beltpouch (worn) (open)
+  A smoked tongue
+  Some babich root
+  A moonstone inlaid flagon (open)
+  A brilliant carnelian
+  A large faceted carnelian
+  A malachite stone
+> 
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 47] Hit!
+ Good shot to right hand. [3 Damage]
+> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+> 
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 41] Hit!
+ Good shot to right hand. [3 Damage]
+> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+> 
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 68] Hit!
+ Well-aimed shot to head. [14 Damage]
+> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+> 
+A jolly roger swings at Moordread with his cutlass.
+ [ToHit: 95, Roll: 46] Miss.
+> 
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 11] Hit!
+ Good shot to right leg. [6 Damage]
+> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+> 
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 11] Hit!
+ Masterful shot to head. [12 Damage]
+> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+> 
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 62] Hit!
+ Good shot to left arm. [7 Damage]
+> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+> 
+A jolly roger dances in, executing a quick quarter-turn as he does.
+> 
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 8] Hit!
+ Masterful shot to head. [9 Damage]
+ He collapses in a jumble of bones which then dissolve into mist.
+> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+> 'No wonder I'm exhausted
+You say, "No wonder I'm exhausted"
+> drop che
+You drop a chest.
+> stat
+
+You are a high master of the Crimson Band.
+Level: 48
+Build Points to date: 506
+Unspent Build Points: 0
+Experience Points until next Build Point: 2816
+Quickness: 126    Constitution: 130    Strength:  132    Agility: 50 
+Willpower: 81     Perception:   109    Empathy:   36 
+Age:       20     Height:       5'1    Weight:    167    Load: 125
+
+Current Attack Modifier: 258 (26) [Berserk]
+Current Defend Modifier: 335
+
+Body Points: 173/231
+Mana: 52/52
+Psi: 110/117
+Fatigue: 6/231 (-25 ToHit Penalty)
+[Type SPELLS or SKILLS for more information.]
+> 
+Moire chuckles.
+> 
+A jolly roger says, "Aye, how'd ye like to join the dance, matey?" to
+Moordread.
+> 
+A jolly roger swings at Moordread with his cutlass.
+ [ToHit: 95, Roll: 17] Miss.
+> 
+Moire searches a jolly roger.
+> 
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 58] Hit!
+ Good shot to right hand. [4 Damage]
+> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+> eat frui
+You take a bite of the fruit.
+Moordread looks invigorated.
+ [Round: 5 sec]
+You savor the tart, tangy juice of the fruit.
+Moordread looks invigorated.
+R> 
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 45] Hit!
+ Passable shot to body. [13 Damage]
+R> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+R> 
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 96] Excellent Hit!
+ Good shot to left arm. [5 Damage]
+R> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+R> health
+You have 173/231 body points.
+You have a nicked left leg and a nicked right hand.
+R> 
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 67] Hit!
+ Grazing shot to head. [9 Damage]
+> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+> 
+A jolly roger thrusts at Moordread with his cutlass.
+ [ToHit: 95, Roll: 55] Miss.
+> eat frui
+You take a bite of the fruit.
+Moordread looks invigorated.
+ [Round: 5 sec]
+You savor the tart, tangy juice of the fruit.
+You finish the fruit and spit out the hard pit.
+R> 
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 29] Hit!
+ Good shot to right hand. [3 Damage]
+R> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+R> 
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 17] Hit!
+ Good shot to left leg. [7 Damage]
+R> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+R> eat mush
+[Wait 1 seconds...]
+R> 
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 5] Hit!
+ Good shot to left hand. [3 Damage]
+> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+> eat mush
+You take a bite of the mushroom.
+Moordread looks a little better.
+ [Round: 5 sec]
+The mushroom tastes very bitter.
+R> 
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 74] Hit!
+ Passable shot to head. [9 Damage]
+R> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+R> 
+A jolly roger swings at Moordread with his cutlass.
+ [ToHit: 95, Roll: 70] Miss.
+R> health
+
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 84] Hit!
+ Passable shot to back. [12 Damage]
+R> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+R> You have 187/231 body points.
+You have a nicked left leg and a nicked right hand.
+R> 
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 31] Hit!
+ Passable shot to head. [10 Damage]
+> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+> 
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 1] Miss.
+> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+> a rog
+You swing at a jolly roger with your icy randar broadsword.
+ [ToHit: 5, Roll: 74] Hit!
+ Passable strike to right leg. [7 Damage]
+ [Round: 1 sec]
+R> a rog
+
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 52] Hit!
+ Good shot to right hand. [3 Damage]
+> You swing at a jolly roger with your icy randar broadsword.
+ [ToHit: 5, Roll: 82] Hit!
+ Passable strike to left leg. [6 Damage]
+ The broadsword radiates intense cold!
+ He is immune to the attack!
+ [Round: 1 sec]
+R> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+R> 
+A jolly roger thrusts at Moordread with his cutlass.
+ [ToHit: 95, Roll: 14] Miss.
+> a rog
+You swing at a jolly roger with your icy randar broadsword.
+ [ToHit: 5, Roll: 2] Weapon Clash! [Strength: 6, 2d100 Roll: 89]
+ [Round: 1 sec]
+R> 
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 53] Hit!
+ Good shot to right hand. [3 Damage]
+R> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+R> a rog
+You swing at a jolly roger with your icy randar broadsword.
+ [ToHit: 5, Roll: 36] Hit!
+ Puny slash to left leg. [4 Damage]
+ [Round: 1 sec]
+R> a rog
+
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 59] Hit!
+ Good shot to left leg. [7 Damage]
+> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+> You swing at a jolly roger with your icy randar broadsword.
+ [ToHit: 5, Roll: 59] Hit!
+ Masterful strike to back. [22 Damage]
+ [Round: 1 sec]
+R> a rog
+You swing at a jolly roger with your icy randar broadsword.
+ [ToHit: 5, Roll: 79] Hit!
+ Superb slash to head. [8 Damage]
+ The broadsword radiates intense cold!
+ He is immune to the attack!
+ [Round: 1 sec]
+R> 
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 89] Hit!
+ Good shot to left hand. [4 Damage]
+R> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+R> a rog
+You swing at a jolly roger with your icy randar broadsword.
+ [ToHit: 5, Roll: 53] Hit!
+ Grisly slash to back. [16 Damage]
+ He collapses in a jumble of bones which then dissolve into mist.
+ [Round: 1 sec]
+R> sear rog
+You search a jolly roger.
+You find a cutlass, some gold coins, some silver coins and some copper coins.
+ [Round: 2 sec]
+R> inv
+You are carrying: 
+  A large bloodstone
+  A glass (open)
+  A long twisted tattoo of a thorny vine wrapped seductively around his thigh
+from knee to hip (worn)
+  A tiny chartreuse glass bottle
+  A misty white bottle
+  A blazing golden glass bottle
+  A small damaged diamond
+  A dark inky black card of Sierron saying, "I want a card of me!" and sitting
+on the fountain
+  Some eldritch jet black armor painted with a hand holding a glimmering
+crystal ball which two eyes peer into (worn)
+  An icy randar broadsword (wielded)
+  A small dark gold key emblazoned with the crest of Count Wolfbane Crag
+  An eldritch diamontine shield (wielded)
+  A ruby studded silver earring (worn)
+  A finely drawn tattoo of a faintly luminescent green moon silhouetting the
+form of a silvery wolf (worn)
+  Some worn black leather boots (worn)
+  Some steel shoulder guards buffed to a high polish (worn)
+  Some heavy steel thigh guards buffed to a high polish (worn)
+  Some gleaming plasteel gauntlets (worn)
+  Your object
+  Some dark brown breeches (worn)
+  A dented and rusty helm pitted and scarred with years of use (worn)
+  A burning torch
+  A finely crafted crimson tabard embroidered with the gleaming silver eagle of
+the Crimson Band (worn)
+  A ruby studded silver ring of the Crimson Band (worn)
+  A jade pendant (worn)
+  A maufra lichen
+  An embroidered tunic of cloth-of-gold (worn)
+  A glass (open)
+  A yellow bottle engraved with the writing, "Age Reduction"
+  A porcelain bottle (open)
+  A red leather beltpouch (worn) (open)
+  A smoked tongue
+  Some babich root
+  A moonstone inlaid flagon (open)
+  A brilliant carnelian
+  A large faceted carnelian
+  A malachite stone
+> 
+A jolly roger dances in, executing a quick quarter-turn as he does.
+> 
+Moire asks, "so did ye forget which lass it were?"
+> 
+Moire listens carefully to you.
+> 
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 63] Hit!
+ Good shot to left hand. [3 Damage]
+> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+> pond
+
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 51] Hit!
+ Good shot to left arm. [5 Damage]
+> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+> You ponder for a moment.
+> a rog
+You must ADVANCE towards your opponent to battle them
+with your current weapon.
+> 
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 44] Hit!
+ Good shot to left hand. [3 Damage]
+> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+> 
+A jolly roger says, "Aye, how'd ye like to join the dance, matey?" to
+Moordread.
+> 
+A jolly roger swings at Moordread with his cutlass.
+ [ToHit: 95, Roll: 50] Miss.
+> 
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 18] Hit!
+ Good shot to right arm. [5 Damage]
+> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+> 
+A jolly roger swings at Moordread with his cutlass.
+ [ToHit: 95, Roll: 40] Miss.
+> 'I've nearly got it narrowed down...Katina I think
+You say, "I've nearly got it narrowed down...Katina I think"
+> 
+Moire says, "I'll no dance wi' the likes o' ye"
+> 
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 82] Hit!
+ Good shot to left leg. [3 Damage]
+> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+> 
+Moire says, "ah"
+> 
+A jolly roger pauses, keeping time with his fingers against his own ribs.
+> 
+Moire nods to you.
+> 
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 55] Hit!
+ Good shot to left leg. [6 Damage]
+> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+> 
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 56] Hit!
+ Good shot to right arm. [3 Damage]
+> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+> 
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 27] Hit!
+ Passable shot to head. [14 Damage]
+> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+> 
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 67] Hit!
+ Good shot to left hand. [3 Damage]
+> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+> 
+A jolly roger swings at Moordread with his cutlass.
+ [ToHit: 95, Roll: 74] Miss.
+> 'She's here with me you pile of bones
+You say, "She's here with me you pile of bones"
+> 
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 68] Hit!
+ Good shot to left hand. [3 Damage]
+> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+> adv rog
+You are already engaging that opponent.
+> a rog
+You swing at a jolly roger with your icy randar broadsword.
+ [ToHit: 5, Roll: 13] Hit!
+ Fine slash to head. [19 Damage]
+ [Round: 1 sec]
+R> a rog
+You swing at a jolly roger with your icy randar broadsword.
+ [ToHit: 5, Roll: 77] Hit!
+ Passable strike to body. [9 Damage]
+ [Round: 1 sec]
+R> 
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 13] Hit!
+ Good shot to right hand. [4 Damage]
+R> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+R> a rog
+You swing at a jolly roger with your icy randar broadsword.
+ [ToHit: 5, Roll: 29] Hit!
+ Good strike to body. [19 Damage]
+ [Round: 1 sec]
+R> a rog
+You swing at a jolly roger with your icy randar broadsword.
+ [ToHit: 5, Roll: 50] Hit!
+ Fine slash to body. [10 Damage]
+ [Round: 1 sec]
+R> 
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 55] Hit!
+ Good shot to right leg. [4 Damage]
+R> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+R> a rog
+You swing at a jolly roger with your icy randar broadsword.
+ [ToHit: 5, Roll: 16] Hit!
+ Superb slash to head. [12 Damage]
+ [Round: 1 sec]
+R> a rog
+You swing at a jolly roger with your icy randar broadsword.
+ [ToHit: 5, Roll: 4] Miss.
+ [Round: 1 sec]
+R> 
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 18] Hit!
+ Well-aimed shot to back. [8 Damage]
+R> 
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+R> a rog
+[Wait 1 seconds...]
+R> 
+A jolly roger swings at Moordread with his cutlass.
+ [ToHit: 95, Roll: 22] Miss.
+> 
+Moire fires at a jolly roger with her eldritch white elm greatbow.
+ [ToHit: 5, Roll: 28] Hit!
+ Good shot to left leg. [7 Damage]
+> a rog
+
+Moire loads an eldritch white elm greatbow carved into a rearing unicorn with a
+flowing mane and black blaze.
+> You swing at a jolly roger with your icy randar broadsword.
+ [ToHit: 5, Roll: 42] Hit!
+ Grisly slash to head. [16 Damage]
+ He collapses in a jumble of bones which then dissolve into mist.
+ [Round: 1 sec]
+R> a rog
+You must ADVANCE towards your opponent to battle them
+with your current weapon.
+> 
+Moire searches a jolly roger.
+> 
+A sea wraith glides into the room and screams angrily at you.
+> adv wr
+You advance towards a wraith.
+> a wr
+You swing at a sea wraith with your icy randar broadsword.
+ [ToHit: 5, Roll: 74] Hit!
+ Puny slash to body. [8 Damage]
+ The broadsword radiates intense cold!
+ Insignificant burn to right leg. [4 Damage]
+ [Round: 1 sec]
+R> 
+Moire concentrates intently.
+> a wr
+You swing at a sea wraith with your icy randar broadsword.
+ [ToHit: 5, Roll: 4] Miss.
+ [Round: 1 sec]
+R> 
+A sea wraith incants a spell.
+R> a wr
+You swing at a sea wraith with your icy randar broadsword.
+ [ToHit: 5, Roll: 62] Hit!
+ Puny slash to left leg. [7 Damage]
+ [Round: 1 sec]
+R> a wr
+
+Moire concentrates intently on a wraith.
+> You thrust at a sea wraith with your icy randar broadsword.
+ [ToHit: 5, Roll: 88] Hit!
+ Puny slash to right leg. [6 Damage]
+ The broadsword radiates intense cold!
+ Serious burn to head. [23 Damage]
+ [Round: 1 sec]
+R> a wr
+You thrust at a sea wraith with your icy randar broadsword.
+ [ToHit: 5, Roll: 91] Hit!
+ Minor slash to back. [8 Damage]
+ [Round: 1 sec]
+R> a wr
+You swing at a sea wraith with your icy randar broadsword.
+ [ToHit: 5, Roll: 76] Hit!
+ Minor slash to body. [11 Damage]
+ [Round: 1 sec]
+R> 
+Moire concentrates intently on a wraith.
+R> a wr
+You thrust at a sea wraith with your icy randar broadsword.
+ [ToHit: 5, Roll: 66] Hit!
+ Minor slash to right arm. [6 Damage]
+ The broadsword radiates intense cold!
+ Severe burn to head. [21 Damage]
+ [Round: 1 sec]
+R> 
+A sea wraith gestures at Moordread.
+You feel stiff and unable to move quickly.
+R> 
+Moire concentrates intently on a wraith.
+> 
+Energy arcs around a sea wraith.
+ Ghastly burn to body. [33 Damage]
+> a wr
+You thrust at a sea wraith with your icy randar broadsword.
+ [ToHit: 5, Roll: 64] Hit!
+ Masterful strike to left arm. [8 Damage]
+ She howls with anguish, "Not again!", as she falls.
+ [Round: 3 sec]
+R> 
+A sea wraith glides into the room and screams angrily at you.
+> 
+A jolly roger dances in, executing a quick quarter-turn as he does.
+> 
+Moire says, "wish those lasses carried a bit wi' 'em"
+> 
+A sea wraith incants a spell.
+> 
+Moire concentrates intently on a wraith.
+> 
+Energy arcs around a sea wraith.
+ Insignificant burn to left arm. [10 Damage]
+> 
+Moire concentrates intently on a wraith.
+> 
+A sea wraith gestures at Moire.
+Moire slows down considerably.
+> 
+A jolly roger is now guarding a wraith.
+> 
+Moire concentrates intently on a wraith.
+> 
+Energy arcs around a sea wraith.
+ Minor burn to left leg. [12 Damage]
+> 
+A sea wraith incants a spell.
+> 'afk a sec[]
+You say, "afk a sec[]"
+> 
+Moire concentrates intently on a wraith.
+> 
+Energy arcs around a sea wraith.
+ Serious burn to back. [25 Damage]
+> 
+A jolly roger says, "Aye, how'd ye like to join the dance, matey?" to
+Moordread.
+> 
+A jolly roger thrusts at Moordread with his cutlass.
+ [ToHit: 95, Roll: 34] Miss.
+> 
+A sea wraith gestures at Moordread.
+A wraith screams!
+Moordread reels in pain.
+Moire reels in pain.
+Nothing happens to a roger.
+> 
+Moire concentrates intently on a wraith.
+> 
+Energy arcs around a sea wraith.
+ Minor burn to left arm. [10 Damage]
+> 
+Moire nods.
+> 
+A sea wraith incants a spell.
+> 
+A jolly roger swings at Moordread with his cutlass.
+ [ToHit: 95, Roll: 70] Miss.
+> 
+Moire concentrates intently on a wraith.
+> 
+Energy arcs around a sea wraith.
+ Severe burn to body. [26 Damage]
+> 
+A sea wraith gestures at Moordread.
+Moordread reels in pain.
+> 
+Moire concentrates intently on a wraith.
+> 
+A jolly roger does a hop to the left, one bony foot in the air.
+> 
+A sea wraith incants a spell.
+> 
+Moire concentrates intently on a wraith.
+> 
+Energy arcs around a sea wraith.
+ Serious burn to left arm. [15 Damage]
+> 
+A sea wraith gestures at Moordread.
+A wraith screams!
+Moordread reels in pain.
+Moire reels in pain.
+Nothing happens to a roger.
+> 
+A jolly roger thrusts at Moordread with his cutlass.
+ [ToHit: 95, Roll: 48] Miss.
+> 
+Moire concentrates intently on a wraith.
+> 
+A sea wraith incants a spell.
+> 
+A jolly roger swings at Moordread with his cutlass.
+ [ToHit: 95, Roll: 1] Weapon Clash! [Strength: 44, 2d100 Roll: 158]
+> 
+A jolly roger dances in, executing a quick quarter-turn as he does.
+> 
+A sea wraith gestures at Moire.
+Moire gets a friendly look.
+> 
+A sea wraith incants a spell.
+> 
+A jolly roger thrusts at Moordread with his cutlass.
+ [ToHit: 95, Roll: 86] Miss.
+> 
+A jolly roger spins around, does a backflip, and resumes his dance.
+> 
+Moire spits forth a stream of explitives.
+> 
+A sea wraith gestures at Moordread.
+Magic begins to form but then fizzles.
+> 
+A jolly roger swings at Moordread with his cutlass.
+ [ToHit: 95, Roll: 23] Miss.
+> 
+A jolly roger says, "Aye, how'd ye like to join the dance, matey?" to
+Moordread.
+> 
+A jolly roger swings at Moordread with his cutlass.
+ [ToHit: 95, Roll: 45] Miss.
+> 
+A sea wraith incants a spell.
+> Connection terminated by remote host
+Connected to host wingate
+WinGate>novalink.com
+Connecting to host novalink.com...Connected
+                              
+
+[Establishing connection]
+
+ 
+
+  NovaLink Interactive Networks (R)
+
+  "new" to open a new account
+  "info" for more information
+
+
+login: csanburn
+Password: ********
+
+
+          NovaLink (R)
+(C)1995 NovaLink USA Corporation
+
+Good evening, CSanburn.
+You are the 2,427,426rth login to date.
+It is now 22:51:10 EST.
+
+Your last recorded login was on 06/13/99 at 22:19:12 EST.
+NOTE: It has been 589 days since your last password change.  Changing
+      your password frequently is essential to your account's security.
+
+
+You are accessing NovaLink via Autonet.
+Your account is exempt from these hourly charges.
+
+   #      Bulletin                                                /Go Page
+
+   R  ... Read your waiting mail
+   Q  ... Quickscan
+
+
+Select a bulletin to display, '?' to relist, or 'E' to enter NovaLink/exit> /go legends
+
+
+Page: LEGENDS
+22:51:12 EST, 13-JUN-99
+
+   A ... About Legends of Future Past
+   C ... Legends Calendar of Events
+   P ... Play Legends of Future Past   
+   T ... Legends Teleconference (OOC)  
+   V ... Version Notes                 
+
+Menu choice, or 'X' to exit> p
+
+
+
+Welcome back to Legends of Future Past!
+
+
+Character Manager V1.00
+
+ 1 => Moordread
+ 2 => Morti
+ 3 => Bubba
+
+ C => Create new character
+ D => Delete current character
+ P => Play Legends of Future Past
+ X => Exit to NovaLink
+
+
+Active character: Moordread (#1)
+
+Select: p
+
+Interactive Entertainment OS V6.10 [Legends of Future Past]
+(c)1991-1995 Inner Circle Technologies, Inc. Revision dated Apr 13 1995.
+
+URLs of web components are:
+
+Webpage: www.lofp.com
+Boards: www.lofp.com/forums
+Boards (avoids Timeouts): www.lofp.com/forums/?RequestTimeout=500
+Calendar: www.lofp.com/calendar
+Rate Plan: www.lofp.com/newrate.htm
+Rate FAQ: www.lofp.com/ratefaq.htm
+Scripting policy: www.lofp.com/script.htm
+Policies: www.lofp.com/basic/policies.htm
+GAME STATUS: www.lofp.com/status.htm
+
+EMail Addresses:
+Any GM: gmname@lofp.com (like chanatahe@lofp.com)
+Manager: druid@lofp.com   His ICQ is 5730609
+Queen Moryan- QueenMoryan@lofp.com
+Baron Emails are as follows: Baron-Aetheon@lofp.com,
+Baron-Beoford@lofp.com, Baroness-Charette@lofp.com,
+Baron-Nikoli@lofp.com
+
+Please see the website for the rateplan and the scripting policy.  The
+URLS are listed above.
+
+Eprise Corporation
+1671 Worcester Rd, 4th Floor
+Framingham, MA 01701
+Send checks Attn: Gary Whitten
+
+The next Council of Lords will meet on Monday, JULY 5th at 9:00pm.
+                                                       
+A Royal Ball will be held in honor of Princess Arin D'vena's 11th
+birthday on July 10th. Look for details on the newsboard and calendar.
+                                 
+*****Chyme-Con '99 is just around the corner!  And Chyme has all the
+answers. Location is Akron Ohio. For anyone wishing detailed
+information, please email chyme@Lofp.com  ASAP. I have directions and
+hote info. Hope to see you there!!**********
+                                                     
+[Haven, ruins]
+You see Moire, a jolly roger (dead) and a jolly roger (dead). A cutlass, a
+cutlass, some gold coins, a cutlass, some silver coins, a cutlass, some gold
+coins, a cutlass, some silver coins, some silver coins, some gold coins, some
+silver coins, some copper coins, a gull tooth, some copper coins, a cutlass,
+some gold coins, some silver coins, some copper coins, a manango pit, some
+copper coins and a chest are here.
+Obvious exits: w, ne, se.
+It is Manta 28, 1046 (Year of the Sword).
+It is midmorning.
+The air is warm and humid.
+The sky is clear and sunny.
+> cough
+You cough.
+> 
+Moire chuckles.
+> 
+A sea wraith arrives.
+> 
+A sea wraith incants a spell.
+> 'Looks I don't have much time as I thought
+
+A sea wraith gestures.
+A ghostly shield hovers before a wraith.
+> You say, "Looks I don't have much time as I thought"
+> 
+Moire concentrates intently.
+> 
+A sea wraith incants a spell.
+> 
+Moire concentrates intently on a wraith.
+> 
+Lightning crackles over a sea wraith!
+ Insignificant burn to right hand. [7 Damage]
+> 
+A sea wraith gestures.
+A wraith moves with blurring speed.
+> 
+Moire concentrates intently on a wraith.
+> 
+Lightning crackles over a sea wraith!
+ Minor burn to left arm. [20 Damage]
+> 
+Moire concentrates intently on a wraith.
+> 
+Static crackles around Moire.
+ Insignificant burn to left leg. [9 Damage]
+> 'Watch your backside out here Moire
+You say, "Watch your backside out here Moire"
+> 
+Moire concentrates intently on a wraith.
+> 
+Energy arcs around a sea wraith.
+ Insignificant burn to right hand. [8 Damage]
+> 
+A sea wraith incants a spell.
+> 
+Moire concentrates intently on a wraith.
+> 
+Energy arcs around Moire.
+ Insignificant burn to right hand. [6 Damage]
+> 
+Moire says, "aye, I shall"
+> 
+The eyes of a sea wraith burn with black fire!
+> 
+Moire says, "if'n I don'na kill m'self"
+> 
+Moire smiles.
+> 
+Moire concentrates intently on a wraith.
+> 
+Static crackles around a sea wraith.
+ Minor burn to head. [17 Damage]
+> 
+A sea wraith gestures at Moire.
+A wraith screams!
+Moordread reels in pain.
+Moire reels in pain.
+> 'Perhaps I'll joine you another time
+You say, "Perhaps I'll joine you another time"
+> 'Oh
+You say, "Oh"
+> 
+Moire says, "aye, yes"
+> 
+A sea wraith incants a spell.
+> get mush
+give mush to moir
+
+Moire concentrates intently on a wraith.
+> 
+Static crackles around a sea wraith.
+ Minor burn to left arm. [9 Damage]
+> You remove a riyong mushroom from the beltpouch.
+> You give a riyong mushroom to Moire.
+> get mush
+give mush to moir
+You remove a riyong mushroom from the beltpouch.
+> You give a riyong mushroom to Moire.
+> get mush
+give mush to moir
+You remove a riyong mushroom from the beltpouch.
+> You give a riyong mushroom to Moire.
+> 
+Moire concentrates intently on a wraith.
+> 
+Energy arcs around a sea wraith.
+ Severe burn to body. [26 Damage]
+> get mush
+give mush to moir
+You remove a riyong mushroom from the beltpouch.
+> 
+A sea wraith gestures at Moire.
+A wraith screams!
+Moordread reels in pain.
+Moire reels in pain.
+> get mush
+give mush to moir
+You give a riyong mushroom to Moire.
+> You remove a riyong mushroom from the beltpouch.
+> You give a riyong mushroom to Moire.
+> 
+Moire concentrates intently on a wraith.
+> 
+Energy arcs around a sea wraith.
+ Ghastly burn to head. [27 Damage]
+> get mush
+give mush to moir
+What are you referring to?  Please be more specific.
+> What are you referring to?  Please be more specific.
+> 
+Moire concentrates intently on a wraith.
+> 
+Energy arcs around a sea wraith.
+ Ghastly burn to back. [31 Damage]
+ She howls with anguish, "Not again!", as she falls.
+> 
+Moire says, "thank ye"
+> 'There ya go
+You say, "There ya go"
+> 'Should help a bit
+You say, "Should help a bit"
+> 
+Moire says, "thank ye agin"
+> inv
+You are carrying: 
+  A large bloodstone
+  A glass (open)
+  A long twisted tattoo of a thorny vine wrapped seductively around his thigh
+from knee to hip (worn)
+  A tiny chartreuse glass bottle
+  A misty white bottle
+  A blazing golden glass bottle
+  A small damaged diamond
+  A dark inky black card of Sierron saying, "I want a card of me!" and sitting
+on the fountain
+  Some eldritch jet black armor painted with a hand holding a glimmering
+crystal ball which two eyes peer into (worn)
+  An icy randar broadsword
+  A small dark gold key emblazoned with the crest of Count Wolfbane Crag
+  An eldritch diamontine shield
+  A ruby studded silver earring (worn)
+  A finely drawn tattoo of a faintly luminescent green moon silhouetting the
+form of a silvery wolf (worn)
+  Some worn black leather boots (worn)
+  Some steel shoulder guards buffed to a high polish (worn)
+  Some heavy steel thigh guards buffed to a high polish (worn)
+  Some gleaming plasteel gauntlets (worn)
+  Your object
+  Some dark brown breeches (worn)
+  A dented and rusty helm pitted and scarred with years of use (worn)
+  A torch
+  A finely crafted crimson tabard embroidered with the gleaming silver eagle of
+the Crimson Band (worn)
+  A ruby studded silver ring of the Crimson Band (worn)
+  A jade pendant (worn)
+  A maufra lichen
+  An embroidered tunic of cloth-of-gold (worn)
+  A glass (open)
+  A yellow bottle engraved with the writing, "Age Reduction"
+  A porcelain bottle (open)
+  A red leather beltpouch (worn) (open)
+  A smoked tongue
+  Some babich root
+  A moonstone inlaid flagon (open)
+  A brilliant carnelian
+  A large faceted carnelian
+  A malachite stone
+> 
+Moire taps a chest.
+> bow moir
+
+Moire says, "thet be yers"
+> You bow towards Moire.
+> 
+You return to normal speed.
+> 'Oh
+You say, "Oh"
+> pond
+You ponder for a moment.
+> get ches
+You take a chest.
+> 'Belongs to a lady I believe
+You say, "Belongs to a lady I believe"
+> 
+Moire rolls her eyes.
+> chuck
+You chuckle.
+> 
+Moire pushes you!
+> 
+Moire chuckles.
+> 'Keera I think
+You say, "Keera I think"
+> nod
+You nod.
+> 
+Moire searches a jolly roger.
+> sal
+You salute.
+> x
+
+A sea wraith glides into the room and screams angrily at you.
+> 
+ ** Moordread has just left the Realms.
+> 
+
+Character Manager V1.00
+
+ 1 => Moordread
+ 2 => Morti
+ 3 => Bubba
+
+ C => Create new character
+ D => Delete current character
+ P => Play Legends of Future Past
+ X => Exit to NovaLink
+
+
+Active character: Moordread (#1)
+
+Select: /bye
+
+
+Thank you for using NovaLink.
+
+Connect time this session: 2 minutes.
+
+Have a nice evening!
+
+NovaLink is an online service of NovaLink USA Corporation,
+200 Friberg Parkway, Suite 4003, Westborough, MA 01581. Service: 800-274-2814.
+
+
+
+
+
+
+
+
+
+Invalid selection.
+
+Character Manager V1.00
+
+ 1 => Moordread
+ 2 => Morti
+ 3 => Bubba
+
+ C => Create new character
+ D => Delete current character
+ P => Play Legends of Future Past
+ X => Exit to NovaLink
+
+
+Active character: Moordread (#1)
+
+Select: Connection terminated by remote host

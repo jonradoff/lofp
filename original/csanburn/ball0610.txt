@@ -1,0 +1,6337 @@
+
+Leah drinks some wine.
+> 
+Feras smiles at Cypress.
+> 
+You feel the touch of Kylie's mind:
+"Evening."
+> 
+Rion gazes at Sun.
+> 
+Kellah exclaims, "See, Avalon! Nice food!"
+> 
+Hyena sniffs a pastry.
+> 
+You feel the touch of Shankara's mind:
+"Sun?"
+> 
+You feel the touch of Donnald's mind:
+"hello kylie"
+> 
+Avalon curtsies towards Moryan.
+> 
+Leah takes a bite of some crispy bread.
+> 
+Hyena takes a bite of a hot baked potato.
+> 
+You feel the touch of Shankara's mind:
+"hows i get where you are?"
+> 
+Raningeth says, "Short, big nose and hairy."
+> 
+You feel the touch of Shankara's mind:
+"im in the bc"
+> 
+Moryan smiles at Avalon.
+> 
+Sun sighs.
+> 
+Kellah asks, "But, please, look in  your glass before you drink, Avalon, Ok?"
+> 
+Avalon says, "good day queen moryan"
+> 
+Wolfbane comforts Raningeth.
+> 'I shall bring others
+You say, "I shall bring others"
+> go arc
+[Gilnaerd Estate, Reception]
+A glass, a glass, a glass, a glass, a large crystal glass etched with a blazing
+sun streaming light on a wolf head over crossed swords, a large crystal glass
+etched with a blazing sun streaming light on a wolf head over crossed swords, a
+large crystal glass etched with a blazing sun streaming light on a wolf head
+over crossed swords and a large crystal glass etched with a blazing sun
+streaming light on a wolf head over crossed swords are here.
+Obvious exits: e.
+> go doo
+
+You feel the touch of Prudence's mind:
+"Hello :)"
+> What are you referring to?  Please be more specific.
+> e
+[Gilnaerd Estate, Foyer]
+Obvious exits: e, w.
+> go doo
+[Gilnaerd Estate, Courtyard]
+A gate is here.
+Obvious exits: none.
+> s
+You can't go south!
+> go gate
+[Farmland, mansion gate]
+A gate is here.
+Obvious exits: s.
+> s
+[Farmland, mansion view]
+Obvious exits: n, s, e, w.
+> s
+[Farmland, shacks]
+Obvious exits: n, w, sw.
+> s
+You can't go south!
+> s
+You can't go south!
+> w
+[Farmland, central]
+Obvious exits: n, s, e, w.
+> s
+[Grassland, cultivation]
+Obvious exits: n, s, ne, nw.
+> s
+s
+[Grassland, Yulman bushes]
+Obvious exits: n, w.
+> You can't go south!
+> s
+You can't go south!
+> s
+You can't go south!
+> w
+w
+
+You feel the touch of Donnald's mind:
+"hi peudence"
+> [Grassland, hill crest]
+Obvious exits: e, w.
+> [Fayd Gate, exterior]
+A large iron gate is here.
+Obvious exits: s, e, nw.
+> w
+w
+You can't go west!
+> You can't go west!
+> w
+You can't go west!
+> go gate
+The guards at the gate wave you through.
+[Main Street, Gatehouse]
+You see Saxon. 
+Obvious exits: w.
+> w
+[Main Street]
+Obvious exits: e, w.
+> w
+[Bazaar East]
+A comfortable building that houses the Sojourner's Hospice is here.
+Obvious exits: n, s, e, w, nw, sw.
+> w
+[Bazaar Center]
+You see Shankara, Donnald (sitting) and Alic. A large marble fountain, a wooden
+bin and a newsboard are here.
+Obvious exits: n, s, e, w, ne, nw, se, sw.
+> 
+You feel the touch of Prudence's mind:
+"Hi Donnald."
+> bow
+You bow.
+> 
+You feel the touch of Cypress's mind:
+"Hi! Prudence"
+> 
+Donnald says, "greetings i an donnald"
+> 
+Donnald waves to you.
+> 
+You feel the touch of Prudence's mind:
+"Hi Cypress"
+> think I will take others to the Estate soon, come to BC
+You project your thoughts.
+> 
+Shankara smiles.
+> 
+You feel the touch of Donnald's mind:
+"hiya cypress"
+> 
+You feel the touch of Saxon's mind:
+"Hey Wolfbane, where is yer new place?"
+> 
+You feel the touch of Prudence's mind:
+"On my way :)"
+> 'I know
+You say, "I know"
+> 'It's me, Moordread
+You say, "It's me, Moordread"
+> smi donn
+You smile at Donnald.
+> 
+Shankara says, "thanks Moordread"
+> 
+You feel the touch of Wolfbane's mind:
+"ya know that gate on the way to the pit?"
+> 
+Prudence arrives.
+> 
+You feel the touch of Cypress's mind:
+"Hi! Donnald"
+> 
+Donnald smiles at you.
+> 
+Kylie arrives.
+> 
+Prudence smiles.
+> 
+You feel the touch of Saxon's mind:
+"yep"
+> think Come to BC Saxon
+You project your thoughts.
+> bow kyl
+You bow towards Kylie.
+> 
+Kylie smiles at you.
+> 
+You feel the touch of Sun's mind:
+"yes Shankaara?"
+> 
+Kylie blushes.
+> 
+Shankara is now following Moordread.
+> 
+Prudence is now following Moordread.
+> 
+Kylie says, "Hi."
+> 'Greetings lovely wolfling sister
+You say, "Greetings lovely wolfling sister"
+> 
+Donnald stands up.
+> 
+You feel the touch of Wolfbane's mind:
+"or follow moordread"
+> 
+Donnald goes southeast.
+> 
+Prudence smiles at Kylie.
+> 
+ ** Donnald has just left the Realms.
+> 
+Saxon arrives.
+> 
+Saxon waves.
+> bow sax
+You bow towards Saxon.
+> 
+Prudence hugs Saxon.
+> bow prud
+You bow towards Prudence.
+> 
+Saxon hugs Prudence.
+> 
+You feel the touch of Sun's mind:
+"sorry it so noisy where I am <giggle>"
+> 
+Saxon says, "hiya"
+> 
+Prudence exclaims, "Hi!"
+> 'M'lady Prudence
+You say, "M'lady Prudence"
+> 
+Alic smiles.
+> look
+[Bazaar Center]
+There is a chill to the air blowing in from the eastern wastes here, yet
+the excitment of the bazaar with its tumult keeps the cold from your spirit
+if not your body. The center of the bazaar overwhelms your senses with the
+smell and sizzle of roast mutton, its cries of hawkers and cajoling
+merchants. Jugglers, minstrels, and street dancers a-whirl to stay warm
+amuse the crowds gathered near a large marble fountain.
+You see Shankara, Alic, Saxon, Kylie and Prudence. A wooden bin and a newsboard
+are here.
+Obvious exits: north, south, east, west, northeast, northwest, southeast,
+southwest.
+> 
+You feel the touch of Shankara's mind:
+"yes"
+> 
+Prudence smiles at you.
+> 'Are all ready to go?
+You ask, "Are all ready to go?"
+> 
+Kylie waves to Alic.
+> 
+You feel the touch of Shankara's mind:
+"id told you i would"
+> gaze
+You gaze about the area.
+> 
+Prudence says, "Sir Mordread."
+> 
+Kylie asks, "Hi, there.. how you doing?"
+> 
+Prudence smiles.
+> 
+Saxon is now following Moordread.
+> 
+Kylie is now following Moordread.
+> 'Please follow me and we shall get on our way
+You say, "Please follow me and we shall get on our way"
+> 
+You feel the touch of Shankara's mind:
+"yea.. Moordread"
+> 
+Alic is now following Moordread.
+> 
+Prudence nods.
+> 
+Saxon leans on Prudence.
+> 
+You feel the touch of Sun's mind:
+"nod"
+> look
+[Bazaar Center]
+There is a chill to the air blowing in from the eastern wastes here, yet
+the excitment of the bazaar with its tumult keeps the cold from your spirit
+if not your body. The center of the bazaar overwhelms your senses with the
+smell and sizzle of roast mutton, its cries of hawkers and cajoling
+merchants. Jugglers, minstrels, and street dancers a-whirl to stay warm
+amuse the crowds gathered near a large marble fountain.
+You see Shankara, Alic, Saxon, Kylie and Prudence. A wooden bin and a newsboard
+are here.
+Obvious exits: north, south, east, west, northeast, northwest, southeast,
+southwest.
+> 
+Alic says, "I'm doin fine, thanks"
+> 
+Prudence smiles at Saxon.
+> 
+Alic smiles at Kylie.
+> 
+Prudence kisses Saxon.
+> e
+Your group follows you.
+[Bazaar East]
+You see Shankara, Alic, Saxon, Kylie and Prudence. A comfortable building that
+houses the Sojourner's Hospice is here.
+Obvious exits: n, s, e, w, nw, sw.
+> look w
+[Bazaar Center]
+There is a chill to the air blowing in from the eastern wastes here, yet
+the excitment of the bazaar with its tumult keeps the cold from your spirit
+if not your body. The center of the bazaar overwhelms your senses with the
+smell and sizzle of roast mutton, its cries of hawkers and cajoling
+merchants. Jugglers, minstrels, and street dancers a-whirl to stay warm
+amuse the crowds gathered near a large marble fountain.
+A large marble fountain, a wooden bin and a newsboard are there.
+> 
+Saxon grins.
+> e
+Your group follows you.
+[Main Street]
+You see Shankara, Alic, Saxon, Kylie and Prudence. 
+Obvious exits: e, w.
+> e
+Your group follows you.
+[Main Street, Gatehouse]
+You see Shankara, Alic, Saxon, Kylie and Prudence. 
+Obvious exits: w.
+> 
+Saxon nuzzles Prudence affectionately.
+> 
+Kylie bites her lower lip.
+> go gate
+Your group follows you.
+[Under the Gatehouse]
+You see Shankara, Alic, Saxon, Kylie and Prudence. 
+Obvious exits: none.
+> 
+Prudence chuckles.
+> smi
+You smile.
+> go 2 gate
+Your group follows you.
+[Fayd Gate, exterior]
+You see Shankara, Alic, Saxon, Kylie and Prudence. A large iron gate is here.
+Obvious exits: s, e, nw.
+> 
+Prudence smiles.
+> e
+Your group follows you.
+[Grassland, hill crest]
+You see Shankara, Alic, Saxon, Kylie and Prudence. 
+Obvious exits: e, w.
+> e
+Your group follows you.
+[Grassland, Yulman bushes]
+You see Shankara, Alic, Saxon, Kylie and Prudence. 
+Obvious exits: n, w.
+> e
+You can't go east!
+> n
+Your group follows you.
+[Grassland, cultivation]
+You see Shankara, Alic, Saxon, Kylie and Prudence. 
+Obvious exits: n, s, ne, nw.
+> n
+Your group follows you.
+[Farmland, central]
+You see Shankara, Alic, Saxon, Kylie and Prudence. 
+Obvious exits: n, s, e, w.
+> e
+Your group follows you.
+[Farmland, shacks]
+You see Shankara, Alic, Saxon, Kylie and Prudence. 
+Obvious exits: n, w, sw.
+> n
+Your group follows you.
+[Farmland, mansion view]
+You see Shankara, Alic, Saxon, Kylie and Prudence. 
+Obvious exits: n, s, e, w.
+> n
+Your group follows you.
+[Farmland, mansion gate]
+You see Shankara, Alic, Saxon, Kylie and Prudence. A gate is here.
+Obvious exits: s.
+> go gate
+Your group follows you.
+[Gilnaerd Estate, Courtyard]
+You see Shankara, Alic, Saxon, Kylie and Prudence. A gate is here.
+Obvious exits: none.
+> go doo
+Your group follows you.
+[Gilnaerd Estate, Foyer]
+You see Shankara, Alic, Saxon, Kylie and Prudence. 
+Obvious exits: e, w.
+> go arc
+What are you referring to?  Please be more specific.
+> w
+Your group follows you.
+[Gilnaerd Estate, Reception]
+You see Shankara, Alic, Saxon, Kylie and Prudence. A glass, a glass, a glass, a
+glass, a glass, a glass, a glass, a glass, a glass, a glass, a glass, a glass,
+a glass, a glass, a large crystal glass etched with a blazing sun streaming
+light on a wolf head over crossed swords, a large crystal glass etched with a
+blazing sun streaming light on a wolf head over crossed swords, a large crystal
+glass etched with a blazing sun streaming light on a wolf head over crossed
+swords and a large crystal glass etched with a blazing sun streaming light on a
+wolf head over crossed swords are here.
+Obvious exits: e.
+> go arc
+Your group follows you.
+[Gilnaerd Estate, Banquet Hall]
+You see Sabreen, Keera (sitting), Rion, Raningeth (sitting), Feras (sitting),
+Fafnir, Sun, Wolfbane, Stolar, Hyena, Cypress (sitting), Shankara, Leah
+(sitting), Kellah, Moryan, Avalon, Marcolan, Alic, Gwydion, Saxon, Kylie and
+Prudence. 
+Obvious exits: none.
+> 
+Hyena takes a bite of some crispy bread.
+> bow
+You bow.
+> 
+Saxon casts his gaze across the area.
+> 
+Avalon sighs.
+> 
+Prudence beams happily.
+> disb
+You disband your group.
+> 
+Saxon says, "Whoa"
+> 
+Rion hugs Saxon.
+> 
+Prudence casts her gaze across the area.
+> 
+Rion hugs Saxon.
+> 
+Wolfbane ponders.
+> 'Here we are
+
+Rion hugs Prudence.
+> You say, "Here we are"
+> 
+Sun smiles at Prudence.
+> 
+Prudence hugs Rion.
+> 
+Hyena waves to Prudence.
+> 
+Shankara bows.
+> wink kyl
+
+Rion says, "hi"
+> You wink at Kylie.
+> 
+Saxon hugs Rion.
+> 
+Shankara says, "Greetings..."
+> 
+Keera waves to Saxon.
+> 
+Prudence hugs Sun.
+> 
+Sun beams happily.
+> 
+Kellah smiles at Prudence.
+> 
+Keera smiles.
+> 
+Feras waves to Saxon.
+> 
+Wolfbane hugs Prudence.
+> 
+Moryan casts her gaze across the area.
+> 
+Sun hugs Prudence.
+> 
+Prudence exclaims, "Tada!"
+> 
+Raningeth smiles.
+> 
+Prudence smiles at Kellah.
+> 
+Avalon pouts.
+> act moves back to stand at attention by the entryway.
+Moordread moves back to stand at attention by the entryway.
+> 
+Raningeth takes a bite of some ne-boar stew.
+> 
+Cypress hugs Saxon.
+> 
+Sun exclaims, "Everyone!!"
+> 
+Saxon gazes at Prudence.
+> 
+Cypress hugs Rion.
+> 
+Alic smiles.
+> 
+Prudence hugs Avalon.
+> 
+Wolfbane listens carefully to Sun.
+> 
+Cypress hugs Prudence.
+> 
+Shankara sits down.
+> 
+Avalon hugs Prudence.
+> 
+Saxon hugs Cypress.
+> 
+Prudence hugs Cypress.
+> 
+Kylie smiles.
+> 
+Leah says, "Hi, Prudence"
+> 
+Raningeth takes a bite of a hot baked potato.
+> 
+Kellah listens carefully to Sun.
+> 
+Rion tugs on Saxon.
+> 
+Stolar removes some roast beef from the table.
+> 
+Kylie says, "Thank you, Moordread."
+> 
+Prudence hugs Leah.
+> 
+Feras says, "Heya neph...er Saxon."
+> 
+Saxon gazes at Prudence.
+> 
+Moryan drinks some wine.
+> 
+Prudence says, "Hi."
+> act moves back to stand at attention by the entryway.
+Moordread moves back to stand at attention by the entryway.
+> 
+Leah hugs Prudence.
+> 
+Rion hugs Cypress.
+> 
+Prudence smiles at Saxon.
+> 
+Hyena snickers.
+> 
+Leah says, "Hi, Shankara."
+> 
+Sun says, "this is Wolfbane's and my daughter"
+> 
+Prudence asks, "Waht?"
+> 
+Rion hugs Kylie.
+> 
+Sun points at Prudence.
+> 
+Saxon says, "umm, hiya Feras."
+> 
+Sun beams at Prudence.
+> 
+Sun smiles.
+> 
+Kylie hugs Rion.
+> 
+Prudence beams happily.
+> 'My pleasure Kylie, anytime
+You say, "My pleasure Kylie, anytime"
+> 
+Stolar takes a bite of some roast beef.
+> 
+Wolfbane smiles at Sun.
+> 
+Leah smiles at Shankara.
+> beam kyl
+
+Feras snickers.
+> You beam at Kylie.
+> 
+Kylie exclaims, "Hey, Ri!"
+> 
+Kellah asks, "Prudence? Your daughter?"
+> 
+Sun hugs Shankara.
+> 
+Stolar smiles at Kylie.
+> 
+Wolfbane nods to Keera.
+> 
+Rion says, "Hi Kylie :)"
+> 
+Prudence nods to Kellah.
+> 
+Sun nods to Kellah.
+> 
+Wolfbane nods to Kellah.
+> 
+Shankara hugs Sun.
+> 
+Sun smiles.
+> 
+Kellah beams happily.
+> 
+Avalon looks aroundtap
+> 
+Feras nods to Saxon.
+> 
+Prudence smiles.
+> 
+Kellah exclaims, "Isn't that nice!"
+> 
+Keera smiles.
+> 
+Avalon taps her foot.
+> 
+Prudence hugs Wolfbane.
+> 
+Moryan smiles.
+> 
+Kellah beams at Prudence.
+> 
+Hyena snickers, "This city is going to have some problems a few decades from
+now"
+> 
+Moryan says, "Congratulations."
+> 
+Prudence curtsies towards Moryan.
+> 
+Wolfbane chuckles at Hyena.
+> 
+Leah chuckles at Hyena.
+> 
+Prudence smiles at Hyena.
+> 
+Kylie looks around, then quietly moves off to one side.
+> 
+Kellah exclaims, "You have great parents, Prudence!"
+> 
+Sun asks, "so dear if you are Count Crag, and I am Countess Crag what does that
+make Prudence?"
+> 
+Hyena grins.
+> 
+Sun listens carefully to Wolfbane.
+> 
+Wolfbane says, "well it kinda a suprize to us all"
+> 
+Prudence beams at Kellah.
+> 
+Fafnir removes some ne-boar stew from the table.
+> 
+Sun ponders.
+> 
+Leah drinks some wine.
+> 
+Feras sniffs.
+> 
+You feel the touch of Pockets's mind:
+"Count Gilnaerd Sorry I'm late....How do I get to your estate?"
+> 
+Prudence exclaims, "yes I do!"
+> 
+Alic asks, "A suprise?"
+> 
+Wolfbane says, "our daughter/"
+> 
+Saxon blinks at some ne-boar stew.
+> 
+Marcolan asks, "A little Crag?"
+> 
+Saxon blinks at some ne-boar stew.
+> 
+Alic smiles at Sun.
+> 
+Saxon's stomach growls.
+> 
+Sun giggles.
+> 
+Raningeth asks innocently "Why, whatever do you mean Hyena"?
+> 
+Sun nods.
+> 
+Prudence chuckles at Marcolan.
+> 
+Saxon asks, "Food?"
+> 
+Moryan smiles.
+> 
+Rion fidgets nervously.
+> 
+Saxon beams happily.
+> 
+Stolar takes a bite of some roast beef.
+> 
+Saxon removes some ne-boar stew from the table.
+> 
+Prudence chuckles at Saxon.
+> 
+Wolfbane raises an eyebrow towards Shankara.
+> 
+Sun hugs Saxon.
+> 
+Moryan removes a hot baked potato from the table.
+> 
+Sun smiles.
+> 
+Fafnir takes a bite of some ne-boar stew.
+> 
+Saxon hugs Sun.
+> 
+Feras removes a large crystal glass etched with a blazing sun streaming light
+on a wolf head over crossed swords from the table.
+> 
+Raningeth takes a bite of some ne-boar stew.
+> 
+Hyena snickers, "Ummm"
+> 
+Saxon exclaims, "oh, hiya!"
+> 
+Saxon beams at Sun.
+> 
+Sun hugs Shankara.
+> 
+Sun smiles.
+> 
+Saxon takes a bite of some ne-boar stew.
+> 
+Raningeth takes a bite of a hot baked potato.
+> 
+Kellah removes some crispy bread from the table.
+> 
+Moryan takes a bite of a hot baked potato.
+> 
+Saxon licks his lips.
+> 
+Kellah chuckles at Saxon.
+> 
+Avalon removes a glass from the table.
+> 
+Sun says, "thank you all for coming"
+> smi suavely at some young ladies in the corner.
+Moordread smiles suavely at some young ladies in the corner.
+> 
+Sun smiles.
+> 
+Leah gives some crispy bread to Avalon.
+> 
+Sun beams happily.
+> 
+Keera giggles.
+> 
+Hyena draws Raningeth a picture in his sketchbook.
+> 
+Keera pokes Rion.
+> 
+Feras drinks some honey mead.
+> 
+Gwydion casts his gaze across the area.
+> 
+Kylie smiles up at Stolar and murmurs, "I'm fine, Stol, you?"
+> 
+Keera drinks some ale.
+> 
+Feras licks his lips.
+> 
+Prudence removes a glass from the table.
+> 
+Alic furrows his brow.
+> 
+The girls giggle and wave at Moordread.
+> 
+Shankara slowly gazes about in hopes of seeing Ria.
+> 
+Saxon takes a bite of some ne-boar stew.
+> 
+Leah says, "something to eat for you, Princess. I can't finish it"
+> 
+Raningeth takes a bite of some roast beef.
+> 
+Leah smiles at Avalon.
+> 
+Feras gives a large crystal glass etched with a blazing sun streaming light on
+a wolf head over crossed swords to Cypress.
+> 
+Hyena takes a bite of a hot baked potato.
+> 
+Sun hugs Stolar.
+> 
+After taking a sip of the fizz Avalon's skin turns beet red and her mouth opens
+in a silent scream.
+> 
+Avalon clutches her throat in pain!
+> 
+Moryan drinks some wine.
+> 
+Fafnir says, " Saxon a Ne-boar is a animal from my home"
+> 
+Cypress smiles at Feras.
+> 
+Sun smiles at Stolar.
+> 
+Keera furrows her brow.
+> 
+Cypress says, "thank you"
+> 
+Kellah sighs.
+> 
+Leah gasps.
+> 
+Leah struggles to her feet.
+> 
+Raningeth pulls a leg off off a roast chicken.
+> 
+Raningeth gobbles it up.
+> 
+Avalon exclaims, "wow!"
+> 
+Gwydion removes a large crystal glass etched with a blazing sun streaming light
+on a wolf head over crossed swords from the table.
+> 
+Keera gazes at Avalon.
+> 
+Saxon asks, "Oh yeah?"
+> 
+Sun blinks.
+> 
+Kellah pats Avalon on the back.
+> 
+Feras smiles at Cypress.
+> 
+Prudence casts her gaze across the area.
+> 
+Saxon gazes at some ne-boar stew.
+> 
+Keera fidgets nervously.
+> 
+Feras casts his gaze across the area.
+> 
+Saxon says, "Not bad."
+> 
+Alic stands to one side and leans against the arch quietly
+> 
+Prudence removes a large crystal glass etched with a blazing sun streaming
+light on a wolf head over crossed swords from the table.
+> 
+Raningeth says, "UMMMM"
+> 
+Sun asks, "what are you drinking child?"
+> 
+Keera nods.
+> 
+Sun blinks.
+> 
+Keera struggles to her feet.
+> 
+Wolfbane says, "avalon stick to the water"
+> 
+Leah pats Avalon on the back and yells out, "medic!"
+> 
+After taking a sip of the fizz Raningeth's skin turns beet red and his mouth
+opens in a silent scream.
+> 
+Raningeth clutches his throat in pain!
+> 
+You are quite amazed when Raningeth finishes the last of the fizz.
+> 
+Fafnir says, " I though I got rid of it all sorry about that"
+> 
+Avalon exclaims, "dats an kicker!"
+> act politely retrieves drinks and food for the girls.
+Moordread politely retrieves drinks and food for the girls.
+> 
+Wolfbane tickles Avalon.
+> 
+Keera gazes at Rion.
+> 
+Prudence asks, "Who?"
+> 
+Avalon says, "milk.."
+> 
+Saxon says, "Good thing they got a chef now a days."
+> 
+Cypress drinks some honey mead.
+> 
+Leah furrows her brow.
+> 
+Feras removes a large crystal glass etched with a blazing sun streaming light
+on a wolf head over crossed swords from the table.
+> 
+Saxon grins.
+> 
+Prudence giggles.
+> 
+Kellah removes a large crystal glass etched with a blazing sun streaming light
+on a wolf head over crossed swords from the table.
+> 
+Gwydion smiles at Kylie.
+> 
+Leah says, "give me the glass, princess..."
+> 
+Leah gulps.
+> 
+Sun asks, "who brought the fizz?"
+> 
+Kellah gives a large crystal glass etched with a blazing sun streaming light on
+a wolf head over crossed swords to Avalon.
+> 
+Shankara struggles to his feet.
+> 
+Keera disbands her group.
+> 
+Keera is now following Rion.
+> 
+Sun listens to her surroundings closely.
+> 
+Feras ponders.
+> 
+Sun sighs.
+> 
+Kellah says, "Try this, Avalon."
+> 
+Fafnir whistles.
+> 
+Saxon waves to Keera.
+> 
+Leah says, "not good for little girls"
+> 
+Leah shivers.
+> 
+Sun gazes at Fafnir.
+> 
+Avalon asks, "sun would ya like to look through my new binoculars?"
+> 
+Sun sighs.
+> 
+Prudence smiles at Keera.
+> 
+Rion moves towards a window
+> 
+Sun says, "sure"
+> 
+Stolar softly says, "i am good kylie"
+> 
+Fafnir drink the liquid with great relish, sitting back with a contented sigh
+as small plumes of steam emanate from his nostrils.
+> 
+Sun shivers.
+> 
+Stolar smiles at Kylie.
+> 
+Sun listens carefully to Avalon.
+> 
+Wolfbane says, "can i have your attention for a moment please"
+> 
+Avalon grins.
+> 
+Prudence listens carefully to Wolfbane.
+> 
+Leah smiles at Wolfbane.
+> 
+Fafnir says, " i was going to bring hortak"
+> 
+Wolfbane thumps on a table.
+> 
+Wolfbane thumps on a table.
+> 
+Wolfbane thumps on a table.
+> 
+Avalon gives some binoculars to Sun.
+> 
+Raningeth looks at wolfbane
+> 
+Stolar listens carefully to Wolfbane.
+> 
+Rion gazes at Saxon.
+> 
+Wolfbane smiles.
+> 
+Raningeth pulls the other leg off a roast chicken.
+> 
+Raningeth gobbles it up.
+> 
+Hyena listens to his surroundings closely.
+> 
+Sun looks through some binoculars.
+> 
+Sun smiles.
+> 
+Hyena takes a bite of a pastry.
+> 
+Kylie listens carefully to Wolfbane.
+> 
+Hyena takes a bite of a pastry.
+> 
+Avalon asks, "are they ok?"
+> 
+Hyena takes a bite of a pastry.
+> 
+Hyena takes a bite of a pastry.
+> 
+Feras kisses Cypress.
+> 
+Hyena takes a bite of a pastry.
+> 
+Sun says, "huhh nice"
+> 
+Alic leans on an arch.
+> 
+Hyena takes a bite of a pastry.
+> 
+Hyena takes a bite of a pastry.
+> 
+Sun smiles at Avalon.
+> 
+Hyena takes a bite of a pastry.
+> 
+Keera listens to her surroundings closely.
+> 
+Hyena takes a bite of a pastry.
+> 
+Wolfbane says, "for one i would like to welcome you all to our new home"
+> 
+Prudence removes a pastry from the table.
+> 
+Sun gives some binoculars to Avalon.
+> 
+Sun giggles.
+> 
+Wolfbane smiles.
+> 
+Feras licks his lips.
+> 
+Avalon exclaims, "thanks!"
+> 
+Sabreen says, "Pardon me Count, Countess. I have to leave."
+> 
+Sun nods.
+> 
+Saxon gazes at Sun.
+> 
+Prudence smiles.
+> 
+Feras listens carefully to Wolfbane.
+> 
+Avalon hugs Sun.
+> act excuses himself from a conversation with a cute girl and listens attentively.
+Moordread excuses himself from a conversation with a cute girl and listens
+attentively.
+> 
+Saxon smirks.
+> 
+Hyena bows towards Sabreen.
+> 
+Sun curtsies towards Sabreen.
+> 
+Sabreen curtsies.
+> 
+Gwydion drinks the dark coffee, causing him to instantly perk up as the
+powerful liquid sends jolts of adrenalin coursing through his system.
+> list wolfb
+You listen carefully to Wolfbane.
+> 
+Saxon gazes at Avalon.
+> 
+Marcolan bows towards Sabreen.
+> 
+You feel the touch of Pockets's mind:
+"Hello???"
+> 
+Wolfbane bows towards Sabreen.
+> 
+Cypress gazes at Sun.
+> 
+Sabreen says, "Your Majesty."
+> 
+Sun says, "thanks so much for coming Sabreen"
+> 
+Wolfbane says, "thanks for coming"
+> 
+Sun smiles.
+> 
+Sun hugs Cypress.
+> 
+Sabreen curtsies towards Moryan.
+> 
+Wolfbane smiles at Sabreen.
+> 
+Moryan nods to Sabreen.
+> 
+Sun smiles at Cypress.
+> 
+Stolar smiles at Sabreen.
+> 
+Avalon asks, "leah want to try my new binoculars?"
+> 
+Sun says, "hello"
+> 
+Cypress hugs Sun.
+> 
+You feel the touch of Leah's mind:
+"hello, Pockets"
+> contact pock Need a ride to the ball?
+You contact Pockets with your thoughts.
+ [Round: 2 sec]
+R> 
+Kellah removes a large crystal glass etched with a blazing sun streaming light
+on a wolf head over crossed swords from the table.
+> 
+Sabreen goes through an arch.
+> 
+Sun giggles.
+> 
+Avalon grins.
+> 
+Feras smiles at Sun.
+> 
+Kellah drinks some hot tea.
+> 
+Leah nods to Avalon.
+> 
+Wolfbane says, "no rion that job is all yours"
+> 
+Wolfbane smiles at Rion.
+> 
+Avalon gives some binoculars to Leah.
+> 
+Feras drinks some wine.
+> 
+Rion sighs.
+> 
+Sun hugs Feras.
+> 
+Sun smiles.
+> 
+Fafnir takes a bite of some ne-boar stew.
+> 
+You feel the touch of Pockets's mind:
+"Why Yess Please I dont get outside much and Dont know where to go.."
+> 
+Avalon asks, "what ya think?"
+> 
+Keera arches her eyebrow.
+> 
+Sun says, "thanks for coming"
+> 
+Wolfbane smiles at Rion.
+> 
+Prudence gazes at Sun.
+> 
+Leah looks through some binoculars.
+> 
+Prudence beams happily.
+> 
+Feras nods to Sun.
+> 
+Sun listens carefully to Prudence.
+> 
+Avalon blinks.
+> 
+Feras says, "Nice place"
+> 
+Sun asks, "yes dear?"
+> 
+Prudence exclaims, "wow mom you look great!"
+> 
+Rion nods to Feras.
+> 
+Kellah giggles.
+> 
+Sun listens carefully to Prudence.
+> 
+Hyena snickers, "yeah"
+> 
+Sun beams happily.
+> smi
+
+Rion says, "big too"
+> You smile.
+> 
+Wolfbane says, "and i need to make this alittle official for a moment also"
+> 
+Prudence gazes at Sun.
+> act excueses himself.
+Moordread excueses himself.
+> 
+Prudence blinks.
+> 
+Wolfbane gazes at Rion.
+> 
+Gwydion listens carefully to Wolfbane.
+> go arc
+
+Sun says, "thanks dear and you look lovely also"
+> [Gilnaerd Estate, Reception]
+Obvious exits: e.
+> e
+[Gilnaerd Estate, Foyer]
+Obvious exits: e, w.
+> go doo
+[Gilnaerd Estate, Courtyard]
+A gate is here.
+Obvious exits: none.
+> go ate
+What are you referring to?  Please be more specific.
+> go gate
+[Farmland, mansion gate]
+A gate is here.
+Obvious exits: s.
+> s
+[Farmland, mansion view]
+Obvious exits: n, s, e, w.
+> s
+[Farmland, shacks]
+Obvious exits: n, w, sw.
+> s
+You can't go south!
+> w
+[Farmland, central]
+Obvious exits: n, s, e, w.
+> s
+[Grassland, cultivation]
+Obvious exits: n, s, ne, nw.
+> w
+You can't go west!
+> s
+[Grassland, Yulman bushes]
+Obvious exits: n, w.
+> w
+[Grassland, hill crest]
+Obvious exits: e, w.
+> w
+[Fayd Gate, exterior]
+A large iron gate is here.
+Obvious exits: s, e, nw.
+> w
+You can't go west!
+> contact pock Where did you get to?
+You contact Pockets with your thoughts.
+ [Round: 2 sec]
+R> go gate
+The guards at the gate wave you through.
+[Main Street, Gatehouse]
+Obvious exits: w.
+> w
+[Main Street]
+Obvious exits: e, w.
+> w
+[Bazaar East]
+A comfortable building that houses the Sojourner's Hospice is here.
+Obvious exits: n, s, e, w, nw, sw.
+> w
+[Bazaar Center]
+You see Louie and Pockets. A large marble fountain, a wooden bin and a
+newsboard are here.
+Obvious exits: n, s, e, w, ne, nw, se, sw.
+> 
+A merchant arrives.
+> smi
+You smile.
+> 
+You feel a tingle in your mind. Pockets thinks to you, "BC."
+> 'Ah
+You say, "Ah"
+> 
+Pockets hugs you.
+> look lou
+A man of small stature, with dark brown eyes and slicked back black hair
+stands before you.  His skin is covered with dust and grime, obscuring the
+rosy complexion beneath.
+He is wearing some knee-high soft leather boots accented with moonstones on
+each toe, a black leather cap with ear flaps hanging from the sides and some
+blue denim pants with patches on the knees.
+He appears to be healthy.
+> 
+Pockets is now following Moordread.
+> 
+A merchant goes east.
+> act presents his arm to Pockets.
+Moordread presents his arm to Pockets.
+> 
+Pockets asks, "Do I look ok??"
+> 'This way m'lady
+You say, "This way m'lady"
+> look pock
+You see Pockets Shanton, a mature female aelfen.
+She is tall, light weight and incredibly muscular.
+She has lavender eyes, fair skin and stunning red locks of hair.
+She is wearing an emerald green silk gown cut low in the back and slit up each
+side allowing glimpses of her shapely legs, some polished black high-heeled
+shoes that strap up her ankles, an emerald inlaid gold watch, a fiery platinum
+technological bracelet, some simple flawless emerald earrings and a simple gold
+necklace with a tiny teardrop shaped emerald.
+She appears to be healthy.
+> 
+Pockets gladly accepts his arm
+> act looks closely and his eyes grow large.
+Moordread looks closely and his eyes grow large.
+> 'Spectacular!
+You exclaim, "Spectacular!"
+> 
+Pockets smiles shyly
+> beam
+You beam happily.
+> 'I will be honored to enter with you on my arm
+You say, "I will be honored to enter with you on my arm"
+> beam
+You beam happily.
+> look
+[Bazaar Center]
+There is a chill to the air blowing in from the eastern wastes here, yet
+the excitment of the bazaar with its tumult keeps the cold from your spirit
+if not your body. The center of the bazaar overwhelms your senses with the
+smell and sizzle of roast mutton, its cries of hawkers and cajoling
+merchants. Jugglers, minstrels, and street dancers a-whirl to stay warm
+amuse the crowds gathered near a large marble fountain.
+You see Louie and Pockets. A wooden bin and a newsboard are here.
+Obvious exits: north, south, east, west, northeast, northwest, southeast,
+southwest.
+> e
+Pockets follows you.
+[Bazaar East]
+You see Pockets. A comfortable building that houses the Sojourner's Hospice is
+here.
+Obvious exits: n, s, e, w, nw, sw.
+> e
+Pockets follows you.
+[Main Street]
+You see Pockets. 
+Obvious exits: e, w.
+> e
+Pockets follows you.
+[Main Street, Gatehouse]
+You see Pockets. 
+Obvious exits: w.
+> go gate
+Pockets follows you.
+[Under the Gatehouse]
+You see Pockets. 
+Obvious exits: none.
+> go 2 gate
+Pockets follows you.
+[Fayd Gate, exterior]
+You see Pockets. A large iron gate is here.
+Obvious exits: s, e, nw.
+> 
+Pockets says, "I dont get to dress up to often"
+> 'It suites you very well
+You say, "It suites you very well"
+> smi pock
+You smile at Pockets.
+> n
+You can't go north!
+> e
+Pockets follows you.
+[Grassland, hill crest]
+You see Pockets. 
+Obvious exits: e, w.
+> n
+You can't go north!
+> e
+Pockets follows you.
+[Grassland, Yulman bushes]
+You see Pockets. 
+Obvious exits: n, w.
+> n
+Pockets follows you.
+[Grassland, cultivation]
+You see Pockets. 
+Obvious exits: n, s, ne, nw.
+> n
+Pockets follows you.
+[Farmland, central]
+You see Pockets. 
+Obvious exits: n, s, e, w.
+> n
+Pockets follows you.
+[Farmland, tool shed]
+You see Pockets. A wooden shed is here.
+Obvious exits: s, e, w.
+> n
+You can't go north!
+> e
+Pockets follows you.
+[Farmland, mansion view]
+You see Pockets. 
+Obvious exits: n, s, e, w.
+> n
+Pockets follows you.
+[Farmland, mansion gate]
+You see Pockets. A gate is here.
+Obvious exits: s.
+> n
+You can't go north!
+> go gate
+Pockets follows you.
+[Gilnaerd Estate, Courtyard]
+You see Pockets. A gate is here.
+Obvious exits: none.
+> go doo
+Pockets follows you.
+[Gilnaerd Estate, Foyer]
+You see Pockets. 
+Obvious exits: e, w.
+> w
+Pockets follows you.
+[Gilnaerd Estate, Reception]
+You see Kellah and Pockets. 
+Obvious exits: e.
+> 
+Kellah works a sapphire encrusted comb into her hair.
+> go arc
+Pockets follows you.
+[Gilnaerd Estate, Banquet Hall]
+You see Keera, Rion, Raningeth (sitting), Feras (sitting), Fafnir, Sun,
+Wolfbane, Stolar, Hyena, Cypress (sitting), Shankara, Leah (sitting), Moryan,
+Avalon, Marcolan, Pockets, Alic, Gwydion, Saxon, Kylie and Prudence. 
+Obvious exits: none.
+> 
+Kylie edges along the table, finding an unobtrusive spot on the wall to lean.
+> 
+Saxon raises an eyebrow towards Wolfbane.
+> 
+Sun giggles.
+> 
+Prudence says, "Dad already threatened him."
+> 
+Saxon asks, "huh?"
+> 
+Prudence smiles at Sun.
+> 'bow pock
+You say, "bow pock"
+> fur
+You furrow your brow.
+> bow pock
+You bow towards Pockets.
+> 
+Sun nods to Prudence.
+> 
+Pockets says, "Hello everyone"
+> 
+Cypress smiles at Feras.
+> 
+Sun smiles.
+> 
+Avalon gives some binoculars to Prudence.
+> 
+Wolfbane says, "more of a promiss really"
+> 
+Hyena waves to Pockets.
+> 
+Wolfbane shrugs.
+> 'Here we are m'lady
+You say, "Here we are m'lady"
+> 
+Avalon says, "try them prudiee"
+> kiss pock hand
+You kiss Pockets on the hand.
+> 
+Hyena raises an eyebrow towards Wolfbane.
+> disb
+You disband your group.
+> 
+Prudence says, "No thanks."
+> 
+Wolfbane says, "ok attention please"
+> 
+Prudence tickles Avalon.
+> 
+Cypress asks, "maybe some roast beef?"
+> 
+Keera fidgets nervously.
+> 
+Pockets says, "Your Exelencys...."
+> 
+Cypress gazes at Feras.
+> 
+Stolar listens carefully to Wolfbane.
+> 
+Pockets curtsies.
+> 
+Wolfbane says, "and moordread stay"
+> 
+Prudence gives some binoculars to Avalon.
+> 
+Leah listens carefully to Wolfbane.
+> 
+Avalon frowns.
+> 
+Feras removes some roast beef from the table.
+> 
+Fafnir listens carefully to Wolfbane.
+> 
+Sun smiles.
+> 
+Wolfbane gazes at you.
+> 
+Prudence listens carefully to Wolfbane.
+> 
+Feras sniffs some roast beef.
+> 
+Saxon asks, "beef?"
+> sal wolf
+You salute Wolfbane.
+> 
+Fafnir drink the liquid with great relish, sitting back with a contented sigh
+as small plumes of steam emanate from his nostrils.
+> 
+Saxon casts his gaze across the area.
+> 
+Feras gives some roast beef to Cypress.
+> 
+Saxon removes some roast beef from the table.
+> 
+Raningeth says, "Hi Pockets"
+> 
+Saxon licks his lips.
+> 
+Cypress smiles at Feras.
+> 
+Stolar takes a bite of some roast beef.
+> 
+Hyena snickers, "Shhhh"
+> 
+After taking a sip of the fizz Raningeth's skin turns beet red and his mouth
+opens in a silent scream.
+> 
+Raningeth clutches his throat in pain!
+> 
+Cypress says, "thank you"
+> 
+Avalon asks, "gertie?"
+> 
+Sun says, "this has turned out beyond my expectations dear"
+> 
+Saxon asks, "oh yeah..umm Pru, ya want something?"
+> 
+Kellah arrives through an arch.
+> 
+Pockets says, "Master Ranningeth."
+> 
+Feras smiles at Cypress.
+> 
+Sun smiles at Wolfbane.
+> 
+Pockets nods to Raningeth.
+> 
+Kellah smiles.
+> 
+Feras says, "Course"
+> 
+Raningeth smiles at Pockets.
+> 
+Sun beams happily.
+> 
+Prudence gazes at Avalon.
+> 
+Avalon says, "pru rion says to call you gertie"
+> 
+Raningeth takes a bite of some roast beef.
+> act stands at attention next to Sun and Wolfbane.
+Moordread stands at attention next to Sun and Wolfbane.
+> 
+Cypress takes a bite of some roast beef.
+> 
+Avalon asks, "why?"
+> 
+Prudence rolls her eyes.
+> 
+Prudence nods.
+> 
+Rion mutters something you can't quite make out.
+> 
+Feras tears some flesh from the a roast chicken's breast.
+> 
+Feras gobbles it up.
+> 
+Kellah takes a bite of some crispy bread.
+> 
+Keera raises an eyebrow towards Avalon.
+> 
+Marcolan says, "Please, the count has asked for quiet for a moment."
+> 
+Wolfbane says, "rion would you step forward and kneel before me please"
+> 
+Marcolan casts his gaze across the area.
+> 
+Wolfbane gazes at Rion.
+> 
+Hyena nods to Marcolan.
+> 
+Rion fidgets nervously.
+> 
+Keera gazes at Rion.
+> 
+Sun beams at Rion.
+> 
+Feras blushes.
+> 
+Saxon says, "Whoo, now ya done it Rion"
+> 
+Prudence whispers to Avalon"Cause he's wierd"
+> 
+Prudence winks at Avalon.
+> 
+Wolfbane wields a finely crafted albescent longsword with fiery randar forming
+a pommel shaped into a screaming eagle's head.
+> 
+Kellah blinks.
+> 
+Avalon giggles.
+> 
+Avalon exclaims, "he is!"
+> 
+Rion walks forward to where Wolfbane stands
+> 
+Feras quietly licks his fingers
+> 
+Rion kneels.
+> 
+Avalon says, "rions in troubllleeeee"
+> 
+Avalon says, "rions in troubllleeeee"
+> 
+Sun says, "shh"
+> 
+Prudence leans on Saxon.
+> 
+Kellah blinks.
+> 
+Leah tugs on Avalon.
+> 
+Sun smiles at Avalon.
+> 
+Saxon smiles at Prudence.
+> 
+Moryan smiles.
+> 
+Feras drinks some wine.
+> 
+Leah shakes her head at Avalon.
+> 
+Alic casts his gaze across the area.
+> 
+Leah says, "shhh"
+> 
+Wolfbane says, "Rion...."
+> 
+Alic leans on an arch.
+> 
+Wolfbane gazes at Rion.
+> 
+Cypress listens to her surroundings closely.
+> 
+Rion looks up.
+> 
+Feras cocks his head to the side.
+> 
+Kylie leans against the wall by the arch, watching.
+> 
+Wolfbane says, "for your loyalty and friendship to myself and the
+Countess......"
+> 
+Rion wipes sweat from his brow
+> 
+Saxon gazes at Rion.
+> 
+Feras listens carefully to Wolfbane.
+> 
+Wolfbane says, "i knight thee knight of Gilnaerd"
+> 
+Prudence beams at Rion.
+> 
+Cypress beams at Rion.
+> 
+Leah smiles at Rion.
+> 
+Kellah applauds.
+> 
+Hyena applauds.
+> 
+Pockets applauds.
+> 
+Keera smiles at Rion.
+> 
+Shankara nods to Rion.
+> 
+Kellah beams happily.
+> 
+Rion smiles at Wolfbane.
+> 
+Moryan smiles at Rion.
+> 
+Saxon says, "Way cool"
+> 
+Prudence says, "Which is a nice way to say you're babysitting."
+> 
+Stolar smiles at Rion.
+> 
+Prudence giggles.
+> 
+Fafnir raises a toast to Rion!
+> 
+Marcolan smiles at Rion.
+> 
+Wolfbane taps Rion once on each shoulder with his sword
+> 
+Feras stands up.
+> 
+Saxon applauds.
+> 
+Fafnir drink the liquid with great relish, sitting back with a contented sigh
+as small plumes of steam emanate from his nostrils.
+> 
+Fafnir drains the last of the fizz with great satisfaction.
+> 
+Gwydion raises a toast to Rion!
+> 
+Feras applauds.
+> 
+Cypress struggles to her feet.
+> 
+Sun smiles at Rion.
+> 
+Keera raises an eyebrow towards Wolfbane.
+> 
+Kellah raises a toast to Rion!
+> 
+Prudence applauds.
+> 
+Stolar applauds.
+> 
+Wolfbane says, "please rise sir rion of Gilnaerd"
+> 
+Prudence raises a toast to Rion!
+> 
+Cypress makes a toast. Cheers!
+> 
+Pockets raises a toast to Rion!
+> 
+Rion struggles to his feet.
+> 
+Sun laughs at Avalon!
+> 
+Shankara returns to normal.
+> 
+Pockets drinks some honey mead.
+> 
+Sun giggles.
+> 
+Wolfbane smiles at Rion.
+> 
+Keera cocks her head to the side.
+> 
+Feras exclaims, "Whoop!"
+> 
+Alic nods to Rion.
+> 
+Cypress drinks some honey mead.
+> 
+Kellah exclaims, "Sir Rion! Sir Rion!"
+> 
+Feras smiles at Rion.
+> 
+Rion bows towards Wolfbane.
+> 
+Alic says, "Congrats"
+> 
+Leah struggles to her feet.
+> 
+Wolfbane says, "''morrdread"
+> 
+Fafnir gives a glass to Rion.
+> bow wolf
+You bow towards Wolfbane.
+> act steps forward.
+Moordread steps forward.
+> 
+Kylie smiles at Rion.
+> 
+Leah curtsies towards Rion.
+> 
+Hyena appears to become weaker.
+> 
+Hyena nods to Raningeth.
+> 
+Wolfbane says, "would you please kneel before me"
+> knee
+
+Wolfbane smiles at Rion.
+> You kneel.
+K> 
+Feras gazes at Wolfbane.
+K> 
+Keera gazes at Rion.
+K> 
+Saxon asks, "I gotta call him sir?"
+K> 
+Wolfbane nods to Saxon.
+K> 
+Saxon frowns.
+K> 
+Rion shakes his head at Saxon.
+K> act rests one arm on his knee as he bows slightly forward.
+Moordread rests one arm on his knee as he bows slightly forward.
+K> 
+Sun beams at you.
+K> 
+Prudence asks, "Do I?"
+K> 
+Leah says softly to Kellah, 'a real live knight!'
+K> 
+Kellah nods to Prudence.
+K> 
+Kellah giggles.
+K> 
+Leah nods to Kellah.
+K> 
+Saxon smiles at Feras.
+K> 
+Saxon grins.
+K> 
+Sun smiles at Pockets.
+K> 
+Feras smiles at Saxon.
+K> 
+Prudence chuckles at Kellah.
+K> 
+Wolfbane says, "moordread for your loyalty and friendship these past few
+monthes"
+K> 
+Cypress listens carefully to Wolfbane.
+K> 
+Alic watches the proceedings silently
+K> whisp wolfb Months??
+You whisper to Wolfbane.
+K> 
+Sun giggles.
+K> 
+Pockets snickers.
+K> 
+Kylie leans over and softly says something to Alic.
+K> 
+Sun smiles at you.
+K> 
+Pockets gazes at a table.
+K> 
+Saxon takes a bite of some roast beef.
+K> 
+Wolfbane says, "and for the wisdom that only experiance can offer"
+K> 
+Stolar drinks some emerald wine.
+K> 
+Saxon takes a bite of some roast beef.
+K> 
+Saxon takes a bite of some roast beef.
+K> 
+As Pockets places a glass into a slime mold, it dissolves away!
+K> 
+Rion leans on Saxon.
+K> 
+Pockets's slime belches and bubbles before coming to rest.
+K> 
+Cypress takes a bite of some roast beef.
+K> 
+Pockets removes a large crystal glass etched with a blazing sun streaming light
+on a wolf head over crossed swords from the table.
+K> 
+Sun listens carefully to Wolfbane.
+K> 
+Hyena grins.
+K> 
+Raningeth smiles at Hyena.
+K> 
+Alic shrugs.
+K> 
+Wolfbane says, "i knight thee sir moordread of gilnaerd"
+K> 
+Alic nods to Kylie.
+K> 
+Feras gazes at you.
+K> 
+Keera gazes at you.
+K> act remains perfectly still.
+
+Sun smiles.
+K> Moordread remains perfectly still.
+K> 
+Prudence beams at you.
+K> 
+Kellah beams at you.
+K> 
+Gwydion smiles.
+K> 
+Saxon smiles at Rion.
+K> 
+Marcolan smiles at you.
+K> 
+Hyena chuckles.
+K> 
+Pockets applauds.
+K> 
+Leah smiles at you.
+K> 
+Feras appears to be waiting.
+K> 
+Cypress smiles at you.
+K> 
+Sun smiles.
+K> 
+Wolfbane taps his sword upon Moordreads should
+K> 
+Kylie smiles at you.
+K> 
+Alic smiles slightly
+K> 
+Prudence applauds.
+K> 
+Saxon takes a bite of some roast beef.
+K> 
+Rion nods to Keera.
+K> 
+Saxon takes a bite of some roast beef.
+K> 
+Sun applauds.
+K> 
+Sun nods.
+K> 
+Kellah applauds.
+K> 
+Saxon licks his lips.
+K> 
+Keera smiles happily.
+K> 
+Feras applauds.
+K> 
+Cypress applauds.
+K> 
+Rion applauds.
+K> 
+Sun beams happily.
+K> 
+Moryan smiles at you.
+K> 
+Wolfbane says, "please rise sir moordread of gilnaerd"
+K> 
+Feras exclaims, "Whoop!"
+K> 
+Kellah exclaims, "Yeay for Sir Moordread!"
+K> 
+Leah says softly to Kellah ,'two!'
+K> act rises, creaking only slightly.
+Moordread rises, creaking only slightly.
+K> 
+Wolfbane smiles at you.
+K> stand
+You struggle to your feet under the weight of all your equipment.
+ [Round: 2 sec]
+R> 
+Gwydion raises a toast to you!
+> sal wolfb
+You salute Wolfbane.
+> 
+Sun raises a toast to Rion!
+> 
+Fafnir raises a toast to you!
+> sal sun
+
+Leah blinks.
+> You salute Sun.
+> 
+Fafnir drink the liquid with great relish, sitting back with a contented sigh
+as small plumes of steam emanate from his nostrils.
+> 
+Kellah raises a toast to you!
+> 
+Cypress raises a toast to you!
+> 
+Sun raises a toast to you!
+> 
+Sun smiles.
+> 
+Hyena applauds.
+> 
+Raningeth raises a toast to you!
+> 
+Prudence raises a toast to you!
+> 
+Sun curtsies towards Rion.
+> 
+Raningeth raises a toast to Rion!
+> 
+Sun curtsies towards you.
+> 
+Sun smiles.
+> 
+Cypress drinks some honey mead.
+> 
+Pockets raises a toast to Moryan!
+> 
+After taking a sip of the fizz Raningeth's skin turns beet red and his mouth
+opens in a silent scream.
+> 
+Raningeth clutches his throat in pain!
+> 
+Sun beams happily.
+> 
+Pockets drinks some hot tea.
+> 
+Rion grins.
+> 
+Keera smiles proudly at Moordread and Rion.
+> 'I will make all attempts to return the honor you bestow upon me
+You say, "I will make all attempts to return the honor you bestow upon me"
+> 
+Sun raises a toast to Moryan!
+> 
+Moryan smiles.
+> 
+Sun smiles.
+> 
+Wolfbane says, "now that i have gotten the formalities outta the way its time
+to paaaarrrrtyyyy"
+> 
+Wolfbane grins.
+> 
+Gwydion chuckles.
+> 
+Feras raises a toast to Wolfbane!
+> 
+Sun beams at Wolfbane.
+> toast
+
+Kylie removes a large crystal glass etched with a blazing sun streaming light
+on a wolf head over crossed swords from the table.
+> You make a toast.
+> sip fiz
+You drink the fizz from a glass.
+Ah, that was good.
+That was the last of it.
+> 
+Cypress smiles at Wolfbane.
+> 
+Rion drinks some water.
+> 
+Leah chuckles.
+> 
+Saxon asks, "Party?"
+> 
+Pockets says, "Ohh then I am on time"
+> 
+Keera whispers to you, "(Keera thinks to you) She see what is honner to be
+night, and she is so happy for him!"
+> 
+Alic chuckles softly at Wolfbane.
+> 
+Kylie drinks some milk.
+> 
+Wolfbane nods to Pockets.
+> 
+Pockets grins.
+> 
+Shankara shakes his head back and forth.
+> 
+Wolfbane smiles at Alic.
+> 
+Leah drinks some wine.
+> 
+Keera blinks.
+> hug keer
+
+Shankara goes through an arch.
+> You hug Keera.
+> 
+Rion says, "yeah its like a thing you do when you drink and dance and hoot and
+holler"
+> 
+Gwydion drinks some deep purple wine.
+> 
+Rion nods to Saxon.
+> 
+Saxon takes a bite of some ne-boar stew.
+> 
+Keera gazes curiously after Shankara.
+> 
+Moryan says, "My best wishes on your chosen Knights Count Crag."
+> 
+Raningeth meticulously scrapes the remaining meat from the breat of a roast
+chicken.
+> 
+Raningeth gobbles it up.
+> 
+Saxon takes a bite of some ne-boar stew.
+> 
+Keera smiles at you.
+> 
+Saxon takes a bite of some ne-boar stew.
+> 
+Saxon takes a bite of some ne-boar stew.
+> 
+Kellah drinks some hot tea.
+> 
+Leah smiles at Keera.
+> 
+Sun smiles.
+> 
+Eylia arrives through an arch.
+> act bows formally to Keera and kisses her hand gently.
+Moordread bows formally to Keera and kisses her hand gently.
+> 
+Saxon says, "yes Sir, Sir Rion."
+> 
+Eylia smiles.
+> 
+Feras squeezes Cypress' hand and gives her a quick peck on the cheek
+> bow kee
+You bow towards Keera.
+> 
+Wolfbane says, "thank you my queen"
+> 
+Saxon bows towards Rion.
+> 
+Eylia waves.
+> 
+Keera bites her lower lip.
+> 
+Wolfbane smiles at Moryan.
+> 
+Avalon drops the happy fun ball.
+> 
+...the happy fun ball bounces off the ground with a "BOING!" sound...
+> 
+...and Avalon catches it!
+> kiss keer hand
+You kiss Keera on the hand.
+> 
+Rion pokes Saxon.
+> 
+Moryan smiles.
+> 
+Gwydion smiles at Eylia.
+> 
+Keera smiles at you.
+> look eyl
+You see a slender wolfling woman, of a fiery temperment. Her eyes are a dark
+gray-green hue flashing out from under layers of curling ebony hair. Agile and
+quick, she moves quietly with a natural flair of motion.
+She is wearing a tight black leather dress leaving her shoulders bare revealing
+a rose and ivy tattoo on her shoulder blade, some brilliant emerald earrings
+with the stones cut to form tiny green spiders that seem to cling to her ears,
+some soft black leather boots with thin silver heels, a small dark green
+pendant of a rose whose stem is wrapped with a bit of ivy and a slim black
+leather anklet knotted around a small, bright green emerald.
+She appears to be healthy.
+> 
+Rion says, "cut it out, Billy"
+> 
+Wolfbane says, "except no happy fun ball"
+> 
+Wolfbane gazes at Avalon.
+> 
+Avalon drops the happy fun ball.
+> 
+...the happy fun ball bounces off the ground with a "BOING!" sound...
+> 
+...and Avalon catches it!
+> 
+Avalon says, "sorry"
+> smi eyl
+You smile at Eylia.
+> 
+Avalon says, "sorry"
+> 
+Avalon says, "sorry"
+> 
+Prudence says, "Whatever Tom."
+> 
+Shankara arrives through an arch.
+> 
+Prudence pokes Rion.
+> 
+Feras chuckles.
+> 
+Prudence grins.
+> 
+Cypress kisses Feras.
+> 
+Wolfbane smiles at Avalon.
+> 
+Sun giggles.
+> 
+Leah nods to Keera.
+> 
+Keera sighs.
+> 
+Rion nudges Gertie
+> 
+Keera nods to Leah.
+> 
+Feras nuzzles Cypress affectionately.
+> 
+Moryan says, "Unfortunately, I cannot remain for the celebration."
+> 
+Rion nudges Prudence.
+> 
+Prudence giggles.
+> act kneels deftly before Eylia and kisses her hand tenderly.
+Moordread kneels deftly before Eylia and kisses her hand tenderly.
+> knee
+You kneel.
+K> kiss eyl hand
+
+Sun smiles at Shankara.
+K> You kiss Eylia on the hand.
+K> 
+Eylia grins.
+K> 
+Feras furrows his brow.
+K> stand
+You struggle to your feet under the weight of all your equipment.
+ [Round: 2 sec]
+R> 
+Saxon gazes at you.
+R> 
+Prudence curtsies towards Moryan.
+R> 
+Wolfbane nods to Moryan.
+> 
+Eylia kisses you on the cheek.
+> 
+Sun says, "thank you Shankar"
+> 
+Hyena bows towards Moryan.
+> 
+Kellah listens carefully to Moryan.
+> 
+Feras gazes at Kylie.
+> 
+Sun takes Shankara by the hand.
+> 
+Moryan smiles.
+> 
+Gwydion bows towards Moryan.
+> 
+Raningeth struggles to his feet.
+> 
+Prudence says, "It was a pleasure meeting you."
+> 
+Sun's group goes through an arch.
+> 
+Feras shakes his head at Cypress.
+> 
+Wolfbane says, "understood"
+> 
+Wolfbane smiles at Moryan.
+> 
+Raningeth bows towards Moryan.
+> 
+Prudence smiles at Moryan.
+> 
+Kellah curtsies towards Moryan.
+> 
+Moryan says, "I invite you all to my daughter's celebration in a few month's
+time."
+> 
+Leah nods to Keera.
+> 
+Stolar bows towards Moryan.
+> kiss eyl lips
+You kiss Eylia upon the lips.
+> 
+Eylia nuzzles you affectionately.
+> 
+Kylie gazes at Eylia.
+> 
+Pockets curtsies towards Moryan.
+> 
+Keera smiles at Rion.
+> 
+Feras cocks his head to the side.
+> 
+Pockets says, "Magisty.."
+> 
+Marcolan bows towards Moryan.
+> 
+Raningeth says, "Most kind of you."
+> 
+Eylia waves to Kylie.
+> 
+Kylie glances quickly at Saxon and away.
+> 
+Marcolan stops following Moryan.
+> 
+Feras chuckles.
+> 
+Queen Moryan leaves, her wary escort following.
+> 
+Leah smiles at Keera.
+> 
+Kellah grins.
+> 
+Pockets pouts.
+> 
+Eylia says, "Heya Kylie"
+> 
+Avalon asks, "saxon?"
+> 
+Kylie nods to Eylia from across the room.
+> 
+Cypress whispers to you, "oh you do have a date *smile*"
+> 
+Wolfbane says, "dear?"
+> 
+Wolfbane smiles sun
+> 
+Saxon asks, "huh?"
+> 
+Kylie says, "Hi, Eylia."
+> 
+Saxon listens carefully to Avalon.
+> whisp eyl Glad you could make it!
+
+Wolfbane mutters something you can't quite make out.
+> You whisper to Eylia.
+> 
+Pockets drinks some hot tea.
+> 
+Marcolan drinks some iced tea.
+> 
+Avalon points at Kylie.
+> 
+Marcolan smiles at Wolfbane.
+> 
+Feras gestures at Cypress chair
+> 
+Prudence says, "Dad she left."
+> 
+Hyena sits down.
+> 
+Prudence grins.
+> 
+Alic says, "I think I should be leaving as well, your all friends here and I
+don't think I belong..."
+> 
+Feras gazes at Cypress.
+> 
+Cypress sits down.
+> 
+Avalon says, "she likes you..."
+> 
+Pockets exclaims, "Very good tea!!"
+> 
+Wolfbane says, "now whered my wife run off to"
+> 
+Feras smiles.
+> 
+Alic goes through an arch.
+> 
+Feras sits down.
+> 
+Marcolan says, "I asked you not to call me dear in public, sir."
+> 
+Marcolan smiles at Wolfbane.
+> 
+Prudence gazes at Avalon.
+> whisp cypre I brought almost every girl here *wink*
+
+Leah ponders.
+> You whisper to Cypress.
+> 
+Wolfbane gives Marcolan a swift kick!
+> 
+Prudence asks, "who does?"
+> 
+Kylie frowns.
+> 
+Fafnir smiles al
+> 
+Marcolan chuckles.
+> 
+Eylia chuckles.
+> 
+Kylie says, "Excuse me.."
+> 
+Kylie goes through an arch.
+> 
+Kellah says, "Alic? There are only friends you haven't.. oh, she left."
+> 
+Feras disassembles the rest of a roast chicken.
+> 
+Feras gobbles it up.
+> 
+Eylia whispers to you, "sorry I missed it!"
+> 
+Kellah sighs.
+> 
+Wolfbane says, "now i know that aint got padding"
+> 
+Wolfbane smiles at Marcolan.
+> 
+Cypress whispers to you, "well that's true...but which one you going home
+with?"
+> 
+Keera gazes at a table.
+> 
+Keera sniffs.
+> 
+Feras licks his lips.
+> 
+Eylia gazes at a table.
+> 
+Kellah pulls up a chair and takes a load off.
+> 
+Keera licks her lips.
+> 
+Keera casts her gaze across the area.
+> 
+Eylia removes a large crystal glass etched with a blazing sun streaming light
+on a wolf head over crossed swords from the table.
+> 
+Keera fidgets nervously.
+> 
+Marcolan says, "True."
+> 
+Kellah smiles.
+> 
+Wolfbane smiles at Marcolan.
+> whisp cypr No way to tell for sure
+You whisper to Cypress.
+> 
+Feras goes to wipe his hands on his new shirt then seems to think better of it
+> 
+Kellah says, "This is so nice."
+> 
+Prudence casts her gaze across the area.
+> 
+Hyena smiles at Feras.
+> 
+Cypress whispers to you, "*giggle*"
+> 
+Feras casts his gaze across the area.
+> 
+Saxon gazes at Feras.
+> 
+The band starts to play music in the corner.
+> 
+Stolar drinks some emerald wine.
+> 
+Kellah exclaims, "I hear music!"
+> look on table
+On the table you see a large crystal glass etched with a blazing sun streaming
+light on a wolf head over crossed swords, a large crystal glass etched with a
+blazing sun streaming light on a wolf head over crossed swords, a large crystal
+glass etched with a blazing sun streaming light on a wolf head over crossed
+swords, a large crystal glass etched with a blazing sun streaming light on a
+wolf head over crossed swords, a large crystal glass etched with a blazing sun
+streaming light on a wolf head over crossed swords, a large crystal glass
+etched with a blazing sun streaming light on a wolf head over crossed swords, a
+large crystal glass etched with a blazing sun streaming light on a wolf head
+over crossed swords, a large crystal glass etched with a blazing sun streaming
+light on a wolf head over crossed swords, a large crystal glass etched with a
+blazing sun streaming light on a wolf head over crossed swords, a large crystal
+glass etched with a blazing sun streaming light on a wolf head over crossed
+swords, a large crystal glass etched with a blazing sun streaming light on a
+wolf head over crossed swords, a large crystal glass etched with a blazing sun
+streaming light on a wolf head over crossed swords, a large crystal glass
+etched with a blazing sun streaming light on a wolf head over crossed swords, a
+large crystal glass etched with a blazing sun streaming light on a wolf head
+over crossed swords, a large crystal glass etched with a blazing sun streaming
+light on a wolf head over crossed swords, a large crystal glass etched with a
+blazing sun streaming light on a wolf head over crossed swords, a large crystal
+glass etched with a blazing sun streaming light on a wolf head over crossed
+swords, a large crystal glass etched with a blazing sun streaming light on a
+wolf head over crossed swords, a large crystal glass etched with a blazing sun
+streaming light on a wolf head over crossed swords, a large crystal glass
+etched with a blazing sun streaming light on a wolf head over crossed swords, a
+large crystal glass etched with a blazing sun streaming light on a wolf head
+over crossed swords, a large crystal glass etched with a blazing sun streaming
+light on a wolf head over crossed swords, a large crystal glass etched with a
+blazing sun streaming light on a wolf head over crossed swords, a large crystal
+glass etched with a blazing sun streaming light on a wolf head over crossed
+swords, a large crystal glass etched with a blazing sun streaming light on a
+wolf head over crossed swords, a large crystal glass etched with a blazing sun
+streaming light on a wolf head over crossed swords, a large crystal glass
+etched with a blazing sun streaming light on a wolf head over crossed swords, a
+large crystal glass etched with a blazing sun streaming light on a wolf head
+over crossed swords, a large crystal glass etched with a blazing sun streaming
+light on a wolf head over crossed swords, a large crystal glass etched with a
+blazing sun streaming light on a wolf head over crossed swords, a large crystal
+glass etched with a blazing sun streaming light on a wolf head over crossed
+swords, a large crystal glass etched with a blazing sun streaming light on a
+wolf head over crossed swords, a large crystal glass etched with a blazing sun
+streaming light on a wolf head over crossed swords, a large crystal glass
+etched with a blazing sun streaming light on a wolf head over crossed swords, a
+large crystal glass etched with a blazing sun streaming light on a wolf head
+over crossed swords, a large crystal glass etched with a blazing sun streaming
+light on a wolf head over crossed swords, a large crystal glass etched with a
+blazing sun streaming light on a wolf head over crossed swords, a large crystal
+glass etched with a blazing sun streaming light on a wolf head over crossed
+swords and a large crystal glass etched with a blazing sun streaming light on a
+wolf head over crossed swords.
+> 
+Feras ponders.
+> 
+Cypress smiles at Feras.
+> 
+After taking a sip of the fizz Avalon's skin turns beet red and her mouth opens
+in a silent scream.
+> 
+Avalon clutches her throat in pain!
+> 
+Prudence nods to Kellah.
+> 
+Wolfbane says, "man it was hark tryin to come up with a sutible coat of arms"
+> 
+Leah gazes at Avalon.
+> 
+Hyena's eyes return to normal.
+> 
+Wolfbane gazes at a large crystal glass etched with a blazing sun streaming
+light on a wolf head over crossed swords.
+> 
+Leah taps her foot.
+> 
+Kellah says, "Avalon, sweetie, give me that glass."
+> 
+Cypress gazes at Avalon.
+> 
+Fafnir drink the liquid with great relish, sitting back with a contented sigh
+as small plumes of steam emanate from his nostrils.
+> 
+Hyena struggles to his feet.
+> 
+Kellah pokes Avalon.
+> 
+Keera furrows her brow.
+> 
+Sun arrives through an arch.
+> 
+Feras drinks some wine.
+> 
+Eylia leans on you.
+> 
+Keera comforts Avalon.
+> 
+Pockets exclaims, "I bet!"
+> 
+Prudence beams at Wolfbane.
+> 
+Fafnir drink the liquid with great relish, sitting back with a contented sigh
+as small plumes of steam emanate from his nostrils.
+> 
+Leah holds her hand out waiting for Avalon to give her the glass of fizz.
+> 
+Eylia drinks some honey mead.
+> 
+Wolfbane nods to Pockets.
+> 
+Prudence exclaims, "i think it's great!"
+> 
+Kylie arrives through an arch.
+> 
+Raningeth takes a bite of some roast beef.
+> 
+Wolfbane smiles at Prudence.
+> whisp eyl Just glad you could make it, better late than never *smile*
+You whisper to Eylia.
+> 
+Kellah takes a bite of some crispy bread.
+> 
+Wolfbane says, "dear?"
+> 
+Saxon says, "Its cool Wolfbane."
+> 
+Wolfbane listens carefully to Sun.
+> 
+The band takes up a lively tune, fit for dancing.
+> 
+Feras taps his foot.
+> 
+Keera gazes at Avalon.
+> 
+Hyena goes through an arch.
+> 
+Sun smiles.
+> 
+Fafnir does a little jig!
+> 
+Sun beams happily.
+> act politely fills Eylia's glass back to the top.
+Moordread politely fills Eylia's glass back to the top.
+> 
+Eylia drinks some honey mead.
+> 
+Kellah asks, "Avalon, the glass?"
+> 
+Eylia beams at you.
+> 
+Leah smiles at Fafnir.
+> 
+Kellah mutters something you can't quite make out.
+> get glas
+You remove a large crystal glass etched with a blazing sun streaming light on a
+wolf head over crossed swords from the table.
+> 
+Eylia nudges you.
+> 
+Avalon eyes seem to glaze over
+> 
+Wolfbane says, "did you show everyone your gardin?"
+> toast eyl
+You raise a toast to Eylia!
+> 
+Fafnir drink the liquid with great relish, sitting back with a contented sigh
+as small plumes of steam emanate from his nostrils.
+> 
+Fafnir drains the last of the fizz with great satisfaction.
+> 
+Cypress moves her chair closer to Feras'
+> 
+Eylia asks, "Dance?"
+> 
+Wolfbane listens carefully to Sun.
+> 
+Gwydion takes note of the band for future reference.
+> 
+Eylia raises a toast to you!
+> 
+Sun smiles.
+> 
+Avalon exclaims, "a roast!"
+> 
+Fafnir drink the liquid with great relish, sitting back with a contented sigh
+as small plumes of steam emanate from his nostrils.
+> 'Why I'd love to
+You say, "Why I'd love to"
+> 
+Eylia grins.
+> 
+Fafnir drink the liquid with great relish, sitting back with a contented sigh
+as small plumes of steam emanate from his nostrils.
+> 
+Eylia is now following Moordread.
+> 
+Feras finds a napkin somewhere and wipes his hands off
+> 
+Pockets exclaims, "Now you will have to have many new pieces of Jewlery with
+your Device on them!!"
+> 
+Avalon raises her glass!
+> 
+Sun says, "no that is the only place I didn't go"
+> 
+Sun sighs.
+> 
+Wolfbane comforts Sun.
+> 
+Kellah asks, "Fafnir, would you please tell Avalon that fizz is not for little
+girls?"
+> 
+Prudence comforts Sun.
+> 
+Kylie looks around uncomfortably, tugging on her blouse nervously.
+> 
+After taking a sip of the fizz Raningeth's skin turns beet red and his mouth
+opens in a silent scream.
+> 
+Raningeth clutches his throat in pain!
+> 
+You are quite amazed when Raningeth finishes the last of the fizz.
+> 
+Keera removes a roast chicken from the table.
+> act places his free arm around Eylia and moves with her to the dance floor.
+Moordread places his free arm around Eylia and moves with her to the dance
+floor.
+> 
+Keera fidgets nervously.
+> 
+Keera gazes at a roast chicken.
+> 
+Feras gazes at Cypress.
+> 
+Raningeth pulls a leg off off a roast chicken.
+> 
+Raningeth gobbles it up.
+> 
+Keera touches Rion.
+> 
+Sun says, "next time we will have tea in the garden"
+> 
+Sun nods.
+> 
+Wolfbane says, "that stuff grownin on ya?"
+> 
+Prudence leans on Saxon.
+> 
+Raningeth pulls the other leg off a roast chicken.
+> 
+Raningeth gobbles it up.
+> 
+Wolfbane listens carefully to Raningeth.
+> 
+Saxon smiles at Prudence.
+> 
+Eylia gazes at you.
+> 
+Eylia smiles.
+> 
+Prudence smiles at Sun.
+> 
+Prudence says, "Good idea."
+> 
+Kellah drinks some hot tea.
+> 
+Fafnir says, "Hmm alot little Hatchling I drink it"
+> 
+Sun says, "that will be nice too"
+> 
+Sun nods.
+> 
+Eylia whispers to you, "you lead"
+> 
+Sun drinks some hot tea.
+> 
+Sun smiles.
+> 
+Keera gives a roast chicken to Rion.
+> 
+Keera smiles.
+> 
+Sun casts her gaze across the area.
+> 
+Pockets drinks some hot tea.
+> 
+Kellah says, "Little hatchlings maybe, but not little girls."
+> 
+Keera removes a roast chicken from the table.
+> act holds Eylia close as they move smoothly across the dance floor.
+Moordread holds Eylia close as they move smoothly across the dance floor.
+> 
+Leah ponders.
+> 
+Kylie glances at Marcolan, startled.
+> 
+Sun says, "there were quite a number of people that were able to come"
+> 
+Keera gazes at you.
+> 
+Sun smiles.
+> 
+Feras smiles warmly at Cypress and leans over to whisper in her ear
+> 
+Pockets exclaims, "Stunt her growth!"
+> 
+Keera smiles.
+> 
+Kellah nods to Pockets.
+> 
+Cypress beams at Feras.
+> 
+Gwydion smiles at Wolfbane.
+> 
+Leah nods to Pockets.
+> 
+Eylia smiles up at Moordread as she dances with him.
+> 
+Sun taps Feras on the shoulder.
+> 
+Gwydion says, "If you'd like, I'd be happy to."
+> 
+Feras gazes at Sun.
+> 
+Wolfbane smiles at Gwydion.
+> 
+Sun asks, "so have we got a date yet?"
+> 
+Sun giggles.
+> 
+Saxon removes a roast chicken from the table.
+> 
+Sun listens carefully to Feras.
+> 
+Sun listens carefully to Cypress.
+> 
+Feras ponders.
+> 
+Sun smiles.
+> 
+Prudence chuckles at Sun.
+> 
+Saxon sniffs a roast chicken.
+> act twirls Eylia around and leans her back before pulling her back close to him.
+Moordread twirls Eylia around and leans her back before pulling her back close
+to him.
+> 
+Kellah chuckles at Sun.
+> 
+Leah sits on a chair.
+> 
+Eylia leans on you.
+> 
+Cypress smiles at Sun.
+> 
+Eylia grins.
+> 
+Feras says, "Not exactely, a time frame yes"
+> 
+Sun incants a spell.
+> 
+Kellah smiles at Cypress.
+> 
+Saxon pulls a leg off off a roast chicken.
+> 
+Saxon gobbles it up.
+> 
+Sun gestures at Raningeth.
+Magic begins to form around Sun but then fizzles.
+> 
+Eylia says, "You are a great dancer."
+> 
+Leah drinks some wine.
+> 
+Cypress says, "nod sun"
+> 
+Sun incants a spell.
+> 
+Prudence takes a bite of a pastry.
+> 
+Sun gestures at Raningeth.
+Raningeth radiates with magical strength.
+> 
+Cypress nods to Sun.
+> blush
+You blush.
+> 
+Stolar drinks some emerald wine.
+> 
+Eylia touches you.
+> 
+Keera smiles at Wolfbane.
+> 
+Wolfbane says, "everyone Gwydion is going to grace us with a little something
+so please pay attention"
+> 
+Raningeth says, "thanks"
+> 
+Fafnir drink the liquid with great relish, sitting back with a contented sigh
+as small plumes of steam emanate from his nostrils.
+> 
+Saxon pulls the other leg off a roast chicken.
+> 
+Saxon gobbles it up.
+> 
+Raningeth removes a large crystal glass etched with a blazing sun streaming
+light on a wolf head over crossed swords from the table.
+> 
+Leah smiles at Gwydion.
+> 
+Fafnir drink the liquid with great relish, sitting back with a contented sigh
+as small plumes of steam emanate from his nostrils.
+> 
+Fafnir drains the last of the fizz with great satisfaction.
+> 
+The band halts its playing.
+> 
+Prudence listens carefully to Gwydion.
+> 
+Keera listens to her surroundings closely.
+> 
+Saxon tears some flesh from the a roast chicken's breast.
+> 
+Saxon gobbles it up.
+> 
+Gwydion chuckles.
+> 
+Kellah listens carefully to Gwydion.
+> 
+Wolfbane smiles at Keera.
+> 
+Pockets smiles at Gwydion.
+> 
+Kellah beams happily.
+> 
+Sun says, "perhaps you can get married at our estate if you like"
+> 
+Saxon meticulously scrapes the remaining meat from the breat of a roast
+chicken.
+> 
+Saxon gobbles it up.
+> 'I have a great partner who is light on her feet
+You say, "I have a great partner who is light on her feet"
+> 
+Raningeth removes a large crystal glass etched with a blazing sun streaming
+light on a wolf head over crossed swords from the table.
+> 
+Sun nods to Cypress.
+> 
+Feras drinks some wine.
+> 
+Pockets listens carefully to Gwydion.
+> 
+Sun nods to Feras.
+> 
+Raningeth removes a large crystal glass etched with a blazing sun streaming
+light on a wolf head over crossed swords from the table.
+> 
+Saxon disassembles the rest of a roast chicken.
+> 
+Saxon gobbles it up.
+> 
+Sun smiles.
+> 
+Eylia threads her fingers through Moordread's.
+> 
+Gwydion ponders.
+> 
+Fafnir goes through an arch.
+> 
+Saxon pulls a leg off off a roast chicken.
+> 
+Saxon gobbles it up.
+> 
+Feras cocks his head to the side.
+> 
+Cypress says, "somtime after the first thaw"
+> 
+Rion blinks.
+> 
+Cypress gazes at Sun.
+> 
+Saxon pulls the other leg off a roast chicken.
+> 
+Saxon gobbles it up.
+> 
+Feras nods.
+> 
+Eylia whispers to you, "helps when yo don't weigh anything to start with"
+> 
+Prudence beams at Cypress.
+> 
+Saxon tears some flesh from the a roast chicken's breast.
+> 
+Saxon gobbles it up.
+> 
+Feras says, "Shortly after"
+> 
+Prudence takes a bite of a pastry.
+> 
+Saxon meticulously scrapes the remaining meat from the breat of a roast
+chicken.
+> 
+Saxon gobbles it up.
+> 
+Avalon raises her glass!look
+> 
+Feras gazes at Cypress.
+> 
+Raningeth goes through an arch.
+> 
+Prudence gazes at Saxon.
+> 
+Sun smiles.
+> whisp eyl KInd of like dancing with an ephemeral?
+
+Rion removes some roast beef from the table.
+> You whisper to Eylia.
+> 
+Prudence chuckles.
+> 
+Stolar drinks some emerald wine.
+> 
+Wolfbane smiles at Keera.
+> 
+Keera smiles at Rion.
+> 
+Eylia chuckles at you.
+> 
+Avalon blinks.
+> 
+Rion gives some roast beef to Keera.
+> 
+Raningeth arrives through an arch.
+> 
+Keera waves to Rion.
+> 
+Gwydion rubs a polished rosewood lonriset inset with a pure white lily on a
+field of sparkling sapphire blue.
+> 
+Eylia whispers to you, "I'm a bit more solid than that"
+> 
+Keera giggles.
+> 
+You feel the touch of Shankara's mind:
+"take care all.. in was fun"
+> 
+Raningeth removes a large crystal glass etched with a blazing sun streaming
+light on a wolf head over crossed swords from the table.
+> 
+Keera pokes her finger at a roast chicken.
+> 
+Rion disassembles the rest of a roast chicken.
+> 
+Rion gobbles it up.
+> 
+Wolfbane smiles at Gwydion.
+> 
+You feel the touch of Shankara's mind:
+"it was fun"
+> 
+You feel the touch of Sun's mind:
+"wave"
+> 
+Keera licks some roast beef.
+> 
+Raningeth drinks some wine.
+> 
+You feel the touch of Shankara's mind:
+"mutter"
+> whisp eyl OH yeah!
+You whisper to Eylia.
+> 
+Keera takes a bite of some roast beef.
+> 
+Raningeth takes a bite of a hot baked potato.
+> 
+Raningeth takes a bite of a hot baked potato.
+> wink eyl
+You wink at Eylia.
+> 
+Keera smiles happily.
+> 
+Eylia leans on you.
+> 
+Eylia tickles you.
+> 
+Marcolan drinks some iced tea.
+> 
+Raningeth takes a bite of some ne-boar stew.
+> 
+Wolfbane says, "now please quiet"
+> 
+You feel the touch of Shankara's mind:
+"take care Sun"
+> 
+Feras licks his lips.
+> 
+Raningeth says, "Such small portions"
+> 
+Rion pulls a leg off off a roast chicken.
+> 
+Rion gobbles it up.
+> 
+You feel the touch of Shankara's mind:
+"and thanks"
+> 
+Raningeth smiles.
+> 
+ ** Hyena has just disconnected.
+> 
+Raningeth takes a bite of some roast beef.
+> 
+Feras removes a pastry from the table.
+> act moves Eylia swiftly around the dance floor.
+Moordread moves Eylia swiftly around the dance floor.
+> 
+Gwydion puts the strap of the lonriset over his shoulder and tunes a couple of
+strings.
+> 
+Rion listens carefully to Wolfbane.
+> 
+Feras sniffs a pastry.
+> 
+Keera leans on Rion.
+> 
+ ** Shankara has just left the Realms.
+> 
+Kellah leans back, ready to listen to Gwydion
+> 
+Eylia whispers to you, "the band stopped silly"
+> 
+Feras gives a pastry to Cypress.
+> 
+Wolfbane says, "or atleast enough to hear gwydion speak"
+> 
+Gwydion ponders.
+> 
+Feras removes a pastry from the table.
+> 
+Cypress smiles at Feras.
+> 
+Prudence listens carefully to Gwydion.
+> 
+Rion listens carefully to Gwydion.
+> 
+Saxon leans on Prudence.
+> 
+Sun listens carefully to Gwydion.
+> 
+Stolar drinks some emerald wine.
+> whisp eyl Big finale
+
+Gwydion begins playing, laying down a bouncing two-beat rythmn that struts
+along with a mischievously impudent air.
+> 
+Feras sniffs a pastry.
+> You whisper to Eylia.
+> 
+Prudence smiles at Saxon.
+> 
+Eylia chuckles.
+> 
+Feras takes a bite of a pastry.
+> 
+Keera listens to her surroundings closely.
+> 
+Fafnir arrives through an arch.
+> 
+Leah smiles.
+> 
+Sun smiles at Gwydion.
+> 
+Keera smiles.
+> 
+Gwydion sings, "You can hound me,
+                Now you've found me,
+                But I'm far more cunning than you.
+                I'm a shy fox,
+                I'm a sly fox,
+                And I'll teach you a lesson or two!"
+> 
+Eylia taps her foot to the music.
+> 
+Prudence takes a bite of a pastry.
+> 
+Kellah grins.
+> act ended the dance conveniently next to a free table.
+Moordread ended the dance conveniently next to a free table.
+> 
+Keera cocks her head to the side.
+> 
+Wolfbane listens carefully to Gwydion.
+> 
+Stolar drinks some emerald wine.
+> 
+Eylia gazes at you.
+> 
+Gwydion sings, "I'll run you through the hawthorn hedge
+                   and tear your dogs to shreds!
+                I'll run you from the forest groves into the flower beds!
+                I'll run you from the open fields into the nearest town...
+                And take you to my hunting ground!"
+> 
+Prudence chuckles at Cypress.
+> 
+Feras seems to perk his ears up
+> 
+Prudence arches her eyebrow.
+> 'Sit or another dance?
+You ask, "Sit or another dance?"
+> 
+Raningeth drinks some wine.
+> list eyl
+You listen carefully to Eylia.
+> 
+Eylia says, "sit"
+> 
+Gwydion plays an interlude, his fingers racing over the strings as the notes
+tumble out, chasing each other with wild exuberance.
+> 
+Eylia grins.
+> grin
+You grin.
+> 
+Avalon pulls up a chair and takes a load off.
+> 
+Sun smiles.
+> 
+Feras gazes at Gwydion.
+> act takes a chair and offers it to Eylia.
+Moordread takes a chair and offers it to Eylia.
+> 
+Raningeth takes a bite of some roast beef.
+> 
+Gwydion sings, "You can hound me,
+                Now you've found me,
+                But I'm far more cunning than you.
+                I'm a brown fox,
+                I'm a town fox,
+                And I'll teach you a lesson or two!"
+> 
+Eylia sits on a chair.
+> 
+Feras drinks some wine.
+> 
+Gwydion sings, "I'll introduce the barbed-wire fence to every horse and hound!
+                And watch the horses suffering upon the stony ground!
+                I'll lead you from the open fields into the nearest town...
+                And take you to my hunting ground."
+> act places a chair next to Eylia and hands her glass back to her.
+Moordread places a chair next to Eylia and hands her glass back to her.
+> go chair
+You sit on the chair.
+s> 
+Cypress drinks some emerald wine.
+s> lean eyl
+You lean on Eylia.
+s> 
+Eylia smiles at you.
+s> 
+Gwydion sings, "Run, run, I won't give in!
+                Run, run, I'll never give in!"
+s> 
+Sun smiles.
+s> 
+Kylie slips quietly out the arch, glancing once back over her shoulder.
+s> 
+Kylie goes through an arch.
+s> 
+Gwydion sings, "Run, run, run!"
+s> 
+Stolar removes a large crystal glass etched with a blazing sun streaming light
+on a wolf head over crossed swords from the table.
+s> 
+Gwydion sings, "I won't give in!"
+s> 
+Gwydion spins the music up to a brash crescendo, and then, at the height of the
+tumult, suddenly lays his hands across the strings and stops them in
+mid-stride.
+s> 
+Gwydion grins.
+s> 
+Sun smiles.
+s> 
+Keera smiles happily.
+s> 
+Eylia smiles at Gwydion.
+s> 
+Gwydion bows.
+s> 
+Feras howls.
+s> 
+Sun applauds.
+s> 
+Wolfbane smiles at Gwydion.
+s> 
+Eylia applauds.
+s> 
+Stolar drinks some wine.
+s> 
+Pockets applauds.
+s> 
+Prudence applauds.
+s> 
+Sun beams at Gwydion.
+s> 
+Stolar applauds.
+s> app
+You applaud.
+s> 
+Feras thumps on a table.
+s> 
+Saxon applauds.
+s> 
+Feras thumps on a table.
+s> 
+Avalon applauds.
+s> 
+Raningeth applauds.
+s> sip mead
+What are you referring to?  Please be more specific.
+s> 
+Saxon applauds.
+s> 
+Leah applauds.
+s> 
+Wolfbane says, "i can see why the queen appointed you"
+s> 
+Saxon says, "Very cool."
+s> look in my glas
+There is nothing in that.
+s> 
+Wolfbane smiles at Gwydion.
+s> 
+Raningeth drinks some wine.
+s> 
+Leah nods to Fafnir.
+s> 
+Kellah becomes aware she is holding her breath, and breaks into applause!
+s> 
+Kellah applauds.
+s> 
+Leah furrows her brow.
+s> look in 2 glas
+
+Sun nods to Wolfbane.
+s> There is nothing in that.
+s> 
+Prudence nods to Wolfbane.
+s> 
+Marcolan smiles at Gwydion.
+s> 
+Sun smiles.
+s> 
+Raningeth takes a bite of some roast beef.
+s> 
+Cypress smiles gwd
+s> get glas
+You remove a large crystal glass etched with a blazing sun streaming light on a
+wolf head over crossed swords from the table.
+s> 
+Leah gazes at Avalon.
+s> look in glas
+There is nothing in that.
+s> 
+The band strikes up the music again, the theme picking up the feeling of
+Gwydion's song.
+s> 
+Wolfbane says, "but i always knew you were an exceptional bard"
+s> 
+Feras drinks some wine.
+s> 
+Gwydion says, "Thanks."
+s> look in 2 glas
+There is nothing in that.
+s> 
+Cypress smiles at Gwydion.
+s> 
+Wolfbane smiles at Gwydion.
+s> 
+Raningeth takes a bite of some ne-boar stew.
+s> 
+Feras licks his lips.
+s> 
+Keera beams at Gwydion.
+s> look in 3 glas
+In the glass you see some dark coffee.
+s> sip coff
+You can't drink that.
+s> 
+Eylia gazes at a huge table.
+s> 
+Eylia licks her lips.
+s> sip coffee
+The powerful liquid rushes through your system, sending waves of adrenalin
+shooting through you. Your very senses seem to vibrate with newfound power and
+energy!
+s> 
+Kellah says, "Good band, too, Leah."
+s> 
+Eylia drinks some honey mead.
+s> 
+Gwydion smiles at Keera.
+s> 
+Kellah grins.
+s> 
+Sun smiles.
+s> 
+Feras runs his fingers through his hair.
+s> 
+Sun drinks some hot tea.
+s> 
+Leah nods to Kellah.
+s> 
+Fafnir gives some ne-boar stew to Avalon.
+s> 
+Feras shakes his head back and forth.
+s> 
+Prudence removes some chilled shrimp from the table.
+s> 
+Sun removes a large crystal glass etched with a blazing sun streaming light on
+a wolf head over crossed swords from the table.
+s> 
+Kellah drinks some hot tea.
+s> 
+Avalon hugs Fafnir.
+s> 
+Cypress gazes at Feras.
+s> 
+Feras licks his lips.
+s> 
+Rion casts his gaze across the area.
+s> 
+Avalon hugs Fafnir.
+s> act wraps his arm around Eylia's slender shoulders.
+Moordread wraps his arm around Eylia's slender shoulders.
+s> 
+ ** Ioen has just left the Realms.
+s> 
+Feras leans on Cypress.
+s> 
+Eylia whispers to you, "took me forever to find it"
+s> 
+Fafnir hugs Avalon.
+s> 
+Avalon takes a bite of some ne-boar stew.
+s> 
+Keera gazes at Rion.
+s> 
+Eylia whispers to you, "used to finding it in the dark, not the light"
+s> 
+Prudence removes a shrimp off the plate, dips it in the sauce and eats it,
+removing and discarding the shell.
+s> 
+Eylia winks at you.
+s> 
+Wolfbane leans on Gwydion.
+s> 
+Stolar drinks some wine.
+s> 
+Leah raises an eyebrow towards Avalon.
+s> 
+Keera smiles.
+s> 
+Avalon takes a bite of some ne-boar stew.
+s> whisp eyl Sorry, Wolfbane said I couldn't go escort anyone else
+You whisper to Eylia.
+s> 
+Kellah says, "That's an awfully big portion, Fafnir, for Avalon."
+s> 
+Eylia chuckles at you.
+s> 
+After taking a sip of the fizz Avalon's skin turns beet red and her mouth opens
+in a silent scream.
+s> 
+Avalon clutches her throat in pain!
+s> 
+Sun opens a shimmering gold silk pouch that shines with the light of the a
+thousand sunbeams.
+s> 
+Gwydion says, "Which reminds me... Part of the job is arranging the
+entertainment for official events, so I'm looking for performers for the
+Queen's upcoming party."
+s> 
+Leah blinks at Avalon.
+s> 
+A dog quickly gobbles up something that Sun fed it then immediately begs for
+more.
+s> 
+Avalon says, "gods I love this stuff"
+s> 
+Saxon arches his eyebrow.
+s> whisp eyl I'll be danged if I didn't bring almost every girl here but you :(
+You whisper to Eylia.
+s> 
+Stolar gazes at Avalon.
+s> 
+Prudence blinks at Avalon.
+s> 
+Wolfbane chuckles at Gwydion.
+s> 
+Keera furrows her brow.
+s> 
+Eylia chuckles at you.
+s> 
+Keera gazes at Avalon.
+s> 
+Alic arrives through an arch.
+s> 
+Leah shakes her head back and forth.
+s> 
+Wolfbane smiles at Alic.
+s> 
+Fafnir says, "Nay if she going to drink like drakin she can eat like one"
+s> 
+Eylia whispers to you, "I'm here now"
+s> tick eyl
+You tickle Eylia.
+s> 
+Alic slips quietly back into the room
+s> 
+Sun drinks some hot tea.
+s> 
+Prudence exclaims, "I saw Mom and Dad dance once they're great!"
+s> 
+Avalon grins.
+s> 
+Wolfbane says, "finding your way around ok?"
+s> 
+Feras smiles crookedly
+s> 
+Prudence smiles.
+s> 
+Keera sniffs a roast chicken.
+s> 
+Wolfbane listens carefully to Alic.
+s> 
+Sun giggles.
+s> 
+Eylia grins.
+s> 
+Avalon flutters her wings
+s> 
+Keera pulls the other leg off a roast chicken.
+s> 
+Keera gobbles it up.
+s> 
+Avalon takes a bite of some ne-boar stew.
+s> 
+Alic says, "I suppose"
+s> 
+Feras takes a bite of a pastry.
+s> 
+Sun asks, "not at the??"
+s> 
+Kellah says, "Well, you don't have to sit up with her all night, Fafnir.."
+s> 
+Keera licks her lips.
+s> 
+Sun says, "nah"
+s> 
+Kellah sighs.
+s> 
+Alic nods to Wolfbane.
+s> 
+Eylia waves to Alic.
+s> 
+Sun ponders.
+s> 
+Saxon says, "Yeah, I heard about how they danced."
+s> whisp eyl That's the important thing, and, as someone else told me, who I leave with is more important *wink*
+You whisper to Eylia.
+s> 
+Wolfbane smiles at Alic.
+s> 
+Saxon smirks.
+s> 
+Raningeth drinks some wine.
+s> 
+Eylia chuckles at you.
+s> 
+Prudence pokes Saxon.
+s> 
+Wolfbane leans on Sun.
+s> 
+Sun pokes Saxon.
+s> 
+Alic waves to Eylia.
+s> 
+Sun giggles.
+s> 
+Avalon grabs a hunk of bread and turns it around her bowl
+s> 
+Sun drinks some hot tea.
+s> 
+Prudence says, "Those are my parents you're talking about."
+s> 
+Prudence smiles at Saxon.
+s> 
+Raningeth takes a bite of a pastry.
+s> 
+A dog quickly gobbles up something that Sun fed it then immediately begs for
+more.
+s> 
+Raningeth takes a bite of a pastry.
+s> 
+Wolfbane puts away a finely crafted albescent longsword with fiery randar
+forming a pommel shaped into a screaming eagle's head.
+s> 
+Sun gives a large crystal glass etched with a blazing sun streaming light on a
+wolf head over crossed swords to Wolfbane.
+s> 
+Kellah drinks some hot tea.
+s> 
+Sun smiles.
+s> 
+Saxon says, "oh yeah"
+s> look on table
+
+Wolfbane drinks some milk.
+s> On the table you see a large crystal glass etched with a blazing sun streaming
+light on a wolf head over crossed swords, a large crystal glass etched with a
+blazing sun streaming light on a wolf head over crossed swords, a large crystal
+glass etched with a blazing sun streaming light on a wolf head over crossed
+swords, a large crystal glass etched with a blazing sun streaming light on a
+wolf head over crossed swords, a large crystal glass etched with a blazing sun
+streaming light on a wolf head over crossed swords, a large crystal glass
+etched with a blazing sun streaming light on a wolf head over crossed swords, a
+large crystal glass etched with a blazing sun streaming light on a wolf head
+over crossed swords, a large crystal glass etched with a blazing sun streaming
+light on a wolf head over crossed swords, a large crystal glass etched with a
+blazing sun streaming light on a wolf head over crossed swords, a large crystal
+glass etched with a blazing sun streaming light on a wolf head over crossed
+swords, a large crystal glass etched with a blazing sun streaming light on a
+wolf head over crossed swords, a large crystal glass etched with a blazing sun
+streaming light on a wolf head over crossed swords, a large crystal glass
+etched with a blazing sun streaming light on a wolf head over crossed swords, a
+large crystal glass etched with a blazing sun streaming light on a wolf head
+over crossed swords, a large crystal glass etched with a blazing sun streaming
+light on a wolf head over crossed swords, a large crystal glass etched with a
+blazing sun streaming light on a wolf head over crossed swords, a large crystal
+glass etched with a blazing sun streaming light on a wolf head over crossed
+swords, a large crystal glass etched with a blazing sun streaming light on a
+wolf head over crossed swords, a large crystal glass etched with a blazing sun
+streaming light on a wolf head over crossed swords, a large crystal glass
+etched with a blazing sun streaming light on a wolf head over crossed swords, a
+large crystal glass etched with a blazing sun streaming light on a wolf head
+over crossed swords, a large crystal glass etched with a blazing sun streaming
+light on a wolf head over crossed swords, a large crystal glass etched with a
+blazing sun streaming light on a wolf head over crossed swords, a large crystal
+glass etched with a blazing sun streaming light on a wolf head over crossed
+swords, a large crystal glass etched with a blazing sun streaming light on a
+wolf head over crossed swords, a large crystal glass etched with a blazing sun
+streaming light on a wolf head over crossed swords, a large crystal glass
+etched with a blazing sun streaming light on a wolf head over crossed swords, a
+large crystal glass etched with a blazing sun streaming light on a wolf head
+over crossed swords, a large crystal glass etched with a blazing sun streaming
+light on a wolf head over crossed swords, a large crystal glass etched with a
+blazing sun streaming light on a wolf head over crossed swords and a large
+crystal glass etched with a blazing sun streaming light on a wolf head over
+crossed swords.
+s> 
+Cypress takes a bite of a pastry.
+s> 
+Sun says, "there you are dear your favorite"
+s> 
+Sun nods.
+s> 
+Wolfbane beams at Sun.
+s> 
+Sun smiles.
+s> 
+Wolfbane takes a bite of a pastry.
+s> 
+Stolar drinks some wine.
+s> 
+Kellah drinks some hot tea.
+s> 
+Avalon takes a bite of some ne-boar stew.
+s> sip mead
+What are you referring to?  Please be more specific.
+s> 
+Feras puts a pastry on the table.
+s> 
+Wolfbane drinks some milk.
+s> 
+Prudence taps a large crystal glass etched with a blazing sun streaming light
+on a wolf head over crossed swords.
+s> 
+Alic furrows his brow.
+s> 
+Feras drinks some wine.
+s> 
+Cypress leans her head on Feras' shoulder
+s> 
+Leah says, "she'll have a tummy ache for sure..."
+s> 
+Leah gazes at Avalon.
+s> 
+Sun removes a large crystal glass etched with a blazing sun streaming light on
+a wolf head over crossed swords from the table.
+s> 
+Eylia gazes around the room at the groups of people.
+s> 
+Sun smiles.
+s> 
+Sun drinks some ale.
+s> 
+Avalon licks the bowl clean with another hunk of brad
+s> 
+Feras kisses Cypress on the top of the head.
+s> 
+Sun smiles.
+s> 
+Cypress nods to Leah.
+s> 
+Prudence says, "I can make you matching capes with this symbol if you'd like."
+s> 
+Wolfbane nuzzles Sun affectionately.
+s> 
+Keera smiles at Rion.
+s> 
+Prudence smiles at Sun.
+s> 
+The band plays a soft, quiet song, fit for lovers.
+s> 
+Prudence smiles at Wolfbane.
+s> gaze eyl
+You gaze at Eylia.
+s> 
+Cypress says, "but she'll sleep well"
+s> 
+Sun cuddles up to Wolfbane.
+s> 
+Sun smiles.
+s> 
+Cypress gazes at Leah.
+s> 
+Eylia gazes at you.
+s> 
+Alic steps back and leans against the arch, watching in silence
+s> 
+Wolfbane takes Sun by the hand.
+s> 
+Leah shakes her head at Cypress.
+s> 
+Sun beams at Wolfbane.
+s> 
+Fafnir says, "I know the cure for that alittle drakin medicine"
+s> 
+Stolar drinks some wine.
+s> 
+Fafnir smiles at Alic.
+s> act takes one of Eylia's hands in his.
+Moordread takes one of Eylia's hands in his.
+s> 
+You feel the touch of Kylie's mind:
+"Is there anyone about who might have time to teach me some spellcraft after
+the party?"
+s> 
+Wolfbane takes sun to the middle of the dancefoloor
+s> 
+Eylia smiles at you.
+s> 
+Prudence whistles.
+s> 
+Keera squeezes Rion's hand.
+s> 
+Marcolan drinks some iced tea.
+s> 
+Gwydion leans on an arch.
+s> 
+Feras smiles at Wolfbane.
+s> 
+Prudence says, "Go Dad."
+s> 
+Gwydion drinks some deep purple wine.
+s> 
+Prudence giggles.
+s> 
+Kellah drinks some ale.
+s> 
+Hyena arrives through an arch.
+s> 
+Sun moves up to Wolfbane and takes his hand.
+s> 
+Cypress nuzzles Feras affectionately.
+s> 
+Sun smiles.
+s> 
+Sun beams at Wolfbane.
+s> 
+You feel the touch of Sy's mind:
+"Speaking of parties, where is it?"
+s> 
+Hyena sits down.
+s> 
+Pockets smiles at Wolfbane.
+s> 
+Prudence leans on Saxon.
+s> 
+Saxon smiles at Prudence.
+s> 
+Sun does a little jig!
+s> 
+Cypress smiles at Hyena.
+s> 
+You feel the touch of Avalon's mind:
+"in bc sy!"
+s> 
+Wolfbane smiles and does a graceful waltz with Sun
+s> 
+Hyena furrows his brow.
+s> 
+Rion ponders.
+s> 
+Prudence smiles sx
+s> 
+Kellah chuckles at Avalon.
+s> 
+Marcolan drinks some iced tea.
+s> 
+Sun beams at Wolfbane.
+s> 
+Kellah winks at Avalon.
+s> 
+Keera gazes at a table.
+s> 
+Avalon giggles.
+s> 
+As Marcolan places a large crystal glass etched with a blazing sun streaming
+light on a wolf head over crossed swords into a slime mold, it dissolves away!
+s> 
+Prudence smiles at Saxon.
+s> 
+You feel the touch of Kylie's mind:
+"at the Gilnaerd estates"
+s> 
+Keera listens carefully to Rion.
+s> 
+You feel the touch of Sy's mind:
+"Funny, thats right where I am"
+s> 
+The gentle music continues, floating through the air, weaving its sounds.
+s> 
+Marcolan's slime belches and bubbles before coming to rest.
+s> whisp eyl Just say if want another dance...here or elsewhere if you wish *wink*
+You whisper to Eylia.
+s> 
+Cypress listens to a riyong mushroom.
+s> 
+Feras gazes at a table.
+s> 
+You feel the touch of Kellah's mind:
+"Don't you see us all, Sy?"
+s> 
+Eylia chuckles at you.
+s> act whispers into Eylia's ear.
+
+Marcolan removes a large crystal glass etched with a blazing sun streaming
+light on a wolf head over crossed swords from the table.
+s> 
+Eylia nuzzles you affectionately.
+s> Moordread whispers into Eylia's ear.
+s> 
+Wolfbane dips Sun.
+s> 
+You feel the touch of Sy's mind:
+"Hmm"
+s> cud eyl
+You cuddle up to Eylia.
+s> 
+Feras cocks his head to the side.
+s> 
+You feel the touch of Avalon's mind:
+"sy..at wolfiees climb the fence"
+s> 
+Wolfbane kisses Sun upon the neck.
+s> 
+Marcolan drinks some milk.
+s> 
+Sun moves gracefully around the floor matching every step Wolfbane makes.
+s> 
+Sun smiles.
+s> 
+Sun beams at Wolfbane.
+s> 
+Alic sighs.
+s> 
+Pockets exclaims, "I wonder if we could get Garin to do the goat dance!"
+s> 
+Pockets laughs.
+s> 
+Avalon grins.
+s> 
+Gwydion goes through an arch.
+s> 
+Wolfbane shivers.
+s> 
+Leah smiles softly.
+s> 
+Eylia caresses you.
+s> 
+Keera watches Wolfbane and Sun curiously.
+s> 
+Prudence chuckles at Pockets.
+s> 
+Leah drinks some wine.
+s> 
+Sun nuzzles Wolfbane affectionately.
+s> 
+Avalon leans on Keera.
+s> 
+Alic leans on an arch.
+s> act smiles softly at Eylia's gentle caress.
+Moordread smiles softly at Eylia's gentle caress.
+s> 
+Avalon says, "dats a mating dance keera"
+s> 
+Fafnir leans on Alic.
+s> 
+Raningeth drinks some wine.
+s> 
+Stolar beams happily.
+s> 
+Keera cocks her head to the side.
+s> 
+Prudence exclaims, "Avalon!"
+s> 
+Hyena seems to be concentrating intently on something.
+s> 
+Keera listens carefully to Avalon.
+s> 
+Prudence says, "It is not."
+s> 
+Saxon chuckles.
+s> 
+Kellah exclaims, "Avalon!"
+s> 
+Prudence rolls her eyes.
+s> 
+Feras leans back in his chair and puts an arm over Cypress shoulders
+s> 
+Raningeth takes a bite of a pastry.
+s> 
+Keera blinks.
+s> 
+Raningeth takes a bite of a pastry.
+s> 
+Kellah shakes her head back and forth.
+s> 
+Keera smiles at Rion.
+s> 
+Pockets looks at the dancers and sighs.
+s> 
+Wolfbane twirls sun away from him and back again never letting go of her hand
+s> 
+Raningeth takes a bite of a pastry.
+s> 
+Sun says, "thanks so much for the dance dear"
+s> 
+Avalon says, "well it is in wolfs terms..."
+s> 
+Feras casts his gaze across the area.
+s> 
+Sun beams at Wolfbane.
+s> 
+Avalon says, "wolfs dance.."
+s> 
+Sun twirls around in Wolfbane's arms
+s> 
+Cypress beams at Feras.
+s> 
+Sun smiles.
+s> 
+The song ends, and the band plays another brighter melody.
+s> 
+Prudence exclaims, "it is not Lonnie!"
+s> 
+Rion tugs on Keera.
+s> 
+Keera bites her lower lip.
+s> 
+Prudence rolls her eyes.
+s> 
+Fafnir says, " Alic go there and meet people"
+s> 
+Prudence sighs.
+s> 
+Sun applauds.
+s> 
+Feras listens to his surroundings closely.
+s> 
+Sun says, "beam"
+s> 
+Avalon says, "oh...."
+s> 
+Kellah says, "Prudence, you almost have to ignore her, or she is encouraged to
+go on."
+s> 
+Wolfbane bows.
+s> 
+Sun curtsies.
+s> 
+Wolfbane applauds.
+s> 
+Keera smiles up at Rion.
+s> 
+Raningeth removes a shrimp off the plate, dips it in the sauce and eats it,
+removing and discarding the shell.
+s> 
+Sun smiles.
+s> 
+Avalon says, "looks like it..."
+s> 
+Prudence asks, "Where does she get this stuff?"
+s> 
+Feras drinks some wine.
+s> 
+Saxon smiles at Rion.
+s> 
+Pockets goes through an arch.
+s> 
+Avalon says, "well tera"
+s> 
+Feras puts a large crystal glass etched with a blazing sun streaming light on a
+wolf head over crossed swords on the table.
+s> 
+Rion whispers to Keera, "kay take my hand"
+s> 
+Avalon says, "she"
+s> 
+Sun follows Wolfbane off the dance floor.
+s> 
+Sun smiles.
+s> act fills Elyia's glass back to the top.
+Moordread fills Elyia's glass back to the top.
+s> 
+Keera fidgets nervously.
+s> 
+Sun giggles.
+s> 
+Eylia gazes at you.
+s> 
+Sun smiles at Prudence.
+s> 
+Wolfbane nuzzles Sun affectionately.
+s> 
+Sun nods to Wolfbane.
+s> 
+Keera places her hand in Rion's.
+s> 
+Feras gazes at Cypress.
+s> toast eyl
+You raise a toast to Eylia!
+s> 
+Eylia asks, "Trying to get me drunk?"
+s> 
+Pockets arrives through an arch.
+s> 
+Eylia grins.
+s> 
+Eylia raises a toast to you!
+s> 
+Kellah says, "Tera doesn't teach you any of this, Avalon. Don't say that."
+s> kiss eyl lips
+You kiss Eylia upon the lips.
+s> 
+Wolfbane disbands his group.
+s> 
+Prudence asks, "What?"
+s> 
+Keera listens to her surroundings closely.
+s> 
+Prudence gazes at Sun.
+s> 
+Eylia kisses you upon the lips.
+s> 
+Leah drinks some wine.
+s> 'Do I have to?
+You ask, "Do I have to?"
+s> 
+Eylia drinks some honey mead.
+s> 
+Rion takes one of Keera's hands in his, and then wraps the other around her
+waste
+s> list eyl
+You listen carefully to Eylia.
+s> 
+Eylia chuckles.
+s> 
+Sun says, "I enjoyed it dear"
+s> 
+Raningeth tears some flesh from the a roast chicken's breast.
+s> 
+Raningeth gobbles it up.
+s> 
+Eylia says, "not at all."
+s> 
+Sun smiles at Wolfbane.
+s> 
+Keera smiles.
+s> grin
+
+Wolfbane smiles at Sun.
+s> You grin.
+s> 
+Avalon says, ""but she say dancing is a love dance"
+s> 
+Raningeth meticulously scrapes the remaining meat from the breat of a roast
+chicken.
+s> 
+Raningeth gobbles it up.
+s> 
+Rion asks, "ready?"
+s> 
+Eylia casts her gaze across the area.
+s> 
+Keera gazes at Rion.
+s> 
+Wolfbane says, "as did i"
+s> 
+Rion listens carefully to Keera.
+s> 
+Avalon says, "she say that"
+s> 
+Raningeth drinks some wine.
+s> 
+Leah smiles.
+s> 'Just don't want you getting thirsty.
+You say, "Just don't want you getting thirsty."
+s> 
+Keera nods.
+s> 
+Eylia says, "Hey Alic, come on over and have a seat."
+s> 
+Keera smiles nervously.
+s> 
+Stolar drinks some wine.
+s> 
+Sun sighs.
+s> 
+Hyena casts his gaze across the area.
+s> 
+Rion whispers to Keera
+s> 
+Prudence smiles lovingly at Wolfbane and Sun.
+s> 
+Eylia nuzzles you affectionately.
+s> 
+Kellah says, "Oh, never mind, Avalon. I give up."
+s> kiss eyl neck
+You kiss Eylia upon the neck.
+s> 
+Alic furrows his brow.
+s> 
+Feras appears to become weaker.
+s> 
+Keera listens to her surroundings closely.
+s> 
+Hyena furrows his brow.
+s> 
+Prudence asks, "You two look great together you know that?"
+s> 
+Eylia nuzzles you affectionately.
+s> 
+Sun says, "In all the excitement I didn't see the queen leave"
+s> 
+Prudence smiles.
+s> 
+Sun sighs.
+s> 
+Feras smiles.
+s> 
+Pockets sighs.
+s> 
+Sun beams at Prudence.
+s> 
+Sun smiles.
+s> 
+Prudence comforts Sun.
+s> 
+Sun says, "thanks dear"
+s> 
+Wolfbane comforts Sun.
+s> 
+Pockets says, "Left a bit ago"
+s> 
+Prudence smiles at Sun.
+s> 
+Keera smiles and nods.
+s> look eyl
+You see a slender wolfling woman, of a fiery temperment. Her eyes are a dark
+gray-green hue flashing out from under layers of curling ebony hair. Agile and
+quick, she moves quietly with a natural flair of motion.
+She is wearing a tight black leather dress leaving her shoulders bare revealing
+a rose and ivy tattoo on her shoulder blade, some brilliant emerald earrings
+with the stones cut to form tiny green spiders that seem to cling to her ears,
+some soft black leather boots with thin silver heels, a small dark green
+pendant of a rose whose stem is wrapped with a bit of ivy and a slim black
+leather anklet knotted around a small, bright green emerald.
+She appears to be healthy.
+s> 
+Sy arrives through an arch.
+s> 
+Sun hugs Prudence.
+s> 
+Raningeth disassembles the rest of a roast chicken.
+s> 
+Raningeth gobbles it up.
+s> 
+Sy beams happily.
+s> 
+Sun hugs Wolfbane.
+s> 
+Rion begins to move with Keera across the dance floor in a slow waltz
+s> 
+Wolfbane salutes Sy.
+s> 
+Pockets hugs Sy.
+s> 
+Leah smiles at Sy.
+s> 
+Kellah smiles at Sy.
+s> 
+Kellah returns to normal.
+s> 
+Marcolan says, "She left just after the announcements."
+s> 
+Prudence hugs Sun.
+s> 
+Keera gazes at Rion.
+s> 
+Sy makes a salute.
+s> 
+Cypress gazes at Keera.
+s> 
+Rion smiles at Keera.
+s> 
+Sun says, "I have a wonderful family"
+s> 
+Sun smiles.
+s> 
+Rion says, "like that"
+s> 
+Marcolan salutes Sy.
+s> 
+Rion grins.
+s> 
+Feras cocks his head to the side.
+s> 
+Prudence beams happily.
+s> 
+Kellah exclaims, "Good morning, Sy!"
+s> 
+Rion nods to Keera.
+s> 
+Raningeth says, "Great food really makes the party."
+s> 
+Wolfbane nods to Sun.
+s> 
+Saxon smiles at Rion.
+s> 
+Prudence smiles at Sy.
+s> 
+Sun beams happily.
+s> 
+Wolfbane says, "yes you do"
+s> 
+Feras gazes at Rion.
+s> 
+Kellah points at a large crystal glass etched with a blazing sun streaming
+light on a wolf head over crossed swords.
+s> 
+Alic continues leaning back against the arch, his chin resting on his chest and
+his arms folded in front of him.
+s> act brushes a stray lock of hair from Eylia's neck.
+
+Wolfbane leans on Sun.
+s> Moordread brushes a stray lock of hair from Eylia's neck.
+s> 
+Prudence smiles at Wolfbane.
+s> 
+Sy says, "Good thing the Scrivner had you on the map Count"
+s> 
+Feras ponders.
+s> 
+Wolfbane smiles at Sy.
+s> 
+Keera follows Rion's lead, moving gracefully in counterpoint to his steps.
+s> 
+Eylia smiles at you.
+s> 
+Prudence asks, "Even though I'm mouthy?"
+s> 
+Kellah says, "Sy, watch out for the fizz."
+s> 
+Prudence listens carefully to Wolfbane.
+s> 
+Cypress listens carefully to Feras.
+s> 
+Keera smiles at Rion.
+s> 
+Pockets says, "Its on a map...Maybe I sould buy one"
+s> 
+Rion says, "i think you've danced before"
+s> 
+Rion smiles at Keera.
+s> 
+Leah watches quietly as Keera and Rion move around the dancefloor with ease.
+s> 
+Stolar smiles at Wolfbane.
+s> 
+Keera cocks her head to the side.
+s> 
+Raningeth pulls a leg off off a roast chicken.
+s> 
+Raningeth gobbles it up.
+s> 
+Wolfbane says, "kinda runs in the family i guess"
+s> 
+Feras leans over and whispers to Cypress
+s> 
+Keera smiles.
+s> 
+Fafnir leans on Alic.
+s> 
+Kellah nods to Leah.
+s> 
+Keera nods.
+s> 
+Wolfbane shrugs.
+s> 
+Sun says, "well that is an inhertiance dear"
+s> 
+Prudence giggles.
+s> 
+Sun smiles at Prudence.
+s> 
+Eylia nudges you.
+s> 
+Prudence says, "Figures."
+s> 
+Alic raises an eyebrow towards Fafnir.
+s> list eyl
+You listen carefully to Eylia.
+s> 
+Cypress smiles at Feras.
+s> 
+Prudence smiles.
+s> 
+Wolfbane chuckles at Prudence.
+s> 
+Eylia whispers to you, "Alic looks rather out of place, don't know if he heard
+me invite him over though"
+s> 
+Sun smiles stor
+s> 
+Sun smiles at Stolar.
+s> 'Ready to tear up the floor some more?
+You ask, "Ready to tear up the floor some more?"
+s> 
+Stolar whispers somethign to Sun and Wolfbane.
+s> 
+Keera smiles happily.
+s> 
+Sun nods.
+s> 
+Rion grins.
+s> 
+Sun says, "thaks for coming"
+s> 
+Sun beams at Stolar.
+s> 
+Stolar smiles.
+s> 
+Stolar bows.
+s> rais eyl
+You raise an eyebrow towards Eylia.
+s> 
+Sun curtsies towards Stolar.
+s> 
+Stolar softly says, "thank you both for having the aprty"
+s> 
+Eylia shrugs.
+s> whisp eyl That or he ignored you
+You whisper to Eylia.
+s> 
+Wolfbane smiles at Stolar.
+s> 
+Eylia chuckles at you.
+s> 
+Stolar waves.
+s> 
+Feras smiles at Stolar.
+s> look alic
+You see Alic Dashvalis, a mature male wolfling.
+He is short, average weight and powerfully built.
+He has blue eyes, tan skin and pony-tailed black hair.
+He is wearing some ensorcelled titanium armor, a red cloak, an enchanted helm
+and a jade amulet.
+He appears to be healthy.
+s> 
+Rion twirls Keera in a tight circle, and then moves with her around the dance
+floor
+s> 
+Prudence leans on Saxon.
+s> 
+Sun says, "and you are welcome anytime"
+s> 
+Eylia whispers to you, "he was nice the other night"
+s> 
+Sun smiles at Stolar.
+s> 
+Wolfbane says, "only way to break in a new house"
+s> 
+Raningeth pulls the other leg off a roast chicken.
+s> 
+Raningeth gobbles it up.
+s> 
+Wolfbane smiles at Stolar.
+s> 
+Kellah waves to Stolar.
+s> 
+Stolar concentrates intently.
+s> 
+Keera giggles.
+s> 
+Stolar waves to Kellah.
+s> 
+Fafnir says, " You really should the party Alic"
+s> 
+Rion grins.
+s> 
+Prudence says, "Hey I could throw a party."
+s> 
+Prudence ponders.
+s> 
+Stolar concentrates.
+s> 
+Saxon raises an eyebrow towards Prudence.
+s> 
+Leah smiles at Prudence.
+s> 
+Stolar furrows his brow.
+s> whisp eyl I don't think I've talked with him before
+
+Sun nods.
+s> You whisper to Eylia.
+s> 
+Fafnir folds his wings.
+s> 
+Prudence giggles.
+s> 
+Stolar goes through an arch.
+s> 
+Rion coughs.
+s> 
+Alic shrugs.
+s> 
+Keera spins in Rion's arms.
+s> 
+Eylia stands up.
+s> 
+Feras nods to Cypress.
+s> 
+Sun says, "well it depends on who all is coming dear."
+s> 
+ ** Avalon has just disconnected.
+s> 
+Avalon disconnects.
+s> 
+Eylia tugs on you.
+s> 
+Sun smiles at Saxon.
+s> 
+Rion gazes at Wolfbane as he dances
+s> 
+Sun giggles.
+s> 
+Alic says, "I don't know any here save one..."
+s> 
+Alic shrugs.
+s> beam
+You beam happily.
+s> 
+Prudence chuckles.
+s> 
+Rion says, "you mean Mansion with Moat"
+s> 
+Rion grins.
+s> 
+Raningeth whispers to Wolfbane you know if your estate should require any
+potions i'd be avaiable.  Having lots of healing potions could be good.
+s> act stands with Eylia.
+Moordread stands with Eylia.
+s> stand
+You struggle to your feet under the weight of all your equipment.
+ [Round: 2 sec]
+R> 
+Kellah says, "Alic, my name is Kellah."
+> nuz eyl
+You nuzzle Eylia affectionately.
+> 
+Kellah curtsies towards Alic.
+> 
+Sun nods to Raningeth.
+> 
+Sun smiles.
+> 
+Kellah exclaims, "Now you know two!"
+> 
+Eylia smiles at you.
+> 
+Wolfbane nods to Raningeth.
+> 
+You feel the touch of Gwydion's mind:
+"Heck if I know."
+> 
+Wolfbane says, "ill keep that in mind would be something good for the troups to
+carry"
+> gaze eyl
+You gaze at Eylia.
+> 
+ ** Stolar has just left the Realms.
+> 
+Prudence says, "Umm actually Mom and Dad I need to talk to you when you have
+time in private."
+> 
+Alic smiles slightly
+> 
+Eylia whispers to you, "lemme introduce you before we dance again"
+> 
+Alic nods to Kellah.
+> 
+Sun ponders.
+> 
+Prudence smiles.
+> smi eyl
+You smile at Eylia.
+> 
+Rion moves Keera back towards the table
+> 
+Sun looks pale.
+> 
+Rion grins.
+> 
+Sun ponders.
+> 
+Wolfbane raises an eyebrow towards Sun.
+> 
+Eylia walks through the room over to the arch.
+> 
+Rion pants.
+> act moves with Eylia holding her hand in his.
+Moordread moves with Eylia holding her hand in his.
+> 
+Keera smiles radiantly, excitement suffusing her cheeks in a rosy glow.
+> 
+Saxon gazes at Sun.
+> 
+Eylia waves to Alic.
+> 
+Keera leans on Rion.
+> 
+Wolfbane says, "you dont look too good dear you feelin ok?"
+> 
+Saxon asks, "Ya ok?"
+> 
+Kellah says, "See, it's easy! Just smile at people, and introduce yourself,
+Alic. You'll get to know more people soon."
+> 
+Raningeth nods to both Sun and Wolfbane
+> 
+Wolfbane listens carefully to Sun.
+> 
+Rion says, "that was fun"
+> 
+Feras gazes at Rion.
+> 
+You feel the touch of Gwydion's mind:
+"No."
+> 
+Leah smiles at Keera.
+> 
+Sun says, "well it depends"
+> 
+Raningeth leans over and whispers to Hyena
+> 
+Sun ponders.
+> 
+Rion nods to Keera.
+> 
+Feras nuzzles Cypress affectionately.
+> 
+Sun gazes at Prudence.
+> 
+Keera beams happily.
+> 
+Prudence asks, "depends on what?"
+> 
+Alic furrows his brow.
+> 
+Rion helps Keera to her chair
+> 
+Eylia says, "Hello again Alic."
+> 
+Prudence fidgets nervously.
+> 
+Alic nods to Eylia.
+> 
+Pockets arches her eyebrow.
+> 
+Sun says, "Prudence requires a private conversation with us dear"
+> 
+Keera gazes at Rion.
+> 
+Sun listens carefully to Wolfbane.
+> 
+Alic smiles slightly
+> 
+Rion gazes at Alic.
+> 
+Keera sits down.
+> 
+Keera smiles.
+> 
+Prudence smiles nervously.
+> 
+Wolfbane is now following Sun.
+> 
+Rion says, "Hi, i'm Rion"
+> 
+Alic returns to normal.
+> 
+Rion smiles at Alic.
+> 
+Prudence is now following Sun.
+> 
+Feras kisses Cypress on the cheek.
+> 
+Fafnir says, "i am wanting to here the words hello Grandpa Wolfie"
+> 
+Rion says, "this is Keera"
+> 
+Wolfbane says, "follow the boss"
+> 
+Kellah beams at Rion.
+> 
+Rion points at Keera.
+> 
+Hyena shrugs.
+> 
+Wolfbane gestures at Sun.
+> act grins broadly and warmly, almost laughing.
+Moordread grins broadly and warmly, almost laughing.
+> 
+Keera gazes at Alic.
+> 
+Sun says, "excuse us a minute all"
+> 
+Keera smiles and waves to Alic.
+> 
+Eylia chuckles.
+> 
+Wolfbane says, "excuse us"
+> 
+Sun curtsies.
+> 
+Alic nods to Rion.
+> 
+Sun's group goes through an arch.
+> 
+Rion says, "this is my twin Saxon.."
+> 
+Alic says, "Alic"
+> 
+Rion points at Saxon.
+> 
+Pockets nods.
+> 
+Saxon waves to Alic.
+> 
+Saxon says, "Hiya"
+> 
+Sy pulls up a chair and takes a load off.
+> 
+Rion says, "thats Sy, the master archer"
+> 
+Eylia whispers to you, "guess hes got enough intros"
+> 
+Rion points at Sy.
+> 
+Eylia shrugs.
+> 
+Sy struggles to his feet.
+> 
+Eylia is now following Moordread.
+> 
+Sy salutes Alic.
+> 
+Eylia says, "Lets dance"
+> 
+Feras chuckles.
+> 
+Kellah says, "Sy, the master something, anyway.."
+> 
+Feras nods to Cypress.
+> 
+Kellah winks at Sy.
+> whisp eyl Yeah
+You whisper to Eylia.
+> beam eyl
+You beam at Eylia.
+> 
+Pockets leans on Sy.
+> 
+Pockets sighs.
+> 
+Sy says, "Not the best, but pretty good"
+> 
+Rion says, "thats my Aunt Cypress and her fiance Feras"
+> 
+Rion points at Cypress.
+> 
+Rion points at Feras.
+> 
+Keera smiles.
+> 
+Kellah says, "If he does say so himself."
+> 
+Fafnir leans on Rion.
+> 
+Kellah ducks.
+> 
+Cypress smiles at Keera.
+> 
+Sy smiles at Kellah.
+> 
+Sy pulls up a chair and takes a load off.
+> 
+Feras licks his lips.
+> 
+Rion says, "thats Fafnir, the physician"
+> act leads Eylia to the dance floor with a flare and fancy dance move.
+Moordread leads Eylia to the dance floor with a flare and fancy dance move.
+> 
+Rion points at Fafnir.
+> 
+Eylia grins.
+> 
+Rion says, "hmm.."
+> lean eyl
+You lean on Eylia.
+> 
+The band turns to another slow song once again.
+> 
+Rion says, "thats Hyena, master maker.."
+> 
+Eylia wraps her arms around Moordread's waist.
+> 
+Rion points at Hyena.
+> 
+Feras gazes at Cypress.
+> 
+Hyena snickers, "huh?"
+> 
+Hyena waves.
+> 
+Rion asks, "did i miss anyone?"
+> 
+Rion casts his gaze across the area.
+> 
+Cypress cuddles up to Feras.
+> 
+Pockets absently plays with her necklace.
+> 
+Hyena furrows his brow.
+> 
+Rion says, "this is Alic"
+> 
+Kellah says, "Hyena the master maker of everything, I think."
+> 
+Rion points at Alic.
+> 
+Kellah grins.
+> 
+Rion says, "oops.."
+> act leans close to Eylia, stepping in a slow hypnotic dance.
+Moordread leans close to Eylia, stepping in a slow hypnotic dance.
+> 
+Keera smiles at Alic.
+> 
+Rion points at Pockets.
+> 
+Leah smiles at Alic.
+> 
+Hyena shakes his head back and forth.
+> 
+Feras beams happily.
+> 
+Marcolan bows towards Alic.
+> 
+Alic seems to press himself back against the arch a bit more
+> 
+Hyena snickers, "not a smith, too hard on my nails"
+> 
+Rion says, "that is pockets she's an excellent maker as well"
+> 
+Keera furrows her brow.
+> 
+Keera gazes at Alic.
+> 
+Sy chuckles at Hyena.
+> 
+Kellah says, "Bet you learn it someday."
+> 
+Pockets smiles at Rion.
+> 
+Hyena shakes his head back and forth.
+> 
+Kellah smiles at Hyena.
+> 
+Alic goes through an arch.
+> 
+ ** Alic has just left the Realms.
+> 
+Eylia sighs.
+> 
+Hyena snickers, "How much?"
+> 
+Pockets says, "And locksmith"
+> 
+Hyena winks.
+> 
+Alic arrives through an arch.
+> 
+Pockets smiles.
+> 
+Eylia sways against Moordread.
+> 
+Rion says, "its nice to meet you Alic"
+> 
+Rion smiles at Alic.
+> 
+Pockets asks, "Hyena was that directed at me?"
+> 
+Kellah exclaims, "So, Alic, see! It's not so hard!"
+> act whispers softly into Eylia's ear as they sway in time with the music.
+Moordread whispers softly into Eylia's ear as they sway in time with the music.
+> 
+Kellah grins.
+> 
+Raningeth appears to become weaker.
+> 
+Eylia listens carefully to you.
+> 
+Hyena snickers, "no, Kellah"
+> 
+Rion casts his gaze across the area.
+> 
+Rion says, "oops.."
+> 
+Raningeth drinks some wine.
+> 
+Keera smiles at Alic.
+> 
+Rion says, "thats Raningeth, master alchemist..he's over there"
+> 
+Leah ponders.
+> 
+Rion points at Raningeth.
+> 
+Hyena furrows his brow.
+> 
+ ** Gwydion has just left the Realms.
+> 
+Raningeth smiles.
+> whisp eyl You are most lovely this evening
+You whisper to Eylia.
+> 
+Alic furrows his brow.
+> 
+Rion points out Raningeth for Alic
+> 
+Raningeth bows towards Alic.
+> 
+Eylia blushes.
+> 
+Alic quietly says, "I suppose.."
+> 
+Hyena turns his attention to his sketchbook.
+> whisp eyl As always
+
+Hyena furrows his brow.
+> You whisper to Eylia.
+> 
+Alic nods to Keera.
+> 
+Eylia nudges you.
+> 
+Hyena frowns.
+> beam eyl
+You beam at Eylia.
+> 
+Pockets drinks some hot tea.
+> 
+Rion says, "thats Eylia"
+> 
+Rion points at Eylia.
+> 
+Pockets gazes at a large crystal glass etched with a blazing sun streaming
+light on a wolf head over crossed swords.
+> 
+Rion says, "she's the one dancing with Moordread.."
+> 
+Rion casts his gaze across the area.
+> 
+Kellah leans towards Hyena, trying to see what drawing he is frowning over.
+> 
+Rion points at Leah.
+> 
+Keera smiles.
+> 
+Feras pulls himself a little closer to Cypress and nearly falls off his chair
+> 
+Rion says, "thats Leah over there.."
+> 
+Feras mutters something you can't quite make out.
+> 
+Keera touches a table.
+> 
+Feras gazes at a chair.
+> 
+Hyena frowns.
+> 
+Leah smiles at Alic.
+> 
+Rion says, "she takes care of children, the princess Avalon is her main charge"
+> act holds one hand gently against Eylias lower back and the other holds her hand tightly.
+
+Sy removes a large crystal glass etched with a blazing sun streaming light on a
+wolf head over crossed swords from the table.
+> Moordread holds one hand gently against Eylias lower back and the other holds
+her hand tightly.
+> 
+Kellah chuckles.
+> 
+Alic smiles slightly
+> 
+Rion casts his gaze across the area.
+> 
+Sy sniffs some iced tea.
+> 
+Alic quietly says, "To many.."
+> 
+Sy squeezes some lemon into his tea.
+> 
+Feras gazes at Alic.
+> 
+Alic shakes his head back and forth.
+> 
+Alic goes through an arch.
+> 
+Leah says, "who has taken to hiding again I think..."
+> 
+Rion says, "and you met Kellah already i think"
+> 
+Keera watches Moordread and Eylia happily.
+> 
+Leah furrows her brow.
+> 
+Eylia sighs.
+> 
+Rion sighs.
+> 
+Sy stirs some sugar into his tea.
+> 
+Rion says, "scared him off"
+> nuz eyl
+You nuzzle Eylia affectionately.
+> 
+Eylia nuzzles her face against Moordread's chest.
+> 
+Sy stirs some sugar into his tea.
+> 
+Sy drinks some iced tea.
+> 
+Kellah says, "Poor Alic. I think it was too much."
+> 
+Sy ponders.
+> 
+Sy stirs some sugar into his tea.
+> 
+Keera gazes at an arch.
+> 
+Keera furrows her brow.
+> act leans his cheek next to Eylia's head.
+Moordread leans his cheek next to Eylia's head.
+> 
+Sy drinks some iced tea.
+> 
+Sy licks his lips.
+> 
+Leah looks under the table for Avalon and finds her there sleeping peacefully
+holding her binoculars in her chubby fingers.
+> 
+Kellah says, "I hope we didn't scare him."
+> 
+Keera sighs.
+> 
+Sy struggles to his feet.
+> 
+Rion says, "i think i scared your friend, Kellah"
+> 
+Rion nods.
+> whisp eyl Dang, some bad lightning moving in :(
+You whisper to Eylia.
+> whisp eyl []
+You whisper to Eylia.
+> 
+Rion says, "sorry"
+> 
+Leah places the tablecloth back down and lets her sleep.
+> 
+Leah furrows her brow.
+> 
+Cypress smiles at Feras.
+> 
+Keera touches Kellah.
+> 
+Eylia whispers to you, "* pout*"
+> 
+Keera furrows her brow.
+> 
+Sun's group arrives through an arch.
+> 
+Pockets exclaims, "Leah maybe you should let her drink Fizz Knocks her right
+out!!"
+> 
+Sun smiles.
+> 
+Prudence smiles.
+> 
+Feras pulls a gray houndstooth sash.
+> 
+Kellah says, "He seemed so lost, I felt we should make an effort to  make him
+feel at home."
+> 
+Wolfbane gazes at Saxon.
+> 
+Leah says, "it surely did"
+> 
+Sy goes through an arch.
+> 
+Leah says, "but..."
+> 
+Prudence stops following Sun.
+> 
+Wolfbane gazes at a finely crafted albescent longsword with fiery randar
+forming a pommel shaped into a screaming eagle's head.
+> 
+Saxon smiles at Prudence.
+> 
+Cypress gazes at Feras.
+> 
+Wolfbane gazes at Saxon.
+> 
+Prudence smiles at Saxon.
+> 
+Saxon coughs.
+> 
+Sun blinks at Saxon.
+> 
+Saxon coughs.
+> 
+Cypress asks, "not use to that, huh?"
+> 
+Leah says, "perhaps that isn't the best way"
+> 
+Leah gazes at a table.
+> act leans very close to Eylia, cuddling her tightly.
+Moordread leans very close to Eylia, cuddling her tightly.
+> 
+Feras shakes his head at Cypress.
+> 
+Cypress gazes at Feras.
+> 
+Wolfbane says, "anyone for filet of saxon tonight?"
+> 
+Wolfbane listens to his surroundings closely.
+> 
+Saxon sputters out some wine he was drinking and stares at Sun.
+> 
+Kellah says, "But she looks so sweet, Leah."
+> 
+Eylia sighs.
+> 
+Saxon gazes at Sun.
+> 
+Saxon asks, "What!?"
+> 
+Rion blinks.
+> 
+Prudence casts her gaze across the area.
+> 
+Saxon blinks at Sun.
+> 
+Leah says, "think of when she wakes up though."
+> 
+Saxon blinks at Sun.
+> 
+Saxon blinks at Sun.
+> 
+Rion says, "uh, oh"
+> 
+Eylia arches her eyebrow.
+> 
+Saxon gazes at Prudence.
+> 
+Wolfbane says, "i slice and sun roasts"
+> 
+Prudence asks, "What?"
+> 
+Saxon frowns.
+> 
+Prudence gazes at Saxon.
+> 
+Cypress ponders.
+> 
+Sun giggles.
+> look
+
+Rion leans on Saxon.
+> [Gilnaerd Estate, Banquet Hall]
+This room is decorated with a sumptuous shade of yellow. A hand-carved
+oak table fills the southern portion of the room. To the north, the 
+flooring is hard wood for dancing. A large vase of fresh flowers
+constantly adorns the center of the table. Trays of food linger 
+around the room. Numerous soft cushioned chairs compliment the
+rest of the furnishings. An arch leads to the reception.
+You see Keera (sitting), Rion, Raningeth, Feras (sitting), Fafnir, Sun,
+Wolfbane, Cypress (sitting), Leah (sitting), Kellah (sitting), Hyena (sitting),
+Marcolan, Pockets, Saxon, Eylia and Prudence. 
+Obvious exits: none.
+> 
+Leah says, "she's just too little."
+> 
+Prudence falls to the ground.
+> 
+Keera gazes at Kellah.
+> 
+Prudence rolls on the ground laughing!
+> 
+Saxon says, "Yeah well, if she is it ain't cuz a me."
+> 
+Kellah asks, "Oh, oh.. do I sense a family something going on?"
+> 
+Prudence rolls on the ground laughing!
+> 
+Prudence rolls on the ground laughing!
+> 
+Feras gazes at Prudence.
+> 
+Saxon concentrates intently.
+Saxon phases out of view.
+> 
+Prudence rolls on the ground laughing!
+> 
+Sun giggles.
+> 
+Prudence struggles to her feet.
+> 
+Eylia looks over at the commotion.
+> 
+Fafnir says, " I can glaze him in fizz"
+> 
+Rion frowns.
+> 
+Wolfbane says, "remember you treat her badly you gotta deal with us"
+> 
+A gold badge of the Lawkeepers glows with a soft silver light.
+> 
+Wolfbane leans on Sun.
+> 
+Marcolan chuckles.
+> 
+You feel the touch of Prudence's mind:
+"Saxon I didn't tell her that!"
+> 
+Marcolan says, "He ran."
+> 
+Kellah smiles at Keera.
+> 
+Sun smiles at Wolfbane.
+> 
+Rion frowns.
+> 
+Prudence laughs.
+> 
+ ** Hyena has just disconnected.
+> 
+Hyena disconnects.
+> 
+Wolfbane laughs.
+> 
+Wolfbane laughs.
+> 
+Wolfbane laughs.
+> 
+Wolfbane lays down.
+> 
+Wolfbane rolls on the ground laughing!
+> 
+Prudence laughs.
+> 
+Wolfbane rolls on the ground laughing!
+> 
+Wolfbane rolls on the ground laughing!
+> 
+Sun smiles.
+> 
+Wolfbane rolls on the ground laughing!
+> 
+Rion frowns.
+> 
+Sun whistles.
+> 
+Wolfbane struggles to his feet.
+> 
+Eylia frowns.
+> 
+Feras cocks his head to the side.
+> 
+Sun whistles.
+> 
+Marcolan smiles at Wolfbane.
+> act raises his head from next to Eylia's to see what is happening.
+Moordread raises his head from next to Eylia's to see what is happening.
+> 
+Marcolan goes through an arch.
+> 
+Hyena arrives.
+> 
+Leah struggles to her feet.
+> 
+Keera smiles at Kellah.
+> 
+Sun says, "got ya"
+> 
+Rion asks, "you all are bein mean to Saxon?"
+> 
+Sun giggles.
+> 
+Hyena mutters something you can't quite make out.
+> 
+Wolfbane says, "ya know ithink of you and sax as my sons"
+> 
+Wolfbane smiles at Rion.
+> 
+Sun says, "BUT"
+> 
+Feras giggles though he is trying not too
+> 
+Keera listens carefully to Rion.
+> 
+Raningeth removes a shrimp off the plate, dips it in the sauce and eats it,
+removing and discarding the shell.
+> 
+Eylia shrugs.
+> 
+Raningeth removes a shrimp off the plate, dips it in the sauce and eats it,
+removing and discarding the shell.
+> beam eyl
+
+Feras covers his mouth with his hands.
+> You beam at Eylia.
+> 
+Wolfbane says, "just pickin on him"
+> 
+Wolfbane smiles at Rion.
+> 
+Prudence nods.
+> 
+Eylia leans her head back on Moordread, closing her eyes as she sways to the
+music.
+> 
+Prudence giggles.
+> 
+Feras shrugs.
+> 
+Prudence asks, "Saxon?"
+> 
+Prudence casts her gaze across the area.
+> 
+Sun says, "if you are ever bad to her you will feel the crunch of a thousand
+metors on your head"
+> 
+Fafnir says, " i need to take my leave I do not want my hunter coming here and
+destory your lovly home"
+> 
+Cypress snickers.
+> 
+Rion says, "he's mad"
+> 
+The band continues to play the soft, drifting melody.
+> 
+Hyena closes his sketchbook.
+> 
+Fafnir bows.
+> act takes Eylia warmly in his arms as they drift into a dance and world of their own.
+
+Rion gazes at Prudence.
+> Moordread takes Eylia warmly in his arms as they drift into a dance and world
+of their own.
+> 
+Keera raises an eyebrow towards Rion.
+> 
+Keera fidgets nervously.
+> 
+Sun giggles.
+> 
+Sun laughs.
+> 
+Prudence says, "I didn't tell them that."
+> 
+Prudence sighs.
+> 
+Prudence gazes at Rion.
+> 
+Fafnir gives some shimmering tarokka blossoms to Leah.
+> 
+Hyena struggles to his feet.
+> 
+Cypress gazes at Prudence.
+> 
+Prudence says, "They were just teasing."
+> 
+Fafnir goes through an arch.
+> 
+Hyena furrows his brow.
+> 
+Keera gazes curiously at Hyena.
+> 
+Leah gazes at some shimmering tarokka blossoms.
+> 
+Hyena goes through an arch.
+> 
+Leah ponders.
+> 
+You feel the touch of Prudence's mind:
+"Saxon?"
+> 
+You feel the touch of Wolfbane's mind:
+"saxon come back i didnt get to fix ya yet!"
+> 
+Prudence pokes Wolfbane.
+> 
+Eylia chuckles.
+> 
+Wolfbane giggles.
+> 
+Pockets moves off to a corner chair
+> 
+Pockets sits down.
+> 
+Feras casts his gaze across the area.
+> 
+You feel the touch of Sun's mind:
+"you better come back or then we will be mad;)"
+> 
+Sun giggles.
+> 
+Eylia gazes at you.
+> 
+Keera sighs.
+> 
+Eylia gazes at you.
+> 
+Wolfbane nods to Sun.
+> 
+Eylia asks, "Wanna take a walk?"
+> 
+You feel the touch of Wolfbane's mind:
+"yeah what the boss said"
+> 
+You feel the touch of Prudence's mind:
+"Saxon?!?"
+> 
+Keera listens carefully to Rion.
+> 
+Sun sighs.
+> 
+Wolfbane says, "try the gardin"
+> 
+Kellah asks, "Does this mean we don't get roast Saxon for dessert?"
+> 
+Wolfbane smiles at you.
+> act looks warmly into Eylia's eyes a mysterious dark gray sparkle emanating.
+Moordread looks warmly into Eylia's eyes a mysterious dark gray sparkle
+emanating.
+> nod eyl
+You nod to Eylia.
+> 
+Rion seems to be concentrating intently on something.
+> 
+Wolfbane shakes his head at Keera.
+> 
+You feel the touch of Prudence's mind:
+"come back please?"
+> 
+Sun sighs.
+> 
+Wolfbane shakes his head at Kellah.
+> 
+Prudence sighs.
+> 
+Keera blinks.
+> 
+Rion says, "he's mad"
+> 
+Keera listens carefully to Wolfbane.
+> 
+Rion shakes his head back and forth.
+> 'May I have your leave?
+You ask, "May I have your leave?"
+> list wolfb
+You listen carefully to Wolfbane.
+> list sun
+You listen carefully to Sun.
+> 
+Wolfbane nods to you.
+> 
+Sun nods to you.
+> 
+Sun smiles at you.
+> 
+Pockets says, "Actually we need t ofind someone named Norman to beat him up"
+> 
+Pockets snickers.
+> 
+Eylia smiles at you.
+> 
+Sun says, "but remember"
+> 
+Wolfbane says, "dont leave any clothes in the gardin"
+> 
+Wolfbane smiles at you.
+> 
+Feras removes a large crystal glass etched with a blazing sun streaming light
+on a wolf head over crossed swords from the table.
+> 
+Eylia frowns.
+> rais
+You raise your eyebrow.
+> 
+Prudence blinks.
+> 
+Feras drinks some honey mead.
+> 
+Marcolan's group arrives through an arch.
+> 
+Rion puts a glass on the table.
+> 'We shall try
+
+Kellah chuckles at Wolfbane.
+> You say, "We shall try"
+> 
+Sun says, "it is your duty to protect our daughter at all costs"
+> 
+Your thoughts are jarred as you sense the death of Kylie.
+> 
+Sun nods to you.
+> 
+Eylia chuckles.
+> 
+Sun smiles.
+> 
+Wolfbane nods to you.
+> 
+Prudence blinks.
+> 
+Marcolan smiles at Irienne.
+> nod sun
+You nod to Sun.
+> 
+Feras frowns.
+> 
+You feel the touch of Prudence's mind:
+"Saxon!"
+> 
+Leah furrows her brow.
+> 
+Sun smiles at you.
+> 
+Rion frowns.
+> 
+Irienne blushes.
+> 
+Cypress blinks.
+> 
+Raningeth says, "What happened to her."
+> 
+Feras removes a werewolf eye from the satchel.
+> 
+Wolfbane hugs Irienne.
+> 'She has but to call
+You say, "She has but to call"
+> 
+You feel the touch of Rion's mind:
+"anyone with Kylie?"
+> 
+Keera fidgets nervously.
+> 
+Feras looks deep into a werewolf eye.
+> sal wolfb
+You salute Wolfbane.
+> 
+Sun nods to you.
+> bow sun
+You bow towards Sun.
+> 
+Marcolan listens carefully to Feras.
+> 
+Sun curtsies towards you.
+> 
+Wolfbane says, "where?"
+> 
+Sun smiles.
+> hold eyl
+She is already in your group.
+> 
+Feras says, "In the cemetary"
+> 
+Irienne hugs Wolfbane tentatively.
+> 
+Wolfbane listens carefully to Feras.
+> 
+Prudence asks, "Where?"
+> 
+Keera furrows her brow.
+> 
+Prudence smiles at Irienne.
+> 
+Feras struggles to his feet.
+> 
+Marcolan disbands his group.
+> 
+You feel the touch of Wolfbane's mind:
+"no"
+> act takes Eylia's hand in his.
+Moordread takes Eylia's hand in his.
+> go arc
+Eylia follows you.
+[Gilnaerd Estate, Reception]
+You see Alic, Sy, Hyena (sitting) and Eylia. A glass and a glass are here.
+Obvious exits: e.
+> 
+Marcolan arrives through an arch.
+> 
+You feel the touch of Wolfbane's mind:
+"thanks"
+> 
+Marcolan goes east.
+> 
+Sy concentrates intently.
+> 
+Eylia smiles.
+> nuz eyl
+You nuzzle Eylia affectionately.
+> 
+Sy concentrates.
+> e
+Eylia follows you.
+[Gilnaerd Estate, Foyer]
+You see Eylia. A glass, a glass, a large crystal glass etched with a blazing
+sun streaming light on a wolf head over crossed swords, a large crystal glass
+etched with a blazing sun streaming light on a wolf head over crossed swords
+and a large crystal glass etched with a blazing sun streaming light on a wolf
+head over crossed swords are here.
+Obvious exits: e, w.
+> 
+Sy arrives.
+> 
+Sy goes through a door.
+> e
+Eylia follows you.
+[Gilnaerd Estate, Living Room]
+You see Eylia. 
+Obvious exits: w.
+> smi
+You smile.
+> look
+[Gilnaerd Estate, Living Room]
+This room is decorated in hues of burgandy and browns. An unusually large 
+fireplace, with trophies mounted over it rests on the east wall. One is a
+large deer head, the other a boar. On the floor before the fireplace rests
+a soft ursine fur rug. Across the room, a large comfortable sofa in dark
+blue and burgandy fabric sits. On the walls are racks displaying some of the
+Count's weapon collection. A large portrait of hangs in a prominent position
+on the north wall near a doorway. Small tables sit in corners of the room
+with odds and ends of the owners.
+You see Eylia. 
+Obvious exits: west.
+> 
+Those attending the party, please report up your level.
+> 
+Eylia grins.
+> exp
+Level: 46
+Build Points to date: 483
+Unspent Build Points: 3
+Experience Points until next Build Point: 20325
+> 
+You feel the touch of Prudence's mind:
+"Saxon please?"
+> cud eyl
+You cuddle up to Eylia.
+> 
+You feel the touch of Sun's mind:
+"and I thought he really liked our daughter but evidently not since he left
+her"
+> report Level 46
+Your message has been reported to the online GameMaster staff.
+> w
+Eylia follows you.
+[Gilnaerd Estate, Foyer]
+You see Eylia. 
+Obvious exits: e, w.
+> go doo
+Eylia follows you.
+[Gilnaerd Estate, Courtyard]
+You see Eylia. A gate is here.
+Obvious exits: none.
+> go arc
+Eylia follows you.
+[Gilnaerd Estate, Garden]
+You see Eylia. A fountain is here.
+Obvious exits: none.
+> gaze
+You gaze about the area.
+> 
+You feel the touch of Marcolan's mind:
+"is there a rezzer?"
+> 'No one here just now, or were you wishing to walk somewhere even more private?
+You ask, "No one here just now, or were you wishing to walk somewhere even more
+private?"
+> 
+You feel the touch of Prudence's mind:
+"They were teasing with you I never said that."
+> gaze fou
+You gaze at a fountain.
+> 
+ ** Fafnir has just left the Realms.
+> 
+ ** Alic has just left the Realms.
+> 
+You feel the touch of Marcolan's mind:
+"Rezzer?"
+> 
+You have been awarded 200000 experience points.
+> 
+You feel the touch of Miria's mind:
+"Yes Marcolan?"
+> 
+You feel the touch of Marcolan's mind:
+"Saloon please, Miria."
+> act holds you closely, his warmth spreading to you.
+Moordread holds you closely, his warmth spreading to you.
+> 
+You feel the touch of Airgid's mind:
+"Where?"
+> exp
+Level: 47
+Build Points to date: 490
+Unspent Build Points: 10
+Experience Points until next Build Point: 28325
+> 
+You feel the touch of Miria's mind:
+"Okay."
+> 
+ ** Pockets has just left the Realms.
+> 
+Eylia sighs.
+> 
+Eylia hugs you.
+> 
+Eylia says, "This is good"
+> 
+Anyone I missed for EXP for the party?
+> beam
+You beam happily.
+> 
+ ** Sy has just left the Realms.
+> nuz eyl
+You nuzzle Eylia affectionately.
+> gaze ben
+You gaze at a bench.
+> 
+Eylia smiles at you.
+> act sits on the bench and pulls you onto his lap.
+Moordread sits on the bench and pulls you onto his lap.
+> 
+Eylia sits down on a bench.
+> go ben
+You sit down on the bench.
+s> 
+Eylia cuddles up to you.
+s> nuz eyl
+You nuzzle Eylia affectionately.
+s> 
+Eylia sighs.
+s> 
+Eylia wraps her arms around your neck.
+s> 
+Eylia kisses you upon the neck.
+s> 
+You feel the touch of Prudence's mind:
+"Saxon where are you?"
+s> 'It's amazing how much the room brightened when I saw you
+You say, "It's amazing how much the room brightened when I saw you"
+s> kiss eyl lips
+You kiss Eylia upon the lips.
+s> 
+Eylia chuckles at you.
+s> 
+Eylia says, "You are silly."
+s> grin
+You grin.
+s> act brushes back stray locks of hair from your face and kisses you passionately.
+Moordread brushes back stray locks of hair from your face and kisses you
+passionately.
+s> kiss eyl pass
+You kiss Eylia passionately.
+s> 
+Eylia strokes her fingers throughthe back of your hair.
+s> 
+Eylia kisses you deeply.
+s> 'Mmmm
+You say, "Mmmm"
+s> 
+Eylia smiles.
+s> 
+Eylia says, "Nice cologne"
+s> 
+Eylia licks her lips.
+s> 
+Leah's group arrives through an arch.
+s> 
+Kellah grins.
+s> 
+You feel the touch of Wolfbane's mind:
+"your welcome keera"
+s> 
+Kellah says, "OOps"
+s> 
+Eylia waves.
+s> 
+Leah says, "uhh"
+s> 
+Leah coughs.
+s> 
+Kellah says, "Excuse us."
+s> act rests his hand gently against Eylia's cheek.
+Moordread rests his hand gently against Eylia's cheek.
+s> 
+Eylia giggles.
+s> 
+Kellah blushes.
+s> smi
+You smile.
+s> 
+Leah asks, "where do I go?"
+s> 
+Leah furrows her brow.
+s> 
+Kellah says, "Didn't mean to intrude.. but.."
+s> 'Certainly
+You say, "Certainly"
+s> 
+Leah's group goes through an arch.
+s> 
+Eylia chuckles.
+s> beam eyl
+You beam at Eylia.
+s> 
+Eylia says, "I see those visions in your head."
+s> 
+Eylia says, "one you, three girls."
+s> 
+Eylia waggles her finger at you.
+s> 'I nearly fainted for a second
+You say, "I nearly fainted for a second"
+s> swoo
+
+ ** Raningeth has just left the Realms.
+s> You swoon.
+s> 
+Eylia laughs.
+s> smi
+You smile.
+s> 'The idea of you alone nearly stops my heart....
+
+Eylia sighs.
+s> You say, "The idea of you alone nearly stops my heart...."
+s> kiss eyl lips
+You kiss Eylia upon the lips.
+s> 
+Eylia gazes at you.
+s> 
+Eylia kisses you upon the lips.
+s> 'I hoped you'd like the cologne, it was imported from Nyraine
+You say, "I hoped you'd like the cologne, it was imported from Nyraine"
+s> 
+Eylia grins.
+s> 
+Eylia says, "its very nice."
+s> beam
+You beam happily.
+s> 
+ ** Ioen has just left the Realms.
+s> nuz eyl
+You nuzzle Eylia affectionately.
+s> 
+Eylia sighs.
+s> 
+Eylia closes her eyes.
+s> 
+Eylia kisses you upon the neck.
+s> 'I'd hoped to have some new clothes to wear this evening but ...
+You say, "I'd hoped to have some new clothes to wear this evening but ..."
+s> 
+You feel the touch of Pockets's mind:
+"Sun about that tour?? <WINK>"
+s> 
+Eylia says, "Not used to being up so early."
+s> 
+You feel the touch of Sun's mind:
+"giggle"
+s> 
+You feel the touch of Rion's mind:
+"Saxon, meet me at our old house?"
+s> act leans warmly against Eylia.
+Moordread leans warmly against Eylia.
+s> pond
+You ponder for a moment.
+s> time
+It is Manta 8, 1046 (Year of the Sword).
+It is late morning.
+s> 
+You feel the touch of Prudence's mind:
+"Not yet rion."
+s> 'No, this is unusual
+You say, "No, this is unusual"
+s> 
+You feel the touch of Cypress's mind:
+"Are you alright Saxon?"
+s> 
+You feel the touch of Saxon's mind:
+"In just a minute Sir Rion."
+s> 
+You feel the touch of Rion's mind:
+"you find him, Prudence?"
+s> 
+You feel the touch of Prudence's mind:
+"Yeah he's with me."
+s> 'We should be tucked warmly into bed yet
+You say, "We should be tucked warmly into bed yet"
+s> wink eyl
+You wink at Eylia.
+s> 
+Eylia chuckles.
+s> 
+Eylia nods to you.
+s> 
+Eylia yawns.
+s> 
+You feel the touch of Rion's mind:
+"i just wanted to make sure you were alright"
+s> 'Perhaps it's time we did that?
+You ask, "Perhaps it's time we did that?"
+s> 
+Eylia smiles.
+s> pond
+You ponder for a moment.
+s> 
+Eylia says, "I'm up now though."
+s> grin
+You grin.
+s> 
+Eylia says, "If I go back to bed, I'll get all messed up."
+s> grin
+You grin.
+s> 'You think?
+You ask, "You think?"
+s> 
+Eylia nods to you.
+s> 'Would I do that?
+You ask, "Would I do that?"
+s> smile mischeviously.
+Moordread smiles mischeviously.
+s> 
+Eylia laughs.
+s> 
+Eylia says, "I mean my sleeping"
+s> 
+Eylia tickles you.
+s> 'OH, I see
+You say, "OH, I see"
+s> 
+Eylia nudges you.
+s> 'Perhaps we could do something else then?
+You ask, "Perhaps we could do something else then?"
+s> cud eyl
+You cuddle up to Eylia.
+s> 
+Eylia asks, "like?"
+s> 
+Eylia grins.
+s> 'I made my suggestion, now it's your turn
+You say, "I made my suggestion, now it's your turn"
+s> 
+ ** Marcolan has just left the Realms.
+s> tick eyl
+You tickle Eylia.
+s> 
+Eylia chuckles.
+s> 
+Eylia says, "Yours was the easy one."
+s> 
+You feel the touch of Kylie's mind:
+"yeah, I'm just ducky and getting duckier all the time, thanks, Eylia."
+s> 
+Eylia frowns.
+s> whisp eyl [Probably can't stay up much longer, I went to the doctor and got some antibiotics and super motrin :( ]
+You whisper to Eylia.
+s> fur
+You furrow your brow.
+s> 'Sorry
+You say, "Sorry"
+s> 
+Eylia whispers to you, "*comfort*"
+s> 'I tend to steal the easy ones don't I?
+You ask, "I tend to steal the easy ones don't I?"
+s> nuz eyl
+You nuzzle Eylia affectionately.
+s> 
+Eylia chuckles.
+s> 
+Eylia kisses you upon the ear.
+s> kiss eyl deepl
+You kiss Eylia deeply.
+s> 
+Eylia hugs you.
+s> 
+Eylia says, "Walk back to town? I want to check on Kylie."
+s> act holds Eylia tight in a loving embrace.
+Moordread holds Eylia tight in a loving embrace.
+s> nod
+You nod.
+s> stand
+You struggle to your feet under the weight of all your equipment.
+ [Round: 2 sec]
+R> 
+Eylia stands up.
+> 
+Eylia pulls a tight black leather dress leaving her shoulders bare revealing a
+rose and ivy tattoo on her shoulder blade.
+> act lifts you from the bench tenderly.
+Moordread lifts you from the bench tenderly.
+> smi
+You smile.
+> 
+Eylia grins.
+> act helps you smooth out the back of your dress.
+Moordread helps you smooth out the back of your dress.
+> car eyl
+You caress Eylia.
+> 
+Eylia beams at you.
+> 'Very nice
+You say, "Very nice"
+> 
+Eylia frowns.
+> 
+Eylia says, "I think shes mad at me"
+> act admires the smooth dress curving gently.
+Moordread admires the smooth dress curving gently.
+> comf eyl
+You comfort Eylia.
+> kiss eyl
+You kiss Eylia.
+> 'Let's check on her
+You say, "Let's check on her"
+> e
+You can't go east!
+> 
+Eylia nuzzles you affectionately.
+> 
+Eylia nods.
+> go arc
+Eylia follows you.
+[Gilnaerd Estate, Courtyard]
+You see Feras, Cypress and Eylia. A gate is here.
+Obvious exits: none.
+> cud eyl
+You cuddle up to Eylia.
+> 
+Cypress asks, "you think that many people want to come to our wedding?"
+> go gate
+Eylia follows you.
+[Farmland, mansion gate]
+You see Eylia. A gate is here.
+Obvious exits: s.
+> s
+Eylia follows you.
+[Farmland, mansion view]
+You see Eylia. 
+Obvious exits: n, s, e, w.
+> s
+Eylia follows you.
+[Farmland, shacks]
+You see Eylia. 
+Obvious exits: n, w, sw.
+> s
+You can't go south!
+> sw
+Eylia follows you.
+[Grassland, cultivation]
+You see Eylia. 
+Obvious exits: n, s, ne, nw.
+> s
+Eylia follows you.
+[Grassland, Yulman bushes]
+You see Eylia. 
+Obvious exits: n, w.
+> w
+Eylia follows you.
+[Grassland, hill crest]
+You see Eylia. 
+Obvious exits: e, w.
+> w
+Eylia follows you.
+[Fayd Gate, exterior]
+You see Eylia. A large iron gate is here.
+Obvious exits: s, e, nw.
+> go gate
+The guards at the gate wave you through.
+Eylia follows you.
+[Main Street, Gatehouse]
+You see Eylia. 
+Obvious exits: w.
+> w
+Eylia follows you.
+[Main Street]
+You see Eylia. 
+Obvious exits: e, w.
+> w
+Eylia follows you.
+[Bazaar East]
+You see Eylia. A comfortable building that houses the Sojourner's Hospice is
+here.
+Obvious exits: n, s, e, w, nw, sw.
+> w
+Eylia follows you.
+[Bazaar Center]
+You see Leah, Kellah, Kylie and Eylia. A large marble fountain, a wooden bin
+and a newsboard are here.
+Obvious exits: n, s, e, w, ne, nw, se, sw.
+> 
+Eylia gazes at Kylie.
+> 
+Kellah asks, "What do you mean?"
+> 
+Leah asks, "what do you mean?"
+> 
+Leah furrows her brow.
+> smi
+You smile.
+> 
+Kellah asks, "You belong if you are here.. right?"
+> 
+Eylia says, "Hey Kylie."
+> 'Whoa...just stepped into a dream
+
+Kylie chuckles at Kellah.
+> You say, "Whoa...just stepped into a dream"
+> beam
+You beam happily.
+> 
+Kylie says, "Sure."
+> 
+Donnald arrives.
+> 
+Eylia pokes you.
+> act gazes at all the pretty faces.
+Moordread gazes at all the pretty faces.
+> 
+Donnald waves.
+> 
+Leah smiles at Donnald.
+> wink don
+You wink at Donnald.
+> 
+Kellah says, "You are here, so, therefore, you belong, Kylie."
+> 
+Leah says, "Hi, Donnald."
+> 
+With a steady clip clop of hooves, and a quiet jingling of harness bells, a
+charming horse-drawn carriage arrives from the south.
+> 
+A lost kitten energetically bounds in.
+> 
+Kylie says, "Hi, Donnald."
+> 
+Kellah smiles at Kylie.
+> 
+A lost kitten swats playfully at a stone.
+> 
+Donnald smiles at Leah.
+> 
+Kylie drinks some emerald wine.
+> 
+Kylie drinks some emerald wine.
+> 
+With a jingle of harness bells, a regal looking horse pulls a carriage to the
+north.
+> 
+Donnald smiles at Kylie.
+> 
+Eylia gazes at Kylie.
+> 
+A merchant arrives.
+> 
+You feel the touch of Hyena's mind:
+"Any enchanters about?"
+> 
+Eylia asks, "You mad at me?"
+> 
+Kylie says, "Nice theory, Kellah."
+> 'You still putting the alcohol away Kylie?
+You ask, "You still putting the alcohol away Kylie?"
+> 
+Leah furrows her brow.
+> list kyl
+You listen carefully to Kylie.
+> 
+Kylie raises an eyebrow towards Eylia.
+> 
+Donnald grins.
+> look kyl
+Kylie's velvety brown eyes sparkle and a soft smile touches her lips often.
+Fine white scars are barely noticeable on her smooth skin, and a faded tattoo
+of a skull still shows on her shoulder. She moves with simple grace.
+She is wearing a scarlet silk miniskirt that hugs her hips and clings to her
+upper thighs and a snow-white silk shirt loosely tied at her waist and left
+unbuttoned over a scarlet camisole.
+She is outlined in glowing armor.
+She is protected by a ghostly, hovering shield.
+She appears to be healthy.
+> 
+A merchant goes north.
+> 
+Kylie asks, "Why should I be mad at anyone?"
+> 
+A lost kitten energetically bounds north.
+> 
+A merchant arrives.
+> 
+Eylia shrugs.
+> 
+Leah sighs.
+> 
+Eylia says, "You sound ticked."
+> 
+Kylie shrugs.
+> 
+Eylia asks, "its him isn't it?"
+> 
+A merchant arrives.
+> 
+Eylia gazes at Kylie.
+> 
+Kellah says, "I think Kylie is depressed about something."
+> 
+Kylie says, "I just don't care about keeping up appearances anymore."
+> 
+A merchant goes west.
+> 
+Eylia nods to Kellah.
+> gaze kyl
+
+Eylia says, "I know."
+> You gaze at Kylie.
+> 
+A merchant goes south.
+> 'You are making that skirt and blouse do amazing things for not caring about appearances
+You say, "You are making that skirt and blouse do amazing things for not caring
+about appearances"
+> 
+Kellah says, "I think you look lovely, Kylie."
+> act smiles sweetly at Kylie.
+Moordread smiles sweetly at Kylie.
+> 
+Eylia smiles at you.
+> 
+A merchant arrives.
+> 
+Kellah asks, "Why should you worry about appearances?"
+> 
+Eylia whispers to you, "good, she needs that"
+> 
+Eylia whispers to you, "Saxon treated her like crap"
+> 
+A lost kitten energetically bounds in.
+> whisp eyl That's what I thought
+You whisper to Eylia.
+> 
+A trader arrives.
+> 
+A merchant arrives.
+> 
+Donnald sits down.
+> 
+Eylia asks, "Wanna go talk in the saloon?"
+> 
+Eylia gazes at Kylie.
+> 
+Donnald leans on a large marble fountain.
+> 
+A merchant goes south.
+> 
+A trader goes east.
+> whisp eyl I can't say as Saxon's impressed me much lately
+You whisper to Eylia.
+> 
+A trader arrives.
+> smi kyl
+You smile at Kylie.
+> 
+A merchant arrives.
+> 'Be glad to buy you a drink
+You say, "Be glad to buy you a drink"
+> 
+A merchant goes northwest.
+> 
+Kellah says, "You obviously have friends, Kylie. Talk to them! Don't keep
+depression inside, it'll eat away at you."
+> 
+A trader goes west.
+> 
+Kellah sighs.
+> 
+Kylie chuckles at Kellah.
+> 
+Leah smiles at Kellah.
+> 
+Kellah says, "I know, keep my big mouth shut."
+> 
+A trader arrives.
+> 
+Donnald smiles at Kellah.
+> 
+A lost kitten swats playfully at a stone.
+> 
+Leah says, "but you are right. To keep it in is sometimes far worse than to let
+it out."
+> 
+A trader goes southwest.
+> 
+Eylia gazes at Kylie.
+> 
+Donnald appears to become weaker.
+> 
+A lost kitten energetically bounds northwest.
+> 
+Eylia leans on Kylie.
+> 
+Kylie says, "Drink.. sure Moordread.. you said the magic words."
+> 
+A trader arrives.
+> 
+Kellah asks, "I wish I could cheer you up, Kylie. But, be careful of drink,
+please?"
+> grin
+You grin.
+> hold ky
+Moordread takes Kylie by the hand.
+> 'shall we then?
+You ask, "shall we then?"
+> rais ky
+You raise an eyebrow towards Kylie.
+> 
+A trader goes southeast.
+> rais eyl
+You raise an eyebrow towards Eylia.
+> 
+A merchant arrives.
+> 
+Kellah smiles at you.
+> 
+Eylia smiles.
+> 
+Eylia nods to you.
+> se
+
+Kylie chuckles at Kellah.
+> Your group follows you.
+[Bazaar Southeast]
+You see Kylie and Eylia. A large wooden building is here.
+Obvious exits: n, w, nw.
+> go doo
+Your group follows you.
+[Saloon]
+You see Miria, Airgid, Kylie and Eylia. 
+Obvious exits: e, w.
+> beam
+You beam happily.
+> 
+Kylie drinks some emerald wine.
+> 
+Kylie drinks some emerald wine.
+> 
+Kylie drinks some emerald wine.
+> 
+Kylie drinks some emerald wine.
+> 
+Kylie puts a glass on the table.
+> 
+Miria says, "I may be wrong, but you seem like very different..groups."
+> 
+Airgid says, "wine is bad for you."
+> 
+Airgid shakes his head back and forth.
+> 
+Eylia drinks some honey mead.
+> 
+Kylie says, "The world is bad for me. I don't avoid it either."
+> 
+Airgid says, "Well we are but we arn't."
+> 
+Miria ponders.
+> whisp eyl Darned, going to have to go :( *pout*
+You whisper to Eylia.
+> 
+Eylia nuzzles you affectionately.
+> 
+Airgid says, "its there Balance that we feel that they have lost."
+> kiss eyl deep
+You kiss Eylia deeply.
+> 
+Eylia whispers to you, "take care () feel better"
+> 
+Eylia kisses you upon the lips.
+> 
+Eylia smiles.
+> 'I think you ladies can talk this over
+You say, "I think you ladies can talk this over"
+> 
+Eylia stops following Moordread.
+> whis eyl Going to try, take care lover *wink*
+You whisper to Eylia.
+> wave
+You wave.
+> x
+
+ ** Moordread has just left the Realms.
+> 
+
+Character Manager V1.00
+
+ 1 => Moordread
+ 2 => Morti
+ 3 => Bubba
+
+ C => Create new character
+ D => Delete current character
+ P => Play Legends of Future Past
+ X => Exit to NovaLink
+
+
+Active character: Moordread (#1)
+

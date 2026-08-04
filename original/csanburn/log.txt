@@ -1,0 +1,1095 @@
+adv mul
+a mul
+You are already engaging that opponent.
+> You swing at a black muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 59] Hit!
+ Puny slash to left foreleg. [13 Damage]
+ The broadsword radiates intense heat!
+ Insignificant burn to right paw. [3 Damage]
+You thrust at a black muldragun with your randar papenheimer.
+ [ToHit: 13, Roll: 13] Hit!
+ Passable strike to head. [28 Damage]
+ [Round: 3 sec]
+R> adv mul
+a mul
+You are already engaging that opponent.
+> You swing at a black muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 27] Hit!
+ Minor slash to head. [19 Damage]
+You swing at a black muldragun with your randar papenheimer.
+ [ToHit: 13, Roll: 46] Hit!
+ Fine slash to head. [39 Damage]
+ [Round: 3 sec]
+R> 
+A black muldragun hisses with two heads!
+R> adv mul
+a mul
+You are already engaging that opponent.
+> You swing at a black muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 5] Hit!
+ Fine slash to body. [21 Damage]
+ The broadsword radiates intense heat!
+ Minor burn to right foreleg. [6 Damage]
+You thrust at a black muldragun with your randar papenheimer.
+ [ToHit: 13, Roll: 44] Hit!
+ Good strike to right hind leg. [15 Damage]
+ [Round: 3 sec]
+R> adv mul
+a mul
+You are already engaging that opponent.
+> You thrust at a black muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 63] Hit!
+ Grisly slash to body. [38 Damage]
+You thrust at a black muldragun with your randar papenheimer.
+ [ToHit: 13, Roll: 76] Hit!
+ Masterful strike to left paw. [11 Damage]
+ It writhes and drops to the ground, dead.
+ [Round: 3 sec]
+R> 6
+skin mul
+sear mul
+You remove a muldragun tooth.
+> You search a black muldragun.
+You find nothing.
+ [Round: 5 sec]
+R> skin mul
+sear mul
+What are you referring to?  Please be more specific.
+> What are you referring to?  Please be more specific.
+> 
+A muldragun slithers in, its many heads writhing in the air.
+> adv mul
+a mul
+You advance towards a muldragun.
+> You swing at a muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 11] Hit!
+ Good strike to body. [61 Damage]
+You thrust at a muldragun with your randar papenheimer.
+ [ToHit: 5, Roll: 58] Hit!
+ Good strike to head. [40 Damage]
+ [Round: 3 sec]
+R> adv mul
+a mul
+You are already engaging that opponent.
+> You swing at a muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 31] Hit!
+ Superb slash to second head. [40 Damage]
+You swing at a muldragun with your randar papenheimer.
+ [ToHit: 5, Roll: 43] Hit!
+ Fine slash to right foreleg. [23 Damage]
+ [Round: 3 sec]
+R> 
+A muldragun yawns with three of its mouths.
+R> adv mul
+a mul
+You are already engaging that opponent.
+> You thrust at a muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 2] Miss.
+You thrust at a muldragun with your randar papenheimer.
+ [ToHit: 5, Roll: 9] Hit!
+ Passable strike to left paw. [8 Damage]
+ [Round: 3 sec]
+R> adv mul
+a mul
+You are already engaging that opponent.
+> You swing at a muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 49] Hit!
+ Grisly slash to head. [25 Damage]
+ The broadsword radiates intense heat!
+ Minor burn to right foreleg. [3 Damage]
+You swing at a muldragun with your randar papenheimer.
+ [ToHit: 5, Roll: 54] Hit!
+ Horrible downward thrust lacerates liver.
+ It writhes and drops to the ground, dead.
+ [Round: 3 sec]
+R> skin mul
+sear mul
+You remove a muldragun scale.
+> You search a muldragun.
+You find nothing.
+ [Round: 5 sec]
+R> fat
+Mana: 177/177
+Psi: 182/182
+Fatigue: 229/234
+R> skin mul
+sear mul
+What are you referring to?  Please be more specific.
+> What are you referring to?  Please be more specific.
+> health
+You have 232/232 body points.
+> who
+Lianna             Arkania            Moordread          Maland             
+
+
+
+There are 4 adventurers in the Realms.
+
+> 
+A muldragun arrives.
+> 
+A muldragun's heads swivel to face Moordread.
+> 
+A muldragun slashes at Moordread with its claws.
+ [ToHit: 95, Roll: 55] Miss.
+> adv mul
+a mul
+You are already engaging that opponent.
+> You swing at a muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 91] Hit!
+ Passable strike to left hind leg. [23 Damage]
+You swing at a muldragun with your randar papenheimer.
+ [ToHit: 5, Roll: 9] Hit!
+ Passable strike to head. [25 Damage]
+ [Round: 3 sec]
+R> adv mul
+a mul
+You are already engaging that opponent.
+> You swing at a muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 49] Hit!
+ Fine slash to back. [36 Damage]
+ The broadsword radiates intense heat!
+ Minor burn to head. [13 Damage]
+You thrust at a muldragun with your randar papenheimer.
+ [ToHit: 5, Roll: 58] Hit!
+ Fine slash to second head. [28 Damage]
+ [Round: 3 sec]
+R> 
+A muldragun slashes at Moordread with its claws.
+ [ToHit: 95, Roll: 20] Miss.
+R> adv mul
+a mul
+You are already engaging that opponent.
+> You swing at a muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 41] Hit!
+ Fine slash to back. [24 Damage]
+ The broadsword radiates intense heat!
+ Insignificant burn to right paw. [4 Damage]
+You thrust at a muldragun with your randar papenheimer.
+ [ToHit: 5, Roll: 88] Hit!
+ Masterful strike to back. [40 Damage]
+ [Round: 3 sec]
+R> adv mul
+a mul
+You are already engaging that opponent.
+> You swing at a muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 4] Miss.
+You thrust at a muldragun with your randar papenheimer.
+ [ToHit: 5, Roll: 59] Hit!
+ Horrible downward thrust lacerates liver.
+ It writhes and drops to the ground, dead.
+ [Round: 3 sec]
+R> skin mul
+sear mul
+You fail to salvage an intact specimen.
+> You search a muldragun.
+You find nothing.
+ [Round: 5 sec]
+R> skin mul
+sear mul
+What are you referring to?  Please be more specific.
+> What are you referring to?  Please be more specific.
+> 
+A black muldragun crawls in, hissing.
+> adv mul
+a mul
+You advance towards a muldragun.
+> You swing at a black muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 53] Hit!
+ Minor slash to second head. [46 Damage]
+You thrust at a black muldragun with your randar papenheimer.
+ [ToHit: 13, Roll: 90] Hit!
+ Good strike to body. [51 Damage]
+ [Round: 3 sec]
+R> adv mul
+a mul
+You are already engaging that opponent.
+> You thrust at a black muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 80] Hit!
+ Minor slash to head. [27 Damage]
+You thrust at a black muldragun with your randar papenheimer.
+ [ToHit: 13, Roll: 70] Hit!
+ Grazing strike to right hind leg. [9 Damage]
+ [Round: 3 sec]
+R> 
+A black muldragun roars, its heads writhing in an intricate pattern.
+R> adv mul
+a mul
+You are already engaging that opponent.
+> You thrust at a black muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 99] Excellent Hit!
+ Minor slash to head. [16 Damage]
+ It is stunned!
+You swing at a black muldragun with your randar papenheimer.
+ [ToHit: 5, Roll: 50] Hit!
+ Passable strike to left paw. [12 Damage]
+ It is stunned!
+ [Round: 3 sec]
+R> adv mul
+a mul
+You are already engaging that opponent.
+> You swing at a black muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 39] Hit!
+ Superb slash to head. [43 Damage]
+ The broadsword radiates intense heat!
+ Insignificant burn to right hind leg. [4 Damage]
+You thrust at a black muldragun with your randar papenheimer.
+ [ToHit: 5, Roll: 8] Hit!
+ Masterful strike to head. [38 Damage]
+ [Round: 3 sec]
+R> adv mul
+a mul
+You are already engaging that opponent.
+> You thrust at a black muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 28] Hit!
+ Grisly slash to back. [18 Damage]
+ The broadsword radiates intense heat!
+ Serious burn to right paw. [3 Damage]
+You thrust at a black muldragun with your randar papenheimer.
+ [ToHit: 5, Roll: 48] Hit!
+ A muldragun's spell is disrupted!
+ Masterful strike to right paw. [6 Damage]
+ [Round: 3 sec]
+R> 
+A black muldragun writhes and drops to the ground, dead.
+R> skin mul
+sear mul
+You remove a muldragun scale.
+> You search a black muldragun.
+You find nothing.
+ [Round: 5 sec]
+R> skin mul
+sear mul
+What are you referring to?  Please be more specific.
+> What are you referring to?  Please be more specific.
+> 
+A muldragun slithers in, its many heads writhing in the air.
+> adv mul
+a mul
+You advance towards a muldragun.
+> You swing at a muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 28] Hit!
+ Minor slash to second head. [40 Damage]
+You thrust at a muldragun with your randar papenheimer.
+ [ToHit: 5, Roll: 82] Hit!
+ Passable strike to right hind leg. [21 Damage]
+ [Round: 3 sec]
+R> adv mul
+a mul
+You are already engaging that opponent.
+> You swing at a muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 39] Hit!
+ Passable strike to second head. [18 Damage]
+You swing at a muldragun with your randar papenheimer.
+ [ToHit: 5, Roll: 51] Hit!
+ Puny slash to tail. [6 Damage]
+ [Round: 3 sec]
+R> 
+A muldragun slashes at Moordread with its claws.
+ [ToHit: 95, Roll: 51] Miss.
+R> adv mul
+a mul
+You are already engaging that opponent.
+> You swing at a muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 76] Hit!
+ Fine slash to back. [34 Damage]
+ The broadsword radiates intense heat!
+ Insignificant burn to right hind leg. [3 Damage]
+You thrust at a muldragun with your randar papenheimer.
+ [ToHit: 5, Roll: 29] Hit!
+ Well-aimed strike to second head. [33 Damage]
+ [Round: 3 sec]
+R> 13
+adv mul
+a mul
+You are already engaging that opponent.
+> You swing at a muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 43] Hit!
+ Fine slash to right hind leg. [18 Damage]
+You thrust at a muldragun with your randar papenheimer.
+ [ToHit: 5, Roll: 90] Hit!
+ Superb slash to right foreleg. [18 Damage]
+ [Round: 3 sec]
+R> 
+A muldragun slashes at Moordread with its claws.
+ [ToHit: 95, Roll: 56] Miss.
+R> 13
+adv mul
+a mul
+You are already engaging that opponent.
+> You swing at a muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 93] Hit!
+ Grisly slash to left hind leg. [15 Damage]
+You swing at a muldragun with your randar papenheimer.
+ [ToHit: 5, Roll: 40] Hit!
+ Masterful strike to right foreleg. [26 Damage]
+ It writhes and drops to the ground, dead.
+ [Round: 3 sec]
+R> skin mul
+sear mul
+You fail to salvage an intact specimen.
+> You search a muldragun.
+You find nothing.
+ [Round: 5 sec]
+R> skin mul
+sear mul
+What are you referring to?  Please be more specific.
+> What are you referring to?  Please be more specific.
+> 
+A black muldragun crawls in, hissing.
+> adv mul
+a mul
+You advance towards a muldragun.
+> You swing at a black muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 60] Hit!
+ Passable strike to head. [22 Damage]
+You thrust at a black muldragun with your randar papenheimer.
+ [ToHit: 13, Roll: 32] Hit!
+ Puny slash to left paw. [10 Damage]
+ [Round: 3 sec]
+R> adv mul
+a mul
+You are already engaging that opponent.
+> You swing at a black muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 12] Hit!
+ Passable strike to second head. [38 Damage]
+You thrust at a black muldragun with your randar papenheimer.
+ [ToHit: 13, Roll: 37] Hit!
+ Fine slash to head. [38 Damage]
+ [Round: 3 sec]
+R> 
+A black muldragun roars, its heads writhing in an intricate pattern.
+R> adv mul
+a mul
+You are already engaging that opponent.
+> You swing at a black muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 84] Hit!
+ Fine slash to second head. [46 Damage]
+ The broadsword radiates intense heat!
+ Insignificant burn to right hind leg. [4 Damage]
+You swing at a black muldragun with your randar papenheimer.
+ [ToHit: 13, Roll: 10] Miss.
+ [Round: 3 sec]
+R> adv mul
+a mul
+You are already engaging that opponent.
+> You swing at a black muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 42] Hit!
+ A muldragun's spell is disrupted!
+ Passable strike to hindquarter. [9 Damage]
+ The broadsword radiates intense heat!
+ Insignificant burn to right paw. [3 Damage]
+You thrust at a black muldragun with your randar papenheimer.
+ [ToHit: 13, Roll: 16] Hit!
+ Grazing strike to tail. [7 Damage]
+ [Round: 3 sec]
+R> 
+A black muldragun slashes at Moordread with its claws.
+ [ToHit: 95, Roll: 99] Excellent Hit!
+ Puny slash to body. [4 Damage]
+R> adv mul
+a mul
+You are already engaging that opponent.
+> You thrust at a black muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 83] Hit!
+ Grisly slash to back. [52 Damage]
+You thrust at a black muldragun with your randar papenheimer.
+ [ToHit: 13, Roll: 9] Miss.
+ [Round: 3 sec]
+R> adv mul
+a mul
+You are already engaging that opponent.
+> You thrust at a black muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 93] Hit!
+ Grisly slash to back. [27 Damage]
+ The broadsword radiates intense heat!
+ Serious burn to head. [3 Damage]
+You swing at a black muldragun with your randar papenheimer.
+ [ToHit: 13, Roll: 68] Hit!
+ Masterful strike to hindquarter. [5 Damage]
+ [Round: 3 sec]
+R> 
+A black muldragun slashes at Moordread with its claws.
+ [ToHit: 95, Roll: 2] Miss.
+R> adv mul
+a mul
+You are already engaging that opponent.
+> You swing at a black muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 45] Hit!
+ Masterful strike to tail. [13 Damage]
+ It writhes and drops to the ground, dead.
+ [Round: 3 sec]
+R> 
+A muldragun slithers in, its many heads writhing in the air.
+R> adv mul
+a mul
+[Wait 2 seconds...]
+R> [Wait 2 seconds...]
+R> adv mul
+a mul
+skin mul
+sear mul
+You advance towards a muldragun.
+> It is already dead.
+> You remove a muldragun scale.
+> You search a black muldragun.
+You find nothing.
+ [Round: 5 sec]
+R> 
+A muldragun's heads swivel to face Moordread.
+R> 
+A muldragun slashes at Moordread with its claws.
+ [ToHit: 95, Roll: 48] Miss.
+R> adv mul
+a mul
+skin mul
+sear mul
+adv mul
+a mul
+You are already engaging that opponent.
+> You swing at a muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 37] Hit!
+ Fine slash to head. [51 Damage]
+You swing at a muldragun with your randar papenheimer.
+ [ToHit: 5, Roll: 81] Hit!
+ Grazing strike to tail. [11 Damage]
+ [Round: 3 sec]
+R> [Wait 3 seconds...]
+R> [Wait 3 seconds...]
+R> [Wait 3 seconds...]
+R> [Wait 3 seconds...]
+R> 
+A muldragun slashes at Moordread with its claws.
+ [ToHit: 95, Roll: 2] Miss.
+R> adv mul
+a mul
+adv mul
+a mul
+You are already engaging that opponent.
+> You thrust at a muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 57] Hit!
+ Fine slash to head. [49 Damage]
+ The broadsword radiates intense heat!
+ Glancing blow. [2 Damage]
+You swing at a muldragun with your randar papenheimer.
+ [ToHit: 5, Roll: 3] Miss.
+ [Round: 3 sec]
+R> [Wait 3 seconds...]
+R> [Wait 3 seconds...]
+R> adv mul
+a mul
+adv mul
+a mul
+You are already engaging that opponent.
+> You thrust at a muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 43] Hit!
+ Fine slash to head. [31 Damage]
+You thrust at a muldragun with your randar papenheimer.
+ [ToHit: 5, Roll: 54] Hit!
+ Masterful strike to back. [37 Damage]
+ [Round: 3 sec]
+R> [Wait 3 seconds...]
+R> [Wait 3 seconds...]
+R> 
+A muldragun slashes at Moordread with its claws.
+ [ToHit: 95, Roll: 6] Miss.
+R> adv mul
+a mul
+adv mul
+a mul
+You are already engaging that opponent.
+> You thrust at a muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 72] Hit!
+ Grisly slash to head. [28 Damage]
+You swing at a muldragun with your randar papenheimer.
+ [ToHit: 5, Roll: 34] Hit!
+ Masterful strike to left paw. [6 Damage]
+ [Round: 3 sec]
+R> [Wait 3 seconds...]
+R> [Wait 3 seconds...]
+R> adv mul
+a mul
+adv mul
+a mul
+You are already engaging that opponent.
+> You swing at a muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 44] Hit!
+ Cruel stab bayonets kidney.
+ It writhes and drops to the ground, dead.
+ [Round: 3 sec]
+R> [Wait 3 seconds...]
+R> [Wait 3 seconds...]
+R> skin mul
+sear mul
+You remove a muldragun scale.
+> You search a muldragun.
+You find nothing.
+ [Round: 5 sec]
+R> 13
+skin mul
+sear mul
+What are you referring to?  Please be more specific.
+> What are you referring to?  Please be more specific.
+> 
+A muldragun arrives.
+> 
+A muldragun's heads swivel to face Moordread.
+> 
+A muldragun snaps at Moordread with its teeth.
+ [ToHit: 95, Roll: 38] Miss.
+> adv mul
+a mul
+You are already engaging that opponent.
+> You swing at a muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 21] Hit!
+ Grazing strike to right hind leg. [15 Damage]
+You swing at a muldragun with your randar papenheimer.
+ [ToHit: 5, Roll: 25] Hit!
+ Good strike to back. [51 Damage]
+ [Round: 3 sec]
+R> adv mul
+a mul
+You are already engaging that opponent.
+> You swing at a muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 40] Hit!
+ Minor slash to second head. [21 Damage]
+ The broadsword radiates intense heat!
+ Insignificant burn to right foreleg. [8 Damage]
+You swing at a muldragun with your randar papenheimer.
+ [ToHit: 5, Roll: 74] Hit!
+ Well-aimed strike to back. [45 Damage]
+ [Round: 3 sec]
+R> 
+A muldragun snaps at Moordread with its teeth.
+ [ToHit: 95, Roll: 46] Miss.
+R> adv mul
+a mul
+You are already engaging that opponent.
+> You thrust at a muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 43] Hit!
+ Grisly slash to head. [48 Damage]
+ The broadsword radiates intense heat!
+ Insignificant burn to left foreleg. [3 Damage]
+You thrust at a muldragun with your randar papenheimer.
+ [ToHit: 5, Roll: 41] Hit!
+ Precise strike between shoulders fillets spine.
+ It writhes and drops to the ground, dead.
+ [Round: 3 sec]
+R> skin mul
+sear mul
+You remove a muldragun tooth.
+> You search a muldragun.
+You find nothing.
+ [Round: 5 sec]
+R> skin mul
+sear mul
+What are you referring to?  Please be more specific.
+> What are you referring to?  Please be more specific.
+> 
+A black muldragun crawls in, hissing.
+> adv mul
+a mul
+You advance towards a muldragun.
+> You thrust at a black muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 15] Hit!
+ Fine slash to back. [51 Damage]
+ The broadsword radiates intense heat!
+ Insignificant burn to hindquarter. [3 Damage]
+You thrust at a black muldragun with your randar papenheimer.
+ [ToHit: 13, Roll: 40] Hit!
+ Minor slash to body. [32 Damage]
+ [Round: 3 sec]
+R> adv mul
+a mul
+You are already engaging that opponent.
+> You swing at a black muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 40] Hit!
+ Fine slash to back. [45 Damage]
+You swing at a black muldragun with your randar papenheimer.
+ [ToHit: 13, Roll: 79] Hit!
+ Passable strike to right foreleg. [21 Damage]
+ [Round: 3 sec]
+R> 
+A black muldragun slashes at Moordread with its claws.
+ [ToHit: 95, Roll: 43] Miss.
+R> adv mul
+a mul
+You are already engaging that opponent.
+> You swing at a black muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 33] Hit!
+ Well-aimed strike to body. [48 Damage]
+You thrust at a black muldragun with your randar papenheimer.
+ [ToHit: 13, Roll: 69] Hit!
+ Grisly slash to back. [51 Damage]
+ [Round: 3 sec]
+R> adv mul
+a mul
+You are already engaging that opponent.
+> You thrust at a black muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 19] Hit!
+ Terrible gouge skewers spleen.
+ It writhes and drops to the ground, dead.
+ [Round: 3 sec]
+R> skin mul
+sear mul
+You remove a muldragun tooth.
+> You search a black muldragun.
+You find nothing.
+ [Round: 5 sec]
+R> skin mul
+sear mul
+What are you referring to?  Please be more specific.
+> What are you referring to?  Please be more specific.
+> 
+A black muldragun crawls in, hissing.
+> adv mul
+a mul
+You advance towards a muldragun.
+> You swing at a black muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 93] Hit!
+ Grazing strike to hindquarter. [10 Damage]
+You thrust at a black muldragun with your randar papenheimer.
+ [ToHit: 13, Roll: 46] Hit!
+ Passable strike to back. [45 Damage]
+ [Round: 3 sec]
+R> adv mul
+a mul
+You are already engaging that opponent.
+> You swing at a black muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 12] Hit!
+ Passable strike to body. [32 Damage]
+You swing at a black muldragun with your randar papenheimer.
+ [ToHit: 13, Roll: 6] Miss.
+ [Round: 3 sec]
+R> 
+A black muldragun roars, its heads writhing in an intricate pattern.
+R> adv mul
+a mul
+You are already engaging that opponent.
+> You swing at a black muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 9] Hit!
+ Good strike to second head. [48 Damage]
+ The broadsword radiates intense heat!
+ Glancing blow. [2 Damage]
+You swing at a black muldragun with your randar papenheimer.
+ [ToHit: 13, Roll: 91] Hit!
+ A muldragun's spell is disrupted!
+ Passable strike to right foreleg. [21 Damage]
+ [Round: 3 sec]
+R> adv mul
+a mul
+You are already engaging that opponent.
+> You swing at a black muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 6] Hit!
+ Superb slash to head. [38 Damage]
+You thrust at a black muldragun with your randar papenheimer.
+ [ToHit: 13, Roll: 68] Hit!
+ Grisly slash to back. [43 Damage]
+ [Round: 3 sec]
+R> 
+A black muldragun's eyes flash angrily.
+R> adv mul
+a mul
+You are already engaging that opponent.
+> You swing at a black muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 71] Hit!
+ Masterful strike to back. [33 Damage]
+You swing at a black muldragun with your randar papenheimer.
+ [ToHit: 13, Roll: 60] Hit!
+ Masterful strike to left hind leg. [14 Damage]
+ It writhes and drops to the ground, dead.
+ [Round: 3 sec]
+R> skin mul
+sear mul
+You remove a muldragun claw.
+> You search a black muldragun.
+You find nothing.
+ [Round: 5 sec]
+R> 
+A muldragun slithers in, its many heads writhing in the air.
+R> adv mul
+a mul
+[Wait 3 seconds...]
+R> [Wait 3 seconds...]
+R> 13
+skin mul
+sear mul
+adv mul
+a mul
+You might want to wait till it is dead.
+> A muldragun isn't dead yet.
+> You advance towards a muldragun.
+> You swing at a muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 73] Hit!
+ Passable strike to head. [39 Damage]
+You swing at a muldragun with your randar papenheimer.
+ [ToHit: 5, Roll: 11] Hit!
+ Passable strike to left foreleg. [21 Damage]
+ [Round: 3 sec]
+R> 
+A muldragun roars with all five of its heads!
+R> adv mul
+a mul
+You are already engaging that opponent.
+> You thrust at a muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 24] Hit!
+ Fine slash to head. [42 Damage]
+You thrust at a muldragun with your randar papenheimer.
+ [ToHit: 5, Roll: 15] Hit!
+ Passable strike to right foreleg. [16 Damage]
+ [Round: 3 sec]
+R> 
+A muldragun slashes at Moordread with its claws.
+ [ToHit: 95, Roll: 25] Miss.
+> adv mul
+a mul
+You are already engaging that opponent.
+> You swing at a muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 38] Hit!
+ Grisly slash to second head. [48 Damage]
+You thrust at a muldragun with your randar papenheimer.
+ [ToHit: 5, Roll: 94] Hit!
+ Passable strike to tail. [6 Damage]
+ [Round: 3 sec]
+R> adv mul
+a mul
+[Wait 1 seconds...]
+R> [Wait 1 seconds...]
+R> adv mul
+a mul
+
+A muldragun slashes at Moordread with its claws.
+ [ToHit: 95, Roll: 30] Miss.
+> You are already engaging that opponent.
+> You thrust at a muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 87] Hit!
+ Fine slash to hindquarter. [10 Damage]
+ The broadsword radiates intense heat!
+ Glancing blow. [2 Damage]
+You thrust at a muldragun with your randar papenheimer.
+ [ToHit: 5, Roll: 54] Hit!
+ Terrible gouge skewers spleen.
+ It writhes and drops to the ground, dead.
+ [Round: 3 sec]
+R> skin mul
+sear mul
+You remove a muldragun claw.
+> You search a muldragun.
+You find nothing.
+ [Round: 5 sec]
+R> skin mul
+sear mul
+What are you referring to?  Please be more specific.
+> What are you referring to?  Please be more specific.
+> 
+A muldragun arrives.
+> 
+A muldragun's heads swivel to face Moordread.
+> 
+A muldragun slashes at Moordread with its claws.
+ [ToHit: 95, Roll: 73] Miss.
+> adv mul
+a mul
+You are already engaging that opponent.
+> You thrust at a muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 43] Hit!
+ Puny slash to hindquarter. [15 Damage]
+ The broadsword radiates intense heat!
+ Insignificant burn to tail. [3 Damage]
+You swing at a muldragun with your randar papenheimer.
+ [ToHit: 5, Roll: 51] Hit!
+ Passable strike to left hind leg. [24 Damage]
+ [Round: 3 sec]
+R> adv mul
+a mul
+You are already engaging that opponent.
+> You swing at a muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 61] Hit!
+ Minor slash to body. [28 Damage]
+You thrust at a muldragun with your randar papenheimer.
+ [ToHit: 5, Roll: 75] Hit!
+ Grazing strike to hindquarter. [7 Damage]
+ [Round: 3 sec]
+R> 
+A muldragun slashes at Moordread with its claws.
+ [ToHit: 95, Roll: 92] Miss.
+R> adv mul
+a mul
+You are already engaging that opponent.
+> You swing at a muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 60] Hit!
+ Superb slash to back. [52 Damage]
+ The broadsword radiates intense heat!
+ Insignificant burn to right hind leg. [3 Damage]
+You swing at a muldragun with your randar papenheimer.
+ [ToHit: 5, Roll: 96] Excellent Hit!
+ Passable strike to left foreleg. [11 Damage]
+ [Round: 3 sec]
+R> adv mul
+a mul
+You are already engaging that opponent.
+> You thrust at a muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 39] Hit!
+ Grisly slash to body. [46 Damage]
+You thrust at a muldragun with your randar papenheimer.
+ [ToHit: 5, Roll: 94] Hit!
+ Good strike to tail. [8 Damage]
+ [Round: 3 sec]
+R> 
+A muldragun slashes at Moordread with its claws.
+ [ToHit: 95, Roll: 6] Miss.
+R> adv mul
+a mul
+You are already engaging that opponent.
+> You thrust at a muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 1] Miss.
+You swing at a muldragun with your randar papenheimer.
+ [ToHit: 5, Roll: 26] Hit!
+ Masterful strike to right foreleg. [15 Damage]
+ [Round: 3 sec]
+R> adv mul
+a mul
+You are already engaging that opponent.
+> You thrust at a muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 37] Hit!
+ Horrible downward thrust lacerates liver.
+ It writhes and drops to the ground, dead.
+ [Round: 3 sec]
+R> skin mul
+sear mul
+You remove a muldragun claw.
+> You search a muldragun.
+You find nothing.
+ [Round: 5 sec]
+R> skin mul
+sear mul
+What are you referring to?  Please be more specific.
+> What are you referring to?  Please be more specific.
+> 
+A muldragun slithers in, its many heads writhing in the air.
+> adv mul
+a mul
+You advance towards a muldragun.
+> You swing at a muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 9] Hit!
+ Minor slash to right foreleg. [18 Damage]
+ The broadsword radiates intense heat!
+ Insignificant burn to right foreleg. [3 Damage]
+You thrust at a muldragun with your randar papenheimer.
+ [ToHit: 5, Roll: 75] Hit!
+ Fine slash to back. [43 Damage]
+ [Round: 3 sec]
+R> adv mul
+a mul
+You are already engaging that opponent.
+> You swing at a muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 73] Hit!
+ Fine slash to head. [31 Damage]
+You thrust at a muldragun with your randar papenheimer.
+ [ToHit: 5, Roll: 77] Hit!
+ Minor slash to right hind leg. [22 Damage]
+ [Round: 3 sec]
+R> 
+A muldragun casts its gazes across the area.
+R> adv mul
+a mul
+You are already engaging that opponent.
+> You swing at a muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 6] Hit!
+ Puny slash to right paw. [6 Damage]
+ The broadsword radiates intense heat!
+ Insignificant burn to hindquarter. [3 Damage]
+You thrust at a muldragun with your randar papenheimer.
+ [ToHit: 5, Roll: 90] Hit!
+ Grazing strike to right paw. [5 Damage]
+ [Round: 3 sec]
+R> adv mul
+a mul
+You are already engaging that opponent.
+> You swing at a muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 78] Hit!
+ Passable strike to hindquarter. [10 Damage]
+You swing at a muldragun with your randar papenheimer.
+ [ToHit: 5, Roll: 73] Hit!
+ Fine slash to left foreleg. [26 Damage]
+ [Round: 3 sec]
+R> 
+A muldragun slashes at Moordread with its claws.
+ [ToHit: 95, Roll: 2] Miss.
+R> adv mul
+a mul
+You are already engaging that opponent.
+> You swing at a muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 99] Excellent Hit!
+ Grisly slash to head. [40 Damage]
+ The broadsword radiates intense heat!
+ Ghastly burn to second head. [15 Damage]
+You thrust at a muldragun with your randar papenheimer.
+ [ToHit: 5, Roll: 87] Hit!
+ Precise strike between shoulders fillets spine.
+ It writhes and drops to the ground, dead.
+ [Round: 3 sec]
+R> 
+A muldragun arrives.
+R> 
+A muldragun's heads swivel to face Moordread.
+R> 
+A muldragun slashes at Moordread with its claws.
+ [ToHit: 95, Roll: 26] Miss.
+R> adv mul
+a mul
+[Wait 1 seconds...]
+R> [Wait 1 seconds...]
+R> adv mul
+a mul
+skin mul
+sear mul
+You are already engaging that opponent.
+> You swing at a muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 58] Hit!
+ Fine slash to back. [48 Damage]
+ The broadsword radiates intense heat!
+ Insignificant burn to tail. [4 Damage]
+You swing at a muldragun with your randar papenheimer.
+ [ToHit: 5, Roll: 16] Hit!
+ Passable strike to right foreleg. [15 Damage]
+ [Round: 3 sec]
+R> [Wait 3 seconds...]
+R> [Wait 3 seconds...]
+R> 15
+
+A muldragun slashes at Moordread with its claws.
+ [ToHit: 95, Roll: 18] Miss.
+R> adv mul
+a mul
+skin mul
+sear mul
+adv mul
+a mul
+You are already engaging that opponent.
+> You swing at a muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 72] Hit!
+ Fine slash to second head. [42 Damage]
+You swing at a muldragun with your randar papenheimer.
+ [ToHit: 5, Roll: 75] Hit!
+ Passable strike to left hind leg. [12 Damage]
+ [Round: 3 sec]
+R> [Wait 3 seconds...]
+R> [Wait 3 seconds...]
+R> [Wait 3 seconds...]
+R> [Wait 3 seconds...]
+R> 
+A muldragun slashes at Moordread with its claws.
+ [ToHit: 95, Roll: 89] Miss.
+R> adv mul
+a mul
+adv mul
+a mul
+You are already engaging that opponent.
+> You swing at a muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 80] Hit!
+ Fine slash to right hind leg. [27 Damage]
+ The broadsword radiates intense heat!
+ Minor burn to right foreleg. [5 Damage]
+You swing at a muldragun with your randar papenheimer.
+ [ToHit: 5, Roll: 33] Hit!
+ Good strike to left hind leg. [13 Damage]
+ [Round: 3 sec]
+R> [Wait 3 seconds...]
+R> [Wait 3 seconds...]
+R> adv mul
+a mul
+adv mul
+a mul
+You are already engaging that opponent.
+> You swing at a muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 1] Miss.
+You swing at a muldragun with your randar papenheimer.
+ [ToHit: 5, Roll: 51] Hit!
+ Masterful strike to head. [31 Damage]
+ [Round: 3 sec]
+R> [Wait 3 seconds...]
+R> [Wait 3 seconds...]
+R> 
+A muldragun slashes at Moordread with its claws.
+ [ToHit: 95, Roll: 64] Miss.
+R> adv mul
+a mul
+adv mul
+a mul
+You are already engaging that opponent.
+> You swing at a muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 21] Hit!
+ Masterful strike to right foreleg. [25 Damage]
+ It writhes and drops to the ground, dead.
+ [Round: 3 sec]
+R> [Wait 2 seconds...]
+R> [Wait 2 seconds...]
+R> skin mul
+sear mul
+You fail to salvage an intact specimen.
+> You search a muldragun.
+You find nothing.
+ [Round: 5 sec]
+R> 
+A muldragun arrives.
+R> 
+A muldragun's heads swivel to face Moordread.
+R> 
+A muldragun snaps at Moordread with its teeth.
+ [ToHit: 95, Roll: 81] Miss.
+R> adv mul
+a mul
+You are already engaging that opponent.
+> You swing at a muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 33] Hit!
+ Grazing strike to tail. [10 Damage]
+ The broadsword radiates intense heat!
+ Insignificant burn to right hind leg. [4 Damage]
+You thrust at a muldragun with your randar papenheimer.
+ [ToHit: 5, Roll: 17] Hit!
+ Grazing strike to left paw. [9 Damage]
+ [Round: 3 sec]
+R> skin mul
+sear mul
+adv mul
+a mul
+You might want to wait till it is dead.
+> A muldragun isn't dead yet.
+> You are already engaging that opponent.
+> You swing at a muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 33] Hit!
+ Fine slash to head. [43 Damage]
+ The broadsword radiates intense heat!
+ Insignificant burn to second head. [11 Damage]
+You thrust at a muldragun with your randar papenheimer.
+ [ToHit: 5, Roll: 15] Hit!
+ Passable strike to right hind leg. [24 Damage]
+ [Round: 3 sec]
+R> 
+A muldragun snaps at Moordread with its teeth.
+ [ToHit: 95, Roll: 33] Miss.
+R> adv mul
+a mul
+You are already engaging that opponent.
+> You thrust at a muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 74] Hit!
+ Superb slash to second head. [54 Damage]
+You swing at a muldragun with your randar papenheimer.
+ [ToHit: 5, Roll: 34] Hit!
+ Masterful strike to head. [49 Damage]
+ [Round: 3 sec]
+R> adv mul
+a mul
+You are already engaging that opponent.
+> You swing at a muldragun with your fiery elkyri broadsword.
+ [ToHit: 5, Roll: 57] Hit!
+ Precise strike between shoulders fillets spine.
+ It writhes and drops to the ground, dead.
+ [Round: 3 sec]
+R> skin mul
+sear mul
+You fail to salvage an intact specimen.
+> You search a muldragun.
+You find nothing.
+ [Round: 5 sec

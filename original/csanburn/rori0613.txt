@@ -1,0 +1,1490 @@
+
+Elriss's group goes north.
+J> 
+You follow Elriss.
+[Peakshire, Main St]
+You see Sabreen, Firestar, Elriss, Torrinakus, Bethesdan, Trieste, a wolf,
+Feras, Young, Delran, Lisanne, Sun, Sy, Nord, Kulgan and Gwydion. 
+Obvious exits: s.
+J> 
+Firestar says, "I espeically like the swamp things"
+J> 
+Kulgan ponders.
+J> 
+Bethesdan says, "Great...THe bog."
+J> 
+Feras says, "Quicksand, don't forget the quicksand"
+J> 
+Kulgan says, "I didn't take you for a woman who minded such things"
+J> 
+Firestar says, "sea"
+J> 
+Sun nods.
+J> 
+Gwydion nods to Feras.
+J> 
+Firestar searches the area.
+J> 
+Elriss searches the area.
+J> 
+Sun smiles at Feras.
+J> 
+Kulgan nods to Sabreen.
+J> 
+Sabreen chuckles at Kulgan.
+J> 
+Sy casts his gaze across the area.
+J> 
+Sabreen says, "Its not suitable for a house though."
+J> 
+Gwydion searches the area.
+J> 
+Feras casts his gaze across the area.
+J> 
+Elriss says, "Hm."
+J> 
+Elriss's group goes south.
+J> 
+You follow Elriss.
+[Peakshire, Main St]
+You see Sabreen, Firestar, Elriss, Torrinakus, Bethesdan, Trieste, a wolf,
+Feras, Young, Delran, Lisanne, Sun, Sy, Nord, Kulgan, Gwydion and Tobias. 
+Obvious exits: n, s, w.
+J> 'And swamp gas
+
+Tobias gestures.
+Tobias gradually fades from view.
+J> You say, "And swamp gas"
+J> cough
+You cough.
+J> 
+Feras coughs.
+J> 
+Elriss's group goes south.
+J> 
+You follow Elriss.
+[Peakshire, Common]
+You see Sabreen, Firestar, Elriss, Torrinakus, Bethesdan, Trieste, a wolf,
+Feras, Young, Delran, Lisanne, Sun, Sy, Nord, Kulgan and Gwydion. 
+Obvious exits: n, s.
+J> 
+Sun returns to normal speed.
+J> 
+(Kulgan opens his mouth to say something and then closes it with a chuckle and a
+wry shake of the head.)
+J> 
+Sy says, "There is a road around the southern part of the town Elriss"
+J> 
+Sun incants a spell.
+J> 
+Sun gestures.
+Sun moves with blurring speed.
+J> 
+Elriss's group goes south.
+J> 
+You follow Elriss.
+[Peakshire, Main St.]
+You see Sabreen, Firestar, Elriss, Torrinakus, Bethesdan, Trieste, a wolf,
+Feras, Young, Delran, Lisanne, Sun, Sy, Nord, Kulgan and Gwydion. 
+Obvious exits: n, s, e.
+J> 
+Sun incants a spell.
+J> 
+Trieste raises an eyebrow towards Kulgan.
+J> 
+Elriss's group goes east.
+J> 
+You follow Elriss.
+[Peakshire, Root Rd.]
+You see Sabreen, Firestar, Elriss, Torrinakus, Bethesdan, Trieste, a wolf,
+Feras, Young, Delran, Lisanne, Sun, Sy, Nord, Kulgan and Gwydion. 
+Obvious exits: w.
+J> 
+A wolf goes down a wide path.
+J> 
+Elriss's group goes down a wide path.
+J> 
+You follow Elriss.
+[Winding Trail]
+You see Sabreen, Firestar, Elriss, Torrinakus, Bethesdan, Trieste, a wolf,
+Feras, Young, Delran, Lisanne, Sun, Sy, Nord, Kulgan and Gwydion. 
+Obvious exits: e, w.
+J> 
+(Trieste leans close, murmuring something to Kulgan.)
+J> 
+Gwydion asks, "Did you say it's north and west of the town, Elriss?"
+J> 
+Sy says, "badlands"
+J> 
+Elriss says, "Possibly."
+J> 
+Elriss says, "Definitely north.."
+J> 
+You feel the touch of Morag's mind:
+"Anyone home?"
+J> 
+Gwydion says, "Oh."
+J> 
+Gwydion chuckles.
+J> 
+A wolf is now following Elriss.
+J> 
+Kulgan chuckles at Trieste.
+J> 
+Trieste chuckles at Kulgan.
+J> stat
+
+Elriss says, "Whether slightly east or west is anyone's guess."
+J> 
+You are a high priest of the Temple of Rorin.
+Level: 80
+Build Points to date: 825
+Unspent Build Points: 2
+Experience Points until next Build Point: 8498
+Quickness: 110    Constitution: 121    Strength:  207    Agility: 60 
+Willpower: 102    Perception:   62     Empathy:   103
+Age:       45     Height:       5'1    Weight:    136    Load: 250
+
+Current Attack Modifier: 11 [Wary]
+Current Defend Modifier: 32
+
+Body Points: 226/226
+Mana: 249/249
+Psi: 247/247
+Fatigue: 224/224
+[Type SPELLS or SKILLS for more information.]
+You are an acolyte in the Temple of Rorin."
+J> 
+You feel the touch of Young's mind:
+"Nope, we all out"
+J> 
+Elriss's group goes east.
+J> 
+You follow Elriss.
+[Winding Trail]
+You see Sabreen, Firestar, Elriss, Torrinakus, Bethesdan, Trieste, a wolf,
+Feras, Young, Delran, Lisanne, Sun, Sy, Nord, Kulgan and Gwydion. 
+Obvious exits: e, w.
+J> 
+Elriss's group goes east.
+J> 
+You follow Elriss.
+[Lowlands]
+You see Sabreen, Firestar, Elriss, Torrinakus, Bethesdan, Trieste, a wolf,
+Feras, Young, Delran, Lisanne, Sun, Sy, Nord, Kulgan and Gwydion. 
+Obvious exits: w.
+J> 
+A wolf sniffs a trail.
+J> 
+Young taps a trail.
+J> 
+Firestar taps a trail.
+J> 
+Elriss nods.
+J> 
+Elriss's group climbs a trail.
+J> 
+You follow Elriss.
+[Trail]
+You see Sabreen, Firestar, Elriss, Torrinakus, Bethesdan, Trieste, a wolf,
+Feras, Young, Delran, Lisanne, Sun, Sy, Nord, Kulgan and Gwydion. 
+Obvious exits: u, d.
+J> 
+Sy says, "look promising"
+J> 
+(Torrinakus swats at a large winged insect buzzing around his head)
+J> 
+Feras casts his gaze across the area.
+J> 
+Elriss's group goes up.
+J> 
+You follow Elriss.
+[Trail]
+You see Sabreen, Firestar, Elriss, Torrinakus, Bethesdan, Trieste, a wolf,
+Feras, Young, Delran, Lisanne, Sun, Sy, Nord, Kulgan and Gwydion. 
+Obvious exits: u, d.
+J> 
+Torrinakus mutters something you can't quite make out.
+J> 
+Lisanne chuckles at Torrinakus.
+J> 
+Sy searches the area.
+J> 
+Elriss says, "The air will begin to get thin..."
+J> 
+Firestar nods.
+J> 
+Sy listens to his surroundings closely.
+J> 
+Elriss's group goes up.
+J> 
+You follow Elriss.
+[Trail]
+You see Sabreen, Firestar, Elriss, Torrinakus, Bethesdan, Trieste, a wolf,
+Feras, Young, Delran, Lisanne, Sun, Sy, Nord, Kulgan and Gwydion. A cliff is
+here.
+Obvious exits: u, d.
+J> 
+Sabreen leans on Elriss.
+J> 
+Sy sniffs.
+J> 
+Lisanne says, "The bugs seem t' like ye, Torr."
+J> 
+Firestar says, "Gnomes like it that way."
+J> 
+Sy listens to his surroundings closely.
+J> 
+Elriss chuckles at Lisanne.
+J> 
+Sy casts his gaze across the area.
+J> 
+Elriss sniffs Torrinakus.
+J> 
+Firestar says, "Slows you tall folks down."
+J> 
+Elriss sniffs Torrinakus.
+J> 
+Sy searches the area.
+J> 
+Delran smiles at Firestar.
+J> 
+Torrinakus says, " mus be be charmin person'ality"
+J> 
+Nord listens to his surroundings closely.
+J> 
+The glistening blue glow surrounding Torrinakus fades.
+J> 
+Elriss's group goes up.
+J> 
+You follow Elriss.
+[Trail]
+You see Sabreen, Firestar, Elriss, Torrinakus, Bethesdan, Trieste, a wolf,
+Feras, Young, Delran, Lisanne, Sun, Sy, Nord, Kulgan and Gwydion. 
+Obvious exits: d.
+J> 
+Kulgan says, "Only because Tobias is standing behind him"
+J> 
+Nord listens to his surroundings closely.
+J> 
+Lisanne winks at Torrinakus.
+J> 
+Kulgan chuckles.
+J> 
+Nord sniffs.
+J> 
+Sy listens to his surroundings closely.
+J> 
+Trieste chuckles at Kulgan.
+J> 
+Nord casts his gaze across the area.
+J> 
+Sy searches the area.
+J> 
+Sabreen casts her gaze across the area.
+J> 
+Sy searches the area.
+J> 
+Trieste incants a spell.
+J> 
+Elriss sniffs.
+J> 
+Trieste gestures.
+Trieste moves with blurring speed.
+J> 
+Young searches the area.
+J> 
+Firestar searches the area.
+J> 
+Delran searches the area.
+J> 
+Trieste searches the area.
+J> 
+A wolf sniffs about the area.
+J> 
+Gwydion searches the area.
+J> 
+Kulgan incants a spell.
+J> 
+Sun ponders.
+J> gaze
+You gaze about the area.
+J> 
+Feras incants a spell.
+J> 
+Kulgan gestures.
+Kulgan moves with blurring speed.
+J> 
+Firestar forages about the area.
+J> 
+Elriss ponders.
+J> 
+Sun searches the area.
+J> 
+Feras gestures.
+Feras moves with blurring speed.
+J> 
+Sun casts her gaze across the area.
+J> 
+Sabreen casts her gaze across the area.
+J> 
+Feras sniffs.
+J> 
+Young searches the area.
+J> 
+A wolf searches the area.
+J> 
+Feras looks up.
+J> 
+Sun searches the area.
+J> 
+Feras incants a spell.
+J> 
+Elriss searches the area.
+J> 
+Elriss ponders.
+J> 
+Firestar digs.
+J> ign cig
+You inhale hard and long as you light your cigar.
+J> 
+Sy taps Firestar on the shoulder.
+J> 
+Delran mumbles, "there was a cliff that looked climbable just down the way a
+bit"
+J> 
+Feras searches the area.
+J> 
+Firestar digs.
+J> 
+Sun taps some eldritch deeplander armor.
+J> 
+Elriss ponders.
+J> 
+Feras searches the area.
+J> 
+Delran mumbles, "saw it as we came up the trail"
+J> 
+Feras searches the area.
+J> 
+Sun ponders.
+J> 
+Elriss's group goes down.
+J> 
+You follow Elriss.
+[Trail]
+You see Sabreen, Firestar, Elriss, Torrinakus, Bethesdan, Trieste, a wolf,
+Feras, Young, Delran, Lisanne, Sun, Sy, Nord, Kulgan and Gwydion. A cliff is
+here.
+Obvious exits: u, d.
+J> 
+Young taps a cliff.
+J> 
+Sy taps a cliff.
+J> act notes with pleasure that the bugs stay clear of his cigar smoke.
+(Mortif notes with pleasure that the bugs stay clear of his cigar smoke.)
+J> 
+Elriss nods.
+J> 
+Feras gazes at a cliff.
+J> 
+Trieste gazes at a cliff.
+J> pull cig
+You take a long hard pull on your cigar!
+J> 
+Feras says, "Oh joy"
+J> 
+Trieste ponders.
+J> 
+Sabreen chuckles.
+J> 
+Elriss says, "I hope most of us can climb some..."
+J> 
+Sun says, "maybe up there"
+J> 
+Feras looks up.
+J> 
+Sun nods.
+J> 
+Elriss says, "Stay with me if you can."
+J> 
+Firestar manages to scramble up the cliffside.
+J> 
+Elriss manages to scramble up the cliffside.
+> 
+Gwydion gazes at a cliff.
+> 
+Delran manages to scramble up the cliffside.
+> 
+Sabreen manages to scramble up the cliffside.
+> 
+Sy manages to scramble up the cliffside.
+> 
+Sun manages to scramble up the cliffside.
+> 
+Young manages to scramble up the cliffside.
+> 
+Gwydion sighs.
+> 
+Trieste manages to scramble up the cliffside.
+> 
+Torrinakus manages to scramble up the cliffside.
+> 
+Gwydion manages to scramble up the cliffside.
+> 
+A wolf sniffs a cliff.
+> 
+Kulgan manages to scramble up the cliffside.
+> 
+Lisanne manages to scramble up the cliffside.
+> 
+Bethesdan manages to scramble up the cliffside.
+> 'I can climb into bed
+You say, "I can climb into bed"
+> 
+Feras manages to scramble up the cliffside.
+> 'that's about it
+You say, "that's about it"
+> 
+Nord nudges you.
+> 
+A wolf manages to scramble up the cliffside.
+> look
+[Trail]
+You find yourself on a small ledge, jutting outwards from the cliff behind
+you. Above the cliff, more trees can be seen, along with a trail that winds 
+along perpendicular to the cliff. The vista is breathtaking, the faint
+shimmer of Inner Sea almost visible from your dizzying height.
+You see Nord. 
+Obvious exits: up, down.
+> cli clif
+You manage to scramble up the cliffside.
+[Trail]
+You see Sabreen, Firestar, Elriss, Torrinakus, Bethesdan, Trieste, a wolf,
+Feras, Young, Delran, Lisanne, Sun, Sy, Kulgan and Gwydion. A cliff is here.
+Obvious exits: ne, nw.
+> 
+A wolf is now following Elriss.
+> 
+Lisanne pokes Elriss.
+> 
+Delran tickles Firestar.
+> 
+Nord arrives up the cliff.
+> pant
+You pant.
+> 
+Sun ponders.
+> 
+Nord is now following Elriss.
+> fol elr
+You are now following Elriss.
+J> 
+Nord says, "that's it"
+J> 
+Firestar says, "sorry"
+J> 
+Lisanne says, "less'n ye think highlanders are nasty."
+J> 
+Torrinakus says, " remins me o home a bit"
+J> 
+Trieste is now following Elriss.
+J> 
+Sy listens to his surroundings closely.
+J> 
+Lisanne smiles at Torrinakus.
+J> 
+Gwydion returns to normal.
+J> 
+Elriss asks, "Did we lose anyone?"
+J> 
+Bethesdan says, "Not me..."
+J> 
+Lisanne says, "Aye, it does."
+J> 'Highlanders are great
+You say, "Highlanders are great"
+J> 
+Sun casts her gaze across the area.
+J> 
+Delran nods to you.
+J> 
+Nord says, "no unless they were invised"
+J> 
+Sun says, "I don't think so"
+J> 
+Elriss's group goes northeast.
+J> 
+You follow Elriss.
+[Forest]
+You see Sabreen, Firestar, Elriss, Torrinakus, Bethesdan, Trieste, a wolf,
+Feras, Young, Delran, Lisanne, Sun, Sy, Nord, Kulgan and Gwydion. 
+Obvious exits: n, e, sw.
+J> 
+Young sniffs.
+J> 
+Gwydion takes a bite of a thesnia leaf.
+J> 
+Gwydion seems changed.
+J> 'Some of my best metal suppliers
+You say, "Some of my best metal suppliers"
+J> 
+Delran chuckles at you.
+J> 
+Firestar says, "Bah you highlanders only think you like mountains"
+J> 
+Sy searches the area.
+J> 
+Elriss says, "The woods are lovely..."
+J> 
+Sabreen casts her gaze across the area.
+J> 'Back when there was metal to supply
+You say, "Back when there was metal to supply"
+J> 
+Gwydion searches the area.
+J> 
+Young says, "caves were nw"
+J> 
+Sabreen says, "Its truly nice Elriss."
+J> 
+A wolf nods to Young.
+J> 
+Elriss's group goes east.
+J> 
+You follow Elriss.
+[Forest]
+You see Sabreen, Firestar, Elriss, Torrinakus, Bethesdan, Trieste, a wolf,
+Feras, Young, Delran, Lisanne, Sun, Sy, Nord, Kulgan and Gwydion. 
+Obvious exits: n, w.
+J> 
+Firestar searches the area.
+J> 
+Gwydion removes some forester arrows from the quiver.
+J> 
+Feras casts his gaze across the area.
+J> 
+Sun says, "there is a lake north"
+J> 
+Sy searches the area.
+J> 
+Elriss's group goes north.
+J> 
+You follow Elriss.
+[Forest]
+You see Sabreen, Firestar, Elriss, Torrinakus, Bethesdan, Trieste, a wolf,
+Feras, Young, Delran, Lisanne, Sun, Nord, Kulgan and Gwydion. 
+Obvious exits: s, e, w.
+J> 
+Nord sniffs.
+J> 
+Sun says, "looks like good fishing"
+J> 
+(Firestar pats the tree)
+J> 
+Sun giggles.
+J> 
+Nord listens to his surroundings closely.
+J> 
+Sy arrives.
+J> 
+(Lisanne mutters as she climbs a small hillock.)
+J> 
+Sy is now following Elriss.
+J> 
+Feras wrinkles up his nose.
+J> 
+Elriss says, "If I were to build a manor, it would be beside a lake."
+J> 
+Young sniffs.
+J> 
+Firestar says, "Nice forcest"
+J> 
+Sabreen smiles.
+J> 
+Gwydion searches the area.
+J> 
+Sabreen nudges Elriss.
+J> 
+Young taps a brilliant blue steel watch.
+J> 
+Sabreen says, "Fishing"
+J> 
+Sabreen rubs her hands together.
+J> 
+(Trieste murmurs, "If you like forests.")
+J> 
+Sun nods to Sabreen.
+J> 
+Sun giggles.
+J> 
+Firestar says, "Not in the hot springs"
+J> 
+Elriss's group goes east.
+J> 
+You follow Elriss.
+[Forest]
+You see Sabreen, Firestar, Elriss, Torrinakus, Bethesdan, Trieste, a wolf,
+Feras, Young, Delran, Lisanne, Sun, Sy, Nord, Kulgan and Gwydion. 
+Obvious exits: s, e, w.
+J> 
+A wolf growls, "This the land?"
+J> 
+Nord sniffs.
+J> 
+Firestar forages about the area.
+J> 
+Elriss says, "I have no idea."
+J> 
+Nord listens to his surroundings closely.
+J> 
+Kulgan says, "Well there WAS that nice bog back there. I'm sure it was a lake
+at one point"
+J> 
+Kulgan chuckles at Elriss.
+J> 
+Elriss arches his eyebrow.
+J> 
+Gwydion exclaims, "aha!"
+J> 
+(Sabreen gazes over the lake.)
+J> 
+Elriss says, "A structure."
+J> 
+Sun says, "there is a struture there"
+J> 
+Young asks, "Across the lake, can ya see?"
+J> 
+Sun nods.
+J> 
+(Sy points to the meadow.)
+J> 
+Feras returns to normal speed.
+J> 
+Sun nods to Young.
+J> 
+Elriss says, "Across the lake."
+J> 
+Elriss nods.
+J> 
+Elriss's group goes east.
+J> 
+You follow Elriss.
+[Forest]
+You see Sabreen, Firestar, Elriss, Torrinakus, Bethesdan, Trieste, a wolf,
+Feras, Young, Delran, Lisanne, Sun, Sy, Nord, Kulgan and Gwydion. 
+Obvious exits: s, e, w.
+J> 
+Firestar searches the area.
+J> 
+Elriss's group goes east.
+J> 
+You follow Elriss.
+[Forest]
+You see Sabreen, Firestar, Elriss, Torrinakus, Bethesdan, Trieste, a wolf,
+Feras, Young, Delran, Lisanne, Sun, Sy, Nord, Kulgan and Gwydion. 
+Obvious exits: s, w, ne.
+J> 
+Sabreen nudges Firestar.
+J> 
+Sabreen exclaims, "See, theres fish!"
+J> 
+Sun says, "look fish"
+J> 
+Sun nods.
+J> look
+[Forest]
+A large cliff prevents further travel to the east, stretching far both north
+and south. The trees are smaller here, stunted from lack of light. Small
+animal trails are evident, and the sound of running water is heard somewhere
+to the west.
+You see Sabreen, Firestar, Elriss, Torrinakus, Bethesdan, Trieste, a wolf,
+Feras, Young, Delran, Lisanne, Sun, Sy, Nord, Kulgan and Gwydion. 
+Obvious exits: south, west, northeast.
+J> 
+Elriss's group goes northeast.
+J> 
+You follow Elriss.
+[Forest]
+You see Sabreen, Firestar, Elriss, Torrinakus, Bethesdan, Trieste, a wolf,
+Feras, Young, Delran, Lisanne, Sun, Sy, Nord, Kulgan and Gwydion. 
+Obvious exits: w, sw.
+J> 'Fish is good
+You say, "Fish is good"
+J> nod
+You nod.
+J> 
+Sabreen cracks her knuckles.
+J> 
+Elriss says, "Maybe we'll have lunch after all."
+J> 
+Gwydion says, "Nice place."
+J> 
+Feras shakes his head back and forth.
+J> 
+(Sun taps her fishing pole)
+J> 
+Sun nods.
+J> 
+Sun says, "we got bait"
+J> 
+Lisanne ponders.
+J> 
+Elriss says, "Sabreen can catch fish with her halberd."
+J> 
+Tavi scrambles up onto Firestar's shoulder and presses his wet nose against
+Firestar's ear while chittering quietly to him.
+J> 
+Sun says, "Tobias is here"
+J> 
+Sabreen chuckles.
+J> 'Good, I didn't pack any lunch
+You say, "Good, I didn't pack any lunch"
+J> 
+Sun nods.
+J> 
+Trieste returns to normal speed.
+J> 
+Firestar says, "No time for that now."
+J> 
+Elriss's group goes west.
+J> 
+You follow Elriss.
+[Forest]
+You see Sabreen, Firestar, Elriss, Torrinakus, Bethesdan, Trieste, a wolf,
+Feras, Young, Delran, Lisanne, Sun, Sy, Nord, Kulgan and Gwydion. 
+Obvious exits: e, ne.
+J> 
+Firestar vibrates with the awe-inspiring strength of the mountains themselves!
+J> 
+Firestar radiates with magical strength.
+J> 
+Sun says, "worms always work good"
+J> 
+Firestar removes some salted venison from the pouch.
+J> 
+Kulgan returns to normal speed.
+J> 
+Kulgan says, "We want to attract the fish, not drive them away enmasse, Sun"
+J> 'Don't want to poison the waters
+You say, "Don't want to poison the waters"
+J> 
+Tavi snatches up a treat from Firestar in his paws happily devouring it in a
+matter of seconds.
+J> 
+Elriss sniffs.
+J> 
+Elriss's group goes northeast.
+J> 
+You follow Elriss.
+[Forest]
+You see Sabreen, Firestar, Elriss, Torrinakus, Bethesdan, Trieste, a wolf,
+Feras, Young, Delran, Lisanne, Sun, Sy, Nord, Kulgan and Gwydion. 
+Obvious exits: w, sw.
+J> 
+Sun giggles.
+J> 
+Sun nods to Kulgan.
+J> 
+Elriss's group goes west.
+J> 
+You follow Elriss.
+[Forest]
+You see Sabreen, Firestar, Elriss, Torrinakus, Bethesdan, Trieste, a wolf,
+Feras, Young, Delran, Lisanne, Sun, Sy, Nord, Kulgan and Gwydion. A thick brush
+is here.
+Obvious exits: n, e, sw.
+J> 
+Nord listens to his surroundings closely.
+J> 
+Trieste sniffs.
+J> 
+Young taps a thick brush.
+J> 
+Firestar forages about the area.
+J> 
+Kulgan incants a spell.
+J> 
+Trieste grabs hold of the thorny brush and pulls hard.
+J> 
+The sun sets in the west.
+J> 
+Young grabs hold of the thorny brush and pulls hard.
+J> 
+Kulgan narrows his eyes and gazes intently about the area.
+J> 
+A wolf sniffs about the area.
+J> 
+Young says, "Ow"
+J> 
+Firestar touches a thick brush.
+J> 
+Gwydion cocks his head to the side.
+J> 
+Elriss's group goes southwest.
+J> 
+You follow Elriss.
+[Lake]
+You see Sabreen, Firestar, Elriss, Torrinakus, Bethesdan, a wolf, Feras,
+Delran, Lisanne, Sun, Sy, Nord, Kulgan and Gwydion. 
+Obvious exits: e, ne.
+J> 
+Feras furrows his brow.
+J> 
+Firestar forages about the area.
+J> 
+Gwydion searches the area.
+J> 
+Kulgan coughs.
+J> 
+Firestar taps some smoky dust.
+J> 
+(Sabreen rubs her arm where a thorn pierced her.)
+J> 
+Elriss says, "We lost Trieste."
+J> 
+Kulgan goes northeast.
+J> 
+Elriss casts his gaze across the area.
+J> 
+Bethesdan searches the area.
+J> 
+Young arrives.
+J> 
+Sun searches the area.
+J> 
+Kulgan's group arrives.
+J> 
+Young is now following Elriss.
+J> 
+Kulgan disbands his group.
+J> 
+Kulgan is now following Elriss.
+J> 
+Trieste is now following Elriss.
+J> 
+Sun returns to normal speed.
+J> 
+Sun incants a spell.
+J> 
+Sun gestures.
+Sun moves with blurring speed.
+J> 
+Elriss says, "Hm."
+J> 
+Sun incants a spell.
+J> 
+Bethesdan incants a spell.
+J> 
+Firestar is now following Elriss.
+J> 
+Bethesdan becomes more substantial.
+J> 
+Bethesdan gestures.
+Bethesdan moves with blurring speed.
+J> 
+Young searches the area.
+J> 
+Elriss's group goes northeast.
+J> 
+You follow Elriss.
+[Forest]
+You see Sabreen, Firestar, Elriss, Torrinakus, Bethesdan, Trieste, a wolf,
+Feras, Delran, Lisanne, Sun, Sy, Nord, Kulgan and Gwydion. Some pebbles and a
+thick brush are here.
+Obvious exits: n, e, sw.
+J> 
+Firestar forages about the area.
+J> 
+(Sy tosses a small stone causing a ripple in the water.)
+J> 
+Trieste frowns.
+J> 
+Young arrives.
+J> 
+Young's slime belches and bubbles before coming to rest.
+J> 
+Bethesdan becomes more ethereal.
+J> comf sab
+You comfort Sabreen.
+J> 
+Young is now following Elriss.
+J> 
+Firestar appears to become less nimble.
+J> 
+The glowing outline of armor fades from around Bethesdan.
+J> inv
+You are carrying: 
+  A fiery silver badge engraved with the image of a blazing sun gripped within
+a gleaming golden hand (worn)
+  Some ebony leather armor with a fine network of gold filagree imbedded into
+it
+  A leather teddy
+  An icy randar greatsword
+  A backpack (open)
+  A demon horn
+  An oiled copper shuriken
+  Some bubblegum
+  A glass (open)
+  An onyx amulet (worn)
+  A glowing medallion (worn)
+  A graphite crucible (open)
+  A truesteel hammer with a short wooden shaft and a sunburst engraved on the
+forge-shaped head
+  A large furry yeti doll with the familiar urisine scent to it
+  A mechanoid doll that looks like Hollister
+  A shadowy inky black doll of Donner sniffing a woman's skirt and sighing in
+pleasure
+  A sooty black t-shirt that says, "Smiths do it for hours and hours...just to
+keep in practice."
+  A brass necklace
+  A black doeskin harness (open)
+  A large brass lantern which looks like it was copied for the illustrations in
+a book
+  A graphite whetstone
+  A fuzzy plaid beltpouch (open)
+  A fluffy brown dog (open)
+  A black leather vest
+  A mauve damn ticket
+  An apron (open)
+  An icy elkyri longsword
+  A werewolf eye
+  Some sooty black leather gloves (worn)
+  Some green cotton pants (worn)
+  An elkyri pendant
+  A torch
+  A pure golden circlet etched with intricate sun symbols around it (worn)
+  An inky black leather trenchcoat (worn) (open)
+  A thin aelfen imperial cigar that sports a colorful label of a magenta
+jackal's head
+  An iridescent oiled knife
+  A pick-axe
+  An obsidian talisman (worn)
+  A pick-axe
+  A malachite wand
+  Some babich root
+  An iron lockpick
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  Some copper metal
+J> 
+Sabreen smiles at you.
+J> 
+Bethesdan searches the area.
+J> 
+Gwydion searches the area.
+J> 
+Firestar puts away a double crossbow of a very complex design.
+J> 
+Elriss says, "Moving north."
+J> 
+(Trieste rubs the small of her back and mutters about thorns.)
+J> 
+Elriss's group goes north.
+J> 
+You follow Elriss.
+[Forest]
+You see Sabreen, Firestar, Elriss, Torrinakus, Bethesdan, Trieste, a wolf,
+Feras, Young, Delran, Lisanne, Sun, Sy, Nord, Kulgan and Gwydion. 
+Obvious exits: s.
+J> 
+Firestar incants a spell.
+J> act moves to walk in front of Sabreen and clear thorns.
+(Mortif moves to walk in front of Sabreen and clear thorns.)
+J> 
+Firestar gestures.
+Firestar moves nimbly.
+J> 
+Firestar incants a spell.
+J> 
+Firestar gestures.
+Firestar moves nimbly.
+J> 
+Firestar incants a spell.
+J> 
+Feras gestures.
+Feras moves with blurring speed.
+J> 
+Gwydion searches the area.
+J> 
+Firestar gestures.
+Firestar moves nimbly.
+J> 
+Sabreen smiles at you.
+J> 'I make a wide a path
+You say, "I make a wide a path"
+J> 
+Firestar forages about the area.
+J> 
+Sabreen chuckles.
+J> 
+Delran searches the area.
+J> grin
+You grin.
+J> 
+Young searches the area.
+J> 
+Elriss chuckles at you.
+J> 
+Feras incants a spell.
+J> 
+Delran surveys the area.
+J> 
+Elriss wields a glaive.
+J> 
+Sy searches the area.
+J> 
+Sy searches the area.
+J> 
+Elriss's group goes south.
+J> 
+You follow Elriss.
+[Forest]
+You see Sabreen, Firestar, Elriss, Torrinakus, Bethesdan, Trieste, a wolf,
+Feras, Young, Delran, Lisanne, Sun, Sy, Nord, Kulgan and Gwydion. Some pebbles
+and a thick brush are here.
+Obvious exits: n, e, sw.
+J> 
+Sabreen casts her gaze across the area.
+J> 
+Firestar forages about the area.
+J> 
+Gwydion searches the area.
+J> pond
+You ponder for a moment.
+J> 
+Delran surveys the area.
+J> 
+Delran searches the area.
+J> 
+Feras searches the area.
+J> 
+Young sniffs.
+J> inv
+You are carrying: 
+  A fiery silver badge engraved with the image of a blazing sun gripped within
+a gleaming golden hand (worn)
+  Some ebony leather armor with a fine network of gold filagree imbedded into
+it
+  A leather teddy
+  An icy randar greatsword
+  A backpack (open)
+  A demon horn
+  An oiled copper shuriken
+  Some bubblegum
+  A glass (open)
+  An onyx amulet (worn)
+  A glowing medallion (worn)
+  A graphite crucible (open)
+  A truesteel hammer with a short wooden shaft and a sunburst engraved on the
+forge-shaped head
+  A large furry yeti doll with the familiar urisine scent to it
+  A mechanoid doll that looks like Hollister
+  A shadowy inky black doll of Donner sniffing a woman's skirt and sighing in
+pleasure
+  A sooty black t-shirt that says, "Smiths do it for hours and hours...just to
+keep in practice."
+  A brass necklace
+  A black doeskin harness (open)
+  A large brass lantern which looks like it was copied for the illustrations in
+a book
+  A graphite whetstone
+  A fuzzy plaid beltpouch (open)
+  A fluffy brown dog (open)
+  A black leather vest
+  A mauve damn ticket
+  An apron (open)
+  An icy elkyri longsword
+  A werewolf eye
+  Some sooty black leather gloves (worn)
+  Some green cotton pants (worn)
+  An elkyri pendant
+  A torch
+  A pure golden circlet etched with intricate sun symbols around it (worn)
+  An inky black leather trenchcoat (worn) (open)
+  A thin aelfen imperial cigar that sports a colorful label of a magenta
+jackal's head
+  An iridescent oiled knife
+  A pick-axe
+  An obsidian talisman (worn)
+  A pick-axe
+  A malachite wand
+  Some babich root
+  An iron lockpick
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  Some copper metal
+  Some copper metal
+J> 
+Nord digs.
+J> 
+Elriss takes some pebbles.
+J> 
+Gwydion ponders.
+J> 
+Sun kicks a thick brush!
+J> 
+Sabreen says, "Too bad we cant push through to the west.. thats the way around
+the lake."
+J> 
+Young pushes a thick brush.
+J> 
+Young pushes a thick brush.
+J> 
+Young pushes a thick brush.
+J> 
+Young pushes a thick brush.
+J> 
+Young pushes a thick brush.
+J> 
+Sun grabs hold of the thorny brush and pulls hard.
+J> 
+The air before you shimmers and congeals into Tobias!
+J> 
+Sabreen gazes at Sun.
+J> 
+Elriss grabs hold of the thorny brush and pulls hard.
+J> 
+Feras shudders.
+J> 
+Tobias incants a spell.
+J> 
+Sun says, "ouch"
+J> 
+Tobias gestures.
+Tobias gradually fades from view.
+J> 
+Elriss says, "Ow."
+J> 
+Firestar grabs hold of the thorny brush and pulls hard.
+J> pond
+You ponder for a moment.
+J> 
+Gwydion grabs hold of the thorny brush and pulls hard.
+J> 
+(Sabreen looks at her bear hands.)
+J> 
+Young says, "Ahh, I wouldnt suggest pullin it"
+J> 
+Elriss gazes at some bronze scale gauntlets.
+J> 
+Firestar says, "Oh thats smart."
+J> 
+Something busts a thick brush with his papenheimer.
+J> gaze glov
+You gaze at some sooty black leather gloves.
+J> 
+Sun says, "it hurt"
+J> 
+Sun nods.
+J> 
+Sun giggles.
+J> 'Gloves Sabreen?
+You ask, "Gloves Sabreen?"
+J> list sab
+You listen carefully to Sabreen.
+J> 
+Trieste nods.
+J> 
+Delran searches the area.
+J> 
+(Firestar begins pull thorns from his hand.)
+J> 
+Elriss grabs hold of the thorny brush and pulls hard.
+J> 
+Something busts a thick brush with his papenheimer.
+J> 
+Please don't BREAK the bush()
+J> 
+Sy lights a lantern.
+J> 
+Sun giggles.
+J> 
+Bethesdan chuckles.
+J> 
+Firestar says, "Wow!  I like these woods"
+J> 
+Sy pushes a thick brush.
+J> 
+Elriss puts away a glaive.
+J> 
+Elriss incants a spell.
+J> 
+Elriss gestures.
+Elriss looks a little better.
+J> 
+Elriss incants a spell.
+J> 
+Elriss gestures.
+Nothing happens.
+J> 
+Trieste incants a spell.
+J> 
+Elriss incants a spell.
+J> 
+Elriss gestures.
+Nothing happens.
+J> 
+(Firestar listens intently to the bush)
+J> 
+Sun says, "must be one of those pet bushs"
+J> 
+Trieste gestures.
+Trieste's pupils alter to those of a cat.
+J> 
+Sabreen grabs hold of the thorny brush and pulls hard.
+J> 
+Sun nods.
+J> 
+Feras gazes at a thick brush.
+J> 
+Sun giggles.
+J> 
+Sabreen twists up her face in an expression of pain.
+J> 
+Something takes a thick brush.
+J> 
+Sabreen says, "Ouch"
+J> winc
+You wince.
+J> 
+Sy rolls his eyes.
+J> 
+Gwydion ponders.
+J> 
+Sun giggles.
+J> 'Should've taken the gloves
+You say, "Should've taken the gloves"
+J> 
+Something drops a thick brush.
+J> heads sab
+You shake your head at Sabreen.
+J> 
+Gwydion takes a thick brush.
+J> 
+Sabreen gazes at Gwydion.
+J> 
+Sy taps a thick brush.
+J> 
+Kulgan takes a thick brush.
+J> 
+Sy goes east.
+J> 
+Sy arrives.
+J> 
+Elriss chuckles.
+J> push brush
+What are you referring to?  Please be more specific.
+J> 
+Sy casts his gaze across the area.
+J> 
+ ** Morag has just left the Realms.
+J> look
+[Forest]
+Thick brush fills a small ravine to the west, full of sharp thorns and long 
+spines. Large boulders are visible to the south, while the forest thins
+to the north.
+You see Sabreen, Firestar, Elriss, Torrinakus, Bethesdan, Trieste, a wolf,
+Feras, Young, Delran, Lisanne, Sun, Sy, Nord, Kulgan and Gwydion. 
+Obvious exits: north, east, southwest.
+J> 
+Sy says, "I cant see anything"
+J> 
+Gwydion gazes at a thick brush.
+J> 
+Delran searches the area.
+J> 
+Firestar appears to become weaker.
+J> 
+Gwydion shrugs.
+J> 
+Sun ponders.
+J> 
+Gwydion waves a thick brush.
+J> 
+Kulgan drops a thick brush.
+J> 
+Sun asks, "so now what?"
+J> 
+Sun ponders.
+J> 
+Sy kicks a small black flashlight!
+J> 
+The brush is cleared by the hacking and slashing of the adventurers.
+J> 
+Sun beams happily.
+J> 
+Bethesdan chuckles at Sy.
+J> 
+Young says, "Hack, slash"
+J> 
+Elriss's group goes west.
+J> 
+You follow Elriss.
+[Meadow]
+You see Sabreen, Firestar, Elriss, Torrinakus, Bethesdan, Trieste, a wolf,
+Feras, Young, Delran, Lisanne, Sun, Nord, Kulgan and Gwydion. A path is here.
+Obvious exits: w.
+J> 
+Sun giggles.
+J> 
+Young waves a fiery steel greatsword with a polished diamond inset into the
+hilt and engraved "DIE! DIE! DIE!".
+J> lean greats
+
+Bethesdan says, "I told ya."
+J> 
+Sy arrives.
+J> You lean on an icy randar greatsword.
+J> 
+Feras returns to normal speed.
+J> 
+Sy is now following Elriss.
+J> 
+Gwydion drops a thick brush.
+J> 
+Sun incants a spell.
+J> 
+Bethesdan returns to normal speed.
+J> 
+Sun returns to normal speed.
+J> 
+Sun gestures.
+Sun moves with blurring speed.
+J> 
+Bethesdan says, "I told ya.,Sy."
+J> 
+Firestar forages about the area.
+J> 
+Sun incants a spell.
+J> 
+Sy busts a thick brush with his lantern.
+J> 
+Young smiles at Elriss.
+J> 
+Feras wipes the sweat from his brow.
+J> 
+Elriss's group goes west.
+J> 
+You follow Elriss.
+[Thinvar Meadow]
+You see Sabreen, Elriss, Torrinakus, Bethesdan, Trieste, a wolf, Feras, Young,
+Delran, Lisanne, Sun, Sy, Nord, Kulgan and Gwydion. A path is here.
+Obvious exits: n, s, e.
+J> 
+Firestar arrives.
+J> 
+Gwydion grins.
+J> 
+Sun taps a path.
+J> 
+Firestar is now following Elriss.
+J> 
+Feras casts his gaze across the area.
+J> 
+Elriss's group goes north.
+J> 
+You follow Elriss.
+[Thinvar Keep]
+You see Sabreen, Firestar, Elriss, Torrinakus, Bethesdan, Trieste, a wolf,
+Feras, Young, Delran, Lisanne, Sun, Sy, Nord, Kulgan and Gwydion. 
+Obvious exits: n, s.
+J> 
+Sun ponders.
+J> 
+Gwydion searches the area.
+J> 
+Firestar searches the area.
+J> 
+Sun taps some eldritch deeplander armor.
+J> 
+Firestar forages about the area.
+J> 
+Nord sighs.
+J> 
+Bethesdan searches the area.
+J> 
+(Feras points north)
+J> 
+Nord sniffs.
+J> 
+Young searches the area.
+J> 
+Nord listens to his surroundings closely.
+J> 
+Sun says, "a house"
+J> 
+Sy thumps on an old-fashioned weatherbeaten door barely hung on its hinges.
+J> 
+Young says, "SOmeone north"
+J> 
+Sun nods.
+J> 
+Elriss says, "A definite fixer upper."
+J> 
+Elriss's group goes north.
+J> 
+You follow Elriss.
+[Thinvar Keep]
+You see Sabreen, Firestar, a girl (sitting), Elriss, Torrinakus, Bethesdan,
+Trieste, a wolf, Feras, Young, Delran, Lisanne, Sun, Sy, Nord, Kulgan and
+Gwydion. The dead zharkier body is here.
+Obvious exits: s.
+J> 
+(Firestar goes over and inspects the arch.)
+J> 
+Feras nudges Elriss.
+J> 
+Sun beams happily.
+J> 
+A girl casts her gaze across the area.
+J> 
+Young smiles at a girl.
+J> 
+Nord gazes at the dead zharkier body.
+J> 
+Gwydion blinks.
+J> 
+A wolf sniffs a girl.
+J> 
+Firestar says, "Zharkiers"
+J> 
+Kulgan gazes at a girl.
+J> 
+a girl gazes about blankly.
+J> 
+Lysis moves her hand in an intricate pattern opening a glowing arch that closes
+behind her.
+J> 
+Elriss says, "Uh oh."
+J> 
+Sabreen arches her eyebrow.
+J> 
+Sun smiles at a girl.
+J> 
+Gwydion removes a polished urimar greatbow with slender intertwining branches
+and oak leaves the color of autumn from around his body.
+J> 
+Gwydion wields a polished urimar greatbow with slender intertwining branches
+and oak leaves the color of autumn.
+J> 
+Nord is now guarding a girl.
+J> 
+Elriss bows towards a girl.
+J> 
+Something searches the area.
+J> 
+Delran smiles at a girl.
+J> 
+Lisanne blinks.
+J> 
+Sun says, "hello little girl"
+J> 
+Sun smiles.
