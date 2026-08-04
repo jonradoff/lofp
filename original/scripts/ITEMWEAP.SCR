@@ -2824,20 +2824,27 @@ PARAMETER1 1
 ARTICLE SOME
 SUBSTANCE INDESTRUCTABLE
 IFPREVERB GET -1
+ 
   IFVAR SKILL4 < 10
     CLEARVERB
     ECHO PLAYER You are not skilled enough in the way of the claw to wield these.
   ENDIF
-  IFVAR SKILL4 > 9
-    ECHO PLAYER [You may now specialize in your natural claws by typing 'SPEC CLAWS']
-    IFVAR SKILL13 < 10
-      IFVAR SKILL13 = 0
-        EQUAL INTNUM96 999
+
+  IFCARRY 651 -1
+    CLEARVERB
+    ECHO PLAYER You already have the claws.
+  ELSE
+    IFVAR SKILL4 > 9
+      ECHO PLAYER [You may now specialize in your natural claws by typing 'SPEC CLAWS']
+      IFVAR SKILL13 < 10
+        IFVAR SKILL13 = 0
+          EQUAL INTNUM96 999
+        ENDIF
+        IFVAR SKILL13 ! 0
+          EQUAL INTNUM96 SKILL13
+        ENDIF
+        EQUAL SKILL13 10
       ENDIF
-      IFVAR SKILL13 ! 0
-        EQUAL INTNUM96 SKILL13
-      ENDIF
-      EQUAL SKILL13 10
     ENDIF
   ENDIF
   AFFECT 3639
