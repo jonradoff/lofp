@@ -1,6 +1,7 @@
 package engine
 
 import (
+	"strings"
 	"time"
 
 	"go.mongodb.org/mongo-driver/v2/bson"
@@ -71,6 +72,19 @@ type InventoryItem struct {
     WornSlot  string `bson:"wornSlot,omitempty" json:"wornSlot,omitempty"`
     // Container contents — populated when this item is an open container.
     Contents  []InventoryItem `bson:"contents,omitempty" json:"contents,omitempty"`
+    // BladeSpellExpiry marks a timed elemental-crit imbue from Storm/Inferno/Winter
+    // Blade (135/136/137, see applyWeaponBladeBuff in spells.go). While active, Val3/
+    // Val5 hold the spell's crit type/max damage; BladeSpellPrevVal3/5 hold the
+    // weapon's original values (its own permanent crit, if any) to restore on expiry.
+    BladeSpellExpiry   time.Time `bson:"bladeSpellExpiry,omitempty" json:"bladeSpellExpiry,omitempty"`
+    BladeSpellPrevVal3 int       `bson:"bladeSpellPrevVal3,omitempty" json:"bladeSpellPrevVal3,omitempty"`
+    BladeSpellPrevVal5 int       `bson:"bladeSpellPrevVal5,omitempty" json:"bladeSpellPrevVal5,omitempty"`
+    // BladeSpellAdjApplied is true when Adj1 currently holds the blade spell's
+    // elemental adjective (fiery/icy/electric) — meaning it was free (or freed via
+    // shiftAdjToFreeSlot) at cast time. Only then does expiry clear Adj1 back to 0;
+    // a weapon with all three adj slots already full at cast time keeps its existing
+    // adjectives untouched (same convention as castEnchantmentSpell).
+    BladeSpellAdjApplied bool `bson:"bladeSpellAdjApplied,omitempty" json:"bladeSpellAdjApplied,omitempty"`
 }
 
 // TimedDefenseBuff tracks one active defense spell with a bonus and expiry.
@@ -348,6 +362,15 @@ type Player struct {
 	EntryEcho  string `bson:"entryEcho,omitempty" json:"entryEcho,omitempty"` // custom room entry text (replaces "X arrives.")
 	ExitEcho   string `bson:"exitEcho,omitempty" json:"exitEcho,omitempty"`   // custom room exit text (replaces "X goes north.")
 
+	// Disguise (skill 34): DisguiseSlots are saved personas the player has
+	// composed via DISGUISE <slot> <field> <value> (numbered 1-5, same convention
+	// as Marks above); ActiveDisguise is the currently-worn copy, applied via
+	// DISGUISE APPLY <slot> — kept separate from the slots so editing a saved
+	// slot later doesn't retroactively change what's currently worn. Disguised
+	// (declared earlier, read by scripts) is true while ActiveDisguise is worn.
+	DisguiseSlots  map[int]DisguisePersona `bson:"disguiseSlots,omitempty" json:"disguiseSlots,omitempty"`
+	ActiveDisguise DisguisePersona         `bson:"activeDisguise,omitempty" json:"activeDisguise,omitempty"`
+
 	// Bot / API Key
 	APIKeyHash    string `bson:"apiKeyHash,omitempty" json:"-"`                       // bcrypt hash of API key (never sent to client)
 	APIKeyPrefix  string `bson:"apiKeyPrefix,omitempty" json:"apiKeyPrefix,omitempty"` // first 8 chars for display
@@ -386,6 +409,111 @@ type Player struct {
 // FullName returns the player's display name.
 func (p *Player) FullName() string {
 	return p.FirstName + " " + p.LastName
+}
+
+// DisguisePersona holds a set of apparent-identity overrides for the Disguise
+// skill (34). Zero/empty fields mean "use my real value" — a low-rank disguise
+// might only set Name, leaving everything else the player's true self. Race,
+// Gender and Strength are deliberately display-only overlays that never touch
+// Player.Race/Gender/Strength, since those drive real mechanics elsewhere
+// (racial abilities, carry capacity/combat) — see disguise.go for the field
+// level-gating and command handling.
+type DisguisePersona struct {
+	// Name is the first-name part for every disguise — the only part shown in
+	// room lists and broadcasts (see DisplayName), matching how real players
+	// are shown by first name only. Below rank 10 it's restricted to one of
+	// disguiseCommonNames and LastName is always empty. At rank 10+ it can be
+	// a custom persona's first name, optionally paired with LastName — the
+	// full "First Last" is only shown on EXAMINE (see DisplayFullName).
+	Name      string `bson:"name,omitempty" json:"name,omitempty"`
+	LastName  string `bson:"lastName,omitempty" json:"lastName,omitempty"`
+	Gender    string `bson:"gender,omitempty" json:"gender,omitempty"` // "male" / "female"
+	HairColor string `bson:"hairColor,omitempty" json:"hairColor,omitempty"`
+	HairStyle string `bson:"hairStyle,omitempty" json:"hairStyle,omitempty"`
+	SkinColor string `bson:"skinColor,omitempty" json:"skinColor,omitempty"`
+	EyeColor  string `bson:"eyeColor,omitempty" json:"eyeColor,omitempty"`
+	Age       int    `bson:"age,omitempty" json:"age,omitempty"`
+	Strength  int    `bson:"strength,omitempty" json:"strength,omitempty"` // apparent build only; never the real combat stat
+	Height    int    `bson:"height,omitempty" json:"height,omitempty"`
+	Weight    int    `bson:"weight,omitempty" json:"weight,omitempty"`
+	Race      int    `bson:"race,omitempty" json:"race,omitempty"`
+}
+
+// bareDisplayName is DisplayName lowercased with any leading article ("a ",
+// "an ") stripped — the matching-friendly form of the player's current
+// apparent identity, used by NameMatches/NameEquals below.
+func (p *Player) bareDisplayName() string {
+	name := strings.ToLower(p.DisplayName())
+	if s, ok := strings.CutPrefix(name, "a "); ok {
+		return s
+	}
+	if s, ok := strings.CutPrefix(name, "an "); ok {
+		return s
+	}
+	return name
+}
+
+// NameMatches reports whether query is a case-insensitive prefix of the
+// player's current apparent identity — the disguise-aware replacement for
+// matching typed target names (LOOK/WHISPER/CONTACT/etc.) against a raw
+// FirstName, so typing "wolf" or "commoner" still matches the way it always
+// has despite DisplayName's leading article.
+func (p *Player) NameMatches(query string) bool {
+	return strings.HasPrefix(p.bareDisplayName(), strings.ToLower(query))
+}
+
+// NameEquals reports whether query is an exact case-insensitive match of the
+// player's current apparent identity — the disguise-aware replacement for
+// exact-match targeting (e.g. COMMAND FOLLOW/GUARD/ATTACK <name> in summons.go).
+func (p *Player) NameEquals(query string) bool {
+	return p.bareDisplayName() == strings.ToLower(query)
+}
+
+// EffectiveAppearance returns the player's apparent race/gender/age/height/
+// weight/strength/eye/skin/hair-color/hair-style: real values, overridden by
+// any non-zero ActiveDisguise field while Disguised is true. Used by LOOK/
+// EXAMINE to render what an observer actually sees.
+func (p *Player) EffectiveAppearance() (race, gender, age, height, weight, strength int, eye, skin, hairColor, hairStyle string) {
+	race, gender, age, height, weight, strength = p.Race, p.Gender, p.Age, p.Height, p.Weight, p.Strength
+	eye, skin, hairColor, hairStyle = p.EyeColor, p.SkinColor, p.HairColor, p.HairStyle
+	if !p.Disguised {
+		return
+	}
+	d := p.ActiveDisguise
+	if d.Race != 0 {
+		race = d.Race
+	}
+	switch d.Gender {
+	case "male":
+		gender = GenderMale
+	case "female":
+		gender = GenderFemale
+	}
+	if d.Age != 0 {
+		age = d.Age
+	}
+	if d.Height != 0 {
+		height = d.Height
+	}
+	if d.Weight != 0 {
+		weight = d.Weight
+	}
+	if d.Strength != 0 {
+		strength = d.Strength
+	}
+	if d.EyeColor != "" {
+		eye = d.EyeColor
+	}
+	if d.SkinColor != "" {
+		skin = d.SkinColor
+	}
+	if d.HairColor != "" {
+		hairColor = d.HairColor
+	}
+	if d.HairStyle != "" {
+		hairStyle = d.HairStyle
+	}
+	return
 }
 
 // effectiveStealthSkill returns the player's trained Stealth skill (33) plus
@@ -518,6 +646,57 @@ func (p *Player) IsFlying() bool {
 // entirely and to anonymize speech as "Something" instead of the player's name.
 func (p *Player) IsConcealed() bool {
 	return p.Hidden || p.Invisible || p.GMHidden || p.GMInvis
+}
+
+// DisplayName returns the name other players should see when this player acts
+// or is looked at/addressed: "a wolf" for a Wolfling in WolfForm, mid-sentence;
+// the active disguise's identity while one is worn (Disguise skill, 34) — with
+// an article ("a commoner") for the common pre-level-10 names so a disguised
+// player is indistinguishable from the real NPCs of that type, or bare for a
+// custom level-10+ persona name; or their real FirstName otherwise. See
+// DisplayNameCap for sentence-initial use.
+func (p *Player) DisplayName() string {
+	if p.WolfForm {
+		return "a wolf"
+	}
+	if p.Disguised && p.ActiveDisguise.Name != "" {
+		name := p.ActiveDisguise.Name
+		if disguisableNPCNames[strings.ToLower(name)] {
+			return articleFor(name, false) + name
+		}
+		return name
+	}
+	return p.FirstName
+}
+
+// DisplayFullName is DisplayName's counterpart for EXAMINE/LOOK <target>,
+// which shows a full name rather than a bare first name: "a wolf" for
+// WolfForm; the article-prefixed common-NPC name (same as DisplayName) for a
+// disguise using one of those; "First Last" (or just "First" with no
+// LastName set) for a custom level-10+ persona; or the player's real
+// FullName() otherwise.
+func (p *Player) DisplayFullName() string {
+	if p.WolfForm {
+		return "a wolf"
+	}
+	if p.Disguised && p.ActiveDisguise.Name != "" {
+		if disguisableNPCNames[strings.ToLower(p.ActiveDisguise.Name)] {
+			return p.DisplayName()
+		}
+		if p.ActiveDisguise.LastName != "" {
+			return p.ActiveDisguise.Name + " " + p.ActiveDisguise.LastName
+		}
+		return p.ActiveDisguise.Name
+	}
+	return p.FullName()
+}
+
+// DisplayNameCap is DisplayName capitalized for sentence-initial placement
+// (e.g. "A wolf growls...", "A commoner arrives."). FirstName and custom
+// disguise names are already capitalized, so this only differs from
+// DisplayName for WolfForm and the article-prefixed common disguise names.
+func (p *Player) DisplayNameCap() string {
+	return capitalize(p.DisplayName())
 }
 
 // RestoreTransientState re-applies persisted buff effects to in-memory transient fields.

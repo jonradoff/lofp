@@ -50,10 +50,18 @@ var HairColors = []string{
 	"blond", "golden blond", "dark-blond", "sandy", "gray", "silver", "white",
 }
 
+// PlayableRaces is the canonical ordered list of playable race IDs, used for
+// disguise race selection and random NPC appearance rolls.
+var PlayableRaces = []int{
+	RaceHuman, RaceAelfen, RaceHighlander, RaceWolfling,
+	RaceMurg, RaceDrakin, RaceMechanoid, RaceEphemeral,
+}
+
 var HairStyles = []string{
 	"long, flowing", "long, straight", "long, messy", "long, curly",
 	"short, flowing", "short, straight", "short, messy", "short, curly",
 	"mohawk", "braided", "shaved sides", "bald",
+	"short", "long", "unkempt", "spiky",
 }
 
 // CharacterAppearance holds a character's rolled stats/build and chosen colors

@@ -772,7 +772,7 @@ func (e *GameEngine) doRoomRecall(player *Player) *CommandResult {
 	if room == nil {
 		return &CommandResult{Messages: []string{"Nothing comes to mind."}}
 	}
-	sc := &ScriptContext{Player: player, Room: room, Engine: e}
+	sc := &ScriptContext{Player: player, Room: room, Engine: e, activeVerb: "RECALL", activeRef: "-1"}
 	for _, block := range room.Scripts {
 		if block.Type == "IFVERB" && len(block.Args) >= 2 {
 			if strings.EqualFold(block.Args[0], "RECALL") && block.Args[1] == "-1" {
@@ -978,7 +978,7 @@ func (e *GameEngine) doPositionWithScripts(ctx context.Context, player *Player, 
 		for _, block := range room.Scripts {
 			if block.Type == "IFVERB" && len(block.Args) >= 2 {
 				if strings.ToUpper(block.Args[0]) == verbUpper && block.Args[1] == "-1" {
-					sc := &ScriptContext{Player: player, Room: room, Engine: e}
+					sc := &ScriptContext{Player: player, Room: room, Engine: e, activeVerb: verbUpper, activeRef: "-1"}
 					sc.execBlock(block)
 					result.Messages = append(result.Messages, sc.Messages...)
 					result.RoomBroadcast = append(result.RoomBroadcast, sc.RoomMsgs...)
@@ -1208,15 +1208,18 @@ func (e *GameEngine) doSneak(ctx context.Context, player *Player, args []string)
 
 // doAppearance handles the APPEARANCE command, letting a player set a custom line
 // shown on EXAMINE after the listing of worn items (e.g. "You catch the scent of
-// some exotic cologne wafting from his direction."). APPEARANCE with no text shows
-// the current line; APPEARANCE CLEAR removes it.
+// some exotic cologne wafting from his direction."). Since LOOK/EXAMINE already
+// show a player their own appearance, APPEARANCE with no text isn't useful as a
+// display — instead it removes the current line, same as APPEARANCE CLEAR.
 func (e *GameEngine) doAppearance(ctx context.Context, player *Player, rawInput string) *CommandResult {
 	text := extractOriginalArgs(rawInput)
 	if text == "" {
 		if player.Appearance == "" {
-			return &CommandResult{Messages: []string{"You haven't set a custom appearance line. (usage: APPEARANCE <description>, or APPEARANCE CLEAR)"}}
+			return &CommandResult{Messages: []string{"You don't have a custom appearance line set. (usage: APPEARANCE <description>)"}}
 		}
-		return &CommandResult{Messages: []string{fmt.Sprintf("Your current appearance line: %s", player.Appearance)}}
+		player.Appearance = ""
+		e.SavePlayer(ctx, player)
+		return &CommandResult{Messages: []string{"Your custom appearance line has been cleared."}}
 	}
 	if strings.EqualFold(text, "clear") || strings.EqualFold(text, "off") || strings.EqualFold(text, "none") {
 		player.Appearance = ""

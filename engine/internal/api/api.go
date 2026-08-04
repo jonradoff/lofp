@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"sort"
 	"strconv"
 	"strings"
 	"sync"
@@ -293,6 +294,14 @@ func (s *Server) OnlinePlayers() []*engine.Player {
 			Hidden:     rp.Hidden,
 		})
 	}
+	// Go's map iteration order (the s.sessions range above) is randomized on
+	// every call — without a stable sort, two consecutive lookups of "the Nth
+	// player matching X" (e.g. "2 wolf" vs "3 wolf" when several wolf-form
+	// Wolflings share the displayed name "a wolf" — see findPlayerInRoom in
+	// the engine package) could each see a different relative order and
+	// resolve to inconsistent players. Sorting by FirstName makes the order
+	// deterministic across calls as long as the online player set is unchanged.
+	sort.Slice(players, func(i, j int) bool { return players[i].FirstName < players[j].FirstName })
 	return players
 }
 
@@ -707,7 +716,7 @@ func (s *Server) handleGameWS(w http.ResponseWriter, r *http.Request) {
 			if !player.GMInvis && !player.GMHidden && !player.IsBot {
 				s.broadcastGlobal(player.FirstName,
 					[]string{fmt.Sprintf("** %s has just entered the Realms.", player.FirstName)})
-				s.broadcastToRoom(player.RoomNumber, player.FirstName, []string{fmt.Sprintf("%s arrives.", player.FirstName)})
+				s.broadcastToRoom(player.RoomNumber, player.FirstName, []string{fmt.Sprintf("%s arrives.", player.DisplayNameCap())})
 			}
 			result := s.engine.EnterRoom(ctx, player)
 			s.sendResult(session, result)
@@ -803,7 +812,7 @@ func (s *Server) handleGameWS(w http.ResponseWriter, r *http.Request) {
 			if !player.GMInvis && !player.GMHidden {
 				s.broadcastGlobal(player.FirstName,
 					[]string{fmt.Sprintf("** %s has just entered the Realms.", player.FirstName)})
-				s.broadcastToRoom(player.RoomNumber, player.FirstName, []string{fmt.Sprintf("%s arrives.", player.FirstName)})
+				s.broadcastToRoom(player.RoomNumber, player.FirstName, []string{fmt.Sprintf("%s arrives.", player.DisplayNameCap())})
 			}
 
 			result := s.engine.EnterRoom(ctx, player)
@@ -1090,6 +1099,7 @@ func filterBroadcastForPlayer(player *engine.Player, messages []string) []string
 			if strings.Contains(msg, "looks a little better") ||
 				strings.Contains(msg, "looks much better") ||
 				strings.Contains(msg, "incants a spell") ||
+				strings.Contains(msg, "prepares a spell") ||
 				strings.Contains(msg, "gestures") ||
 				strings.Contains(msg, " drinks ") ||
 				strings.Contains(msg, " eats ") {

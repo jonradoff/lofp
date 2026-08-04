@@ -2804,6 +2804,150 @@ func (e *GameEngine) doInset(ctx context.Context, player *Player, args []string)
 	return e.doGemAdorn(ctx, player, args, "inset", "inset", 650)
 }
 
+// ---- HIGHLANDER GEM MOLDING ----
+
+// moldFailChance returns a Highlander's percent chance of botching a MOLD
+// attempt: 20% at level 1, dropping 1% per level, bottoming out at a
+// permanent 1% — there's always some risk, however skilled they get.
+func moldFailChance(level int) int {
+	chance := 20 - (level - 1)
+	if chance < 1 {
+		chance = 1
+	}
+	return chance
+}
+
+// moldValueBonusPercent returns the percentage a gem's value multiplier
+// increases by on a successful mold: 25% at level 1, +5% per level, capped
+// at a 100% increase.
+func moldValueBonusPercent(level int) int {
+	bonus := 25 + (level-1)*5
+	if bonus > 100 {
+		bonus = 100
+	}
+	return bonus
+}
+
+// doMold handles the Highlander MOLD ability ("MOLD chipped diamond", "MOLD 3 diamond"):
+// works a chipped or cracked gem into a polished one, raising its sale value. A botched
+// attempt (see moldFailChance) ruins the gem with the damaged adjective instead, and a
+// damaged or already-polished gem can't be molded again.
+func (e *GameEngine) doMold(ctx context.Context, player *Player, args []string) *CommandResult {
+	if player.Race != RaceHighlander {
+		return &CommandResult{Messages: []string{"Only Highlanders know how to mold gemstones."}}
+	}
+	if len(args) == 0 {
+		return &CommandResult{Messages: []string{"Mold what? Usage: MOLD <gem>"}}
+	}
+	if player.RoundTimeExpiry.After(time.Now()) {
+		remaining := time.Until(player.RoundTimeExpiry).Seconds()
+		return &CommandResult{Messages: []string{fmt.Sprintf("You are still recovering from your last action. (%.0f seconds remaining)", remaining+0.5)}}
+	}
+
+	target := strings.ToLower(strings.Join(args, " "))
+	cleanTarget, skip := parseOrdinal(target)
+
+	idx := -1
+	var def *gameworld.ItemDef
+	for i, inv := range player.Inventory {
+		d := e.items[inv.Archetype]
+		if d == nil || inv.Archetype < 99 || inv.Archetype > 123 {
+			continue
+		}
+		if matchesTargetOrdinal(e.getItemNounName(d), cleanTarget, &skip, e.getAdjName(inv.Adj1), e.getAdjName(inv.Adj2), e.getAdjName(inv.Adj3)) {
+			idx = i
+			def = d
+			break
+		}
+	}
+	if idx < 0 {
+		return &CommandResult{Messages: []string{"You don't have that gem."}}
+	}
+
+	// ADJDEF fallbacks per ADJNOUN.SCR, in case an adjective got renamed and the
+	// name lookup below misses: 241 polished, 83 damaged, 53 chipped, 384 cracked.
+	polishedID := e.adjByName("polished")
+	if polishedID == 0 {
+		polishedID = 241
+	}
+	damagedID := e.adjByName("damaged")
+	if damagedID == 0 {
+		damagedID = 83
+	}
+	chippedID := e.adjByName("chipped")
+	if chippedID == 0 {
+		chippedID = 53
+	}
+	crackedID := e.adjByName("cracked")
+	if crackedID == 0 {
+		crackedID = 384
+	}
+
+	gem := &player.Inventory[idx]
+	slots := [3]*int{&gem.Adj1, &gem.Adj2, &gem.Adj3}
+
+	for _, a := range slots {
+		if polishedID != 0 && *a == polishedID {
+			return &CommandResult{Messages: []string{"That gem has already been polished to perfection — there's nothing left to mold."}}
+		}
+		if damagedID != 0 && *a == damagedID {
+			return &CommandResult{Messages: []string{"That gem was ruined in an earlier molding attempt — it's beyond saving now."}}
+		}
+	}
+
+	var flawSlot *int
+	for _, a := range slots {
+		if (chippedID != 0 && *a == chippedID) || (crackedID != 0 && *a == crackedID) {
+			flawSlot = a
+			break
+		}
+	}
+	if flawSlot == nil {
+		return &CommandResult{Messages: []string{"That gem has no flaws for you to mold away."}}
+	}
+
+	itemName := e.formatItemName(def, gem.Adj1, gem.Adj2, gem.Adj3, gem.Tail)
+
+	moldRT := applyRoundTime(player, 5)
+	player.RoundTimeExpiry = time.Now().Add(time.Duration(moldRT) * time.Second)
+	player.RoundTime = moldRT
+
+	failChance := moldFailChance(player.Level)
+	roll := rand.Intn(100) + 1
+
+	if roll <= failChance {
+		*flawSlot = damagedID
+		e.SavePlayer(ctx, player)
+		return &CommandResult{
+			Messages: []string{
+				fmt.Sprintf("Your hands slip! You botch the working and damage your %s.", itemName),
+				fmt.Sprintf("[Round: %d sec]", moldRT),
+			},
+			RoomBroadcast: []string{fmt.Sprintf("%s carefully works a gemstone between %s fingers.", player.FirstName, player.Possessive())},
+			PlayerState:   player,
+		}
+	}
+
+	*flawSlot = polishedID
+	bonusPct := moldValueBonusPercent(player.Level)
+	baseVal := gem.Val2
+	if baseVal <= 0 {
+		baseVal = 100
+	}
+	gem.Val2 = baseVal + baseVal*bonusPct/100
+
+	newName := e.formatItemName(def, gem.Adj1, gem.Adj2, gem.Adj3, gem.Tail)
+	e.SavePlayer(ctx, player)
+	return &CommandResult{
+		Messages: []string{
+			fmt.Sprintf("Your skilled hands work the flaws out of your %s, leaving your %s!", itemName, newName),
+			fmt.Sprintf("[Round: %d sec]", moldRT),
+		},
+		RoomBroadcast: []string{fmt.Sprintf("%s carefully works a gemstone between %s fingers.", player.FirstName, player.Possessive())},
+		PlayerState:   player,
+	}
+}
+
 // ---- ENGRAVE ----
 
 // doEngrave engraves text onto an ENCRUSTABLE or HARDMETAL item.

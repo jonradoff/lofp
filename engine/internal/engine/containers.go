@@ -215,6 +215,24 @@ func (e *GameEngine) potionLookInMessages(def *gameworld.ItemDef, adj1, sips, li
 	}
 }
 
+// namedLiquidLookInMessages builds the "LOOK IN <container>" response for a LIQCONTAINER
+// holding a concrete named liquid item (e.g. wine placed via PUT/NEWPUT), as opposed to a
+// colored potion tracked via the container's own Val2/Val4 (see potionLookInMessages).
+// Sips default to 1 when the liquid item has no sip count set — some original scripts
+// (e.g. the Rake mansion wine cellar, KKLUNK.SC9) place liquid items without VAL2.
+func (e *GameEngine) namedLiquidLookInMessages(containerDef *gameworld.ItemDef, containerAdj1 int, containerTail string, liquidDef *gameworld.ItemDef, liqAdj1, liqAdj2, liqAdj3 int, sips int) []string {
+	containerRef := "the " + e.formatItemNameNoArticle(containerDef, containerAdj1, 0, 0, containerTail)
+	if sips <= 0 {
+		sips = 1
+	}
+	fullnessMsg := fmt.Sprintf("It is %s.", potionFullnessDesc(sips, potionContainerCapacity))
+	liquidName := e.formatItemNameNoArticle(liquidDef, liqAdj1, liqAdj2, liqAdj3)
+	return []string{
+		fullnessMsg,
+		fmt.Sprintf("In %s you see some %s.", containerRef, liquidName),
+	}
+}
+
 // matchesItemOrPotion reports whether an item matches target — either by its own
 // name/adjectives, or, if it's a LIQCONTAINER currently holding a potion, by the
 // potion's liquid-appearance phrase (e.g. "crimson potion"). This lets players
@@ -316,6 +334,24 @@ func (e *GameEngine) lookInRoomContainer(player *Player, def *gameworld.ItemDef,
 	}
 
 	if def.Type == "LIQCONTAINER" {
+		// A LIQCONTAINER's contents are normally tracked on its own Val2 (sips) and
+		// Val4 (potion appearance adjective) — see potionLookInMessages. But some
+		// original scripts instead PUT/NEWPUT a concrete named LIQUID item (e.g.
+		// wine) into the container's ref, leaving the container's own Val2/Val4
+		// unset. Prefer that named liquid child when present, since the container
+		// fields alone would otherwise read as empty.
+		if room := e.rooms[player.RoomNumber]; room != nil {
+			for _, ri2 := range room.Items {
+				if !ri2.IsPut || ri2.PutIn != ri.Ref {
+					continue
+				}
+				liqDef := e.items[ri2.Archetype]
+				if liqDef == nil || liqDef.Type != "LIQUID" {
+					continue
+				}
+				return &CommandResult{Messages: e.namedLiquidLookInMessages(def, ri.Adj1, ri.Extend, liqDef, ri2.Adj1, ri2.Adj2, ri2.Adj3, ri2.Val2)}
+			}
+		}
 		return &CommandResult{Messages: e.potionLookInMessages(def, ri.Adj1, ri.Val2, ri.Val4, ri.Extend)}
 	}
 
@@ -385,7 +421,9 @@ func (e *GameEngine) runPutIntoTargetScripts(ctx context.Context, player *Player
 			Val1: srcItem.Val1, Val2: srcItem.Val2, Val3: srcItem.Val3, Val4: srcItem.Val4, Val5: srcItem.Val5,
 			Sharpness: srcItem.Sharpness, HardnessMod: srcItem.HardnessMod, ItemBits: srcItem.ItemBits, State: srcItem.State,
 		},
-		ItemDef: srcDef,
+		ItemDef:    srcDef,
+		activeVerb: "PUT",
+		activeRef:  refStr,
 	}
 	isPutBlock := func(block gameworld.ScriptBlock) bool {
 		return block.Type == "IFPREVERB2" && len(block.Args) >= 2 &&
@@ -440,8 +478,8 @@ func (e *GameEngine) runPutIntoTargetScripts(ctx context.Context, player *Player
 			result.Exits = lookResult.Exits
 			result.Items = lookResult.Items
 			result.OldRoom = origRoom
-			result.OldRoomMsg = []string{fmt.Sprintf("%s leaves.", player.FirstName)}
-			result.RoomBroadcast = append(result.RoomBroadcast, fmt.Sprintf("%s arrives.", player.FirstName))
+			result.OldRoomMsg = []string{fmt.Sprintf("%s leaves.", player.DisplayNameCap())}
+			result.RoomBroadcast = append(result.RoomBroadcast, fmt.Sprintf("%s arrives.", player.DisplayNameCap()))
 			e.applyEntryScripts(ctx, player, dest, result)
 		}
 	}

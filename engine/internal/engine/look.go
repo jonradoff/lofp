@@ -87,6 +87,11 @@ func (e *GameEngine) doLook(player *Player) *CommandResult {
 
 	// List visible items
 	for _, ri := range room.Items {
+		// Items PUT/NEWPUT inside a container aren't loose on the floor — they're
+		// only visible via LOOK IN/EXAMINE on the container that holds them.
+		if ri.IsPut {
+			continue
+		}
 		// Coin piles
 		if ri.State == "MONEY" {
 			result.Items = append(result.Items, "some coins")
@@ -142,11 +147,7 @@ func (e *GameEngine) doLook(player *Player) *CommandResult {
 			if p.CarriedBy != "" {
 				posDesc += fmt.Sprintf(" (carried by %s)", p.CarriedBy)
 			}
-			if p.WolfForm {
-				playersHere = append(playersHere, "a wolf"+posDesc)
-			} else {
-				playersHere = append(playersHere, fmt.Sprintf("%s the %s%s", p.FullName(), p.RaceName(), posDesc))
-			}
+			playersHere = append(playersHere, p.DisplayName()+posDesc)
 		}
 	}
 
@@ -190,22 +191,20 @@ func (e *GameEngine) doLook(player *Player) *CommandResult {
 	if result.RoomDesc != "" {
 		msgs = append(msgs, descriptionToMessages(result.RoomDesc)...)
 	}
+	// Players and monsters/NPCs are shown together in one sentence, matching the
+	// original format (see original/legends/shirla.cap, e.g. "You see Wolfbane and
+	// Delight."), followed by a separate items sentence.
+	peopleHere := append(playersHere, e.monsterNamesInRoom(player.RoomNumber)...)
+	if len(peopleHere) > 0 {
+		msgs = append(msgs, "You see "+joinList(peopleHere)+".")
+	}
 	if len(result.Items) > 0 {
-		msgs = append(msgs, "You see "+joinList(result.Items)+".")
-	}
-	if len(playersHere) > 0 {
-		// Format like original: "You see Player1 and Player2." or "You see Player1, Player2 and Player3."
-		var pList string
-		if len(playersHere) == 1 {
-			pList = playersHere[0]
-		} else {
-			pList = strings.Join(playersHere[:len(playersHere)-1], ", ") + " and " + playersHere[len(playersHere)-1]
+		verb := " are here."
+		if len(result.Items) == 1 {
+			verb = " is here."
 		}
-		msgs = append(msgs, "You see "+pList+".")
+		msgs = append(msgs, capitalize(joinList(result.Items))+verb)
 	}
-	// Show monsters in the room
-	monsterLines := e.MonsterLookLines(player.RoomNumber)
-	msgs = append(msgs, monsterLines...)
 	// Show weather for outdoor rooms
 	if weatherLine := e.GetRoomWeather(player.RoomNumber); weatherLine != "" {
 		msgs = append(msgs, weatherLine)
@@ -253,30 +252,38 @@ func (e *GameEngine) doLookAt(player *Player, args []string) *CommandResult {
 					if dest.Description != "" {
 						msgs = append(msgs, descriptionToMessages(dest.Description)...)
 					}
-					// Show players in that room
+					// Show players and monsters/NPCs together in one sentence
+					var peopleHere []string
 					if e.sessions != nil {
-						var playersHere []string
 						for _, p := range e.sessions.OnlinePlayers() {
 							if p.RoomNumber == destNum && !p.Hidden && !p.Invisible && !p.GMInvis {
-								playersHere = append(playersHere, p.FirstName)
+								peopleHere = append(peopleHere, p.DisplayName())
 							}
 						}
-						if len(playersHere) > 0 {
-							msgs = append(msgs, fmt.Sprintf("You see %s.", strings.Join(playersHere, ", ")))
-						}
+					}
+					peopleHere = append(peopleHere, e.monsterNamesInRoom(destNum)...)
+					if len(peopleHere) > 0 {
+						msgs = append(msgs, "You see "+joinList(peopleHere)+".")
 					}
 					// Show room items
+					var itemNames []string
 					for _, ri := range dest.Items {
+						if ri.IsPut {
+							continue
+						}
 						itemDef := e.items[ri.Archetype]
 						if itemDef == nil {
 							continue
 						}
-						itemName := e.formatItemName(itemDef, ri.Adj1, ri.Adj2, ri.Adj3, ri.Extend)
-						msgs = append(msgs, fmt.Sprintf("You see %s.", itemName))
+						itemNames = append(itemNames, e.formatItemName(itemDef, ri.Adj1, ri.Adj2, ri.Adj3, ri.Extend))
 					}
-					// Show monsters
-					monLines := e.MonsterLookLines(destNum)
-					msgs = append(msgs, monLines...)
+					if len(itemNames) > 0 {
+						verb := " are here."
+						if len(itemNames) == 1 {
+							verb = " is here."
+						}
+						msgs = append(msgs, capitalize(joinList(itemNames))+verb)
+					}
 					return &CommandResult{Messages: msgs}
 				}
 			}
@@ -334,6 +341,12 @@ func (e *GameEngine) doLookAt(player *Player, args []string) *CommandResult {
 				if skip > 0 {
 					skip--
 					continue
+				}
+				// A LIQCONTAINER examined without an IN/ON/UNDER prefix implicitly behaves
+				// like LOOK IN, reporting fullness and what liquid (if any) is visible —
+				// matching examineCarriedItem's behavior for the same item held in hand.
+				if (prefix == "" || prefix == "IN") && itemDef.Type == "LIQCONTAINER" {
+					return e.lookInRoomContainer(player, itemDef, &ri)
 				}
 				if prefix == "IN" && isContainer(itemDef) {
 					return e.lookInRoomContainer(player, itemDef, &ri)
@@ -410,11 +423,17 @@ func (e *GameEngine) examineCarriedItem(player *Player, room *gameworld.Room, ii
 		displayName := e.formatItemName(itemDef, ii.Adj1, ii.Adj2, ii.Adj3, ii.Tail)
 		return &CommandResult{Messages: []string{fmt.Sprintf("You see nothing noteworthy %s %s.", strings.ToLower(prefix), displayName)}}
 	}
-	msgs := []string{fmt.Sprintf("You look at your %s.", name)}
+	// A set ExamineDesc replaces the generic "You look at your X." opener
+	// entirely, matching the original game's output (see original/legends
+	// session captures — EXAMINE with a custom description prints just the
+	// description, no opener line).
+	var msgs []string
 	if sm := e.scrollLookMsg(ii.Archetype, ii.Val3); sm != "" {
-		msgs = append(msgs, sm)
+		msgs = []string{fmt.Sprintf("You look at your %s.", name), sm}
 	} else if itemDef.ExamineDesc != "" {
-		msgs = append(msgs, descriptionToMessages(itemDef.ExamineDesc)...)
+		msgs = descriptionToMessages(itemDef.ExamineDesc)
+	} else {
+		msgs = []string{fmt.Sprintf("You look at your %s.", name)}
 	}
 	// Run IFPREVERB/IFVERB LOOK scripts on the item (Ref=-1 = inventory item, skip room scripts)
 	ri := &gameworld.RoomItem{Ref: -1, Archetype: ii.Archetype, Adj1: ii.Adj1, Adj2: ii.Adj2, Adj3: ii.Adj3, Val1: ii.Val1, Val2: ii.Val2, Val3: ii.Val3, Val4: ii.Val4, Val5: ii.Val5, ItemBits: ii.ItemBits}
@@ -452,11 +471,16 @@ func (e *GameEngine) scrollLookMsg(archetype int, val3 int) string {
 	return fmt.Sprintf("The scroll contains spell #%d.", val3)
 }
 
-// findPlayerInRoom finds an online player in the same room by name (first name match).
+// findPlayerInRoom finds an online player in the same room by name (first name
+// match). Supports a leading ordinal ("2 wolf", "second wolf") to disambiguate
+// when multiple matches share the same displayed name — most commonly several
+// wolf-form Wolflings, who all show as "a wolf" — counting matches in the same
+// order they're found, same convention as item/monster ordinal targeting.
 func (e *GameEngine) findPlayerInRoom(self *Player, target string) *Player {
 	if e.sessions == nil {
 		return nil
 	}
+	target, skip := parseOrdinal(target)
 	for _, p := range e.sessions.OnlinePlayers() {
 		if p.RoomNumber != self.RoomNumber {
 			continue
@@ -467,13 +491,21 @@ func (e *GameEngine) findPlayerInRoom(self *Player, target string) *Player {
 		if p.Hidden || p.Invisible || p.GMInvis {
 			continue
 		}
-		if strings.HasPrefix(strings.ToLower(p.FirstName), target) {
-			return p
+		matched := p.NameMatches(target)
+		if !matched && !p.WolfForm && !(p.Disguised && p.ActiveDisguise.Name != "") {
+			// Real full name only resolves when not presenting as someone/something
+			// else — a disguised or wolf-form player can't be found by their true name.
+			fullName := strings.ToLower(p.FirstName + " " + p.LastName)
+			matched = strings.HasPrefix(fullName, target)
 		}
-		fullName := strings.ToLower(p.FirstName + " " + p.LastName)
-		if strings.HasPrefix(fullName, target) {
-			return p
+		if !matched {
+			continue
 		}
+		if skip > 0 {
+			skip--
+			continue
+		}
+		return p
 	}
 	return nil
 }
@@ -532,6 +564,31 @@ func (e *GameEngine) findMonsterInRoomEx(player *Player, target string, includeD
 func (e *GameEngine) examineMonster(inst *MonsterInstance, def *gameworld.MonsterDef) *CommandResult {
 	name := FormatMonsterName(def, e.monAdjs)
 	var msgs []string
+	if inst != nil && def.Description == "" && disguisableNPCNames[strings.ToLower(def.Name)] && e.monsterMgr != nil {
+		if rolled, ok := e.monsterMgr.GetOrRollAppearance(inst.ID); ok {
+			ageWord := ageDescriptor(rolled.AppearanceAge, rolled.AppearanceRace)
+			msgs = append(msgs, fmt.Sprintf("You see %s%s, %s%s %s %s.",
+				articleFor(name, def.Unique), name, articleFor(ageWord, false), ageWord, strings.ToLower(genderName(rolled.AppearanceGender)), strings.ToLower(RaceNameByID(rolled.AppearanceRace))))
+			subj, hasVerb, beVerb := "He", "has", "is"
+			if rolled.AppearanceGender == GenderFemale {
+				subj = "She"
+			}
+			msgs = append(msgs, fmt.Sprintf("%s %s %s, %s and %s.",
+				subj, beVerb, heightDescriptor(rolled.AppearanceHeight, rolled.AppearanceRace),
+				weightDescriptor(rolled.AppearanceWeight, rolled.AppearanceRace), buildDescriptor(rolled.AppearanceStrength, rolled.AppearanceRace)))
+			if rolled.AppearanceHairStyle == "bald" {
+				msgs = append(msgs, fmt.Sprintf("%s %s %s eyes and %s skin. %s is completely bald.",
+					subj, hasVerb, rolled.AppearanceEyeColor, rolled.AppearanceSkinColor, subj))
+			} else {
+				msgs = append(msgs, fmt.Sprintf("%s %s %s eyes, %s skin and %s %s hair.",
+					subj, hasVerb, rolled.AppearanceEyeColor, rolled.AppearanceSkinColor, rolled.AppearanceHairStyle, rolled.AppearanceHairColor))
+			}
+			if !inst.Alive {
+				msgs = append(msgs, "It is dead.")
+			}
+			return &CommandResult{Messages: msgs}
+		}
+	}
 	if def.Description != "" {
 		msgs = append(msgs, def.Description)
 	} else {
@@ -555,10 +612,17 @@ func (e *GameEngine) examineMonster(inst *MonsterInstance, def *gameworld.Monste
 func (e *GameEngine) examinePlayer(observer *Player, target *Player) *CommandResult {
 	isSelf := observer.FirstName == target.FirstName && observer.LastName == target.LastName
 
+	// Effective (apparent) appearance — real values, overridden by the active
+	// Disguise persona's set fields. A disguise is reflected back to everyone,
+	// including the wearer's own LOOK/EXAMINE, and to GMs playing normally
+	// (only dedicated GM admin commands see through it).
+	race, gender, age, height, weight, strength, eye, skin, hairColor, hairStyle := target.EffectiveAppearance()
+	displayName := target.DisplayFullName()
+
 	var pronoun string
 	if isSelf {
 		pronoun = "You are"
-	} else if target.Gender == 0 {
+	} else if gender == GenderMale {
 		pronoun = "He is"
 	} else {
 		pronoun = "She is"
@@ -567,14 +631,35 @@ func (e *GameEngine) examinePlayer(observer *Player, target *Player) *CommandRes
 	msgs := []string{}
 	if isSelf {
 		msgs = append(msgs, "You examine yourself.")
+	} else if target.WolfForm {
+		msgs = append(msgs, "You look at a wolf.")
+	} else if target.Disguised {
+		// No "You look at X." opener — matches examineMonster's NPC-style output
+		// (straight into "You see ..."), so a disguise reads exactly like the
+		// genuine NPC it's blending into.
 	} else if target.Title != "" {
 		msgs = append(msgs, fmt.Sprintf("Before you is %s %s.", target.Title, target.FullName()))
 	} else {
-		msgs = append(msgs, fmt.Sprintf("You look at %s.", target.FullName()))
+		msgs = append(msgs, fmt.Sprintf("You look at %s.", displayName))
 	}
 
-	// Custom @line descriptions override the auto-generated race/gender/build/appearance lines
-	if target.DescLine1 != "" || target.DescLine2 != "" || target.DescLine3 != "" {
+	// Wolf form replaces custom @line descriptions and the generated human
+	// description alike with a generated wolf description — fur color mirrors
+	// HairColor (black if bald), everything human-specific (build, skin, gear)
+	// is skipped. Human descriptions (custom or generated) resume once they
+	// transform back.
+	if target.WolfForm {
+		ageWord := ageDescriptor(target.Age, target.Race)
+		furColor := target.HairColor
+		if target.HairStyle == "bald" {
+			furColor = "black"
+		}
+		msgs = append(msgs, fmt.Sprintf("You see %s%s %s wolf with %s eyes and %s fur.",
+			articleFor(ageWord, false), ageWord, strings.ToLower(genderName(target.Gender)), target.EyeColor, furColor))
+	} else if !target.Disguised && (target.DescLine1 != "" || target.DescLine2 != "" || target.DescLine3 != "") {
+		// Custom @line descriptions override the auto-generated race/gender/build/appearance
+		// lines — but a worn disguise overrides those too, so it can't be used to reveal
+		// a disguised player's real custom description.
 		if target.DescLine1 != "" {
 			msgs = append(msgs, target.DescLine1)
 		}
@@ -588,31 +673,31 @@ func (e *GameEngine) examinePlayer(observer *Player, target *Player) *CommandRes
 		// Matches the authentic session-capture format, e.g. "You see Shirla Rennay,
 		// a young female aelfen." — used even for self (the original says "You see
 		// <name>...", not "You are...", when you look at yourself).
-		ageWord := ageDescriptor(target.Age, target.Race)
+		ageWord := ageDescriptor(age, race)
 		msgs = append(msgs, fmt.Sprintf("You see %s, %s%s %s %s.",
-			target.FullName(), articleFor(ageWord, false), ageWord, strings.ToLower(genderName(target.Gender)), strings.ToLower(target.RaceName())))
+			displayName, articleFor(ageWord, false), ageWord, strings.ToLower(genderName(gender)), strings.ToLower(RaceNameByID(race))))
 
 		msgs = append(msgs, fmt.Sprintf("%s %s, %s and %s.", pronoun,
-			heightDescriptor(target.Height, target.Race), weightDescriptor(target.Weight, target.Race), buildDescriptor(target.Strength, target.Race)))
+			heightDescriptor(height, race), weightDescriptor(weight, race), buildDescriptor(strength, race)))
 
 		subj, hasVerb, beVerb := "He", "has", "is"
 		if isSelf {
 			subj, hasVerb, beVerb = "You", "have", "are"
-		} else if target.Gender == 1 {
+		} else if gender == GenderFemale {
 			subj = "She"
 		}
-		if target.HairStyle == "bald" {
+		if hairStyle == "bald" {
 			msgs = append(msgs, fmt.Sprintf("%s %s %s eyes and %s skin. %s %s completely bald.",
-				subj, hasVerb, target.EyeColor, target.SkinColor, subj, beVerb))
+				subj, hasVerb, eye, skin, subj, beVerb))
 		} else {
 			msgs = append(msgs, fmt.Sprintf("%s %s %s eyes, %s skin and %s %s hair.",
-				subj, hasVerb, target.EyeColor, target.SkinColor, target.HairStyle, target.HairColor))
+				subj, hasVerb, eye, skin, hairStyle, hairColor))
 		}
 	}
 
 	heOrShe := "He"
 	heOrSheLC := "him"
-	if target.Gender == 1 {
+	if gender == GenderFemale {
 		heOrShe = "She"
 		heOrSheLC = "her"
 	}
@@ -696,10 +781,14 @@ func (e *GameEngine) examinePlayer(observer *Player, target *Player) *CommandRes
 		msgs = append(msgs, fmt.Sprintf("%s rooted to the spot.", pronoun))
 	}
 	if len(target.Wounds) > 0 {
+		woundSentence := buildWoundSentence(target.Wounds, "")
+		if target.WolfForm {
+			woundSentence = buildWolfWoundSentence(target.Wounds, "")
+		}
 		if isSelf {
-			msgs = append(msgs, "You have "+buildWoundSentence(target.Wounds, "")+".")
+			msgs = append(msgs, "You have "+woundSentence+".")
 		} else {
-			msgs = append(msgs, fmt.Sprintf("%s has %s.", heOrShe, buildWoundSentence(target.Wounds, "")))
+			msgs = append(msgs, fmt.Sprintf("%s has %s.", heOrShe, woundSentence))
 		}
 	}
 
@@ -777,8 +866,8 @@ func (e *GameEngine) examinePlayer(observer *Player, target *Player) *CommandRes
 		}
 	}
 
-	// Equipment
-	if target.Wielded != nil {
+	// Equipment — a wolf isn't wearing or wielding anything, skip entirely.
+	if !target.WolfForm && target.Wielded != nil {
 		wDef := e.items[target.Wielded.Archetype]
 		if wDef != nil {
 			name := e.formatItemName(wDef, target.Wielded.Adj1, target.Wielded.Adj2, target.Wielded.Adj3, target.Wielded.Tail)
@@ -789,7 +878,7 @@ func (e *GameEngine) examinePlayer(observer *Player, target *Player) *CommandRes
 			}
 		}
 	}
-	if target.OffHand != nil {
+	if !target.WolfForm && target.OffHand != nil {
 		ohDef := e.items[target.OffHand.Archetype]
 		if ohDef != nil {
 			ohName := e.formatItemName(ohDef, target.OffHand.Adj1, target.OffHand.Adj2, target.OffHand.Adj3, target.OffHand.Tail)
@@ -809,40 +898,43 @@ func (e *GameEngine) examinePlayer(observer *Player, target *Player) *CommandRes
 		}
 	}
 
-	// Build set of worn slots to determine undergarment visibility
-	wornSlots := map[string]bool{}
-	for _, w := range target.Worn {
-		wornSlots[w.WornSlot] = true
-	}
-	var wornNames []string
-	for _, worn := range target.Worn {
-		if outerSlots, isUnder := undergarmentHiddenBy[worn.WornSlot]; isUnder {
-			covered := false
-			for _, outer := range outerSlots {
-				if wornSlots[outer] {
-					covered = true
-					break
+	if !target.WolfForm {
+		// Build set of worn slots to determine undergarment visibility
+		wornSlots := map[string]bool{}
+		for _, w := range target.Worn {
+			wornSlots[w.WornSlot] = true
+		}
+		var wornNames []string
+		for _, worn := range target.Worn {
+			if outerSlots, isUnder := undergarmentHiddenBy[worn.WornSlot]; isUnder {
+				covered := false
+				for _, outer := range outerSlots {
+					if wornSlots[outer] {
+						covered = true
+						break
+					}
+				}
+				if covered {
+					continue
 				}
 			}
-			if covered {
-				continue
+			wDef := e.items[worn.Archetype]
+			if wDef != nil {
+				wornNames = append(wornNames, e.formatItemName(wDef, worn.Adj1, worn.Adj2, worn.Adj3, worn.Tail))
 			}
 		}
-		wDef := e.items[worn.Archetype]
-		if wDef != nil {
-			wornNames = append(wornNames, e.formatItemName(wDef, worn.Adj1, worn.Adj2, worn.Adj3, worn.Tail))
-		}
-	}
-	if len(wornNames) > 0 {
-		if isSelf {
-			msgs = append(msgs, fmt.Sprintf("You are wearing %s.", joinList(wornNames)))
-		} else {
-			msgs = append(msgs, fmt.Sprintf("%s wearing %s.", pronoun, joinList(wornNames)))
+		if len(wornNames) > 0 {
+			if isSelf {
+				msgs = append(msgs, fmt.Sprintf("You are wearing %s.", joinList(wornNames)))
+			} else {
+				msgs = append(msgs, fmt.Sprintf("%s wearing %s.", pronoun, joinList(wornNames)))
+			}
 		}
 	}
 
-	// Player-set custom appearance line (APPEARANCE command)
-	if target.Appearance != "" {
+	// Player-set custom appearance line (APPEARANCE command) — suppressed in
+	// wolf form, same as @line1-3 above.
+	if target.Appearance != "" && !target.WolfForm {
 		msgs = append(msgs, target.Appearance)
 	}
 

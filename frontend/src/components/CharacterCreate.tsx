@@ -57,7 +57,7 @@ const RACES = [
 const EYE_COLORS = ['blue', 'green', 'brown', 'hazel', 'gray', 'amber', 'violet', 'yellow', 'silver', 'black', 'red']
 const SKIN_COLORS = ['fair', 'pale', 'tan', 'olive', 'bronze', 'dark', 'ebony', 'golden', 'ashen', 'ruddy', 'copper', 'porcelain']
 const HAIR_COLORS = ['black', 'brown', 'dark brown', 'chestnut', 'auburn', 'red', 'strawberry blond', 'blond', 'golden blond', 'dark-blond', 'sandy', 'gray', 'silver', 'white']
-const HAIR_STYLES = ['long, flowing', 'long, straight', 'long, messy', 'long, curly', 'short, flowing', 'short, straight', 'short, curly', 'short, messy', 'mohawk', 'braided', 'shaved sides', 'bald']
+const HAIR_STYLES = ['long, flowing', 'long, straight', 'long, messy', 'long, curly', 'short, flowing', 'short, straight', 'short, curly', 'short, messy', 'mohawk', 'braided', 'shaved sides', 'bald', 'short', 'long', 'unkempt', 'spiky']
 
 interface RolledStats {
   strength: number

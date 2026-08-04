@@ -9,6 +9,163 @@ export default function VersionNotes({ onBack }: { onBack: () => void }) {
 
         <div className="space-y-6 text-sm">
           <section>
+            <h2 className="text-amber-400 text-lg font-bold mb-1">v11.27.0 &mdash; August 3, 2026</h2>
+            <p className="text-gray-400 mb-3">A full Disguise skill &mdash; compose and wear a persona that blends seamlessly into the world&rsquo;s common NPCs or a custom identity of your own, with matching movement, speech, and appearance across every system that shows a player&rsquo;s identity &mdash; a merged room-look format matching the original game&rsquo;s style, and a sweep of related bugs including a Rakes guild password that echoed but never actually let anyone in.</p>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">New Feature: Disguise Skill</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li><code className="text-amber-300">DISGUISE &lt;slot&gt; &lt;field&gt; &lt;value&gt;</code> composes a saved persona &mdash; each Disguise rank unlocks a new field to change (1 name, 2 gender, 3 hair color/style, 4 skin/eye color, 5 age, 6 apparent strength, 7 height, 8 weight, 9 race, 10 a custom name of your own instead of a generic one), and grants a save slot every 2 ranks, up to 5</li>
+                  <li><code className="text-amber-300">DISGUISE APPLY &lt;slot&gt;</code> puts one on (<code className="text-amber-300">[Round: 30 sec]</code>), <code className="text-amber-300">DISGUISE REMOVE</code> takes it off (<code className="text-amber-300">[Round: 15 sec]</code>), and <code className="text-amber-300">DISGUISE LIST</code> / <code className="text-amber-300">DISGUISE LIST &lt;slot&gt;</code> review what you&rsquo;ve composed. Bare <code className="text-amber-300">DISGUISE</code> shows instructions tailored to your current rank</li>
+                  <li>Below rank 10, your name is restricted to one of the game&rsquo;s generic town NPC types &mdash; commoner, trader, merchant, lawkeeper, beggar &mdash; and disguised as one of those, you&rsquo;re indistinguishable from the real thing: your name gets the same article (&ldquo;a commoner&rdquo;), you wander and arrive the way those NPCs do (&ldquo;A commoner wanders south.&rdquo; / &ldquo;has arrived.&rdquo; instead of &ldquo;goes/arrives&rdquo;), and <code className="text-amber-300">EXAMINE</code> skips straight to the description with no &ldquo;You look at X.&rdquo; opener, exactly like looking at a genuine NPC of that type</li>
+                  <li>At rank 10+, a custom persona can have a full first and last name; room lists and broadcasts still show only the first name (matching how real players are always shown), with the full name reserved for <code className="text-amber-300">EXAMINE</code></li>
+                  <li>Your disguised identity now carries through everywhere another player would see or address you &mdash; <code className="text-amber-300">LOOK</code>, <code className="text-amber-300">WHISPER</code>, <code className="text-amber-300">CONTACT</code>, a summoned creature&rsquo;s <code className="text-amber-300">COMMAND FOLLOW/GUARD/ATTACK</code>, and the broadcast text for combat, movement, spellcasting, and emotes all resolve and display your disguise instead of your real name while one is worn</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Room Look Overhaul</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Players and monsters/NPCs are now listed together in one sentence (&ldquo;You see Rion, a lawkeeper and a commoner.&rdquo;) instead of two separate ones, and players are shown by first name only &mdash; matching the original 1990s format &mdash; instead of full name plus race</li>
+                  <li>Items now get their own sentence (&ldquo;A table is here.&rdquo;, &ldquo;A glass and some wine are here.&rdquo;), matching the original session-capture wording, instead of being folded into a &ldquo;You see&hellip;&rdquo; sentence</li>
+                  <li>The five generic town NPC types (commoner, trader, merchant, lawkeeper, beggar) now get a full randomly-rolled appearance on <code className="text-amber-300">LOOK</code> &mdash; race, gender, age, build, eyes, skin, hair &mdash; generated once per spawn and cached so looking twice shows the same person, instead of a flat &ldquo;You see a trader.&rdquo;</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Fixes</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>A script using <code className="text-amber-300">MOVEGROUP</code> from an <code className="text-amber-300">IFSAY</code> block &mdash; like the Rakes guild hall&rsquo;s &ldquo;admit&rdquo; password at Geoffrey the wine cellar doorman &mdash; played out its flavor text but never actually relocated anyone, since <code className="text-amber-300">IFSAY</code> scripts only ever handled the single-player <code className="text-amber-300">MOVE</code> action, not <code className="text-amber-300">MOVEGROUP</code></li>
+                  <li>Items placed inside a container via <code className="text-amber-300">PUT</code>/<code className="text-amber-300">NEWPUT</code> (e.g. wine poured into a glass) were showing up as loose items lying on the floor in addition to being in the container &mdash; room <code className="text-amber-300">LOOK</code> now correctly hides anything marked as being inside another item</li>
+                  <li>An <code className="text-amber-300">@invis</code> GM moving through a portal (door, arch, etc.) leaked their real name in the &ldquo;X goes through Y.&rdquo;/&ldquo;X arrives.&rdquo; messages, even though speech already correctly anonymized them as &ldquo;Something says&hellip;&rdquo; &mdash; portal movement is now silent for concealed players, matching ordinary directional movement</li>
+                  <li><code className="text-amber-300">@editem</code> couldn&rsquo;t set any multi-word field except <code className="text-amber-300">tail</code> &mdash; added <code className="text-amber-300">examinedesc</code> (sets an item archetype&rsquo;s <code className="text-amber-300">EXAMINE</code> text) and generalized the multi-word-value parsing instead of hardcoding it to one field</li>
+                  <li><code className="text-amber-300">EXAMINE</code> on an item with a custom examine description showed a redundant &ldquo;You look at your X.&rdquo; line before the description; it now prints just the description, matching the original game</li>
+                  <li><code className="text-amber-300">APPEARANCE</code> with no argument now clears your custom appearance line instead of just redisplaying it &mdash; there was previously no other way to reset it</li>
+                  <li><code className="text-amber-300">@speech &lt;name&gt;</code> with no verb phrase now resets that player&rsquo;s speech pattern to default, instead of failing with a usage error</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2 className="text-amber-400 text-lg font-bold mb-1">v11.26.0 &mdash; August 2, 2026</h2>
+            <p className="text-gray-400 mb-3">A new Highlander gem-molding ability, casting a spell now actually breaks stealth and invisibility the way preparing one doesn&rsquo;t, monsters that flee combat properly release everyone who was fighting them, and a wide sweep of command-abbreviation and script-hijack bugs uncovered while chasing down a single quirky item.</p>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">New Highlander Ability</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li><code className="text-amber-300">MOLD &lt;gem&gt;</code> &mdash; Highlanders can now work a chipped or cracked gem into a polished one (e.g. <code className="text-amber-300">MOLD chipped diamond</code> or <code className="text-amber-300">MOLD 3 diamond</code>), raising its resale value. There&rsquo;s always some risk of botching it: a fresh Highlander has a 20% chance to ruin the gem instead (leaving it permanently damaged and un-moldable), dropping 1% per level to a permanent floor of 1%. A successful mold raises the gem&rsquo;s value by 25% at level 1, up to a 5%-per-level bonus capped at a 100% increase. A gem already polished, or already ruined from a prior botch, can&rsquo;t be molded again</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Spellcasting &amp; Stealth</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Casting a spell (not preparing one) now reveals a hidden or invisible caster &mdash; the spoken words and hand gestures give away your position the moment you actually cast, even on a failed or fumbled attempt. <code className="text-amber-300">PREPARE</code> stays silent by comparison: onlookers just see &ldquo;Something prepares a spell.&rdquo; while you remain concealed right up until the cast itself</li>
+                  <li>Invisibility (225) now actually breaks when you cast any other spell, on top of already breaking when you attack</li>
+                  <li>An invisible player who <code className="text-amber-300">SMILE</code>s now fades back into view &mdash; the expression gives away your position even when the rest of you shouldn&rsquo;t be seen. Psionic powers still don&rsquo;t reveal you, since they&rsquo;re worked by thought alone</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Combat</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>When a monster flees combat, everyone who was fighting it is now automatically taken out of combat, the same way it already worked on a kill &mdash; previously only the monster&rsquo;s own target reference was cleared, leaving players stuck thinking they were still fighting a monster that had already left the room</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Command &amp; Script Engine Fixes</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Fixed a latent bug in command-abbreviation resolution: nine verbs (<code className="text-amber-300">TOUCH</code>, <code className="text-amber-300">THINK</code>, <code className="text-amber-300">TAP</code>, <code className="text-amber-300">RUB</code>, <code className="text-amber-300">RECITE</code>, <code className="text-amber-300">PROMPT</code>, <code className="text-amber-300">FULL</code>, <code className="text-amber-300">DEPART</code>, <code className="text-amber-300">BRIEF</code>) were accidentally listed twice in the verb registry, which made the ambiguity checker think a verb collided with itself and refuse to resolve any abbreviation of it at all</li>
+                  <li><code className="text-amber-300">APPRAISE</code> was missing from the verb registry entirely, so no abbreviation of it could ever resolve (only the fully-typed word worked, by coincidence)</li>
+                  <li>Several genuinely ambiguous short abbreviations now resolve to their more commonly used meaning instead of failing outright: <code className="text-amber-300">mas&rarr;MASSAGE</code>, <code className="text-amber-300">pro&rarr;PROJECT</code>, <code className="text-amber-300">sel&rarr;SELL</code>, <code className="text-amber-300">fli&rarr;FLIP</code>, <code className="text-amber-300">poi&rarr;POINT</code>, <code className="text-amber-300">sla&rarr;SLAP</code>, <code className="text-amber-300">hea&rarr;HEADSHAKE</code>, <code className="text-amber-300">lea&rarr;LEAN</code>, <code className="text-amber-300">sni&rarr;SNIFF</code>, <code className="text-amber-300">cur&rarr;CURSE</code>, and <code className="text-amber-300">dro&rarr;DROP</code> &mdash; each runner-up verb (e.g. MASTER, POISON, SLAY, HEALTH) stays reachable with one more letter or the full word</li>
+                  <li><code className="text-amber-300">WEAR</code>, <code className="text-amber-300">OPEN</code>, <code className="text-amber-300">CLOSE</code>, <code className="text-amber-300">LATCH</code>, <code className="text-amber-300">SELL</code>, <code className="text-amber-300">APPRAISE</code>, and <code className="text-amber-300">PROJECT</code> all shared the same bug: each rejected a target as mechanically ineligible (not wearable, not a container, no shop nearby, no psi discipline prepared, etc.) before ever giving that item&rsquo;s own scripted reaction a chance to run &mdash; so an item designed to hijack one of these verbs unconditionally (regardless of its own type or the caster&rsquo;s state) could never actually do so. All seven now check for that scripted reaction first</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2 className="text-amber-400 text-lg font-bold mb-1">v11.25.0 &mdash; July 31, 2026</h2>
+            <p className="text-gray-400 mb-3">Wolfling wolf-form transformation is now a real disguise &mdash; a generated animal description, growled/snarled speech, wolf-only emotes, and an anonymized &ldquo;a wolf&rdquo; everywhere a transformed wolf acts &mdash; plus prepared spells can now actually be interrupted by taking a hit (with Wizard&rsquo;s Armor as the ward against it), and Nyraine&rsquo;s long-isolated coastal farmlands are finally reachable.</p>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Wolf Form (Wolfling)</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li><code className="text-amber-300">LOOK</code> at a transformed Wolfling now generates a real wolf description (age, gender, eye color, and fur color mirroring hair color, or black if bald in human form), followed by health and any wounds &mdash; described with paw/foreleg/hind-leg wording &mdash; instead of showing their real name, race, build, or any GM-set <code className="text-amber-300">@line1-3</code> text. Worn gear and a custom <code className="text-amber-300">APPEARANCE</code> line are hidden too, all reverting to the normal human description (custom or generated) the moment they transform back</li>
+                  <li>Speech becomes growls (<code className="text-amber-300">SAY</code>) and snarls (<code className="text-amber-300">EXCLAIM</code>) while transformed &mdash; asking a question still reads as &ldquo;asks&rdquo;. A custom speech adverb is ignored while in wolf form</li>
+                  <li>A transformed wolf&rsquo;s identity is now hidden as &ldquo;a wolf&rdquo; everywhere they act, not just when looked at or spoken to &mdash; <code className="text-amber-300">SAY</code>/<code className="text-amber-300">WHISPER</code>/<code className="text-amber-300">YELL</code>, every emote, combat round messages, arriving/leaving a room (including logging in already transformed), <code className="text-amber-300">SIT</code>/<code className="text-amber-300">STAND</code>/<code className="text-amber-300">KNEEL</code>/<code className="text-amber-300">LAY</code>, and <code className="text-amber-300">%N</code> in room/item scripts. <code className="text-amber-300">THINK</code> and <code className="text-amber-300">CONTACT</code> still use the real name, since telepathy isn&rsquo;t something anyone could physically observe</li>
+                  <li>New wolf-only emotes: <code className="text-amber-300">WAG</code> (wags tail, overriding the human finger-wag), <code className="text-amber-300">SNIFF</code>, <code className="text-amber-300">LICK</code> (a sloppy lick, replacing the human kiss/lick-all-over-body variants), <code className="text-amber-300">SHAKE</code>, and <code className="text-amber-300">POUNCE</code> (around, or on a target)</li>
+                  <li><code className="text-amber-300">LOOK WOLF</code>, and ordinals like <code className="text-amber-300">LOOK 2 WOLF</code>/<code className="text-amber-300">LOOK 3 WOLF</code>, now correctly disambiguate multiple wolves sharing a room &mdash; which also surfaced and fixed a pre-existing bug where the online-player list was built by ranging over a Go map (randomized order on every call), making any &ldquo;2nd/3rd match&rdquo; targeting unstable from one command to the next</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Spellcasting</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>A fumbled spell cast (backfire) now lands on a random body part with a real recorded wound, same as any other hit, instead of just subtracting body points with nothing to show for it</li>
+                  <li>Prepared spells can now actually be interrupted &mdash; taking a hit while mid-cast (from a monster&rsquo;s attack, special attack, spell, or an item trap) breaks the prepared spell, mirroring the <code className="text-amber-300">NONDISRUPTABLE</code> flag already documented for disrupting a monster&rsquo;s own casting. Wizard&rsquo;s Armor (229) is the ward against it &mdash; while active, taking a hit no longer breaks a prepared spell</li>
+                  <li>Added a missing electrical kill-flavor line: &ldquo;Spectacular charge electrolyzes water in body.&rdquo;</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">World Connections</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Fixed a duplicate room-numbering bug in Nyraine (all four seasonal script variants) where three separate content passes had silently overwritten each other&rsquo;s room definitions, leaving the Farmlands area &mdash; and a Rocky Trail/Outcropping/Troll Caves connection &mdash; completely unreachable, with several nearby exits pointing at the wrong rooms. Renumbered the orphaned Farmlands rooms onto free room numbers and reconnected them via City Gates and the coastal Lower Rocky Trail, so the route from the Inner Sea dock through Nyraine to its farmlands finally works end to end</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">GM Tools</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li><code className="text-amber-300">@set</code> can now edit a player&rsquo;s <code className="text-amber-300">EYECOLOR</code>, <code className="text-amber-300">HAIRCOLOR</code>, <code className="text-amber-300">HAIRSTYLE</code>, and <code className="text-amber-300">SKINCOLOR</code> &mdash; previously any string value was rejected before the command even checked which field you&rsquo;d named, so only numeric fields could be set at all. Values are validated against the same fixed choice lists used at character creation, and <code className="text-amber-300">@edpl</code>&rsquo;s summary now also shows age/height/weight/eyes/skin/hair</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2 className="text-amber-400 text-lg font-bold mb-1">v11.24.0 &mdash; July 30, 2026</h2>
+            <p className="text-gray-400 mb-3">WEAR and REMOVE now actually run item scripts, three previously-inert Conjuration spells imbue weapons with a temporary elemental crit, and Thunder Call gets its own flavor text plus a missing electrical kill message.</p>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Script Engine</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li><code className="text-amber-300">WEAR</code> and <code className="text-amber-300">REMOVE</code> never ran any item scripts at all &mdash; unlike <code className="text-amber-300">GET</code>, <code className="text-amber-300">EAT</code>, <code className="text-amber-300">GO</code>, and <code className="text-amber-300">TOUCH</code>, which already did. Every <code className="text-amber-300">IFPREVERB WEAR/REMOVE</code> and <code className="text-amber-300">IFVERB WEAR/REMOVE</code> block in the world was silently dead code &mdash; cursed items that should resist removal, a heartstone that should graft onto your chest, and a stairway in Idemmu Ag that checks whether you&rsquo;re wearing boots all did nothing. Both commands now run the same script hooks the rest of the verb set already does</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">New Spells</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Storm Blade, Inferno Blade, and Winter Blade (135/136/137) previously did nothing at all when cast. They now imbue your wielded weapon with a temporary elemental crit &mdash; 20% chance per hit for 1&ndash;20 bonus damage, lasting 20 minutes (recasting extends the timer, 4-hour cap) &mdash; the same crit mechanic already used by ore-forged elemental weapons. A weapon that already carries a crit of its own (forged-in element or a slayer bonus) can&rsquo;t accept the spell</li>
+                  <li>If the weapon has a free adjective slot, it&rsquo;s marked fiery/icy/electric for the duration and reverts automatically when the spell fades; the imbue lives on the weapon itself, so wielding, unwielding, or giving it to someone else carries the effect along for whatever time is left</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Combat &amp; Spell Messages</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Thunder Call (116) had no unique flavor text of its own; it now beckons a bolt of lightning down from the storm clouds and deals burn damage, matching the original session-capture wording</li>
+                  <li>Added a missing kill-flavor line for deaths by electrical damage (both a direct spell hit and a weapon elemental crit), and fixed the same gap for fire-crit kills</li>
+                  <li>Damage spells were broadcasting the exact damage number, wound severity, and body part to everyone in the room, not just the caster &mdash; bystanders now see the same vague damage tier (e.g. &ldquo;Awesome damage.&rdquo;) melee combat already shows them</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2 className="text-amber-400 text-lg font-bold mb-1">v11.23.0 &mdash; July 29, 2026</h2>
+            <p className="text-gray-400 mb-3">Karhad&rsquo;s mountain trail now connects both directions, and the long-isolated coastal city of Nyraine is reachable for the first time &mdash; a new sailing ship ferries passengers across the Inner Sea between the two.</p>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">World Connections</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>The Teeth of Shartan trail up to Karhad previously only worked in one direction (down to the Inner Sea region, at the dam) &mdash; a matching climbable trail back up now exists on the Inner Sea side, so the route works both ways</li>
+                  <li>Nyraine, a fully-built coastal city that had no connection at all to the rest of the world, is now reachable by sea &mdash; Captain Aldous Kestrel and the crew of the <em>Windrunner</em> run passage between the Inner Sea docks and Nyraine&rsquo;s own dock for two silver each way. <code className="text-amber-300">PAY</code> the captain, then board via the gangplank (<code className="text-amber-300">GO</code>) &mdash; the ship makes way, cuts across open water, and arrives on the far shore over the course of the crossing</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
             <h2 className="text-amber-400 text-lg font-bold mb-1">v11.22.0 &mdash; July 28, 2026</h2>
             <p className="text-gray-400 mb-3">A wide sweep of container bugs (carried and worn alike, coins included), a crafting-economy fix so forged items are actually worth something, several scripted verbs that were silently ignoring an item&rsquo;s own response, and two revived Druidic spells.</p>
 

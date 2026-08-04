@@ -167,6 +167,18 @@ var raceEmotes = map[string]emoteEntry{
 	"4:DROOP":   {Self: "You droop your tail.", Room: "%N droops %P tail."},
 }
 
+// wolfFormEmotes are extra emotes available only while a Wolfling is in
+// WolfForm (checked in processEmote, gated on player.WolfForm rather than
+// race — unlike raceEmotes above, which apply to Wolflings in either form).
+// WAG overrides the generic finger-wag; the others are new verbs.
+var wolfFormEmotes = map[string]emoteEntry{
+	"WAG":   {Self: "You wag your tail.", Room: "%N wags %P tail.", SelfTarget: "You wag your tail at %T.", RoomTarget: "%N wags %P tail at %T."},
+	"SNIFF": {Self: "You sniff at the air.", Room: "%N sniffs at the air.", SelfTarget: "You sniff at %T curiously.", RoomTarget: "%N sniffs at %T curiously."},
+	"SHAKE":  {Self: "You shake your fur out.", Room: "%N shakes %P fur out."},
+	"PAW":    {Self: "You paw at the ground.", Room: "%N paws at the ground.", SelfTarget: "You paw at %T.", RoomTarget: "%N paws at %T."},
+	"POUNCE": {Self: "You pounce around.", Room: "%N pounces around.", SelfTarget: "You pounce on %T.", RoomTarget: "%N pounces on %T."},
+}
+
 // additionalSelfEmotes — emotes with no target that aren't in the main table.
 // These are triggered by specific verbs with no arguments.
 var additionalSelfEmotes = map[string][2]string{
@@ -254,7 +266,7 @@ func expandEmote(template string, actor *Player, targetName string) string {
 			var replacement string
 			switch result[i+1] {
 			case 'N':
-				replacement = actor.FirstName
+				replacement = actor.DisplayNameCap()
 			case 'P':
 				replacement = actor.Possessive()
 			case 'O':
@@ -275,6 +287,22 @@ func expandEmote(template string, actor *Player, targetName string) string {
 
 // processEmote handles emote commands using the emote table.
 func (e *GameEngine) processEmote(player *Player, verb string, args []string) *CommandResult {
+	// A smile reaches your eyes even when the rest of you shouldn't be seen —
+	// it dispels the Invisibility spell, unlike other emotes.
+	wasInvisible := verb == "SMILE" && player.Invisible
+	if wasInvisible {
+		player.Invisible = false
+	}
+
+	result := e.processEmoteCore(player, verb, args)
+
+	if wasInvisible {
+		result.Messages = append([]string{"Your smile causes you to fade back into view!"}, result.Messages...)
+	}
+	return result
+}
+
+func (e *GameEngine) processEmoteCore(player *Player, verb string, args []string) *CommandResult {
 	// Emotes always reveal you
 	if player.Hidden {
 		player.Hidden = false
@@ -298,12 +326,17 @@ func (e *GameEngine) processEmote(player *Player, verb string, args []string) *C
 	}
 
 	entry, ok := emoteTable[verb]
+	if player.WolfForm {
+		if wolfEntry, wolfOk := wolfFormEmotes[verb]; wolfOk {
+			entry, ok = wolfEntry, true
+		}
+	}
 	if !ok {
 		// Fallback generic
 		v := strings.ToLower(verb)
 		return &CommandResult{
 			Messages:      []string{fmt.Sprintf("You %s.", v)},
-			RoomBroadcast: []string{fmt.Sprintf("%s %ss.", player.FirstName, v)},
+			RoomBroadcast: []string{fmt.Sprintf("%s %ss.", player.DisplayNameCap(), v)},
 		}
 	}
 
@@ -315,11 +348,11 @@ func (e *GameEngine) processEmote(player *Player, verb string, args []string) *C
 			key := verb + ":me"
 			if override, ok := selfOverrides[key]; ok {
 				selfMsg := expandEmote(override[0], player, player.FirstName)
-				roomMsg := expandEmote(override[1], player, player.FirstName)
+				roomMsg := expandEmote(override[1], player, player.DisplayName())
 				return &CommandResult{Messages: []string{selfMsg}, RoomBroadcast: []string{roomMsg}}
 			}
 			selfMsg := expandEmote(entry.Self, player, player.FirstName)
-			roomMsg := expandEmote(entry.Room, player, player.FirstName)
+			roomMsg := expandEmote(entry.Room, player, player.DisplayName())
 			return &CommandResult{Messages: []string{selfMsg}, RoomBroadcast: []string{roomMsg}}
 		}
 
@@ -344,9 +377,9 @@ func (e *GameEngine) processEmote(player *Player, verb string, args []string) *C
 			found := e.findPlayerInRoom(player, targetName)
 			if found != nil {
 				if physicalEmoteVerbs[verb] && e.isAvoiding(player.FirstName, found) {
-					return avoidBlockMessage(found.FirstName)
+					return avoidBlockMessage(found.DisplayNameCap())
 				}
-				displayTarget := found.FirstName
+				displayTarget := found.DisplayName()
 				selfMsg := expandEmote(entry.SelfTarget, player, displayTarget)
 				roomMsg := expandEmote(entry.RoomTarget, player, displayTarget)
 				targetMsg := expandEmote(entry.RoomTarget, player, "you")
@@ -427,7 +460,7 @@ func (e *GameEngine) processEmote(player *Player, verb string, args []string) *C
 // "kiss <person> <bodypart>" — kiss on specific body part (some require submit)
 func (e *GameEngine) processKiss(player *Player, args []string) *CommandResult {
 	if len(args) == 0 {
-		return &CommandResult{Messages: []string{"You blow a kiss."}, RoomBroadcast: []string{fmt.Sprintf("%s blows a kiss.", player.FirstName)}}
+		return &CommandResult{Messages: []string{"You blow a kiss."}, RoomBroadcast: []string{fmt.Sprintf("%s blows a kiss.", player.DisplayNameCap())}}
 	}
 
 	// Check if last arg is a body part
@@ -473,10 +506,10 @@ func (e *GameEngine) processKiss(player *Player, args []string) *CommandResult {
 		return &CommandResult{Messages: []string{fmt.Sprintf("You don't see '%s' here.", targetName)}}
 	}
 	if e.isAvoiding(player.FirstName, found) {
-		return avoidBlockMessage(found.FirstName)
+		return avoidBlockMessage(found.DisplayNameCap())
 	}
 
-	displayTarget := found.FirstName
+	displayTarget := found.DisplayName()
 
 	if bodyPart != "" {
 		bp := kissBodyParts[bodyPart]
@@ -496,8 +529,8 @@ func (e *GameEngine) processKiss(player *Player, args []string) *CommandResult {
 
 	// Basic kiss (no body part)
 	selfMsg := fmt.Sprintf("You kiss %s.", displayTarget)
-	roomMsg := fmt.Sprintf("%s kisses %s.", player.FirstName, displayTarget)
-	targetMsg := fmt.Sprintf("%s kisses you.", player.FirstName)
+	roomMsg := fmt.Sprintf("%s kisses %s.", player.DisplayNameCap(), displayTarget)
+	targetMsg := fmt.Sprintf("%s kisses you.", player.DisplayNameCap())
 	return &CommandResult{
 		Messages:      []string{selfMsg},
 		RoomBroadcast: []string{roomMsg},
@@ -511,7 +544,7 @@ func (e *GameEngine) processKiss(player *Player, args []string) *CommandResult {
 // "nibble <person> <bodypart>" — nibble on specific body part (some require submit)
 func (e *GameEngine) processNibble(player *Player, args []string) *CommandResult {
 	if len(args) == 0 {
-		return &CommandResult{Messages: []string{"You nibble."}, RoomBroadcast: []string{fmt.Sprintf("%s nibbles.", player.FirstName)}}
+		return &CommandResult{Messages: []string{"You nibble."}, RoomBroadcast: []string{fmt.Sprintf("%s nibbles.", player.DisplayNameCap())}}
 	}
 
 	// Check if last arg is a body part
@@ -557,10 +590,10 @@ func (e *GameEngine) processNibble(player *Player, args []string) *CommandResult
 		return &CommandResult{Messages: []string{fmt.Sprintf("You don't see '%s' here.", targetName)}}
 	}
 	if e.isAvoiding(player.FirstName, found) {
-		return avoidBlockMessage(found.FirstName)
+		return avoidBlockMessage(found.DisplayNameCap())
 	}
 
-	displayTarget := found.FirstName
+	displayTarget := found.DisplayName()
 
 	if bodyPart != "" {
 		bp := nibbleBodyParts[bodyPart]
@@ -580,8 +613,8 @@ func (e *GameEngine) processNibble(player *Player, args []string) *CommandResult
 
 	// Basic nibble (no body part)
 	selfMsg := fmt.Sprintf("You nibble on %s.", displayTarget)
-	roomMsg := fmt.Sprintf("%s nibbles on %s.", player.FirstName, displayTarget)
-	targetMsg := fmt.Sprintf("%s nibbles on you.", player.FirstName)
+	roomMsg := fmt.Sprintf("%s nibbles on %s.", player.DisplayNameCap(), displayTarget)
+	targetMsg := fmt.Sprintf("%s nibbles on you.", player.DisplayNameCap())
 	return &CommandResult{
 		Messages:      []string{selfMsg},
 		RoomBroadcast: []string{roomMsg},
@@ -612,15 +645,15 @@ func (e *GameEngine) processRubPart(player *Player, args []string, part string) 
 		return &CommandResult{Messages: []string{fmt.Sprintf("You don't see '%s' here.", targetName)}}
 	}
 	if e.isAvoiding(player.FirstName, found) {
-		return avoidBlockMessage(found.FirstName)
+		return avoidBlockMessage(found.DisplayNameCap())
 	}
 	msgs := rubPartMessages[part]
-	displayTarget := found.FirstName
+	displayTarget := found.DisplayName()
 	return &CommandResult{
 		Messages:      []string{fmt.Sprintf(msgs.self, displayTarget)},
-		RoomBroadcast: []string{fmt.Sprintf(msgs.room, player.FirstName, displayTarget)},
+		RoomBroadcast: []string{fmt.Sprintf(msgs.room, player.DisplayNameCap(), displayTarget)},
 		TargetName:    found.FirstName,
-		TargetMsg:     []string{fmt.Sprintf(msgs.target, player.FirstName)},
+		TargetMsg:     []string{fmt.Sprintf(msgs.target, player.DisplayNameCap())},
 	}
 }
 
@@ -629,9 +662,15 @@ func (e *GameEngine) processRubPart(player *Player, args []string, part string) 
 // lick <person> — "You lick <person> all over their body." (if submitted)
 func (e *GameEngine) processLick(player *Player, args []string) *CommandResult {
 	if len(args) == 0 {
+		if player.WolfForm {
+			return &CommandResult{
+				Messages:      []string{"You lick your muzzle."},
+				RoomBroadcast: []string{fmt.Sprintf("%s licks %s muzzle.", player.DisplayNameCap(), player.Possessive())},
+			}
+		}
 		return &CommandResult{
 			Messages:      []string{"You lick your lips."},
-			RoomBroadcast: []string{fmt.Sprintf("%s licks %s lips.", player.FirstName, player.Possessive())},
+			RoomBroadcast: []string{fmt.Sprintf("%s licks %s lips.", player.DisplayNameCap(), player.Possessive())},
 		}
 	}
 
@@ -639,13 +678,26 @@ func (e *GameEngine) processLick(player *Player, args []string) *CommandResult {
 	found := e.findPlayerInRoom(player, targetName)
 	if found != nil {
 		if e.isAvoiding(player.FirstName, found) {
-			return avoidBlockMessage(found.FirstName)
+			return avoidBlockMessage(found.DisplayNameCap())
 		}
-		displayTarget := found.FirstName
+		displayTarget := found.DisplayName()
+		// A wolf's lick is always the sloppy, unromantic kind — it doesn't
+		// follow the human kiss-passionately/lick-all-over-body split below.
+		if player.WolfForm {
+			selfMsg := fmt.Sprintf("You sloppily lick %s.", displayTarget)
+			roomMsg := fmt.Sprintf("%s sloppily licks %s.", player.DisplayNameCap(), displayTarget)
+			targetMsg := fmt.Sprintf("%s sloppily licks you.", player.DisplayNameCap())
+			return &CommandResult{
+				Messages:      []string{selfMsg},
+				RoomBroadcast: []string{roomMsg},
+				TargetName:    found.FirstName,
+				TargetMsg:     []string{targetMsg},
+			}
+		}
 		if found.Submitting {
 			selfMsg := fmt.Sprintf("You lick %s all over their body.", displayTarget)
-			roomMsg := fmt.Sprintf("%s licks %s all over their body.", player.FirstName, displayTarget)
-			targetMsg := fmt.Sprintf("%s licks you all over your body.", player.FirstName)
+			roomMsg := fmt.Sprintf("%s licks %s all over their body.", player.DisplayNameCap(), displayTarget)
+			targetMsg := fmt.Sprintf("%s licks you all over your body.", player.DisplayNameCap())
 			return &CommandResult{
 				Messages:      []string{selfMsg},
 				RoomBroadcast: []string{roomMsg},
@@ -654,8 +706,8 @@ func (e *GameEngine) processLick(player *Player, args []string) *CommandResult {
 			}
 		}
 		selfMsg := fmt.Sprintf("You kiss %s passionately.", displayTarget)
-		roomMsg := fmt.Sprintf("%s kisses %s passionately.", player.FirstName, displayTarget)
-		targetMsg := fmt.Sprintf("%s kisses you passionately.", player.FirstName)
+		roomMsg := fmt.Sprintf("%s kisses %s passionately.", player.DisplayNameCap(), displayTarget)
+		targetMsg := fmt.Sprintf("%s kisses you passionately.", player.DisplayNameCap())
 		return &CommandResult{
 			Messages:      []string{selfMsg},
 			RoomBroadcast: []string{roomMsg},

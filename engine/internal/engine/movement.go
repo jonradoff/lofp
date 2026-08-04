@@ -24,6 +24,22 @@ func messagesHaveRoundTime(msgs []string) bool {
 	return false
 }
 
+// npcStyleMovementText returns exit/entry broadcast text for directional
+// movement. A player disguised as one of the generic town NPC types (see
+// disguisableNPCNames) moves like the real NPCs of that type do in
+// monsters.go's wander AI ("A trader wanders south." / "A trader has
+// arrived.") instead of the normal player phrasing, so they stay
+// indistinguishable from the genuine article. A custom (level 10+) disguise
+// name keeps the normal player phrasing, since it's a specific persona, not a
+// generic NPC.
+func npcStyleMovementText(player *Player, dirName string) (exitMsg, entryMsg string) {
+	name := player.DisplayNameCap()
+	if player.Disguised && disguisableNPCNames[strings.ToLower(player.ActiveDisguise.Name)] {
+		return fmt.Sprintf("%s wanders %s.", name, dirName), fmt.Sprintf("%s has arrived.", name)
+	}
+	return fmt.Sprintf("%s goes %s.", name, dirName), fmt.Sprintf("%s arrives.", name)
+}
+
 func (e *GameEngine) doMove(ctx context.Context, player *Player, dir string) *CommandResult {
 	if player.Immobilized {
 		return &CommandResult{Messages: []string{"You are immobilized and cannot move!"}}
@@ -157,15 +173,22 @@ func (e *GameEngine) doMove(ctx context.Context, player *Player, dir string) *Co
 	result.OldRoom = originalRoom
 	// Concealed players (Invisible spell, @hide, @invis) move silently — no exit/entry echoes
 	if !player.IsConcealed() {
-		if player.ExitEcho != "" {
-			result.OldRoomMsg = []string{player.ExitEcho}
+		if player.WolfForm {
+			// Wolf form ignores custom ExitEcho/EntryEcho — always the generic wolf line.
+			result.OldRoomMsg = []string{fmt.Sprintf("A wolf goes %s.", dirName)}
+			result.RoomBroadcast = []string{"A wolf arrives."}
 		} else {
-			result.OldRoomMsg = []string{fmt.Sprintf("%s goes %s.", player.FirstName, dirName)}
-		}
-		if player.EntryEcho != "" {
-			result.RoomBroadcast = []string{player.EntryEcho}
-		} else {
-			result.RoomBroadcast = []string{fmt.Sprintf("%s arrives.", player.FirstName)}
+			exitMsg, entryMsg := npcStyleMovementText(player, dirName)
+			if player.ExitEcho != "" {
+				result.OldRoomMsg = []string{player.ExitEcho}
+			} else {
+				result.OldRoomMsg = []string{exitMsg}
+			}
+			if player.EntryEcho != "" {
+				result.RoomBroadcast = []string{player.EntryEcho}
+			} else {
+				result.RoomBroadcast = []string{entryMsg}
+			}
 		}
 	}
 
@@ -183,16 +206,16 @@ func (e *GameEngine) doMove(ctx context.Context, player *Player, dir string) *Co
 			}
 			e.applyEntryScripts(ctx, p, dest, &CommandResult{})
 		}
-		result.OldRoomMsg = append(result.OldRoomMsg, fmt.Sprintf("%s's group goes %s.", player.FirstName, dirName))
-		result.RoomBroadcast = append(result.RoomBroadcast, fmt.Sprintf("%s's group arrives.", player.FirstName))
+		result.OldRoomMsg = append(result.OldRoomMsg, fmt.Sprintf("%s's group goes %s.", player.DisplayNameCap(), dirName))
+		result.RoomBroadcast = append(result.RoomBroadcast, fmt.Sprintf("%s's group arrives.", player.DisplayNameCap()))
 	}
 
 	result.OldRoomMsg = append(result.OldRoomMsg, summonOldMsgs...)
 	result.RoomBroadcast = append(result.RoomBroadcast, summonRoomMsgs...)
 
 	if player.Carrying != "" {
-		result.OldRoomMsg = append(result.OldRoomMsg, fmt.Sprintf("%s carries %s %s.", player.FirstName, player.Carrying, dirName))
-		result.RoomBroadcast = append(result.RoomBroadcast, fmt.Sprintf("%s carries %s in.", player.FirstName, player.Carrying))
+		result.OldRoomMsg = append(result.OldRoomMsg, fmt.Sprintf("%s carries %s %s.", player.DisplayNameCap(), player.Carrying, dirName))
+		result.RoomBroadcast = append(result.RoomBroadcast, fmt.Sprintf("%s carries %s in.", player.DisplayNameCap(), player.Carrying))
 	}
 
 	return result
@@ -459,8 +482,8 @@ func (e *GameEngine) doSteal(ctx context.Context, player *Player, args []string)
 				result.Exits = lookResult.Exits
 				result.Items = lookResult.Items
 				result.OldRoom = originalRoom
-				result.OldRoomMsg = []string{fmt.Sprintf("%s slips away.", player.FirstName)}
-				result.RoomBroadcast = append(result.RoomBroadcast, fmt.Sprintf("%s slips in from somewhere.", player.FirstName))
+				result.OldRoomMsg = []string{fmt.Sprintf("%s slips away.", player.DisplayNameCap())}
+				result.RoomBroadcast = append(result.RoomBroadcast, fmt.Sprintf("%s slips in from somewhere.", player.DisplayNameCap()))
 				e.applyEntryScripts(ctx, player, dest, result)
 			}
 		}
@@ -595,8 +618,8 @@ func (e *GameEngine) doGo(ctx context.Context, player *Player, args []string) *C
 				result.Exits = lookResult.Exits
 				result.Items = lookResult.Items
 				result.OldRoom = originalRoom
-				result.OldRoomMsg = []string{fmt.Sprintf("%s leaves.", player.FirstName)}
-				result.RoomBroadcast = append(result.RoomBroadcast, fmt.Sprintf("%s arrives.", player.FirstName))
+				result.OldRoomMsg = []string{fmt.Sprintf("%s leaves.", player.DisplayNameCap())}
+				result.RoomBroadcast = append(result.RoomBroadcast, fmt.Sprintf("%s arrives.", player.DisplayNameCap()))
 				e.applyEntryScripts(ctx, player, dest, result)
 			}
 		}
@@ -618,7 +641,7 @@ func (e *GameEngine) doGoPortal(ctx context.Context, player *Player, room *gamew
 	state := strings.ToUpper(ri.State)
 	if state == "CLOSED" || state == "LOCKED" {
 		portalName := e.formatItemName(itemDef, ri.Adj1, ri.Adj2, ri.Adj3, ri.Extend)
-		return &CommandResult{Messages: []string{fmt.Sprintf("The %s is closed.", e.getItemNounName(itemDef))}, RoomBroadcast: []string{fmt.Sprintf("%s bumps into %s.", player.FirstName, portalName)}}
+		return &CommandResult{Messages: []string{fmt.Sprintf("The %s is closed.", e.getItemNounName(itemDef))}, RoomBroadcast: []string{fmt.Sprintf("%s bumps into %s.", player.DisplayName(), portalName)}}
 	}
 
 	// Capture room before running scripts — MOVE in scripts can change player.RoomNumber directly.
@@ -762,8 +785,11 @@ func (e *GameEngine) doGoPortal(ctx context.Context, player *Player, room *gamew
 	result.Exits = lookResult.Exits
 	result.Items = lookResult.Items
 	result.OldRoom = originalRoom
-	result.OldRoomMsg = append(result.OldRoomMsg, fmt.Sprintf("%s goes through %s.", player.FirstName, portalName))
-	result.RoomBroadcast = append(result.RoomBroadcast, fmt.Sprintf("%s arrives.", player.FirstName))
+	// Concealed players (Invisible spell, @hide, @invis) move silently — no exit/entry echoes.
+	if !player.IsConcealed() {
+		result.OldRoomMsg = append(result.OldRoomMsg, fmt.Sprintf("%s goes through %s.", player.DisplayNameCap(), portalName))
+		result.RoomBroadcast = append(result.RoomBroadcast, fmt.Sprintf("%s arrives.", player.DisplayNameCap()))
+	}
 
 	// Run IFENTRY scripts at destination
 	e.applyEntryScripts(ctx, player, dest, result)
@@ -778,16 +804,16 @@ func (e *GameEngine) doGoPortal(ctx context.Context, player *Player, room *gamew
 			}
 			e.applyEntryScripts(ctx, p, dest, &CommandResult{})
 		}
-		result.OldRoomMsg = append(result.OldRoomMsg, fmt.Sprintf("%s's group goes through %s.", player.FirstName, portalName))
-		result.RoomBroadcast = append(result.RoomBroadcast, fmt.Sprintf("%s's group arrives.", player.FirstName))
+		result.OldRoomMsg = append(result.OldRoomMsg, fmt.Sprintf("%s's group goes through %s.", player.DisplayNameCap(), portalName))
+		result.RoomBroadcast = append(result.RoomBroadcast, fmt.Sprintf("%s's group arrives.", player.DisplayNameCap()))
 	}
 
 	result.OldRoomMsg = append(result.OldRoomMsg, summonOldMsgs...)
 	result.RoomBroadcast = append(result.RoomBroadcast, summonRoomMsgs...)
 
 	if player.Carrying != "" {
-		result.OldRoomMsg = append(result.OldRoomMsg, fmt.Sprintf("%s carries %s through %s.", player.FirstName, player.Carrying, portalName))
-		result.RoomBroadcast = append(result.RoomBroadcast, fmt.Sprintf("%s carries %s in.", player.FirstName, player.Carrying))
+		result.OldRoomMsg = append(result.OldRoomMsg, fmt.Sprintf("%s carries %s through %s.", player.DisplayNameCap(), player.Carrying, portalName))
+		result.RoomBroadcast = append(result.RoomBroadcast, fmt.Sprintf("%s carries %s in.", player.DisplayNameCap(), player.Carrying))
 	}
 
 	return result
@@ -872,8 +898,8 @@ func (e *GameEngine) doClimb(ctx context.Context, player *Player, args []string)
 						result.Exits = lookResult.Exits
 						result.Items = lookResult.Items
 						result.OldRoom = originalRoom
-						result.OldRoomMsg = []string{fmt.Sprintf("%s leaves.", player.FirstName)}
-						result.RoomBroadcast = append(result.RoomBroadcast, fmt.Sprintf("%s arrives.", player.FirstName))
+						result.OldRoomMsg = []string{fmt.Sprintf("%s leaves.", player.DisplayNameCap())}
+						result.RoomBroadcast = append(result.RoomBroadcast, fmt.Sprintf("%s arrives.", player.DisplayNameCap()))
 						e.applyEntryScripts(ctx, player, dest, result)
 					}
 				} else if sc.NeedsSave {

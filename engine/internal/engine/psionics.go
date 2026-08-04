@@ -279,6 +279,28 @@ func (e *GameEngine) listPsiDisciplines(player *Player) *CommandResult {
 
 // doProjectPsi handles PROJECT [target].
 func (e *GameEngine) doProjectPsi(ctx context.Context, player *Player, args []string) *CommandResult {
+	// Give a carried item's own universal IFPREVERB PROJECT -1 script (e.g. item
+	// 925, "the object") a chance to hijack the attempt before the psionics
+	// preconditions below — the item's reaction isn't tied to having a discipline
+	// prepared, so it needs to run before that check can ever reject the target.
+	if len(args) > 0 {
+		if room := e.rooms[player.RoomNumber]; room != nil {
+			target := strings.ToLower(strings.Join(args, " "))
+			for _, ii := range player.Inventory {
+				itemDef := e.items[ii.Archetype]
+				if itemDef == nil {
+					continue
+				}
+				name := e.getItemNounName(itemDef)
+				if !matchesTarget(name, target, e.getAdjName(ii.Adj1), e.getAdjName(ii.Adj2), e.getAdjName(ii.Adj3)) {
+					continue
+				}
+				if res := e.runItemOwnPreverbHook(player, room, "PROJECT", ii); res != nil {
+					return res
+				}
+			}
+		}
+	}
 	if player.Dead {
 		return &CommandResult{Messages: []string{"You can't use psionics while dead."}}
 	}

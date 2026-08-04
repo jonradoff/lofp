@@ -225,15 +225,17 @@ func (e *GameEngine) RunItemScripts(player *Player, room *gameworld.Room, verb s
 }
 
 func (e *GameEngine) RunVerbScripts(player *Player, room *gameworld.Room, verb string, ri *gameworld.RoomItem, def *gameworld.ItemDef) *ScriptContext {
-	sc := &ScriptContext{
-		Player:  player,
-		Room:    room,
-		Engine:  e,
-		ItemRef: ri,
-		ItemDef: def,
-	}
-	refStr := fmt.Sprintf("%d", ri.Ref)
 	verb = strings.ToUpper(verb)
+	refStr := fmt.Sprintf("%d", ri.Ref)
+	sc := &ScriptContext{
+		Player:     player,
+		Room:       room,
+		Engine:     e,
+		ItemRef:    ri,
+		ItemDef:    def,
+		activeVerb: verb,
+		activeRef:  refStr,
+	}
 
 	// Check room-level IFVERB scripts (only for room items; inventory items have Ref=-1)
 	if room != nil && ri.Ref >= 0 {
@@ -310,8 +312,8 @@ func (e *GameEngine) RunMonsterPreverbScript(player *Player, room *gameworld.Roo
 // regardless of whether a specific item was targeted. Used when no item target is given,
 // or after item scripts have already run (e.g., LISTEN with no args, bare GAZE).
 func (e *GameEngine) RunRoomVerbScripts(player *Player, room *gameworld.Room, verb string) *ScriptContext {
-	sc := &ScriptContext{Player: player, Room: room, Engine: e}
 	verb = strings.ToUpper(verb)
+	sc := &ScriptContext{Player: player, Room: room, Engine: e, activeVerb: verb, activeRef: "-1"}
 	for _, block := range room.Scripts {
 		if (block.Type == "IFVERB" || block.Type == "IFPREVERB") && len(block.Args) >= 2 {
 			if strings.ToUpper(block.Args[0]) == verb && block.Args[1] == "-1" {
@@ -339,20 +341,27 @@ func (sc *ScriptContext) execBlock(block gameworld.ScriptBlock) {
 		if sc.preverbOnly && (block.Type == "IFVERB" || block.Type == "IFVERB2") {
 			return
 		}
-		// When activeVerb is set (inside RunPreverbScripts/RunItemScripts), filter by verb
-		// and ref so nested IFPREVERB/IFVERB blocks inside IFVAR trees only fire for the
-		// verb that actually triggered this interaction, not for every verb tried against
-		// the item (LOOK and EXAMINE are treated as synonyms — scripts use both keywords
-		// interchangeably for "look closely at this").
-		if sc.activeVerb != "" {
-			if len(block.Args) < 1 || !verbsMatch(strings.ToUpper(block.Args[0]), sc.activeVerb) {
+		// These blocks only make sense within a verb-triggered context (activeVerb set by
+		// RunPreverbScripts/RunVerbScripts/RunMonsterPreverbScript/RunRoomVerbScripts/
+		// RunItemScripts). Non-verb walks like RunSayScripts/RunEntryScripts can still
+		// descend into these nodes when they're nested inside an unrelated IFVAR tree
+		// sitting next to the block that actually matched (e.g. IFSAY WINE and an
+		// IFVAR-gated IFPREVERB KILL block as room-level siblings) — without this guard
+		// they'd execute unconditionally instead of being ignored.
+		if sc.activeVerb == "" {
+			return
+		}
+		// Filter by verb and ref so nested IFPREVERB/IFVERB blocks inside IFVAR trees only
+		// fire for the verb that actually triggered this interaction, not for every verb
+		// tried against the item (LOOK and EXAMINE are treated as synonyms — scripts use
+		// both keywords interchangeably for "look closely at this").
+		if len(block.Args) < 1 || !verbsMatch(strings.ToUpper(block.Args[0]), sc.activeVerb) {
+			return
+		}
+		if sc.activeRef != "" && len(block.Args) >= 2 {
+			ref := block.Args[1]
+			if ref != "-1" && ref != sc.activeRef {
 				return
-			}
-			if sc.activeRef != "" && len(block.Args) >= 2 {
-				ref := block.Args[1]
-				if ref != "-1" && ref != sc.activeRef {
-					return
-				}
 			}
 		}
 		sc.execChildren(block)
@@ -2623,12 +2632,13 @@ func (sc *ScriptContext) applyItemSpellOnPlayer(spell *SpellDef) {
 }
 
 func (sc *ScriptContext) expandScriptText(text string) string {
-	// Player name
-	text = strings.ReplaceAll(text, "%N", sc.Player.FirstName)
-	text = strings.ReplaceAll(text, "%n", sc.Player.FirstName)
+	// Player name — wolf-form Wolflings show as "a wolf" here too, same as
+	// speech/emotes/movement/combat (see Player.DisplayNameCap).
+	text = strings.ReplaceAll(text, "%N", sc.Player.DisplayNameCap())
+	text = strings.ReplaceAll(text, "%n", sc.Player.DisplayNameCap())
 	// Group name (just player name for now)
-	text = strings.ReplaceAll(text, "%p", sc.Player.FirstName)
-	text = strings.ReplaceAll(text, "%P", sc.Player.FirstName)
+	text = strings.ReplaceAll(text, "%p", sc.Player.DisplayNameCap())
+	text = strings.ReplaceAll(text, "%P", sc.Player.DisplayNameCap())
 	// Item name
 	if sc.ItemRef != nil && sc.ItemDef != nil {
 		itemName := sc.Engine.formatItemName(sc.ItemDef, sc.ItemRef.Adj1, sc.ItemRef.Adj2, sc.ItemRef.Adj3, sc.ItemRef.Extend)

@@ -105,8 +105,8 @@ func (e *GameEngine) runVerbScriptsForTarget(ctx context.Context, player *Player
 					result.Exits = lookResult.Exits
 					result.Items = lookResult.Items
 					result.OldRoom = origRoom
-					result.OldRoomMsg = []string{fmt.Sprintf("%s leaves.", player.FirstName)}
-					result.RoomBroadcast = append(result.RoomBroadcast, fmt.Sprintf("%s arrives.", player.FirstName))
+					result.OldRoomMsg = []string{fmt.Sprintf("%s leaves.", player.DisplayNameCap())}
+					result.RoomBroadcast = append(result.RoomBroadcast, fmt.Sprintf("%s arrives.", player.DisplayNameCap()))
 					e.applyEntryScripts(ctx, player, dest, result)
 				}
 				return result
@@ -201,7 +201,7 @@ func (e *GameEngine) doWhisper(player *Player, args []string, rawInput string) *
 		if text == "" {
 			return &CommandResult{Messages: []string{"Whisper what?"}}
 		}
-		roomLine := fmt.Sprintf("%s whispers to those close, \"%s\"", player.FirstName, text)
+		roomLine := fmt.Sprintf("%s whispers to those close, \"%s\"", player.DisplayNameCap(), text)
 		if player.IsConcealed() {
 			roomLine = fmt.Sprintf("Something whispers to those close, \"%s\"", text)
 		}
@@ -220,16 +220,16 @@ func (e *GameEngine) doWhisper(player *Player, args []string, rawInput string) *
 	if text == "" {
 		return &CommandResult{Messages: []string{"Whisper what?"}}
 	}
-	roomLine := fmt.Sprintf("%s whispers to %s.", player.FirstName, found.FirstName)
+	roomLine := fmt.Sprintf("%s whispers to %s.", player.DisplayNameCap(), found.DisplayName())
 	if player.IsConcealed() {
-		roomLine = fmt.Sprintf("Something whispers to %s.", found.FirstName)
+		roomLine = fmt.Sprintf("Something whispers to %s.", found.DisplayName())
 	}
 	return &CommandResult{
-		Messages:      []string{fmt.Sprintf("You whisper to %s.", found.FirstName)},
+		Messages:      []string{fmt.Sprintf("You whisper to %s.", found.DisplayName())},
 		RoomBroadcast: []string{roomLine},
-		TargetName:    found.FirstName, // exclude target from room broadcast — they get WhisperMsg instead
+		TargetName:    found.FirstName, // session routing key — must stay the real name even if found is disguised
 		WhisperTarget: found.FirstName,
-		WhisperMsg:    fmt.Sprintf("%s whispers to you, \"%s\"", player.FirstName, text),
+		WhisperMsg:    fmt.Sprintf("%s whispers to you, \"%s\"", player.DisplayNameCap(), text),
 	}
 }
 
@@ -239,7 +239,7 @@ func (e *GameEngine) doYell(player *Player, args []string, rawInput string) *Com
 	}
 	text := extractRawArgs(rawInput, 1)
 	adverb := ""
-	if player.SpeechAdverb != "" {
+	if player.SpeechAdverb != "" && !player.WolfForm {
 		adverb = player.SpeechAdverb + " "
 	}
 
@@ -254,7 +254,7 @@ func (e *GameEngine) doYell(player *Player, args []string, rawInput string) *Com
 		}
 	}
 
-	roomLine := fmt.Sprintf("%s %syells, \"%s\"", player.FirstName, adverb, text)
+	roomLine := fmt.Sprintf("%s %syells, \"%s\"", player.DisplayNameCap(), adverb, text)
 	if player.IsConcealed() {
 		roomLine = fmt.Sprintf("Something yells, \"%s\"", text)
 	}
@@ -268,7 +268,7 @@ func (e *GameEngine) doYell(player *Player, args []string, rawInput string) *Com
 func (e *GameEngine) doPray(player *Player) *CommandResult {
 	room := e.rooms[player.RoomNumber]
 	if room != nil {
-		sc := &ScriptContext{Player: player, Room: room, Engine: e}
+		sc := &ScriptContext{Player: player, Room: room, Engine: e, activeVerb: "PRAY", activeRef: "-1"}
 		for _, block := range room.Scripts {
 			if block.Type == "IFVERB" && len(block.Args) >= 2 {
 				if strings.ToUpper(block.Args[0]) == "PRAY" && block.Args[1] == "-1" {
@@ -290,7 +290,7 @@ func (e *GameEngine) doPray(player *Player) *CommandResult {
 	}
 	return &CommandResult{
 		Messages:      []string{"You pray."},
-		RoomBroadcast: []string{fmt.Sprintf("%s bows %s head and prays.", player.FirstName, pronoun)},
+		RoomBroadcast: []string{fmt.Sprintf("%s bows %s head and prays.", player.DisplayName(), pronoun)},
 	}
 }
 
@@ -311,7 +311,7 @@ func (e *GameEngine) doContact(player *Player, args []string, rawInput string) *
 			if p.FirstName == player.FirstName && p.LastName == player.LastName {
 				continue
 			}
-			if strings.HasPrefix(strings.ToLower(p.FirstName), targetName) {
+			if p.NameMatches(targetName) {
 				found = p
 				break
 			}
@@ -327,7 +327,7 @@ func (e *GameEngine) doContact(player *Player, args []string, rawInput string) *
 	contactRT := applyRoundTime(player, 2)
 	player.RoundTimeExpiry = time.Now().Add(time.Duration(contactRT) * time.Second)
 	return &CommandResult{
-		Messages:      []string{fmt.Sprintf("You contact %s with your thoughts.", found.FirstName), fmt.Sprintf("[Round: %d sec]", contactRT)},
+		Messages:      []string{fmt.Sprintf("You contact %s with your thoughts.", found.DisplayName()), fmt.Sprintf("[Round: %d sec]", contactRT)},
 		WhisperTarget: found.FirstName,
 		WhisperMsg:    fmt.Sprintf("You feel the touch of %s's mind: \"%s\"", player.FirstName, text),
 	}
@@ -364,7 +364,7 @@ func (e *GameEngine) doFollow(player *Player, args []string) *CommandResult {
 	}
 	result := &CommandResult{Messages: []string{fmt.Sprintf("You are now following %s.", found.FirstName)}}
 	if !player.IsConcealed() {
-		result.RoomBroadcast = []string{fmt.Sprintf("%s is now following %s.", player.FirstName, found.FirstName)}
+		result.RoomBroadcast = []string{fmt.Sprintf("%s is now following %s.", player.DisplayNameCap(), found.DisplayName())}
 	}
 	return result
 }
@@ -391,7 +391,7 @@ func (e *GameEngine) doHold(player *Player, found *Player) *CommandResult {
 	}
 	return &CommandResult{
 		Messages:      []string{fmt.Sprintf("%s takes %s by the hand.", player.FirstName, found.FirstName)},
-		RoomBroadcast: []string{fmt.Sprintf("%s takes %s by the hand.", player.FirstName, found.FirstName)},
+		RoomBroadcast: []string{fmt.Sprintf("%s takes %s by the hand.", player.DisplayName(), found.DisplayName())},
 	}
 }
 
@@ -456,7 +456,7 @@ func (e *GameEngine) doLeave(player *Player) *CommandResult {
 	e.removeFromGroup(player)
 	return &CommandResult{
 		Messages:      []string{fmt.Sprintf("You stop following %s.", leaderName)},
-		RoomBroadcast: []string{fmt.Sprintf("%s stops following %s.", player.FirstName, leaderName)},
+		RoomBroadcast: []string{fmt.Sprintf("%s stops following %s.", player.DisplayName(), leaderName)},
 	}
 }
 
@@ -483,7 +483,7 @@ func (e *GameEngine) doDisband(player *Player) *CommandResult {
 	player.IsGroupLeader = false
 	return &CommandResult{
 		Messages:      []string{fmt.Sprintf("You disband your group.")},
-		RoomBroadcast: []string{fmt.Sprintf("%s disbands their group.", player.FirstName)},
+		RoomBroadcast: []string{fmt.Sprintf("%s disbands their group.", player.DisplayName())},
 	}
 }
 
@@ -721,7 +721,7 @@ func (e *GameEngine) doCant(player *Player, args []string) *CommandResult {
 	text := strings.Join(args, " ")
 	return &CommandResult{
 		Messages:      []string{fmt.Sprintf("You cant, \"%s\"", text)},
-		RoomBroadcast: []string{fmt.Sprintf("%s mutters something under their breath.", player.FirstName)},
+		RoomBroadcast: []string{fmt.Sprintf("%s mutters something under their breath.", player.DisplayName())},
 		CantMsg:       text,
 		CantSender:    player.FirstName,
 	}
@@ -818,8 +818,8 @@ func (e *GameEngine) applySayMove(ctx context.Context, player *Player, sc *Scrip
 	result.Exits = lookResult.Exits
 	result.Items = lookResult.Items
 	result.OldRoom = origRoom
-	result.OldRoomMsg = []string{fmt.Sprintf("%s leaves.", player.FirstName)}
-	result.RoomBroadcast = append(result.RoomBroadcast, fmt.Sprintf("%s arrives.", player.FirstName))
+	result.OldRoomMsg = []string{fmt.Sprintf("%s leaves.", player.DisplayNameCap())}
+	result.RoomBroadcast = append(result.RoomBroadcast, fmt.Sprintf("%s arrives.", player.DisplayNameCap()))
 	e.applyEntryScripts(ctx, player, dest, result)
 }
 

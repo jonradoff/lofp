@@ -173,6 +173,32 @@ func buildWoundSentence(wounds []Wound, extraSuffix string) string {
 	return joinWithAnd(items)
 }
 
+// wolfWoundLocations remaps the humanoid Wound.Location vocabulary to
+// quadruped-appropriate terms for display only, when a wolf-form Wolfling's
+// wounds are shown on LOOK — the underlying Wound.Location (used by combat,
+// healing, and the WOUNDS command) is never changed, this is presentation only.
+var wolfWoundLocations = map[string]string{
+	"left hand":  "left forepaw",
+	"right hand": "right forepaw",
+	"left arm":   "left foreleg",
+	"right arm":  "right foreleg",
+	"left leg":   "left hind leg",
+	"right leg":  "right hind leg",
+}
+
+// buildWolfWoundSentence is buildWoundSentence with locations run through
+// wolfWoundLocations first — see that map's doc comment.
+func buildWolfWoundSentence(wounds []Wound, extraSuffix string) string {
+	remapped := make([]Wound, len(wounds))
+	for i, w := range wounds {
+		if alt, ok := wolfWoundLocations[w.Location]; ok {
+			w.Location = alt
+		}
+		remapped[i] = w
+	}
+	return buildWoundSentence(remapped, extraSuffix)
+}
+
 // ---- Weapon/attack -> damage type mapping ----
 
 // damageTypeForWeapon maps a weapon's item type (and, for ambiguous types,

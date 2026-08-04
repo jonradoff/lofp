@@ -985,8 +985,8 @@ func (e *GameEngine) gmTreasure(player *Player, args []string) *CommandResult {
 }
 
 func (e *GameEngine) gmSpeech(ctx context.Context, player *Player, args []string, rawInput string) *CommandResult {
-	if len(args) < 2 {
-		return &CommandResult{Messages: []string{"Usage: @speech <player> <verb phrase>  (e.g., @speech Taliesin says grimly, @speech Scratch squawks)"}}
+	if len(args) < 1 {
+		return &CommandResult{Messages: []string{"Usage: @speech <player> <verb phrase>  (e.g., @speech Taliesin says grimly, @speech Scratch squawks). @speech <player> alone resets to the default."}}
 	}
 	targetName := args[0]
 	speechVerb := extractRawArgs(rawInput, 2) // everything after @speech <player>
@@ -1302,6 +1302,7 @@ func (e *GameEngine) gmVerbs() *CommandResult {
 		"  BLEND                     - Hide in mountain/cave (Highlander only)",
 		"  HIDE                      - Attempt to hide in shadows",
 		"  MARK [1-10]               - Set a teleport mark",
+		"  MOLD <gem>                - Polish a flawed gem (Highlander only)",
 		"  REVEAL / UNHIDE           - Come out of hiding",
 		"  TEND [player]             - Heal wounds (Healing skill)",
 		"  TRAIN [skill]             - Train a skill (in training rooms)",
@@ -1712,6 +1713,43 @@ func (e *GameEngine) gmSetOnPlayer(ctx context.Context, player *Player, args []s
 		return &CommandResult{Messages: []string{"Usage: @set <variable> <value>"}}
 	}
 	varName := strings.ToUpper(args[0])
+
+	// String-valued appearance fields — the value is the rest of the line since
+	// colors/styles can be multi-word (e.g. "dark brown", "shaved sides"),
+	// validated against the same fixed choice lists used at character creation
+	// (appearance.go) so LOOK descriptions stay consistent with real game vocabulary.
+	var strChoices []string
+	var strTarget *string
+	switch varName {
+	case "EYECOLOR":
+		strChoices, strTarget = EyeColors, &player.EyeColor
+	case "HAIRCOLOR":
+		strChoices, strTarget = HairColors, &player.HairColor
+	case "HAIRSTYLE":
+		strChoices, strTarget = HairStyles, &player.HairStyle
+	case "SKINCOLOR":
+		strChoices, strTarget = SkinColors, &player.SkinColor
+	}
+	if strTarget != nil {
+		raw := strings.ToLower(strings.Join(args[1:], " "))
+		valid := false
+		for _, c := range strChoices {
+			if c == raw {
+				valid = true
+				break
+			}
+		}
+		if !valid {
+			return &CommandResult{Messages: []string{fmt.Sprintf("Invalid %s. Choices: %s", strings.ToLower(varName), strings.Join(strChoices, ", "))}}
+		}
+		*strTarget = raw
+		if varName == "HAIRSTYLE" && raw == "bald" {
+			player.HairColor = "" // bald characters have no hair color (see appearance.go)
+		}
+		e.SavePlayer(ctx, player)
+		return &CommandResult{Messages: []string{fmt.Sprintf("Set %s = %s", varName, raw)}}
+	}
+
 	val, err := strconv.Atoi(args[1])
 	if err != nil {
 		return &CommandResult{Messages: []string{"Invalid value."}}
@@ -2034,6 +2072,8 @@ func (e *GameEngine) gmEdPlayer(ctx context.Context, player *Player, args []stri
 			target.Mana, target.MaxMana, target.Psi, target.MaxPsi),
 		fmt.Sprintf("Gold:%d Silver:%d Copper:%d", target.Gold, target.Silver, target.Copper),
 		fmt.Sprintf("Room: %d | Position: %d | Dead: %v", target.RoomNumber, target.Position, target.Dead),
+		fmt.Sprintf("Age:%d | Height:%d | Weight:%d | Eyes:%s | Skin:%s | Hair:%s %s",
+			target.Age, target.Height, target.Weight, target.EyeColor, target.SkinColor, target.HairStyle, target.HairColor),
 		fmt.Sprintf("Skills: %v", target.Skills),
 		fmt.Sprintf("@set will now modify %s. Use @edpl (no args) to clear.", target.FirstName),
 	}}
@@ -2560,12 +2600,14 @@ func (e *GameEngine) gmEdItem(ctx context.Context, gmPlayer *Player, args []stri
 
 	// --- usage guard ---
 	const usage = "Usage: @editem [player] <item> <field> <value>\n" +
-		"  Fields: adj1 adj2 adj3  val1-val5  sharpness  hardnessmod  state  tail  archetype  itembit0-itembit19  flag+FLAG / flag-FLAG\n" +
+		"  Fields: adj1 adj2 adj3  val1-val5  sharpness  hardnessmod  state  tail  examinedesc  archetype  itembit0-itembit19  flag+FLAG / flag-FLAG\n" +
 		"  Example: @editem robe val1 1\n" +
 		"  Example: @editem Moryan robe adj2 47\n" +
 		"  Example: @editem sword hardnessmod 20  (Weapon Clash break-resistance bonus)\n" +
 		"  Example: @editem gloves tail lined with palest pink silk\n" +
 		"  Example: @editem gloves tail -  (clears the tail)\n" +
+		"  Example: @editem bracelet examinedesc Each wing sparkles brightly blue.  (sets the archetype's EXAMINE text)\n" +
+		"  Example: @editem bracelet examinedesc -  (clears it)\n" +
 		"  Example: @editem Moryan ring itembit0 1  (grants War Room access on a Crimson Band ring)"
 
 	if len(args) < 3 {
@@ -2597,21 +2639,24 @@ func (e *GameEngine) gmEdItem(ctx context.Context, gmPlayer *Player, args []stri
 	valueStr := remaining[len(remaining)-1]
 	itemTarget := strings.ToLower(strings.Join(remaining[:len(remaining)-2], " "))
 
-	// Special handling for "tail": supports multi-word values.
-	// Scan left-to-right for the keyword "tail"; everything after it is the value.
-	// Because args are uppercased by the command parser, we extract the value from
-	// rawInput to preserve original case.
+	// Special handling for fields that take a multi-word free-text value ("tail",
+	// "examinedesc"): scan left-to-right for the keyword; everything after it is
+	// the value. Because args are uppercased by the command parser, the value is
+	// extracted from rawInput to preserve original case.
 	// @editem gloves tail lined with palest pink silk → item="gloves", value="lined with palest pink silk"
 	// @editem gloves tail -                           → item="gloves", value="" (clears tail)
+	multiWordFields := map[string]bool{"tail": true, "examinedesc": true}
 	for i := 1; i < len(remaining); i++ {
-		if strings.ToLower(remaining[i]) == "tail" {
+		kw := strings.ToLower(remaining[i])
+		if multiWordFields[kw] {
 			itemTarget = strings.ToLower(strings.Join(remaining[:i], " "))
-			field = "tail"
+			field = kw
 			// Extract original-case value from rawInput (args are uppercased by the parser)
 			lowerRaw := strings.ToLower(rawInput)
-			if sepIdx := strings.Index(lowerRaw, " tail "); sepIdx >= 0 {
-				valueStr = strings.TrimSpace(rawInput[sepIdx+6:])
-			} else if strings.HasSuffix(strings.TrimSpace(lowerRaw), " tail") {
+			needle := " " + kw + " "
+			if sepIdx := strings.Index(lowerRaw, needle); sepIdx >= 0 {
+				valueStr = strings.TrimSpace(rawInput[sepIdx+len(needle):])
+			} else if strings.HasSuffix(strings.TrimSpace(lowerRaw), " "+kw) {
 				valueStr = ""
 			}
 			break
@@ -2745,6 +2790,22 @@ func (e *GameEngine) gmEdItem(ctx context.Context, gmPlayer *Player, args []stri
 		}
 		changeDesc = fmt.Sprintf("Set %s: TAIL %q → %q", ref.label, old, item.Tail)
 
+	// ---- examinedesc (string, multi-word, "-" clears) — modifies the archetype
+	// definition, since ExamineDesc lives on ItemDef and is shared by every
+	// instance of that archetype (same as flag+/flag- below). ----
+	case field == "examinedesc":
+		def := e.items[item.Archetype]
+		if def == nil {
+			return &CommandResult{Messages: []string{fmt.Sprintf("No item definition for archetype %d.", item.Archetype)}}
+		}
+		old := def.ExamineDesc
+		if valueStr == "-" {
+			def.ExamineDesc = ""
+		} else {
+			def.ExamineDesc = valueStr
+		}
+		changeDesc = fmt.Sprintf("Set arch %d (%s): EXAMINEDESC %q → %q", item.Archetype, e.getItemNounName(def), old, def.ExamineDesc)
+
 	// ---- flag+FLAG / flag-FLAG — modifies the archetype definition ----
 	case strings.HasPrefix(field, "flag+"), strings.HasPrefix(field, "flag-"):
 		add := strings.HasPrefix(field, "flag+")
@@ -2808,7 +2869,7 @@ func (e *GameEngine) gmEdItem(ctx context.Context, gmPlayer *Player, args []stri
 		changeDesc = fmt.Sprintf("Set %s: ITEMBIT%d %d → %d", ref.label, idx, old, v)
 
 	default:
-		validFields := "adj1 adj2 adj3  val1 val2 val3 val4 val5  state  tail  archetype  itembit0-itembit19  flag+FLAG flag-FLAG"
+		validFields := "adj1 adj2 adj3  val1 val2 val3 val4 val5  state  tail  examinedesc  archetype  itembit0-itembit19  flag+FLAG flag-FLAG"
 		return &CommandResult{Messages: []string{
 			fmt.Sprintf("Unknown field '%s'. Valid fields: %s", field, validFields),
 		}}

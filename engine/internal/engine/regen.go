@@ -394,6 +394,31 @@ func (e *GameEngine) regenTick() {
 			}
 		}
 
+		// Check for expired weapon blade imbues (Storm/Inferno/Winter Blade, 135/136/137).
+		// Sweep every slot a weapon could be sitting in — not just Wielded — since the
+		// imbue is a property of the item itself and should fade on schedule even if the
+		// player switched weapons mid-buff.
+		bladeFaded := revertExpiredBladeSpell(p.Wielded)
+		if revertExpiredBladeSpell(p.OffHand) {
+			bladeFaded = true
+		}
+		for i := range p.Inventory {
+			if revertExpiredBladeSpell(&p.Inventory[i]) {
+				bladeFaded = true
+			}
+		}
+		for i := range p.Worn {
+			if revertExpiredBladeSpell(&p.Worn[i]) {
+				bladeFaded = true
+			}
+		}
+		if bladeFaded {
+			changed = true
+			if e.sendToPlayer != nil {
+				e.sendToPlayer(p.FirstName, []string{"The elemental energy fades from your weapon."})
+			}
+		}
+
 		// Regeneration (spell 343) heal-over-time: once per minute for up to 5 more ticks.
 		if p.RegenerationTicksLeft > 0 {
 			if p.BodyPoints < p.MaxBodyPoints {
@@ -471,6 +496,29 @@ func (e *GameEngine) regenTick() {
 			e.SavePlayer(context.Background(), p)
 		}
 	}
+}
+
+// revertExpiredBladeSpell reverts a Storm/Inferno/Winter Blade imbue (see
+// applyWeaponBladeBuff in spells.go) once its timer has passed, restoring the
+// weapon's original Val3/Val5 (its own permanent crit, if any) and clearing
+// Adj1 back to 0 if the spell was the one holding it (see BladeSpellAdjApplied —
+// a weapon whose adj slots were already full at cast time never had Adj1 touched
+// and keeps its existing adjectives). Returns true if it reverted anything; safe
+// to call with a nil item (empty Wielded/OffHand slot).
+func revertExpiredBladeSpell(item *InventoryItem) bool {
+	if item == nil || item.BladeSpellExpiry.IsZero() || time.Now().Before(item.BladeSpellExpiry) {
+		return false
+	}
+	item.Val3 = item.BladeSpellPrevVal3
+	item.Val5 = item.BladeSpellPrevVal5
+	if item.BladeSpellAdjApplied {
+		item.Adj1 = 0
+		item.BladeSpellAdjApplied = false
+	}
+	item.BladeSpellExpiry = time.Time{}
+	item.BladeSpellPrevVal3 = 0
+	item.BladeSpellPrevVal5 = 0
+	return true
 }
 
 func positionMultiplier(position int) float64 {

@@ -582,11 +582,21 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 			verb = "exclaim"
 			thirdVerb = "exclaims"
 		}
+		// Wolf form always speaks as growls/snarls (asks stays asks) and never
+		// uses a custom SpeechAdverb — see the SpeechAdverb condition below.
+		if player.WolfForm {
+			switch thirdVerb {
+			case "says":
+				verb, thirdVerb = "growl", "growls"
+			case "exclaims":
+				verb, thirdVerb = "snarl", "snarls"
+			}
+		}
 		// Custom speech pattern overrides the verb (e.g., "says grimly", "squawks")
-		if player.SpeechAdverb != "" {
+		if player.SpeechAdverb != "" && !player.WolfForm {
 			// A concealed speaker (Hidden/Invisible/@hide/@invis) never leaks their name or
 			// custom speech verb to onlookers — just the generic "Something says/asks/exclaims".
-			roomLine := fmt.Sprintf("%s %ss, \"%s\"", player.FirstName, player.SpeechAdverb, msg)
+			roomLine := fmt.Sprintf("%s %ss, \"%s\"", player.DisplayNameCap(), player.SpeechAdverb, msg)
 			if player.IsConcealed() {
 				roomLine = fmt.Sprintf("Something %s, \"%s\"", thirdVerb, msg)
 			}
@@ -604,7 +614,16 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 				if len(sc.RoomMsgs) > 0 {
 					result.RoomBroadcast = append(result.RoomBroadcast, sc.RoomMsgs...)
 				}
-				if sc.MoveTo > 0 {
+				if sc.MoveGroupTo > 0 {
+					// Everything accumulated in RoomBroadcast so far (the SAY line itself,
+					// plus any pre-move ECHO ALL/OTHERS) describes the room being left — a
+					// script's own AFFECT+ECHO ALL idiom, if used, already broadcast the
+					// arrival directly to the destination room during RunSayScripts above.
+					result.OldRoom = player.RoomNumber
+					result.OldRoomMsg = append(result.OldRoomMsg, result.RoomBroadcast...)
+					result.RoomBroadcast = nil
+					e.moveGroupToRoom(ctx, player.RoomNumber, sc.MoveGroupTo)
+				} else if sc.MoveTo > 0 {
 					e.applySayMove(ctx, player, sc, result)
 				}
 				e.SavePlayer(ctx, player)
@@ -616,7 +635,7 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 			}
 			return result
 		}
-		roomLine := fmt.Sprintf("%s %s, \"%s\"", player.FirstName, thirdVerb, msg)
+		roomLine := fmt.Sprintf("%s %s, \"%s\"", player.DisplayNameCap(), thirdVerb, msg)
 		if player.IsConcealed() {
 			roomLine = fmt.Sprintf("Something %s, \"%s\"", thirdVerb, msg)
 		}
@@ -638,7 +657,16 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 			if len(sc.GMMsgs) > 0 {
 				result.GMBroadcast = append(result.GMBroadcast, sc.GMMsgs...)
 			}
-			if sc.MoveTo > 0 {
+			if sc.MoveGroupTo > 0 {
+				// Everything accumulated in RoomBroadcast so far (the SAY line itself,
+				// plus any pre-move ECHO ALL/OTHERS) describes the room being left — a
+				// script's own AFFECT+ECHO ALL idiom, if used, already broadcast the
+				// arrival directly to the destination room during RunSayScripts above.
+				result.OldRoom = player.RoomNumber
+				result.OldRoomMsg = append(result.OldRoomMsg, result.RoomBroadcast...)
+				result.RoomBroadcast = nil
+				e.moveGroupToRoom(ctx, player.RoomNumber, sc.MoveGroupTo)
+			} else if sc.MoveTo > 0 {
 				e.applySayMove(ctx, player, sc, result)
 			}
 			e.SavePlayer(ctx, player)
@@ -704,7 +732,7 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 		room := e.rooms[player.RoomNumber]
 		if room != nil {
 			origRoom := player.RoomNumber // capture before scripts may MOVE the player
-			sc := &ScriptContext{Player: player, Room: room, Engine: e}
+			sc := &ScriptContext{Player: player, Room: room, Engine: e, activeVerb: canonicalVerb, activeRef: "-1"}
 			for _, block := range room.Scripts {
 				if block.Type == "IFPREVERB" && len(block.Args) >= 2 {
 					if strings.ToUpper(block.Args[0]) == canonicalVerb && block.Args[1] == "-1" {
@@ -736,9 +764,9 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 						if len(sc.PreMoveMsgs) > 0 {
 							result.OldRoomMsg = sc.PreMoveMsgs
 						} else {
-							result.OldRoomMsg = []string{fmt.Sprintf("%s leaves.", player.FirstName)}
+							result.OldRoomMsg = []string{fmt.Sprintf("%s leaves.", player.DisplayNameCap())}
 						}
-						result.RoomBroadcast = append(result.RoomBroadcast, fmt.Sprintf("%s arrives.", player.FirstName))
+						result.RoomBroadcast = append(result.RoomBroadcast, fmt.Sprintf("%s arrives.", player.DisplayNameCap()))
 						e.applyEntryScripts(ctx, player, dest, result)
 					}
 				} else if sc.MoveTo > 0 {
@@ -757,9 +785,9 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 						if len(sc.PreMoveMsgs) > 0 {
 							result.OldRoomMsg = sc.PreMoveMsgs
 						} else {
-							result.OldRoomMsg = []string{fmt.Sprintf("%s leaves.", player.FirstName)}
+							result.OldRoomMsg = []string{fmt.Sprintf("%s leaves.", player.DisplayNameCap())}
 						}
-						result.RoomBroadcast = append(result.RoomBroadcast, fmt.Sprintf("%s arrives.", player.FirstName))
+						result.RoomBroadcast = append(result.RoomBroadcast, fmt.Sprintf("%s arrives.", player.DisplayNameCap()))
 						e.applyEntryScripts(ctx, player, dest, result)
 					}
 				}
@@ -858,19 +886,19 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 			return &CommandResult{Messages: []string{"You are already sitting."}}
 		}
 		player.Position = 1
-		return e.doPositionWithScripts(ctx, player, verb, "You sit down.", fmt.Sprintf("%s sits down.", player.FirstName))
+		return e.doPositionWithScripts(ctx, player, verb, "You sit down.", fmt.Sprintf("%s sits down.", player.DisplayNameCap()))
 	case "STAND":
 		if player.Position == 0 {
 			return &CommandResult{Messages: []string{"You are already standing."}}
 		}
 		player.Position = 0
-		return e.doPositionWithScripts(ctx, player, verb, "You stand up.", fmt.Sprintf("%s stands up.", player.FirstName))
+		return e.doPositionWithScripts(ctx, player, verb, "You stand up.", fmt.Sprintf("%s stands up.", player.DisplayNameCap()))
 	case "KNEEL":
 		if player.Position == 3 {
 			return &CommandResult{Messages: []string{"You are already kneeling."}}
 		}
 		player.Position = 3
-		return e.doPositionWithScripts(ctx, player, verb, "You kneel down.", fmt.Sprintf("%s kneels down.", player.FirstName))
+		return e.doPositionWithScripts(ctx, player, verb, "You kneel down.", fmt.Sprintf("%s kneels down.", player.DisplayNameCap()))
 	case "LAY":
 		if len(args) > 0 {
 			return e.doLayCarried(ctx, player, args)
@@ -879,7 +907,7 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 			return &CommandResult{Messages: []string{"You are already lying down."}}
 		}
 		player.Position = 2
-		return e.doPositionWithScripts(ctx, player, verb, "You lie down.", fmt.Sprintf("%s lies down.", player.FirstName))
+		return e.doPositionWithScripts(ctx, player, verb, "You lie down.", fmt.Sprintf("%s lies down.", player.DisplayNameCap()))
 	case "PRAY":
 		return e.doPray(player)
 	case "BRIEF":
@@ -907,7 +935,7 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 		if len(args) > 0 && strings.ToUpper(args[0]) == "MONEY" {
 			return &CommandResult{
 				Messages:      []string{fmt.Sprintf("You count your money. You have %d gold crowns, %d silver shillings, and %d copper pennies.", player.Gold, player.Silver, player.Copper)},
-				RoomBroadcast: []string{fmt.Sprintf("%s counts %s money.", player.FirstName, player.Possessive())},
+				RoomBroadcast: []string{fmt.Sprintf("%s counts %s money.", player.DisplayName(), player.Possessive())},
 			}
 		}
 		return &CommandResult{Messages: []string{"Count what?"}}
@@ -1000,7 +1028,7 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 				}
 				if i == 0 {
 					selfMsgs = append(selfMsgs, fmt.Sprintf("You %ssing, \"%s", adverb, line))
-					roomMsgs = append(roomMsgs, fmt.Sprintf("%s %ssings, \"%s", player.FirstName, adverb, line))
+					roomMsgs = append(roomMsgs, fmt.Sprintf("%s %ssings, \"%s", player.DisplayNameCap(), adverb, line))
 				} else {
 					selfMsgs = append(selfMsgs, fmt.Sprintf("  %s", line))
 					roomMsgs = append(roomMsgs, fmt.Sprintf("  %s", line))
@@ -1035,7 +1063,7 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 					if strings.Contains(wieldedNoun, inst) || strings.Contains(strings.ToLower(wieldedFullName), inst) {
 						return &CommandResult{
 							Messages:      []string{fmt.Sprintf("You play your %s, filling the air with beautiful music.", wieldedFullName)},
-							RoomBroadcast: []string{fmt.Sprintf("%s plays %s, filling the air with beautiful music.", player.FirstName, wieldedFullName)},
+							RoomBroadcast: []string{fmt.Sprintf("%s plays %s, filling the air with beautiful music.", player.DisplayName(), wieldedFullName)},
 						}
 					}
 				}
@@ -1059,7 +1087,7 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 								"A small orb of light appears and floats beside you.",
 								// NOTE: full light system integration pending — this is flavor text only for now
 							},
-							RoomBroadcast: []string{fmt.Sprintf("%s raps %s staff on the ground. A small orb of light appears.", player.FirstName, player.Possessive())},
+							RoomBroadcast: []string{fmt.Sprintf("%s raps %s staff on the ground. A small orb of light appears.", player.DisplayName(), player.Possessive())},
 						}
 					}
 				}
@@ -1103,6 +1131,8 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 		"PURR", "ROAR", "SNARL", "SNUGGLE", "WAG", "WAIT", "WRITE",
 		"YOWL", "STOMP", "APPLAUD", "PEER", "GRUNT", "DIP",
 		"HANDRAISE", "HANDSHAKE", "HEADSHAKE", "GESTURE",
+		// Wolf-form-only emotes (no-op human-side fallback via generic emote)
+		"SHAKE", "PAW", "POUNCE",
 		// Additional self-emotes
 		"FUME", "SQUINT", "HUM", "SNIFFLE", "SLOUCH", "SNORE", "SNEEZE",
 		"STARE", "PUCKER", "CRACK", "BOUNCE", "STRIKE", "CLUTCH",
@@ -1163,7 +1193,7 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 			}
 			if i == 0 {
 				selfMsgs = append(selfMsgs, fmt.Sprintf("You recite, '%s", line))
-				roomMsgs = append(roomMsgs, fmt.Sprintf("%s recites, '%s", player.FirstName, line))
+				roomMsgs = append(roomMsgs, fmt.Sprintf("%s recites, '%s", player.DisplayNameCap(), line))
 			} else {
 				selfMsgs = append(selfMsgs, fmt.Sprintf("  %s", line))
 				roomMsgs = append(roomMsgs, fmt.Sprintf("  %s", line))
@@ -1318,7 +1348,7 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 		e.SavePlayer(ctx, player)
 		return &CommandResult{
 			Messages:      []string{"You reveal yourself."},
-			RoomBroadcast: []string{fmt.Sprintf("%s reveals themselves.", player.FirstName)},
+			RoomBroadcast: []string{fmt.Sprintf("%s reveals themselves.", player.DisplayName())},
 		}
 	case "SNEAK":
 		return e.doSneak(ctx, player, args)
@@ -1340,7 +1370,7 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 		}
 		// Run IFPREVERB ASCEND/DESCEND -1 scripts before attempting movement.
 		flyOrigRoom := player.RoomNumber
-		flySC := &ScriptContext{Player: player, Room: flyRoom, Engine: e}
+		flySC := &ScriptContext{Player: player, Room: flyRoom, Engine: e, activeVerb: verb, activeRef: "-1"}
 		for _, block := range flyRoom.Scripts {
 			if block.Type == "IFPREVERB" && len(block.Args) >= 2 &&
 				strings.ToUpper(block.Args[0]) == verb && block.Args[1] == "-1" {
@@ -1365,8 +1395,8 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 					flyResult.Exits = flyLook.Exits
 					flyResult.Items = flyLook.Items
 					flyResult.OldRoom = flyOrigRoom
-					flyResult.OldRoomMsg = []string{fmt.Sprintf("%s leaves.", player.FirstName)}
-					flyResult.RoomBroadcast = append(flyResult.RoomBroadcast, fmt.Sprintf("%s arrives.", player.FirstName))
+					flyResult.OldRoomMsg = []string{fmt.Sprintf("%s leaves.", player.DisplayNameCap())}
+					flyResult.RoomBroadcast = append(flyResult.RoomBroadcast, fmt.Sprintf("%s arrives.", player.DisplayNameCap()))
 					e.applyEntryScripts(ctx, player, flyDest, flyResult)
 				}
 			}
@@ -1385,7 +1415,7 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 		}
 		player.Position = 0
 		e.SavePlayer(ctx, player)
-		return &CommandResult{Messages: []string{"You land."}, RoomBroadcast: []string{fmt.Sprintf("%s lands.", player.FirstName)}}
+		return &CommandResult{Messages: []string{"You land."}, RoomBroadcast: []string{fmt.Sprintf("%s lands.", player.DisplayName())}}
 	// === ITEM INTERACTION ===
 	case "PUT", "PLACE":
 		return e.doPut(ctx, player, args)
@@ -1409,7 +1439,7 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 		e.SavePlayer(ctx, player)
 		return &CommandResult{Messages: []string{"Prompt indicators off."}}
 	case "VERSION", "NEWS", "NOTES":
-		return &CommandResult{Messages: []string{"Legends of Future Past v11.22.0"}}
+		return &CommandResult{Messages: []string{"Legends of Future Past v11.27.0"}}
 	case "CREDITS":
 		return &CommandResult{Messages: []string{
 			"",
@@ -1497,7 +1527,7 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 			e.monsterMgr.mu.Unlock()
 			return &CommandResult{
 				Messages:      []string{fmt.Sprintf("You advance toward %s%s.", article, name)},
-				RoomBroadcast: []string{fmt.Sprintf("%s advances toward %s%s.", player.FirstName, article, name)},
+				RoomBroadcast: []string{fmt.Sprintf("%s advances toward %s%s.", player.DisplayName(), article, name)},
 			}
 		}
 		// Try player
@@ -1505,7 +1535,7 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 		if found != nil {
 			return &CommandResult{
 				Messages:      []string{fmt.Sprintf("You advance toward %s.", found.FirstName)},
-				RoomBroadcast: []string{fmt.Sprintf("%s advances toward %s.", player.FirstName, found.FirstName)},
+				RoomBroadcast: []string{fmt.Sprintf("%s advances toward %s.", player.DisplayName(), found.DisplayName())},
 			}
 		}
 		return &CommandResult{Messages: []string{fmt.Sprintf("You don't see '%s' here.", target)}}
@@ -1516,7 +1546,7 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 		e.disengageCombat(player)
 		return &CommandResult{
 			Messages:      []string{"You retreat."},
-			RoomBroadcast: []string{fmt.Sprintf("%s retreats.", player.FirstName)},
+			RoomBroadcast: []string{fmt.Sprintf("%s retreats.", player.DisplayName())},
 		}
 	case "GUARD":
 		return e.doGuard(player, args)
@@ -1609,7 +1639,7 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 		player.Hidden = true
 		return &CommandResult{
 			Messages:      []string{"You blend into the rocky surroundings, becoming nearly invisible."},
-			RoomBroadcast: []string{fmt.Sprintf("%s seems to meld into the rock.", player.FirstName)},
+			RoomBroadcast: []string{fmt.Sprintf("%s seems to meld into the rock.", player.DisplayName())},
 		}
 	case "CALL":
 		return &CommandResult{Messages: []string{"[Aelfen familiar coming soon.]"}} // TODO: call woodland creature
@@ -1625,20 +1655,21 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 			e.SavePlayer(ctx, player)
 			return &CommandResult{
 				Messages:      []string{"You howl in pain as your body undergoes a metamorphosis and resumes humanoid form.", "[Round: 7 sec]"},
-				RoomBroadcast: []string{fmt.Sprintf("A wolf shudders and transforms, resuming the shape of %s. Where the wolf stood, %s rises in humanoid form.", player.FirstName, player.Pronoun())},
+				RoomBroadcast: []string{fmt.Sprintf("A wolf shudders and transforms, resuming the shape of %s. Where the wolf stood, %s rises in humanoid form.", player.DisplayName(), player.Pronoun())},
 			}
 		}
 		// Human → wolf
+		preTransformName := player.DisplayName() // capture before WolfForm flips DisplayName to "a wolf"
 		player.WolfForm = true
 		e.SavePlayer(ctx, player)
 		return &CommandResult{
 			Messages:      []string{"You groan in pain as your body undergoes a metamorphosis and assumes the form of a wolf.", "[Round: 7 sec]"},
-			RoomBroadcast: []string{fmt.Sprintf("Without warning, %s howls and collapses to the ground, shaking. Undergoing a terrible transformation, %s changes shape into that of a wolf!", player.FirstName, player.Pronoun())},
+			RoomBroadcast: []string{fmt.Sprintf("Without warning, %s howls and collapses to the ground, shaking. Undergoing a terrible transformation, %s changes shape into that of a wolf!", preTransformName, player.Pronoun())},
 		}
 	case "MOLD":
-		return &CommandResult{Messages: []string{"[Gem molding coming soon.]"}} // TODO: highlander gem improvement
+		return e.doMold(ctx, player, args)
 	case "DISGUISE":
-		return &CommandResult{Messages: []string{"[Disguise coming soon.]"}} // TODO: requires Disguise skill
+		return e.doDisguise(ctx, player, args)
 	case "SUBMIT":
 		if player.Submitting {
 			return &CommandResult{Messages: []string{"You are already submitting."}}
@@ -1646,7 +1677,7 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 		player.Submitting = true
 		return &CommandResult{
 			Messages:      []string{"You submit, accepting whatever may come."},
-			RoomBroadcast: []string{fmt.Sprintf("%s submits.", player.FirstName)},
+			RoomBroadcast: []string{fmt.Sprintf("%s submits.", player.DisplayName())},
 		}
 	case "UNSUBMIT":
 		if !player.Submitting {
@@ -1656,7 +1687,7 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 		e.breakCarryAsCarried(ctx, player, fmt.Sprintf("%s stops submitting and slips from your grip!", player.FirstName))
 		return &CommandResult{
 			Messages:      []string{"You stop submitting."},
-			RoomBroadcast: []string{fmt.Sprintf("%s stops submitting.", player.FirstName)},
+			RoomBroadcast: []string{fmt.Sprintf("%s stops submitting.", player.DisplayName())},
 		}
 	case "CARRY":
 		return e.doCarry(ctx, player, args)
@@ -1768,7 +1799,7 @@ var adviceHints = []string{
 var allVerbs = []string{
 	"LOOK", "EXAMINE", "INSPECT", "GO", "GET", "TAKE", "DROP",
 	"INVENTORY", "STATUS", "HEALTH", "DIAGNOSE",
-	"WIELD", "UNWIELD", "WEAR", "REMOVE",
+	"WIELD", "UNWIELD", "WEAR", "REMOVE", "APPRAISE",
 	"OPEN", "CLOSE", "SIT", "STAND", "KNEEL", "LAY",
 	"BRIEF", "FULL", "PROMPT", "WHO", "SKILLS", "WEALTH",
 	"QUIT", "HELP", "ADVICE", "ASSIST", "ANSWER", "ACT", "EMOTE", "RECITE", "READ", "CLIMB",
@@ -1832,6 +1863,8 @@ var allVerbs = []string{
 	"YOWL", "THUMP", "APPLAUD", "PEER", "GRUNT", "DIP",
 	"HANDRAISE", "HANDSHAKE", "HEADSHAKE", "PICK", "GESTURE",
 	"CURTSY",
+	// Wolf-form-only emotes
+	"SHAKE", "PAW", "POUNCE",
 	// Additional verbs
 	"ORDER", "UNLIGHT", "IGNITE", "QUAFF", "SHOUT",
 	"LOCK", "UNLOCK", "POUR", "UNEMOTE", "ACTBRIEF", "RPBRIEF",
@@ -1858,6 +1891,20 @@ var verbAliases = map[string]string{
 	"QUAFF": "DRINK", "SHOUT": "YELL", "A": "ATTACK",
 	"PLACE": "PUT", "TRANS": "TRANSFORM",
 	"PSIONICS": "PSI",
+	// These 3-letter forms are ambiguous by prefix alone (e.g. "MAS" matches both
+	// MASSAGE and MASTER) — resolveVerb would otherwise refuse to guess and fall
+	// through to "I don't understand". Pinned to the far more commonly used side
+	// of each pair; the loser is still reachable by typing one more letter (e.g.
+	// "mast" for MASTER, "pois" for POISON) or the full word.
+	"MAS": "MASSAGE", "PRO": "PROJECT", "SEL": "SELL",
+	"FLI": "FLIP", "POI": "POINT", "SLA": "SLAP",
+	"HEA": "HEADSHAKE",
+	// "LEA" matches LEAN/LEARN/LEAVE; "SNI" matches SNICKER/SNIFF/SNIFFLE. LEARN
+	// and LEAVE stay reachable via "lear"/"leav"; SNICKER/SNIFFLE via "snic"/"sniffl".
+	"LEA": "LEAN", "SNI": "SNIFF",
+	// "CUR" matches CURSE/CURTSEY/CURTSY (CURTSEY/CURTSY stay reachable via "curtse"
+	// or the full word). "DRO" matches DROOP/DROP (DROOP stays reachable via "droo").
+	"CUR": "CURSE", "DRO": "DROP",
 }
 
 // resolveVerb resolves a typed verb to its canonical form.
@@ -1873,11 +1920,14 @@ func resolveVerb(input string) string {
 			return v
 		}
 	}
-	// Prefix match — must be unique
+	// Prefix match — must be unique. allVerbs has a handful of accidental duplicate
+	// entries (e.g. TOUCH, PROMPT — see the list above), so ambiguity is judged by
+	// distinct matching verbs, not raw list entries, or a verb's own duplicate would
+	// falsely "collide" with itself and never resolve.
 	var match string
 	for _, v := range allVerbs {
 		if strings.HasPrefix(v, input) {
-			if match != "" {
+			if match != "" && match != v {
 				// Ambiguous — return input unchanged so it falls through to "don't understand"
 				return input
 			}

@@ -191,7 +191,7 @@ func (e *GameEngine) castControlUndead(player *Player, spell *SpellDef, args []s
 			fmt.Sprintf("You fix your gaze on %s%s and speak words of dark binding!", carticle, cname),
 			fmt.Sprintf("%s%s falls under your control for 40 minutes. (COMMAND FOLLOW ME, COMMAND STAY, COMMAND GUARD ME, COMMAND ATTACK <name>, COMMAND LOOK, COMMAND SAY <message>, COMMAND BEGONE)", capArticle(carticle), cname),
 		},
-		RoomBroadcast: []string{fmt.Sprintf("%s fixes %s gaze on %s%s, who suddenly goes still and obedient.", player.FirstName, player.Possessive(), carticle, cname)},
+		RoomBroadcast: []string{fmt.Sprintf("%s fixes %s gaze on %s%s, who suddenly goes still and obedient.", player.DisplayName(), player.Possessive(), carticle, cname)},
 	}
 }
 
@@ -212,7 +212,7 @@ func (e *GameEngine) castSpeakWithDead(player *Player, args []string) *CommandRe
 	target.SpeakWhileDead = true
 	return &CommandResult{
 		Messages:      []string{fmt.Sprintf("You commune with %s's spirit, granting it the power of speech.", target.FirstName)},
-		RoomBroadcast: []string{fmt.Sprintf("%s murmurs strange words over %s's body.", player.FirstName, target.FirstName)},
+		RoomBroadcast: []string{fmt.Sprintf("%s murmurs strange words over %s's body.", player.DisplayName(), target.DisplayName())},
 		TargetName:    target.FirstName,
 		TargetMsg:     []string{fmt.Sprintf("%s's words wash over you, and you find you can speak once more, though the rest of you remains still and cold.", player.FirstName)},
 		PlayerState:   target,
@@ -302,9 +302,9 @@ func (e *GameEngine) doCommand(ctx context.Context, player *Player, args []strin
 			found := false
 			if e.sessions != nil {
 				for _, p := range e.sessions.OnlinePlayers() {
-					if strings.EqualFold(p.FirstName, rest) && p.RoomNumber == instRoom && !p.Dead {
-						followTarget = p.FirstName
-						followLabel = "follow " + p.FirstName
+					if p.NameEquals(rest) && p.RoomNumber == instRoom && !p.Dead {
+						followTarget = p.FirstName // internal bookkeeping: real name, not the apparent one
+						followLabel = "follow " + p.DisplayName()
 						found = true
 						break
 					}
@@ -449,8 +449,8 @@ func (e *GameEngine) doCommand(ctx context.Context, player *Player, args []strin
 			found := false
 			if e.sessions != nil {
 				for _, p := range e.sessions.OnlinePlayers() {
-					if strings.EqualFold(p.FirstName, guardTarget) && p.RoomNumber == instRoom {
-						guardTarget = p.FirstName
+					if p.NameEquals(guardTarget) && p.RoomNumber == instRoom {
+						guardTarget = p.FirstName // internal bookkeeping: real name, not the apparent one
 						found = true
 						break
 					}
@@ -536,7 +536,7 @@ func (e *GameEngine) doCommand(ctx context.Context, player *Player, args []strin
 		var targetPlayer *Player
 		if e.sessions != nil {
 			for _, p := range e.sessions.OnlinePlayers() {
-				if strings.EqualFold(p.FirstName, rest) && p.RoomNumber == instRoom && !p.Dead {
+				if p.NameEquals(rest) && p.RoomNumber == instRoom && !p.Dead {
 					targetPlayer = p
 					break
 				}

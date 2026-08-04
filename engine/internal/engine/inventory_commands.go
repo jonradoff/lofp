@@ -82,7 +82,7 @@ func (e *GameEngine) doItemInteraction(ctx context.Context, player *Player, verb
 			dest := e.rooms[moveTo]
 			if dest != nil {
 				oldMsgs := append(append(sc0.RoomMsgs, sc.PreMoveMsgs...), sc2.PreMoveMsgs...)
-				oldMsgs = append(oldMsgs, fmt.Sprintf("%s leaves.", player.FirstName))
+				oldMsgs = append(oldMsgs, fmt.Sprintf("%s leaves.", player.DisplayNameCap()))
 				result.RoomBroadcast = append(result.RoomBroadcast, sc.RoomMsgs...)
 				result.RoomBroadcast = append(result.RoomBroadcast, sc2.RoomMsgs...)
 				player.RoomNumber = moveTo
@@ -95,7 +95,7 @@ func (e *GameEngine) doItemInteraction(ctx context.Context, player *Player, verb
 				result.Items = lookResult.Items
 				result.OldRoom = origRoom
 				result.OldRoomMsg = oldMsgs
-				result.RoomBroadcast = append(result.RoomBroadcast, fmt.Sprintf("%s arrives.", player.FirstName))
+				result.RoomBroadcast = append(result.RoomBroadcast, fmt.Sprintf("%s arrives.", player.DisplayNameCap()))
 				e.applyEntryScripts(ctx, player, dest, result)
 			}
 		} else {
@@ -192,7 +192,7 @@ func (e *GameEngine) doItemInteraction(ctx context.Context, player *Player, verb
 				if dest != nil {
 					// Pre-move room messages (sc0 always runs before any MOVE; sc1/sc2 split at MOVE).
 					oldMsgs := append(append(sc0.RoomMsgs, sc1.PreMoveMsgs...), sc2.PreMoveMsgs...)
-					oldMsgs = append(oldMsgs, fmt.Sprintf("%s leaves.", player.FirstName))
+					oldMsgs = append(oldMsgs, fmt.Sprintf("%s leaves.", player.DisplayNameCap()))
 					// Post-move room messages go to the destination room.
 					result.RoomBroadcast = append(result.RoomBroadcast, sc1.RoomMsgs...)
 					result.RoomBroadcast = append(result.RoomBroadcast, sc2.RoomMsgs...)
@@ -206,7 +206,7 @@ func (e *GameEngine) doItemInteraction(ctx context.Context, player *Player, verb
 					result.Items = lookResult.Items
 					result.OldRoom = origRoom
 					result.OldRoomMsg = oldMsgs
-					result.RoomBroadcast = append(result.RoomBroadcast, fmt.Sprintf("%s arrives.", player.FirstName))
+					result.RoomBroadcast = append(result.RoomBroadcast, fmt.Sprintf("%s arrives.", player.DisplayNameCap()))
 					e.applyEntryScripts(ctx, player, dest, result)
 				}
 			} else {
@@ -451,7 +451,7 @@ func (e *GameEngine) doDrop(ctx context.Context, player *Player, args []string) 
 				Adj1: ii.Adj1, Adj2: ii.Adj2, Adj3: ii.Adj3,
 				Val1: ii.Val1, Val2: ii.Val2, Val3: ii.Val3, Val4: ii.Val4, Val5: ii.Val5,
 				ItemBits: ii.ItemBits}
-			sc := &ScriptContext{Player: player, Room: room, Engine: e, ItemRef: &tempRI, ItemDef: itemDef}
+			sc := &ScriptContext{Player: player, Room: room, Engine: e, ItemRef: &tempRI, ItemDef: itemDef, activeVerb: "DROP", activeRef: "-1"}
 			// Room -1 catch-all IFPREVERB DROP scripts (fissure, pit, etc.)
 			for _, block := range room.Scripts {
 				if block.Type == "IFPREVERB" && len(block.Args) == 2 &&
@@ -1014,6 +1014,31 @@ func slotDisplayName(slot string) string {
 	}
 }
 
+// runItemOwnPreverbHook runs an already-carried item's own IFPREVERB <verb> -1
+// script (ref=-1, the same "fires regardless of the item's normal mechanical
+// eligibility" convention already used for room-level "-1 catch-all" scripts —
+// see RunPreverbScripts). Used as a last-chance check by commands (WEAR, OPEN,
+// CLOSE, LATCH, SELL, APPRAISE) right before they'd otherwise reject ii as an
+// invalid target, so prop/joke items (e.g. item 925, "the object", given to
+// every new player) that hijack a verb regardless of their own item type still
+// get a chance to react instead of just failing with a generic error.
+// Returns nil if nothing fired (no script, or it ran without CLEARVERB).
+func (e *GameEngine) runItemOwnPreverbHook(player *Player, room *gameworld.Room, verb string, ii InventoryItem) *CommandResult {
+	def := e.items[ii.Archetype]
+	if def == nil {
+		return nil
+	}
+	tempRI := gameworld.RoomItem{Ref: -1, Archetype: ii.Archetype,
+		Adj1: ii.Adj1, Adj2: ii.Adj2, Adj3: ii.Adj3,
+		Val1: ii.Val1, Val2: ii.Val2, Val3: ii.Val3, Val4: ii.Val4, Val5: ii.Val5,
+		ItemBits: ii.ItemBits, State: ii.State}
+	sc := e.RunPreverbScripts(player, room, verb, &tempRI, def)
+	if !sc.Blocked {
+		return nil
+	}
+	return &CommandResult{Messages: sc.Messages, RoomBroadcast: sc.RoomMsgs, GMBroadcast: sc.GMMsgs}
+}
+
 func (e *GameEngine) doWear(ctx context.Context, player *Player, args []string) *CommandResult {
 	if len(args) == 0 {
 		return &CommandResult{Messages: []string{"Wear what?"}}
@@ -1021,6 +1046,7 @@ func (e *GameEngine) doWear(ctx context.Context, player *Player, args []string) 
 	target := strings.ToLower(strings.Join(args, " "))
 	target, ordSkip := parseOrdinal(target)
 	skip := ordSkip
+	room := e.rooms[player.RoomNumber]
 	// conflictMsg holds the first slot-capacity error encountered, in case every
 	// matching item turns out to be unwearable (e.g. a partial word like "pant"
 	// ambiguously matches both "pants" and "panties" — if the first match found
@@ -1032,6 +1058,18 @@ func (e *GameEngine) doWear(ctx context.Context, player *Player, args []string) 
 			continue
 		}
 		if itemDef.WornSlot == "" {
+			// Not a wearable item — but it may still define its own universal WEAR
+			// hijack (e.g. item 925, "the object", which reacts to any WEAR attempt
+			// with "You take inventory" instead of actually being worn). Give it a
+			// chance before skipping past it as usual. Deliberately doesn't touch
+			// skip — ordinal counting ("wear 2nd shirt") should only count actual
+			// wearable candidates, same as before this check existed.
+			name := e.getItemNounName(itemDef)
+			if matchesTarget(name, target, e.getAdjName(ii.Adj1), e.getAdjName(ii.Adj2), e.getAdjName(ii.Adj3)) {
+				if res := e.runItemOwnPreverbHook(player, room, "WEAR", ii); res != nil {
+					return res
+				}
+			}
 			continue
 		}
 		name := e.getItemNounName(itemDef)
@@ -1060,15 +1098,47 @@ func (e *GameEngine) doWear(ctx context.Context, player *Player, args []string) 
 				continue
 			}
 
+			// Run IFPREVERB WEAR scripts before committing the wear — cursed or
+			// scripted items (e.g. the evil circlet in CIRCLET.SCR) can block it
+			// via CLEARVERB.
+			tempRI := gameworld.RoomItem{Ref: -1, Archetype: ii.Archetype,
+				Adj1: ii.Adj1, Adj2: ii.Adj2, Adj3: ii.Adj3,
+				Val1: ii.Val1, Val2: ii.Val2, Val3: ii.Val3, Val4: ii.Val4, Val5: ii.Val5,
+				ItemBits: ii.ItemBits, State: ii.State}
+			sc0 := e.RunItemScripts(player, room, "WEAR", &tempRI, itemDef)
+			sc1 := e.RunPreverbScripts(player, room, "WEAR", &tempRI, itemDef)
+			for _, segs := range [][]ScriptSegment{sc0.DeferredSegments, sc1.DeferredSegments} {
+				if len(segs) > 0 {
+					e.scheduleScriptSegments(player, segs)
+				}
+			}
+			preMsgs := append(append([]string{}, sc0.Messages...), sc1.Messages...)
+			preRoomMsgs := append(append([]string{}, sc0.RoomMsgs...), sc1.RoomMsgs...)
+			preGMMsgs := append(append([]string{}, sc0.GMMsgs...), sc1.GMMsgs...)
+			if sc0.Blocked || sc1.Blocked {
+				return &CommandResult{Messages: preMsgs, RoomBroadcast: preRoomMsgs, GMBroadcast: preGMMsgs}
+			}
+
 			worn := player.Inventory[i]
 			worn.WornSlot = itemDef.WornSlot
 			player.Inventory = append(player.Inventory[:i], player.Inventory[i+1:]...)
 			player.Worn = append(player.Worn, worn)
-			e.SavePlayer(ctx, player)
 			fullName := e.formatItemName(itemDef, ii.Adj1, ii.Adj2, ii.Adj3, ii.Tail)
+
+			// Run IFVERB WEAR scripts now that the item is worn, so IFITEM -1 WORN
+			// checks see the new state (e.g. boots setting INTNUM4 for the Idemmu
+			// Ag stairway check).
+			tempRI.State = "WORN"
+			sc2 := e.RunVerbScripts(player, room, "WEAR", &tempRI, itemDef)
+			if len(sc2.DeferredSegments) > 0 {
+				e.scheduleScriptSegments(player, sc2.DeferredSegments)
+			}
+			e.SavePlayer(ctx, player)
+
 			return &CommandResult{
-				Messages:      []string{fmt.Sprintf("You put on %s.", fullName)},
-				RoomBroadcast: []string{fmt.Sprintf("%s puts on %s.", player.FirstName, fullName)},
+				Messages:      append(append(preMsgs, fmt.Sprintf("You put on %s.", fullName)), sc2.Messages...),
+				RoomBroadcast: append(append(preRoomMsgs, fmt.Sprintf("%s puts on %s.", player.FirstName, fullName)), sc2.RoomMsgs...),
+				GMBroadcast:   append(preGMMsgs, sc2.GMMsgs...),
 			}
 		}
 	}
@@ -1096,13 +1166,43 @@ func (e *GameEngine) doRemove(ctx context.Context, player *Player, args []string
 				skip--
 				continue
 			}
+			// Run IFPREVERB REMOVE scripts before committing the removal — while the
+			// item is still worn — so cursed items can block it via CLEARVERB (e.g.
+			// the evil circlet in CIRCLET.SCR, or boots syncing INTNUM4 for the
+			// Idemmu Ag stairway check).
+			room := e.rooms[player.RoomNumber]
+			tempRI := gameworld.RoomItem{Ref: -1, Archetype: ii.Archetype,
+				Adj1: ii.Adj1, Adj2: ii.Adj2, Adj3: ii.Adj3,
+				Val1: ii.Val1, Val2: ii.Val2, Val3: ii.Val3, Val4: ii.Val4, Val5: ii.Val5,
+				ItemBits: ii.ItemBits, State: "WORN"}
+			sc0 := e.RunItemScripts(player, room, "REMOVE", &tempRI, itemDef)
+			sc1 := e.RunPreverbScripts(player, room, "REMOVE", &tempRI, itemDef)
+			for _, segs := range [][]ScriptSegment{sc0.DeferredSegments, sc1.DeferredSegments} {
+				if len(segs) > 0 {
+					e.scheduleScriptSegments(player, segs)
+				}
+			}
+			preMsgs := append(append([]string{}, sc0.Messages...), sc1.Messages...)
+			preRoomMsgs := append(append([]string{}, sc0.RoomMsgs...), sc1.RoomMsgs...)
+			preGMMsgs := append(append([]string{}, sc0.GMMsgs...), sc1.GMMsgs...)
+			if sc0.Blocked || sc1.Blocked {
+				return &CommandResult{Messages: preMsgs, RoomBroadcast: preRoomMsgs, GMBroadcast: preGMMsgs}
+			}
+
 			removedSlot := ii.WornSlot
 			removed := player.Worn[i]
 			removed.WornSlot = ""
 			player.Worn = append(player.Worn[:i], player.Worn[i+1:]...)
 			player.Inventory = append(player.Inventory, removed)
-			e.SavePlayer(ctx, player)
 			fullName := e.formatItemName(itemDef, ii.Adj1, ii.Adj2, ii.Adj3, ii.Tail)
+
+			// Run IFVERB REMOVE scripts now that the item is no longer worn.
+			tempRI.State = ""
+			sc2 := e.RunVerbScripts(player, room, "REMOVE", &tempRI, itemDef)
+			if len(sc2.DeferredSegments) > 0 {
+				e.scheduleScriptSegments(player, sc2.DeferredSegments)
+			}
+			e.SavePlayer(ctx, player)
 
 			msg := fmt.Sprintf("You remove %s.", fullName)
 			broadcast := fmt.Sprintf("%s removes %s.", player.FirstName, fullName)
@@ -1111,8 +1211,9 @@ func (e *GameEngine) doRemove(ctx context.Context, player *Player, args []string
 				broadcast = fmt.Sprintf("%s removes %s, revealing %s.", player.FirstName, fullName, revealName)
 			}
 			return &CommandResult{
-				Messages:      []string{msg},
-				RoomBroadcast: []string{broadcast},
+				Messages:      append(append(preMsgs, msg), sc2.Messages...),
+				RoomBroadcast: append(append(preRoomMsgs, broadcast), sc2.RoomMsgs...),
+				GMBroadcast:   append(preGMMsgs, sc2.GMMsgs...),
 			}
 		}
 	}
@@ -1227,6 +1328,11 @@ func (e *GameEngine) doOpen(player *Player, args []string) *CommandResult {
 				continue
 			}
 			if !containsFlag(itemDef.Flags, "OPENABLE") {
+				// Not a container — but it may still define its own universal OPEN
+				// hijack (e.g. item 925, "the object").
+				if res := e.runItemOwnPreverbHook(player, room, "OPEN", ii); res != nil {
+					return res
+				}
 				return &CommandResult{Messages: []string{"You can't open that."}}
 			}
 			if ii.State == "LOCKED" {
@@ -1261,6 +1367,9 @@ func (e *GameEngine) doOpen(player *Player, args []string) *CommandResult {
 				continue
 			}
 			if !containsFlag(itemDef.Flags, "OPENABLE") {
+				if res := e.runItemOwnPreverbHook(player, room, "OPEN", ii); res != nil {
+					return res
+				}
 				return &CommandResult{Messages: []string{"You can't open that."}}
 			}
 			if ii.State == "LOCKED" {
@@ -1296,6 +1405,9 @@ func (e *GameEngine) doOpen(player *Player, args []string) *CommandResult {
 					continue
 				}
 				if !containsFlag(itemDef.Flags, "OPENABLE") && !isPortal(itemDef.Type) {
+					if sc := e.RunPreverbScripts(player, room, "OPEN", &room.Items[i], itemDef); sc.Blocked {
+						return &CommandResult{Messages: sc.Messages, RoomBroadcast: sc.RoomMsgs, GMBroadcast: sc.GMMsgs}
+					}
 					return &CommandResult{Messages: []string{"You can't open that."}}
 				}
 				if ri.State == "LOCKED" {
@@ -1350,6 +1462,7 @@ func (e *GameEngine) checkTrap(player *Player, ri *gameworld.RoomItem) []string 
 	ri.Val4 = 0 // trap is consumed
 
 	var msgs []string
+	physicalHarm := false
 	switch {
 	case trapType == 1: // Needle, minor poison
 		msgs = append(msgs, "A needle springs out and pricks your finger!")
@@ -1370,6 +1483,7 @@ func (e *GameEngine) checkTrap(player *Player, ri *gameworld.RoomItem) []string 
 			player.BodyPoints = 0
 		}
 		msgs = append(msgs, fmt.Sprintf("Acid sprays out! [%d Damage]", dmg))
+		physicalHarm = true
 	case trapType == 4: // Blades
 		dmg := 15 + rand.Intn(20)
 		player.BodyPoints -= dmg
@@ -1377,6 +1491,7 @@ func (e *GameEngine) checkTrap(player *Player, ri *gameworld.RoomItem) []string 
 			player.BodyPoints = 0
 		}
 		msgs = append(msgs, fmt.Sprintf("Hidden blades slash at you! [%d Damage]", dmg))
+		physicalHarm = true
 	case trapType == 5: // Needle, moderate poison
 		msgs = append(msgs, "A poison-coated needle jabs into your hand!")
 		player.Poisoned = true
@@ -1396,6 +1511,7 @@ func (e *GameEngine) checkTrap(player *Player, ri *gameworld.RoomItem) []string 
 			player.BodyPoints = 0
 		}
 		msgs = append(msgs, fmt.Sprintf("The container explodes! [%d Damage]", dmg))
+		physicalHarm = true
 	case trapType == 9: // Acid, moderate
 		dmg := 20 + rand.Intn(25)
 		player.BodyPoints -= dmg
@@ -1403,6 +1519,7 @@ func (e *GameEngine) checkTrap(player *Player, ri *gameworld.RoomItem) []string 
 			player.BodyPoints = 0
 		}
 		msgs = append(msgs, fmt.Sprintf("A gout of acid sprays out! [%d Damage]", dmg))
+		physicalHarm = true
 	case trapType == 12: // Gas, moderate poison
 		msgs = append(msgs, "A thick cloud of poisonous gas engulfs you!")
 		player.Poisoned = true
@@ -1420,6 +1537,7 @@ func (e *GameEngine) checkTrap(player *Player, ri *gameworld.RoomItem) []string 
 		if 5 > player.PoisonLevel {
 			player.PoisonLevel = 5
 		}
+		physicalHarm = true
 	case trapType >= 1000: // Glyph traps (spell-based)
 		spellDmg := 20 + rand.Intn(40)
 		glyphType := (trapType / 1000) % 10
@@ -1438,6 +1556,7 @@ func (e *GameEngine) checkTrap(player *Player, ri *gameworld.RoomItem) []string 
 		if player.BodyPoints < 0 {
 			player.BodyPoints = 0
 		}
+		physicalHarm = true
 		switch {
 		case glyphType <= 2:
 			msgs = append(msgs, fmt.Sprintf("An Inferno Glyph erupts in a blast of flame! [%d Damage]", spellDmg))
@@ -1450,6 +1569,11 @@ func (e *GameEngine) checkTrap(player *Player, ri *gameworld.RoomItem) []string 
 			player.Immobilized = true
 		default:
 			msgs = append(msgs, fmt.Sprintf("A Symbol of Death erupts! [%d Damage]", spellDmg))
+		}
+	}
+	if physicalHarm {
+		if interruptMsg := interruptPreparedSpell(player); interruptMsg != "" {
+			msgs = append(msgs, interruptMsg)
 		}
 	}
 	return msgs
@@ -1482,6 +1606,13 @@ func (e *GameEngine) doClose(player *Player, args []string) *CommandResult {
 			}
 			fullName := e.formatItemName(itemDef, ii.Adj1, ii.Adj2, ii.Adj3, ii.Tail)
 			if ii.State != "OPEN" {
+				if !containsFlag(itemDef.Flags, "OPENABLE") {
+					// Not a container — but it may still define its own universal CLOSE
+					// hijack (e.g. item 925, "the object").
+					if res := e.runItemOwnPreverbHook(player, room, "CLOSE", ii); res != nil {
+						return res
+					}
+				}
 				return &CommandResult{Messages: []string{fmt.Sprintf("%s is already closed.", capitalize(fullName))}}
 			}
 			player.Inventory[i].State = "CLOSED"
@@ -1502,6 +1633,11 @@ func (e *GameEngine) doClose(player *Player, args []string) *CommandResult {
 			}
 			fullName := e.formatItemName(itemDef, ii.Adj1, ii.Adj2, ii.Adj3, ii.Tail)
 			if ii.State != "OPEN" {
+				if !containsFlag(itemDef.Flags, "OPENABLE") {
+					if res := e.runItemOwnPreverbHook(player, room, "CLOSE", ii); res != nil {
+						return res
+					}
+				}
 				return &CommandResult{Messages: []string{fmt.Sprintf("%s is already closed.", capitalize(fullName))}}
 			}
 			player.Worn[i].State = "CLOSED"
@@ -1523,6 +1659,11 @@ func (e *GameEngine) doClose(player *Player, args []string) *CommandResult {
 				}
 				fullName := e.formatItemName(itemDef, ri.Adj1, ri.Adj2, ri.Adj3, ri.Extend)
 				if ri.State != "OPEN" {
+					if !containsFlag(itemDef.Flags, "OPENABLE") {
+						if sc := e.RunPreverbScripts(player, room, "CLOSE", &room.Items[i], itemDef); sc.Blocked {
+							return &CommandResult{Messages: sc.Messages, RoomBroadcast: sc.RoomMsgs, GMBroadcast: sc.GMMsgs}
+						}
+					}
 					return &CommandResult{Messages: []string{fmt.Sprintf("%s is already closed.", capitalize(fullName))}}
 				}
 				room.Items[i].State = "CLOSED"
@@ -1954,6 +2095,24 @@ func (e *GameEngine) doSell(ctx context.Context, player *Player, args []string) 
 		return &CommandResult{Messages: []string{"You can't sell anything here."}}
 	}
 
+	// Give a carried item's own universal IFPREVERB SELL -1 script (e.g. item 925,
+	// "the object", which reacts with "You fume" instead of actually being sold) a
+	// chance to hijack the attempt before the shop-context checks below, which have
+	// no way to know an item shouldn't be sellable at all, anywhere.
+	for _, ii := range player.Inventory {
+		itemDef := e.items[ii.Archetype]
+		if itemDef == nil {
+			continue
+		}
+		name := e.getItemNounName(itemDef)
+		if !matchesTarget(name, target, e.getAdjName(ii.Adj1), e.getAdjName(ii.Adj2), e.getAdjName(ii.Adj3)) {
+			continue
+		}
+		if res := e.runItemOwnPreverbHook(player, room, "SELL", ii); res != nil {
+			return res
+		}
+	}
+
 	// Check if room has any BUY_ modifier
 	canBuy := false
 	for _, mod := range room.Modifiers {
@@ -2067,6 +2226,28 @@ func (e *GameEngine) doAppraise(player *Player, args []string) *CommandResult {
 	if room == nil {
 		return &CommandResult{Messages: []string{"You can't do that here."}}
 	}
+	target := strings.ToLower(strings.Join(args, " "))
+	target, ordSkip := parseOrdinal(target)
+	skip := ordSkip
+
+	// Give a carried item's own universal IFPREVERB APPRAISE -1 script (e.g. item
+	// 925, "the object", which reacts with "You fume") a chance to hijack the
+	// attempt before the shop-context check below — the item's reaction isn't
+	// tied to standing near a merchant.
+	for _, ii := range player.Inventory {
+		itemDef := e.items[ii.Archetype]
+		if itemDef == nil {
+			continue
+		}
+		name := e.getItemNounName(itemDef)
+		if !matchesTarget(name, target, e.getAdjName(ii.Adj1), e.getAdjName(ii.Adj2), e.getAdjName(ii.Adj3)) {
+			continue
+		}
+		if res := e.runItemOwnPreverbHook(player, room, "APPRAISE", ii); res != nil {
+			return res
+		}
+	}
+
 	canBuy := false
 	for _, mod := range room.Modifiers {
 		if strings.HasPrefix(mod, "BUY_") {
@@ -2077,9 +2258,6 @@ func (e *GameEngine) doAppraise(player *Player, args []string) *CommandResult {
 	if !canBuy {
 		return &CommandResult{Messages: []string{"There is no merchant here to appraise your items."}}
 	}
-	target := strings.ToLower(strings.Join(args, " "))
-	target, ordSkip := parseOrdinal(target)
-	skip := ordSkip
 	for _, ii := range player.Inventory {
 		itemDef := e.items[ii.Archetype]
 		if itemDef == nil {
@@ -2505,12 +2683,31 @@ func (e *GameEngine) doLatch(player *Player, args []string, latch bool) *Command
 	if room == nil {
 		return &CommandResult{Messages: []string{"You can't do that here."}}
 	}
+	verb := "LATCH"
+	if !latch {
+		verb = "UNLATCH"
+	}
+	// Carried/worn items are never mechanically latchable (only doors/gates are), but
+	// one may still define its own universal IFPREVERB LATCH/UNLATCH -1 hijack (e.g.
+	// item 925, "the object") — give it a chance before searching the room.
+	for _, items := range [][]InventoryItem{player.Inventory, player.Worn} {
+		for _, ii := range items {
+			itemDef := e.items[ii.Archetype]
+			if itemDef == nil {
+				continue
+			}
+			name := e.getItemNounName(itemDef)
+			if !matchesTarget(name, target, e.getAdjName(ii.Adj1), e.getAdjName(ii.Adj2), e.getAdjName(ii.Adj3)) {
+				continue
+			}
+			if res := e.runItemOwnPreverbHook(player, room, verb, ii); res != nil {
+				return res
+			}
+		}
+	}
 	for i, ri := range room.Items {
 		itemDef := e.items[ri.Archetype]
 		if itemDef == nil {
-			continue
-		}
-		if !containsFlag(itemDef.Flags, "LATCHABLE") {
 			continue
 		}
 		name := e.getItemNounName(itemDef)
@@ -2519,6 +2716,12 @@ func (e *GameEngine) doLatch(player *Player, args []string, latch bool) *Command
 		}
 		if skip > 0 {
 			skip--
+			continue
+		}
+		if !containsFlag(itemDef.Flags, "LATCHABLE") {
+			if sc := e.RunPreverbScripts(player, room, verb, &room.Items[i], itemDef); sc.Blocked {
+				return &CommandResult{Messages: sc.Messages, RoomBroadcast: sc.RoomMsgs, GMBroadcast: sc.GMMsgs}
+			}
 			continue
 		}
 		displayName := e.formatItemName(itemDef, ri.Adj1, ri.Adj2, ri.Adj3, ri.Extend)

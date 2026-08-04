@@ -78,6 +78,57 @@ type MonsterInstance struct {
 	GuardingPlayers []string `json:"-"` // names of players being guarded (for COMMAND GUARD)
 	MonsterTargetID int      `json:"-"` // instance ID of a monster this creature is attacking; 0 = none
 	ControlExpiry   time.Time `json:"-"` // Control Undead: when control lapses and the creature turns hostile again (zero = never expires)
+
+	// Appearance is lazily rolled the first time a disguisable town NPC (commoner,
+	// trader, merchant, lawkeeper, beggar — see disguisableNPCNames) is examined, then
+	// cached here so repeated looks show the same person rather than rerolling. Not
+	// persisted; regenerating on respawn is fine.
+	AppearanceRolled    bool   `json:"-"`
+	AppearanceRace      int    `json:"-"`
+	AppearanceGender    int    `json:"-"`
+	AppearanceAge       int    `json:"-"`
+	AppearanceHeight    int    `json:"-"`
+	AppearanceWeight    int    `json:"-"`
+	AppearanceStrength  int    `json:"-"`
+	AppearanceEyeColor  string `json:"-"`
+	AppearanceSkinColor string `json:"-"`
+	AppearanceHairColor string `json:"-"`
+	AppearanceHairStyle string `json:"-"`
+}
+
+// disguisableNPCNames are the generic town NPC types a disguise can blend into —
+// they get a full rolled appearance description on LOOK instead of a flat
+// "You see a trader." Keyed by def.Name lowercased (MNUMBER 12/13/28/30/31 in
+// MONSTERS.SCR: commoner, lawkeeper, beggar, trader, merchant).
+var disguisableNPCNames = map[string]bool{
+	"commoner":  true,
+	"trader":    true,
+	"merchant":  true,
+	"lawkeeper": true,
+	"beggar":    true,
+	"priest":    true,
+}
+
+// rollMonsterAppearance randomly generates and caches an appearance for inst.
+// Race is chosen from the full playable race list (not just RaceHuman) so
+// repeated NPCs of the same type look like different people, matching town
+// NPCs being a mix of the setting's races.
+func rollMonsterAppearance(inst *MonsterInstance) {
+	race := PlayableRaces[rand.Intn(len(PlayableRaces))]
+	gender := rand.Intn(2)
+	height, weight := RollHeightWeight(race, gender)
+	str, _, _, _, _, _, _ := RollStats(race)
+	inst.AppearanceRace = race
+	inst.AppearanceGender = gender
+	inst.AppearanceAge = RollAge(race)
+	inst.AppearanceHeight = height
+	inst.AppearanceWeight = weight
+	inst.AppearanceStrength = str
+	inst.AppearanceEyeColor = RandomEyeColor()
+	inst.AppearanceSkinColor = RandomSkinColor()
+	inst.AppearanceHairColor = RandomHairColor()
+	inst.AppearanceHairStyle = RandomHairStyle()
+	inst.AppearanceRolled = true
 }
 
 // monsterManager handles monster spawning and tracking.
@@ -262,6 +313,24 @@ func (mm *monsterManager) SetSedated(id int, sedated bool) {
 	}
 }
 
+// GetOrRollAppearance returns the appearance fields for a monster instance by
+// ID, rolling and caching them on first call (under the same lock) so repeated
+// looks at the same instance show a consistent person. ok is false if the
+// instance no longer exists (e.g. it died and was cleaned up between calls).
+func (mm *monsterManager) GetOrRollAppearance(id int) (inst MonsterInstance, ok bool) {
+	mm.mu.Lock()
+	defer mm.mu.Unlock()
+	for i := range mm.instances {
+		if mm.instances[i].ID == id {
+			if !mm.instances[i].AppearanceRolled {
+				rollMonsterAppearance(&mm.instances[i])
+			}
+			return mm.instances[i], true
+		}
+	}
+	return MonsterInstance{}, false
+}
+
 // ClearRoom removes all monsters from a room.
 func (mm *monsterManager) ClearRoom(roomNum int) {
 	mm.mu.Lock()
@@ -336,9 +405,11 @@ func FormatMonsterName(def *gameworld.MonsterDef, monAdjs map[int]string) string
 	return name
 }
 
-// MonsterLookLines returns the lines to append to a room look showing monsters.
-// Condenses multiple monsters into a single "You also see" line.
-func (e *GameEngine) MonsterLookLines(roomNum int) []string {
+// monsterNamesInRoom returns the display names (with article and status suffix)
+// of every monster in a room, e.g. ["a priest", "a trader (dead)"]. Shared by
+// MonsterLookLines (which wraps these into their own "You also see" sentence)
+// and doLook (which merges them into the same sentence as players present).
+func (e *GameEngine) monsterNamesInRoom(roomNum int) []string {
 	if e.monsterMgr == nil {
 		return nil
 	}
@@ -367,6 +438,13 @@ func (e *GameEngine) MonsterLookLines(roomNum int) []string {
 		article := articleFor(name, def.Unique)
 		names = append(names, article+name)
 	}
+	return names
+}
+
+// MonsterLookLines returns the lines to append to a room look showing monsters.
+// Condenses multiple monsters into a single "You also see" line.
+func (e *GameEngine) MonsterLookLines(roomNum int) []string {
+	names := e.monsterNamesInRoom(roomNum)
 	if len(names) == 0 {
 		return nil
 	}

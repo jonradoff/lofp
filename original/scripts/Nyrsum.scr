@@ -20,7 +20,7 @@ REGIONDEF 70 TELEPORT ALLOWED
 REGIONDEF 70 SUMMONING ALLOWED
 REGIONDEF 70 WEATHER
 ;
-NUMBER 1914
+NUMBER 1971
 NAME Nyraine, Forest Trail
 FOREST
 DAY_LIGHT
@@ -34,10 +34,10 @@ over the treetops. The path underfoot is dry with the summer sun.
 Further travel to the northwest is blocked by numerous fallen trees,
 which seem to have been placed there on purpose.
 *DESCRIPTION_END
-EXIT SW 1915
+EXIT SW 1972
 ITEM 0 1040 ADJ1=178
 EXTEND 0 of trees and deadfall
-ITEM 1 229 ADJ1=895 
+ITEM 1 229 ADJ1=895
 ITEM 2 229 ADJ1=651
 ITEM 9 693
 IFPREVERB CLIMB 0
@@ -49,7 +49,7 @@ IFPREVERB GO 0
   ECHO PLAYER There is no where to go.
 ENDIF
 ;
-NUMBER 1915
+NUMBER 1972
 NAME Nyraine, Forest Trail
 FOREST
 DAY_LIGHT
@@ -62,8 +62,8 @@ glistens slightly in the dark. The sounds of sea-birds echoes
 through the thick woodland, and, very faintly, the crash of
 waves is heard against the rocks to the south.
 *DESCRIPTION_END
-EXIT NE 1914
-EXIT SW 1916
+EXIT NE 1971
+EXIT SW 1973
 ITEM 0 229 ADJ1=651
 EXTEND 0 covered with a thick greenish-blue moss
 IFPREVERB LISTEN -1
@@ -74,7 +74,7 @@ ENDIF
 ITEM 1 1082 ADJ1=152 ADJ2=29
 ITEM 9 693
 ;
-NUMBER 1916
+NUMBER 1973
 NAME Nyraine, Forest Trail
 FOREST
 PARTIAL_DARKNESS
@@ -82,18 +82,18 @@ REGION 70
 CHANNEL 70
 CALL 33
 *DESCRIPTION_START
-The trees in this region are as wide as most men are tall, and they 
+The trees in this region are as wide as most men are tall, and they
 grow so closely together that visibility is cut to less than six
 feet. A strong, stale smell is thick in the air, the stench of something
 rotten and decayed. Last years leaves pile are damp underfoot, the
 edges white with a fine rimming of salt from the nearby ocean.
 Small white flowers peek up from the sides of the trail.
 *DESCRIPTION_END
-EXIT NE 1915
-EXIT SW 1917
+EXIT NE 1972
+EXIT SW 1974
 ITEM 9 693
 ;
-NUMBER 1917
+NUMBER 1974
 NAME Nyraine, Forest Trail
 FOREST
 DAY_LIGHT
@@ -104,15 +104,15 @@ CALL 33
 Numerous trees are bent over or broken off at the base at this bend
 in the trail. Evidence of a large windstorm that swept through the
 entire area is everywhere. To the north, the forest stretches
-for miles, to the south, a large outcropping of white rocks is plainly 
+for miles, to the south, a large outcropping of white rocks is plainly
 visible.
 *DESCRIPTION_END
-EXIT NE 1916
-EXIT SW 1918
+EXIT NE 1973
+EXIT SW 1975
 ITEM 0 229 ADJ1=374 ADJ2=216
 ITEM 9 693
 ;
-NUMBER 1918
+NUMBER 1975
 NAME Nyraine, Forest Trail Bridge
 FOREST
 DAY_LIGHT
@@ -126,13 +126,13 @@ crosses under a stone bridge, and winds its way south
 to the sea. An overall sense of peace and stillness fills the
 air. The fresh scent of flowers blooming fills the air.
 *DESCRIPTION_END
-EXIT NE 1917
-EXIT SW 1919
+EXIT NE 1974
+EXIT SW 1976
 ITEM 0 426 ADJ1=294 ADJ2=1200
-ITEM 1 608 VAL2=1919
+ITEM 1 608 VAL2=1976
 ITEM 9 693
 ;
-NUMBER 1919
+NUMBER 1976
 NAME Nyraine, Forest Trail Glen
 FOREST
 DAY_LIGHT
@@ -142,15 +142,15 @@ CALL 33
 *DESCRIPTION_START
 The trail here spills out into a valley nestled between the thick
 forest growth, and the rocky outcroppings of the beach. A small
-track leads down into the valley, while the trail heads to the 
+track leads down into the valley, while the trail heads to the
 north, northeast. A bit of farmlands is visible to the west, the
 furrows full and thick of the coming harvest.
 *DESCRIPTION_END
-EXIT NE 1918 
-ITEM 0 609 ADJ1=294 VAL2=1920
+EXIT NE 1975
+ITEM 0 609 ADJ1=294 VAL2=1977
 ITEM 9 693
 ;
-NUMBER 1920
+NUMBER 1977
 NAME Nyraine, Farmlands
 PLAIN
 DAY_LIGHT
@@ -164,11 +164,11 @@ dot the open ground. A more traveled road leads west to the
 city of Nyraine and a track leads northeasterly through the
 thick forests.
 *DESCRIPTION_END
-EXIT W 1921
-ITEM 0 609 ADJ1=294 VAL2=1919
+EXIT W 1978
+ITEM 0 609 ADJ1=294 VAL2=1976
 ITEM 9 693
 ;
-NUMBER 1921
+NUMBER 1978
 NAME Nyraine, Farmlands
 PLAIN
 DAY_LIGHT
@@ -180,7 +180,7 @@ The ravages of the land are nearly healed from several years of
 gentle care by the people of Nyraine. Fields are full of new
 and healthy growth, tended by farmers.
 *DESCRIPTION_END
-EXIT E 1920
+EXIT E 1977
 EXIT W 1908
 ITEM 9 693
 ;
@@ -197,9 +197,9 @@ white posts, and the gates themselves are very new. The cobbles of the
 street have been recently relaid in a beautiful, random pattern.
 A small trail leads off southwards towards the rocky wall near the ocean. 
 *DESCRIPTION_END
-EXIT E 1921
+EXIT E 1978
 ITEM 0 68 ADJ1=189 ADJ2=505 ADJ3=169 VAL2=1899 OPEN UNLOCKED
-ITEM 1 76 VAL2=1914
+ITEM 1 76 VAL2=1971
 ITEM 9 693
 ;
 NUMBER 1899
@@ -544,6 +544,54 @@ across the long white beach, a great outcropping of rock is visible.
 *DESCRIPTION_END
 EXIT N 1806
 ITEM 9 693
+ITEM 0 412 ADJ1=1225
+ITEM 1 1774 ADJ1=1225
+*DESCRIPTION_START ITEM EXAM 1
+The Windrunner is a sturdy, two-masted sailing ship, her sails currently furled and lashed. A crew of seasoned sailors moves about the deck coiling rope and checking rigging, while a grizzled, weathered man in a long coat watches the horizon from the quarterdeck.
+*DESCRIPTION_END
+IFENTRY
+	ECHO PLAYER Captain Aldous Kestrel calls out from the deck of the Windrunner, "Bound for the Inner Sea docks! All aboard who's paying passage!"
+ENDIF
+IFVERB GO 0
+	IFVAR INTNUM8 ! 1
+		ECHO PLAYER Captain Kestrel blocks the top of the gangplank. "Hold on there, friend. Passage back to the mainland is two silver, paid up front."
+		ECHO OTHERS %N tries to board the Windrunner without paying the captain.
+	ENDIF
+	IFVAR INTNUM8 = 1
+		ECHO PLAYER You climb the gangplank and step aboard the Windrunner.
+		ECHO OTHERS %N climbs the gangplank and steps aboard the Windrunner.
+		MOVE 7101
+		AFFECT 7101
+		ECHO OTHERS %N crosses the gangplank from the dock and boards the Windrunner.
+		AFFECT 1804
+	ENDIF
+	CLEARVERB
+ENDIF
+IFVERB PAY -1
+	IFVAR INTNUM8 = 1
+		ECHO PLAYER Captain Kestrel tips his hat. "Already settled up, friend. No need to pay twice."
+		ECHO OTHERS %N tries to pay the captain again.
+	ENDIF
+	IFVAR INTNUM8 ! 1
+		IFVAR WEALTH < 20
+			ECHO PLAYER Captain Kestrel eyes your thin purse and shakes his head. "Come back when you've got the fare, friend."
+			ECHO OTHERS %N can't seem to scrape together the fare.
+		ENDIF
+		IFVAR WEALTH = 20
+			SUB WEALTH 20
+			ECHO PLAYER You hand over your last coin to Captain Kestrel.
+			ECHO OTHERS %N hands the captain some coins.
+			EQUAL INTNUM8 1
+		ENDIF
+		IFVAR WEALTH > 20
+			SUB WEALTH 20
+			ECHO PLAYER You pay the captain his fare. He nods and marks your name in the ship's ledger.
+			ECHO OTHERS %N hands the captain some coins.
+			EQUAL INTNUM8 1
+		ENDIF
+	ENDIF
+	CLEARVERB
+ENDIF
 ;
 NUMBER 1917
 NAME Nyraine, Rocky Trail
@@ -630,11 +678,11 @@ above. A small, dank opening leads back through several small chunks of
 granite, and a dirt path worn smooth marks its way through the ground.
 *DESCRIPTION_END
 EXIT SE 1918
-EXIT NW 1922
+EXIT NW 1979
 ITEM 0 72 VAL2=1929
 ITEM 9 693
 ;
-NUMBER 1922
+NUMBER 1979
 NAME Nyraine, Before Outcropping
 MOUNTAIN
 DAY_LIGHT
@@ -741,7 +789,7 @@ The harsh smell of rotting meat fills up this tiny chamber. About
 half way up the northern wall sits a ledge, covered over with half
 rotten corpses, assorted limbs and body parts.
 *DESCRIPTION_END
-EXIT O 1922
+EXIT O 1979
 ITEM 0 77 ADJ1=1216 VAL2=1929
 ITEM 1 77 ADJ1=1181 VAL2=1931
 ITEM 2 450 
@@ -971,7 +1019,7 @@ mist assaults anything on the pathway. A small trail leads northwards
 towards the farmlands.
 *DESCRIPTION_END
 EXIT E 1915
-ITEM 0 76 ADJ1=264 VAL2=1921
+ITEM 0 76 ADJ1=264 VAL2=1977
 ITEM 9 693
 ;
 NUMBER 1915
