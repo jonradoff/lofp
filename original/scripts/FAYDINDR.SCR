@@ -1415,6 +1415,7 @@ The Adventurers' Guild is the oldest organization in Fayd. It was founded with t
 EXIT O 275
 ITEM 0 1226 VAL2=225
 ITEM 9 693 ADJ1=10
+ITEM 0 168 ADJ1= 200 VAL1=6500 VAL3=513
 
 IFENTRY
 	IFVAR INTNUM6 = 2
