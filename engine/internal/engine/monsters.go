@@ -20,10 +20,10 @@ type MonsterInstance struct {
 	Stunned      bool      `json:"-"` // stunned: skip next combat tick, easier to hit
 	Skinned      bool      `json:"-"` // already skinned
 	DefenseBonus int       `json:"-"` // from active psi defenses
-	CurrentHP  int       `json:"currentHP"`
-	Target     string    `json:"-"`
-	Searched   bool      `json:"-"` // already searched for loot
-	DeathTime  time.Time `json:"-"` // when it died (for corpse decay)
+	CurrentHP    int       `json:"currentHP"`
+	Target       string    `json:"-"`
+	Searched     bool      `json:"-"` // already searched for loot
+	DeathTime    time.Time `json:"-"` // when it died (for corpse decay)
 }
 
 // monsterManager handles monster spawning and tracking.
@@ -31,7 +31,7 @@ type monsterManager struct {
 	mu             sync.RWMutex
 	instances      []MonsterInstance
 	nextID         int
-	monstersByRoom map[int][]int    // roomNumber -> slice of instance indices
+	monstersByRoom map[int][]int     // roomNumber -> slice of instance indices
 	roomLastPlayer map[int]time.Time // roomNumber -> last time a player was present
 }
 
@@ -231,6 +231,26 @@ func (mm *monsterManager) AllMonstersInRoom(roomNum int) []MonsterInstance {
 		}
 	}
 	return result
+}
+
+func (mm *monsterManager) MarkSkinned(instanceID int) bool {
+	mm.mu.Lock()
+	defer mm.mu.Unlock()
+
+	for i := range mm.instances {
+		if mm.instances[i].ID != instanceID {
+			continue
+		}
+
+		if mm.instances[i].Skinned {
+			return false
+		}
+
+		mm.instances[i].Skinned = true
+		return true
+	}
+
+	return false
 }
 
 // moveMonster moves a monster instance to a new room. Must be called under lock.

@@ -8,3 +8,6 @@ frontend/node_modules/
 *.log
 engine/lofp
 VIBECTL.md
+.vscode/
+__debug_bin*
+start.bat

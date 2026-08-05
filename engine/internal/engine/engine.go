@@ -6036,34 +6036,50 @@ func (e *GameEngine) doSkin(ctx context.Context, player *Player, args []string) 
 	if len(args) == 0 {
 		return &CommandResult{Messages: []string{"Skin what?"}}
 	}
-	target := strings.ToLower(strings.Join(args, " "))
 
-	// Find a dead monster in the room
+	rawTarget := strings.ToLower(strings.Join(args, " "))
+	target, ordSkip := parseOrdinal(rawTarget)
+
 	if e.monsterMgr == nil {
 		return &CommandResult{Messages: []string{"You don't see that here."}}
 	}
 
+	matchCount := 0
 	monsters := e.monsterMgr.AllMonstersInRoom(player.RoomNumber)
+
 	for _, inst := range monsters {
 		if inst.Alive {
-			continue // can only skin dead monsters
+			continue
 		}
+
 		def := e.monsters[inst.DefNumber]
 		if def == nil {
 			continue
 		}
+
 		name := strings.ToLower(FormatMonsterName(def, e.monAdjs))
 		noun := strings.ToLower(def.Name)
-		if !strings.HasPrefix(name, target) && !strings.HasPrefix(noun, target) {
+
+		if !strings.HasPrefix(name, target) &&
+			!strings.HasPrefix(noun, target) {
+			continue
+		}
+
+		matchCount++
+		if matchCount <= ordSkip {
 			continue
 		}
 
 		if def.Discorporate {
-			return &CommandResult{Messages: []string{"There is nothing left to skin."}}
+			return &CommandResult{
+				Messages: []string{"There is nothing left to skin."},
+			}
 		}
 
 		if inst.Skinned {
-			return &CommandResult{Messages: []string{"This corpse has already been skinned."}}
+			return &CommandResult{
+				Messages: []string{"This corpse has already been skinned."},
+			}
 		}
 
 		// Check for skin items
@@ -6108,7 +6124,7 @@ func (e *GameEngine) doSkin(ctx context.Context, player *Player, args []string) 
 			skinMsgs = append(skinMsgs, fmt.Sprintf("You skin %s %s but find nothing useful.", articleFor(displayName, def.Unique), displayName))
 		}
 
-		inst.Skinned = true
+		e.monsterMgr.MarkSkinned(inst.ID)
 		e.SavePlayer(ctx, player)
 		return &CommandResult{
 			Messages:      skinMsgs,
