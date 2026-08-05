@@ -280,6 +280,8 @@ func (sc *ScriptContext) execAction(action gameworld.ScriptAction) {
 		sc.doRandom(action.Args)
 	case "DAMAGEPLR":
 		sc.doDamagePlr(action.Args)
+	case "HEALPLR":
+		sc.doHealPlr(action.Args)
 	case "STRCVT":
 		sc.doStrCvt(action.Args)
 	case "STRCPY":
@@ -1136,6 +1138,7 @@ func (sc *ScriptContext) doRandom(args []string) {
 	sc.setVar(varName, rand.Intn(max))
 }
 
+<<<<<<< HEAD
 // doDamagePlr applies damage to the player.
 func (sc *ScriptContext) doDamagePlr(args []string) {
 	if len(args) < 2 {
@@ -1162,6 +1165,112 @@ func (sc *ScriptContext) doDamagePlr(args []string) {
 		text := strings.Join(args[idx+1:], " ")
 		sc.Messages = append(sc.Messages, sc.expandScriptText(text))
 	}
+=======
+func (sc *ScriptContext) doDamagePlr(args []string) {
+	if len(args) < 1 {
+		return
+	}
+
+	idx := 0
+	bodyOnly := false
+	damageType := ""
+
+	// Optional BODYONLY keyword.
+	if strings.EqualFold(args[idx], "BODYONLY") {
+		bodyOnly = true
+		idx++
+	}
+
+	if idx >= len(args) {
+		return
+	}
+
+	// Support both:
+	// DAMAGEPLR 15 message...
+	// DAMAGEPLR ELECTRIC 15 message...
+	if _, err := strconv.Atoi(args[idx]); err != nil {
+		damageType = strings.ToUpper(args[idx])
+		idx++
+	}
+
+	if idx >= len(args) {
+		return
+	}
+
+	amount := sc.resolveNumericArg(args[idx])
+	idx++
+
+	finalDamage := amount
+
+	if !bodyOnly && damageType != "" {
+		finalDamage = sc.applyPlayerResistance(damageType, amount)
+	}
+
+	if finalDamage < 0 {
+		finalDamage = 0
+	}
+
+	sc.Player.BodyPoints -= finalDamage
+	if sc.Player.BodyPoints < 0 {
+		sc.Player.BodyPoints = 0
+	}
+
+	if idx < len(args) {
+		text := strings.Join(args[idx:], " ")
+		sc.Messages = append(sc.Messages, sc.expandScriptText(text))
+	}
+}
+
+func (sc *ScriptContext) doHealPlr(args []string) {
+	if len(args) < 1 {
+		return
+	}
+
+	amount := sc.resolveNumericArg(args[0])
+	if amount < 0 {
+		amount = 0
+	}
+
+	oldBP := sc.Player.BodyPoints
+
+	sc.Player.BodyPoints += amount
+	if sc.Player.BodyPoints > sc.Player.MaxBodyPoints {
+		sc.Player.BodyPoints = sc.Player.MaxBodyPoints
+	}
+
+	actualHeal := sc.Player.BodyPoints - oldBP
+
+	if len(args) > 1 {
+		text := strings.Join(args[1:], " ")
+		text = strings.ReplaceAll(text, "%D", strconv.Itoa(actualHeal))
+		sc.Messages = append(sc.Messages, sc.expandScriptText(text))
+	}
+}
+
+func (sc *ScriptContext) applyPlayerResistance(damageType string, amount int) int {
+	resistance := 0
+
+	switch strings.ToUpper(damageType) {
+	case "BURN", "FIRE":
+		resistance = 0 //todo: sc.Player.FireResistance
+	case "ELECTRIC", "LIGHTNING":
+		resistance = 0 //todo sc.Player.ElectricResistance
+	case "COLD", "ICE":
+		resistance = 0 //todo: sc.Player.ColdResistance
+	case "POISON":
+		resistance = 0 //todo: sc.Player.PoisonResistance
+	}
+
+	// Assuming resistance is a percentage from 0 to 100.
+	if resistance < 0 {
+		resistance = 0
+	}
+	if resistance > 100 {
+		resistance = 100
+	}
+
+	return amount * (100 - resistance) / 100
+>>>>>>> ed3e9ab (implement babich root healing)
 }
 
 // doStrCvt converts a variable to a string for %0-%9 substitution.

@@ -4099,7 +4099,11 @@ func (e *GameEngine) doEat(ctx context.Context, player *Player, args []string) *
 				} else if spellNum != 0 {
 					msgs = append(msgs, fmt.Sprintf("[Spell #%d effect coming soon.]", spellNum))
 				}
+			} else if spellNum != 0 {
+				msgs = append(msgs, fmt.Sprintf("[Spell #%d effect coming soon.]", spellNum))
+
 			}
+
 			e.SavePlayer(ctx, player)
 			return &CommandResult{
 				Messages:      msgs,
