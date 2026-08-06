@@ -63,7 +63,7 @@ func (e *GameEngine) doMineReal(ctx context.Context, player *Player) *CommandRes
 	}
 
 	// Success chance: base 30% + mining*5 + STR/10
-	chance := 30 + miningSkill*5 + player.Strength/10
+	chance := 30 + miningSkill*5 + player.EffectiveStat(StatStrength)/10
 	if chance > 90 {
 		chance = 90
 	}
@@ -478,35 +478,34 @@ func (e *GameEngine) doWork(ctx context.Context, player *Player, args []string) 
 		// Find matching material in inventory
 		materialIdx := -1
 		materialAdj := 0
+
+		// Search inventory for the material
 		for j, ii := range player.Inventory {
 			mDef := e.items[ii.Archetype]
 			if mDef == nil {
 				continue
 			}
-			if mDef.Type == "MATERIAL" || mDef.Type == "MATERIAL2" {
-				if mDef.Parameter2 == 8 || mDef.Parameter2 == 0 { // weaponsmithing material
-					mName := strings.ToLower(e.getItemNounName(mDef))
-					// Check both definition adjective and instance adjective
-					defAdj := ""
-					if mDef.Parameter1 > 0 {
-						defAdj = strings.ToLower(e.getAdjName(mDef.Parameter1))
-					}
-					instAdj := strings.ToLower(e.getAdjName(ii.Adj1))
-					if strings.Contains(mName, metal) || strings.Contains(defAdj, metal) ||
-						strings.Contains(instAdj, metal) || strings.HasPrefix(metal, defAdj) ||
-						strings.HasPrefix(metal, instAdj) {
-						materialIdx = j
-						if ii.Adj1 > 0 {
-							materialAdj = ii.Adj1 // prefer instance adjective
-						} else if mDef.Parameter1 > 0 {
-							materialAdj = mDef.Parameter1
-						}
-						break
-					}
+
+			// Check if it's a material for Weaponsmithing (Skill 8)
+			if (mDef.Type == "MATERIAL" || mDef.Type == "MATERIAL2" || mDef.Type == "MISC") && (mDef.Parameter2 == 8 || mDef.Parameter2 == 0) {
+
+				// Get the names for comparison
+				mNoun := strings.ToLower(e.getItemNounName(mDef)) // e.g., "metal"
+				instAdj := strings.ToLower(e.getAdjName(ii.Adj1)) // e.g., "copper"
+
+				// FLEXIBLE MATCHING:
+				// Check if the user's input matches the adjective, the noun, or the combined name
+				fullItemName := instAdj + " " + mNoun // e.g., "copper metal"
+
+				if metal == instAdj || metal == mNoun || metal == fullItemName ||
+					strings.Contains(fullItemName, metal) {
+
+					materialIdx = j
+					materialAdj = ii.Adj1
+					break
 				}
 			}
 		}
-
 		if materialIdx < 0 {
 			// Also accept the metal name directly as a known metal type
 			knownMetals := []string{"copper", "iron", "brass", "bronze", "steel", "truesteel", "randar", "elkyri"}
@@ -556,7 +555,6 @@ func (e *GameEngine) doWork(ctx context.Context, player *Player, args []string) 
 			RoomBroadcast: []string{fmt.Sprintf("%s works diligently at the forge.", player.FirstName)},
 			PlayerState:   player,
 		}
-
 	case 2: // Heated → Hammer
 		player.CraftingStep = 3
 		player.RoundTimeExpiry = time.Now().Add(15 * time.Second)
