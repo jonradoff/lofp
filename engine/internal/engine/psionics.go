@@ -312,7 +312,7 @@ func (e *GameEngine) doProjectPsi(ctx context.Context, player *Player, args []st
 	} else {
 		schoolSkill = player.Skills[27]
 	}
-	castChance := 50 + (psiSkill+schoolSkill)*3 + player.Willpower/5 - disc.Level*2
+	castChance := 50 + (psiSkill+schoolSkill)*3 + player.EffectiveStat(StatWillpower)/5 - disc.Level*2
 	if castChance < 15 {
 		castChance = 15
 	}
@@ -556,7 +556,7 @@ func (e *GameEngine) projectManipulateLock(player *Player, args []string) *Comma
 		}
 		// Skill check: psi skill + willpower vs lock difficulty
 		psiSkill := player.Skills[26] + player.Skills[28]
-		chance := 40 + psiSkill*3 + player.Willpower/5
+		chance := 40 + psiSkill*3 + player.EffectiveStat(StatWillpower)/5
 		if player.IsGM {
 			chance = 100
 		}
