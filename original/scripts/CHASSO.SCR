@@ -2093,8 +2093,7 @@ ENDIF
 ;
 NUMBER 3639
 NAME House of the Elder Wolf
-CALL 33
- 
+CALL 33 
 ITEM 9 693
 *DESCRIPTION_START
 This simple chamber is sparsely decorated, with a small woven mat and two incense burners to either side. On it, cross-legged, an aging wolfling rests, still fit despite his years. A small sign has been posted by the gate, and a set of strap-on claws hang from a hook nearby.
