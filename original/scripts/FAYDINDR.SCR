@@ -1416,6 +1416,8 @@ EXIT O 275
 ITEM 0 1226 VAL2=225
 ITEM 9 693 ADJ1=10
 
+ITEM 0 168 ADJ1= 200 VAL1=6500 VAL3=514
+
 IFENTRY
 	IFVAR INTNUM6 = 2
 		ECHO PLAYER The guildmaster greets you as you arrive at the Adventurers' Guild for the first time. [Type TRAIN to see what training is available!]
