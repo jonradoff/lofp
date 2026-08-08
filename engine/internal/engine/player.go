@@ -36,6 +36,32 @@ var RaceStatRanges = map[int][7][2]int{
 	RaceWolfling:   {{30, 100}, {40, 110}, {40, 110}, {30, 100}, {40, 110}, {30, 100}, {30, 100}},
 }
 
+type StatID int
+
+const (
+	StatStrength StatID = iota
+	StatAgility
+	StatQuickness
+	StatConstitution
+	StatPerception
+	StatWillpower
+	StatEmpathy
+	HasteBuff
+	SlowDebuff
+)
+
+type EffectSource int
+
+const (
+	EffectSourceSpell EffectSource = iota
+	EffectSourcePotion
+	EffectSourcePoison
+	EffectSourceDisease
+	EffectSourceItem
+	EffectSourceGM
+	EffectSourceScript
+)
+
 // Gender constants
 const (
 	GenderMale   = 0
@@ -44,14 +70,14 @@ const (
 
 // Player represents a player's current state.
 type Player struct {
-	ID         bson.ObjectID     `bson:"_id,omitempty" json:"id"`
-	AccountID  string            `bson:"accountId,omitempty" json:"accountId,omitempty"`
-	FirstName  string            `bson:"firstName" json:"firstName"`
-	LastName   string            `bson:"lastName" json:"lastName"`
-	Race       int               `bson:"race" json:"race"`
-	Gender     int               `bson:"gender" json:"gender"`
-	Level      int               `bson:"level" json:"level"`
-	Experience int               `bson:"experience" json:"experience"`
+	ID         bson.ObjectID `bson:"_id,omitempty" json:"id"`
+	AccountID  string        `bson:"accountId,omitempty" json:"accountId,omitempty"`
+	FirstName  string        `bson:"firstName" json:"firstName"`
+	LastName   string        `bson:"lastName" json:"lastName"`
+	Race       int           `bson:"race" json:"race"`
+	Gender     int           `bson:"gender" json:"gender"`
+	Level      int           `bson:"level" json:"level"`
+	Experience int           `bson:"experience" json:"experience"`
 
 	// Stats
 	Strength     int `bson:"strength" json:"strength"`
@@ -74,33 +100,33 @@ type Player struct {
 
 	// Position
 	RoomNumber int  `bson:"roomNumber" json:"roomNumber"`
-	Position   int  `bson:"position" json:"position"` // 0=standing, 1=sitting, 2=laying, 3=kneeling, 4=flying
-	Hidden     bool `bson:"hidden" json:"hidden"`         // stealth: revealed by movement, emotes, attacks
-	Invisible  bool `bson:"invisible" json:"invisible"`   // spell effect: not revealed by movement, only by attacks or dispel
+	Position   int  `bson:"position" json:"position"`   // 0=standing, 1=sitting, 2=laying, 3=kneeling, 4=flying
+	Hidden     bool `bson:"hidden" json:"hidden"`       // stealth: revealed by movement, emotes, attacks
+	Invisible  bool `bson:"invisible" json:"invisible"` // spell effect: not revealed by movement, only by attacks or dispel
 	Dead       bool `bson:"dead" json:"dead"`
 
 	// Physical attributes
-	Height     int `bson:"height,omitempty" json:"height,omitempty"`       // inches
+	Height     int `bson:"height,omitempty" json:"height,omitempty"` // inches
 	HeightTrue int `bson:"heightTrue,omitempty" json:"heightTrue,omitempty"`
-	Weight     int `bson:"weight,omitempty" json:"weight,omitempty"`       // pounds (base, not inventory)
+	Weight     int `bson:"weight,omitempty" json:"weight,omitempty"` // pounds (base, not inventory)
 	WeightTrue int `bson:"weightTrue,omitempty" json:"weightTrue,omitempty"`
 	Age        int `bson:"age,omitempty" json:"age,omitempty"`
 	AgeTrue    int `bson:"ageTrue,omitempty" json:"ageTrue,omitempty"`
 
 	// Status conditions
-	Bleeding    bool `bson:"bleeding" json:"bleeding"`
-	Stunned     bool `bson:"stunned" json:"stunned"`
-	Diseased    bool `bson:"diseased" json:"diseased"`
-	Poisoned    bool `bson:"poisoned" json:"poisoned"`
-	Joined      bool `bson:"joined" json:"joined"`
-	Unconscious bool `bson:"unconscious" json:"unconscious"`
-	Immobilized bool `bson:"immobilized" json:"immobilized"`
-	Sleeping    bool `bson:"sleeping,omitempty" json:"sleeping,omitempty"`
-	Submitting  bool `bson:"submitting,omitempty" json:"submitting,omitempty"`
-	Undead      bool `bson:"undead,omitempty" json:"undead,omitempty"`
-	WolfForm    bool `bson:"wolfForm,omitempty" json:"wolfForm,omitempty"`
-	SlimeForm   bool `bson:"slimeForm,omitempty" json:"slimeForm,omitempty"`
-	Disguised   bool `bson:"disguised,omitempty" json:"disguised,omitempty"`
+	Bleeding        bool      `bson:"bleeding" json:"bleeding"`
+	Stunned         bool      `bson:"stunned" json:"stunned"`
+	Diseased        bool      `bson:"diseased" json:"diseased"`
+	Poisoned        bool      `bson:"poisoned" json:"poisoned"`
+	Joined          bool      `bson:"joined" json:"joined"`
+	Unconscious     bool      `bson:"unconscious" json:"unconscious"`
+	Immobilized     bool      `bson:"immobilized" json:"immobilized"`
+	Sleeping        bool      `bson:"sleeping,omitempty" json:"sleeping,omitempty"`
+	Submitting      bool      `bson:"submitting,omitempty" json:"submitting,omitempty"`
+	Undead          bool      `bson:"undead,omitempty" json:"undead,omitempty"`
+	WolfForm        bool      `bson:"wolfForm,omitempty" json:"wolfForm,omitempty"`
+	SlimeForm       bool      `bson:"slimeForm,omitempty" json:"slimeForm,omitempty"`
+	Disguised       bool      `bson:"disguised,omitempty" json:"disguised,omitempty"`
 	RoundTime       int       `bson:"roundTime" json:"roundTime"`
 	RoundTimeExpiry time.Time `bson:"-" json:"-"` // transient: when roundtime ends
 	CanFly          bool      `bson:"canFly" json:"canFly"`
@@ -108,20 +134,23 @@ type Player struct {
 	PreparedSpell   int       `bson:"preparedSpell,omitempty" json:"preparedSpell,omitempty"`
 
 	// Combat
-	Stance        int           `bson:"-" json:"-"`          // StanceNormal..StanceBerserk
-	CombatTarget  *CombatTarget `bson:"-" json:"-"`          // current combat target
-	DefenseBonus  int           `bson:"-" json:"-"`          // from spells/psi
-	PreparedPsi   int           `bson:"-" json:"-"`          // prepared psi discipline ID
-	ActivePsi     map[int]bool `bson:"-" json:"-"`          // currently maintained psi disciplines
-	BackstabNext  bool          `bson:"-" json:"-"`          // next attack is a backstab
-	TelepathyActive bool      `bson:"telepathyActive,omitempty" json:"telepathyActive,omitempty"`
-	TelepathyExpiry time.Time `bson:"telepathyExpiry,omitempty" json:"telepathyExpiry,omitempty"`
-	Emotional       bool      `bson:"emotional,omitempty" json:"emotional,omitempty"`
+	Stance          int           `bson:"-" json:"-"` // StanceNormal..StanceBerserk
+	CombatTarget    *CombatTarget `bson:"-" json:"-"` // current combat target
+	DefenseBonus    int           `bson:"-" json:"-"` // from spells/psi
+	PreparedPsi     int           `bson:"-" json:"-"` // prepared psi discipline ID
+	ActivePsi       map[int]bool  `bson:"-" json:"-"` // currently maintained psi disciplines
+	BackstabNext    bool          `bson:"-" json:"-"` // next attack is a backstab
+	TelepathyActive bool          `bson:"telepathyActive,omitempty" json:"telepathyActive,omitempty"`
+	TelepathyExpiry time.Time     `bson:"telepathyExpiry,omitempty" json:"telepathyExpiry,omitempty"`
+	Emotional       bool          `bson:"emotional,omitempty" json:"emotional,omitempty"`
+
+	// Temporary spell/stat modifiers
+	ActiveStatEffects []StatEffect `bson:"activeStatEffects,omitempty" json:"activeStatEffects,omitempty"`
 
 	// Crafting state (transient)
-	CraftingItem string `bson:"-" json:"-"` // what they're making (e.g., "greatsword")
+	CraftingItem  string `bson:"-" json:"-"` // what they're making (e.g., "greatsword")
 	CraftingMetal string `bson:"-" json:"-"` // what material (e.g., "copper")
-	CraftingStep int    `bson:"-" json:"-"` // 0=not crafting, 1=planned, 2=heated, 3=hammered, 4=quenched, 5=buffed, 6=done
+	CraftingStep  int    `bson:"-" json:"-"` // 0=not crafting, 1=planned, 2=heated, 3=hammered, 4=quenched, 5=buffed, 6=done
 
 	// Teaching: skill being taught to others (transient)
 	Teaching      int `bson:"-" json:"-"` // skill number being taught (0 = not teaching)
@@ -161,7 +190,7 @@ type Player struct {
 	BuildPoints  int `bson:"buildPoints,omitempty" json:"buildPoints,omitempty"`
 
 	// Skills
-	Skills      map[int]int  `bson:"skills" json:"skills"`           // skill# -> level
+	Skills      map[int]int  `bson:"skills" json:"skills"`                               // skill# -> level
 	KnownSpells map[int]bool `bson:"knownSpells,omitempty" json:"knownSpells,omitempty"` // spell# -> known
 
 	// Internal variables (INTNUM0-99, flags, etc.)
@@ -174,17 +203,17 @@ type Player struct {
 	Flag4 int `bson:"-" json:"-"`
 
 	// Appearance / Description
-	DescLine1  string `bson:"descLine1,omitempty" json:"descLine1,omitempty"` // custom description lines (visible on EXAMINE)
-	DescLine2  string `bson:"descLine2,omitempty" json:"descLine2,omitempty"`
-	DescLine3  string `bson:"descLine3,omitempty" json:"descLine3,omitempty"`
-	EntryEcho  string `bson:"entryEcho,omitempty" json:"entryEcho,omitempty"` // custom room entry text (replaces "X arrives.")
-	ExitEcho   string `bson:"exitEcho,omitempty" json:"exitEcho,omitempty"`   // custom room exit text (replaces "X goes north.")
+	DescLine1 string `bson:"descLine1,omitempty" json:"descLine1,omitempty"` // custom description lines (visible on EXAMINE)
+	DescLine2 string `bson:"descLine2,omitempty" json:"descLine2,omitempty"`
+	DescLine3 string `bson:"descLine3,omitempty" json:"descLine3,omitempty"`
+	EntryEcho string `bson:"entryEcho,omitempty" json:"entryEcho,omitempty"` // custom room entry text (replaces "X arrives.")
+	ExitEcho  string `bson:"exitEcho,omitempty" json:"exitEcho,omitempty"`   // custom room exit text (replaces "X goes north.")
 
 	// Bot / API Key
-	APIKeyHash    string `bson:"apiKeyHash,omitempty" json:"-"`                       // bcrypt hash of API key (never sent to client)
-	APIKeyPrefix  string `bson:"apiKeyPrefix,omitempty" json:"apiKeyPrefix,omitempty"` // first 8 chars for display
-	BotGMAllowed  bool   `bson:"botGMAllowed,omitempty" json:"botGMAllowed,omitempty"` // whether bot can use GM commands
-	IsBot         bool   `bson:"-" json:"-"`                                           // transient: connected via API key
+	APIKeyHash   string `bson:"apiKeyHash,omitempty" json:"-"`                        // bcrypt hash of API key (never sent to client)
+	APIKeyPrefix string `bson:"apiKeyPrefix,omitempty" json:"apiKeyPrefix,omitempty"` // first 8 chars for display
+	BotGMAllowed bool   `bson:"botGMAllowed,omitempty" json:"botGMAllowed,omitempty"` // whether bot can use GM commands
+	IsBot        bool   `bson:"-" json:"-"`                                           // transient: connected via API key
 
 	// Settings (persistent toggles via SET command)
 	// Note: SuppressLogon/Logoff default to true for new characters (set in CreateNewPlayer).
@@ -201,11 +230,11 @@ type Player struct {
 	PromptMode   bool   `bson:"promptMode" json:"promptMode"`
 	SpeechAdverb string `bson:"speechAdverb,omitempty" json:"speechAdverb,omitempty"` // e.g. "gently"
 	IsGM         bool   `bson:"isGM" json:"isGM"`
-	GMTrace    bool `bson:"-" json:"-"`                                     // @trace: show script debug output
-	GMHat      bool `bson:"gmHat,omitempty" json:"gmHat,omitempty"`        // visible as GM on WHO list
-	GMHidden   bool `bson:"gmHidden,omitempty" json:"gmHidden,omitempty"`  // hidden from WHO list
-	GMInvis      bool   `bson:"gmInvis,omitempty" json:"gmInvis,omitempty"`    // invisible to players
-	GMEditTarget string `bson:"-" json:"-"` // @edpl target name for subsequent @set commands
+	GMTrace      bool   `bson:"-" json:"-"`                                   // @trace: show script debug output
+	GMHat        bool   `bson:"gmHat,omitempty" json:"gmHat,omitempty"`       // visible as GM on WHO list
+	GMHidden     bool   `bson:"gmHidden,omitempty" json:"gmHidden,omitempty"` // hidden from WHO list
+	GMInvis      bool   `bson:"gmInvis,omitempty" json:"gmInvis,omitempty"`   // invisible to players
+	GMEditTarget string `bson:"-" json:"-"`                                   // @edpl target name for subsequent @set commands
 
 	// Player title (e.g., "the Baroness") — shown on LOOK/EXAMINE
 	Title string `bson:"title,omitempty" json:"title,omitempty"`
@@ -217,17 +246,26 @@ type Player struct {
 
 // InventoryItem is an instance of an item held by a player.
 type InventoryItem struct {
-	Archetype int    `bson:"archetype" json:"archetype"`
-	Adj1      int    `bson:"adj1,omitempty" json:"adj1,omitempty"`
-	Adj2      int    `bson:"adj2,omitempty" json:"adj2,omitempty"`
-	Adj3      int    `bson:"adj3,omitempty" json:"adj3,omitempty"`
-	Val1      int    `bson:"val1,omitempty" json:"val1,omitempty"`
-	Val2      int    `bson:"val2,omitempty" json:"val2,omitempty"`
-	Val3      int    `bson:"val3,omitempty" json:"val3,omitempty"`
-	Val4      int    `bson:"val4,omitempty" json:"val4,omitempty"`
-	Val5      int    `bson:"val5,omitempty" json:"val5,omitempty"`
-	State     string `bson:"state,omitempty" json:"state,omitempty"`
-	WornSlot  string `bson:"wornSlot,omitempty" json:"wornSlot,omitempty"`
+	Archetype int             `bson:"archetype" json:"archetype"`
+	Adj1      int             `bson:"adj1,omitempty" json:"adj1,omitempty"`
+	Adj2      int             `bson:"adj2,omitempty" json:"adj2,omitempty"`
+	Adj3      int             `bson:"adj3,omitempty" json:"adj3,omitempty"`
+	Val1      int             `bson:"val1,omitempty" json:"val1,omitempty"`
+	Val2      int             `bson:"val2,omitempty" json:"val2,omitempty"`
+	Val3      int             `bson:"val3,omitempty" json:"val3,omitempty"`
+	Val4      int             `bson:"val4,omitempty" json:"val4,omitempty"`
+	Val5      int             `bson:"val5,omitempty" json:"val5,omitempty"`
+	State     string          `bson:"state,omitempty" json:"state,omitempty"`
+	WornSlot  string          `bson:"wornSlot,omitempty" json:"wornSlot,omitempty"`
+	Contents  []InventoryItem `bson:"contents,omitempty" json:"contents,omitempty"`
+}
+
+type StatEffect struct {
+	EffectID  int          `bson:"effectId" json:"effectId"` // Spell ID, Potion ID, etc.
+	Source    EffectSource `bson:"source" json:"source"`     // Spell, Potion, Item...
+	Stat      StatID       `bson:"stat" json:"stat"`
+	Modifier  int          `bson:"modifier" json:"modifier"`
+	ExpiresAt time.Time    `bson:"expiresAt" json:"expiresAt"`
 }
 
 // FullName returns the player's display name.
@@ -345,4 +383,94 @@ func RaceNameByID(race int) string {
 // IsFlying returns true if the player is able to fly (Drakin race or magical effect).
 func (p *Player) IsFlying() bool {
 	return p.Race == RaceDrakin || p.CanFly
+}
+
+func (p *Player) EffectiveStat(stat StatID) int {
+	now := time.Now()
+
+	var value int
+
+	switch stat {
+	case StatStrength:
+		value = p.Strength
+	case StatAgility:
+		value = p.Agility
+	case StatQuickness:
+		value = p.Quickness
+	case StatConstitution:
+		value = p.Constitution
+	case StatPerception:
+		value = p.Perception
+	case StatWillpower:
+		value = p.Willpower
+	case StatEmpathy:
+		value = p.Empathy
+	default:
+		return 0
+	}
+
+	for _, effect := range p.ActiveStatEffects {
+		if effect.Stat != stat {
+			continue
+		}
+
+		if effect.ExpiresAt.After(now) {
+			value += effect.Modifier
+		}
+	}
+
+	return value
+}
+
+func (p *Player) ApplyStatEffect(
+	effectID int,
+	source EffectSource,
+	stat StatID,
+	modifier int,
+	duration time.Duration,
+) {
+	expiresAt := time.Now().Add(duration)
+
+	for i := range p.ActiveStatEffects {
+		effect := &p.ActiveStatEffects[i]
+
+		if effect.EffectID == effectID && effect.Source == source {
+			effect.Stat = stat
+			effect.Modifier = modifier
+			effect.ExpiresAt = expiresAt
+			return
+		}
+	}
+
+	p.ActiveStatEffects = append(p.ActiveStatEffects, StatEffect{
+		EffectID:  effectID,
+		Source:    source,
+		Stat:      stat,
+		Modifier:  modifier,
+		ExpiresAt: expiresAt,
+	})
+
+}
+
+func (p *Player) HasItem(archetype int, adj int) bool {
+	for _, ii := range p.Inventory {
+		if ii.Archetype == archetype && (adj < 0 || ii.Adj1 == adj) {
+			return true
+		}
+	}
+
+	for _, ii := range p.Worn {
+		if ii.Archetype == archetype && (adj < 0 || ii.Adj1 == adj) {
+			return true
+		}
+	}
+
+	if p.Wielded != nil {
+		if p.Wielded.Archetype == archetype &&
+			(adj < 0 || p.Wielded.Adj1 == adj) {
+			return true
+		}
+	}
+
+	return false
 }
