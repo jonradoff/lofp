@@ -93,12 +93,33 @@ func (e *GameEngine) generateTreasure(roomNum int, treasureLevel int) []string {
 			}
 
 		case roll < 55:
-			// Locked container — for rogues to practice lockpicking (available at all levels)
+			// Locked container — for rogues to practice lockpicking.
 			if item := e.randomChestDrop(treasureLevel); item != nil {
 				ref := len(room.Items)
 				item.Ref = ref
+				item.State = "LOCKED"
+
 				room.Items = append(room.Items, *item)
-				msgs = append(msgs, "A small locked chest lies among the remains.")
+
+				e.generateChestContents(
+					room,
+					ref,
+					treasureLevel,
+				)
+
+				if def := e.items[item.Archetype]; def != nil {
+					name := e.formatItemName(
+						def,
+						item.Adj1,
+						item.Adj2,
+						item.Adj3,
+					)
+
+					msgs = append(
+						msgs,
+						fmt.Sprintf("%s lies among the remains.", capArticle(name)),
+					)
+				}
 			}
 
 		case roll < 75:
@@ -286,7 +307,9 @@ func (e *GameEngine) randomChestDrop(treasureLevel int) *gameworld.RoomItem {
 
 	// Chance for trap (scales with treasure level: 10% at level 1, up to 50% at high levels)
 	trapChance := 10 + treasureLevel/2
-	if trapChance > 50 { trapChance = 50 }
+	if trapChance > 50 {
+		trapChance = 50
+	}
 	if rand.Intn(100) < trapChance {
 		trapTypes := []int{1, 2, 4, 5} // needle, gas, blades, moderate needle
 		if treasureLevel >= 30 {
@@ -301,6 +324,103 @@ func (e *GameEngine) randomChestDrop(treasureLevel int) *gameworld.RoomItem {
 	return item
 }
 
+func (e *GameEngine) generateChestContents(room *gameworld.Room, chestRef int, treasureLevel int) {
+	addItem := func(item *gameworld.RoomItem) {
+		if item == nil {
+			return
+		}
+
+		item.Ref = chestRef
+		item.IsPut = true
+		item.PutIn = chestRef
+
+		room.Items = append(room.Items, *item)
+	}
+
+	addMoney := func(denomination int, amount int) {
+		if amount <= 0 {
+			return
+		}
+
+		moneyArch := e.findBaseMoneyArchetype(denomination)
+		if moneyArch == 0 {
+			return
+		}
+
+		room.Items = append(
+			room.Items,
+			gameworld.RoomItem{
+				Ref:       chestRef,
+				Archetype: moneyArch,
+				Val1:      amount,
+				IsPut:     true,
+				PutIn:     chestRef,
+			},
+		)
+	}
+
+	// Always include a better coin reward than loose treasure.
+	copperBase := treasureLevel * 15
+
+	if copperBase < 1 {
+		copperBase = 1
+	}
+
+	coins := copperBase + rand.Intn(copperBase+1)
+
+	gold := coins / 100
+	remaining := coins % 100
+
+	silver := remaining / 10
+	copper := remaining % 10
+
+	// <-- Put these three lines HERE
+	addMoney(MoneyGold, gold)
+	addMoney(MoneySilver, silver)
+	addMoney(MoneyCopper, copper)
+
+	// Chests always contain at least one useful item.
+	switch rand.Intn(3) {
+	case 0:
+		addItem(e.randomWeaponDrop(treasureLevel))
+	case 1:
+		addItem(e.randomArmorDrop(treasureLevel))
+	case 2:
+		addItem(e.randomScrollDrop(treasureLevel))
+	}
+
+	// Better chests have a chance at another useful item.
+	if treasureLevel >= 20 && rand.Intn(100) < 50 {
+		switch rand.Intn(3) {
+		case 0:
+			addItem(e.randomWeaponDrop(treasureLevel))
+		case 1:
+			addItem(e.randomArmorDrop(treasureLevel))
+		case 2:
+			addItem(e.randomScrollDrop(treasureLevel))
+		}
+	}
+}
+
+func (e *GameEngine) findBaseMoneyArchetype(denomination int) int {
+	for num, def := range e.items {
+		if def.Type != "MONEY" {
+			continue
+		}
+
+		// Base currency only; regional currencies use PARAMETER2 > 0.
+		if def.Parameter2 != 0 {
+			continue
+		}
+
+		if def.Parameter1 == denomination {
+			return num
+		}
+	}
+
+	return 0
+}
+
 func joinParts(parts []string) string {
 	if len(parts) == 0 {
 		return ""
@@ -310,3 +430,9 @@ func joinParts(parts []string) string {
 	}
 	return fmt.Sprintf("%s and %s", parts[0], parts[len(parts)-1])
 }
+
+const (
+	MoneyGold   = 1
+	MoneySilver = 2
+	MoneyCopper = 3
+)
