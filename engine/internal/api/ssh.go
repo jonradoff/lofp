@@ -766,6 +766,11 @@ func (s *Server) sshCommandLoop(ctx context.Context, session *Session, sc *sshCo
 		}
 
 		result := s.engine.ProcessCommand(ctx, session.Player, input)
+
+		// Expire timed effects
+		timerMessages := s.engine.UpdatePlayerTimers(session.Player)
+		result.Messages = append(result.Messages, timerMessages...)
+
 		result.PlayerState = session.Player
 		result.PromptIndicators = session.Player.PromptIndicators()
 		s.sendResult(session, result)
