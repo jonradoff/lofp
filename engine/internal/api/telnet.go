@@ -1099,10 +1099,10 @@ func (s *Server) handleTelnetConn(rawConn net.Conn, isTLS bool) {
 		if !player.GMInvis && !player.GMHidden {
 			if !session.quitSent {
 				s.broadcastGlobal(player.FirstName,
-					[]string{fmt.Sprintf("** %s has just left the Realms.", player.FirstName)})
+					[]string{fmt.Sprintf("** %s has just left the Realms.", player.DisplayNameCap())})
 			}
 			s.broadcastToRoom(player.RoomNumber, player.FirstName,
-				[]string{fmt.Sprintf("%s fades from the Realms.", player.FirstName)})
+				[]string{fmt.Sprintf("%s fades from the Realms.", player.DisplayNameCap())})
 		}
 		s.gamelog.Log(gamelog.EventGameExit, player.FullName(), accountID,
 			fmt.Sprintf("telnet from %s", ip), player.RoomNumber, "")

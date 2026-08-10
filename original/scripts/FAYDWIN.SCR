@@ -2037,11 +2037,12 @@ CALL 33
 ITEM 9 693 ADJ1=10
 
 *DESCRIPTION_START
-The trail ends before a crumbling granite structure. One wall has partially collapsed, allowing easy entry into its weed and bramble infested interior. A few dried leaves, scattered in the cold wind, cling to the stone.
+The trail ends before a crumbling granite structure. One wall has partially collapsed, allowing easy entry into its weed and bramble infested interior. A few dried leaves, scattered in the cold wind, cling to the stone. A narrow path climbs away from the trail, winding higher into the gravestones.
 *DESCRIPTION_END
 EXIT E 302
 ITEM 0 83 VAL2=308 ADJ1=386
 ITEM 0 492 ADJ1=533 ADJ2=148
+ITEM 2 8300 VAL2=5300
 ;
 NUMBER 308
 NAME Cemetery, old house

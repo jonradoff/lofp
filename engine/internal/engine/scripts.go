@@ -797,10 +797,29 @@ func (sc *ScriptContext) doNewItem(args []string) {
 			Val1: item.Val1, Val2: item.Val2, Val3: item.Val3, Val4: item.Val4, Val5: item.Val5,
 			ItemBits: item.ItemBits,
 		}
-		sc.Room.Items = append(sc.Room.Items, ri)
+		// A NEWITEM ref can collide with an item already occupying that ref slot
+		// (e.g. FULLMENE.SCR's cottage reuses ref 8, which WINOUT.SCR's base room
+		// definition already uses for ground snow) — replace in place rather than
+		// appending a duplicate, or a later REMOVEITEM <ref> only removes the first
+		// match and strands the other (reported as a stray cottage/duplicate door
+		// left behind by the Menelian's-cottage CEVENT).
+		changeType := "item_add"
+		replaced := false
+		for i := range sc.Room.Items {
+			if sc.Room.Items[i].Ref == ref && !sc.Room.Items[i].IsPut {
+				sc.Room.Items[i] = ri
+				changeType = "item_update"
+				replaced = true
+				break
+			}
+		}
+		if !replaced {
+			sc.Room.Items = append(sc.Room.Items, ri)
+		}
 		sc.Engine.notifyRoomChange(RoomChange{
 			RoomNumber: sc.Room.Number,
-			Type:       "item_add",
+			Type:       changeType,
+			ItemRef:    ref,
 			Item:       &ri,
 		})
 	}
@@ -2418,6 +2437,8 @@ func (sc *ScriptContext) doRoutine(args []string) {
 		sc.applyItemSpellOnPlayer(spell)
 	case 2:
 		sc.Player.PreparedSpell = spellID
+		sc.Player.PreparedSpellReagentArch = 0
+		sc.Player.PreparedMoonstoneBonus = false
 		sc.Messages = append(sc.Messages, fmt.Sprintf("The %s glows briefly. %s is prepared for casting. (CAST to release it.)", itemNoun, spell.Name))
 		sc.RoomMsgs = append(sc.RoomMsgs, fmt.Sprintf("The %s in %s's hands glows briefly.", itemNoun, sc.Player.FirstName))
 	}

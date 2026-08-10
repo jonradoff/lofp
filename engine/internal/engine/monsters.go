@@ -47,9 +47,13 @@ type MonsterInstance struct {
 	WebExpiry   time.Time `json:"-"`
 	Feared      bool      `json:"-"` // Fear spell: only flees, never attacks
 	FearExpiry  time.Time `json:"-"`
-	Charmed     bool      `json:"-"` // Charm spell: won't attack the caster
-	CharmExpiry time.Time `json:"-"`
-	CharmTarget string    `json:"-"` // player name who charmed it
+	Charmed        bool      `json:"-"` // Charm spell: won't attack the caster
+	CharmExpiry    time.Time `json:"-"`
+	CharmTarget    string    `json:"-"` // player name who charmed it
+	Silenced       bool      `json:"-"` // Silence spell: cannot cast unless def.SilenceIgnore
+	SilenceExpiry  time.Time `json:"-"`
+	Imprisoned     bool      `json:"-"` // Imprison spell: cannot attack or cast at all
+	ImprisonExpiry time.Time `json:"-"`
 	Tentacled          bool      `json:"-"` // Siryx's Terrible Tentacles: immobilized, takes periodic crushing damage
 	TentacleExpiry     time.Time `json:"-"`
 	TentacleCasterName string    `json:"-"` // player who cast Tentacles, for death XP attribution on the DOT tick
@@ -426,6 +430,8 @@ func (e *GameEngine) monsterNamesInRoom(roomNum int) []string {
 		name := FormatMonsterName(def, e.monAdjs)
 		if !inst.Alive {
 			name += " (dead)"
+		} else if inst.Imprisoned {
+			name += " (imprisoned)"
 		} else if inst.Sleeping {
 			name += " (sleeping)"
 		} else if inst.Webbed {

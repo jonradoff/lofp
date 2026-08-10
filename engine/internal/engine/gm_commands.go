@@ -751,7 +751,7 @@ func (e *GameEngine) gmExp(ctx context.Context, player *Player, args []string) *
 		if e.sendToPlayer != nil {
 			e.sendToPlayer(target.FirstName, []string{fmt.Sprintf("Congratulations! You have advanced to level %d!", target.Level)})
 		}
-		if e.roomBroadcast != nil {
+		if e.roomBroadcast != nil && !target.Disguised {
 			e.roomBroadcast(target.RoomNumber, []string{fmt.Sprintf("%s has advanced to level %d!", target.FirstName, target.Level)})
 		}
 	}

@@ -24,7 +24,7 @@ const maxGenericTreasureItemNumber = 210
 var potionContainerArchetypes = []int{158, 159, 167}
 
 // Material adjectives for flask/vial only — bottles are plain glass and instead
-// let their liquid's own color/appearance show through (see potionVesselPhrase).
+// let their liquid's own color/appearance show through (see potionPhraseIfAny).
 var potionMaterialAdjIDs = []int{244, 143, 172, 218, 77, 224, 251}
 
 // Appearance adjectives describing a potion's liquid (color, smell, texture).

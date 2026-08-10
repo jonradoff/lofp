@@ -9,6 +9,131 @@ export default function VersionNotes({ onBack }: { onBack: () => void }) {
 
         <div className="space-y-6 text-sm">
           <section>
+            <h2 className="text-amber-400 text-lg font-bold mb-1">v11.30.0 &mdash; August 7, 2026</h2>
+            <p className="text-gray-400 mb-3">Guild rank now advances automatically as you train, matching the original game&rsquo;s formula, and Menelian&rsquo;s traveling cottage in Grymwood no longer leaves a stray duplicate of itself behind as it moves.</p>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">New Feature: Automatic Guild Rank Advancement</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Training a skill at your guild&rsquo;s own trainer now raises your rank in that guild by the build points spent &mdash; reconstructed from the original documented formula (&ldquo;ORGRANK = build points spent on training within guild&rdquo;), so rank reflects how much you&rsquo;ve actually trained there since joining, not your overall character level or experience</li>
+                  <li>Automatic advancement caps at rank 199 (just below High Master/High Priest) &mdash; crossing into the 200+ tier still requires a GM&rsquo;s <code className="text-amber-300">@rank</code></li>
+                  <li>Training now prints &ldquo;You are now rank X in the guild.&rdquo; whenever your displayed rank ticks up, matching the original flavor text</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Fixes</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Menelian&rsquo;s Cottage (Grymwood, room 128) periodically appeared with an extra duplicate of itself and a phantom door, and could leave the cottage stranded behind with its door missing after moving on &mdash; caused by the cottage&rsquo;s placement script reusing an item-ref slot the room already used for its own ground-snow decoration. Placing an item at a ref that&rsquo;s already occupied now replaces what was there instead of stacking a duplicate, which also protects any other script that reuses a room&rsquo;s item refs the same way</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2 className="text-amber-400 text-lg font-bold mb-1">v11.29.0 &mdash; August 6, 2026</h2>
+            <p className="text-gray-400 mb-3">A fully working Scry spell &mdash; remote room visions and a two-step eye-of-scrying ritual &mdash; a brand new guild area, the Order of the Skull, and a wide sweep of commands that were leaking a disguised player&rsquo;s real name instead of their persona.</p>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">New Spell: Scry</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Scry (215) has two uses. <code className="text-amber-300">CAST &lt;mark#&gt;</code> shows a brief vision of a marked room &mdash; full occupants, items, and exits, respecting <code className="text-amber-300">BRIEF</code> &mdash; without moving you there or revealing who&rsquo;s watching. Anyone actually standing in the scried room gets &ldquo;You have a brief yet distinct feeling that you are being watched.&rdquo;</li>
+                  <li>The second use targets a carried eye (termite eye, sharkhor eye, newt eye, werewolf eye, etc.): prepare and cast Rite of Preparation (412, a newly added spell &mdash; previously mislabeled &ldquo;Bloodsight&rdquo; in the spell list and otherwise unimplemented) at the eye to turn it cloudy, then Scry at the cloudy eye to make it translucent. <code className="text-amber-300">LOOK IN</code> a translucent eye reveals the room where the last player death occurred, with a 1-in-10 chance per look that the eye crumbles to dust and is destroyed</li>
+                  <li>Fixed a message-ordering bug shared with Bend Space (213/222): the success-roll line was being inserted before &ldquo;You gesture into the air.&rdquo; instead of after it</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">New Guild: Order of the Skull</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>A new necromancy-focused organization (28) with a six-room tower reachable via a climbable path from the cemetery trail near Fayd. Entry to the tower is restricted to Order members; inside, a Great Hall connects to a reagent shop (Anatomicatory), a skill-training room (Chamber of Necrology), and a hidden passage behind the throne &mdash; concentrate, pull, tap, or push the onyx skull revealed by looking behind the throne &mdash; leading up to the Skull Lord&rsquo;s private chamber</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Disguise Command</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li><code className="text-amber-300">DISGUISE</code> with no field value now always lists the basic personas (trader, merchant, lawkeeper, priest, commoner, beggar) available regardless of skill rank, instead of only mentioning them below rank 10</li>
+                  <li><code className="text-amber-300">DISGUISE LIST &lt;#&gt;</code> now shows Hairstyle and Haircolor as separate lines instead of blending them into one &ldquo;Hair&rdquo; entry</li>
+                  <li>New <code className="text-amber-300">DISGUISE CLEAR &lt;#&gt;</code> command resets a save slot back to empty</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Fixes: Disguise Identity Leaks</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>A disguised player&rsquo;s real name was leaking through instead of their persona in a large number of places: tending wounds (self, another player, or a monster/corpse); wielding or unwielding a weapon or shield, wearing or removing an item; eating, drinking, picking up, and dropping items (including coins and <code className="text-amber-300">GET ALL</code> / <code className="text-amber-300">GET ALL FROM</code> a container); following, holding, leaving, and disbanding a group, including the equivalent messages when a group leader or member disconnects; picking a lock; opening, closing, locking, and unlocking a door, gate, or chest; giving an item or money to another player; every step of crafting (mining, smelting/forging, weaving, dyeing, foraging, alchemy, jewelcraft, engraving); buying from a shop; dumping a container; and logging out (&ldquo;X fades from the Realms&rdquo;)</li>
+                  <li>Leveling up no longer announces a disguised player&rsquo;s advancement to the room at all, rather than exposing their real name</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2 className="text-amber-400 text-lg font-bold mb-1">v11.28.0 &mdash; August 5, 2026</h2>
+            <p className="text-gray-400 mb-3">Nine new Enchantment spells &mdash; temporary creature domination and a full suite of concealment/transformation magic &mdash; plus a rebuilt <code className="text-amber-300">HEALTH</code> command, a new <code className="text-amber-300">FATIGUE</code> command, an optional reagent bonus reconstructed from a 1990s session log, and a handful of smaller fixes.</p>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">New Spells: Temporary Domination</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Command (205), Domination I (206), and Domination II (214) let a caster temporarily seize control of a living (non-undead) creature &mdash; the same <code className="text-amber-300">COMMAND</code>-verb control (<code className="text-amber-300">FOLLOW</code>, <code className="text-amber-300">STAY</code>, <code className="text-amber-300">GUARD</code>, <code className="text-amber-300">ATTACK</code>, <code className="text-amber-300">LOOK</code>, <code className="text-amber-300">SAY</code>, <code className="text-amber-300">BEGONE</code>) already granted by a summoned elemental, but only for the duration, and only against a creature at or below a body-point ceiling based on its <em>current</em> body points, not its max: Command 50 BP for 2 minutes, Domination I 100 BP for 20 minutes, Domination II 200 BP for 20 minutes. Recasting on the same creature resets the duration instead of stacking it</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">New Spells: Concealment &amp; Transformation</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Invisibility (225), Mass Invisibility (212), and Phantom Form (248) have no duration &mdash; the target stays concealed until they smile, cast a spell (preparing doesn&rsquo;t count, only the actual cast), or attack. All three can be cast on yourself or a named player in the room</li>
+                  <li>See Hidden (405) reveals every hidden, invisible, or phantom-formed player in the room: a hidden player shows as &ldquo;You see something.&rdquo;, an invisible one shows their real effective name (accounting for wolf form, disguise, mist, or slime), and Phantom Form always shows as &ldquo;You see a shimmering grey form.&rdquo; no matter who it actually is</li>
+                  <li>Mist Form (232) and Slime Form (245) &mdash; self-only transforms lasting until <code className="text-amber-300">TRANSFORM</code> reverts them (15-second roundtime, &ldquo;You congeal back into your body.&rdquo;). Both block attacking, casting, wearing/removing items, all speech, and every emote (even a smile), and lock your inventory entirely (<code className="text-amber-300">INVENTORY</code>, <code className="text-amber-300">GET</code>, <code className="text-amber-300">DROP</code>, <code className="text-amber-300">PUT</code>, <code className="text-amber-300">WIELD</code>, <code className="text-amber-300">UNWIELD</code>, <code className="text-amber-300">GIVE</code>) so there&rsquo;s no way to fall back on a magic item instead. Mist Form grants full immunity to physical and magical damage &mdash; including bleeding, poison, and disease ticks &mdash; plus flight/ascend/descend and passing through closed doors and gates unless they&rsquo;re flagged <code className="text-amber-300">SEALED</code>; Slime Form only reduces damage taken to 10% (also skipping DOT ticks entirely), with none of the mobility perks. Successfully casting either immediately breaks Plant Snare and Imprison. Both appear in room listings and <code className="text-amber-300">EXAMINE</code> as &ldquo;some mist&rdquo; / &ldquo;a slime&rdquo; instead of your real name</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Commands</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li><code className="text-amber-300">HEALTH</code> rewritten to match the original session-capture format (&ldquo;You have 256/276 body points.&rdquo;) and now shows your current bleeding/poison/disease drain rate per minute when any are active, in place of the old vague &ldquo;You are moderately wounded.&rdquo; descriptor</li>
+                  <li>New <code className="text-amber-300">FATIGUE</code> command (abbreviates to <code className="text-amber-300">FAT</code>) &mdash; shows current/max Mana, Psi, and Fatigue, split out of <code className="text-amber-300">HEALTH</code> into its own command</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Items &amp; Reagents</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>A moonstone can now be used as an optional <code className="text-amber-300">PREPARE</code> reagent for any spell that doesn&rsquo;t already require one of its own &mdash; <code className="text-amber-300">PREPARE &lt;spell&gt; WITH &lt;moonstone&gt;</code> consumes it for a +25% bonus to that cast&rsquo;s success chance, reconstructed from a 1990s player session log where a moonstone was used exactly this way alongside Freezing Sphere</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Fixes</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>A room&rsquo;s bare-verb <code className="text-amber-300">SMELL</code>/<code className="text-amber-300">LISTEN</code>/<code className="text-amber-300">SNIFF</code> script (no item targeted) was silently dropping everything after a <code className="text-amber-300">PLREVENT</code>/<code className="text-amber-300">CONTPLREVENT</code> pause &mdash; e.g. the wolfling cave&rsquo;s cleansing-smoke effect on <code className="text-amber-300">SMELL</code> never actually applied its second half</li>
+                  <li><code className="text-amber-300">OPEN</code> on a container with something inside now says &ldquo;You open the chest, revealing a rusty key and 12 gold.&rdquo; instead of stopping at &ldquo;You open the chest.&rdquo;</li>
+                  <li>Call Storm (501) now has its own flavor text &mdash; &ldquo;Energy crackles between &lt;caster&gt;&rsquo;s fingertips and then lances skyward.&rdquo; &mdash; instead of a generic &ldquo;gestures and casts&rdquo; line</li>
+                  <li>New kill-flavor line for heat/fire deaths: &ldquo;Internal organs stew in their own juices. Throw another on the barbe&rsquo;, mate.&rdquo;</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2 className="text-amber-400 text-lg font-bold mb-1">v11.27.1 &mdash; August 4, 2026</h2>
+            <p className="text-gray-400 mb-3">Three long-dormant Enchantment spells brought to life &mdash; Silence, Imprison, and Identify previously did nothing when cast &mdash; plus a couple of message-ordering fixes.</p>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">New Enchantment Spells</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Silence (219) now silences its target for a full minute &mdash; unable to <code className="text-amber-300">SAY</code>/<code className="text-amber-300">'</code>/<code className="text-amber-300">YELL</code>/<code className="text-amber-300">SING</code>/<code className="text-amber-300">RECITE</code>, and since casting requires speech, unable to cast any spell either. Recasting resets the duration back to a full minute rather than stacking. A monster flagged <code className="text-amber-300">SILENCEIGNORE</code> (one that casts via hand movements or symbols instead of speech, per GMSCRIPT.DOC) keeps casting right through it</li>
+                  <li>Imprison (231) now traps its target in a blue force bubble for 5 minutes &mdash; they can&rsquo;t attack anyone or cast any spell, including on themselves, so they can&rsquo;t even attempt to dispel it. The bubble works both ways: nobody else can land a physical or spell attack on the trapped target either. An imprisoned monster now shows &ldquo;(imprisoned)&rdquo; in room listings</li>
+                  <li>Identify (228) now names the exact spell bound to an item and how many charges remain, the precise counterpart to Detect Magic&rsquo;s vaguer &ldquo;glows a soft blue&rdquo; hint</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Fixes</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Fixed a handful of spells whose cast messages named the target (Call Meteor, Chain Lightning, Siryx&rsquo;s Terrible Tentacles) showing the success roll before the opening gesture line instead of after it, unlike every other targeted spell</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
             <h2 className="text-amber-400 text-lg font-bold mb-1">v11.27.0 &mdash; August 3, 2026</h2>
             <p className="text-gray-400 mb-3">A full Disguise skill &mdash; compose and wear a persona that blends seamlessly into the world&rsquo;s common NPCs or a custom identity of your own, with matching movement, speech, and appearance across every system that shows a player&rsquo;s identity &mdash; a merged room-look format matching the original game&rsquo;s style, and a sweep of related bugs including a Rakes guild password that echoed but never actually let anyone in.</p>
 

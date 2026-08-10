@@ -132,8 +132,8 @@ func (e *GameEngine) regenTick() {
 			changed = true
 		}
 
-		// Poison damage
-		if p.Poisoned && !died {
+		// Poison damage — Mist Form / Slime Form take no damage from anything, including DOTs.
+		if p.Poisoned && !died && !p.IsFormLocked() {
 			lvl := p.PoisonLevel
 			if lvl < 1 {
 				lvl = 1
@@ -166,8 +166,8 @@ func (e *GameEngine) regenTick() {
 			}
 		}
 
-		// Bleeding damage (from unhealed slash/puncture wounds)
-		if p.Bleeding && !died {
+		// Bleeding damage (from unhealed slash/puncture wounds) — Mist Form / Slime Form immune.
+		if p.Bleeding && !died && !p.IsFormLocked() {
 			total := 0
 			for _, w := range p.Wounds {
 				if w.Bleeding {
@@ -204,8 +204,8 @@ func (e *GameEngine) regenTick() {
 			}
 		}
 
-		// Disease damage
-		if p.Diseased && !died {
+		// Disease damage — Mist Form / Slime Form immune.
+		if p.Diseased && !died && !p.IsFormLocked() {
 			lvl := p.DiseaseLevel
 			if lvl < 1 {
 				lvl = 1
@@ -459,6 +459,22 @@ func (e *GameEngine) regenTick() {
 			changed = true
 			if e.sendToPlayer != nil {
 				e.sendToPlayer(p.FirstName, []string{"The magical slowness fades. You feel yourself return to normal speed."})
+			}
+		}
+
+		// Paranoia (spell 226): while active, a 50% chance each real minute to send
+		// one random unsettling echo (see paranoiaEchoes in spells.go).
+		if !p.ParanoiaExpiry.IsZero() {
+			if time.Now().After(p.ParanoiaExpiry) {
+				p.ParanoiaExpiry = time.Time{}
+				changed = true
+				if e.sendToPlayer != nil {
+					e.sendToPlayer(p.FirstName, []string{"Your paranoia fades. You feel at ease once more."})
+				}
+			} else if rand.Intn(2) == 0 {
+				if e.sendToPlayer != nil {
+					e.sendToPlayer(p.FirstName, []string{paranoiaEchoes[rand.Intn(len(paranoiaEchoes))]})
+				}
 			}
 		}
 

@@ -158,7 +158,7 @@ func init() {
 		{ID: 407, Name: "Analyze Ore", School: "General", Level: 3, ManaCost: 4, CastTime: 3, Effect: "utility"},
 		{ID: 404, Name: "Aura Sense", School: "General", Level: 14, ManaCost: 14, CastTime: 3, Effect: "utility"},
 		{ID: 408, Name: "Truename", School: "General", Level: 18, ManaCost: 18, CastTime: 4, Effect: "utility"},
-		{ID: 412, Name: "Bloodsight", School: "General", Level: 9, ManaCost: 9, CastTime: 3, Effect: "utility"},
+		{ID: 412, Name: "Rite of Preparation", School: "General", Level: 9, ManaCost: 9, CastTime: 3, Effect: "utility"},
 	}
 	// Druidic (500-538)
 	druid := []SpellDef{
@@ -550,6 +550,12 @@ func isUndeadOnlySpell(spellID int) bool {
 	return false
 }
 
+// moonstoneReagentArch is the item archetype for moonstone (ITEM1.SCR INUMBER 113,
+// GMLIST.TXT "113: moonstone"). Used as an optional catalyst reagent on PREPARE for any
+// spell that doesn't already require a mandatory reagent of its own — see
+// shemri.txt "PRE 121 WITH MY MOON" and PreparedMoonstoneBonus.
+const moonstoneReagentArch = 113
+
 // spellReagentArch returns the required inventory item archetype for spells that need a reagent.
 // Returns 0 if no reagent is required.
 func spellReagentArch(spellID int) int {
@@ -718,8 +724,29 @@ func (e *GameEngine) doPrepareSpell(player *Player, args []string) *CommandResul
 		if !found {
 			return &CommandResult{Messages: []string{fmt.Sprintf("%s requires %s, which you don't have.", spell.Name, spellReagentName(spell.ID))}}
 		}
+		player.PreparedMoonstoneBonus = false
 	} else {
 		player.PreparedSpellReagentArch = 0
+		// Moonstone: optional catalyst reagent for any spell with no mandatory reagent
+		// of its own. Consumed immediately, same as the mandatory elemental reagents —
+		// see shemri.txt "PRE 121 WITH MY MOON" / "A moonstone turns to dust as it is
+		// absorbed by the magic of your spell!"
+		player.PreparedMoonstoneBonus = false
+		if reagentArg != "" {
+			reagentArg = strings.ToLower(reagentArg)
+			for i, ii := range player.Inventory {
+				def := e.items[ii.Archetype]
+				if def == nil || ii.Archetype != moonstoneReagentArch {
+					continue
+				}
+				noun := e.getItemNounName(def)
+				if matchesTarget(noun, reagentArg, e.getAdjName(ii.Adj1), e.getAdjName(ii.Adj2), e.getAdjName(ii.Adj3)) {
+					player.Inventory = append(player.Inventory[:i], player.Inventory[i+1:]...)
+					player.PreparedMoonstoneBonus = true
+					break
+				}
+			}
+		}
 	}
 
 	player.PreparedSpell = spell.ID
@@ -730,6 +757,9 @@ func (e *GameEngine) doPrepareSpell(player *Player, args []string) *CommandResul
 	var prepMsgs []string
 	if spellConsumesReagentAtPrepare(spell.ID) {
 		prepMsgs = append(prepMsgs, spellReagentConsumeMessage(spell.ID))
+	}
+	if player.PreparedMoonstoneBonus {
+		prepMsgs = append(prepMsgs, "A moonstone turns to dust as it is absorbed by the magic of your spell!")
 	}
 	prepMsgs = append(prepMsgs, fmt.Sprintf("You prepare the %s spell.", spell.Name))
 	prepMsgs = append(prepMsgs, fmt.Sprintf("[Round: %d sec]", prepRT))
@@ -754,6 +784,7 @@ func (e *GameEngine) doRelease(ctx context.Context, player *Player) *CommandResu
 	if player.PreparedSpell != 0 {
 		player.PreparedSpell = 0
 		player.PreparedSpellReagentArch = 0
+		player.PreparedMoonstoneBonus = false
 		e.SavePlayer(ctx, player)
 		return &CommandResult{Messages: []string{"You release your prepared spell."}}
 	}
@@ -772,6 +803,22 @@ func (e *GameEngine) doRelease(ctx context.Context, player *Player) *CommandResu
 func (e *GameEngine) doCastSpell(ctx context.Context, player *Player, args []string) *CommandResult {
 	if player.Dead {
 		return &CommandResult{Messages: []string{"You can't cast spells while dead."}}
+	}
+	// Imprison (231) blocks all casting, even on yourself — that's the whole point:
+	// you can't self-dispel it. Only another caster targeting you can end it early.
+	if !player.IsGM && player.IsImprisoned() {
+		return &CommandResult{Messages: []string{"You are trapped within a blue force bubble and cannot cast!"}}
+	}
+	// Silence (219) blocks casting because casting requires speech (see the
+	// "casting requires spoken words" note below) — same as it blocks say/yell/
+	// sing/recite.
+	if !player.IsGM && player.IsSilenced() {
+		return &CommandResult{Messages: []string{"You are silenced and cannot incant a spell!"}}
+	}
+	// Mist Form / Slime Form (232/245) block all casting, including recasting
+	// themselves — only TRANSFORM ends either form.
+	if !player.IsGM && player.IsFormLocked() {
+		return &CommandResult{Messages: []string{formActionBlockMessage(player)}}
 	}
 
 	// If no spell prepared, try to prepare+cast in one step
@@ -814,27 +861,62 @@ func (e *GameEngine) doCastSpell(ctx context.Context, player *Player, args []str
 		return &CommandResult{Messages: []string{fmt.Sprintf("You are still preparing... %.0f seconds remaining.", remaining+0.5)}}
 	}
 
+	// Rite of Preparation (412) and Scry (215) cast at a carried eye of scrying (item
+	// 520) bypass the normal roll/mana pipeline entirely — see ITEM1.SCR's IFPREVERB
+	// CAST -1 block on that item, which CLEARVERBs out of the generic cast handling for
+	// this specific interaction. Falls through to the normal pipeline below if args
+	// don't name a carried eye (e.g. Scry's own CAST <mark#> vision; Rite of Preparation
+	// has no effect outside this item interaction).
+	if spell.ID == 412 || spell.ID == 215 {
+		if result, handled := e.tryCastSpellAtEye(ctx, player, spell, mastery, args); handled {
+			return result
+		}
+	}
+
 	// Deduct mana
 	player.Mana -= manaCost
 	player.PreparedSpell = 0
+	usedMoonstone := player.PreparedMoonstoneBonus
+	player.PreparedMoonstoneBonus = false
 
 	// Casting requires spoken words and hand gestures, unlike preparing —
 	// this gives away a hidden or invisible caster's position. Psionics don't
 	// go through this path (they're worked by thought alone), so they never
 	// trigger it. Applies regardless of what the roll below decides, since the
 	// caster still spoke and gestured even on a fumble or fizzle.
+	// Bend Space I/II (213/222) are an exception to "casting reveals you" for the
+	// Invisibility/Mass Invisibility/Phantom Form spell family — per the original
+	// session logs, an invisible caster teleporting away stays unseen. Hidden
+	// (stealth) still clears regardless, since relocating instantly breaks the
+	// stealth position no matter what spell caused it.
+	// Paranoia (226) is cast silently as a curse (see castParanoiaSpell) and is
+	// exempt from both reveals — the caster's whole point is staying hidden while
+	// cursing someone.
 	var revealMsgs []string
-	if player.Hidden || player.Invisible {
+	wasHidden := player.Hidden
+	wasInvisible := player.Invisible || player.PhantomForm
+	bendSpaceExempt := spell.ID == 213 || spell.ID == 222
+	paranoiaExempt := spell.ID == 226
+	if wasHidden && !paranoiaExempt {
 		player.Hidden = false
+	}
+	if wasInvisible && !bendSpaceExempt && !paranoiaExempt {
 		player.Invisible = false
+		player.PhantomForm = false
+	}
+	if (wasHidden && !paranoiaExempt) || (wasInvisible && !bendSpaceExempt && !paranoiaExempt) {
 		revealMsgs = []string{"The words and gestures of your spell give away your position!"}
 	}
 
 	// Spellcraft skill check (from LEGENDS.DOC):
 	// Base 25% + EMP/10 + spellcraft*5%, max 95%.
 	// Roll > 98 = fumble. Roll <= 2 = spectacular success (double effect).
+	// Moonstone (optional PREPARE reagent, see PreparedMoonstoneBonus): +25%.
 	spellcraftSkill := player.Skills[23]
 	castChance := 25 + player.Empathy/10 + spellcraftSkill*5
+	if usedMoonstone {
+		castChance += 25
+	}
 	if castChance > 95 {
 		castChance = 95
 	}
@@ -933,18 +1015,37 @@ func (e *GameEngine) doCastSpell(ctx context.Context, player *Player, args []str
 			result = e.castAnimateUndead(player, 2, "The earth churns as a rotting corpse claws free, becoming")
 		case 308, 309: // Control Undead I/II
 			result = e.castControlUndead(player, spell, args)
+		case 205, 206, 214: // Command, Domination I, Domination II
+			result = e.castCommandSpell(player, spell, args)
 		case 311: // Speak with Dead
 			result = e.castSpeakWithDead(player, args)
 		case 353: // Summon Spectral Warrior
 			result = e.castSummonSpectralWarrior(player)
 		case 400: // Detect Magic
 			result = e.castDetectMagic(player, args)
+		case 228: // Identify
+			result = e.castIdentifySpell(player, args)
 		case 305: // Breath of Life
 			result = e.castBreathOfLife(ctx, player, args)
 		case 213: // Bend Space I
 			result = e.castBendSpaceI(ctx, player, args)
 		case 222: // Bend Space II
 			result = e.castBendSpaceII(ctx, player, args)
+		case 215: // Scry — CAST <mark#> for a remote vision (eye-of-scrying use is
+			// handled earlier, pre-roll, in tryCastSpellAtEye)
+			result = e.castScrySpell(player, args)
+		case 219: // Silence
+			result = e.castSilenceSpell(ctx, player, spell, args)
+		case 231: // Imprison
+			result = e.castImprisonSpell(ctx, player, spell, args)
+		case 232, 245: // Mist Form, Slime Form
+			result = e.castFormSpell(player, spell)
+		case 405: // See Hidden
+			result = e.castSeeHiddenSpell(player, spell)
+		case 226: // Paranoia
+			result = e.castParanoiaSpell(ctx, player, spell, args)
+		case 401: // Dispel Lesser Magic
+			result = e.castDispelLesserMagic(ctx, player, args)
 		default:
 			result.Messages = []string{fmt.Sprintf("You gesture and cast %s.", spell.Name)}
 			result.RoomBroadcast = []string{fmt.Sprintf("%s gestures and casts %s.", player.DisplayNameCap(), spell.Name)}
@@ -954,10 +1055,11 @@ func (e *GameEngine) doCastSpell(ctx context.Context, player *Player, args []str
 		result.RoomBroadcast = []string{fmt.Sprintf("%s gestures and casts %s.", player.DisplayNameCap(), spell.Name)}
 	}
 
-	// Prepend success roll message — insert right after "You gesture." if the
-	// spell-specific handler already led with that line (the classic
-	// gesture -> roll -> effect ordering), otherwise put it first.
-	if len(result.Messages) > 0 && result.Messages[0] == "You gesture." {
+	// Prepend success roll message — insert right after the opening gesture line if
+	// the spell-specific handler already led with one (the classic gesture -> roll
+	// -> effect ordering), otherwise put it first. "You gesture." (self-only) and
+	// "You gesture at <target>." (named target) both count as the opening line.
+	if len(result.Messages) > 0 && (result.Messages[0] == "You gesture." || result.Messages[0] == "You gesture into the air." || strings.HasPrefix(result.Messages[0], "You gesture at ") || result.Messages[0] == "You narrow your eyes and gaze about the area.") {
 		result.Messages = append([]string{result.Messages[0], successMsg}, result.Messages[1:]...)
 	} else {
 		result.Messages = append([]string{successMsg}, result.Messages...)
@@ -1033,6 +1135,7 @@ var heatKillFlavors = []string{
 	"Dazzling explosive display carbonizes bones and flesh.",
 	"Heart melts. Opponent exhales boiling blood.",
 	"Flame strike superheats lungs, exploding chest!",
+	"Internal organs stew in their own juices. Throw another on the barbe', mate.",
 }
 
 // lightningKillFlavors describes a killing blow from electrical damage — e.g.
@@ -1146,6 +1249,16 @@ func (e *GameEngine) castDamageSpell(player *Player, spell *SpellDef, args []str
 	}
 
 	name := FormatMonsterName(def, e.monAdjs)
+
+	// Imprison (231): the force bubble protects the target from being attacked
+	// as well as attacking — per MAGIC.TXT, "prevents them from attacking or
+	// being attacked."
+	if inst.Imprisoned {
+		return &CommandResult{
+			Messages:      []string{fmt.Sprintf("A shimmering force bubble protects a %s -- your spell has no effect!", name)},
+			RoomBroadcast: []string{fmt.Sprintf("%s casts %s at a %s, but a force bubble absorbs it harmlessly.", player.DisplayName(), spell.Name, name)},
+		}
+	}
 
 	// Turn Undead I/II and Destroy Undead I/II/III only affect the undead (RACE 22).
 	if isUndeadOnlySpell(spell.ID) && def.Race != 22 {
@@ -2067,15 +2180,12 @@ func (e *GameEngine) doAnswer(ctx context.Context, player *Player) *CommandResul
 
 // castBendSpaceI teleports the caster alone to a marked location (spell 213).
 // A GM caster stays hidden/invisible and generates no messages in either room.
+// Invisibility/Phantom Form don't dispel for anyone — see doCastSpell's
+// bendSpaceExempt handling; Hidden is already cleared there too.
 func (e *GameEngine) castBendSpaceI(ctx context.Context, player *Player, args []string) *CommandResult {
 	dest, errMsg := e.resolveBendSpaceMark(player, args)
 	if errMsg != "" {
 		return &CommandResult{Messages: []string{errMsg}}
-	}
-
-	if !player.IsGM {
-		player.Hidden = false
-		player.Invisible = false
 	}
 
 	originalRoom := player.RoomNumber
@@ -2095,7 +2205,7 @@ func (e *GameEngine) castBendSpaceI(ctx context.Context, player *Player, args []
 		OldRoom:  originalRoom,
 	}
 
-	if !player.IsGM {
+	if !player.IsGM && !player.IsConcealed() {
 		result.OldRoomMsg = []string{fmt.Sprintf("%s gestures into the air and then vanishes with a soft *bamf* sound!", player.FirstName)}
 		result.RoomBroadcast = []string{fmt.Sprintf("%s appears out of nowhere!", player.DisplayNameCap())}
 	}
@@ -2107,15 +2217,12 @@ func (e *GameEngine) castBendSpaceI(ctx context.Context, player *Player, args []
 // castBendSpaceII teleports the caster and their entire group to a marked
 // location (spell 222). A GM caster stays hidden/invisible and generates no
 // messages in either room; group members simply travel along silently.
+// Invisibility/Phantom Form don't dispel for anyone — see doCastSpell's
+// bendSpaceExempt handling; Hidden is already cleared there too.
 func (e *GameEngine) castBendSpaceII(ctx context.Context, player *Player, args []string) *CommandResult {
 	dest, errMsg := e.resolveBendSpaceMark(player, args)
 	if errMsg != "" {
 		return &CommandResult{Messages: []string{errMsg}}
-	}
-
-	if !player.IsGM {
-		player.Hidden = false
-		player.Invisible = false
 	}
 
 	originalRoom := player.RoomNumber
@@ -2156,7 +2263,7 @@ func (e *GameEngine) castBendSpaceII(ctx context.Context, player *Player, args [
 		OldRoom:  originalRoom,
 	}
 
-	if !player.IsGM {
+	if !player.IsGM && !player.IsConcealed() {
 		result.OldRoomMsg = []string{fmt.Sprintf("%s gestures and %s group vanishes one by one!", player.FirstName, player.Possessive())}
 		result.RoomBroadcast = []string{fmt.Sprintf("%s's group appears out of nowhere!", player.DisplayName())}
 	}
@@ -2179,6 +2286,153 @@ func (e *GameEngine) castBendSpaceII(ctx context.Context, player *Player, args [
 	return result
 }
 
+// castScrySpell handles Scry's (215) mark-vision use: CAST <mark#> shows a remote
+// "vision" of a marked room without moving the caster there — contrast with Bend
+// Space (213/222), which actually teleports. Anyone actually in the scried room
+// gets a "being watched" tell (see session captures), though the caster's identity
+// isn't revealed. The eye-of-scrying use (CAST <eye>) is handled earlier and
+// separately, before the normal roll pipeline even reaches here — see
+// tryCastSpellAtEye.
+func (e *GameEngine) castScrySpell(player *Player, args []string) *CommandResult {
+	dest, errMsg := e.resolveBendSpaceMark(player, args)
+	if errMsg != "" {
+		return &CommandResult{Messages: []string{errMsg}}
+	}
+
+	// Render the marked room's look without moving the caster there — swap
+	// RoomNumber just long enough to reuse doLook's rendering (occupants, items,
+	// exits, and BriefMode all apply exactly as if physically there), then restore
+	// it. doLook only reads state, so this is safe.
+	originalRoom := player.RoomNumber
+	player.RoomNumber = dest.Number
+	lookResult := e.doLook(player)
+	player.RoomNumber = originalRoom
+
+	if !player.IsGM && e.localRoomBroadcast != nil {
+		e.localRoomBroadcast(dest.Number, []string{"You have a brief yet distinct feeling that you are being watched."})
+	}
+
+	result := &CommandResult{
+		Messages: append([]string{
+			"You gesture into the air.",
+			"You have a vision...",
+		}, lookResult.Messages...),
+	}
+	if !player.IsGM && !player.IsConcealed() {
+		result.RoomBroadcast = []string{fmt.Sprintf("%s gestures into the air.", player.DisplayNameCap())}
+	}
+	return result
+}
+
+// eyeOfScryingArch is item 520 (ITEM1.SCR) — a reagent-type "eye" (termite eye,
+// sharkhor eye, newt eye, werewolf eye, etc., varying only by adjective) usable as
+// a scrying focus. Its Val3 (ITEMVAL3 in the original script) tracks preparation
+// state — see the eyeState constants below.
+const eyeOfScryingArch = 520
+
+const (
+	eyeStateInert       = 0 // as found/bought — not yet prepared
+	eyeStateCloudy      = 1 // Rite of Preparation (412) cast at it
+	eyeStateTranslucent = 2 // Scry (215) cast at it while cloudy — ready for LOOK IN
+)
+
+// findCarriedEye resolves CAST/LOOK IN args to a carried eye-of-scrying item
+// (archetype eyeOfScryingArch). The eye is always a held reagent, never worn or
+// wielded, so only Inventory is searched. Returns nil if args don't name one.
+func (e *GameEngine) findCarriedEye(player *Player, args []string) *InventoryItem {
+	if len(args) == 0 {
+		return nil
+	}
+	target := strings.ToLower(strings.Join(args, " "))
+	target, ordSkip := parseOrdinal(target)
+	skip := ordSkip
+	for i := range player.Inventory {
+		ii := &player.Inventory[i]
+		if ii.Archetype != eyeOfScryingArch {
+			continue
+		}
+		def := e.items[ii.Archetype]
+		if def == nil {
+			continue
+		}
+		if !matchesTarget(e.getItemNounName(def), target, e.getAdjName(ii.Adj1), e.getAdjName(ii.Adj2), e.getAdjName(ii.Adj3)) {
+			continue
+		}
+		if skip > 0 {
+			skip--
+			continue
+		}
+		return ii
+	}
+	return nil
+}
+
+// tryCastSpellAtEye handles CAST <eye> for Rite of Preparation (412, inert ->
+// cloudy) and Scry (215, cloudy -> translucent) — see ITEM1.SCR's IFPREVERB CAST -1
+// block on item 520. Both steps bypass the normal cast roll/mana pipeline entirely
+// (the original CLEARVERBs out of the generic CAST handling for this interaction),
+// so doCastSpell calls this before its own mana deduction and success roll.
+// handled=false means args didn't name a carried eye — the caller should fall
+// through to the normal pipeline (Scry's own CAST <mark#> vision; Rite of
+// Preparation has no other effect).
+func (e *GameEngine) tryCastSpellAtEye(ctx context.Context, player *Player, spell *SpellDef, mastery int, args []string) (result *CommandResult, handled bool) {
+	ii := e.findCarriedEye(player, args)
+	if ii == nil {
+		return nil, false
+	}
+	def := e.items[ii.Archetype]
+	name := e.formatItemName(def, ii.Adj1, ii.Adj2, ii.Adj3, ii.Tail)
+	player.PreparedSpell = 0
+
+	switch spell.ID {
+	case 412: // Rite of Preparation: always sets the eye cloudy, regardless of its
+		// current state (matches ITEM1.SCR — no ITEMVAL3 precondition on this step).
+		manaCost := effectiveManaCost(spell, mastery)
+		if player.Mana < manaCost {
+			e.SavePlayer(ctx, player)
+			return &CommandResult{
+				Messages:    []string{fmt.Sprintf("Not enough mana! (%s requires %d, you have %d)", spell.Name, manaCost, player.Mana)},
+				PlayerState: player,
+			}, true
+		}
+		player.Mana -= manaCost
+		ii.Val3 = eyeStateCloudy
+		e.SavePlayer(ctx, player)
+		return &CommandResult{
+			Messages:      []string{fmt.Sprintf("As you gesture at %s, it becomes cloudy.", name)},
+			RoomBroadcast: []string{fmt.Sprintf("As %s gestures at %s, it becomes cloudy.", player.DisplayNameCap(), name)},
+			PlayerState:   player,
+		}, true
+
+	case 215: // Scry: cloudy -> translucent, requires the eye already be cloudy.
+		if ii.Val3 != eyeStateCloudy {
+			e.SavePlayer(ctx, player)
+			return &CommandResult{
+				Messages:    []string{"You realize that the eye has not yet been prepared..."},
+				PlayerState: player,
+			}, true
+		}
+		// ITEM1.SCR checks mana is sufficient but never actually deducts it for this
+		// step (only the 412/cloudy step subtracts mana) — replicated exactly.
+		manaCost := effectiveManaCost(spell, mastery)
+		if player.Mana < manaCost {
+			e.SavePlayer(ctx, player)
+			return &CommandResult{
+				Messages:    []string{fmt.Sprintf("Not enough mana! (%s requires %d, you have %d)", spell.Name, manaCost, player.Mana)},
+				PlayerState: player,
+			}, true
+		}
+		ii.Val3 = eyeStateTranslucent
+		e.SavePlayer(ctx, player)
+		return &CommandResult{
+			Messages:      []string{"You gesture at the eye and it becomes translucent. A faint image forms within its retina."},
+			RoomBroadcast: []string{fmt.Sprintf("%s gestures at %s.", player.DisplayNameCap(), name)},
+			PlayerState:   player,
+		}, true
+	}
+	return nil, false
+}
+
 func (e *GameEngine) castBuffSpell(player *Player, spell *SpellDef, args []string) *CommandResult {
 	msg := fmt.Sprintf("You gesture and cast %s.", spell.Name)
 	switch spell.ID {
@@ -2194,9 +2448,8 @@ func (e *GameEngine) castBuffSpell(player *Player, spell *SpellDef, args []strin
 		return e.castHasteSpell(player, spell, args)
 	case 224: // Fly
 		return e.castFlySpell(player, spell, args)
-	case 225: // Invisibility
-		player.Invisible = true
-		msg = fmt.Sprintf("You gesture and cast %s. You fade from sight.", spell.Name)
+	case 225, 212, 248: // Invisibility, Mass Invisibility, Phantom Form
+		return e.castHidingSpell(player, spell, args)
 	case 506: // Resist Weather
 		return e.castResistWeatherSpell(player, spell, args)
 	case 507, 508: // Heat Shield / Cold Shield
@@ -2593,6 +2846,212 @@ func (e *GameEngine) castFreedomSpell(player *Player, spell *SpellDef, args []st
 	}
 }
 
+// dispellableEffect is one active timed magical effect a target is carrying,
+// found by activeDispellableEffects for Dispel Lesser Magic (401) to strip at random.
+// remove() clears the effect on target and returns a first-person ("you") fade
+// line describing what happened, mirroring the messages regen.go sends when the
+// same effects expire naturally.
+type dispellableEffect struct {
+	name   string
+	remove func() string
+}
+
+// activeDispellableEffects lists every timed magical effect currently active on
+// target, so Dispel Lesser Magic can remove one at random regardless of how much
+// duration it had left. Mirrors the same fields regen.go checks for natural expiry.
+func activeDispellableEffects(target *Player) []dispellableEffect {
+	now := time.Now()
+	var effects []dispellableEffect
+
+	if target.StrengthBuffID > 0 && !target.StrengthBuffExpiry.IsZero() && now.Before(target.StrengthBuffExpiry) {
+		effects = append(effects, dispellableEffect{"Strength", func() string {
+			target.Strength -= target.StrengthBuffBonus
+			target.StrengthBuffID = 0
+			target.StrengthBuffBonus = 0
+			target.StrengthBuffExpiry = time.Time{}
+			return "The magical strength fades. You feel your normal strength return."
+		}})
+	}
+	if target.AgilityBuffID > 0 && !target.AgilityBuffExpiry.IsZero() && now.Before(target.AgilityBuffExpiry) {
+		effects = append(effects, dispellableEffect{"Agility", func() string {
+			target.Agility -= target.AgilityBuffBonus
+			target.AgilityBuffID = 0
+			target.AgilityBuffBonus = 0
+			target.AgilityBuffExpiry = time.Time{}
+			return "The magical agility fades. You feel your normal reflexes return."
+		}})
+	}
+	if target.MysticArmorBonus > 0 && !target.MysticArmorExpiry.IsZero() && now.Before(target.MysticArmorExpiry) {
+		effects = append(effects, dispellableEffect{"Mystic Armor", func() string {
+			target.DefenseBonus -= target.MysticArmorBonus
+			if target.DefenseBonus < 0 {
+				target.DefenseBonus = 0
+			}
+			target.MysticArmorBonus = 0
+			target.MysticArmorExpiry = time.Time{}
+			return "The Mystic Armor fades. The shimmering barrier around you dissipates."
+		}})
+	}
+	if !target.HasteExpiry.IsZero() && now.Before(target.HasteExpiry) {
+		effects = append(effects, dispellableEffect{"Haste", func() string {
+			target.HasteExpiry = time.Time{}
+			return "The magical haste fades. You feel yourself return to normal speed."
+		}})
+	}
+	if !target.SlowExpiry.IsZero() && now.Before(target.SlowExpiry) {
+		effects = append(effects, dispellableEffect{"Slow", func() string {
+			target.SlowExpiry = time.Time{}
+			return "The magical slowness fades. You feel yourself return to normal speed."
+		}})
+	}
+	if !target.SilencedExpiry.IsZero() && now.Before(target.SilencedExpiry) {
+		effects = append(effects, dispellableEffect{"Silence", func() string {
+			target.SilencedExpiry = time.Time{}
+			return "The silence around you fades. You can speak again."
+		}})
+	}
+	if !target.FlyExpiry.IsZero() && now.Before(target.FlyExpiry) {
+		effects = append(effects, dispellableEffect{"Fly", func() string {
+			target.FlyExpiry = time.Time{}
+			target.CanFly = false
+			return "The magic sustaining your flight fades. You settle back to the ground."
+		}})
+	}
+	if !target.HeatShieldExpiry.IsZero() && now.Before(target.HeatShieldExpiry) {
+		effects = append(effects, dispellableEffect{"Heat Shield", func() string {
+			target.HeatShieldExpiry = time.Time{}
+			return "Your resistance to heat fades."
+		}})
+	}
+	if !target.ColdShieldExpiry.IsZero() && now.Before(target.ColdShieldExpiry) {
+		effects = append(effects, dispellableEffect{"Cold Shield", func() string {
+			target.ColdShieldExpiry = time.Time{}
+			return "Your resistance to cold fades."
+		}})
+	}
+	if target.CamouflageBonus > 0 && !target.CamouflageExpiry.IsZero() && now.Before(target.CamouflageExpiry) {
+		effects = append(effects, dispellableEffect{"Camouflage", func() string {
+			target.CamouflageBonus = 0
+			target.CamouflageExpiry = time.Time{}
+			return "Your camouflage fades."
+		}})
+	}
+	if !target.ResistWeatherExpiry.IsZero() && now.Before(target.ResistWeatherExpiry) {
+		effects = append(effects, dispellableEffect{"Resist Weather", func() string {
+			target.ResistWeatherExpiry = time.Time{}
+			return "Your resistance to the weather fades."
+		}})
+	}
+	if !target.ClawGrowthExpiry.IsZero() && now.Before(target.ClawGrowthExpiry) {
+		effects = append(effects, dispellableEffect{"Claw Growth", func() string {
+			target.ClawGrowthExpiry = time.Time{}
+			return "Your claws recede back to normal hands."
+		}})
+	}
+	if !target.RepelPlantsExpiry.IsZero() && now.Before(target.RepelPlantsExpiry) {
+		effects = append(effects, dispellableEffect{"Repel Plants", func() string {
+			target.RepelPlantsExpiry = time.Time{}
+			return "Your immunity to plant snares fades."
+		}})
+	}
+	if !target.RepelPlantsAndWebsExpiry.IsZero() && now.Before(target.RepelPlantsAndWebsExpiry) {
+		effects = append(effects, dispellableEffect{"Repel Plants & Webs", func() string {
+			target.RepelPlantsAndWebsExpiry = time.Time{}
+			return "Your immunity to plant snares and webs fades."
+		}})
+	}
+	if target.TelepathyActive {
+		effects = append(effects, dispellableEffect{"Mindlink", func() string {
+			target.TelepathyActive = false
+			target.TelepathyExpiry = time.Time{}
+			return "Your mind closes to the thoughts of others."
+		}})
+	}
+	if !target.ParanoiaExpiry.IsZero() && now.Before(target.ParanoiaExpiry) {
+		effects = append(effects, dispellableEffect{"Paranoia", func() string {
+			target.ParanoiaExpiry = time.Time{}
+			return "Your paranoia fades. You feel at ease once more."
+		}})
+	}
+	for i, b := range target.TimedDefenseBuffs {
+		idx, buff := i, b
+		effects = append(effects, dispellableEffect{buff.SpellName, func() string {
+			target.DefenseBonus -= buff.Bonus
+			if target.DefenseBonus < 0 {
+				target.DefenseBonus = 0
+			}
+			target.TimedDefenseBuffs = append(target.TimedDefenseBuffs[:idx], target.TimedDefenseBuffs[idx+1:]...)
+			return fmt.Sprintf("The %s fades.", buff.SpellName)
+		}})
+	}
+	for i, ent := range target.Entangles {
+		idx, entangle := i, ent
+		effects = append(effects, dispellableEffect{entangle.SpellName, func() string {
+			target.Entangles = append(target.Entangles[:idx], target.Entangles[idx+1:]...)
+			return fmt.Sprintf("The %s releases its hold on you.", entangle.SpellName)
+		}})
+	}
+
+	return effects
+}
+
+// castDispelLesserMagic handles spell 401 — Dispel Lesser Magic. Picks one active
+// timed magical effect on the target at random (see activeDispellableEffects) and
+// removes it outright, regardless of how much duration it had left. The visual
+// effect (a twinkle of red light) is the same whether or not anything was actually
+// dispelled and is visible to everyone in the room; which effect faded, if any,
+// is only reported to the target.
+func (e *GameEngine) castDispelLesserMagic(ctx context.Context, player *Player, args []string) *CommandResult {
+	target := player
+	if len(args) > 0 {
+		t := strings.ToLower(strings.Join(args, " "))
+		if t != "me" && t != "myself" && t != "self" {
+			found := e.findPlayerInRoom(player, t)
+			if found == nil {
+				return &CommandResult{Messages: []string{fmt.Sprintf("You don't see '%s' here.", strings.Join(args, " "))}}
+			}
+			target = found
+		}
+	}
+	isSelf := target == player
+
+	effects := activeDispellableEffects(target)
+	twinkleName := "you"
+	twinkleRoomName := player.DisplayName()
+	if !isSelf {
+		twinkleName = target.DisplayName()
+		twinkleRoomName = target.DisplayName()
+	}
+
+	if len(effects) == 0 {
+		result := &CommandResult{
+			Messages:      []string{"You gesture.", fmt.Sprintf("A deep red light twinkles around %s, but fizzles out -- there is no magic to dispel.", twinkleName)},
+			RoomBroadcast: []string{fmt.Sprintf("A deep red light twinkles around %s, but fizzles out.", twinkleRoomName)},
+		}
+		if !isSelf {
+			result.TargetName = target.FirstName
+		}
+		return result
+	}
+
+	picked := effects[rand.Intn(len(effects))]
+	fadeMsg := picked.remove()
+	e.SavePlayer(ctx, target)
+
+	if isSelf {
+		return &CommandResult{
+			Messages:      []string{"You gesture.", fmt.Sprintf("A deep red light twinkles around %s.", twinkleName), fadeMsg},
+			RoomBroadcast: []string{fmt.Sprintf("A deep red light twinkles around %s.", twinkleRoomName)},
+		}
+	}
+	return &CommandResult{
+		Messages:      []string{"You gesture.", fmt.Sprintf("A deep red light twinkles around %s.", twinkleName)},
+		RoomBroadcast: []string{fmt.Sprintf("A deep red light twinkles around %s.", twinkleRoomName)},
+		TargetName:    target.FirstName,
+		TargetMsg:     []string{fmt.Sprintf("A deep red light twinkles around you. %s", fadeMsg)},
+	}
+}
+
 // applyCamouflageBuff applies or extends the Camouflage (spell 521) timed
 // stealth buff: +10 effective Stealth skill (see effectiveStealthSkill) for 20
 // minutes on first cast. Additional casts before it expires extend the duration
@@ -2728,9 +3187,10 @@ func (e *GameEngine) castCallStormSpell(player *Player, spell *SpellDef) *Comman
 	}
 	e.RegionWeather[region] = newState
 	e.broadcastWeatherChange(region, oldState, newState)
+	flavor := fmt.Sprintf("Energy crackles between %s's fingertips and then lances skyward.", player.DisplayName())
 	return &CommandResult{
-		Messages:      []string{fmt.Sprintf("You gesture and cast %s. The sky answers your call! (Weather: %s)", spell.Name, WeatherNames[newState])},
-		RoomBroadcast: []string{fmt.Sprintf("%s raises their arms to the sky, which darkens in response.", player.DisplayName())},
+		Messages:      []string{fmt.Sprintf("%s (Weather: %s)", flavor, WeatherNames[newState])},
+		RoomBroadcast: []string{flavor},
 	}
 }
 
@@ -2796,6 +3256,7 @@ func interruptPreparedSpell(player *Player) string {
 	}
 	player.PreparedSpell = 0
 	player.PreparedSpellReagentArch = 0
+	player.PreparedMoonstoneBonus = false
 	return fmt.Sprintf("The blow shatters your concentration! Your prepared %s is lost.", name)
 }
 
@@ -3559,6 +4020,77 @@ func (e *GameEngine) castSlowSpell(ctx context.Context, player *Player, spell *S
 	}
 }
 
+// paranoiaEchoes are the unsettling flavor lines regenTick randomly sends (50%
+// chance per real minute) to a player under Paranoia (spell 226) — see
+// ParanoiaExpiry on Player.
+var paranoiaEchoes = []string{
+	"Something taps you on the shoulder.",
+	"A raven suddenly vanishes in a puff of gray smoke.",
+	"You are bleeding.",
+	"Something says, \"I'm watching you.\"",
+	"You hear voices whispering about you.",
+	"Someone incants a spell.",
+	"You hear footsteps behind you.",
+	"You a have momentary sensation that you are being watched.",
+	"You catch a glimpse of a figure in the shadows.",
+	"You hear someone breathing beside you.",
+	"Something brushes against the back of your neck.",
+	"You hear a scream behind you!",
+	"Someone coughs.",
+}
+
+// castParanoiaSpell handles spell 226 — Paranoia. Self-only or targeted like Slow;
+// while active, regenTick has a 50% chance each real minute to send the affected
+// player one random unsettling echo (paranoiaEchoes) for 20 minutes.
+func (e *GameEngine) castParanoiaSpell(ctx context.Context, player *Player, spell *SpellDef, args []string) *CommandResult {
+	const duration = 20 * time.Minute
+	const maxDuration = 4 * time.Hour
+
+	target := player
+	if len(args) > 0 {
+		t := strings.ToLower(strings.Join(args, " "))
+		if t != "me" && t != "myself" && t != "self" {
+			found := e.findPlayerInRoom(player, t)
+			if found == nil {
+				return &CommandResult{Messages: []string{fmt.Sprintf("You don't see '%s' here.", strings.Join(args, " "))}}
+			}
+			target = found
+		}
+	}
+
+	isSelf := target == player
+
+	if !target.ParanoiaExpiry.IsZero() && time.Now().Before(target.ParanoiaExpiry) {
+		target.ParanoiaExpiry = target.ParanoiaExpiry.Add(duration)
+		if target.ParanoiaExpiry.After(time.Now().Add(maxDuration)) {
+			target.ParanoiaExpiry = time.Now().Add(maxDuration)
+		}
+		e.SavePlayer(ctx, target)
+		if isSelf {
+			mins := int(time.Until(target.ParanoiaExpiry).Minutes()) + 1
+			return &CommandResult{
+				Messages:      []string{fmt.Sprintf("You gesture and cast %s on yourself, deepening your unease. (%d minutes remaining)", spell.Name, mins)},
+				RoomBroadcast: []string{fmt.Sprintf("%s gestures and casts %s on themselves.", player.DisplayName(), spell.Name)},
+			}
+		}
+		// Cast at someone else: no message to anyone -- the target has no way of
+		// knowing they've been cursed, which is the whole point of the spell.
+		return &CommandResult{}
+	}
+
+	target.ParanoiaExpiry = time.Now().Add(duration)
+	e.SavePlayer(ctx, target)
+	if isSelf {
+		return &CommandResult{
+			Messages:      []string{fmt.Sprintf("You gesture and cast %s on yourself. A creeping unease settles over you.", spell.Name)},
+			RoomBroadcast: []string{fmt.Sprintf("%s gestures and casts %s on themselves.", player.DisplayName(), spell.Name)},
+		}
+	}
+	// Cast at someone else: no message to anyone -- the target has no way of
+	// knowing they've been cursed, which is the whole point of the spell.
+	return &CommandResult{}
+}
+
 func (e *GameEngine) castHasteSpell(player *Player, spell *SpellDef, args []string) *CommandResult {
 	const hasteDuration = 20 * time.Minute
 	const hasteMaxDuration = 4 * time.Hour
@@ -4140,21 +4672,15 @@ func (e *GameEngine) castCharmSpell(player *Player, spell *SpellDef, args []stri
 	}
 }
 
-// castDetectMagic handles spell 400 — Detect Magic.
-// Examines a named item (inventory, worn, or in the room) for a stored spell (Val3) and
-// reports the intensity of the magical glow based on the stored spell's level.
-func (e *GameEngine) castDetectMagic(player *Player, args []string) *CommandResult {
-	if len(args) == 0 {
-		return &CommandResult{Messages: []string{"Detect magic on what? Specify an item."}}
-	}
-	target := strings.ToLower(strings.Join(args, " "))
+// findMagicItemTarget resolves an item name to a candidate item — checking inventory,
+// worn, wielded, off-hand, then room items in that order, respecting an ordinal
+// prefix/suffix ("2nd wand") via parseOrdinal. Shared by Detect Magic (400) and
+// Identify (228), the two spells that inspect an item's stored spell (Val3) and
+// charges (Val2). Returns (nil, nil) if nothing matches.
+func (e *GameEngine) findMagicItemTarget(player *Player, targetRaw string) (*InventoryItem, *gameworld.ItemDef) {
+	target := strings.ToLower(targetRaw)
 	target, ordSkip := parseOrdinal(target)
 	skip := ordSkip
-
-	type candidate struct {
-		item *InventoryItem
-		def  *gameworld.ItemDef
-	}
 
 	matches := func(ii *InventoryItem) bool {
 		def := e.items[ii.Archetype]
@@ -4164,8 +4690,6 @@ func (e *GameEngine) castDetectMagic(player *Player, args []string) *CommandResu
 		return matchesTarget(e.getItemNounName(def), target, e.getAdjName(ii.Adj1), e.getAdjName(ii.Adj2), e.getAdjName(ii.Adj3))
 	}
 
-	// Search inventory, worn, wielded, off-hand, then room items — respecting ordinal skip.
-	var found *candidate
 	for i := range player.Inventory {
 		if !matches(&player.Inventory[i]) {
 			continue
@@ -4174,70 +4698,73 @@ func (e *GameEngine) castDetectMagic(player *Player, args []string) *CommandResu
 			skip--
 			continue
 		}
-		found = &candidate{&player.Inventory[i], e.items[player.Inventory[i].Archetype]}
-		break
+		return &player.Inventory[i], e.items[player.Inventory[i].Archetype]
 	}
-	if found == nil {
-		for i := range player.Worn {
-			if !matches(&player.Worn[i]) {
+	for i := range player.Worn {
+		if !matches(&player.Worn[i]) {
+			continue
+		}
+		if skip > 0 {
+			skip--
+			continue
+		}
+		return &player.Worn[i], e.items[player.Worn[i].Archetype]
+	}
+	if player.Wielded != nil && matches(player.Wielded) {
+		if skip > 0 {
+			skip--
+		} else {
+			return player.Wielded, e.items[player.Wielded.Archetype]
+		}
+	}
+	if player.OffHand != nil && matches(player.OffHand) {
+		if skip > 0 {
+			skip--
+		} else {
+			return player.OffHand, e.items[player.OffHand.Archetype]
+		}
+	}
+	room := e.rooms[player.RoomNumber]
+	if room != nil {
+		for _, ri := range room.Items {
+			def := e.items[ri.Archetype]
+			if def == nil {
+				continue
+			}
+			if !matchesTarget(e.getItemNounName(def), target, e.getAdjName(ri.Adj1), e.getAdjName(ri.Adj2), e.getAdjName(ri.Adj3)) {
 				continue
 			}
 			if skip > 0 {
 				skip--
 				continue
 			}
-			found = &candidate{&player.Worn[i], e.items[player.Worn[i].Archetype]}
-			break
-		}
-	}
-	if found == nil && player.Wielded != nil && matches(player.Wielded) {
-		if skip > 0 {
-			skip--
-		} else {
-			found = &candidate{player.Wielded, e.items[player.Wielded.Archetype]}
-		}
-	}
-	if found == nil && player.OffHand != nil && matches(player.OffHand) {
-		if skip > 0 {
-			skip--
-		} else {
-			found = &candidate{player.OffHand, e.items[player.OffHand.Archetype]}
-		}
-	}
-	if found == nil {
-		room := e.rooms[player.RoomNumber]
-		if room != nil {
-			for _, ri := range room.Items {
-				def := e.items[ri.Archetype]
-				if def == nil {
-					continue
-				}
-				if !matchesTarget(e.getItemNounName(def), target, e.getAdjName(ri.Adj1), e.getAdjName(ri.Adj2), e.getAdjName(ri.Adj3)) {
-					continue
-				}
-				if skip > 0 {
-					skip--
-					continue
-				}
-				tmp := InventoryItem{
-					Archetype: ri.Archetype,
-					Adj1: ri.Adj1, Adj2: ri.Adj2, Adj3: ri.Adj3,
-					Val2: ri.Val2, Val3: ri.Val3, Val4: ri.Val4,
-					ItemBits: ri.ItemBits,
-				}
-				found = &candidate{&tmp, def}
-				break
+			tmp := InventoryItem{
+				Archetype: ri.Archetype,
+				Adj1: ri.Adj1, Adj2: ri.Adj2, Adj3: ri.Adj3,
+				Val2: ri.Val2, Val3: ri.Val3, Val4: ri.Val4,
+				ItemBits: ri.ItemBits,
 			}
+			return &tmp, def
 		}
 	}
+	return nil, nil
+}
 
-	if found == nil {
+// castDetectMagic handles spell 400 — Detect Magic.
+// Examines a named item (inventory, worn, or in the room) for a stored spell (Val3) and
+// reports the intensity of the magical glow based on the stored spell's level.
+func (e *GameEngine) castDetectMagic(player *Player, args []string) *CommandResult {
+	if len(args) == 0 {
+		return &CommandResult{Messages: []string{"Detect magic on what? Specify an item."}}
+	}
+	item, def := e.findMagicItemTarget(player, strings.Join(args, " "))
+	if item == nil {
 		return &CommandResult{Messages: []string{"You don't see that here."}}
 	}
 
-	itemName := e.formatItemName(found.def, found.item.Adj1, found.item.Adj2, found.item.Adj3, found.item.Tail)
+	itemName := e.formatItemName(def, item.Adj1, item.Adj2, item.Adj3, item.Tail)
 
-	if found.item.Val3 == 0 {
+	if item.Val3 == 0 {
 		return &CommandResult{
 			Messages:      []string{fmt.Sprintf("%s reveals no magical aura.", itemName)},
 			RoomBroadcast: []string{fmt.Sprintf("%s gestures at %s.", player.DisplayName(), itemName)},
@@ -4246,14 +4773,14 @@ func (e *GameEngine) castDetectMagic(player *Player, args []string) *CommandResu
 
 	// Val3 = spell ID, Val2 = charges remaining. A spent item has the spell imprint
 	// but no charges — it shows a faint residual aura.
-	if found.item.Val2 == 0 {
+	if item.Val2 == 0 {
 		return &CommandResult{
 			Messages:      []string{fmt.Sprintf("%s reveals a faint magical residue — it has been completely drained of power.", itemName)},
 			RoomBroadcast: []string{fmt.Sprintf("%s gestures at %s.", player.DisplayName(), itemName)},
 		}
 	}
 
-	storedSpell := FindSpellByID(found.item.Val3)
+	storedSpell := FindSpellByID(item.Val3)
 	var glow string
 	var spellLevel int
 	if storedSpell != nil {
@@ -4271,12 +4798,175 @@ func (e *GameEngine) castDetectMagic(player *Player, args []string) *CommandResu
 	}
 
 	chargeWord := "charge"
-	if found.item.Val2 != 1 {
+	if item.Val2 != 1 {
 		chargeWord = "charges"
 	}
-	msg := fmt.Sprintf("%s %s (%d %s remaining).", itemName, glow, found.item.Val2, chargeWord)
+	msg := fmt.Sprintf("%s %s (%d %s remaining).", itemName, glow, item.Val2, chargeWord)
 	return &CommandResult{
 		Messages:      []string{msg},
 		RoomBroadcast: []string{fmt.Sprintf("%s gestures at %s, which %s.", player.DisplayName(), itemName, glow)},
+	}
+}
+
+// castIdentifySpell handles spell 228 — Identify. Unlike Detect Magic (400), which
+// only reports a vague glow intensity, Identify names the exact spell imprinted on
+// the item and how many charges remain (per MAGIC.TXT there's no such ambiguity —
+// Identify is the precise, higher-rank counterpart).
+func (e *GameEngine) castIdentifySpell(player *Player, args []string) *CommandResult {
+	if len(args) == 0 {
+		return &CommandResult{Messages: []string{"Identify what? Specify an item."}}
+	}
+	item, def := e.findMagicItemTarget(player, strings.Join(args, " "))
+	if item == nil {
+		return &CommandResult{Messages: []string{"You don't see that here."}}
+	}
+
+	itemName := e.formatItemName(def, item.Adj1, item.Adj2, item.Adj3, item.Tail)
+	gestureMsg := fmt.Sprintf("You gesture at %s.", itemName)
+	roomMsg := fmt.Sprintf("%s gestures at %s.", player.DisplayNameCap(), itemName)
+
+	if item.Val3 == 0 {
+		return &CommandResult{
+			Messages:      []string{gestureMsg, fmt.Sprintf("%s contains no spell.", itemName)},
+			RoomBroadcast: []string{roomMsg},
+		}
+	}
+
+	storedSpell := FindSpellByID(item.Val3)
+	spellName := "an unknown spell"
+	if storedSpell != nil {
+		spellName = storedSpell.Name
+	}
+
+	if item.Val2 == 0 {
+		return &CommandResult{
+			Messages:      []string{gestureMsg, fmt.Sprintf("%s contains %s, but has been completely drained -- no charges remain.", itemName, spellName)},
+			RoomBroadcast: []string{roomMsg},
+		}
+	}
+
+	chargeWord := "charge"
+	if item.Val2 != 1 {
+		chargeWord = "charges"
+	}
+	return &CommandResult{
+		Messages:      []string{gestureMsg, fmt.Sprintf("%s contains %s (%d %s remaining).", itemName, spellName, item.Val2, chargeWord)},
+		RoomBroadcast: []string{roomMsg},
+	}
+}
+
+// castSilenceSpell handles spell 219 — Silence. Fixed 1-minute duration; recasting
+// resets it back to a full minute rather than stacking/extending like most other
+// enchantment timers. The target cannot speak (say/'/yell/sing/recite — see the
+// IsSilenced checks in engine.go and social.go) or cast any spell, since casting
+// requires speech (doCastSpell). Monsters with the SILENCEIGNORE flag (GMSCRIPT.DOC:
+// creatures that cast via hand movements or symbols) still get silenced but keep
+// casting regardless — see monsterCombatTick's SilenceIgnore check.
+func (e *GameEngine) castSilenceSpell(ctx context.Context, player *Player, spell *SpellDef, args []string) *CommandResult {
+	targetName := strings.Join(args, " ")
+	if targetName == "" {
+		targetName = e.autoTargetMonsterName(player)
+	}
+	if targetName == "" {
+		return &CommandResult{Messages: []string{fmt.Sprintf("Cast %s at whom?", spell.Name)}}
+	}
+
+	const duration = 60 * time.Second
+
+	if target := e.findPlayerInRoom(player, targetName); target != nil {
+		target.SilencedExpiry = time.Now().Add(duration)
+		e.SavePlayer(ctx, target)
+		return &CommandResult{
+			Messages:      []string{fmt.Sprintf("You gesture at %s.", target.DisplayName()), fmt.Sprintf("%s becomes absolutely silent.", target.DisplayNameCap())},
+			RoomBroadcast: []string{fmt.Sprintf("%s gestures at %s -- %s becomes absolutely silent.", player.DisplayNameCap(), target.DisplayName(), target.Pronoun())},
+			TargetName:    target.FirstName,
+			TargetMsg:     []string{"Your voice catches in your throat -- you have been silenced!"},
+		}
+	}
+
+	inst, def := e.findMonsterInRoom(player, targetName)
+	if inst == nil {
+		return &CommandResult{Messages: []string{fmt.Sprintf("You don't see '%s' here.", targetName)}}
+	}
+	name := strings.ToLower(FormatMonsterName(def, e.monAdjs))
+	article := articleFor(name, def.Unique)
+
+	if magicResistRoll(player, def.MagicResist) {
+		return &CommandResult{
+			Messages:      []string{fmt.Sprintf("You gesture at %s%s.", article, name), fmt.Sprintf("The %s resists your silencing magic!", name)},
+			RoomBroadcast: []string{fmt.Sprintf("%s gestures at %s%s, but it resists!", player.DisplayName(), article, name)},
+		}
+	}
+
+	e.monsterMgr.mu.Lock()
+	for i := range e.monsterMgr.instances {
+		if e.monsterMgr.instances[i].ID == inst.ID {
+			e.monsterMgr.instances[i].Silenced = true
+			e.monsterMgr.instances[i].SilenceExpiry = time.Now().Add(duration)
+			break
+		}
+	}
+	e.monsterMgr.mu.Unlock()
+
+	return &CommandResult{
+		Messages:      []string{fmt.Sprintf("You gesture at %s%s.", article, name), fmt.Sprintf("The %s becomes absolutely silent.", name)},
+		RoomBroadcast: []string{fmt.Sprintf("%s gestures at %s%s -- it becomes absolutely silent.", player.DisplayNameCap(), article, name)},
+	}
+}
+
+// castImprisonSpell handles spell 231 — Imprison. Traps the target in a blue force
+// bubble for 5 minutes: they cannot attack anyone (doAttackMonster) or cast any
+// spell on anyone, including themselves (doCastSpell) — meaning they can't even
+// attempt to dispel it. Only another caster targeting them, or letting the 5
+// minutes run out, ends it.
+func (e *GameEngine) castImprisonSpell(ctx context.Context, player *Player, spell *SpellDef, args []string) *CommandResult {
+	targetName := strings.Join(args, " ")
+	if targetName == "" {
+		targetName = e.autoTargetMonsterName(player)
+	}
+	if targetName == "" {
+		return &CommandResult{Messages: []string{fmt.Sprintf("Cast %s at whom?", spell.Name)}}
+	}
+
+	const duration = 5 * time.Minute
+
+	if target := e.findPlayerInRoom(player, targetName); target != nil {
+		target.ImprisonedExpiry = time.Now().Add(duration)
+		e.SavePlayer(ctx, target)
+		return &CommandResult{
+			Messages:      []string{fmt.Sprintf("You gesture at %s.", target.DisplayName()), fmt.Sprintf("A blue force bubble envelops %s!", target.DisplayName())},
+			RoomBroadcast: []string{fmt.Sprintf("%s gestures at %s -- a blue force bubble envelops %s!", player.DisplayNameCap(), target.DisplayName(), target.Objective())},
+			TargetName:    target.FirstName,
+			TargetMsg:     []string{"A blue force bubble envelops you! You cannot attack or cast spells until it fades."},
+		}
+	}
+
+	inst, def := e.findMonsterInRoom(player, targetName)
+	if inst == nil {
+		return &CommandResult{Messages: []string{fmt.Sprintf("You don't see '%s' here.", targetName)}}
+	}
+	name := strings.ToLower(FormatMonsterName(def, e.monAdjs))
+	article := articleFor(name, def.Unique)
+
+	if magicResistRoll(player, def.MagicResist) {
+		return &CommandResult{
+			Messages:      []string{fmt.Sprintf("You gesture at %s%s.", article, name), fmt.Sprintf("The %s resists your imprisoning magic!", name)},
+			RoomBroadcast: []string{fmt.Sprintf("%s gestures at %s%s, but it resists!", player.DisplayName(), article, name)},
+		}
+	}
+
+	e.monsterMgr.mu.Lock()
+	for i := range e.monsterMgr.instances {
+		if e.monsterMgr.instances[i].ID == inst.ID {
+			e.monsterMgr.instances[i].Imprisoned = true
+			e.monsterMgr.instances[i].ImprisonExpiry = time.Now().Add(duration)
+			break
+		}
+	}
+	e.monsterMgr.mu.Unlock()
+
+	return &CommandResult{
+		Messages:      []string{fmt.Sprintf("You gesture at %s%s.", article, name), fmt.Sprintf("A blue force bubble envelops %s%s!", article, name)},
+		RoomBroadcast: []string{fmt.Sprintf("%s gestures at %s%s -- a blue force bubble envelops it!", player.DisplayNameCap(), article, name)},
 	}
 }

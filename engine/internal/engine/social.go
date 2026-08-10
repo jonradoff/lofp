@@ -26,6 +26,9 @@ func (e *GameEngine) doEmoteWithScripts(ctx context.Context, player *Player, ver
 	// Check room-level bare-verb scripts (IFVERB/IFPREVERB VERB -1)
 	if room != nil {
 		sc := e.RunRoomVerbScripts(player, room, verb)
+		if len(sc.DeferredSegments) > 0 {
+			e.scheduleScriptSegments(player, sc.DeferredSegments)
+		}
 		if sc.Blocked || len(sc.Messages) > 0 || len(sc.RoomMsgs) > 0 {
 			result := &CommandResult{Messages: sc.Messages, RoomBroadcast: sc.RoomMsgs, GMBroadcast: sc.GMMsgs}
 			if sc.Blocked && len(result.Messages) == 0 {
@@ -190,6 +193,9 @@ func (e *GameEngine) runVerbScriptsForTarget(ctx context.Context, player *Player
 }
 
 func (e *GameEngine) doWhisper(player *Player, args []string, rawInput string) *CommandResult {
+	if msg := formActionBlockMessage(player); msg != "" {
+		return &CommandResult{Messages: []string{msg}}
+	}
 	if len(args) < 2 {
 		return &CommandResult{Messages: []string{"Whisper to whom?"}}
 	}
@@ -236,6 +242,12 @@ func (e *GameEngine) doWhisper(player *Player, args []string, rawInput string) *
 func (e *GameEngine) doYell(player *Player, args []string, rawInput string) *CommandResult {
 	if len(args) == 0 {
 		return &CommandResult{Messages: []string{"Yell what?"}}
+	}
+	if player.IsSilenced() {
+		return &CommandResult{Messages: []string{"You try to yell, but no sound comes out!"}}
+	}
+	if msg := formActionBlockMessage(player); msg != "" {
+		return &CommandResult{Messages: []string{msg}}
 	}
 	text := extractRawArgs(rawInput, 1)
 	adverb := ""
@@ -344,7 +356,7 @@ func (e *GameEngine) doFollow(player *Player, args []string) *CommandResult {
 		return &CommandResult{Messages: []string{"They are not here."}}
 	}
 	if player.Following != "" {
-		return &CommandResult{Messages: []string{fmt.Sprintf("You are already following %s.", player.Following)}}
+		return &CommandResult{Messages: []string{fmt.Sprintf("You are already following %s.", e.displayNameForOnlinePlayer(player.Following))}}
 	}
 	if found.Following == player.FirstName {
 		return &CommandResult{Messages: []string{"You can't follow someone who is following you."}}
@@ -362,7 +374,7 @@ func (e *GameEngine) doFollow(player *Player, args []string) *CommandResult {
 	if !alreadyIn {
 		found.GroupMembers = append(found.GroupMembers, player.FirstName)
 	}
-	result := &CommandResult{Messages: []string{fmt.Sprintf("You are now following %s.", found.FirstName)}}
+	result := &CommandResult{Messages: []string{fmt.Sprintf("You are now following %s.", found.DisplayName())}}
 	if !player.IsConcealed() {
 		result.RoomBroadcast = []string{fmt.Sprintf("%s is now following %s.", player.DisplayNameCap(), found.DisplayName())}
 	}
@@ -375,7 +387,7 @@ func (e *GameEngine) doHold(player *Player, found *Player) *CommandResult {
 		return avoidBlockMessage(found.FirstName)
 	}
 	if found.Following != "" {
-		return &CommandResult{Messages: []string{fmt.Sprintf("%s is already following someone.", found.FirstName)}}
+		return &CommandResult{Messages: []string{fmt.Sprintf("%s is already following someone.", found.DisplayName())}}
 	}
 	found.Following = player.FirstName
 	player.IsGroupLeader = true
@@ -390,7 +402,7 @@ func (e *GameEngine) doHold(player *Player, found *Player) *CommandResult {
 		player.GroupMembers = append(player.GroupMembers, found.FirstName)
 	}
 	return &CommandResult{
-		Messages:      []string{fmt.Sprintf("%s takes %s by the hand.", player.FirstName, found.FirstName)},
+		Messages:      []string{fmt.Sprintf("%s takes %s by the hand.", player.DisplayName(), found.DisplayName())},
 		RoomBroadcast: []string{fmt.Sprintf("%s takes %s by the hand.", player.DisplayName(), found.DisplayName())},
 	}
 }
@@ -423,6 +435,31 @@ func (e *GameEngine) moveGroupToRoom(ctx context.Context, srcRoom, destRoom int)
 	}
 }
 
+// displayNameForOnlinePlayer resolves a stored real FirstName (e.g. from
+// Player.Following or Player.GroupMembers, which always track real identity
+// so group bookkeeping survives a member re-disguising) to that player's
+// current disguise-aware DisplayName, so group messages describe someone by
+// the persona they're currently wearing rather than leaking their real name.
+// Falls back to the raw name if the player can't be found online.
+func (e *GameEngine) findOnlinePlayerByName(name string) *Player {
+	if e.sessions == nil {
+		return nil
+	}
+	for _, p := range e.sessions.OnlinePlayers() {
+		if p.FirstName == name {
+			return p
+		}
+	}
+	return nil
+}
+
+func (e *GameEngine) displayNameForOnlinePlayer(name string) string {
+	if p := e.findOnlinePlayerByName(name); p != nil {
+		return p.DisplayName()
+	}
+	return name
+}
+
 func (e *GameEngine) removeFromGroup(player *Player) {
 	if player.Following == "" {
 		return
@@ -453,10 +490,11 @@ func (e *GameEngine) doLeave(player *Player) *CommandResult {
 		return &CommandResult{Messages: []string{"You are not following anyone."}}
 	}
 	leaderName := player.Following
+	leaderDisplay := e.displayNameForOnlinePlayer(leaderName)
 	e.removeFromGroup(player)
 	return &CommandResult{
-		Messages:      []string{fmt.Sprintf("You stop following %s.", leaderName)},
-		RoomBroadcast: []string{fmt.Sprintf("%s stops following %s.", player.DisplayName(), leaderName)},
+		Messages:      []string{fmt.Sprintf("You stop following %s.", leaderDisplay)},
+		RoomBroadcast: []string{fmt.Sprintf("%s stops following %s.", player.DisplayName(), leaderDisplay)},
 	}
 }
 
@@ -472,7 +510,7 @@ func (e *GameEngine) doDisband(player *Player) *CommandResult {
 				if p.FirstName == memberName {
 					p.Following = ""
 					if e.sendToPlayer != nil {
-						e.sendToPlayer(p.FirstName, []string{fmt.Sprintf("%s disbands the group.", player.FirstName)})
+						e.sendToPlayer(p.FirstName, []string{fmt.Sprintf("%s disbands the group.", player.DisplayName())})
 					}
 					break
 				}
@@ -686,7 +724,7 @@ func (e *GameEngine) doHelp() *CommandResult {
 		"           PUT <item> IN <container>, DUMP <container>",
 		"           GET ALL, GET ALL <noun>",
 		"Selling:   SELL <item>, SELL ALL <noun>",
-		"Info: STATUS, HEALTH, WEALTH, SKILLS, WHO, TIME, WEATHER",
+		"Info: STATUS, HEALTH, FATIGUE, WEALTH, SKILLS, WHO, TIME, WEATHER",
 		"Combat: ATTACK <target>, ADVANCE <target>, RETREAT",
 		"Social: '<message> (say), ACT <action>, WHISPER <person> <msg>",
 		"Position: SIT, STAND, KNEEL, LAY",
@@ -711,6 +749,9 @@ func (e *GameEngine) doThink(player *Player, rawInput string) *CommandResult {
 }
 
 func (e *GameEngine) doCant(player *Player, args []string) *CommandResult {
+	if msg := formActionBlockMessage(player); msg != "" {
+		return &CommandResult{Messages: []string{msg}}
+	}
 	if len(args) == 0 {
 		return &CommandResult{Messages: []string{"Cant what?"}}
 	}
@@ -837,7 +878,7 @@ func (e *GameEngine) HandlePlayerDisconnect(player *Player) {
 					if p.FirstName == memberName {
 						p.Following = ""
 						if e.sendToPlayer != nil {
-							e.sendToPlayer(p.FirstName, []string{fmt.Sprintf("%s has left the Realms. The group is disbanded.", player.FirstName)})
+							e.sendToPlayer(p.FirstName, []string{fmt.Sprintf("%s has left the Realms. The group is disbanded.", player.DisplayName())})
 						}
 						break
 					}
@@ -862,7 +903,7 @@ func (e *GameEngine) HandlePlayerDisconnect(player *Player) {
 						p.IsGroupLeader = false
 					}
 					if e.sendToPlayer != nil {
-						e.sendToPlayer(p.FirstName, []string{fmt.Sprintf("%s has left the Realms and is no longer in your group.", player.FirstName)})
+						e.sendToPlayer(p.FirstName, []string{fmt.Sprintf("%s has left the Realms and is no longer in your group.", player.DisplayName())})
 					}
 					break
 				}
@@ -912,7 +953,7 @@ func (e *GameEngine) checkPortalGuard(mover *Player, portalArch int) (blocked bo
 		roll := rand.Intn(100) + cmSkill*5 + agiBonus + quickBonus
 		threshold := 50 + g.Skills[10]*5
 
-		hidden := mover.Hidden || mover.Invisible
+		hidden := mover.Hidden || mover.Invisible || mover.PhantomForm
 		moverName := mover.FirstName
 		if hidden {
 			moverName = "something"
@@ -963,7 +1004,7 @@ func (e *GameEngine) checkItemGuard(mover *Player, itemArch int, itemName string
 		roll := rand.Intn(100) + cmSkill*5 + agiBonus + quickBonus
 		threshold := 50 + g.Skills[10]*5
 
-		hidden := mover.Hidden || mover.Invisible
+		hidden := mover.Hidden || mover.Invisible || mover.PhantomForm
 		moverName := mover.FirstName
 		if hidden {
 			moverName = "something"

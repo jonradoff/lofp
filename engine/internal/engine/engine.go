@@ -155,6 +155,7 @@ type GameEngine struct {
 	Banner                    string // active login banner; in-memory so it works even if MongoDB is down
 	lastAssistName            string // last player who used ASSIST (for @answer)
 	lastAssistRoom            int    // room number of last ASSIST
+	lastDeathRoom             int    // room number of the most recent player death (for Scry's eye of scrying, item 520)
 	// roomContainerContents stores the contents of room-level containers (transient).
 	// Key: "<roomNumber>:<itemRef>"
 	roomContainerContents map[string][]InventoryItem
@@ -564,6 +565,12 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 
 	// Handle speech: '<msg>, "<msg>, or SAY <msg>
 	if isQuoteSpeech || isSayVerb {
+		if player.IsSilenced() {
+			return &CommandResult{Messages: []string{"You try to speak, but no sound comes out!"}}
+		}
+		if msg := formActionBlockMessage(player); msg != "" {
+			return &CommandResult{Messages: []string{msg}}
+		}
 		var msg string
 		if isQuoteSpeech {
 			msg = input[1:]
@@ -832,7 +839,7 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 		if len(args) == 0 {
 			return e.doLookFull(player)
 		}
-		return e.doLookAt(player, args)
+		return e.doLookAt(ctx, player, args)
 	case "GO":
 		return e.doGo(ctx, player, args)
 	case "CLIMB":
@@ -869,6 +876,8 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 			return &CommandResult{Messages: []string{"You don't see that person here."}}
 		}
 		return e.doHealth(player)
+	case "FATIGUE":
+		return e.doFatigue(player)
 	case "WIELD":
 		return e.doWield(ctx, player, args)
 	case "UNWIELD":
@@ -980,7 +989,7 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 		return &CommandResult{Messages: []string{"Speech patterns are set by gamemasters. Ask a GM if you'd like a custom speech style."}}
 	case "QUIT":
 		return &CommandResult{Messages: []string{"You fade from the Shattered Realms..."}, Quit: true,
-			GlobalBroadcast: []string{fmt.Sprintf("** %s has just left the Realms.", player.FirstName)}}
+			GlobalBroadcast: []string{fmt.Sprintf("** %s has just left the Realms.", player.DisplayNameCap())}}
 	case "HELP":
 		return e.doHelp()
 	case "ADVICE":
@@ -1013,6 +1022,12 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 	case "SING":
 		// If args provided, treat as SAY variant with sing/sings
 		if len(args) > 0 {
+			if player.IsSilenced() {
+				return &CommandResult{Messages: []string{"You try to sing, but no sound comes out!"}}
+			}
+			if msg := formActionBlockMessage(player); msg != "" {
+				return &CommandResult{Messages: []string{msg}}
+			}
 			text := extractOriginalArgs(input)
 			adverb := ""
 			if player.SpeechAdverb != "" {
@@ -1180,6 +1195,12 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 	case "RECITE":
 		if len(args) == 0 {
 			return &CommandResult{Messages: []string{"Recite what?"}}
+		}
+		if player.IsSilenced() {
+			return &CommandResult{Messages: []string{"You try to recite, but no sound comes out!"}}
+		}
+		if msg := formActionBlockMessage(player); msg != "" {
+			return &CommandResult{Messages: []string{msg}}
 		}
 		text := extractOriginalArgs(input)
 		text = strings.Trim(text, "'\"")
@@ -1439,7 +1460,7 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 		e.SavePlayer(ctx, player)
 		return &CommandResult{Messages: []string{"Prompt indicators off."}}
 	case "VERSION", "NEWS", "NOTES":
-		return &CommandResult{Messages: []string{"Legends of Future Past v11.27.0"}}
+		return &CommandResult{Messages: []string{"Legends of Future Past v11.30.0"}}
 	case "CREDITS":
 		return &CommandResult{Messages: []string{
 			"",
@@ -1644,6 +1665,20 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 	case "CALL":
 		return &CommandResult{Messages: []string{"[Aelfen familiar coming soon.]"}} // TODO: call woodland creature
 	case "TRANSFORM":
+		if player.MistForm || player.SlimeForm {
+			// Mist Form / Slime Form → normal: the only way out of either form
+			// (see castFormSpell in hiding_forms.go).
+			preFormName := player.DisplayName() // "some mist" / "a slime", captured before flipping the flags
+			player.MistForm = false
+			player.SlimeForm = false
+			transformRT := applyRoundTime(player, 15)
+			player.RoundTimeExpiry = time.Now().Add(time.Duration(transformRT) * time.Second)
+			e.SavePlayer(ctx, player)
+			return &CommandResult{
+				Messages:      []string{"You congeal back into your body.", fmt.Sprintf("[Round: %d sec]", transformRT)},
+				RoomBroadcast: []string{fmt.Sprintf("%s shudders and congeals, resuming the shape of %s.", capitalize(preFormName), player.DisplayName())},
+			}
+		}
 		if player.Race != RaceWolfling {
 			return &CommandResult{Messages: []string{"Only wolflings can transform."}}
 		}
@@ -1798,7 +1833,7 @@ var adviceHints = []string{
 // Abbreviation resolution matches against this list.
 var allVerbs = []string{
 	"LOOK", "EXAMINE", "INSPECT", "GO", "GET", "TAKE", "DROP",
-	"INVENTORY", "STATUS", "HEALTH", "DIAGNOSE",
+	"INVENTORY", "STATUS", "HEALTH", "DIAGNOSE", "FATIGUE",
 	"WIELD", "UNWIELD", "WEAR", "REMOVE", "APPRAISE",
 	"OPEN", "CLOSE", "SIT", "STAND", "KNEEL", "LAY",
 	"BRIEF", "FULL", "PROMPT", "WHO", "SKILLS", "WEALTH",
@@ -1887,6 +1922,7 @@ var verbAliases = map[string]string{
 	"DON": "WEAR", "EXIT": "QUIT", "SKILL": "SKILLS",
 	"WHI": "WHISPER", "THIN": "THINK", "CONTA": "CONTACT",
 	"DI":    "DIAGNOSE",
+	"FAT":   "FATIGUE",
 	"ORDER": "BUY", "UNLIGHT": "EXTINGUISH", "IGNITE": "LIGHT",
 	"QUAFF": "DRINK", "SHOUT": "YELL", "A": "ATTACK",
 	"PLACE": "PUT", "TRANS": "TRANSFORM",

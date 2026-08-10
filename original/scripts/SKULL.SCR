@@ -1,0 +1,356 @@
+; SKULL.SCR — Order of the Skull guild area (org 28)
+; Source: "LoFP Order of the Skull material.pdf" GM planning doc.
+; Scope of this pass: organization + rooms only. Spell additions (327-399) from
+; the source material are deliberately NOT implemented here. Tower/inner-tower
+; entry is gated by simple ORG membership (matching ARCANA.SCR's org-2 "unseen
+; force" idiom) rather than the source doc's full robe+passphrase ritual, since
+; that needs a robe item that doesn't exist yet. The throne/onyx-skull secret
+; passage to the Skull Lord's chamber IS implemented as a real hidden puzzle
+; (see room 5302), following the look-behind/reveal idiom from ADDAMS.SCR room
+; 3714's painting-safe.
+;
+; Rooms:
+;   5300  Graveyard, Tower            (cul-de-sac; reached via room 307's path)
+;   5301  Order of the Skull, Foyer
+;   5302  Great Hall of the Skull
+;   5303  Chamber of Necrology        (skill training)
+;   5304  Anatomicatory               (reagent shop)
+;   5305  Chamber of the Skull Lord   (leader's private chamber; markable)
+;
+; New vocabulary added to ADJNOUN.SCR: NOUNDEF 1598 engraving.
+
+ORGDEF 28 INVITE GUILD 5301 Order_of_the_Skull
+
+VARIABLE SKULLOPEN
+
+; ── Item archetypes ──────────────────────────────────────────────────────────
+
+; Path up from the cemetery (room 307) — unrestricted; anyone can walk up and
+; look at the tower from outside. Placed as a room item in both 307 (in
+; FAYD.SCR) and 5300 below, each pointing at the other.
+INUMBER 8300
+NAME 154
+MISC
+WEIGHT 1000
+VOLUME 1000
+PORTAL_CLIMB
+;
+; A weathered bone skull set into the tower's base, below the engraving.
+; EXAMINE text for this is set per-room (room-scoped *DESCRIPTION_START ITEM
+; EXAMINE <idx> — archetype-level item descriptions only apply when carried).
+INUMBER 8301
+NAME 188
+ADJ1 31
+MISC
+WEIGHT 5
+VOLUME 2
+FIXED
+;
+; The engraving above the skull.
+INUMBER 8302
+NAME 1598
+MISC
+WEIGHT 1
+VOLUME 1
+FIXED
+IFPREVERB READ -1
+  CLEARVERB
+  ECHO PLAYER There is a burst of sickly green eldritch light from the engraving that highlights the words, 'Order of the Skull'.
+  ECHO OTHERS %N reads an engraving, which flashes with sickly green eldritch light.
+ENDIF
+;
+; The teeth — the actual entrance into the tower. Org-gated; blocked players
+; get pushed back rather than let inside.
+INUMBER 8303
+NAME 281
+MISC
+WEIGHT 1000
+VOLUME 1000
+PORTAL_CLIMB
+HIDDEN
+IFPREVERB GO -1
+  IFVAR ORG ! 28
+    CLEARVERB
+    ECHO PLAYER As you attempt to climb between the teeth, a terrible scream assaults your ears and you are thrown forcibly back and knocked to the ground!
+    ECHO OTHERS %N attempts to climb into the tower's mouth but is thrown back with a terrible scream and knocked to the ground!
+    POSITION LAY
+  ENDIF
+ENDIF
+;
+; Bone archway inside the foyer, leading deeper into the tower. Unrestricted —
+; anyone who made it through the teeth is already a member.
+INUMBER 8304
+NAME 7
+ADJ1 31
+MISC
+WEIGHT 1000
+VOLUME 1000
+PORTAL_THROUGH
+HIDDEN
+;
+; The bone throne at the north end of the Great Hall. EXAMINE/BEHIND text for
+; this is set per-room below (room 5302), same reasoning as the bone skull.
+INUMBER 8305
+NAME 478
+ADJ1 31
+MISC
+WEIGHT 1000
+VOLUME 1000
+FIXED
+HIDDEN
+;
+; The onyx skull hidden behind the throne — concentrate/pull/tap/push all
+; trigger the same reveal, opening the way to the Skull Lord's chamber.
+INUMBER 8306
+NAME 188
+ADJ1 224
+MISC
+WEIGHT 50
+VOLUME 5
+SUBSTANCE HARDSTONE
+FIXED
+HIDDEN
+IFPREVERB CONCENTRATE -1
+  IFVAR SKULLOPEN = 1
+    CLEARVERB
+    ECHO PLAYER Nothing happens — the passage is already open.
+  ELSE
+    CLEARVERB
+    EQUAL SKULLOPEN 1
+    ECHO PLAYER A section of the wall slides to your left, revealing a spiraling stairway leading upward into darkness.
+    ECHO OTHERS A section of wall slides open behind the throne, revealing a hidden stairway.
+  ENDIF
+ENDIF
+IFPREVERB PULL -1
+  IFVAR SKULLOPEN = 1
+    CLEARVERB
+    ECHO PLAYER Nothing happens — the passage is already open.
+  ELSE
+    CLEARVERB
+    EQUAL SKULLOPEN 1
+    ECHO PLAYER A section of the wall slides to your left, revealing a spiraling stairway leading upward into darkness.
+    ECHO OTHERS A section of wall slides open behind the throne, revealing a hidden stairway.
+  ENDIF
+ENDIF
+IFPREVERB TAP -1
+  IFVAR SKULLOPEN = 1
+    CLEARVERB
+    ECHO PLAYER Nothing happens — the passage is already open.
+  ELSE
+    CLEARVERB
+    EQUAL SKULLOPEN 1
+    ECHO PLAYER A section of the wall slides to your left, revealing a spiraling stairway leading upward into darkness.
+    ECHO OTHERS A section of wall slides open behind the throne, revealing a hidden stairway.
+  ENDIF
+ENDIF
+IFPREVERB PUSH -1
+  IFVAR SKULLOPEN = 1
+    CLEARVERB
+    ECHO PLAYER Nothing happens — the passage is already open.
+  ELSE
+    CLEARVERB
+    EQUAL SKULLOPEN 1
+    ECHO PLAYER A section of the wall slides to your left, revealing a spiraling stairway leading upward into darkness.
+    ECHO OTHERS A section of wall slides open behind the throne, revealing a hidden stairway.
+  ENDIF
+ENDIF
+;
+; The spiral stairway revealed behind the throne. Climbing it before the wall
+; has been opened just finds bare stone.
+INUMBER 8307
+NAME 193
+ADJ1 306
+MISC
+WEIGHT 1000
+VOLUME 1000
+PORTAL_CLIMBUP
+HIDDEN
+IFPREVERB GO -1
+  IFVAR SKULLOPEN ! 1
+    CLEARVERB
+    ECHO PLAYER You don't see any stairway here.
+  ENDIF
+ENDIF
+;
+; Informational skull in the Anatomicatory, listing shop prices on LISTEN.
+INUMBER 8308
+NAME 188
+MISC
+WEIGHT 5
+VOLUME 2
+FIXED
+HIDDEN
+IFPREVERB LISTEN -1
+  CLEARVERB
+  ECHO PLAYER The skull whispers, "The Order sells the following components:"
+  ECHO PLAYER Wight dust - 5 crowns, Mandrake root - 90 crowns, Nightshade - 7 crowns,
+  ECHO PLAYER Stalker eyes - 100 crowns, Stalker lips - 250 crowns,
+  ECHO PLAYER Stalker tongues - 50 crowns, Zovembie fingers - 5 crowns,
+  ECHO PLAYER Babich root - 1 crown.
+ENDIF
+
+; ── Rooms ─────────────────────────────────────────────────────────────────────
+
+NUMBER 5300
+NAME Graveyard, Tower
+OUTDOOR_FLOOR
+DAY_LIGHT
+*DESCRIPTION_START
+As the gravestones fall below and behind you along the path, the ebon tower
+looms before you, cold and ominous in the light. It resembles a giant skull
+composed of black bone that faces south, the upper floor windows resembling
+dark eyesockets that stare out over the graveyard. The jaw, mouth, and two
+thick vertebrae form the lower section of the tower. Pale ivory teeth, that
+sit over a man's height above the ground, make you feel a little like food
+where you stand. The withered undergrowth intertwines thickly to either side
+of the tower, forming a natural cul-de-sac.
+*DESCRIPTION_END
+ITEM 0 8300 VAL2=307
+ITEM 1 8301
+ITEM 2 8302
+ITEM 3 8303 VAL2=5301
+*DESCRIPTION_START ITEM EXAMINE 1
+A normal sized skull of bone rests below an engraving on the front of the
+tower that gives a name to the dark imposing face that fills you with
+trepidation.
+*DESCRIPTION_END
+;
+NUMBER 5301
+NAME Order of the Skull, Foyer
+INDOOR_FLOOR
+FIXED_LIGHT
+*DESCRIPTION_START
+Flaming skulls, two on each of the side walls just below the arched ceiling,
+bathe this small room dimly in an eerie flickering light. The ceiling is
+supported by a bone pillar in the corners of this chamber, while the ceiling
+arches to a point supported by four curved bone buttresses which rest on the
+pillars and meet at the apex of the ceiling. An ornate bench rests against
+the right wall, while a narrow bone table sits against the left, their pale
+bone surfaces dully reflecting the firelight. The teeth through which you
+entered the tower form the curved south wall of this room, sealing it
+tightly from the outside. A bone arch opposite the teeth leads deeper into
+the tower.
+*DESCRIPTION_END
+; arch
+ITEM 0 8304 VAL2=5302
+; teeth
+ITEM 1 8303 VAL2=5300
+;
+NUMBER 5302
+NAME Great Hall of the Skull
+INDOOR_FLOOR
+FIXED_LIGHT
+*DESCRIPTION_START
+Your footsteps echo on the stone of this great hall as your eyes are drawn to
+the center of the room where the image of a skull is suspended in the floor
+within a circle of pure black obsidian that is edged with white gold. Six
+pillars of ornately carved onyx, two white, two grey, and two black, run
+south to north and form a natural aisleway towards an enormous throne of
+bone that rests upon three pyramidal stone steps at the north end of the
+hall. Two spectral warriors stand at attention next to the throne, one on
+either side. Three flaming skulls sit high up on the east and west walls,
+illuminating rows of high-backed chairs of bone as well as small bone tables
+that sit next to each chair along both walls, on the outside of the
+aisleway. Archways of bone on the side walls lead to other chambers.
+*DESCRIPTION_END
+EXIT E 5304
+EXIT W 5303
+ITEM 0 8305
+ITEM 1 8306
+ITEM 2 8307 VAL2=5305
+; arch
+ITEM 3 8304 VAL2=5301
+*DESCRIPTION_START ITEM EXAMINE 0
+An enormous throne of bone rests upon three pyramidal stone steps. Power
+seems to linger in the air around it.
+*DESCRIPTION_END
+*DESCRIPTION_START ITEM BEHIND 0
+You walk up close to the throne and look behind it. You see an onyx skull
+set into the wall.
+*DESCRIPTION_END
+*DESCRIPTION_START ITEM EXAMINE 1
+The skull looks to be composed of bluish-grey shards along with flecks that
+have been infused into the wall. It stares back at you from the stone.
+*DESCRIPTION_END
+;
+NUMBER 5303
+NAME Chamber of Necrology
+INDOOR_FLOOR
+FIXED_LIGHT
+*DESCRIPTION_START
+Bookshelves and slateboards made of bone line the walls of this room, the
+largest slateboard located on the west wall, opposite the arch. A podium and
+a desk, also made of bone, stand in front of the board. Granite alchemical
+tables and glass laboratory apparati fill the north side of this room, while
+tomes and other books on the south side provide reference material to Order
+members seeking knowledge. Bone tables and chairs set to face the podium
+form a rough semicircle in the center of the room, now sparsely occupied by
+figures involved in study. The students, whose robes display low flames, are
+attended by a silent hooded figure who quickly fetches tomes when called
+upon. An older instructor, wearing a robe whose flames reach to his waist,
+tutors fledgling students in the magical arts at a table near the center of
+the room.
+*DESCRIPTION_END
+EXIT O 5302
+TRAINING 5 5
+TRAINING 11 10
+TRAINING 10 15
+TRAINING 14 20
+TRAINING 23 50
+TRAINING 29 50
+TRAINING 30 90
+TRAINING 32 10
+;
+NUMBER 5304
+NAME Anatomicatory
+INDOOR_FLOOR
+FIXED_LIGHT
+*DESCRIPTION_START
+Examination tables lie within this stark chamber, under floating orbs of
+bright light. A small number of students lean over the dissection of a
+cadaver in the northern section of this room, while a man with a robe
+displaying high flames explains differences in humanoid anatomy to those
+assembled. Diagrams illustrating the various techniques for identifying
+undead adorn the walls of this area, near the form of a ghoul that has been
+stuffed and posed in a position of attack. Shelves filled with plant and
+animal parts cover the south wall of this chamber, many of the jars holding
+parts suspended in an amber preservative liquid. A small spectacled man in
+flaming robes oversees the categorizing and storage of new parts brought by
+younger members, as well as manages the sale of such items to those in need
+of the rare components. A skull on the wall over the man's shoulder whispers
+information concerning the prices of this shop.
+*DESCRIPTION_END
+EXIT O 5302
+ITEM 0 8308
+STOREITEM 512 547 500
+STOREITEM 494 542 9000
+STOREITEM 587 0 700
+STOREITEM 520 377 10000
+STOREITEM 622 377 25000
+STOREITEM 521 377 5000
+STOREITEM 525 604 500
+STOREITEM 494 531 100
+;
+NUMBER 5305
+NAME Chamber of the Skull Lord
+INDOOR_FLOOR
+FIXED_LIGHT
+*DESCRIPTION_START
+This richly furnished octagonal room is warmer and more well lit than the
+rest of the tower. Against the east wall rests a large bone canopy bed that
+is draped and covered in black silk embroidered with silky red and yellow
+flames. In the center of the room is an enormous circular rug vividly
+depicting a necromancer leading an army composed of all types of undead. A
+large stately desk of carved bone lies against the south wall between two
+round red leaded crystal windows. A huge ornate chandelier composed of
+various bones ending in nine flaming skulls hangs from the center of the
+domed ceiling, providing warmth and light. Flaming skulls on the walls flank
+both the desk and the bed. A large tapestry of a tall, ominous man in flaming
+robes commanding undead to rise from the soil hangs from the west wall. The
+window looks out over the graveyard past the mausoleums and markers to the
+south of the city; the poorer section of the city is visible off to the
+left, while the Eltimar and the forest of Grymwood stretches to the right,
+and the shores of the inner sea are just visible over a range of low hills.
+*DESCRIPTION_END
+ITEM 0 81 VAL2=5302 ; STAIRS
+

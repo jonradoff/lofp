@@ -285,7 +285,7 @@ func (e *GameEngine) doMineReal(ctx context.Context, player *Player) *CommandRes
 		e.SavePlayer(ctx, player)
 		return &CommandResult{
 			Messages:      []string{"You swing at the rock face but find nothing useful.", fmt.Sprintf("[Round: %d sec]", mineRoundTime)},
-			RoomBroadcast: []string{fmt.Sprintf("%s swings a mining tool at the rock.", player.FirstName)},
+			RoomBroadcast: []string{fmt.Sprintf("%s swings a mining tool at the rock.", player.DisplayNameCap())},
 			PlayerState:   player,
 		}
 	}
@@ -486,7 +486,7 @@ func (e *GameEngine) doMineReal(ctx context.Context, player *Player) *CommandRes
 			fmt.Sprintf("[Round: %d sec]", mineRoundTime),
 			fmt.Sprintf("You have been awarded %d experience points.", xp),
 		},
-		RoomBroadcast: []string{fmt.Sprintf("%s mines some ore from the rock.", player.FirstName)},
+		RoomBroadcast: []string{fmt.Sprintf("%s mines some ore from the rock.", player.DisplayNameCap())},
 		PlayerState:   player,
 	}
 }
@@ -633,7 +633,7 @@ func (e *GameEngine) doMineGemAttempt(ctx context.Context, player *Player, grade
 			fmt.Sprintf("[Round: %d sec]", roundTime),
 			fmt.Sprintf("You have been awarded %d experience points.", xp),
 		},
-		RoomBroadcast: []string{fmt.Sprintf("%s discovers a gem while mining!", player.FirstName)},
+		RoomBroadcast: []string{fmt.Sprintf("%s discovers a gem while mining!", player.DisplayNameCap())},
 		PlayerState:   player,
 	}
 }
@@ -737,7 +737,7 @@ func (e *GameEngine) doSmelt(ctx context.Context, player *Player, args []string)
 			e.SavePlayer(ctx, player)
 			return &CommandResult{
 				Messages:      []string{"You heat the ore in the forge, but it crumbles to useless slag.", fmt.Sprintf("[Round: %d sec]", smeltRT)},
-				RoomBroadcast: []string{fmt.Sprintf("%s works at the forge.", player.FirstName)},
+				RoomBroadcast: []string{fmt.Sprintf("%s works at the forge.", player.DisplayNameCap())},
 				PlayerState:   player,
 			}
 		}
@@ -780,7 +780,7 @@ func (e *GameEngine) doSmelt(ctx context.Context, player *Player, args []string)
 				fmt.Sprintf("[Round: %d sec]", smeltRT),
 				fmt.Sprintf("You have been awarded %d experience points.", xpAward),
 			},
-			RoomBroadcast: []string{fmt.Sprintf("%s works at the forge, smelting ore.", player.FirstName)},
+			RoomBroadcast: []string{fmt.Sprintf("%s works at the forge, smelting ore.", player.DisplayNameCap())},
 			PlayerState:   player,
 		}
 	}
@@ -1046,7 +1046,7 @@ func (e *GameEngine) doCraft(ctx context.Context, player *Player, args []string)
 					fmt.Sprintf("You begin to plan the crafting of your %s...", name),
 					"[Next, work your item from a substance, e.g., \"WORK IRON.\"]",
 				},
-				RoomBroadcast: []string{fmt.Sprintf("%s studies a forge, planning something.", player.FirstName)},
+				RoomBroadcast: []string{fmt.Sprintf("%s studies a forge, planning something.", player.DisplayNameCap())},
 			}
 		}
 
@@ -1061,7 +1061,7 @@ func (e *GameEngine) doCraft(ctx context.Context, player *Player, args []string)
 					fmt.Sprintf("You begin planning the crafting of your %s, selecting the right techniques.", name),
 					"[Next, WORK <material> to shape it into your design, e.g., \"WORK GOLD.\"]",
 				},
-				RoomBroadcast: []string{fmt.Sprintf("%s studies their tools, planning something.", player.FirstName)},
+				RoomBroadcast: []string{fmt.Sprintf("%s studies their tools, planning something.", player.DisplayNameCap())},
 			}
 		}
 
@@ -1076,7 +1076,7 @@ func (e *GameEngine) doCraft(ctx context.Context, player *Player, args []string)
 					fmt.Sprintf("You set up your workspace to begin crafting a %s.", name),
 					"[Next, WORK <material> to begin weaving, e.g., \"WORK HIDE\" or \"WORK CLOTH.\"]",
 				},
-				RoomBroadcast: []string{fmt.Sprintf("%s prepares their workspace at the loom.", player.FirstName)},
+				RoomBroadcast: []string{fmt.Sprintf("%s prepares their workspace at the loom.", player.DisplayNameCap())},
 			}
 		}
 
@@ -1091,7 +1091,7 @@ func (e *GameEngine) doCraft(ctx context.Context, player *Player, args []string)
 					fmt.Sprintf("You examine your materials, planning how to craft a %s.", name),
 					"[Next, WORK <material> to begin shaping, e.g., \"WORK BRANCH\" or \"WORK WOOD.\"]",
 				},
-				RoomBroadcast: []string{fmt.Sprintf("%s examines their materials, planning something.", player.FirstName)},
+				RoomBroadcast: []string{fmt.Sprintf("%s examines their materials, planning something.", player.DisplayNameCap())},
 			}
 		}
 
@@ -1240,7 +1240,7 @@ func (e *GameEngine) doCraft(ctx context.Context, player *Player, args []string)
 		}
 		return &CommandResult{
 			Messages:      msgs,
-			RoomBroadcast: []string{fmt.Sprintf("%s works diligently at the workshop.", player.FirstName)},
+			RoomBroadcast: []string{fmt.Sprintf("%s works diligently at the workshop.", player.DisplayNameCap())},
 			PlayerState:   player,
 		}
 	}
@@ -1443,7 +1443,7 @@ func (e *GameEngine) doWork(ctx context.Context, player *Player, args []string) 
 
 		return &CommandResult{
 			Messages:      []string{fmt.Sprintf("You place some %s metal into a mold in the forge and heat it until it is roughly the shape you desire.", metalSearch)},
-			RoomBroadcast: []string{fmt.Sprintf("%s works diligently at the forge.", player.FirstName)},
+			RoomBroadcast: []string{fmt.Sprintf("%s works diligently at the forge.", player.DisplayNameCap())},
 			PlayerState:   player,
 		}
 	case 2: // Heated → Hammer
@@ -1455,7 +1455,7 @@ func (e *GameEngine) doWork(ctx context.Context, player *Player, args []string) 
 
 		return &CommandResult{
 			Messages:      []string{fmt.Sprintf("You remove the %s metal from the forge and begin to hammer it into shape on the anvil.", player.CraftingMetal)},
-			RoomBroadcast: []string{fmt.Sprintf("%s works diligently at the forge.", player.FirstName)},
+			RoomBroadcast: []string{fmt.Sprintf("%s works diligently at the forge.", player.DisplayNameCap())},
 			PlayerState:   player,
 		}
 
@@ -1479,7 +1479,7 @@ func (e *GameEngine) doWork(ctx context.Context, player *Player, args []string) 
 			e.SavePlayer(ctx, player)
 			return &CommandResult{
 				Messages:      []string{"You quench the hot metal in a pool of water. After some examination, you surmise that it will require more work."},
-				RoomBroadcast: []string{fmt.Sprintf("%s works diligently at the forge.", player.FirstName)},
+				RoomBroadcast: []string{fmt.Sprintf("%s works diligently at the forge.", player.DisplayNameCap())},
 				PlayerState:   player,
 			}
 		}
@@ -1492,13 +1492,13 @@ func (e *GameEngine) doWork(ctx context.Context, player *Player, args []string) 
 		if roll <= chance/2 {
 			return &CommandResult{
 				Messages:      []string{"You quench the hot metal in a pool of water. It looks like it is almost finished!"},
-				RoomBroadcast: []string{fmt.Sprintf("%s works diligently at the forge.", player.FirstName)},
+				RoomBroadcast: []string{fmt.Sprintf("%s works diligently at the forge.", player.DisplayNameCap())},
 				PlayerState:   player,
 			}
 		}
 		return &CommandResult{
 			Messages:      []string{"You quench the hot metal in a pool of water. Pleased with your progress, you surmise that it will only require a little more work."},
-			RoomBroadcast: []string{fmt.Sprintf("%s works diligently at the forge.", player.FirstName)},
+			RoomBroadcast: []string{fmt.Sprintf("%s works diligently at the forge.", player.DisplayNameCap())},
 			PlayerState:   player,
 		}
 
@@ -1511,7 +1511,7 @@ func (e *GameEngine) doWork(ctx context.Context, player *Player, args []string) 
 
 		return &CommandResult{
 			Messages:      []string{"You buff the metal, smoothing and polishing the surface. Your weapon is nearly complete!"},
-			RoomBroadcast: []string{fmt.Sprintf("%s works diligently at the forge.", player.FirstName)},
+			RoomBroadcast: []string{fmt.Sprintf("%s works diligently at the forge.", player.DisplayNameCap())},
 			PlayerState:   player,
 		}
 
@@ -1646,7 +1646,7 @@ func (e *GameEngine) doWork(ctx context.Context, player *Player, args []string) 
 
 		return &CommandResult{
 			Messages:      msgs,
-			RoomBroadcast: []string{fmt.Sprintf("%s finishes crafting %s!", player.FirstName, itemName)},
+			RoomBroadcast: []string{fmt.Sprintf("%s finishes crafting %s!", player.DisplayNameCap(), itemName)},
 			PlayerState:   player,
 		}
 
@@ -1728,7 +1728,7 @@ func (e *GameEngine) doRepair(ctx context.Context, player *Player, args []string
 			e.SavePlayer(ctx, player)
 			return &CommandResult{
 				Messages:      []string{fmt.Sprintf("[Success: %d%%, Roll %d] You are unable to repair the weapon.", chance, roll)},
-				RoomBroadcast: []string{fmt.Sprintf("%s works at the forge, trying to repair a weapon.", player.FirstName)},
+				RoomBroadcast: []string{fmt.Sprintf("%s works at the forge, trying to repair a weapon.", player.DisplayNameCap())},
 				PlayerState:   player,
 			}
 		}
@@ -1742,7 +1742,7 @@ func (e *GameEngine) doRepair(ctx context.Context, player *Player, args []string
 
 		return &CommandResult{
 			Messages:      []string{fmt.Sprintf("[Success: %d%%, Roll %d] You carefully repair your %s.", chance, roll, itemName)},
-			RoomBroadcast: []string{fmt.Sprintf("%s works at the forge, repairing a weapon.", player.FirstName)},
+			RoomBroadcast: []string{fmt.Sprintf("%s works at the forge, repairing a weapon.", player.DisplayNameCap())},
 			PlayerState:   player,
 		}
 	}
@@ -1794,7 +1794,7 @@ func (e *GameEngine) doForageReal(ctx context.Context, player *Player) *CommandR
 		e.SavePlayer(ctx, player)
 		return &CommandResult{
 			Messages:      []string{"You search the area but find nothing useful.", fmt.Sprintf("[Round: %d sec]", rt)},
-			RoomBroadcast: []string{fmt.Sprintf("%s forages in the area.", player.FirstName)},
+			RoomBroadcast: []string{fmt.Sprintf("%s forages in the area.", player.DisplayNameCap())},
 			PlayerState:   player,
 		}
 	}
@@ -1864,7 +1864,7 @@ func (e *GameEngine) doForageReal(ctx context.Context, player *Player) *CommandR
 			itemName := e.formatItemName(itemDef, 0, 0, item.Adj3)
 			return &CommandResult{
 				Messages:      []string{fmt.Sprintf("You search the area and find %s!", itemName), fmt.Sprintf("[Round: %d sec]", rt)},
-				RoomBroadcast: []string{fmt.Sprintf("%s forages in the area.", player.FirstName)},
+				RoomBroadcast: []string{fmt.Sprintf("%s forages in the area.", player.DisplayNameCap())},
 				PlayerState:   player,
 			}
 		}
@@ -1927,7 +1927,7 @@ func (e *GameEngine) doForageFallback(ctx context.Context, player *Player, rt in
 		e.SavePlayer(ctx, player)
 		return &CommandResult{
 			Messages:      []string{"You search the area but find nothing useful.", fmt.Sprintf("[Round: %d sec]", rt)},
-			RoomBroadcast: []string{fmt.Sprintf("%s forages in the area.", player.FirstName)},
+			RoomBroadcast: []string{fmt.Sprintf("%s forages in the area.", player.DisplayNameCap())},
 			PlayerState:   player,
 		}
 	}
@@ -1939,7 +1939,7 @@ func (e *GameEngine) doForageFallback(ctx context.Context, player *Player, rt in
 
 	return &CommandResult{
 		Messages:      []string{fmt.Sprintf("You search the area and find some %s!", chosen.name), fmt.Sprintf("[Round: %d sec]", rt)},
-		RoomBroadcast: []string{fmt.Sprintf("%s forages in the area.", player.FirstName)},
+		RoomBroadcast: []string{fmt.Sprintf("%s forages in the area.", player.DisplayNameCap())},
 		PlayerState:   player,
 	}
 }
@@ -2134,7 +2134,7 @@ func (e *GameEngine) doDye(ctx context.Context, player *Player, args []string) *
 
 			return &CommandResult{
 				Messages:      []string{fmt.Sprintf("You carefully dye the material. It is now %s.", dyedName), "[Round: 15 sec]"},
-				RoomBroadcast: []string{fmt.Sprintf("%s works at the loom, dyeing materials.", player.FirstName)},
+				RoomBroadcast: []string{fmt.Sprintf("%s works at the loom, dyeing materials.", player.DisplayNameCap())},
 				PlayerState:   player,
 			}
 		}
@@ -2535,7 +2535,7 @@ func (e *GameEngine) doBrew(ctx context.Context, player *Player, args []string) 
 		e.SavePlayer(ctx, player)
 		return &CommandResult{
 			Messages:      []string{fmt.Sprintf("You add %s to the brew. (%d/3 ingredients)", reagentName, container.Val5), fmt.Sprintf("[Round: %d sec]", brewRT)},
-			RoomBroadcast: []string{fmt.Sprintf("%s adds an ingredient to a bubbling brew.", player.FirstName)},
+			RoomBroadcast: []string{fmt.Sprintf("%s adds an ingredient to a bubbling brew.", player.DisplayNameCap())},
 			PlayerState:   player,
 		}
 	}
@@ -2612,7 +2612,7 @@ func (e *GameEngine) doBrew(ctx context.Context, player *Player, args []string) 
 					fmt.Sprintf("[Round: %d sec]", brewRT),
 					fmt.Sprintf("You have been awarded %d experience points.", xpAward),
 				},
-				RoomBroadcast: []string{fmt.Sprintf("%s completes a potion that shimmers with magical energy!", player.FirstName)},
+				RoomBroadcast: []string{fmt.Sprintf("%s completes a potion that shimmers with magical energy!", player.DisplayNameCap())},
 				PlayerState:   player,
 			}
 		}
@@ -2624,7 +2624,7 @@ func (e *GameEngine) doBrew(ctx context.Context, player *Player, args []string) 
 	e.SavePlayer(ctx, player)
 	return &CommandResult{
 		Messages:      []string{"A foul odor rises from the brew. The combination produces nothing useful.", fmt.Sprintf("[Round: %d sec]", brewRT)},
-		RoomBroadcast: []string{fmt.Sprintf("%s's brew emits a foul odor.", player.FirstName)},
+		RoomBroadcast: []string{fmt.Sprintf("%s's brew emits a foul odor.", player.DisplayNameCap())},
 		PlayerState:   player,
 	}
 }
@@ -2787,7 +2787,7 @@ func (e *GameEngine) doGemAdorn(ctx context.Context, player *Player, args []stri
 			fmt.Sprintf("You carefully set the %s into the piece, creating %s.", gemNoun, itemName),
 			fmt.Sprintf("[Round: %d sec]", rt),
 		},
-		RoomBroadcast: []string{fmt.Sprintf("%s works carefully at the jeweler's bench.", player.FirstName)},
+		RoomBroadcast: []string{fmt.Sprintf("%s works carefully at the jeweler's bench.", player.DisplayNameCap())},
 		PlayerState:   player,
 	}
 }
@@ -2923,7 +2923,7 @@ func (e *GameEngine) doMold(ctx context.Context, player *Player, args []string) 
 				fmt.Sprintf("Your hands slip! You botch the working and damage your %s.", itemName),
 				fmt.Sprintf("[Round: %d sec]", moldRT),
 			},
-			RoomBroadcast: []string{fmt.Sprintf("%s carefully works a gemstone between %s fingers.", player.FirstName, player.Possessive())},
+			RoomBroadcast: []string{fmt.Sprintf("%s carefully works a gemstone between %s fingers.", player.DisplayNameCap(), player.Possessive())},
 			PlayerState:   player,
 		}
 	}
@@ -2943,7 +2943,7 @@ func (e *GameEngine) doMold(ctx context.Context, player *Player, args []string) 
 			fmt.Sprintf("Your skilled hands work the flaws out of your %s, leaving your %s!", itemName, newName),
 			fmt.Sprintf("[Round: %d sec]", moldRT),
 		},
-		RoomBroadcast: []string{fmt.Sprintf("%s carefully works a gemstone between %s fingers.", player.FirstName, player.Possessive())},
+		RoomBroadcast: []string{fmt.Sprintf("%s carefully works a gemstone between %s fingers.", player.DisplayNameCap(), player.Possessive())},
 		PlayerState:   player,
 	}
 }
@@ -3024,7 +3024,7 @@ func (e *GameEngine) doEngrave(ctx context.Context, player *Player, args []strin
 			fmt.Sprintf("You carefully engrave the inscription onto the item. It is now %s.", itemName),
 			fmt.Sprintf("[Round: %d sec]", rt),
 		},
-		RoomBroadcast: []string{fmt.Sprintf("%s carefully engraves an inscription onto an item.", player.FirstName)},
+		RoomBroadcast: []string{fmt.Sprintf("%s carefully engraves an inscription onto an item.", player.DisplayNameCap())},
 		PlayerState:   player,
 	}
 }
@@ -3240,7 +3240,7 @@ func (e *GameEngine) doWorkJewelry(ctx context.Context, player *Player, args []s
 		e.SavePlayer(ctx, player)
 		return &CommandResult{
 			Messages:      []string{fmt.Sprintf("You carefully work the %s, shaping it into the base form of the %s.", target, player.CraftingItem), fmt.Sprintf("[Round: %d sec]", rt)},
-			RoomBroadcast: []string{fmt.Sprintf("%s works diligently at the workshop.", player.FirstName)},
+			RoomBroadcast: []string{fmt.Sprintf("%s works diligently at the workshop.", player.DisplayNameCap())},
 			PlayerState:   player,
 		}
 
@@ -3252,7 +3252,7 @@ func (e *GameEngine) doWorkJewelry(ctx context.Context, player *Player, args []s
 		e.SavePlayer(ctx, player)
 		return &CommandResult{
 			Messages:      []string{fmt.Sprintf("You use fine jeweler's tools to engrave and refine the %s, adding intricate detail.", player.CraftingItem), fmt.Sprintf("[Round: %d sec]", rt)},
-			RoomBroadcast: []string{fmt.Sprintf("%s works diligently at the workshop.", player.FirstName)},
+			RoomBroadcast: []string{fmt.Sprintf("%s works diligently at the workshop.", player.DisplayNameCap())},
 			PlayerState:   player,
 		}
 
@@ -3260,7 +3260,7 @@ func (e *GameEngine) doWorkJewelry(ctx context.Context, player *Player, args []s
 		mat, item := player.CraftingMetal, player.CraftingItem
 		return e.completeCraft(ctx, player,
 			fmt.Sprintf("You carefully polish the %s %s to a gleaming shine. Your work is complete!", mat, item),
-			player.FirstName)
+			player.DisplayNameCap())
 	}
 
 	player.CraftingStep = 0
@@ -3309,7 +3309,7 @@ func (e *GameEngine) doWorkWeaving(ctx context.Context, player *Player, args []s
 		e.SavePlayer(ctx, player)
 		return &CommandResult{
 			Messages:      []string{fmt.Sprintf("You mount the %s on the loom and begin weaving it into shape for the %s.", target, player.CraftingItem), fmt.Sprintf("[Round: %d sec]", rt)},
-			RoomBroadcast: []string{fmt.Sprintf("%s works diligently at the loom.", player.FirstName)},
+			RoomBroadcast: []string{fmt.Sprintf("%s works diligently at the loom.", player.DisplayNameCap())},
 			PlayerState:   player,
 		}
 
@@ -3321,7 +3321,7 @@ func (e *GameEngine) doWorkWeaving(ctx context.Context, player *Player, args []s
 		e.SavePlayer(ctx, player)
 		return &CommandResult{
 			Messages:      []string{fmt.Sprintf("You carefully cut and stitch the fabric, shaping it into the form of the %s.", player.CraftingItem), fmt.Sprintf("[Round: %d sec]", rt)},
-			RoomBroadcast: []string{fmt.Sprintf("%s works diligently at the loom.", player.FirstName)},
+			RoomBroadcast: []string{fmt.Sprintf("%s works diligently at the loom.", player.DisplayNameCap())},
 			PlayerState:   player,
 		}
 
@@ -3329,7 +3329,7 @@ func (e *GameEngine) doWorkWeaving(ctx context.Context, player *Player, args []s
 		mat, item := player.CraftingMetal, player.CraftingItem
 		return e.completeCraft(ctx, player,
 			fmt.Sprintf("You add finishing touches, hemming the edges neatly. Your %s %s is complete!", mat, item),
-			player.FirstName)
+			player.DisplayNameCap())
 	}
 
 	player.CraftingStep = 0
@@ -3378,7 +3378,7 @@ func (e *GameEngine) doWorkWood(ctx context.Context, player *Player, args []stri
 		e.SavePlayer(ctx, player)
 		return &CommandResult{
 			Messages:      []string{fmt.Sprintf("You begin carving the %s, shaping it roughly into the form of a %s.", target, player.CraftingItem), fmt.Sprintf("[Round: %d sec]", rt)},
-			RoomBroadcast: []string{fmt.Sprintf("%s works diligently at the fletcher's workshop.", player.FirstName)},
+			RoomBroadcast: []string{fmt.Sprintf("%s works diligently at the fletcher's workshop.", player.DisplayNameCap())},
 			PlayerState:   player,
 		}
 
@@ -3390,7 +3390,7 @@ func (e *GameEngine) doWorkWood(ctx context.Context, player *Player, args []stri
 		e.SavePlayer(ctx, player)
 		return &CommandResult{
 			Messages:      []string{fmt.Sprintf("You sand and smooth the %s, refining its shape and removing rough edges.", player.CraftingItem), fmt.Sprintf("[Round: %d sec]", rt)},
-			RoomBroadcast: []string{fmt.Sprintf("%s works diligently at the fletcher's workshop.", player.FirstName)},
+			RoomBroadcast: []string{fmt.Sprintf("%s works diligently at the fletcher's workshop.", player.DisplayNameCap())},
 			PlayerState:   player,
 		}
 
@@ -3398,7 +3398,7 @@ func (e *GameEngine) doWorkWood(ctx context.Context, player *Player, args []stri
 		mat, item := player.CraftingMetal, player.CraftingItem
 		return e.completeCraft(ctx, player,
 			fmt.Sprintf("You apply finishing oil, bringing out the natural grain of the wood. Your %s %s is complete!", mat, item),
-			player.FirstName)
+			player.DisplayNameCap())
 	}
 
 	player.CraftingStep = 0

@@ -262,6 +262,8 @@ func (e *GameEngine) doTrainWithBP(ctx context.Context, player *Player, args []s
 			}
 		}
 
+		rankMsg := e.autoTrainOrgRank(player, player.RoomNumber, bpCost)
+
 		e.SavePlayer(ctx, player)
 
 		goldMsg := ""
@@ -271,6 +273,9 @@ func (e *GameEngine) doTrainWithBP(ctx context.Context, player *Player, args []s
 		msgs := []string{fmt.Sprintf("You train in %s to rank %d. (-%d BP%s, %d BP remaining)", name, currentLvl+1, bpCost, goldMsg, player.BuildPoints)}
 		if giftMsg != "" {
 			msgs = append(msgs, giftMsg)
+		}
+		if rankMsg != "" {
+			msgs = append(msgs, rankMsg)
 		}
 		return &CommandResult{
 			Messages:    msgs,
@@ -410,7 +415,7 @@ func (e *GameEngine) doPickLock(ctx context.Context, player *Player, args []stri
 	successMsg := func(displayName string) *CommandResult {
 		return &CommandResult{
 			Messages:      []string{fmt.Sprintf("You hear a soft CLICK as you pick the lock on %s.", displayName)},
-			RoomBroadcast: []string{fmt.Sprintf("You hear a soft CLICK as %s picks the lock on %s.", player.FirstName, displayName)},
+			RoomBroadcast: []string{fmt.Sprintf("You hear a soft CLICK as %s picks the lock on %s.", player.DisplayName(), displayName)},
 		}
 	}
 
@@ -422,7 +427,7 @@ func (e *GameEngine) doPickLock(ctx context.Context, player *Player, args []stri
 		}
 		return &CommandResult{
 			Messages:      msgs,
-			RoomBroadcast: []string{fmt.Sprintf("%s fiddles with a lock on %s.", player.FirstName, displayName)},
+			RoomBroadcast: []string{fmt.Sprintf("%s fiddles with a lock on %s.", player.DisplayName(), displayName)},
 		}
 	}
 
@@ -514,7 +519,7 @@ func (e *GameEngine) doTend(ctx context.Context, player *Player, args []string) 
 		return e.tendPlayer(ctx, player, player, "yourself", healSkill)
 	}
 	if found := e.findPlayerInRoom(player, t); found != nil {
-		return e.tendPlayer(ctx, player, found, found.FirstName, healSkill)
+		return e.tendPlayer(ctx, player, found, found.DisplayName(), healSkill)
 	}
 	if inst, def := e.findMonsterInRoomIncludeDead(player, t); inst != nil {
 		name := FormatMonsterName(def, e.monAdjs)
@@ -599,18 +604,18 @@ func (e *GameEngine) tendPlayer(ctx context.Context, healer, target *Player, tar
 		}
 		return &CommandResult{
 			Messages:      msgs,
-			RoomBroadcast: []string{fmt.Sprintf("%s tends to %s wounds.", healer.FirstName, healer.Possessive())},
+			RoomBroadcast: []string{fmt.Sprintf("%s tends to %s wounds.", healer.DisplayNameCap(), healer.Possessive())},
 			PlayerState:   healer,
 		}
 	}
 
-	targetMsgs := []string{fmt.Sprintf("%s tends to your %s, healing %d body points. [BP: %d/%d]", healer.FirstName, woundDesc, heal, target.BodyPoints, target.MaxBodyPoints)}
+	targetMsgs := []string{fmt.Sprintf("%s tends to your %s, healing %d body points. [BP: %d/%d]", healer.DisplayName(), woundDesc, heal, target.BodyPoints, target.MaxBodyPoints)}
 	if wakeMsg != "" {
 		targetMsgs = append(targetMsgs, wakeMsg)
 	}
 	return &CommandResult{
 		Messages:      []string{fmt.Sprintf("You tend to %s's %s, healing %d body points.", targetName, woundDesc, heal)},
-		RoomBroadcast: []string{fmt.Sprintf("%s tends to %s's wounds.", healer.FirstName, targetName)},
+		RoomBroadcast: []string{fmt.Sprintf("%s tends to %s's wounds.", healer.DisplayNameCap(), targetName)},
 		TargetName:    target.FirstName,
 		TargetMsg:     targetMsgs,
 		PlayerState:   healer,
@@ -645,7 +650,7 @@ func (e *GameEngine) tendMonster(ctx context.Context, healer *Player, inst *Mons
 
 	return &CommandResult{
 		Messages:      []string{fmt.Sprintf("You tend to %s's %s. [Round: 5 sec]", targetName, woundDesc)},
-		RoomBroadcast: []string{fmt.Sprintf("%s tends to %s's wounds.", healer.FirstName, targetName)},
+		RoomBroadcast: []string{fmt.Sprintf("%s tends to %s's wounds.", healer.DisplayNameCap(), targetName)},
 		PlayerState:   healer,
 	}
 }

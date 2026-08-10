@@ -960,10 +960,10 @@ func (s *Server) handleGameWS(w http.ResponseWriter, r *http.Request) {
 			if !session.Player.GMInvis && !session.Player.GMHidden {
 				if !session.quitSent {
 					s.broadcastGlobal(session.Player.FirstName,
-						[]string{fmt.Sprintf("** %s has just left the Realms.", session.Player.FirstName)})
+						[]string{fmt.Sprintf("** %s has just left the Realms.", session.Player.DisplayNameCap())})
 				}
 				s.broadcastToRoom(session.Player.RoomNumber, session.Player.FirstName,
-					[]string{fmt.Sprintf("%s fades from the Realms.", session.Player.FirstName)})
+					[]string{fmt.Sprintf("%s fades from the Realms.", session.Player.DisplayNameCap())})
 			}
 			s.hub.UnregisterPlayer(session.Player.FirstName)
 		}

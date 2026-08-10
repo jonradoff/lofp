@@ -73,12 +73,17 @@ func (e *GameEngine) doDisguise(ctx context.Context, player *Player, args []stri
 		return e.disguiseApply(ctx, player, level, args[1])
 	case "remove":
 		return e.disguiseRemove(ctx, player)
+	case "clear":
+		if len(args) < 2 {
+			return &CommandResult{Messages: []string{"Clear which slot? (DISGUISE CLEAR <#>)"}}
+		}
+		return e.disguiseClear(ctx, player, level, args[1])
 	}
 
 	// disguise <slot> <field> <value...>
 	slot, err := strconv.Atoi(args[0])
 	if err != nil {
-		return &CommandResult{Messages: []string{"Usage: DISGUISE <slot#> <field> <value>, DISGUISE APPLY <slot#>, DISGUISE REMOVE, or DISGUISE LIST."}}
+		return &CommandResult{Messages: []string{"Usage: DISGUISE <slot#> <field> <value>, DISGUISE APPLY <slot#>, DISGUISE REMOVE, DISGUISE CLEAR <slot#>, or DISGUISE LIST."}}
 	}
 	maxSlots := disguiseSlotCount(level)
 	if slot < 1 || slot > maxSlots {
@@ -96,6 +101,14 @@ func (e *GameEngine) doDisguise(ctx context.Context, player *Player, args []stri
 		return &CommandResult{Messages: []string{fmt.Sprintf("Your Disguise skill isn't advanced enough to change %s yet. (need rank %d, have %d)", field, requiredLevel, level)}}
 	}
 	if len(args) < 3 {
+		if field == "name" {
+			return &CommandResult{Messages: []string{fmt.Sprintf("Set the name to what? You can use a basic persona (%s)%s.", strings.Join(disguiseCommonNames, ", "), func() string {
+				if level >= 10 {
+					return ", or any custom first/last name"
+				}
+				return ""
+			}())}}
+		}
 		return &CommandResult{Messages: []string{fmt.Sprintf("Set %s to what?", field)}}
 	}
 	persona := player.DisguiseSlots[slot]
@@ -292,6 +305,26 @@ func (e *GameEngine) disguiseRemove(ctx context.Context, player *Player) *Comman
 	}
 }
 
+func (e *GameEngine) disguiseClear(ctx context.Context, player *Player, level int, slotArg string) *CommandResult {
+	slot, err := strconv.Atoi(slotArg)
+	if err != nil {
+		return &CommandResult{Messages: []string{"Clear which slot number?"}}
+	}
+	maxSlots := disguiseSlotCount(level)
+	if slot < 1 || slot > maxSlots {
+		return &CommandResult{Messages: []string{fmt.Sprintf("Your Disguise skill only grants you %d save slot(s).", maxSlots)}}
+	}
+	if _, ok := player.DisguiseSlots[slot]; !ok {
+		return &CommandResult{Messages: []string{fmt.Sprintf("Disguise slot %d is already empty.", slot)}}
+	}
+	delete(player.DisguiseSlots, slot)
+	e.SavePlayer(ctx, player)
+	return &CommandResult{
+		Messages:    []string{fmt.Sprintf("Disguise slot %d cleared.", slot)},
+		PlayerState: player,
+	}
+}
+
 func (e *GameEngine) disguiseListAll(player *Player, level int) *CommandResult {
 	maxSlots := disguiseSlotCount(level)
 	msgs := []string{fmt.Sprintf("%-4s %-16s %-12s %-6s %s", "Slot", "Name", "Race", "Age", "Gender")}
@@ -361,10 +394,6 @@ func (e *GameEngine) disguiseListSlot(player *Player, level int, slotArg string)
 	if p.Weight != 0 {
 		weight = strconv.Itoa(p.Weight)
 	}
-	hair := strings.TrimSpace(p.HairStyle + " " + p.HairColor)
-	if p.HairStyle == "" && p.HairColor == "" {
-		hair = ""
-	}
 	name := p.Name
 	if p.LastName != "" {
 		name += " " + p.LastName
@@ -373,14 +402,15 @@ func (e *GameEngine) disguiseListSlot(player *Player, level int, slotArg string)
 	msgs = append(msgs,
 		field("Name", name), field("Gender", capitalize(p.Gender)), field("Race", race),
 		field("Age", age), field("Strength", strength), field("Height", height), field("Weight", weight),
-		field("Hair", hair), field("Skin", p.SkinColor), field("Eyes", p.EyeColor),
+		field("Hairstyle", p.HairStyle), field("Haircolor", p.HairColor),
+		field("Skin", p.SkinColor), field("Eyes", p.EyeColor),
 	)
 	return &CommandResult{Messages: msgs}
 }
 
 func (e *GameEngine) disguiseInstructions(level int) *CommandResult {
 	msgs := []string{
-		fmt.Sprintf("Disguise (rank %d): DISGUISE <slot> <field> <value> to compose a disguise, DISGUISE APPLY <slot> to wear it, DISGUISE REMOVE to drop it, DISGUISE LIST to see your saved slots.", level),
+		fmt.Sprintf("Disguise (rank %d): DISGUISE <slot> <field> <value> to compose a disguise, DISGUISE APPLY <slot> to wear it, DISGUISE REMOVE to drop it, DISGUISE CLEAR <slot> to reset a slot to defaults, DISGUISE LIST to see your saved slots.", level),
 		fmt.Sprintf("You have %d save slot(s).", disguiseSlotCount(level)),
 		"Fields you can currently set:",
 	}
@@ -389,10 +419,11 @@ func (e *GameEngine) disguiseInstructions(level int) *CommandResult {
 			msgs = append(msgs, fmt.Sprintf("  %s (rank %d)", f, disguiseFieldLevel[f]))
 		}
 	}
+	msgs = append(msgs, fmt.Sprintf("Your disguise name can always be a basic persona: %s.", strings.Join(disguiseCommonNames, ", ")))
 	if level < 10 {
-		msgs = append(msgs, fmt.Sprintf("Until rank 10, your disguise name must be one of: %s.", strings.Join(disguiseCommonNames, ", ")))
+		msgs = append(msgs, "At rank 10, you'll also be able to use a custom first/last name.")
 	} else {
-		msgs = append(msgs, "At rank 10+, your disguise name can be anything you like.")
+		msgs = append(msgs, "At rank 10+, you can also use a custom first/last name.")
 	}
 	return &CommandResult{Messages: msgs}
 }

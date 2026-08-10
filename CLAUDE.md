@@ -9,8 +9,10 @@ Resurrecting a 1990s MUD from original script files. The original game engine so
 - **Backend**: Go + gorilla/mux + MongoDB at `engine/`
 - **Frontend**: React 19 + TypeScript + Vite + Tailwind 4 at `frontend/`
 - **Original Scripts**: `original/scripts/` (read-only reference, 333 .SCR files)
+- **Game captures**: 'original/csanburn/' (read-only reference, .TXT files)
 - Frontend dev server: port 4992, Backend server: port 4993
 - Start both: `./start.sh`
+- Start both Windows: './start.bat'
 
 ## Build Check
 

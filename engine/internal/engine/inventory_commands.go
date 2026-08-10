@@ -255,7 +255,7 @@ func (e *GameEngine) doGet(ctx context.Context, player *Player, verb string, arg
 			e.SavePlayer(ctx, player)
 			return &CommandResult{
 				Messages:      []string{pickupMsg},
-				RoomBroadcast: []string{fmt.Sprintf("%s picks up some coins.", player.FirstName)},
+				RoomBroadcast: []string{fmt.Sprintf("%s picks up some coins.", player.DisplayNameCap())},
 			}
 		}
 
@@ -335,7 +335,7 @@ func (e *GameEngine) doGet(ctx context.Context, player *Player, verb string, arg
 			e.SavePlayer(ctx, player)
 			return &CommandResult{
 				Messages:      append(scriptMsgs, pickupMsg),
-				RoomBroadcast: append(scriptRoomMsgs, fmt.Sprintf("%s picks up some coins.", player.FirstName)),
+				RoomBroadcast: append(scriptRoomMsgs, fmt.Sprintf("%s picks up some coins.", player.DisplayNameCap())),
 				GMBroadcast:   scriptGMMsgs,
 			}
 		}
@@ -399,7 +399,7 @@ func (e *GameEngine) doGet(ctx context.Context, player *Player, verb string, arg
 		e.SavePlayer(ctx, player)
 		return &CommandResult{
 			Messages:      append(scriptMsgs, fmt.Sprintf("You pick up %s.", fullName)),
-			RoomBroadcast: append(scriptRoomMsgs, fmt.Sprintf("%s picks up %s.", player.FirstName, fullName)),
+			RoomBroadcast: append(scriptRoomMsgs, fmt.Sprintf("%s picks up %s.", player.DisplayNameCap(), fullName)),
 			GMBroadcast:   scriptGMMsgs,
 		}
 	}
@@ -417,6 +417,9 @@ const (
 )
 
 func (e *GameEngine) doDrop(ctx context.Context, player *Player, args []string) *CommandResult {
+	if msg := formActionBlockMessage(player); msg != "" {
+		return &CommandResult{Messages: []string{msg}}
+	}
 	if len(args) == 0 {
 		return &CommandResult{Messages: []string{"Drop what?"}}
 	}
@@ -509,7 +512,7 @@ func (e *GameEngine) doDrop(ctx context.Context, player *Player, args []string) 
 			fullName := e.formatItemName(itemDef, ii.Adj1, ii.Adj2, ii.Adj3, ii.Tail)
 			return &CommandResult{
 				Messages:      []string{fmt.Sprintf("You drop %s.", fullName)},
-				RoomBroadcast: []string{fmt.Sprintf("%s drops %s.", player.FirstName, fullName)},
+				RoomBroadcast: []string{fmt.Sprintf("%s drops %s.", player.DisplayNameCap(), fullName)},
 			}
 		}
 	}
@@ -613,7 +616,7 @@ func (e *GameEngine) doDropCoins(ctx context.Context, player *Player, amount int
 
 	return &CommandResult{
 		Messages:      []string{fmt.Sprintf("You drop %s.", displayName)},
-		RoomBroadcast: []string{fmt.Sprintf("%s drops some coins.", player.FirstName)},
+		RoomBroadcast: []string{fmt.Sprintf("%s drops some coins.", player.DisplayNameCap())},
 	}
 }
 
@@ -768,31 +771,47 @@ func (e *GameEngine) doStatus(player *Player) *CommandResult {
 }
 
 func (e *GameEngine) doHealth(player *Player) *CommandResult {
-	healthPct := float64(player.BodyPoints) / float64(player.MaxBodyPoints) * 100
-	var healthDesc string
-	switch {
-	case healthPct >= 100:
-		healthDesc = "You are in perfect health."
-	case healthPct >= 75:
-		healthDesc = "You have minor injuries."
-	case healthPct >= 50:
-		healthDesc = "You are moderately wounded."
-	case healthPct >= 25:
-		healthDesc = "You are seriously wounded."
-	case healthPct > 0:
-		healthDesc = "You are critically wounded!"
-	default:
-		healthDesc = "You are dead."
-	}
 	msgs := []string{
-		healthDesc,
-		fmt.Sprintf("Body: %d/%d   Fatigue: %d/%d", player.BodyPoints, player.MaxBodyPoints, player.Fatigue, player.MaxFatigue),
-		fmt.Sprintf("Mana: %d/%d   Psi: %d/%d", player.Mana, player.MaxMana, player.Psi, player.MaxPsi),
+		fmt.Sprintf("You have %d/%d body points.", player.BodyPoints, player.MaxBodyPoints),
+	}
+	if player.Bleeding {
+		total := 0
+		for _, w := range player.Wounds {
+			if w.Bleeding {
+				total += woundBleedDrainPerMinute(w.Level)
+			}
+		}
+		if total > 0 {
+			msgs = append(msgs, fmt.Sprintf("You are bleeding at a rate of %d/minute.", total))
+		}
+	}
+	if player.Poisoned {
+		lvl := player.PoisonLevel
+		if lvl < 1 {
+			lvl = 1
+		}
+		msgs = append(msgs, fmt.Sprintf("You are suffering from poison at a rate of %d/minute.", lvl))
+	}
+	if player.Diseased {
+		lvl := player.DiseaseLevel
+		if lvl < 1 {
+			lvl = 1
+		}
+		msgs = append(msgs, fmt.Sprintf("You are suffering from disease at a rate of %d/minute.", lvl))
 	}
 	if len(player.Wounds) > 0 {
 		msgs = append(msgs, "You have "+buildWoundSentence(player.Wounds, "")+".")
 	}
 	return &CommandResult{Messages: msgs}
+}
+
+// doFatigue handles the FATIGUE (FAT) command: current/max mana, psi, and fatigue.
+func (e *GameEngine) doFatigue(player *Player) *CommandResult {
+	return &CommandResult{Messages: []string{
+		fmt.Sprintf("Mana: %d/%d", player.Mana, player.MaxMana),
+		fmt.Sprintf("Psi: %d/%d", player.Psi, player.MaxPsi),
+		fmt.Sprintf("Fatigue: %d/%d", player.Fatigue, player.MaxFatigue),
+	}}
 }
 
 // wornSlotMax defines the maximum items allowed per worn slot; unlisted slots default to 1.
@@ -807,6 +826,9 @@ var wornSlotMax = map[string]int{
 }
 
 func (e *GameEngine) doWield(ctx context.Context, player *Player, args []string) *CommandResult {
+	if msg := formActionBlockMessage(player); msg != "" {
+		return &CommandResult{Messages: []string{msg}}
+	}
 	if len(args) == 0 {
 		return &CommandResult{Messages: []string{"Wield what?"}}
 	}
@@ -850,7 +872,7 @@ func (e *GameEngine) doWield(ctx context.Context, player *Player, args []string)
 			fullName := e.formatItemName(itemDef, ii.Adj1, ii.Adj2, ii.Adj3, ii.Tail)
 			return &CommandResult{
 				Messages:      []string{fmt.Sprintf("You raise %s in your off hand.", fullName)},
-				RoomBroadcast: []string{fmt.Sprintf("%s raises %s.", player.FirstName, fullName)},
+				RoomBroadcast: []string{fmt.Sprintf("%s raises %s.", player.DisplayNameCap(), fullName)},
 			}
 		}
 
@@ -882,7 +904,7 @@ func (e *GameEngine) doWield(ctx context.Context, player *Player, args []string)
 					fullName := e.formatItemName(itemDef, ii.Adj1, ii.Adj2, ii.Adj3, ii.Tail)
 					return &CommandResult{
 						Messages:      []string{fmt.Sprintf("You wield %s in your off hand.", fullName)},
-						RoomBroadcast: []string{fmt.Sprintf("%s wields %s in their off hand.", player.FirstName, fullName)},
+						RoomBroadcast: []string{fmt.Sprintf("%s wields %s in their off hand.", player.DisplayNameCap(), fullName)},
 					}
 				}
 				return &CommandResult{Messages: []string{"Your off-hand weapon must weigh less than your main weapon."}}
@@ -898,13 +920,16 @@ func (e *GameEngine) doWield(ctx context.Context, player *Player, args []string)
 		fullName := e.formatItemName(itemDef, ii.Adj1, ii.Adj2, ii.Adj3, ii.Tail)
 		return &CommandResult{
 			Messages:      []string{fmt.Sprintf("You wield %s.", fullName)},
-			RoomBroadcast: []string{fmt.Sprintf("%s wields %s.", player.FirstName, fullName)},
+			RoomBroadcast: []string{fmt.Sprintf("%s wields %s.", player.DisplayNameCap(), fullName)},
 		}
 	}
 	return &CommandResult{Messages: []string{"You don't have that."}}
 }
 
 func (e *GameEngine) doUnwield(ctx context.Context, player *Player, args []string) *CommandResult {
+	if msg := formActionBlockMessage(player); msg != "" {
+		return &CommandResult{Messages: []string{msg}}
+	}
 	if len(args) == 0 {
 		// No argument: unwield everything
 		if player.Wielded == nil && player.OffHand == nil {
@@ -920,7 +945,7 @@ func (e *GameEngine) doUnwield(ctx context.Context, player *Player, args []strin
 			player.Inventory = append(player.Inventory, *player.OffHand)
 			player.OffHand = nil
 			msgs = append(msgs, "You lower your off-hand item.")
-			broadcasts = append(broadcasts, fmt.Sprintf("%s lowers %s.", player.FirstName, offName))
+			broadcasts = append(broadcasts, fmt.Sprintf("%s lowers %s.", player.DisplayNameCap(), offName))
 		}
 		if player.Wielded != nil {
 			wepDef := e.items[player.Wielded.Archetype]
@@ -931,7 +956,7 @@ func (e *GameEngine) doUnwield(ctx context.Context, player *Player, args []strin
 			player.Inventory = append(player.Inventory, *player.Wielded)
 			player.Wielded = nil
 			msgs = append(msgs, "You put away your weapon.")
-			broadcasts = append(broadcasts, fmt.Sprintf("%s puts away %s.", player.FirstName, wepName))
+			broadcasts = append(broadcasts, fmt.Sprintf("%s puts away %s.", player.DisplayNameCap(), wepName))
 		}
 		e.SavePlayer(ctx, player)
 		return &CommandResult{Messages: msgs, RoomBroadcast: broadcasts}
@@ -951,7 +976,7 @@ func (e *GameEngine) doUnwield(ctx context.Context, player *Player, args []strin
 				e.SavePlayer(ctx, player)
 				return &CommandResult{
 					Messages:      []string{fmt.Sprintf("You lower %s.", fullName)},
-					RoomBroadcast: []string{fmt.Sprintf("%s lowers %s.", player.FirstName, fullName)},
+					RoomBroadcast: []string{fmt.Sprintf("%s lowers %s.", player.DisplayNameCap(), fullName)},
 				}
 			}
 		}
@@ -968,7 +993,7 @@ func (e *GameEngine) doUnwield(ctx context.Context, player *Player, args []strin
 				e.SavePlayer(ctx, player)
 				return &CommandResult{
 					Messages:      []string{fmt.Sprintf("You put away %s.", fullName)},
-					RoomBroadcast: []string{fmt.Sprintf("%s puts away %s.", player.FirstName, fullName)},
+					RoomBroadcast: []string{fmt.Sprintf("%s puts away %s.", player.DisplayNameCap(), fullName)},
 				}
 			}
 		}
@@ -1040,6 +1065,9 @@ func (e *GameEngine) runItemOwnPreverbHook(player *Player, room *gameworld.Room,
 }
 
 func (e *GameEngine) doWear(ctx context.Context, player *Player, args []string) *CommandResult {
+	if msg := formActionBlockMessage(player); msg != "" {
+		return &CommandResult{Messages: []string{msg}}
+	}
 	if len(args) == 0 {
 		return &CommandResult{Messages: []string{"Wear what?"}}
 	}
@@ -1137,7 +1165,7 @@ func (e *GameEngine) doWear(ctx context.Context, player *Player, args []string) 
 
 			return &CommandResult{
 				Messages:      append(append(preMsgs, fmt.Sprintf("You put on %s.", fullName)), sc2.Messages...),
-				RoomBroadcast: append(append(preRoomMsgs, fmt.Sprintf("%s puts on %s.", player.FirstName, fullName)), sc2.RoomMsgs...),
+				RoomBroadcast: append(append(preRoomMsgs, fmt.Sprintf("%s puts on %s.", player.DisplayNameCap(), fullName)), sc2.RoomMsgs...),
 				GMBroadcast:   append(preGMMsgs, sc2.GMMsgs...),
 			}
 		}
@@ -1149,6 +1177,9 @@ func (e *GameEngine) doWear(ctx context.Context, player *Player, args []string) 
 }
 
 func (e *GameEngine) doRemove(ctx context.Context, player *Player, args []string) *CommandResult {
+	if msg := formActionBlockMessage(player); msg != "" {
+		return &CommandResult{Messages: []string{msg}}
+	}
 	if len(args) == 0 {
 		return &CommandResult{Messages: []string{"Remove what?"}}
 	}
@@ -1205,10 +1236,10 @@ func (e *GameEngine) doRemove(ctx context.Context, player *Player, args []string
 			e.SavePlayer(ctx, player)
 
 			msg := fmt.Sprintf("You remove %s.", fullName)
-			broadcast := fmt.Sprintf("%s removes %s.", player.FirstName, fullName)
+			broadcast := fmt.Sprintf("%s removes %s.", player.DisplayNameCap(), fullName)
 			if revealName := e.revealedLayerName(player, removedSlot); revealName != "" {
 				msg = fmt.Sprintf("You remove %s, revealing %s.", fullName, revealName)
-				broadcast = fmt.Sprintf("%s removes %s, revealing %s.", player.FirstName, fullName, revealName)
+				broadcast = fmt.Sprintf("%s removes %s, revealing %s.", player.DisplayNameCap(), fullName, revealName)
 			}
 			return &CommandResult{
 				Messages:      append(append(preMsgs, msg), sc2.Messages...),
@@ -1230,7 +1261,7 @@ func (e *GameEngine) doRemove(ctx context.Context, player *Player, args []string
 				fullName := e.formatItemName(ohDef, removed.Adj1, removed.Adj2, removed.Adj3, removed.Tail)
 				return &CommandResult{
 					Messages:      []string{fmt.Sprintf("You lower %s.", fullName)},
-					RoomBroadcast: []string{fmt.Sprintf("%s lowers %s.", player.FirstName, fullName)},
+					RoomBroadcast: []string{fmt.Sprintf("%s lowers %s.", player.DisplayNameCap(), fullName)},
 				}
 			}
 		}
@@ -1350,6 +1381,8 @@ func (e *GameEngine) doOpen(player *Player, args []string) *CommandResult {
 			openMsg := fmt.Sprintf("You open %s.", fullName)
 			if itemDef.Type == "LIQCONTAINER" && ii.Val2 > 0 && ii.Val4 != 0 {
 				openMsg = fmt.Sprintf("You open %s, revealing a %s potion.", fullName, e.getAdjName(ii.Val4))
+			} else if contentsDesc := e.describeContainerContents(ii.Contents); contentsDesc != "" {
+				openMsg = fmt.Sprintf("You open %s, revealing %s.", fullName, contentsDesc)
 			}
 			return &CommandResult{Messages: []string{openMsg}}
 		}
@@ -1387,6 +1420,8 @@ func (e *GameEngine) doOpen(player *Player, args []string) *CommandResult {
 			openMsg := fmt.Sprintf("You open %s.", fullName)
 			if itemDef.Type == "LIQCONTAINER" && ii.Val2 > 0 && ii.Val4 != 0 {
 				openMsg = fmt.Sprintf("You open %s, revealing a %s potion.", fullName, e.getAdjName(ii.Val4))
+			} else if contentsDesc := e.describeContainerContents(ii.Contents); contentsDesc != "" {
+				openMsg = fmt.Sprintf("You open %s, revealing %s.", fullName, contentsDesc)
 			}
 			return &CommandResult{Messages: []string{openMsg}}
 		}
@@ -1435,6 +1470,8 @@ func (e *GameEngine) doOpen(player *Player, args []string) *CommandResult {
 				openMsg := fmt.Sprintf("You open %s.", fullName)
 				if itemDef.Type == "LIQCONTAINER" && ri.Val2 > 0 && ri.Val4 != 0 {
 					openMsg = fmt.Sprintf("You open %s, revealing a %s potion.", fullName, e.getAdjName(ri.Val4))
+				} else if contentsDesc := e.describeContainerContents(e.roomContainerFullContents(player.RoomNumber, ri.Ref)); contentsDesc != "" {
+					openMsg = fmt.Sprintf("You open %s, revealing %s.", fullName, contentsDesc)
 				}
 				msgs := []string{openMsg}
 				if len(trapMsgs) > 0 {
@@ -1445,7 +1482,7 @@ func (e *GameEngine) doOpen(player *Player, args []string) *CommandResult {
 				}
 				return &CommandResult{
 					Messages:      msgs,
-					RoomBroadcast: []string{fmt.Sprintf("%s opens %s.", player.FirstName, fullName)},
+					RoomBroadcast: []string{fmt.Sprintf("%s opens %s.", player.DisplayNameCap(), fullName)},
 				}
 			}
 		}
@@ -1477,7 +1514,7 @@ func (e *GameEngine) checkTrap(player *Player, ri *gameworld.RoomItem) []string 
 			player.PoisonLevel = 1
 		}
 	case trapType == 3: // Acid
-		dmg := 10 + rand.Intn(15)
+		dmg := formDamageReduction(player, 10+rand.Intn(15))
 		player.BodyPoints -= dmg
 		if player.BodyPoints < 0 {
 			player.BodyPoints = 0
@@ -1485,7 +1522,7 @@ func (e *GameEngine) checkTrap(player *Player, ri *gameworld.RoomItem) []string 
 		msgs = append(msgs, fmt.Sprintf("Acid sprays out! [%d Damage]", dmg))
 		physicalHarm = true
 	case trapType == 4: // Blades
-		dmg := 15 + rand.Intn(20)
+		dmg := formDamageReduction(player, 15+rand.Intn(20))
 		player.BodyPoints -= dmg
 		if player.BodyPoints < 0 {
 			player.BodyPoints = 0
@@ -1505,7 +1542,7 @@ func (e *GameEngine) checkTrap(player *Player, ri *gameworld.RoomItem) []string 
 			player.PoisonLevel = 3
 		}
 	case trapType == 8: // Explosive
-		dmg := 30 + rand.Intn(30)
+		dmg := formDamageReduction(player, 30+rand.Intn(30))
 		player.BodyPoints -= dmg
 		if player.BodyPoints < 0 {
 			player.BodyPoints = 0
@@ -1513,7 +1550,7 @@ func (e *GameEngine) checkTrap(player *Player, ri *gameworld.RoomItem) []string 
 		msgs = append(msgs, fmt.Sprintf("The container explodes! [%d Damage]", dmg))
 		physicalHarm = true
 	case trapType == 9: // Acid, moderate
-		dmg := 20 + rand.Intn(25)
+		dmg := formDamageReduction(player, 20+rand.Intn(25))
 		player.BodyPoints -= dmg
 		if player.BodyPoints < 0 {
 			player.BodyPoints = 0
@@ -1527,7 +1564,7 @@ func (e *GameEngine) checkTrap(player *Player, ri *gameworld.RoomItem) []string 
 			player.PoisonLevel = 2
 		}
 	case trapType == 13: // Black needle, lethal
-		dmg := 40 + rand.Intn(30)
+		dmg := formDamageReduction(player, 40+rand.Intn(30))
 		player.BodyPoints -= dmg
 		if player.BodyPoints < 0 {
 			player.BodyPoints = 0
@@ -1552,6 +1589,7 @@ func (e *GameEngine) checkTrap(player *Player, ri *gameworld.RoomItem) []string 
 		} else if glyphType > 2 && glyphType <= 4 && !player.ColdShieldExpiry.IsZero() && now.Before(player.ColdShieldExpiry) {
 			spellDmg /= 2
 		}
+		spellDmg = formDamageReduction(player, spellDmg)
 		player.BodyPoints -= spellDmg
 		if player.BodyPoints < 0 {
 			player.BodyPoints = 0
@@ -1673,7 +1711,7 @@ func (e *GameEngine) doClose(player *Player, args []string) *CommandResult {
 				}
 				return &CommandResult{
 					Messages:      []string{fmt.Sprintf("You close %s.", fullName)},
-					RoomBroadcast: []string{fmt.Sprintf("%s closes %s.", player.FirstName, fullName)},
+					RoomBroadcast: []string{fmt.Sprintf("%s closes %s.", player.DisplayNameCap(), fullName)},
 				}
 			}
 		}
@@ -1682,6 +1720,9 @@ func (e *GameEngine) doClose(player *Player, args []string) *CommandResult {
 }
 
 func (e *GameEngine) doGive(ctx context.Context, player *Player, args []string) *CommandResult {
+	if msg := formActionBlockMessage(player); msg != "" {
+		return &CommandResult{Messages: []string{msg}}
+	}
 	if len(args) < 2 {
 		return &CommandResult{Messages: []string{"Give what to whom? (give <item> to <player>)"}}
 	}
@@ -1752,10 +1793,10 @@ func (e *GameEngine) doGive(ctx context.Context, player *Player, args []string) 
 		e.SavePlayer(ctx, player)
 		e.SavePlayer(ctx, target)
 		return &CommandResult{
-			Messages:      []string{fmt.Sprintf("You give %s to %s.", fullName, target.FirstName)},
-			RoomBroadcast: []string{fmt.Sprintf("%s gives %s to %s.", player.FirstName, fullName, target.FirstName)},
+			Messages:      []string{fmt.Sprintf("You give %s to %s.", fullName, target.DisplayName())},
+			RoomBroadcast: []string{fmt.Sprintf("%s gives %s to %s.", player.DisplayNameCap(), fullName, target.DisplayName())},
 			TargetName:    target.FirstName,
-			TargetMsg:     []string{fmt.Sprintf("%s gives you %s.", player.FirstName, fullName)},
+			TargetMsg:     []string{fmt.Sprintf("%s gives you %s.", player.DisplayName(), fullName)},
 		}
 	}
 	return &CommandResult{Messages: []string{"You don't have that."}}
@@ -1866,10 +1907,10 @@ func (e *GameEngine) doGiveMoney(ctx context.Context, giver, receiver *Player, a
 				e.SavePlayer(ctx, giver)
 				e.SavePlayer(ctx, receiver)
 				return &CommandResult{
-					Messages:      []string{fmt.Sprintf("You give %s to %s.", currencyDisplay, receiver.FirstName)},
-					RoomBroadcast: []string{fmt.Sprintf("%s gives some coins to %s.", giver.FirstName, receiver.FirstName)},
+					Messages:      []string{fmt.Sprintf("You give %s to %s.", currencyDisplay, receiver.DisplayName())},
+					RoomBroadcast: []string{fmt.Sprintf("%s gives some coins to %s.", giver.DisplayNameCap(), receiver.DisplayName())},
 					TargetName:    receiver.FirstName,
-					TargetMsg:     []string{fmt.Sprintf("%s gives you %s.", giver.FirstName, currencyDisplay)},
+					TargetMsg:     []string{fmt.Sprintf("%s gives you %s.", giver.DisplayName(), currencyDisplay)},
 				}
 			}
 		}
@@ -1879,10 +1920,10 @@ func (e *GameEngine) doGiveMoney(ctx context.Context, giver, receiver *Player, a
 	e.SavePlayer(ctx, giver)
 	e.SavePlayer(ctx, receiver)
 	return &CommandResult{
-		Messages:      []string{fmt.Sprintf("You give %s to %s.", currencyDisplay, receiver.FirstName)},
-		RoomBroadcast: []string{fmt.Sprintf("%s gives some coins to %s.", giver.FirstName, receiver.FirstName)},
+		Messages:      []string{fmt.Sprintf("You give %s to %s.", currencyDisplay, receiver.DisplayName())},
+		RoomBroadcast: []string{fmt.Sprintf("%s gives some coins to %s.", giver.DisplayNameCap(), receiver.DisplayName())},
 		TargetName:    receiver.FirstName,
-		TargetMsg:     []string{fmt.Sprintf("%s gives you %s.", giver.FirstName, currencyDisplay)},
+		TargetMsg:     []string{fmt.Sprintf("%s gives you %s.", giver.DisplayName(), currencyDisplay)},
 	}
 }
 
@@ -1964,6 +2005,7 @@ func (e *GameEngine) doEat(ctx context.Context, player *Player, args []string) *
 			msgs = append(msgs, sc.Messages...)
 
 			// Spell effect fires on every bite
+			var extraRoomMsgs []string
 			if spellNum == 403 { // Mindlink — each bite refreshes the 1-hour window
 				player.TelepathyActive = true
 				player.TelepathyExpiry = time.Now().Add(1 * time.Hour)
@@ -1971,12 +2013,21 @@ func (e *GameEngine) doEat(ctx context.Context, player *Player, args []string) *
 			} else if msg := applyHerbSpell(player, spellNum); msg != "" {
 				msgs = append(msgs, msg)
 			} else if spellNum != 0 {
-				msgs = append(msgs, fmt.Sprintf("[Spell #%d effect coming soon.]", spellNum))
+				if spell := FindSpellByID(spellNum); spell != nil {
+					beforeMsgs, beforeRoom := len(sc.Messages), len(sc.RoomMsgs)
+					sc.applyItemSpellOnPlayer(spell)
+					msgs = append(msgs, sc.Messages[beforeMsgs:]...)
+					extraRoomMsgs = append(extraRoomMsgs, sc.RoomMsgs[beforeRoom:]...)
+				} else {
+					msgs = append(msgs, fmt.Sprintf("[Spell #%d effect coming soon.]", spellNum))
+				}
 			}
 			e.SavePlayer(ctx, player)
+			roomBroadcast := []string{fmt.Sprintf("%s eats %s.", player.DisplayNameCap(), fullName)}
+			roomBroadcast = append(roomBroadcast, extraRoomMsgs...)
 			return &CommandResult{
 				Messages:      msgs,
-				RoomBroadcast: []string{fmt.Sprintf("%s eats %s.", player.FirstName, fullName)},
+				RoomBroadcast: roomBroadcast,
 				PlayerState:   player,
 			}
 		}
@@ -2076,7 +2127,7 @@ func (e *GameEngine) doBuy(ctx context.Context, player *Player, args []string) *
 		displayName := e.formatItemName(itemDef, item.Adj1, item.Adj2, item.Adj3, item.Tail)
 		return &CommandResult{
 			Messages:      []string{fmt.Sprintf("You hand over your money and retrieve your %s.", displayName)},
-			RoomBroadcast: []string{fmt.Sprintf("%s purchases the %s.", player.FirstName, displayName)},
+			RoomBroadcast: []string{fmt.Sprintf("%s purchases the %s.", player.DisplayNameCap(), displayName)},
 		}
 	}
 
@@ -2417,23 +2468,23 @@ func (e *GameEngine) drinkItem(ctx context.Context, player *Player, ii *Inventor
 	spellNum := tempRI.Val3
 
 	// Potions (Val4 set to a liquid-appearance adjective) get flavor text naming
-	// the vessel and, if a spell is bound, the spell's name "engraved" on it.
+	// the vessel.
 	liquidAdj := ii.Val4
 	var msgs []string
+	var potionPhrase string
 	if isContainer && liquidAdj != 0 {
-		vessel := e.potionVesselPhrase(itemDef, ii.Adj1, liquidAdj)
-		writing := ""
-		if sp := FindSpellByID(spellNum); sp != nil {
-			writing = fmt.Sprintf(" engraved with the writing, \"%s\"", sp.Name)
+		potionPhrase = e.potionPhraseIfAny(itemDef, currentSips, liquidAdj)
+		if potionPhrase == "" {
+			potionPhrase = "potion"
 		}
 		newVal := currentSips - 1
 		ii.Val2 = newVal
 		if newVal <= 0 {
 			ii.Val3 = 0
 			ii.Val4 = 0
-			msgs = []string{fmt.Sprintf("You drink the last of the potion from %s%s.", vessel, writing)}
+			msgs = []string{fmt.Sprintf("You drink the last of the %s from %s.", potionPhrase, displayName)}
 		} else {
-			msgs = []string{fmt.Sprintf("You drink the potion from %s%s. (%d sips remaining)", vessel, writing, newVal)}
+			msgs = []string{fmt.Sprintf("You drink the %s from %s. (%d sips remaining)", potionPhrase, displayName, newVal)}
 		}
 	} else if isContainer {
 		// Only the liquid is consumed — the vessel stays in inventory.
@@ -2476,36 +2527,18 @@ func (e *GameEngine) drinkItem(ctx context.Context, player *Player, ii *Inventor
 		}
 	}
 	e.SavePlayer(ctx, player)
-	roomBroadcast := []string{fmt.Sprintf("%s drinks from %s.", player.FirstName, displayName)}
+	var roomBroadcast []string
+	if potionPhrase != "" {
+		roomBroadcast = []string{fmt.Sprintf("%s drinks the %s from %s.", player.DisplayNameCap(), potionPhrase, displayName)}
+	} else {
+		roomBroadcast = []string{fmt.Sprintf("%s drinks from %s.", player.DisplayNameCap(), displayName)}
+	}
 	roomBroadcast = append(roomBroadcast, extraRoomMsgs...)
 	return &CommandResult{
 		Messages:      msgs,
 		RoomBroadcast: roomBroadcast,
 		PlayerState:   player,
 	}
-}
-
-// potionVesselPhrase describes a potion container by its liquid-appearance adjective
-// (e.g. "a yellow bottle"), independent of whatever adjective is on the vessel itself.
-func (e *GameEngine) potionVesselPhrase(itemDef *gameworld.ItemDef, vesselAdjID, liquidAdjID int) string {
-	noun := e.getItemNounName(itemDef)
-	// Prefer the vessel's own adjective (e.g. "glass" on a flask/vial) — only
-	// fall back to the liquid's color (e.g. "yellow" on a plain bottle) when the
-	// vessel has no adjective of its own.
-	adjID := vesselAdjID
-	if adjID == 0 {
-		adjID = liquidAdjID
-	}
-	adjName := e.getAdjName(adjID)
-	if adjName == "" {
-		return "a " + noun
-	}
-	article := "a"
-	switch adjName[0] {
-	case 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U':
-		article = "an"
-	}
-	return fmt.Sprintf("%s %s %s", article, adjName, noun)
 }
 
 func (e *GameEngine) doLight(ctx context.Context, player *Player, args []string, lightOn bool) *CommandResult {
@@ -2823,7 +2856,7 @@ func (e *GameEngine) doLock(ctx context.Context, player *Player, args []string) 
 			e.syncLinkedPortal(player.RoomNumber, &room.Items[i], itemDef, "LOCKED", "You hear %s lock.")
 			return &CommandResult{
 				Messages:      []string{fmt.Sprintf("You lock %s.", displayName)},
-				RoomBroadcast: []string{fmt.Sprintf("%s locks %s.", player.FirstName, displayName)},
+				RoomBroadcast: []string{fmt.Sprintf("%s locks %s.", player.DisplayNameCap(), displayName)},
 			}
 		}
 	}
@@ -2908,7 +2941,7 @@ func (e *GameEngine) doUnlock(ctx context.Context, player *Player, args []string
 			e.syncLinkedPortal(player.RoomNumber, &room.Items[i], itemDef, "CLOSED", "You hear %s unlock.")
 			return &CommandResult{
 				Messages:      []string{fmt.Sprintf("You unlock %s.", displayName)},
-				RoomBroadcast: []string{fmt.Sprintf("%s unlocks %s.", player.FirstName, displayName)},
+				RoomBroadcast: []string{fmt.Sprintf("%s unlocks %s.", player.DisplayNameCap(), displayName)},
 			}
 		}
 	}
@@ -3303,6 +3336,9 @@ func (e *GameEngine) doUnlearn(ctx context.Context, player *Player, args []strin
 }
 
 func (e *GameEngine) doUndress(ctx context.Context, player *Player) *CommandResult {
+	if msg := formActionBlockMessage(player); msg != "" {
+		return &CommandResult{Messages: []string{msg}}
+	}
 	if len(player.Worn) == 0 {
 		return &CommandResult{Messages: []string{"You aren't wearing anything to remove."}}
 	}

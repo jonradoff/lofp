@@ -322,6 +322,57 @@ func (e *GameEngine) lookInContainer(player *Player, def *gameworld.ItemDef, ii 
 	return &CommandResult{Messages: msgs}
 }
 
+// describeContainerContents renders a contents slice as a comma-joined clause
+// (e.g. "a small key, a gold coin, and a leather pouch") for use in the "You open
+// <container>, revealing ..." message. Returns "" for an empty slice.
+func (e *GameEngine) describeContainerContents(contents []InventoryItem) string {
+	if len(contents) == 0 {
+		return ""
+	}
+	names := make([]string, 0, len(contents))
+	for _, ci := range contents {
+		if ci.State == "MONEY" {
+			names = append(names, formatCoinStr(ci.Val1))
+			continue
+		}
+		ciDef := e.items[ci.Archetype]
+		if ciDef == nil {
+			continue
+		}
+		names = append(names, e.formatItemName(ciDef, ci.Adj1, ci.Adj2, ci.Adj3, ci.Tail))
+	}
+	return joinWithAnd(names)
+}
+
+// roomContainerFullContents returns everything currently inside a room container: items
+// placed at runtime via PUT/GET (roomContainerContents map) plus items the original
+// scripts placed via NEWPUT/PUT (IsPut room items whose PutIn references this container).
+func (e *GameEngine) roomContainerFullContents(roomNum int, ref int) []InventoryItem {
+	contents := e.roomContainerGet(roomNum, ref)
+	room := e.rooms[roomNum]
+	if room != nil {
+		for _, ri2 := range room.Items {
+			if !ri2.IsPut || ri2.PutIn != ref {
+				continue
+			}
+			iDef := e.items[ri2.Archetype]
+			if iDef == nil {
+				continue
+			}
+			contents = append(contents, InventoryItem{
+				Archetype: ri2.Archetype,
+				Adj1:      ri2.Adj1, Adj2: ri2.Adj2, Adj3: ri2.Adj3,
+				Val1: ri2.Val1, Val2: ri2.Val2, Val3: ri2.Val3, Val4: ri2.Val4, Val5: ri2.Val5,
+				Sharpness:   ri2.Sharpness,
+				HardnessMod: ri2.HardnessMod,
+				ItemBits:    ri2.ItemBits,
+				State:       ri2.State,
+			})
+		}
+	}
+	return contents
+}
+
 // lookInRoomContainer is called when a player types LOOK IN <container> for a room item.
 func (e *GameEngine) lookInRoomContainer(player *Player, def *gameworld.ItemDef, ri *gameworld.RoomItem) *CommandResult {
 	displayName := e.formatContainerName(def, ri.Adj1, ri.Adj2, ri.Adj3, ri.State, ri.Extend)
@@ -355,31 +406,7 @@ func (e *GameEngine) lookInRoomContainer(player *Player, def *gameworld.ItemDef,
 		return &CommandResult{Messages: e.potionLookInMessages(def, ri.Adj1, ri.Val2, ri.Val4, ri.Extend)}
 	}
 
-	// Dynamic contents (dropped loot, items placed at runtime via PUT)
-	contents := e.roomContainerGet(player.RoomNumber, ri.Ref)
-
-	// Script-placed contents (IsPut == true, PutIn == this container's Ref)
-	room := e.rooms[player.RoomNumber]
-	if room != nil {
-		for _, ri2 := range room.Items {
-			if !ri2.IsPut || ri2.PutIn != ri.Ref {
-				continue
-			}
-			iDef := e.items[ri2.Archetype]
-			if iDef == nil {
-				continue
-			}
-			contents = append(contents, InventoryItem{
-				Archetype: ri2.Archetype,
-				Adj1:      ri2.Adj1, Adj2: ri2.Adj2, Adj3: ri2.Adj3,
-				Val1: ri2.Val1, Val2: ri2.Val2, Val3: ri2.Val3, Val4: ri2.Val4, Val5: ri2.Val5,
-				Sharpness: ri2.Sharpness,
-				HardnessMod: ri2.HardnessMod,
-				ItemBits:  ri2.ItemBits,
-				State:     ri2.State,
-			})
-		}
-	}
+	contents := e.roomContainerFullContents(player.RoomNumber, ri.Ref)
 
 	if len(contents) == 0 {
 		return &CommandResult{Messages: []string{fmt.Sprintf("You look inside %s. It is empty.", displayName)}}
@@ -487,6 +514,9 @@ func (e *GameEngine) runPutIntoTargetScripts(ctx context.Context, player *Player
 }
 
 func (e *GameEngine) doPut(ctx context.Context, player *Player, args []string) *CommandResult {
+	if msg := formActionBlockMessage(player); msg != "" {
+		return &CommandResult{Messages: []string{msg}}
+	}
 	if len(args) == 0 {
 		return &CommandResult{Messages: []string{"Put what?"}}
 	}
@@ -781,6 +811,9 @@ func (e *GameEngine) doPour(ctx context.Context, player *Player, args []string) 
 //   GET ALL FROM <container>  — take all items from a container
 
 func (e *GameEngine) doGetEnhanced(ctx context.Context, player *Player, verb string, args []string) *CommandResult {
+	if msg := formActionBlockMessage(player); msg != "" {
+		return &CommandResult{Messages: []string{msg}}
+	}
 	if len(args) == 0 {
 		return &CommandResult{Messages: []string{"Get what?"}}
 	}
@@ -966,7 +999,7 @@ func (e *GameEngine) doGetAll(ctx context.Context, player *Player, noun string) 
 	var finalRoomMsgs []string
 	finalRoomMsgs = append(finalRoomMsgs, roomMsgs...)
 	if gotSomething {
-		finalRoomMsgs = append(finalRoomMsgs, fmt.Sprintf("%s picks up several items.", player.FirstName))
+		finalRoomMsgs = append(finalRoomMsgs, fmt.Sprintf("%s picks up several items.", player.DisplayNameCap()))
 	}
 	return &CommandResult{
 		Messages:      msgs,
@@ -1222,7 +1255,7 @@ func (e *GameEngine) doGetAllFromContainer(ctx context.Context, player *Player, 
 		cName := e.formatContainerName(cDef, container.Adj1, container.Adj2, container.Adj3, container.State, container.Tail)
 		return &CommandResult{
 			Messages:      msgs,
-			RoomBroadcast: []string{fmt.Sprintf("%s empties %s.", player.FirstName, cName)},
+			RoomBroadcast: []string{fmt.Sprintf("%s empties %s.", player.DisplayNameCap(), cName)},
 		}
 	}
 
@@ -1267,7 +1300,7 @@ func (e *GameEngine) doGetAllFromContainer(ctx context.Context, player *Player, 
 		cName := e.formatContainerName(cDef, worn.Adj1, worn.Adj2, worn.Adj3, worn.State, worn.Tail)
 		return &CommandResult{
 			Messages:      msgs,
-			RoomBroadcast: []string{fmt.Sprintf("%s empties %s.", player.FirstName, cName)},
+			RoomBroadcast: []string{fmt.Sprintf("%s empties %s.", player.DisplayNameCap(), cName)},
 		}
 	}
 
@@ -1315,7 +1348,7 @@ func (e *GameEngine) doGetAllFromContainer(ctx context.Context, player *Player, 
 			cName := e.formatContainerName(cDef, ri.Adj1, ri.Adj2, ri.Adj3, ri.State, ri.Extend)
 			return &CommandResult{
 				Messages:      msgs,
-				RoomBroadcast: []string{fmt.Sprintf("%s empties %s.", player.FirstName, cName)},
+				RoomBroadcast: []string{fmt.Sprintf("%s empties %s.", player.DisplayNameCap(), cName)},
 			}
 		}
 	}
@@ -1386,7 +1419,7 @@ func (e *GameEngine) doDump(ctx context.Context, player *Player, args []string) 
 		msgs = append([]string{fmt.Sprintf("You dump out %s.", cName)}, msgs...)
 		return &CommandResult{
 			Messages:      msgs,
-			RoomBroadcast: []string{fmt.Sprintf("%s dumps out %s.", player.FirstName, cName)},
+			RoomBroadcast: []string{fmt.Sprintf("%s dumps out %s.", player.DisplayNameCap(), cName)},
 		}
 	}
 
@@ -1790,6 +1823,9 @@ func (e *GameEngine) randomJewelryDrop(treasureLevel int) *gameworld.RoomItem {
 // Call this from the INVENTORY case in ProcessCommand instead of the existing doInventory.
 
 func (e *GameEngine) doInventoryEnhanced(player *Player) *CommandResult {
+	if msg := formActionBlockMessage(player); msg != "" {
+		return &CommandResult{Messages: []string{msg}}
+	}
 	var msgs []string
 	msgs = append(msgs, "You are carrying:")
 	if len(player.Inventory) == 0 && len(player.Worn) == 0 && player.Wielded == nil && player.OffHand == nil {

@@ -865,6 +865,12 @@ func (e *GameEngine) doAttackMonster(ctx context.Context, player *Player, target
 	if player.Immobilized {
 		return &CommandResult{Messages: []string{"You are rooted to the spot!"}}
 	}
+	if player.IsImprisoned() {
+		return &CommandResult{Messages: []string{"You are trapped within a blue force bubble and cannot attack!"}}
+	}
+	if msg := formActionBlockMessage(player); msg != "" {
+		return &CommandResult{Messages: []string{msg}}
+	}
 	if player.Position == 2 {
 		return &CommandResult{Messages: []string{"You can't attack while laying down! Stand up first."}}
 	}
@@ -905,6 +911,13 @@ func (e *GameEngine) doAttackMonster(ctx context.Context, player *Player, target
 
 	name := FormatMonsterName(def, e.monAdjs)
 	article := articleFor(name, def.Unique)
+
+	// Imprison (231): the force bubble protects the target from being attacked
+	// as well as attacking — per MAGIC.TXT, "prevents them from attacking or
+	// being attacked."
+	if inst.Imprisoned {
+		return &CommandResult{Messages: []string{fmt.Sprintf("A shimmering force bubble protects %s%s -- your attack has no effect!", article, name)}}
+	}
 
 	weaponDef := e.currentWeaponDef(player)
 
@@ -1411,10 +1424,11 @@ func (e *GameEngine) doAttackMonster(ctx context.Context, player *Player, target
 		player.Wielded.Val3 = 0 // unloaded
 	}
 
-	// Attacking always reveals you (both hidden and invisible)
-	if player.Hidden || player.Invisible {
+	// Attacking always reveals you (hidden, invisible, or phantom form)
+	if player.Hidden || player.Invisible || player.PhantomForm {
 		player.Hidden = false
 		player.Invisible = false
+		player.PhantomForm = false
 		result.Messages = append([]string{"You reveal yourself!"}, result.Messages...)
 	}
 
@@ -1440,6 +1454,7 @@ func (e *GameEngine) doBackstab(ctx context.Context, player *Player, target stri
 	player.BackstabNext = true
 	player.Hidden = false
 	player.Invisible = false
+	player.PhantomForm = false
 	result := e.doAttackMonster(ctx, player, target)
 	player.BackstabNext = false
 	result.Messages = append([]string{"You leap from the shadows!"}, result.Messages...)
@@ -1647,6 +1662,12 @@ func (e *GameEngine) monsterAttackPlayer(inst *MonsterInstance, def *gameworld.M
 		}
 		playerMsgs = append(playerMsgs, fmt.Sprintf(" [ToHit: %d, Roll: %d] %s", toHit, roll, hitLabel))
 
+		if player.MistForm {
+			playerMsgs = append(playerMsgs, fmt.Sprintf(" %s%s attack passes harmlessly through %s misty form!", capArt, name, player.Possessive()))
+			roomMsgs = append(roomMsgs, fmt.Sprintf("%s%s %s %s, but the attack passes harmlessly through %s misty form!", capArt, name, monVerb, player.FirstName, player.Possessive()))
+			return playerMsgs, roomMsgs, player
+		}
+
 		dmg := monsterDamage(def)
 		armorPct := playerArmorPercent(player, e.items)
 		dmg = applyArmor(dmg, armorPct)
@@ -1659,6 +1680,7 @@ func (e *GameEngine) monsterAttackPlayer(inst *MonsterInstance, def *gameworld.M
 		if dmg <= 0 {
 			dmg = 1
 		}
+		dmg = formDamageReduction(player, dmg) // Slime Form: 90% reduction; everyone else unchanged
 		var monWeaponDef *gameworld.ItemDef
 		if len(def.Weapons) > 0 {
 			monWeaponDef = e.items[def.Weapons[0].Archetype]
@@ -1751,7 +1773,7 @@ func (e *GameEngine) monsterAttackTargetPool(inst *MonsterInstance) []*Player {
 	}
 	var attackers, roomPlayers []*Player
 	for _, p := range e.sessions.OnlinePlayers() {
-		if p.RoomNumber != inst.RoomNumber || p.Dead || p.Hidden || p.Invisible || p.GMInvis {
+		if p.RoomNumber != inst.RoomNumber || p.Dead || p.Hidden || p.Invisible || p.PhantomForm || p.GMInvis {
 			continue
 		}
 		roomPlayers = append(roomPlayers, p)
@@ -1834,6 +1856,7 @@ func (e *GameEngine) applyMonsterElementalDamageToPlayer(player *Player, dmg int
 	if dmg <= 0 {
 		dmg = 1
 	}
+	dmg = formDamageReduction(player, dmg) // Mist Form: immune; Slime Form: 90% reduction
 	dtype = damageTypeForSpecAttack(dmgType)
 	level := woundLevelFromDamage(dmg, player.MaxBodyPoints)
 	player.Wounds = applyWoundToList(player.Wounds, part, dtype, level, !player.Undead)
@@ -2034,7 +2057,7 @@ func (e *GameEngine) resolveMonsterCast(inst *MonsterInstance, def *gameworld.Mo
 			break
 		}
 	}
-	if target == nil || target.Hidden || target.Invisible || target.GMInvis {
+	if target == nil || target.Hidden || target.Invisible || target.PhantomForm || target.GMInvis {
 		return nil, nil, nil
 	}
 
@@ -2159,6 +2182,7 @@ func (e *GameEngine) handlePlayerDeath(player *Player, killerName string) []stri
 	player.CombatTarget = nil
 	player.Joined = false
 	player.Position = 2 // laying down
+	e.lastDeathRoom = player.RoomNumber
 
 	e.dismissSummonedCreature(player)
 	e.clearPlayerFromGuards(player.FirstName)
@@ -2247,6 +2271,14 @@ func (e *GameEngine) damageMonster(monsterID int, dmg int, attackerName string) 
 	defer e.monsterMgr.mu.Unlock()
 	for i := range e.monsterMgr.instances {
 		if e.monsterMgr.instances[i].ID == monsterID && e.monsterMgr.instances[i].Alive {
+			// Imprisoned (231): immune to all damage — the primary attack/damage-spell
+			// entry points (doAttackMonster, castDamageSpell) already short-circuit
+			// before rolling and say so; this is the backstop for the rarer paths that
+			// resolve their own target and call in here directly (psi damage, Call
+			// Meteor, multi-target Chain Lightning/Flaming Arrows/Tentacles ticks).
+			if e.monsterMgr.instances[i].Imprisoned {
+				return false, false
+			}
 			if attackerName != "" {
 				e.monsterMgr.instances[i].LastAttacker = attackerName
 			}
@@ -2495,7 +2527,7 @@ func (e *GameEngine) handleMonsterDeath(recipients []*Player, inst *MonsterInsta
 			p.MaxPsi += p.Willpower / 10
 			p.Psi = p.MaxPsi
 			xpMsgs = append(xpMsgs, fmt.Sprintf("Congratulations! You have advanced to level %d!", p.Level))
-			if e.roomBroadcast != nil {
+			if e.roomBroadcast != nil && !p.Disguised {
 				e.roomBroadcast(p.RoomNumber, []string{
 					fmt.Sprintf("%s has advanced to level %d!", p.FirstName, p.Level),
 				})
@@ -2939,6 +2971,16 @@ func (e *GameEngine) monsterCombatTick(inst *MonsterInstance, def *gameworld.Mon
 		inst.Charmed = false
 		inst.CharmTarget = ""
 	}
+	if inst.Silenced && now.After(inst.SilenceExpiry) {
+		inst.Silenced = false
+	}
+	if inst.Imprisoned && now.After(inst.ImprisonExpiry) {
+		inst.Imprisoned = false
+		if e.localRoomBroadcast != nil {
+			name := FormatMonsterName(def, e.monAdjs)
+			e.localRoomBroadcast(inst.RoomNumber, []string{fmt.Sprintf("The force bubble around the %s shimmers and fades.", strings.ToLower(name))})
+		}
+	}
 	if inst.Stunned && now.After(inst.StunExpiry) {
 		inst.Stunned = false
 		if e.localRoomBroadcast != nil {
@@ -3015,6 +3057,11 @@ func (e *GameEngine) monsterCombatTick(inst *MonsterInstance, def *gameworld.Mon
 		return
 	}
 
+	// Imprisoned: trapped in a force bubble, cannot attack or cast at all
+	if inst.Imprisoned {
+		return
+	}
+
 	if e.sessions == nil {
 		return
 	}
@@ -3052,7 +3099,7 @@ func (e *GameEngine) monsterCombatTick(inst *MonsterInstance, def *gameworld.Mon
 		}
 	}
 
-	if target == nil || target.Hidden || target.Invisible || target.GMInvis {
+	if target == nil || target.Hidden || target.Invisible || target.PhantomForm || target.GMInvis {
 		inst.Target = ""
 		return
 	}
@@ -3064,7 +3111,12 @@ func (e *GameEngine) monsterCombatTick(inst *MonsterInstance, def *gameworld.Mon
 	}
 
 	e.monsterMgr.mu.Unlock()
-	startedCast := e.monsterTryStartCast(inst, def)
+	// Silenced monsters can't incant a spell unless SILENCEIGNORE (GMSCRIPT.DOC:
+	// "the Silence spell will not affect the creature's ability to cast a spell").
+	startedCast := false
+	if !inst.Silenced || def.SilenceIgnore {
+		startedCast = e.monsterTryStartCast(inst, def)
+	}
 	var playerMsgs, roomMsgs []string
 	var defender *Player
 	handled := startedCast
@@ -3159,7 +3211,7 @@ func (e *GameEngine) monsterFlee(inst *MonsterInstance, def *gameworld.MonsterDe
 }
 
 func (e *GameEngine) monsterCheckAggro(player *Player, roomNum int) {
-	if e.monsterMgr == nil || player.Dead || player.Hidden || player.Invisible || player.GMInvis {
+	if e.monsterMgr == nil || player.Dead || player.Hidden || player.Invisible || player.PhantomForm || player.GMInvis {
 		return
 	}
 

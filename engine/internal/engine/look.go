@@ -1,7 +1,9 @@
 package engine
 
 import (
+	"context"
 	"fmt"
+	"math/rand"
 	"strconv"
 	"strings"
 	"time"
@@ -123,7 +125,7 @@ func (e *GameEngine) doLook(player *Player) *CommandResult {
 			if p.FirstName == player.FirstName && p.LastName == player.LastName {
 				continue
 			}
-			if p.Hidden || p.Invisible || p.GMInvis {
+			if p.Hidden || p.Invisible || p.PhantomForm || p.GMInvis {
 				continue
 			}
 			posDesc := ""
@@ -228,7 +230,7 @@ var lookDirMap = map[string]string{
 	"o": "O", "out": "O",
 }
 
-func (e *GameEngine) doLookAt(player *Player, args []string) *CommandResult {
+func (e *GameEngine) doLookAt(ctx context.Context, player *Player, args []string) *CommandResult {
 	if len(args) == 0 {
 		return e.doLook(player)
 	}
@@ -256,7 +258,7 @@ func (e *GameEngine) doLookAt(player *Player, args []string) *CommandResult {
 					var peopleHere []string
 					if e.sessions != nil {
 						for _, p := range e.sessions.OnlinePlayers() {
-							if p.RoomNumber == destNum && !p.Hidden && !p.Invisible && !p.GMInvis {
+							if p.RoomNumber == destNum && !p.Hidden && !p.Invisible && !p.PhantomForm && !p.GMInvis {
 								peopleHere = append(peopleHere, p.DisplayName())
 							}
 						}
@@ -328,6 +330,33 @@ func (e *GameEngine) doLookAt(player *Player, args []string) *CommandResult {
 	isContainer := func(def *gameworld.ItemDef) bool {
 		return def.Type == "CONTAINER" || containsFlag(def.Flags, "CONTAINER") ||
 			def.Container == "IN" || def.Container == "ON"
+	}
+
+	// LOOK IN <eye of scrying>, once translucent — special-cased ahead of the generic
+	// item search since revealing a vision and possibly crumbling the eye needs ctx (to
+	// persist) and a direct Inventory index, neither of which the generic
+	// examineCarriedItem path threads through. An eye that isn't translucent yet falls
+	// through to the normal search below, which produces the standard "you see nothing
+	// noteworthy in X" for a non-container item.
+	if prefix == "IN" {
+		for i := range player.Inventory {
+			ii := &player.Inventory[i]
+			if ii.Archetype != eyeOfScryingArch || ii.Val3 != eyeStateTranslucent {
+				continue
+			}
+			def := e.items[ii.Archetype]
+			if def == nil {
+				continue
+			}
+			if !matchesTarget(e.getItemNounName(def), remaining, e.getAdjName(ii.Adj1), e.getAdjName(ii.Adj2), e.getAdjName(ii.Adj3)) {
+				continue
+			}
+			if skip > 0 {
+				skip--
+				continue
+			}
+			return e.lookInEye(ctx, player, i, def)
+		}
 	}
 
 	// Search room items — skipped entirely when "my" was used (e.g. "look in my chest").
@@ -402,6 +431,43 @@ func (e *GameEngine) doLookAt(player *Player, args []string) *CommandResult {
 	}
 
 	return &CommandResult{Messages: []string{"You don't see that here."}}
+}
+
+// lookInEye handles LOOK IN <eye of scrying> once translucent (Val3 ==
+// eyeStateTranslucent, set by Scry — see tryCastSpellAtEye in spells.go). Reveals a
+// vision of the room where the last player death occurred (e.lastDeathRoom), then
+// has a 1-in-10 chance to crumble the eye to dust — matching ITEM1.SCR's
+// "IFPREVERB LOOK -1" block on item 520 exactly (RANDOM 1-10, crumble on a roll of 1).
+func (e *GameEngine) lookInEye(ctx context.Context, player *Player, idx int, def *gameworld.ItemDef) *CommandResult {
+	ii := &player.Inventory[idx]
+	name := e.formatItemName(def, ii.Adj1, ii.Adj2, ii.Adj3, ii.Tail)
+
+	msgs := []string{"You gaze deep into the eye..."}
+	if e.lastDeathRoom != 0 {
+		if dest := e.rooms[e.lastDeathRoom]; dest != nil {
+			// Render the death room's look without moving the caster there — same
+			// swap-and-restore trick castScrySpell uses for the mark-vision use.
+			originalRoom := player.RoomNumber
+			player.RoomNumber = dest.Number
+			lookResult := e.doLook(player)
+			player.RoomNumber = originalRoom
+			msgs = append(msgs, lookResult.Messages...)
+		}
+	}
+
+	var roomMsgs []string
+	if !player.IsConcealed() {
+		roomMsgs = append(roomMsgs, fmt.Sprintf("%s looks deep into %s.", player.DisplayNameCap(), name))
+	}
+
+	if rand.Intn(10) == 0 {
+		msgs = append(msgs, "The eye crumbles.")
+		roomMsgs = append(roomMsgs, "The eye crumbles.")
+		player.Inventory = append(player.Inventory[:idx], player.Inventory[idx+1:]...)
+	}
+
+	e.SavePlayer(ctx, player)
+	return &CommandResult{Messages: msgs, RoomBroadcast: roomMsgs, PlayerState: player}
 }
 
 // examineCarriedItem builds the EXAMINE/LOOK result for one matched item that the
@@ -488,11 +554,11 @@ func (e *GameEngine) findPlayerInRoom(self *Player, target string) *Player {
 		if p.FirstName == self.FirstName && p.LastName == self.LastName {
 			continue // skip self, handled separately
 		}
-		if p.Hidden || p.Invisible || p.GMInvis {
+		if p.Hidden || p.Invisible || p.PhantomForm || p.GMInvis {
 			continue
 		}
 		matched := p.NameMatches(target)
-		if !matched && !p.WolfForm && !(p.Disguised && p.ActiveDisguise.Name != "") {
+		if !matched && !p.WolfForm && !p.MistForm && !p.SlimeForm && !(p.Disguised && p.ActiveDisguise.Name != "") {
 			// Real full name only resolves when not presenting as someone/something
 			// else — a disguised or wolf-form player can't be found by their true name.
 			fullName := strings.ToLower(p.FirstName + " " + p.LastName)
@@ -631,6 +697,10 @@ func (e *GameEngine) examinePlayer(observer *Player, target *Player) *CommandRes
 	msgs := []string{}
 	if isSelf {
 		msgs = append(msgs, "You examine yourself.")
+	} else if target.MistForm {
+		msgs = append(msgs, "You look at some mist.")
+	} else if target.SlimeForm {
+		msgs = append(msgs, "You look at a slime.")
 	} else if target.WolfForm {
 		msgs = append(msgs, "You look at a wolf.")
 	} else if target.Disguised {
@@ -648,7 +718,11 @@ func (e *GameEngine) examinePlayer(observer *Player, target *Player) *CommandRes
 	// HairColor (black if bald), everything human-specific (build, skin, gear)
 	// is skipped. Human descriptions (custom or generated) resume once they
 	// transform back.
-	if target.WolfForm {
+	if target.MistForm {
+		msgs = append(msgs, "A swirling cloud of wispy grey mist hangs in the air, formless and drifting.")
+	} else if target.SlimeForm {
+		msgs = append(msgs, "A shapeless, glistening mass of slime oozes slowly across the ground.")
+	} else if target.WolfForm {
 		ageWord := ageDescriptor(target.Age, target.Race)
 		furColor := target.HairColor
 		if target.HairStyle == "bald" {
@@ -865,9 +939,12 @@ func (e *GameEngine) examinePlayer(observer *Player, target *Player) *CommandRes
 			msgs = append(msgs, "You are invisible.")
 		}
 	}
+	if target.PhantomForm && isSelf {
+		msgs = append(msgs, "You are in phantom form.")
+	}
 
 	// Equipment — a wolf isn't wearing or wielding anything, skip entirely.
-	if !target.WolfForm && target.Wielded != nil {
+	if !target.WolfForm && !target.MistForm && !target.SlimeForm && target.Wielded != nil {
 		wDef := e.items[target.Wielded.Archetype]
 		if wDef != nil {
 			name := e.formatItemName(wDef, target.Wielded.Adj1, target.Wielded.Adj2, target.Wielded.Adj3, target.Wielded.Tail)
@@ -878,7 +955,7 @@ func (e *GameEngine) examinePlayer(observer *Player, target *Player) *CommandRes
 			}
 		}
 	}
-	if !target.WolfForm && target.OffHand != nil {
+	if !target.WolfForm && !target.MistForm && !target.SlimeForm && target.OffHand != nil {
 		ohDef := e.items[target.OffHand.Archetype]
 		if ohDef != nil {
 			ohName := e.formatItemName(ohDef, target.OffHand.Adj1, target.OffHand.Adj2, target.OffHand.Adj3, target.OffHand.Tail)
@@ -898,7 +975,7 @@ func (e *GameEngine) examinePlayer(observer *Player, target *Player) *CommandRes
 		}
 	}
 
-	if !target.WolfForm {
+	if !target.WolfForm && !target.MistForm && !target.SlimeForm {
 		// Build set of worn slots to determine undergarment visibility
 		wornSlots := map[string]bool{}
 		for _, w := range target.Worn {

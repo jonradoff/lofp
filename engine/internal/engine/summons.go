@@ -195,6 +195,93 @@ func (e *GameEngine) castControlUndead(player *Player, spell *SpellDef, args []s
 	}
 }
 
+// castCommandSpell handles Command (205), Domination I (206), and Domination II (214).
+// Each temporarily dominates a living (non-undead) creature in the room, granting the
+// same COMMAND-verb control as a summoned elemental, but only for the spell's duration —
+// control lapses automatically via the same ControlExpiry check monsterTick already runs
+// for Control Undead (see castControlUndead). Recasting on the creature already under the
+// caster's control resets the duration rather than stacking it. Caps are checked against
+// the creature's CURRENT body points, not its max:
+//
+//	205 Command:      <=50  current body,  2 minute duration
+//	206 Domination I:  <=100 current body, 20 minute duration
+//	214 Domination II: <=200 current body, 20 minute duration
+func (e *GameEngine) castCommandSpell(player *Player, spell *SpellDef, args []string) *CommandResult {
+	if len(args) == 0 {
+		return &CommandResult{Messages: []string{fmt.Sprintf("%s which creature?", spell.Name)}}
+	}
+	targetName := strings.Join(args, " ")
+	inst, def := e.findMonsterInRoom(player, targetName)
+	if inst == nil {
+		return &CommandResult{Messages: []string{fmt.Sprintf("You don't see '%s' here.", targetName)}}
+	}
+	if def.Race == 22 {
+		return &CommandResult{Messages: []string{"Your spell has no effect — that creature is undead."}}
+	}
+
+	var bodyCap int
+	var duration time.Duration
+	switch spell.ID {
+	case 205:
+		bodyCap, duration = 50, 2*time.Minute
+	case 206:
+		bodyCap, duration = 100, 20*time.Minute
+	default: // 214
+		bodyCap, duration = 200, 20*time.Minute
+	}
+
+	instID := inst.ID
+	recasting := player.SummonedCreatureID != 0 && player.SummonedCreatureID == instID
+
+	if inst.CurrentHP > bodyCap {
+		return &CommandResult{Messages: []string{"This creature's will is too strong for you to dominate."}}
+	}
+	if player.SummonedCreatureID != 0 && !recasting {
+		return &CommandResult{Messages: []string{"You already have a summoned or controlled creature. Use COMMAND BEGONE to dismiss it first."}}
+	}
+	if inst.IsSummoned && !recasting {
+		return &CommandResult{Messages: []string{"That creature is already under someone's control."}}
+	}
+
+	cname := strings.ToLower(FormatMonsterName(def, e.monAdjs))
+	carticle := articleFor(cname, def.Unique)
+	durLabel := fmt.Sprintf("%d minutes", int(duration.Minutes()))
+
+	e.monsterMgr.mu.Lock()
+	for i := range e.monsterMgr.instances {
+		if e.monsterMgr.instances[i].ID == instID {
+			e.monsterMgr.instances[i].IsSummoned = true
+			e.monsterMgr.instances[i].SummonerName = player.FirstName
+			if !recasting {
+				e.monsterMgr.instances[i].FollowTarget = player.FirstName
+				e.monsterMgr.instances[i].Target = ""
+				e.monsterMgr.instances[i].MonsterTargetID = 0
+			}
+			e.monsterMgr.instances[i].ControlExpiry = time.Now().Add(duration)
+			break
+		}
+	}
+	e.monsterMgr.mu.Unlock()
+	player.SummonedCreatureID = instID
+
+	if recasting {
+		return &CommandResult{
+			Messages: []string{
+				fmt.Sprintf("You fix your gaze on %s%s once more, renewing your dominion!", carticle, cname),
+				fmt.Sprintf("Your control over %s%s is refreshed for %s.", carticle, cname, durLabel),
+			},
+			RoomBroadcast: []string{fmt.Sprintf("%s fixes %s gaze on %s%s again.", player.DisplayName(), player.Possessive(), carticle, cname)},
+		}
+	}
+	return &CommandResult{
+		Messages: []string{
+			fmt.Sprintf("You fix your gaze on %s%s and speak words of dark binding!", carticle, cname),
+			fmt.Sprintf("%s%s falls under your control for %s. (COMMAND FOLLOW ME, COMMAND STAY, COMMAND GUARD ME, COMMAND ATTACK <name>, COMMAND LOOK, COMMAND SAY <message>, COMMAND BEGONE)", capArticle(carticle), cname, durLabel),
+		},
+		RoomBroadcast: []string{fmt.Sprintf("%s fixes %s gaze on %s%s, who suddenly goes still and obedient.", player.DisplayName(), player.Possessive(), carticle, cname)},
+	}
+}
+
 // castSpeakWithDead handles spell 311 — Speak with Dead. Grants a dead player in the
 // room the ability to speak again, even though they remain otherwise incapacitated.
 func (e *GameEngine) castSpeakWithDead(player *Player, args []string) *CommandResult {
@@ -270,7 +357,7 @@ func (e *GameEngine) doCommand(ctx context.Context, player *Player, args []strin
 	rawRest := extractRawArgs(rawInput, 2)
 
 	// Determine how the player appears to others (hidden/invisible → "something")
-	isHidden := player.Hidden || player.Invisible || player.GMInvis
+	isHidden := player.Hidden || player.Invisible || player.PhantomForm || player.GMInvis
 	sameRoom := instRoom == player.RoomNumber
 
 	// commandBroadcast returns the gaze+says lines to show in the player's room to others.

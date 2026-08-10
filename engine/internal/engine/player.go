@@ -168,6 +168,8 @@ type Player struct {
 	Undead      bool `bson:"undead,omitempty" json:"undead,omitempty"`
 	WolfForm    bool `bson:"wolfForm,omitempty" json:"wolfForm,omitempty"`
 	SlimeForm   bool `bson:"slimeForm,omitempty" json:"slimeForm,omitempty"`
+	MistForm    bool `bson:"mistForm,omitempty" json:"mistForm,omitempty"`
+	PhantomForm bool `bson:"phantomForm,omitempty" json:"phantomForm,omitempty"` // Phantom Form (248): invisible like Invisibility, but See Hidden shows "a shimmering grey form" instead of the real name
 	Disguised   bool `bson:"disguised,omitempty" json:"disguised,omitempty"`
 	RoundTime       int       `bson:"roundTime" json:"roundTime"`
 	RoundTimeExpiry time.Time `bson:"-" json:"-"` // transient: when roundtime ends
@@ -208,6 +210,23 @@ type Player struct {
 	// Haste / Slow spell timers (spell 210 / 211)
 	HasteExpiry time.Time `bson:"hasteExpiry,omitempty" json:"hasteExpiry,omitempty"`
 	SlowExpiry  time.Time `bson:"slowExpiry,omitempty" json:"slowExpiry,omitempty"`
+
+	// Paranoia (spell 226): 20-minute timer. Each real minute it's active, regenTick
+	// has a 50% chance to send the player one random unsettling echo (see
+	// paranoiaEchoes in regen.go).
+	ParanoiaExpiry time.Time `bson:"paranoiaExpiry,omitempty" json:"paranoiaExpiry,omitempty"`
+
+	// Silence (spell 219): fixed 1-minute duration. Recasting resets it back to a
+	// full minute rather than stacking/extending like most other enchantment
+	// timers. Blocks say/'/yell/sing/recite (see isSilenced call sites) and, since
+	// casting requires speech, all spellcasting too.
+	SilencedExpiry time.Time `bson:"silencedExpiry,omitempty" json:"silencedExpiry,omitempty"`
+
+	// Imprison (spell 231): fixed 5-minute duration, force bubble. While active the
+	// target cannot attack anyone (doAttackMonster) or cast any spell on anyone,
+	// including themselves (doCastSpell) — so they can't even attempt to dispel it;
+	// it must be removed by another caster targeting them, or simply wait it out.
+	ImprisonedExpiry time.Time `bson:"imprisonedExpiry,omitempty" json:"imprisonedExpiry,omitempty"`
 
 	// Fly spell timer (spell 224) — CanFly from this spell only lasts until FlyExpiry.
 	// Zero value means flight (if any) came from a race ability or maintained psi power instead.
@@ -254,6 +273,13 @@ type Player struct {
 
 	// Spell preparation reagent (transient — which item arch was verified at PREPARE time)
 	PreparedSpellReagentArch int `bson:"-" json:"-"`
+
+	// PreparedMoonstoneBonus: true when the spell currently prepared (any spell with no
+	// mandatory reagent of its own) was prepared with a moonstone as an optional catalyst
+	// — see shemri.txt "PRE 121 WITH MY MOON". Grants +25 to the CAST success roll, then
+	// is cleared the moment that prepared spell resolves (or is lost/released), same as
+	// PreparedSpellReagentArch.
+	PreparedMoonstoneBonus bool `bson:"-" json:"-"`
 
 	// Crafting state (transient)
 	CraftingItem  string `bson:"-" json:"-"` // what they're making (e.g., "greatsword")
@@ -641,11 +667,46 @@ func (p *Player) IsFlying() bool {
 }
 
 // IsConcealed reports whether the player's presence should be kept off other
-// players' echoes — stealthed (Hidden), under the Invisibility spell, or a GM
-// using @hide or @invis. Used to suppress movement/follow/portal echoes
-// entirely and to anonymize speech as "Something" instead of the player's name.
+// players' echoes — stealthed (Hidden), under the Invisibility/Phantom Form
+// spells, or a GM using @hide or @invis. Used to suppress movement/follow/
+// portal echoes entirely and to anonymize speech as "Something" instead of
+// the player's name.
 func (p *Player) IsConcealed() bool {
-	return p.Hidden || p.Invisible || p.GMHidden || p.GMInvis
+	return p.Hidden || p.Invisible || p.PhantomForm || p.GMHidden || p.GMInvis
+}
+
+// IsFormLocked reports whether Mist Form (232) or Slime Form (245) currently
+// prevents this player from attacking, defending, casting, speaking, wearing/
+// removing items, using magic items, or emoting — see formActionBlockMessage
+// for the message to show when a blocked action is attempted. Only TRANSFORM
+// ends either form.
+func (p *Player) IsFormLocked() bool {
+	return p.MistForm || p.SlimeForm
+}
+
+// formActionBlockMessage returns the message to show when a player in Mist Form
+// or Slime Form attempts an action those forms block (attack, cast, speak, wear/
+// remove, use magic items, emote), or "" if neither form is active.
+func formActionBlockMessage(p *Player) string {
+	if p.MistForm {
+		return "Not while you are in mist form."
+	}
+	if p.SlimeForm {
+		return "Not while you are in slime form."
+	}
+	return ""
+}
+
+// IsSilenced reports whether the Silence spell (219) currently prevents this
+// player from speaking or casting.
+func (p *Player) IsSilenced() bool {
+	return !p.SilencedExpiry.IsZero() && time.Now().Before(p.SilencedExpiry)
+}
+
+// IsImprisoned reports whether the Imprison spell (231) currently traps this
+// player in a force bubble, preventing them from attacking or casting.
+func (p *Player) IsImprisoned() bool {
+	return !p.ImprisonedExpiry.IsZero() && time.Now().Before(p.ImprisonedExpiry)
 }
 
 // DisplayName returns the name other players should see when this player acts
@@ -656,6 +717,12 @@ func (p *Player) IsConcealed() bool {
 // custom level-10+ persona name; or their real FirstName otherwise. See
 // DisplayNameCap for sentence-initial use.
 func (p *Player) DisplayName() string {
+	if p.MistForm {
+		return "some mist"
+	}
+	if p.SlimeForm {
+		return "a slime"
+	}
 	if p.WolfForm {
 		return "a wolf"
 	}
@@ -676,6 +743,12 @@ func (p *Player) DisplayName() string {
 // LastName set) for a custom level-10+ persona; or the player's real
 // FullName() otherwise.
 func (p *Player) DisplayFullName() string {
+	if p.MistForm {
+		return "some mist"
+	}
+	if p.SlimeForm {
+		return "a slime"
+	}
 	if p.WolfForm {
 		return "a wolf"
 	}

@@ -287,11 +287,18 @@ func expandEmote(template string, actor *Player, targetName string) string {
 
 // processEmote handles emote commands using the emote table.
 func (e *GameEngine) processEmote(player *Player, verb string, args []string) *CommandResult {
+	// Mist Form / Slime Form block every emote, even a smile — a cloud of mist
+	// or a shapeless slime has no face to smile with.
+	if msg := formActionBlockMessage(player); msg != "" {
+		return &CommandResult{Messages: []string{msg}}
+	}
+
 	// A smile reaches your eyes even when the rest of you shouldn't be seen —
-	// it dispels the Invisibility spell, unlike other emotes.
-	wasInvisible := verb == "SMILE" && player.Invisible
+	// it dispels the Invisibility/Phantom Form spells, unlike other emotes.
+	wasInvisible := verb == "SMILE" && (player.Invisible || player.PhantomForm)
 	if wasInvisible {
 		player.Invisible = false
+		player.PhantomForm = false
 	}
 
 	result := e.processEmoteCore(player, verb, args)

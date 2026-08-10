@@ -564,6 +564,7 @@ var knownOrgNames = map[int]string{
 	25: "Circle of Yarin",
 	26: "Guild of Bonecutters",
 	27: "Teiwaz Y Perth",
+	28: "Order of the Skull",
 	40: "Night Shades",
 	50: "Organization 50",
 }
@@ -613,6 +614,43 @@ func (e *GameEngine) orgTypeFor(orgNum int) string {
 		return strings.ToUpper(def.OrgType)
 	}
 	return "GUILD"
+}
+
+// autoTrainOrgRank advances a player's rank in whichever organization's
+// training room this is, by the build points just spent training there —
+// matching orgs.html's documented formula: "ORGRANK = build points spent on
+// training within guild". Automatic advancement is capped at 199; 200+
+// ("High Master"/"High Priest", see orgRankTitle) is reserved for GM
+// assignment via @rank and is never touched here. Returns a flavor message
+// ("You are now rank X...") when the displayed rank (ORGRANK/10, per
+// orgs.html) increases, or "" if nothing changed.
+func (e *GameEngine) autoTrainOrgRank(player *Player, roomNumber, bpSpent int) string {
+	var org *gameworld.OrgDef
+	for _, def := range e.orgDefs {
+		if def.TrainingRoom == roomNumber && player.IsMemberOf(def.Number) {
+			org = def
+			break
+		}
+	}
+	if org == nil {
+		return ""
+	}
+
+	oldRank := player.RankIn(org.Number)
+	if oldRank >= 199 {
+		return ""
+	}
+
+	newRank := oldRank + bpSpent
+	if newRank > 199 {
+		newRank = 199
+	}
+	player.AddOrg(org.Number, newRank)
+
+	if newRank/10 != oldRank/10 {
+		return fmt.Sprintf("You are now rank %d in the %s.", newRank/10, org.Name)
+	}
+	return ""
 }
 
 // doEnroll handles the ENROLL command — joins an OPEN organization by standing in its training room.
@@ -948,6 +986,7 @@ func (e *GameEngine) doChant(ctx context.Context, player *Player, args []string)
 		player.Inventory = append(player.Inventory[:i], player.Inventory[i+1:]...)
 		player.PreparedSpell = spellNum
 		player.PreparedSpellReagentArch = 0 // scroll casting never requires a reagent
+		player.PreparedMoonstoneBonus = false
 		scrollRT := applyRoundTime(player, 3)
 		player.RoundTimeExpiry = time.Now().Add(time.Duration(scrollRT) * time.Second)
 		e.SavePlayer(ctx, player)
@@ -1236,11 +1275,11 @@ func (e *GameEngine) doFly(ctx context.Context, player *Player) *CommandResult {
 	if player.Position == 4 {
 		return &CommandResult{Messages: []string{"You are already flying."}}
 	}
-	if player.Race != 6 && !player.CanFly {
+	if player.Race != 6 && !player.CanFly && !player.MistForm {
 		return &CommandResult{Messages: []string{"You can't fly."}}
 	}
 	room := e.rooms[player.RoomNumber]
-	if room != nil && (room.Terrain == "CAVE" || room.Terrain == "DEEPCAVE" || room.Terrain == "INDOOR_FLOOR" || room.Terrain == "INDOOR_GROUND") {
+	if !player.MistForm && room != nil && (room.Terrain == "CAVE" || room.Terrain == "DEEPCAVE" || room.Terrain == "INDOOR_FLOOR" || room.Terrain == "INDOOR_GROUND") {
 		return &CommandResult{Messages: []string{"There isn't enough room to fly here."}}
 	}
 	player.Position = 4

@@ -455,6 +455,9 @@ func (e *GameEngine) doSteal(ctx context.Context, player *Player, args []string)
 			skip--
 			continue
 		}
+		// Capture before scripts may MOVE the player (doMove updates player.RoomNumber
+		// immediately, so reading it after script execution would give the new room).
+		originalRoom := player.RoomNumber
 		sc := e.RunPreverbScripts(player, room, "STEAL", &room.Items[i], itemDef)
 		// PLREVENT/CONTPLREVENT-deferred actions must be scheduled, or everything
 		// after the delay is lost.
@@ -472,7 +475,6 @@ func (e *GameEngine) doSteal(ctx context.Context, player *Player, args []string)
 		if sc.MoveTo > 0 {
 			dest := e.rooms[sc.MoveTo]
 			if dest != nil {
-				originalRoom := player.RoomNumber
 				player.RoomNumber = sc.MoveTo
 				e.SavePlayer(ctx, player)
 				lookResult := e.doLook(player)
@@ -637,11 +639,19 @@ func (e *GameEngine) doGoPortal(ctx context.Context, player *Player, room *gamew
 		remaining := int(player.RoundTimeExpiry.Sub(time.Now()).Seconds()) + 1
 		return &CommandResult{Messages: []string{fmt.Sprintf("[Wait %d seconds...]", remaining)}}
 	}
-	// Check if portal is closed
+	// Check if portal is closed — Mist Form and Slime Form seep through the cracks
+	// of a closed door/gate/etc. without opening it, unless the portal is SEALED
+	// (GMSCRIPT.DOC: "may not be seeped through if a player is in mist form").
 	state := strings.ToUpper(ri.State)
-	if state == "CLOSED" || state == "LOCKED" {
+	seepsThrough := (player.MistForm || player.SlimeForm) && !containsFlag(itemDef.Flags, "SEALED")
+	if (state == "CLOSED" || state == "LOCKED") && !seepsThrough {
 		portalName := e.formatItemName(itemDef, ri.Adj1, ri.Adj2, ri.Adj3, ri.Extend)
 		return &CommandResult{Messages: []string{fmt.Sprintf("The %s is closed.", e.getItemNounName(itemDef))}, RoomBroadcast: []string{fmt.Sprintf("%s bumps into %s.", player.DisplayName(), portalName)}}
+	}
+	seepMsg := ""
+	if (state == "CLOSED" || state == "LOCKED") && seepsThrough {
+		portalName := e.formatItemName(itemDef, ri.Adj1, ri.Adj2, ri.Adj3, ri.Extend)
+		seepMsg = fmt.Sprintf("You seep through the cracks around %s.", portalName)
 	}
 
 	// Capture room before running scripts — MOVE in scripts can change player.RoomNumber directly.
@@ -655,6 +665,9 @@ func (e *GameEngine) doGoPortal(ctx context.Context, player *Player, room *gamew
 		e.scheduleScriptSegments(player, sc.DeferredSegments)
 	}
 	result := &CommandResult{}
+	if seepMsg != "" {
+		result.Messages = append(result.Messages, seepMsg)
+	}
 	if len(sc.Messages) > 0 {
 		result.Messages = append(result.Messages, sc.Messages...)
 	}
@@ -855,6 +868,9 @@ func (e *GameEngine) doClimb(ctx context.Context, player *Player, args []string)
 				continue
 			}
 
+			// Capture before scripts may MOVE the player (doMove updates player.RoomNumber
+			// immediately, so reading it after script execution would give the new room).
+			origRoom := player.RoomNumber
 			// Run IFVERB CLIMB scripts first (some rooms use IFVERB instead of IFPREVERB)
 			sc := e.RunVerbScripts(player, room, "CLIMB", &room.Items[i], itemDef)
 			// If IFVERB CLIMB produced nothing, try IFPREVERB CLIMB
@@ -888,7 +904,6 @@ func (e *GameEngine) doClimb(ctx context.Context, player *Player, args []string)
 				if sc.MoveTo > 0 {
 					dest := e.rooms[sc.MoveTo]
 					if dest != nil {
-						originalRoom := player.RoomNumber
 						player.RoomNumber = sc.MoveTo
 						e.SavePlayer(ctx, player)
 						lookResult := e.doLook(player)
@@ -897,8 +912,12 @@ func (e *GameEngine) doClimb(ctx context.Context, player *Player, args []string)
 						result.RoomDesc = lookResult.RoomDesc
 						result.Exits = lookResult.Exits
 						result.Items = lookResult.Items
-						result.OldRoom = originalRoom
-						result.OldRoomMsg = []string{fmt.Sprintf("%s leaves.", player.DisplayNameCap())}
+						result.OldRoom = origRoom
+						if len(sc.PreMoveMsgs) > 0 {
+							result.OldRoomMsg = sc.PreMoveMsgs
+						} else {
+							result.OldRoomMsg = []string{fmt.Sprintf("%s leaves.", player.DisplayNameCap())}
+						}
 						result.RoomBroadcast = append(result.RoomBroadcast, fmt.Sprintf("%s arrives.", player.DisplayNameCap()))
 						e.applyEntryScripts(ctx, player, dest, result)
 					}
