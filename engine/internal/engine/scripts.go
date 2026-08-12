@@ -11,17 +11,17 @@ import (
 
 // ScriptContext holds state for script execution within a single trigger.
 type ScriptContext struct {
-	Player   *Player
-	Room     *gameworld.Room
-	Engine   *GameEngine
-	Messages []string // ECHO PLAYER messages to send to the player
-	RoomMsgs []string // ECHO ALL / ECHO OTHERS messages for the room
-	GMMsgs   []string // GMMSG messages for gamemasters
-	Blocked      bool // CLEARVERB: block the triggering action
-	MoveTo       int  // MOVE: destination room (0 = no move)
-	MoveGroupTo  int  // MOVEGROUP: move all players in room to destination
+	Player      *Player
+	Room        *gameworld.Room
+	Engine      *GameEngine
+	Messages    []string // ECHO PLAYER messages to send to the player
+	RoomMsgs    []string // ECHO ALL / ECHO OTHERS messages for the room
+	GMMsgs      []string // GMMSG messages for gamemasters
+	Blocked     bool     // CLEARVERB: block the triggering action
+	MoveTo      int      // MOVE: destination room (0 = no move)
+	MoveGroupTo int      // MOVEGROUP: move all players in room to destination
 
-	StrVars  map[int]string // %0-%9 from STRCVT
+	StrVars  map[int]string  // %0-%9 from STRCVT
 	OrigRoom *gameworld.Room // saved room for AFFECT
 
 	// Item interaction context (set when running IFPREVERB/IFVERB on a room item)
@@ -280,6 +280,8 @@ func (sc *ScriptContext) execAction(action gameworld.ScriptAction) {
 		sc.doRandom(action.Args)
 	case "DAMAGEPLR":
 		sc.doDamagePlr(action.Args)
+	case "HEALPLR":
+		sc.doHealPlr(action.Args)
 	case "STRCVT":
 		sc.doStrCvt(action.Args)
 	case "STRCPY":
@@ -713,10 +715,14 @@ func (sc *ScriptContext) getVar(name string) int {
 			return 0
 		}
 		switch idx {
-		case 1: return sc.Player.Flag1
-		case 2: return sc.Player.Flag2
-		case 3: return sc.Player.Flag3
-		case 4: return sc.Player.Flag4
+		case 1:
+			return sc.Player.Flag1
+		case 2:
+			return sc.Player.Flag2
+		case 3:
+			return sc.Player.Flag3
+		case 4:
+			return sc.Player.Flag4
 		}
 		return 0
 	}
@@ -739,23 +745,46 @@ func (sc *ScriptContext) getVar(name string) int {
 	case "RAC":
 		return sc.Player.Race
 	case "MISTFORM":
-		if sc.Player.Race == 8 { return 1 }
+		if sc.Player.Race == 8 {
+			return 1
+		}
 		return 0
 	// Player stats
-	case "STR", "STRT":
+	// case "STR" returns the base strength, while "STRT" returns the effective strength after modifiers.
+	case "STR":
 		return sc.Player.Strength
-	case "AGI", "AGIT":
+	case "STRT":
+		return sc.Player.EffectiveStat(StatStrength)
+
+	case "AGI":
 		return sc.Player.Agility
-	case "CON", "CONT":
+	case "AGIT":
+		return sc.Player.EffectiveStat(StatAgility)
+
+	case "CON":
 		return sc.Player.Constitution
-	case "QUI", "QUIT":
+	case "CONT":
+		return sc.Player.EffectiveStat(StatConstitution)
+
+	case "QUI":
 		return sc.Player.Quickness
-	case "WIL", "WILT":
+	case "QUIT":
+		return sc.Player.EffectiveStat(StatQuickness)
+
+	case "WIL":
 		return sc.Player.Willpower
-	case "PER", "PERT":
+	case "WILT":
+		return sc.Player.EffectiveStat(StatWillpower)
+
+	case "PER":
 		return sc.Player.Perception
-	case "EMP", "EMPT":
+	case "PERT":
+		return sc.Player.EffectiveStat(StatPerception)
+
+	case "EMP":
 		return sc.Player.Empathy
+	case "EMPT":
+		return sc.Player.EffectiveStat(StatEmpathy)
 	// Player resources
 	case "BODYPOINTS":
 		return sc.Player.BodyPoints
@@ -775,25 +804,39 @@ func (sc *ScriptContext) getVar(name string) int {
 		return sc.Player.MaxPsi
 	// Player state
 	case "DEAD":
-		if sc.Player.Dead { return 1 }
+		if sc.Player.Dead {
+			return 1
+		}
 		return 0
 	case "FLYING":
-		if sc.Player.Position == 4 { return 1 }
+		if sc.Player.Position == 4 {
+			return 1
+		}
 		return 0
 	case "KNEELING":
-		if sc.Player.Position == 3 { return 1 }
+		if sc.Player.Position == 3 {
+			return 1
+		}
 		return 0
 	case "LAYING":
-		if sc.Player.Position == 2 { return 1 }
+		if sc.Player.Position == 2 {
+			return 1
+		}
 		return 0
 	case "SITTING":
-		if sc.Player.Position == 1 { return 1 }
+		if sc.Player.Position == 1 {
+			return 1
+		}
 		return 0
 	case "STANDING":
-		if sc.Player.Position == 0 { return 1 }
+		if sc.Player.Position == 0 {
+			return 1
+		}
 		return 0
 	case "HIDDEN":
-		if sc.Player.Hidden { return 1 }
+		if sc.Player.Hidden {
+			return 1
+		}
 		return 0
 	// Organization
 	case "ORG":
@@ -806,22 +849,30 @@ func (sc *ScriptContext) getVar(name string) int {
 		return sc.Player.BuildPoints
 	// Wielded
 	case "WIELDED":
-		if sc.Player.Wielded != nil { return 1 }
+		if sc.Player.Wielded != nil {
+			return 1
+		}
 		return 0
 	case "ARCHNUM":
-		if sc.Player.Wielded != nil { return sc.Player.Wielded.Archetype }
+		if sc.Player.Wielded != nil {
+			return sc.Player.Wielded.Archetype
+		}
 		return 0
 	// Room info
 	case "RNUM":
 		return sc.Player.RoomNumber
 	case "OUTDOOR":
-		if sc.Room != nil && isOutdoorTerrain(sc.Room.Terrain) { return 1 }
+		if sc.Room != nil && isOutdoorTerrain(sc.Room.Terrain) {
+			return 1
+		}
 		return 0
 	case "PLRSINROOM":
 		if sc.Engine.sessions != nil {
 			count := 0
 			for _, p := range sc.Engine.sessions.OnlinePlayers() {
-				if p.RoomNumber == sc.Player.RoomNumber { count++ }
+				if p.RoomNumber == sc.Player.RoomNumber {
+					count++
+				}
 			}
 			return count
 		}
@@ -835,10 +886,14 @@ func (sc *ScriptContext) getVar(name string) int {
 	case "TIM":
 		return GameHour()
 	case "DAY":
-		if IsDay() { return 1 }
+		if IsDay() {
+			return 1
+		}
 		return 0
 	case "NIGHT":
-		if IsNight() { return 1 }
+		if IsNight() {
+			return 1
+		}
 		return 0
 	case "DATE":
 		return GameDay()
@@ -870,25 +925,39 @@ func (sc *ScriptContext) getVar(name string) int {
 		return sc.Player.AgeTrue
 	// Form states
 	case "WOLFFORM":
-		if sc.Player.WolfForm { return 1 }
+		if sc.Player.WolfForm {
+			return 1
+		}
 		return 0
 	case "SLIMEFORM":
-		if sc.Player.SlimeForm { return 1 }
+		if sc.Player.SlimeForm {
+			return 1
+		}
 		return 0
 	case "OTHERFORM":
-		if sc.Player.WolfForm || sc.Player.SlimeForm || (sc.Player.Race == 8 && sc.Player.Hidden) { return 1 }
+		if sc.Player.WolfForm || sc.Player.SlimeForm || (sc.Player.Race == 8 && sc.Player.Hidden) {
+			return 1
+		}
 		return 0
 	case "UNDEAD":
-		if sc.Player.Undead { return 1 }
+		if sc.Player.Undead {
+			return 1
+		}
 		return 0
 	case "DISGUISED":
-		if sc.Player.Disguised { return 1 }
+		if sc.Player.Disguised {
+			return 1
+		}
 		return 0
 	case "SLEEPING":
-		if sc.Player.Sleeping { return 1 }
+		if sc.Player.Sleeping {
+			return 1
+		}
 		return 0
 	case "SUBMITTING":
-		if sc.Player.Submitting { return 1 }
+		if sc.Player.Submitting {
+			return 1
+		}
 		return 0
 	case "ROUNDTIME":
 		return sc.Player.RoundTime
@@ -909,7 +978,9 @@ func (sc *ScriptContext) getVar(name string) int {
 		}
 		return 0
 	case "ASTRAL":
-		if sc.Room != nil && sc.Room.Terrain == "ASTRAL" { return 1 }
+		if sc.Room != nil && sc.Room.Terrain == "ASTRAL" {
+			return 1
+		}
 		return 0
 	case "TERRAIN":
 		if sc.Room != nil {
@@ -940,7 +1011,9 @@ func (sc *ScriptContext) getVar(name string) int {
 	case "WEALTH2", "WEALTH3", "WEALTH4", "WEALTH5", "WEALTH6", "WEALTH7", "WEALTH8", "WEALTH9":
 		return 0 // TODO: multi-currency per region
 	case "OBJWEIGHT":
-		if sc.ItemDef != nil { return sc.ItemDef.Weight }
+		if sc.ItemDef != nil {
+			return sc.ItemDef.Weight
+		}
 		return 0
 	case "PLAYERNUM":
 		return 0 // TODO: unique player number
@@ -1017,10 +1090,14 @@ func (sc *ScriptContext) setVar(name string, val int) {
 	if strings.HasPrefix(name, "FLAG") {
 		idx, _ := strconv.Atoi(name[4:])
 		switch idx {
-		case 1: sc.Player.Flag1 = val
-		case 2: sc.Player.Flag2 = val
-		case 3: sc.Player.Flag3 = val
-		case 4: sc.Player.Flag4 = val
+		case 1:
+			sc.Player.Flag1 = val
+		case 2:
+			sc.Player.Flag2 = val
+		case 3:
+			sc.Player.Flag3 = val
+		case 4:
+			sc.Player.Flag4 = val
 		}
 		return
 	}
@@ -1068,10 +1145,9 @@ func (sc *ScriptContext) setVar(name string, val int) {
 	}
 }
 
-
 // resolveNumericArg resolves a script argument that can be a literal number
 // or a variable reference like ITEMVAL2.
-func (sc *ScriptContext) resolveNumericArg(arg string) int {
+/*func (sc *ScriptContext) resolveNumericArg(arg string) int {
 	upper := strings.ToUpper(arg)
 	if strings.HasPrefix(upper, "ITEMVAL") {
 		return sc.getVar(upper)
@@ -1081,6 +1157,17 @@ func (sc *ScriptContext) resolveNumericArg(arg string) int {
 		return 0
 	}
 	return val
+}
+*/
+
+func (sc *ScriptContext) resolveNumericArg(arg string) int {
+	// First try a literal number.
+	if val, err := strconv.Atoi(arg); err == nil {
+		return val
+	}
+
+	// Otherwise treat it as a script variable.
+	return sc.getVar(strings.ToUpper(arg))
 }
 
 // expandScriptText replaces script placeholders in text.
@@ -1097,13 +1184,19 @@ func (sc *ScriptContext) evalIfCarry(args []string) bool {
 	if len(args) >= 2 {
 		adj, _ = strconv.Atoi(args[1])
 	}
-	for _, ii := range sc.Player.Inventory {
+
+	if sc.Player.HasItem(archetype, adj) {
+		return true
+	}
+
+	/*for _, ii := range sc.Player.Inventory {
 		if ii.Archetype == archetype {
 			if adj < 0 || ii.Adj1 == adj {
 				return true
 			}
 		}
-	}
+	}*/
+
 	return false
 }
 
@@ -1136,30 +1229,114 @@ func (sc *ScriptContext) doRandom(args []string) {
 	sc.setVar(varName, rand.Intn(max))
 }
 
-// doDamagePlr applies damage to the player.
 func (sc *ScriptContext) doDamagePlr(args []string) {
-	if len(args) < 2 {
+	if len(args) < 1 {
 		return
 	}
-	// DAMAGEPLR BODYONLY <amount> <text...>
-	// or DAMAGEPLR <amount> <text...>
+
 	idx := 0
-	if strings.ToUpper(args[0]) == "BODYONLY" {
-		idx = 1
+	bodyOnly := false
+	damageType := ""
+
+	// Optional BODYONLY keyword.
+	if strings.EqualFold(args[idx], "BODYONLY") {
+		bodyOnly = true
+		idx++
 	}
+
 	if idx >= len(args) {
 		return
 	}
-	amount, err := strconv.Atoi(args[idx])
+
+	// Support both:
+	// DAMAGEPLR 15 message...
+	// DAMAGEPLR ELECTRIC 15 message...
+	if _, err := strconv.Atoi(args[idx]); err != nil {
+		damageType = strings.ToUpper(args[idx])
+		idx++
+	}
+
+	if idx >= len(args) {
+		return
+	}
+
+	/*amount, err := strconv.Atoi(args[idx])
 	if err != nil {
 		return
 	}
-	sc.Player.BodyPoints -= amount
+	idx++  */
+
+	amount := sc.resolveNumericArg(args[idx])
+	idx++
+
+	finalDamage := amount
+
+	if !bodyOnly && damageType != "" {
+		finalDamage = sc.applyPlayerResistance(damageType, amount)
+	}
+
+	if finalDamage < 0 {
+		finalDamage = 0
+	}
+
+	sc.Player.BodyPoints -= finalDamage
 	if sc.Player.BodyPoints < 0 {
 		sc.Player.BodyPoints = 0
 	}
-	if idx+1 < len(args) {
-		text := strings.Join(args[idx+1:], " ")
+
+	if idx < len(args) {
+		text := strings.Join(args[idx:], " ")
+		sc.Messages = append(sc.Messages, sc.expandScriptText(text))
+	}
+}
+
+func (sc *ScriptContext) applyPlayerResistance(damageType string, amount int) int {
+	resistance := 0
+
+	switch strings.ToUpper(damageType) {
+	case "BURN", "FIRE":
+		resistance = 0 //todo: sc.Player.FireResistance
+	case "ELECTRIC", "LIGHTNING":
+		resistance = 0 //todo sc.Player.ElectricResistance
+	case "COLD", "ICE":
+		resistance = 0 //todo: sc.Player.ColdResistance
+	case "POISON":
+		resistance = 0 //todo: sc.Player.PoisonResistance
+	}
+
+	// Assuming resistance is a percentage from 0 to 100.
+	if resistance < 0 {
+		resistance = 0
+	}
+	if resistance > 100 {
+		resistance = 100
+	}
+
+	return amount * (100 - resistance) / 100
+}
+
+func (sc *ScriptContext) doHealPlr(args []string) {
+	if len(args) < 1 {
+		return
+	}
+
+	amount := sc.resolveNumericArg(args[0])
+	if amount < 0 {
+		amount = 0
+	}
+
+	oldBP := sc.Player.BodyPoints
+
+	sc.Player.BodyPoints += amount
+	if sc.Player.BodyPoints > sc.Player.MaxBodyPoints {
+		sc.Player.BodyPoints = sc.Player.MaxBodyPoints
+	}
+
+	actualHeal := sc.Player.BodyPoints - oldBP
+
+	if len(args) > 1 {
+		text := strings.Join(args[1:], " ")
+		text = strings.ReplaceAll(text, "%D", strconv.Itoa(actualHeal))
 		sc.Messages = append(sc.Messages, sc.expandScriptText(text))
 	}
 }
@@ -1414,8 +1591,18 @@ func (sc *ScriptContext) expandScriptText(text string) string {
 		text = strings.ReplaceAll(text, "%i", "her")
 	}
 	// Legacy aliases
-	text = strings.ReplaceAll(text, "%e", func() string { if sc.Player.Gender == 0 { return "he" }; return "she" }())
-	text = strings.ReplaceAll(text, "%o", func() string { if sc.Player.Gender == 0 { return "him" }; return "her" }())
+	text = strings.ReplaceAll(text, "%e", func() string {
+		if sc.Player.Gender == 0 {
+			return "he"
+		}
+		return "she"
+	}())
+	text = strings.ReplaceAll(text, "%o", func() string {
+		if sc.Player.Gender == 0 {
+			return "him"
+		}
+		return "her"
+	}())
 	// STRCVT %0-%9
 	if sc.StrVars != nil {
 		for i := 0; i <= 9; i++ {
