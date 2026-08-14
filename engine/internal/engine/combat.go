@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/jonradoff/lofp/internal/gameworld"
+	"go.mongodb.org/mongo-driver/v2/bson"
 )
 
 // Combat stance constants
@@ -41,9 +42,9 @@ type CombatTarget struct {
 // Level increases when total build points reach 20 + 10*(level+1).
 
 var xpPerBP = []int{
-	0,     // level 0 (unused)
-	100, 200, 400, 600, 800, 1000, 1200, 1400, 1600, 2000,       // 1-10
-	2400, 2700, 3200, 4000, 4800, 5600, 6400, 7200, 8000, 8800,  // 11-20
+	0,                                                     // level 0 (unused)
+	100, 200, 400, 600, 800, 1000, 1200, 1400, 1600, 2000, // 1-10
+	2400, 2700, 3200, 4000, 4800, 5600, 6400, 7200, 8000, 8800, // 11-20
 	9600, 10400, 11200, 12000, 12800, 13600, 14400, 15200, 16000, 16800, // 21-30
 	17600, 18400, 19200, 20000, 20800, 21600, 22400, 23200, 24000, 24800, // 31-40
 	25600, 26400, 27200, 28000, 28800, 29600, 30400, 31200, 32000, 32800, // 41-50
@@ -108,6 +109,20 @@ func recalcBuildPoints(player *Player) (leveledUp bool) {
 	player.BuildPoints = bp - spent
 	if player.BuildPoints < 0 {
 		player.BuildPoints = 0
+	}
+
+	// Add permanent gains for any missing levels.
+	if lvl > oldLevel {
+		for level := oldLevel + 1; level <= lvl; level++ {
+			player.MaxBodyPoints += player.Constitution / 10
+			player.BodyPoints = player.MaxBodyPoints
+			player.MaxFatigue += player.Constitution / 15
+			player.Fatigue = player.MaxFatigue
+			player.MaxMana += (player.Willpower + player.Empathy) / 15
+			player.Mana = player.MaxMana
+			player.MaxPsi += player.Willpower / 10
+			player.Psi = player.MaxPsi
+		}
 	}
 	player.Level = lvl
 
@@ -285,17 +300,22 @@ func calcToHit(attackRating, defenseRating int) int {
 func playerAttackRating(player *Player, weaponDef *gameworld.ItemDef) int {
 	rating := 50
 	rating += player.Level * 3
+
 	if weaponDef != nil {
 		skillID := weaponSkillForType(weaponDef.Type)
-		rating += player.Skills[skillID] * 5 // +5 per weapon skill rank (from skills.txt)
+		rating += player.Skills[skillID] * 5
+	} else if player.WolfForm {
+		// Wolfling natural weapons
+		rating += player.Skills[4] * 5
 	} else {
-		// Unarmed: martial arts skill
-		rating += player.Skills[24] * 5 // Martial Arts +5 per rank
+		// Normal unarmed combat
+		rating += player.Skills[24] * 5
 	}
+
 	if weaponDef != nil && (weaponDef.Type == "BOW_WEAPON" || weaponDef.Type == "THROWN_WEAPON") {
-		rating += player.Agility / 5
+		rating += player.EffectiveStat(StatAgility) / 5
 	} else {
-		rating += player.Strength / 5
+		rating += player.EffectiveStat(StatStrength) / 5
 	}
 	switch player.Stance {
 	case StanceOffensive:
@@ -318,11 +338,11 @@ func playerAttackRating(player *Player, weaponDef *gameworld.ItemDef) int {
 	return rating
 }
 
-func playerDefenseRating(player *Player) int {
+func (e *GameEngine) playerDefenseRating(player *Player) int {
 	rating := 25
 	rating += player.Level * 3
 	rating += player.Skills[6] * 5 // Dodge & Parry: +5 per rank
-	rating += player.Agility / 5
+	rating += player.EffectiveStat(StatAgility) / 5
 	// Martial Arts defense bonus: +2 per rank if unarmed
 	if player.Wielded == nil {
 		rating += player.Skills[24] * 2
@@ -346,6 +366,14 @@ func playerDefenseRating(player *Player) int {
 	case 3:
 		rating -= 10
 	}
+
+	if player.Offhand != nil {
+		def := e.items[player.Offhand.Archetype]
+		if isShield(def) {
+			rating += def.Parameter1
+		}
+	}
+
 	return rating
 }
 
@@ -369,11 +397,11 @@ func playerDamage(player *Player, weaponDef *gameworld.ItemDef) int {
 	if weaponDef == nil {
 		if player.WolfForm {
 			// Wolf form: claw/bite — higher base damage
-			return rand.Intn(8) + 3 + player.Strength/10
+			return rand.Intn(8) + 3 + player.EffectiveStat(StatStrength)/10
 		}
 		// Martial Arts: +1 base damage per rank, +1 max damage per 2 ranks
 		maSkill := player.Skills[24]
-		baseDmg := rand.Intn(3+maSkill/2) + 1 + maSkill + player.Strength/20
+		baseDmg := rand.Intn(3+maSkill/2) + 1 + maSkill + player.EffectiveStat(StatStrength)/20
 		return baseDmg
 	}
 	maxDmg := weaponDef.Parameter1
@@ -382,9 +410,9 @@ func playerDamage(player *Player, weaponDef *gameworld.ItemDef) int {
 	}
 	dmg := rand.Intn(maxDmg) + 1
 	if weaponDef.Type == "BOW_WEAPON" || weaponDef.Type == "THROWN_WEAPON" {
-		dmg += player.Agility / 10
+		dmg += player.EffectiveStat(StatAgility) / 10
 	} else {
-		dmg += player.Strength / 10
+		dmg += player.EffectiveStat(StatStrength) / 10
 	}
 	if player.Stance == StanceBerserk {
 		dmg = dmg * 12 / 10
@@ -792,7 +820,10 @@ func (e *GameEngine) doAttackMonster(ctx context.Context, player *Player, target
 		rtSec := 5
 		player.RoundTimeExpiry = time.Now().Add(time.Duration(rtSec) * time.Second)
 		result.Messages = append(result.Messages, fmt.Sprintf("[Round: %d sec]", rtSec))
-		if player.Hidden { player.Hidden = false; result.Messages = append([]string{"You reveal yourself!"}, result.Messages...) }
+		if player.Hidden {
+			player.Hidden = false
+			result.Messages = append([]string{"You reveal yourself!"}, result.Messages...)
+		}
 		e.SavePlayer(ctx, player)
 		result.PlayerState = player
 		return result
@@ -861,7 +892,7 @@ func (e *GameEngine) doAttackMonster(ctx context.Context, player *Player, target
 			}
 		}
 
-		killed := e.damageMonster(inst.ID, dmg)
+		killed := e.damageMonster(player, inst.ID, dmg)
 
 		// Weapon poison
 		if poisonLvl := weaponPoisonLevel(player.Wielded); poisonLvl > 0 && !killed {
@@ -913,9 +944,9 @@ func (e *GameEngine) doAttackMonster(ctx context.Context, player *Player, target
 
 	// Roundtime: base 5, reduced by quickness and Combat Maneuvering
 	rtSeconds := 5
-	if player.Quickness > 80 {
+	if player.EffectiveStat(StatQuickness) > 80 {
 		rtSeconds = 3
-	} else if player.Quickness > 50 {
+	} else if player.EffectiveStat(StatQuickness) > 50 {
 		rtSeconds = 4
 	}
 	// Combat Maneuvering: -1 sec per rank (from skills.txt)
@@ -1003,46 +1034,50 @@ func (e *GameEngine) monsterAttackPlayer(inst *MonsterInstance, def *gameworld.M
 		// Combat Maneuvering: 2% per rank chance to dodge special attack (max 95%)
 		combatManeuver := player.Skills[10]
 		dodgeChance := combatManeuver * 2
-		if dodgeChance > 95 { dodgeChance = 95 }
+		if dodgeChance > 95 {
+			dodgeChance = 95
+		}
 		if dodgeChance > 0 && rand.Intn(100) < dodgeChance {
 			playerMsgs = append(playerMsgs, fmt.Sprintf("%s%s uses a special attack, but you dodge it!", capArt, name))
 		} else {
-		specText := def.TextOverrides["TEXX"]
-		if specText != "" {
-			specText = strings.Replace(specText, "%s", capArt+name, 1)
-			specText = strings.Replace(specText, "%s", player.FirstName, 1)
-		} else {
-			specText = fmt.Sprintf("%s%s uses a special attack on %s!", capArt, name, player.FirstName)
-		}
+			specText := def.TextOverrides["TEXX"]
+			if specText != "" {
+				specText = strings.Replace(specText, "%s", capArt+name, 1)
+				specText = strings.Replace(specText, "%s", player.FirstName, 1)
+			} else {
+				specText = fmt.Sprintf("%s%s uses a special attack on %s!", capArt, name, player.FirstName)
+			}
 
-		armorPct := playerArmorPercent(player, e.items)
-		specDmg = applyArmor(specDmg, armorPct)
+			armorPct := playerArmorPercent(player, e.items)
+			specDmg = applyArmor(specDmg, armorPct)
 
-		// Endurance: 1% elemental damage reduction per rank (max 50%)
-		enduranceSkill := player.Skills[11]
-		if enduranceSkill > 0 && (specType == "Heat" || specType == "Cold" || specType == "Electric") {
-			reduction := enduranceSkill
-			if reduction > 50 { reduction = 50 }
-			specDmg = specDmg * (100 - reduction) / 100
-		}
-		_ = specType
+			// Endurance: 1% elemental damage reduction per rank (max 50%)
+			enduranceSkill := player.Skills[11]
+			if enduranceSkill > 0 && (specType == "Heat" || specType == "Cold" || specType == "Electric") {
+				reduction := enduranceSkill
+				if reduction > 50 {
+					reduction = 50
+				}
+				specDmg = specDmg * (100 - reduction) / 100
+			}
+			_ = specType
 
-		part := randomBodyPart("HUMAN")
-		severity := damageSeverity(specDmg)
-		player.BodyPoints -= specDmg
-		if player.BodyPoints < 0 {
-			player.BodyPoints = 0
-		}
+			part := randomBodyPart("HUMAN")
+			severity := damageSeverity(specDmg)
+			player.BodyPoints -= specDmg
+			if player.BodyPoints < 0 {
+				player.BodyPoints = 0
+			}
 
-		playerMsgs = append(playerMsgs, specText)
-		playerMsgs = append(playerMsgs, fmt.Sprintf(" %s burn to %s. [%d Damage]", severity, part, specDmg))
-		roomMsgs = append(roomMsgs, specText)
+			playerMsgs = append(playerMsgs, specText)
+			playerMsgs = append(playerMsgs, fmt.Sprintf(" %s burn to %s. [%d Damage]", severity, part, specDmg))
+			roomMsgs = append(roomMsgs, specText)
 
-		if player.BodyPoints <= 0 {
-			deathMsgs := e.handlePlayerDeath(player, name)
-			playerMsgs = append(playerMsgs, deathMsgs...)
-			return playerMsgs, roomMsgs
-		}
+			if player.BodyPoints <= 0 {
+				deathMsgs := e.handlePlayerDeath(player, name)
+				playerMsgs = append(playerMsgs, deathMsgs...)
+				return playerMsgs, roomMsgs
+			}
 		} // end else (didn't dodge)
 	}
 
@@ -1054,7 +1089,7 @@ func (e *GameEngine) monsterAttackPlayer(inst *MonsterInstance, def *gameworld.M
 
 	// Weather modifier for monsters too
 	wMod := e.weatherMod(inst.RoomNumber)
-	defRating := playerDefenseRating(player)
+	defRating := e.playerDefenseRating(player)
 	// Multi-attacker penalty: -5 per 2 additional attackers beyond the first
 	if e.monsterMgr != nil {
 		attackerCount := 0
@@ -1098,12 +1133,30 @@ func (e *GameEngine) monsterAttackPlayer(inst *MonsterInstance, def *gameworld.M
 		// Monster poison/disease/fatigue on hit
 		if def.PoisonChance > 0 && rand.Intn(100) < def.PoisonChance {
 			player.Poisoned = true
+			player.ApplyStatEffect(def.Number,
+				EffectSourcePoison,
+				StatBodyPoint,
+				def.PoisonLevel,
+				time.Duration(def.PoisonLevel)*time.Minute)
 			playerMsgs = append(playerMsgs, " You feel poison coursing through your veins!")
 		}
 		if def.DiseaseChance > 0 && rand.Intn(100) < def.DiseaseChance {
 			player.Diseased = true
-			playerMsgs = append(playerMsgs, " You feel a sickness taking hold!")
+
+			player.ApplyStatEffect(
+				def.Number,
+				EffectSourceDisease,
+				StatFatigue,
+				-def.DiseaseLevel,
+				time.Duration(def.DiseaseLevel)*time.Minute,
+			)
+
+			playerMsgs = append(
+				playerMsgs,
+				" You feel a sickness taking hold!",
+			)
 		}
+
 		if def.FatigueChance > 0 && rand.Intn(100) < def.FatigueChance {
 			drain := def.FatigueLevel
 			if drain <= 0 {
@@ -1219,119 +1272,289 @@ func (e *GameEngine) doDepart(player *Player) *CommandResult {
 	return result
 }
 
-// damageMonster applies damage to a monster instance. Returns true if killed.
-func (e *GameEngine) damageMonster(monsterID int, dmg int) bool {
+func (e *GameEngine) damageMonster(player *Player, monsterID int, dmg int) bool {
+
 	e.monsterMgr.mu.Lock()
 	defer e.monsterMgr.mu.Unlock()
+
 	for i := range e.monsterMgr.instances {
-		if e.monsterMgr.instances[i].ID == monsterID && e.monsterMgr.instances[i].Alive {
-			e.monsterMgr.instances[i].CurrentHP -= dmg
-			if e.monsterMgr.instances[i].CurrentHP <= 0 {
-				e.monsterMgr.instances[i].Alive = false
-				e.monsterMgr.instances[i].CurrentHP = 0
-				e.monsterMgr.instances[i].DeathTime = time.Now()
-				return true
-			}
-			return false
+
+		inst := &e.monsterMgr.instances[i]
+
+		if inst.ID != monsterID || !inst.Alive {
+			continue
 		}
+
+		if inst.DamageByPlayer == nil {
+			inst.DamageByPlayer = make(map[bson.ObjectID]int)
+		}
+
+		creditedDamage := dmg
+		if creditedDamage > inst.CurrentHP {
+			creditedDamage = inst.CurrentHP
+		}
+
+		if creditedDamage > 0 {
+			inst.DamageByPlayer[player.ID] += creditedDamage
+		}
+
+		inst.CurrentHP -= dmg
+
+		if inst.CurrentHP <= 0 {
+			inst.Alive = false
+			inst.CurrentHP = 0
+			inst.DeathTime = time.Now()
+			return true
+		}
+
+		return false
 	}
+
 	return false
 }
 
 // ---- Monster Death ----
 
 func (e *GameEngine) handleMonsterDeath(killer *Player, inst *MonsterInstance, def *gameworld.MonsterDef) {
-	// XP formula: Body (not ExtraBody) + Attack/5 + Defense/5 + Armor/2 + level scaling
-	xp := def.Body + def.Attack1/5 + def.Defense/5 + def.Armor/2
+	// Base XP formula: Body (not ExtraBody) + Attack/5 + Defense/5 + Armor/2.
+	baseXP := def.Body + def.Attack1/5 + def.Defense/5 + def.Armor/2
+
 	if def.MagicResist > 0 {
-		xp += def.MagicResist / 5
-	}
-	if xp < 10 {
-		xp = 10
-	}
-	// Scale XP slightly by player level (diminishing returns for grinding weak mobs)
-	if killer.Level > 1 && xp < killer.Level*5 {
-		xp = max(5, xp*50/(killer.Level*5))
-	}
-	killer.Experience += xp
-
-	// Alignment shift
-	if def.Alignment < 0 {
-		killer.Alignment += 1
-	} else if def.Alignment > 0 {
-		killer.Alignment -= 1
+		baseXP += def.MagicResist / 5
 	}
 
-	e.Events.Publish("combat", fmt.Sprintf("%s killed %s (monster %d) for %d XP in room %d",
-		killer.FirstName, def.Name, def.Number, xp, killer.RoomNumber))
+	if baseXP < 10 {
+		baseXP = 10
+	}
 
-	// Drop monster's weapon into the room as loot (skip natural weapons like claws/teeth/fists)
+	// ------------------------------------------------------------
+	// Shared XP based on damage contribution.
+	// ------------------------------------------------------------
+
+	totalDamage := 0
+
+	for _, dmg := range inst.DamageByPlayer {
+		totalDamage += dmg
+	}
+
+	// Fallback for anything that somehow killed the monster without
+	// contribution data.
+	if totalDamage <= 0 {
+		inst.DamageByPlayer = make(map[bson.ObjectID]int)
+		inst.DamageByPlayer[killer.ID] = 1
+		totalDamage = 1
+	}
+
+	for playerID, damage := range inst.DamageByPlayer {
+		if damage <= 0 {
+			continue
+		}
+
+		var player *Player
+
+		// Find the contributing player.
+		if e.sessions != nil {
+			for _, p := range e.sessions.OnlinePlayers() {
+				if p.ID == playerID {
+					player = p
+					break
+				}
+			}
+		}
+
+		// For now, only online players receive XP.
+		if player == nil {
+			continue
+		}
+
+		// Player's proportional share of the monster's XP.
+		xp := baseXP * damage / totalDamage
+
+		if xp < 1 {
+			xp = 1
+		}
+
+		// Apply diminishing returns individually based on each
+		// player's level.
+		if player.Level > 1 && xp < player.Level*5 {
+			xp = max(5, xp*50/(player.Level*5))
+		}
+
+		player.Experience += xp
+
+		// Alignment shift.
+		if def.Alignment < 0 {
+			player.Alignment += 1
+		} else if def.Alignment > 0 {
+			player.Alignment -= 1
+		}
+
+		// Recalculate build points and check for level-up.
+		oldLevel := player.Level
+		oldBP := player.BuildPoints
+
+		leveledUp := recalcBuildPoints(player)
+
+		newBP := player.BuildPoints
+
+		var xpMsgs []string
+
+		percent := damage * 100 / totalDamage
+
+		xpMsgs = append(
+			xpMsgs,
+			fmt.Sprintf(
+				"[+%d experience (%d%% damage)]",
+				xp,
+				percent,
+			),
+		)
+
+		if newBP > oldBP {
+			xpMsgs = append(
+				xpMsgs,
+				fmt.Sprintf(
+					"[+%d build points! Total: %d]",
+					newBP-oldBP,
+					newBP,
+				),
+			)
+		}
+
+		if leveledUp {
+			player.MaxBodyPoints += player.Constitution / 10
+			player.BodyPoints = player.MaxBodyPoints
+
+			player.MaxFatigue += player.Constitution / 15
+			player.Fatigue = player.MaxFatigue
+
+			player.MaxMana += (player.Willpower + player.Empathy) / 15
+			player.Mana = player.MaxMana
+
+			player.MaxPsi += player.Willpower / 10
+			player.Psi = player.MaxPsi
+
+			xpMsgs = append(
+				xpMsgs,
+				fmt.Sprintf(
+					"Congratulations! You have advanced to level %d!",
+					player.Level,
+				),
+			)
+
+			if e.roomBroadcast != nil {
+				e.roomBroadcast(
+					player.RoomNumber,
+					[]string{
+						fmt.Sprintf(
+							"%s has advanced to level %d!",
+							player.FirstName,
+							player.Level,
+						),
+					},
+				)
+			}
+
+			_ = oldLevel
+		}
+
+		if e.sendToPlayer != nil {
+			e.sendToPlayer(
+				player.FirstName,
+				xpMsgs,
+			)
+		}
+
+		e.Events.Publish(
+			"combat",
+			fmt.Sprintf(
+				"%s received %d XP for %d damage to %s (monster %d) in room %d",
+				player.FirstName,
+				xp,
+				damage,
+				def.Name,
+				def.Number,
+				player.RoomNumber,
+			),
+		)
+	}
+
+	// ------------------------------------------------------------
+	// Loot is still based on where the monster died.
+	// ------------------------------------------------------------
+
+	roomNumber := killer.RoomNumber
+
+	// Drop monster's weapon into the room as loot
+	// (skip natural weapons like claws/teeth/fists).
 	if len(def.Weapons) > 0 && !def.Discorporate {
-		room := e.rooms[killer.RoomNumber]
+		room := e.rooms[roomNumber]
+
 		if room != nil {
 			wep := def.Weapons[rand.Intn(len(def.Weapons))]
 			wepDef := e.items[wep.Archetype]
+
 			if wepDef != nil && !isNaturalWeapon(wepDef.Type) {
 				ref := len(room.Items)
+
 				ri := gameworld.RoomItem{
 					Ref:       ref,
 					Archetype: wep.Archetype,
 					Adj1:      wep.Adj,
 				}
+
 				if def.WeaponPlus > 0 {
 					ri.Val2 = def.WeaponPlus
 				}
-				room.Items = append(room.Items, ri)
-				wepName := e.formatItemName(wepDef, wep.Adj, 0, 0)
+
+				room.Items = append(
+					room.Items,
+					ri,
+				)
+
+				wepName := e.formatItemName(
+					wepDef,
+					wep.Adj,
+					0,
+					0,
+				)
+
 				if e.localRoomBroadcast != nil {
-					article := articleFor(wepName, false)
-					e.localRoomBroadcast(killer.RoomNumber, []string{fmt.Sprintf("%s%s clatters to the ground.", capArticle(article), wepName)})
+					article := articleFor(
+						wepName,
+						false,
+					)
+
+					e.localRoomBroadcast(
+						roomNumber,
+						[]string{
+							fmt.Sprintf(
+								"%s%s clatters to the ground.",
+								capArticle(article),
+								wepName,
+							),
+						},
+					)
 				}
 			}
 		}
 	}
 
-	// Generate treasure drops based on monster's TREASURE level
+	// Generate treasure drops based on monster's TREASURE level.
 	if def.Treasure > 0 && !def.Discorporate {
-		treasureMsgs := e.generateTreasure(killer.RoomNumber, def.Treasure)
-		if len(treasureMsgs) > 0 && e.localRoomBroadcast != nil {
-			e.localRoomBroadcast(killer.RoomNumber, treasureMsgs)
+		treasureMsgs := e.generateTreasure(
+			roomNumber,
+			def.Treasure,
+		)
+
+		if len(treasureMsgs) > 0 &&
+			e.localRoomBroadcast != nil {
+
+			e.localRoomBroadcast(
+				roomNumber,
+				treasureMsgs,
+			)
 		}
-	}
-
-	// Recalculate build points and check for level-up
-	oldLevel := killer.Level
-	oldBP := killer.BuildPoints
-	leveledUp := recalcBuildPoints(killer)
-	newBP := killer.BuildPoints
-
-	// Tell the player
-	var xpMsgs []string
-	xpMsgs = append(xpMsgs, fmt.Sprintf("[+%d experience]", xp))
-	if newBP > oldBP {
-		xpMsgs = append(xpMsgs, fmt.Sprintf("[+%d build points! Total: %d]", newBP-oldBP, newBP))
-	}
-
-	if leveledUp {
-		killer.MaxBodyPoints += killer.Constitution / 10
-		killer.BodyPoints = killer.MaxBodyPoints
-		killer.MaxFatigue += killer.Constitution / 15
-		killer.Fatigue = killer.MaxFatigue
-		killer.MaxMana += (killer.Willpower + killer.Empathy) / 15
-		killer.Mana = killer.MaxMana
-		killer.MaxPsi += killer.Willpower / 10
-		killer.Psi = killer.MaxPsi
-		xpMsgs = append(xpMsgs, fmt.Sprintf("Congratulations! You have advanced to level %d!", killer.Level))
-		if e.roomBroadcast != nil {
-			e.roomBroadcast(killer.RoomNumber, []string{
-				fmt.Sprintf("%s has advanced to level %d!", killer.FirstName, killer.Level),
-			})
-		}
-		_ = oldLevel
-	}
-
-	if e.sendToPlayer != nil {
-		e.sendToPlayer(killer.FirstName, xpMsgs)
 	}
 }
 
@@ -1359,15 +1582,24 @@ func (e *GameEngine) doFlee(ctx context.Context, player *Player) *CommandResult 
 	}
 	var exits []exitInfo
 	for dir, dest := range room.Exits {
+
+		upperDir := strings.ToUpper(dir)
+
+		// Don't flee upward unless the player can fly.
+		if (upperDir == "U" || upperDir == "UP" || upperDir == "ABOVE") && !player.CanFly {
+			continue
+		}
+
 		if dest > 0 {
 			exits = append(exits, exitInfo{dir, dest})
 		}
 	}
+
 	if len(exits) == 0 {
 		return &CommandResult{Messages: []string{"There is nowhere to flee!"}}
 	}
 
-	fleeChance := 50 + player.Quickness/5 + player.Agility/10
+	fleeChance := 50 + player.EffectiveStat(StatQuickness)/5 + player.EffectiveStat(StatAgility)/10
 	if player.Position != 0 {
 		fleeChance -= 20
 	}
@@ -1658,6 +1890,11 @@ func (e *GameEngine) monsterFlee(inst *MonsterInstance, def *gameworld.MonsterDe
 	var exits []exitInfo
 	for dir, dest := range room.Exits {
 		if dest > 0 {
+			//only avians can fly?  Dont see a fly setting so sticking with that for now.  If we add a fly setting to monsters, we can change this to check that instead of body type.
+			upperDir := strings.ToUpper(dir)
+			if (upperDir == "U" || upperDir == "UP" || upperDir == "ABOVE") && def.BodyType != "AVINE" {
+				continue
+			}
 			exits = append(exits, exitInfo{dir, dest})
 		}
 	}
@@ -1680,6 +1917,20 @@ func (e *GameEngine) monsterFlee(inst *MonsterInstance, def *gameworld.MonsterDe
 	}
 
 	inst.Target = ""
+
+	// Disengage any players fighting this monster.
+	if e.sessions != nil {
+		for _, player := range e.sessions.OnlinePlayers() {
+			if player.RoomNumber != inst.RoomNumber {
+				continue
+			}
+
+			if player.CombatTarget != nil && player.CombatTarget.MonsterID == inst.ID {
+				player.Joined = false
+				player.CombatTarget = nil
+			}
+		}
+	}
 	e.monsterMgr.moveMonster(e.monsterMgr.indexOfID(inst.ID), chosen.destID)
 }
 

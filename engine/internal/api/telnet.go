@@ -28,14 +28,14 @@ const (
 	sbByte   = 250 // sub-negotiation begin
 	seByte   = 240 // sub-negotiation end
 
-	optEcho  = 1  // Echo
-	optSGA   = 3  // Suppress Go-Ahead
-	optTType = 24 // Terminal Type (MTTS)
-	optNAWS  = 31 // Negotiate About Window Size
-	optMSDP  = 69 // MUD Server Data Protocol
-	optMSSP  = 70 // MUD Server Status Protocol
-	optMCCP2 = 86 // MUD Client Compression Protocol v2
-	optMXP   = 91 // MUD eXtension Protocol
+	optEcho  = 1   // Echo
+	optSGA   = 3   // Suppress Go-Ahead
+	optTType = 24  // Terminal Type (MTTS)
+	optNAWS  = 31  // Negotiate About Window Size
+	optMSDP  = 69  // MUD Server Data Protocol
+	optMSSP  = 70  // MUD Server Status Protocol
+	optMCCP2 = 86  // MUD Client Compression Protocol v2
+	optMXP   = 91  // MUD eXtension Protocol
 	optGMCP  = 201 // Generic MUD Communication Protocol
 
 	// MSSP sub-negotiation
@@ -95,7 +95,7 @@ type telnetConn struct {
 	passwordMode bool
 
 	// MCCP2: compressed writer (nil until activated)
-	compWriter   *zlib.Writer
+	compWriter    *zlib.Writer
 	compActivated bool
 
 	// Server reference for MSSP player count
@@ -382,13 +382,13 @@ func (t *telnetConn) negotiate() {
 	// We switch to WILL ECHO only for password prompts
 	t.conn.Write([]byte{
 		iacByte, wontByte, optEcho, // Client handles echo (normal)
-		iacByte, willByte, optSGA,  // Suppress go-ahead
-		iacByte, doByte, optNAWS,   // Request terminal size
-		iacByte, willByte, optGMCP,  // Offer GMCP
+		iacByte, willByte, optSGA, // Suppress go-ahead
+		iacByte, doByte, optNAWS, // Request terminal size
+		iacByte, willByte, optGMCP, // Offer GMCP
 		iacByte, willByte, optMCCP2, // Offer MCCP2
-		iacByte, willByte, optMSSP,  // Offer MSSP
-		iacByte, willByte, optMSDP,  // Offer MSDP
-		iacByte, doByte, optMXP,     // Request MXP
+		iacByte, willByte, optMSSP, // Offer MSSP
+		iacByte, willByte, optMSDP, // Offer MSDP
+		iacByte, doByte, optMXP, // Request MXP
 	})
 
 	// Read and respond to client negotiation for up to 2 seconds
@@ -1341,8 +1341,8 @@ func (s *Server) telnetCharacterSelect(tc *telnetConn, ctx context.Context, acco
 
 func (s *Server) telnetCreateCharacter(tc *telnetConn, ctx context.Context, accountID string) *engine.Player {
 	existing, _ := s.engine.ListPlayersByAccount(ctx, accountID)
-	if len(existing) >= 8 {
-		tc.writeLine(ansiRed + "You can have at most 8 characters." + ansiReset)
+	if len(existing) >= 3 {
+		tc.writeLine(ansiRed + "You can have at most 3 characters." + ansiReset)
 		return nil
 	}
 
@@ -1491,6 +1491,11 @@ func (s *Server) telnetCommandLoop(ctx context.Context, session *Session, tc *te
 		}
 
 		result := s.engine.ProcessCommand(ctx, session.Player, input)
+
+		// Expire timed effects
+		//timerMessages := s.engine.UpdatePlayerTimers(session.Player)
+		//result.Messages = append(result.Messages, timerMessages...)
+
 		result.PlayerState = session.Player
 		result.PromptIndicators = session.Player.PromptIndicators()
 		s.sendResult(session, result)
