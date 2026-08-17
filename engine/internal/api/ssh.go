@@ -665,8 +665,8 @@ func (s *Server) sshCharacterSelect(sc *sshConn, ctx context.Context, account *a
 
 func (s *Server) sshCreateCharacter(sc *sshConn, ctx context.Context, accountID string) *engine.Player {
 	existing, _ := s.engine.ListPlayersByAccount(ctx, accountID)
-	if len(existing) >= 8 {
-		sc.writeLine(ansiRed + "You can have at most 8 characters." + ansiReset)
+	if len(existing) >= 3 {
+		sc.writeLine(ansiRed + "You can have at most 3 characters." + ansiReset)
 		return nil
 	}
 
@@ -766,6 +766,11 @@ func (s *Server) sshCommandLoop(ctx context.Context, session *Session, sc *sshCo
 		}
 
 		result := s.engine.ProcessCommand(ctx, session.Player, input)
+
+		// Expire timed effects
+		timerMessages := s.engine.UpdatePlayerTimers(session.Player)
+		result.Messages = append(result.Messages, timerMessages...)
+
 		result.PlayerState = session.Player
 		result.PromptIndicators = session.Player.PromptIndicators()
 		s.sendResult(session, result)
