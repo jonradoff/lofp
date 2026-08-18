@@ -50,6 +50,7 @@ IFPREVERB2 PUT 0
 	IFVAR VOICES >= 3
 		REMOVEITEM -1
 		ECHO ALL As %n places the item in the knothole, there is a bright flash of light and it disappears!%c%cA great weight lifts from your heart.
+	    SPELL 515 100
 	ENDIF
 	IFVAR VOICES < 3
 		ECHO ALL The tree does not have enough power at the moment.
@@ -127,7 +128,7 @@ EXIT W 564
 EXIT N 1470
 ;-------path------
 ITEM 0 74 VAL2=569
-IFVERB GO 0
+IFPVERB GO 0
 	IFVAR ALIGN <= -1
 		ECHO PLAYER The forces of nature align to force you away from the grove.
 		ECHO OTHERS %N tried to enter the grove but is thrown back by some unseen source.

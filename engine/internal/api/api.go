@@ -58,14 +58,14 @@ type ClientConn interface {
 type Session struct {
 	Player       *engine.Player
 	Conn         ClientConn
-	CaptureID    string    // active capture session ID, empty if not recording
-	lastCmdTime  time.Time // rate limiting: last command timestamp
-	cmdCount     int       // rate limiting: commands in current window
+	CaptureID    string      // active capture session ID, empty if not recording
+	lastCmdTime  time.Time   // rate limiting: last command timestamp
+	cmdCount     int         // rate limiting: commands in current window
 	chatTimes    []time.Time // chat flood: timestamps of recent broadcasts
 	cmdTimes     []time.Time // command rate: sliding window for 10/10s limit
-	authFailures int        // auth attempt failures (disconnect after 3)
-	lastActivity time.Time  // idle timeout tracking
-	quitSent     bool       // QUIT already broadcast departure
+	authFailures int         // auth attempt failures (disconnect after 3)
+	lastActivity time.Time   // idle timeout tracking
+	quitSent     bool        // QUIT already broadcast departure
 }
 
 // wsConn wraps a gorilla WebSocket connection to implement ClientConn.
@@ -102,7 +102,6 @@ func (w *wsConn) Close() error {
 func (w *wsConn) RemoteAddr() string {
 	return w.conn.RemoteAddr().String()
 }
-
 
 // getClientIP extracts the real client IP from the request, preferring
 // Fly-Client-IP (set by Fly.io proxy), then X-Forwarded-For, then RemoteAddr.
@@ -348,6 +347,18 @@ func (s *Server) setupRoutes() {
 	api.HandleFunc("/admin/characters/deleted", s.handleAdminListDeletedCharacters).Methods("GET")
 	api.HandleFunc("/admin/characters/{firstName}/recover", s.handleAdminRecoverCharacter).Methods("PUT")
 
+	gmPagesDir := "/app/gm-pages"
+
+	if info, err := os.Stat(gmPagesDir); err == nil && info.IsDir() {
+		s.router.PathPrefix("/gm-pages/").Handler(
+			http.StripPrefix(
+				"/gm-pages/",
+				http.FileServer(http.Dir(gmPagesDir)),
+			),
+		)
+
+		log.Printf("Serving GM pages from %s", gmPagesDir)
+	}
 	// Serve static frontend files in production (if /app/static exists)
 	staticDir := os.Getenv("LOFP_STATIC_DIR")
 	if staticDir == "" {
@@ -490,7 +501,9 @@ func (s *Server) handleGameWS(w http.ResponseWriter, r *http.Request) {
 	defer func() {
 		s.connMu.Lock()
 		s.connsByIP[ip]--
-		if s.connsByIP[ip] <= 0 { delete(s.connsByIP, ip) }
+		if s.connsByIP[ip] <= 0 {
+			delete(s.connsByIP, ip)
+		}
 		s.connMu.Unlock()
 	}()
 
@@ -773,7 +786,9 @@ func (s *Server) handleGameWS(w http.ResponseWriter, r *http.Request) {
 			cutoff := now.Add(-10 * time.Second)
 			var recentCmds []time.Time
 			for _, t := range session.cmdTimes {
-				if t.After(cutoff) { recentCmds = append(recentCmds, t) }
+				if t.After(cutoff) {
+					recentCmds = append(recentCmds, t)
+				}
 			}
 			session.cmdTimes = append(recentCmds, now)
 			if len(session.cmdTimes) > 10 {
@@ -787,6 +802,7 @@ func (s *Server) handleGameWS(w http.ResponseWriter, r *http.Request) {
 			ctx := context.Background()
 			playerRoom := session.Player.RoomNumber
 			result := s.engine.ProcessCommand(ctx, session.Player, cmd.Input)
+
 			result.PlayerState = session.Player
 			result.PromptIndicators = session.Player.PromptIndicators()
 			s.sendResult(session, result)
@@ -812,7 +828,9 @@ func (s *Server) handleGameWS(w http.ResponseWriter, r *http.Request) {
 				cutoff := now.Add(-10 * time.Second)
 				var recent []time.Time
 				for _, t := range session.chatTimes {
-					if t.After(cutoff) { recent = append(recent, t) }
+					if t.After(cutoff) {
+						recent = append(recent, t)
+					}
 				}
 				session.chatTimes = recent
 				if len(session.chatTimes) >= 5 {

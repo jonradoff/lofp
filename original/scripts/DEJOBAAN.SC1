@@ -276,6 +276,16 @@ SUBSTANCE INSUBSTANTIAL
 FOOD
 PARAMETER1 10
 REAGENT
+
+IFVERB EAT -1
+  IFVAR ITEMADJ3 = 531
+    RANDOM DUMMY1 10
+    ADD DUMMY1 1
+    ECHO PLAYER The root tastes horrible but a warm sensation spreads through your body. 
+    HEALPLR DUMMY1  You recover %D body points
+  ENDIF
+ENDIF
+
 ifpreverb cast -1
   ifvar itemadj3 = 542
     ifvar manapoints > 26
