@@ -3103,13 +3103,14 @@ You see a working scale.
 Item             Price
 ----             -----
 Lantern        20 crowns
-Torch           1 crown
+Torch           1 crowns
 Sack            4 crowns
 Backpack        5 crowns
 Sheath          2 crowns
 Pick-axe       20 crowns
 Shovel         20 crowns
 Miner's Hammer 10 crowns
+
 *DESCRIPTION_END
 STOREITEM 89 -1 2000
 STOREITEM 466 -1 100

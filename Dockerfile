@@ -21,6 +21,9 @@ FROM alpine:3.21
 RUN apk add --no-cache ca-certificates
 WORKDIR /app
 
+# Copy original GM HTML pages
+COPY ["original/GM Pages/", "gm-pages/"]
+
 # Copy binary
 COPY --from=backend /lofp .
 
