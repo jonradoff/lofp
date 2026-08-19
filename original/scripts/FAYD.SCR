@@ -393,7 +393,7 @@ There is a manuscript detailing the items for sale by the Armorers Guild here.
 *DESCRIPTION_START ITEM READ 1
 Weapons             Price            Weapons             Price
 ----                -----            ----                -----
-Axe                3 Crowns          Long Sword        27 Crowns
+Axe1               3 Crowns          Long Sword        27 Crowns
 Battleaxe         12 Crowns          Mace              10 Crowns
 Dagger             2 Crowns          Morning Star      15 Crowns
 Glaive            17 Crowns          Pike              25 Crowns
@@ -647,6 +647,7 @@ EXIT NE 228
 EXIT W 230
 ITEM 0 213 VAL2=283
 ITEM 1 1416 ADJ1=355
+
 EXIT ABOVE 2152
 ;
 NUMBER 230
@@ -1818,7 +1819,7 @@ CALL 33
 The homeless huddle around a metal can of burning trash. A lucky few with jackets hang back from the flames, proud of their greater solvency. At the top of a stairway, some ragged men of questionable intent engage in whispered conversation. Young children cling to their mothers; hiding behind dirty skirts offering only symbolic protection.
 *DESCRIPTION_END
 OUTDOOR_OTHER
-FIXED_LIGHT
+DAY_LIGHT
 EXIT SE 288
 EXIT SW 285
 EXIT N 283
@@ -1918,13 +1919,20 @@ MONSTER_GROUP 2
 DAY_LIGHT
 CALL 33
 *DESCRIPTION_START
-Boards have been nailed across the door of the old Temple of Kaliban, preventing entry. Small particles of wood and sawdust lie at the base of a sawed-off stump. There is a small sign tacked up across the boards.
+Boards1 have been nailed across the door of the old Temple of Kaliban, preventing entry. Small particles of wood and sawdust lie at the base of a sawed-off stump. There is a small sign tacked up across the boards.
 *DESCRIPTION_END
 EXIT W 288
 EXIT SE 291
 EXIT SW 290
 EXIT ABOVE 2152
 ITEM 0 68 ADJ1=25 ADJ2=192 VAL2=2605
+
+IFTOUCH 0
+    ECHO OTHERS %N touches the black metal gate...
+    ECHO PLAYER You touch the black metal gate...
+    DAMAGE ELECTRIC 15 %N is struck by an arc of lightning from the gate!
+    CLEARVERB
+ENDIF
 ;
 NUMBER 290
 NAME Poor Quarter
