@@ -5948,7 +5948,7 @@ MLIST 108 119 20 5
 MLIST 114 65 20 5
 MLIST 114 100 20 5
 ;
-;               Terrain item#   adj     freq    val2    val5
+; Terrain   	     item#   adj freq    val2    val5
 FORAGEDEF	FOREST	1442	196	10	0	13
 FORAGEDEF	FOREST	1373	-1	10	0	13
 FORAGEDEF	FOREST	1555	406	10	0	0

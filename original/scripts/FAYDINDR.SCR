@@ -1531,7 +1531,7 @@ ITEM 9 693 ADJ1=10
 *DESCRIPTION_START ITEM READ 0
 The graffiti is in the modern language, as opposed to the runes that cover all the graves in the cemetery. It simply says, "Ru'tak was h--" as if this defilement was interrupted. A splatter of dry blood is visible near the end of the writing.
 *DESCRIPTION_END
-;
+; usurped by noway.scr 
 NUMBER 312
 NAME Physicians' Guild
 DEEPCAVE
@@ -1539,13 +1539,21 @@ FIXED_LIGHT
 HEALER
 CALL 33
 *DESCRIPTION_START
-Second in age only to the Adventurers' Guild, the Physicians' Guild seems to exude solemnity. Charts representing the anatomy's of the various races hang on all walls. The adventurers sitting and lying about the floor are being treated by Fayd's finest diagnosticians. A door leads back to the street.
+HEYAB Second in age only to the Adventurers' Guild, the Physicians' Guild seems to exude solemnity. Charts representing the anatomy's of the various races hang on all walls. The adventurers sitting and lying about the floor are being treated by Fayd's finest diagnosticians. A door leads back to the street.
 *DESCRIPTION_END
 EXIT N 313
 EXIT W 314
 ITEM 0 200 VAL2=277
 ITEM 1 1416 ADJ1=355
 ITEM 9 693 ADJ1=10
+
+IFVERB SIT -1
+  ECHO PLAYER As you settle down, the physicians begin tending to your injuries.
+ENDIF
+
+IFPVERB LAY -1
+  ECHO PLAYER As you lie down, the physicians begin tending to your injuries.
+ENDIF
 
 ;
 NUMBER 313
@@ -3103,13 +3111,14 @@ You see a working scale.
 Item             Price
 ----             -----
 Lantern        20 crowns
-Torch           1 crown
+Torch           1 crowns
 Sack            4 crowns
 Backpack        5 crowns
 Sheath          2 crowns
 Pick-axe       20 crowns
 Shovel         20 crowns
 Miner's Hammer 10 crowns
+
 *DESCRIPTION_END
 STOREITEM 89 -1 2000
 STOREITEM 466 -1 100

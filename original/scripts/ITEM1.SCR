@@ -8034,6 +8034,14 @@ IFVAR ITEMADJ3 = 571
 		EQUAL ITEMVAL2 1
 	ENDIF
 ENDIF
+
+IFVERB EAT -1
+  IFVAR ITEMADJ3 = 397
+    CLEARVERB
+    ECHO PLAYER You eat the thesnia root and feel your mind open to the thoughts of others.
+    SPELL ITEMVAL3
+  ENDIF
+ENDIF
 ;
 ; Ledge
 INUMBER 450
@@ -8140,7 +8148,7 @@ ENDIF
 INUMBER 90
 NAME 126
 WEIGHT 1
-VOLUME 0
+VOLUME 1
 CRAFTABLE
 ENCRUSTABLE
 PARAMETER2 18
@@ -9626,6 +9634,15 @@ SUBSTANCE INSUBSTANTIAL
 FOOD
 PARAMETER1 10
 REAGENT
+
+IFVERB EAT -1
+  IFVAR ITEMADJ3 = 531
+    RANDOM DUMMY1 10
+    ADD DUMMY1 1
+    ECHO PLAYER The root tastes horrible but a warm sensation spreads through your body. 
+    HEALPLR DUMMY1  You recover %D body points
+  ENDIF
+ENDIF
 ;
 ; Nightshade
 INUMBER 587
