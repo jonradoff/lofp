@@ -7,23 +7,26 @@ import (
 	"sync"
 	"time"
 
+	"go.mongodb.org/mongo-driver/v2/bson"
+
 	"github.com/jonradoff/lofp/internal/gameworld"
 )
 
 // MonsterInstance represents a spawned monster in the world.
 type MonsterInstance struct {
-	ID           int       `json:"id"`
-	DefNumber    int       `json:"defNumber"`
-	RoomNumber   int       `json:"roomNumber"`
-	Alive        bool      `json:"alive"`
-	Sedated      bool      `json:"sedated"`
-	Stunned      bool      `json:"-"` // stunned: skip next combat tick, easier to hit
-	Skinned      bool      `json:"-"` // already skinned
-	DefenseBonus int       `json:"-"` // from active psi defenses
-	CurrentHP  int       `json:"currentHP"`
-	Target     string    `json:"-"`
-	Searched   bool      `json:"-"` // already searched for loot
-	DeathTime  time.Time `json:"-"` // when it died (for corpse decay)
+	ID             int                   `json:"id"`
+	DefNumber      int                   `json:"defNumber"`
+	RoomNumber     int                   `json:"roomNumber"`
+	Alive          bool                  `json:"alive"`
+	Sedated        bool                  `json:"sedated"`
+	Stunned        bool                  `json:"-"` // stunned: skip next combat tick, easier to hit
+	Skinned        bool                  `json:"-"` // already skinned
+	DefenseBonus   int                   `json:"-"` // from active psi defenses
+	CurrentHP      int                   `json:"currentHP"`
+	Target         string                `json:"-"`
+	Searched       bool                  `json:"-"` // already searched for loot
+	DeathTime      time.Time             `json:"-"` // when it died (for corpse decay)
+	DamageByPlayer map[bson.ObjectID]int `json:"-"` // tracks damage dealt by players for loot distribution
 }
 
 // monsterManager handles monster spawning and tracking.
@@ -31,7 +34,7 @@ type monsterManager struct {
 	mu             sync.RWMutex
 	instances      []MonsterInstance
 	nextID         int
-	monstersByRoom map[int][]int    // roomNumber -> slice of instance indices
+	monstersByRoom map[int][]int     // roomNumber -> slice of instance indices
 	roomLastPlayer map[int]time.Time // roomNumber -> last time a player was present
 }
 
@@ -231,6 +234,26 @@ func (mm *monsterManager) AllMonstersInRoom(roomNum int) []MonsterInstance {
 		}
 	}
 	return result
+}
+
+func (mm *monsterManager) MarkSkinned(instanceID int) bool {
+	mm.mu.Lock()
+	defer mm.mu.Unlock()
+
+	for i := range mm.instances {
+		if mm.instances[i].ID != instanceID {
+			continue
+		}
+
+		if mm.instances[i].Skinned {
+			return false
+		}
+
+		mm.instances[i].Skinned = true
+		return true
+	}
+
+	return false
 }
 
 // moveMonster moves a monster instance to a new room. Must be called under lock.

@@ -594,7 +594,9 @@ EXIT W 243
 EXIT E 230
 EXIT ABOVE 2152
 ITEM 9 693 ADJ1=10
-
+IFVERB LISTEN -1
+	ECHO PLAYER You can hear an acolyte of Shemri and a Priestess of Amilor fighting like a badly matched husband and wife.
+ENDIF
 ;
 NUMBER 241
 NAME Church Street
@@ -1764,7 +1766,7 @@ MONSTER_GROUP 2
 DAY_LIGHT
 CALL 33
 *DESCRIPTION_START
-Boards have been nailed across the door of the old Temple of Kaliban, preventing entry. Small particles of wood and sawdust lie at the base of a sawed-off stump. There is a small sign tacked up across the boards.
+Boards3 have been nailed across the door of the old Temple of Kaliban, preventing entry. Small particles of wood and sawdust lie at the base of a sawed-off stump. There is a small sign tacked up across the boards.
 *DESCRIPTION_END
 EXIT W 288
 EXIT SE 291
@@ -1772,6 +1774,12 @@ EXIT SW 290
 EXIT ABOVE 2152
 ITEM 0 68 ADJ1=25 ADJ2=192 VAL2=2605
 ITEM 9 693 ADJ1=10
+IFTOUCH 0
+    ECHO OTHERS %N touches the black metal gate...
+    ECHO PLAYER You touch the black metal gate...
+    DAMAGE ELECTRIC 15 %N is struck by an arc of lightning from the gate!
+    CLEARVERB
+ENDIF
 
 ;
 NUMBER 290

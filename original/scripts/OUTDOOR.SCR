@@ -1681,7 +1681,7 @@ ENDIF
 IFVERB LISTEN -1
 	ECHO PLAYER You hear chirps, whistles and soft coos.
 ENDIF
-IFVERB GO 0
+IFPREVERB GO 0
 	IFVAR ALIGN <= -1
 		ECHO PLAYER The forces of nature align to force you away from the grove.
 		ECHO OTHERS %N tried to enter the grove but is thrown back by some unseen source.
