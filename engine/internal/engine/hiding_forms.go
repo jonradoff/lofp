@@ -43,8 +43,15 @@ func (e *GameEngine) castHidingSpell(player *Player, spell *SpellDef, args []str
 	}
 
 	if isSelf {
+		// "You gesture." as its own message (rather than folded into one combined
+		// sentence) matches every other buff spell's format and is what lets the
+		// success-roll line get inserted in the right place — see the
+		// "You gesture." prefix check around line 1122 in spells.go. Per the
+		// original session logs, the caster feels a tingling sensation rather than
+		// being told they've faded — they can't see themselves fade any more than
+		// anyone else can once they're invisible.
 		return &CommandResult{
-			Messages:      []string{fmt.Sprintf("You gesture and cast %s. You fade from sight.", spell.Name)},
+			Messages:      []string{"You gesture.", "You feel a tingling sensation."},
 			RoomBroadcast: []string{fmt.Sprintf("%s fades from sight.", player.DisplayNameCap())},
 		}
 	}

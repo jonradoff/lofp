@@ -89,6 +89,7 @@ func (e *GameEngine) spawnSummonedCreature(player *Player, mnumber int, isFamili
 		MaxHP:        hp,
 		DefenseBonus: monsterPsiDefenseBonus(def.Disciplines),
 		CurrentMana:  def.Mana,
+		CurrentPsi:   def.Psi,
 		SummonerName: player.FirstName,
 		IsSummoned:   true,
 		IsFamiliar:   isFamiliar,
@@ -146,12 +147,12 @@ func (e *GameEngine) castControlUndead(player *Player, spell *SpellDef, args []s
 		return &CommandResult{Messages: []string{"You already have a summoned or controlled creature. Use COMMAND BEGONE to dismiss it first."}}
 	}
 	if len(args) == 0 {
-		return &CommandResult{Messages: []string{"Control which undead creature?"}}
+		return &CommandResult{Messages: []string{"Control which undead creature?"}, TargetNotFound: true}
 	}
 	targetName := strings.Join(args, " ")
 	inst, def := e.findMonsterInRoom(player, targetName)
 	if inst == nil {
-		return &CommandResult{Messages: []string{fmt.Sprintf("You don't see '%s' here.", targetName)}}
+		return &CommandResult{Messages: []string{fmt.Sprintf("You don't see '%s' here.", targetName)}, TargetNotFound: true}
 	}
 	if def.Race != 22 {
 		return &CommandResult{Messages: []string{"Your spell has no effect — that creature is not undead."}}
@@ -208,12 +209,12 @@ func (e *GameEngine) castControlUndead(player *Player, spell *SpellDef, args []s
 //	214 Domination II: <=200 current body, 20 minute duration
 func (e *GameEngine) castCommandSpell(player *Player, spell *SpellDef, args []string) *CommandResult {
 	if len(args) == 0 {
-		return &CommandResult{Messages: []string{fmt.Sprintf("%s which creature?", spell.Name)}}
+		return &CommandResult{Messages: []string{fmt.Sprintf("%s which creature?", spell.Name)}, TargetNotFound: true}
 	}
 	targetName := strings.Join(args, " ")
 	inst, def := e.findMonsterInRoom(player, targetName)
 	if inst == nil {
-		return &CommandResult{Messages: []string{fmt.Sprintf("You don't see '%s' here.", targetName)}}
+		return &CommandResult{Messages: []string{fmt.Sprintf("You don't see '%s' here.", targetName)}, TargetNotFound: true}
 	}
 	if def.Race == 22 {
 		return &CommandResult{Messages: []string{"Your spell has no effect — that creature is undead."}}
@@ -286,12 +287,12 @@ func (e *GameEngine) castCommandSpell(player *Player, spell *SpellDef, args []st
 // room the ability to speak again, even though they remain otherwise incapacitated.
 func (e *GameEngine) castSpeakWithDead(player *Player, args []string) *CommandResult {
 	if len(args) == 0 {
-		return &CommandResult{Messages: []string{"Speak with Dead requires a target. Cast it on a dead player's body."}}
+		return &CommandResult{Messages: []string{"Speak with Dead requires a target. Cast it on a dead player's body."}, TargetNotFound: true}
 	}
 	targetName := strings.ToLower(strings.Join(args, " "))
 	target := e.findPlayerInRoom(player, targetName)
 	if target == nil {
-		return &CommandResult{Messages: []string{"You don't see that here."}}
+		return &CommandResult{Messages: []string{"You don't see that here."}, TargetNotFound: true}
 	}
 	if !target.Dead {
 		return &CommandResult{Messages: []string{fmt.Sprintf("%s is not dead.", target.FirstName)}}
@@ -563,8 +564,11 @@ func (e *GameEngine) doCommand(ctx context.Context, player *Player, args []strin
 					e.monsterMgr.instances[i].GuardingPlayers = next
 					alreadyGuarding = true
 				} else {
+					// Guarding is purely additive — it adds guardTarget to the guard
+					// list (a creature can guard several people at once) and must never
+					// touch FollowTarget. Only COMMAND FOLLOW <target> changes who the
+					// creature follows.
 					e.monsterMgr.instances[i].GuardingPlayers = append(cur, guardTarget)
-					e.monsterMgr.instances[i].FollowTarget = ""
 					e.monsterMgr.instances[i].Target = ""
 				}
 				break

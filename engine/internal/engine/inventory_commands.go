@@ -42,6 +42,18 @@ func (e *GameEngine) doItemInteraction(ctx context.Context, player *Player, verb
 			skip--
 			continue
 		}
+		// A sigil trap (Imprison Rune/Thunder/Inferno/Ice Glyph/Death Scythe — see
+		// castSigilSpell) overrides the item's own TOUCH script: the first toucher
+		// silently claims it, anyone else springs the trap. Checked before any
+		// scripted response so the ward can't be scripted around.
+		if verbLower == "touch" {
+			itemName := e.formatItemName(itemDef, ri.Adj1, ri.Adj2, ri.Adj3, ri.Extend)
+			if msgs := e.triggerSigilIfArmed(ctx, player, &room.Items[i].SigilSpellID, &room.Items[i].SigilOwner, itemName); msgs != nil {
+				itemCopy := room.Items[i]
+				e.notifyRoomChange(RoomChange{RoomNumber: player.RoomNumber, Type: "item_update", ItemRef: ri.Ref, Item: &itemCopy})
+				return &CommandResult{Messages: msgs, PlayerState: player}
+			}
+		}
 		origRoom := player.RoomNumber // capture before scripts may MOVE the player
 		result := &CommandResult{}
 		// Run root-level IFVAR blocks on the item (fire as preamble for any verb)
@@ -133,6 +145,32 @@ func (e *GameEngine) doItemInteraction(ctx context.Context, player *Player, verb
 			if skip > 0 {
 				skip--
 				continue
+			}
+			// Same sigil-trap override as the room-item loop above, but resolving a real
+			// pointer back into whichever of Inventory/Worn/Wielded/OffHand this index
+			// came from — allPlayerItems above is a flat copy, so ii itself can't be
+			// mutated. See castSigilSpell/triggerSigilIfArmed in spells.go.
+			if verbLower == "touch" {
+				var sigilID *int
+				var sigilOwner *string
+				switch {
+				case idx < len(player.Inventory):
+					sigilID, sigilOwner = &player.Inventory[idx].SigilSpellID, &player.Inventory[idx].SigilOwner
+				case idx < len(player.Inventory)+len(player.Worn):
+					wIdx := idx - len(player.Inventory)
+					sigilID, sigilOwner = &player.Worn[wIdx].SigilSpellID, &player.Worn[wIdx].SigilOwner
+				case idx == wieldedIdx:
+					sigilID, sigilOwner = &player.Wielded.SigilSpellID, &player.Wielded.SigilOwner
+				case idx == offHandIdx:
+					sigilID, sigilOwner = &player.OffHand.SigilSpellID, &player.OffHand.SigilOwner
+				}
+				if sigilID != nil {
+					itemName := e.formatItemName(itemDef, ii.Adj1, ii.Adj2, ii.Adj3, ii.Tail)
+					if msgs := e.triggerSigilIfArmed(ctx, player, sigilID, sigilOwner, itemName); msgs != nil {
+						e.SavePlayer(ctx, player)
+						return &CommandResult{Messages: msgs, PlayerState: player}
+					}
+				}
 			}
 			origRoom := player.RoomNumber // capture before scripts may MOVE the player
 			// Create a temporary RoomItem for script context (Ref=-1 = inventory item).
@@ -1358,6 +1396,15 @@ func (e *GameEngine) doOpen(player *Player, args []string) *CommandResult {
 				skip--
 				continue
 			}
+			// Attempting to open a closed/locked/latched item counts as touching it —
+			// see castSigilSpell/triggerSigilIfArmed in spells.go ("if it is closed and
+			// they try to open it, then they touch it").
+			if ii.State != "OPEN" {
+				itemName := e.formatItemName(itemDef, ii.Adj1, ii.Adj2, ii.Adj3, ii.Tail)
+				if msgs := e.triggerSigilIfArmed(context.Background(), player, &player.Inventory[i].SigilSpellID, &player.Inventory[i].SigilOwner, itemName); msgs != nil {
+					return &CommandResult{Messages: msgs, PlayerState: player}
+				}
+			}
 			if !containsFlag(itemDef.Flags, "OPENABLE") {
 				// Not a container — but it may still define its own universal OPEN
 				// hijack (e.g. item 925, "the object").
@@ -1399,6 +1446,12 @@ func (e *GameEngine) doOpen(player *Player, args []string) *CommandResult {
 				skip--
 				continue
 			}
+			if ii.State != "OPEN" {
+				itemName := e.formatItemName(itemDef, ii.Adj1, ii.Adj2, ii.Adj3, ii.Tail)
+				if msgs := e.triggerSigilIfArmed(context.Background(), player, &player.Worn[i].SigilSpellID, &player.Worn[i].SigilOwner, itemName); msgs != nil {
+					return &CommandResult{Messages: msgs, PlayerState: player}
+				}
+			}
 			if !containsFlag(itemDef.Flags, "OPENABLE") {
 				if res := e.runItemOwnPreverbHook(player, room, "OPEN", ii); res != nil {
 					return res
@@ -1438,6 +1491,16 @@ func (e *GameEngine) doOpen(player *Player, args []string) *CommandResult {
 				if skip > 0 {
 					skip--
 					continue
+				}
+				// Attempting to open a closed/locked/latched door, gate, or chest counts
+				// as touching it — see castSigilSpell/triggerSigilIfArmed in spells.go.
+				if ri.State != "OPEN" {
+					itemName := e.formatItemName(itemDef, ri.Adj1, ri.Adj2, ri.Adj3, ri.Extend)
+					if msgs := e.triggerSigilIfArmed(context.Background(), player, &room.Items[i].SigilSpellID, &room.Items[i].SigilOwner, itemName); msgs != nil {
+						itemCopy := room.Items[i]
+						e.notifyRoomChange(RoomChange{RoomNumber: player.RoomNumber, Type: "item_update", ItemRef: ri.Ref, Item: &itemCopy})
+						return &CommandResult{Messages: msgs, PlayerState: player}
+					}
 				}
 				if !containsFlag(itemDef.Flags, "OPENABLE") && !isPortal(itemDef.Type) {
 					if sc := e.RunPreverbScripts(player, room, "OPEN", &room.Items[i], itemDef); sc.Blocked {
@@ -2205,48 +2268,51 @@ func (e *GameEngine) doSell(ctx context.Context, player *Player, args []string) 
 	return &CommandResult{Messages: []string{"You don't have that."}}
 }
 
-// gemSellBase returns the base copper value for a gem of the given noun name.
-func gemSellBase(gemName string) int {
-	switch strings.ToLower(gemName) {
-	case "crystal", "quartz":
-		return 40
-	case "citrine":
-		return 80
-	case "garnet":
-		return 100
-	case "amethyst":
-		return 120
-	case "topaz":
-		return 100
-	case "aquamarine":
-		return 150
-	case "tourmaline":
-		return 180
-	case "sardonyx", "onyx":
-		return 200
-	case "pearl":
-		return 200
-	case "opal":
-		return 400
-	case "emerald", "sapphire":
-		return 300
-	case "jacinth":
-		return 600
-	case "ruby":
-		return 500
-	case "diamond":
-		return 800
-	default:
-		return 80
-	}
+// gemArchetypeSellBase maps the canonical gem item archetypes to their base copper
+// sell value. Archetypes 99-121 (Agate through Topaz) are exactly the range the
+// Wrecked Ship offering bowl (HAVEN.SCR room 2639: "IFVAR ARCHNUM => 99" / "=< 121")
+// accepts as a valid gem, confirming this is the game's own definition of "gem" — not
+// an inference from name or substance. Archetype 112 ("Stone") is the shared carrier
+// for the quartz/crystal adjective forms, priced the same as loose crystal/quartz.
+// 122 (Tourmaline) sits one past the bowl's range but is still a real treasure gem
+// elsewhere, so it's included here too.
+var gemArchetypeSellBase = map[int]int{
+	99:  50,  // Agate
+	100: 250, // Alexandrite
+	101: 120, // Amethyst
+	102: 150, // Aquamarine
+	103: 90,  // Bloodstone
+	104: 50,  // Carnelian
+	105: 80,  // Citrine
+	106: 90,  // Coral
+	107: 800, // Diamond
+	108: 300, // Emerald
+	109: 100, // Garnet
+	110: 600, // Jacinth
+	111: 50,  // Jasper
+	112: 40,  // Stone (quartz/crystal adjective carrier)
+	113: 90,  // Moonstone
+	114: 90,  // Obsidian
+	115: 200, // Onyx
+	116: 400, // Opal
+	117: 200, // Pearl
+	118: 500, // Ruby
+	119: 300, // Sapphire
+	120: 200, // Sardonyx
+	121: 100, // Topaz
+	122: 180, // Tourmaline
 }
 
 // computeSellValue returns the copper sell price for an item.
-// Gems are valued by noun name × quality multiplier (Val2/100).
+// Gems are valued by archetype × quality multiplier (Val2/100).
 func (e *GameEngine) computeSellValue(itemDef *gameworld.ItemDef, ii InventoryItem) int {
-	if itemDef.Substance == "BRITTLE" && containsFlag(itemDef.Flags, "REAGENT") {
-		gemName := strings.ToLower(e.getItemNounName(itemDef))
-		base := gemSellBase(gemName)
+	// Gem pricing is gated on the archetype number itself (see gemArchetypeSellBase),
+	// not on substance/REAGENT — several real gem archetypes (sapphire, diamond,
+	// garnet, sardonyx, agate, coral, topaz) are SUBSTANCE BRITTLE but were never
+	// tagged REAGENT in the original scripts, an inconsistency in the source data.
+	// Gating on REAGENT silently dropped those into the generic Val1/weight fallback
+	// below, which is near-zero for undropped gems (Val1 unset) — the reported bug.
+	if base, ok := gemArchetypeSellBase[itemDef.Number]; ok {
 		qualMult := 1.0
 		if ii.Val2 > 0 {
 			qualMult = float64(ii.Val2) / 100.0

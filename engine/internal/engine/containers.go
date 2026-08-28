@@ -68,7 +68,13 @@ func (e *GameEngine) roomContainerGet(roomNum, itemRef int) []InventoryItem {
 	return e.roomContainerContents[containerKey(roomNum, itemRef)]
 }
 
-// roomContainerSet overwrites the contents for a room container.
+// roomContainerSet overwrites the contents for a room container. If the
+// container instance is flagged persistent (see persistent_containers.go),
+// the new contents are also written through to MongoDB so they survive a
+// restart — e.g. a player's home chest. This write is synchronous: a
+// fire-and-forget goroutine here isn't guaranteed to finish before the
+// process exits (e.g. a redeploy moments after the PUT), which would silently
+// lose exactly the durability this exists to provide.
 func (e *GameEngine) roomContainerSet(roomNum, itemRef int, contents []InventoryItem) {
 	if e.roomContainerContents == nil {
 		e.roomContainerContents = make(map[string][]InventoryItem)
@@ -78,12 +84,22 @@ func (e *GameEngine) roomContainerSet(roomNum, itemRef int, contents []Inventory
 	} else {
 		e.roomContainerContents[containerKey(roomNum, itemRef)] = contents
 	}
+	if e.isPersistentContainerRef(roomNum, itemRef) {
+		e.savePersistentContainer(roomNum, itemRef, contents)
+	}
 }
 
-// roomContainerDelete removes the entry for a room container (e.g. when it is picked up).
+// roomContainerDelete removes the entry for a room container (e.g. when it is
+// picked up). Also drops any persisted record — a picked-up container's
+// contents travel with the resulting inventory item instead (see
+// persistent_containers.go). Synchronous for the same reason as
+// roomContainerSet above.
 func (e *GameEngine) roomContainerDelete(roomNum, itemRef int) {
 	if e.roomContainerContents != nil {
 		delete(e.roomContainerContents, containerKey(roomNum, itemRef))
+	}
+	if e.isPersistentContainerRef(roomNum, itemRef) {
+		e.deletePersistentContainer(roomNum, itemRef)
 	}
 }
 
@@ -539,28 +555,64 @@ func (e *GameEngine) doPut(ctx context.Context, player *Player, args []string) *
 	itemTarget, itemSkip := parseOrdinal(itemTarget)
 	containerTarget, _ = parseOrdinal(containerTarget)
 
-	// Find the item to put (must be in inventory, not wielded or worn)
+	// Find the item to put. Checked across inventory, worn slots, and the wielded/
+	// off-hand weapon — a weapon must stay WIELDED for scripts like the weaponsmith's
+	// whetstone (item 584) to recognize and sharpen it via IFITEM -1 WIELDED. itemIdx
+	// tracks the item's index in player.Inventory specifically (-1 if it lives
+	// elsewhere), since only a plain inventory item can be physically spliced out and
+	// transferred into a real container below.
+	type invCandidate struct {
+		item *InventoryItem
+		idx  int    // index into player.Inventory; -1 for worn/wielded/off-hand
+		kind string // "inventory", "worn", "wielded", "offhand"
+	}
+	var candidates []invCandidate
+	for i := range player.Inventory {
+		candidates = append(candidates, invCandidate{&player.Inventory[i], i, "inventory"})
+	}
+	for i := range player.Worn {
+		candidates = append(candidates, invCandidate{&player.Worn[i], -1, "worn"})
+	}
+	if player.Wielded != nil {
+		candidates = append(candidates, invCandidate{player.Wielded, -1, "wielded"})
+	}
+	if player.OffHand != nil {
+		candidates = append(candidates, invCandidate{player.OffHand, -1, "offhand"})
+	}
+
 	itemIdx := -1
 	var srcItem InventoryItem
 	var srcDef *gameworld.ItemDef
 	skip := itemSkip
-	for i, ii := range player.Inventory {
-		def := e.items[ii.Archetype]
+	for _, c := range candidates {
+		def := e.items[c.item.Archetype]
 		if def == nil {
 			continue
 		}
-		if matchesTarget(e.getItemNounName(def), itemTarget, e.getAdjName(ii.Adj1), e.getAdjName(ii.Adj2), e.getAdjName(ii.Adj3)) {
+		if matchesTarget(e.getItemNounName(def), itemTarget, e.getAdjName(c.item.Adj1), e.getAdjName(c.item.Adj2), e.getAdjName(c.item.Adj3)) {
 			if skip > 0 {
 				skip--
 				continue
 			}
-			itemIdx = i
-			srcItem = ii
+			itemIdx = c.idx
+			srcItem = *c.item
+			// Wielded/off-hand/worn items don't persist their equip state in the State
+			// field (it's inferred from which player field holds them — see the same
+			// pattern in doVerb/doTouch); fill it in so IFITEM -1 WIELDED/WORN checks in
+			// the target's PUT script (e.g. the whetstone, item 584) evaluate correctly.
+			if srcItem.State == "" {
+				switch c.kind {
+				case "wielded", "offhand":
+					srcItem.State = "WIELDED"
+				case "worn":
+					srcItem.State = "WORN"
+				}
+			}
 			srcDef = def
 			break
 		}
 	}
-	if itemIdx < 0 {
+	if srcDef == nil {
 		return &CommandResult{Messages: []string{"You aren't carrying that."}}
 	}
 
@@ -599,6 +651,9 @@ func (e *GameEngine) doPut(ctx context.Context, player *Player, args []string) *
 		if errMsg, ok := e.containerCanFit(def, ii.Contents, srcDef); !ok {
 			return &CommandResult{Messages: []string{errMsg}}
 		}
+		if itemIdx < 0 {
+			return &CommandResult{Messages: []string{fmt.Sprintf("You'll need to remove %s before you can put it away.", itemFullName)}}
+		}
 		// Transfer
 		player.Inventory[i].Contents = append(player.Inventory[i].Contents, srcItem)
 		player.Inventory = append(player.Inventory[:itemIdx], player.Inventory[itemIdx+1:]...)
@@ -636,6 +691,9 @@ func (e *GameEngine) doPut(ctx context.Context, player *Player, args []string) *
 		}
 		if errMsg, ok := e.containerCanFit(def, ii.Contents, srcDef); !ok {
 			return &CommandResult{Messages: []string{errMsg}}
+		}
+		if itemIdx < 0 {
+			return &CommandResult{Messages: []string{fmt.Sprintf("You'll need to remove %s before you can put it away.", itemFullName)}}
 		}
 		// Transfer
 		player.Worn[i].Contents = append(player.Worn[i].Contents, srcItem)
@@ -677,6 +735,9 @@ func (e *GameEngine) doPut(ctx context.Context, player *Player, args []string) *
 			contents := e.roomContainerGet(player.RoomNumber, ri.Ref)
 			if errMsg, ok := e.containerCanFit(def, contents, srcDef); !ok {
 				return &CommandResult{Messages: []string{errMsg}}
+			}
+			if itemIdx < 0 {
+				return &CommandResult{Messages: []string{fmt.Sprintf("You'll need to remove %s before you can put it away.", itemFullName)}}
 			}
 			contents = append(contents, srcItem)
 			e.roomContainerSet(player.RoomNumber, ri.Ref, contents)

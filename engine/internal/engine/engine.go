@@ -429,6 +429,13 @@ func NewGameEngine(db *mongo.Database, parsed *gameworld.ParsedData) *GameEngine
 	e.loadPVals()
 
 	e.initContainerMap()
+	// NOTE: persistent containers (see persistent_containers.go) are restored by
+	// LoadPersistentContainers, called explicitly from main() AFTER LoadGMScripts —
+	// NOT here. GM-uploaded scripts (stored in Mongo, loaded separately after this
+	// constructor returns) can define or overwrite rooms built here from disk
+	// scripts, e.g. a player-home room reusing a room number that also exists on
+	// disk. Restoring here, before GM scripts load, would look up the room-item's
+	// ref against the wrong (soon-to-be-replaced) Room and silently find nothing.
 
 	// Apply content patches for planned-but-commented-out script content.
 	e.applyContentPatches()
@@ -475,6 +482,11 @@ type CommandResult struct {
 	// CantMsg: thieves' cant — delivered only to players with Stealth/Legerdemain.
 	CantMsg    string `json:"-"`
 	CantSender string `json:"-"`
+	// TargetNotFound: set by a spell-cast handler when it couldn't resolve a
+	// target (bad name, typo, or none given) — the caster never actually spoke
+	// the words, so doCastSpell rolls back the mana/PreparedSpell it already
+	// consumed instead of burning the prepare on a fizzle that never happened.
+	TargetNotFound bool `json:"-"`
 	// LogEvent: optional event to log (type, detail).
 	LogEventType   string `json:"-"`
 	LogEventDetail string `json:"-"`
@@ -894,7 +906,11 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 		if player.Position == 1 {
 			return &CommandResult{Messages: []string{"You are already sitting."}}
 		}
+		wasLaying := player.Position == 2
 		player.Position = 1
+		if wasLaying {
+			return e.doPositionWithScripts(ctx, player, verb, "You sit up.", fmt.Sprintf("%s sits up.", player.DisplayNameCap()))
+		}
 		return e.doPositionWithScripts(ctx, player, verb, "You sit down.", fmt.Sprintf("%s sits down.", player.DisplayNameCap()))
 	case "STAND":
 		if player.Position == 0 {
@@ -1162,15 +1178,19 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 			return &CommandResult{Messages: []string{"Act how?"}}
 		}
 		action := extractOriginalArgs(input)
+		// DisplayNameCap covers Mist/Slime/Wolf Form and disguises ("A slime sloshes
+		// around" rather than the player's real name), same as everywhere else those
+		// forms mask identity.
+		actName := player.DisplayNameCap()
 		var selfMsg string
 		if player.ActBrief {
-			selfMsg = fmt.Sprintf("%s %s", player.FirstName, action)
+			selfMsg = fmt.Sprintf("%s %s", actName, action)
 		} else {
-			selfMsg = fmt.Sprintf("(%s %s)", player.FirstName, action)
+			selfMsg = fmt.Sprintf("(%s %s)", actName, action)
 		}
 		// RoomBroadcast always uses the parenthesized form; each viewer's own
 		// ActBrief preference strips the parens in filterBroadcastForPlayer.
-		broadcastMsg := fmt.Sprintf("(%s %s)", player.FirstName, action)
+		broadcastMsg := fmt.Sprintf("(%s %s)", actName, action)
 		return &CommandResult{Messages: []string{selfMsg}, RoomBroadcast: []string{broadcastMsg}}
 	case "EMOTE":
 		if player.Race != RaceMechanoid {
@@ -1283,7 +1303,7 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 		if result != nil && len(result.Messages) > 0 && result.Messages[0] != "You don't see that here." {
 			return result
 		}
-		if verb == "THUMP" || verb == "TOUCH" {
+		if verb == "THUMP" || verb == "TOUCH" || verb == "PULL" {
 			return e.processEmote(player, verb, args)
 		}
 		return result
@@ -1460,7 +1480,7 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 		e.SavePlayer(ctx, player)
 		return &CommandResult{Messages: []string{"Prompt indicators off."}}
 	case "VERSION", "NEWS", "NOTES":
-		return &CommandResult{Messages: []string{"Legends of Future Past v11.30.0"}}
+		return &CommandResult{Messages: []string{"Legends of Future Past v11.35.1"}}
 	case "CREDITS":
 		return &CommandResult{Messages: []string{
 			"",

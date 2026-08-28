@@ -1906,17 +1906,24 @@ func (s *Server) handleRegister(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "auth not configured", 500)
 		return
 	}
-	if !s.checkRateLimit(getClientIP(r), "register", 5, time.Minute) {
+	if !s.checkRateLimit(getClientIP(r), "register", 3, time.Hour) {
 		http.Error(w, "too many registration attempts, try again later", 429)
 		return
 	}
 	var req struct {
-		Email    string `json:"email"`
-		Password string `json:"password"`
-		Name     string `json:"name"`
+		Email        string `json:"email"`
+		Password     string `json:"password"`
+		Name         string `json:"name"`
+		CaptchaToken string `json:"captchaToken"`
 	}
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		http.Error(w, "invalid request", 400)
+		return
+	}
+	if err := s.auth.VerifyCaptcha(r.Context(), req.CaptchaToken, getClientIP(r)); err != nil {
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(400)
+		json.NewEncoder(w).Encode(map[string]string{"error": err.Error()})
 		return
 	}
 	account, verifyToken, verifyCode, err := s.auth.RegisterWithPassword(r.Context(), req.Email, req.Password, req.Name)

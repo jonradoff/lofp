@@ -9,6 +9,202 @@ export default function VersionNotes({ onBack }: { onBack: () => void }) {
 
         <div className="space-y-6 text-sm">
           <section>
+            <h2 className="text-amber-400 text-lg font-bold mb-1">v11.35.1 &mdash; August 27, 2026</h2>
+            <p className="text-gray-400 mb-3">Three bug fixes: repeatable lockpicking on the second+ matching lock in a room, the Teeth of Shartan stream-jump only working once per direction, and several precious gems selling for a single copper instead of their real value.</p>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Fixed: Lockpicking a Second Matching Lock</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li><code className="text-amber-300">PICK &lt;ordinal&gt; &lt;item&gt; WITH LOCKPICK</code> (e.g. <code className="text-amber-300">pick 2 door</code> or <code className="text-amber-300">pick second door</code>) now actually disambiguates when a room has more than one item with the same name &mdash; it previously ignored the ordinal entirely and reported &ldquo;You don&rsquo;t see anything locked here,&rdquo; matching how <code className="text-amber-300">OPEN</code>/<code className="text-amber-300">CLOSE</code>/<code className="text-amber-300">UNLOCK</code> already number matching items in the room</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Fixed: &ldquo;Jump Boulder&rdquo; Only Working Once Per Direction</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>The stream-crossing boulders at the Teeth of Shartan (all four seasonal variants) let you jump across once each way, then refused with &ldquo;You can&rsquo;t do that&rdquo; on a repeat attempt &mdash; a one-line flag reset in the room&rsquo;s own script was being silently dropped by the script loader instead of running before every jump attempt, so the flag set by a successful jump never cleared. Bare reset lines like this one, sitting outside any <code className="text-amber-300">IF</code> block in a room&rsquo;s script, are now loaded and re-run on every interaction the way the original scripts intended</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Fixed: Several Gems Selling for 1 Copper</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Sapphire, diamond, garnet, sardonyx, agate, coral, and topaz previously sold to shops for a single copper regardless of quality, since the code used to price gems only recognized ones flagged as spell reagents &mdash; and several genuine gem types were never flagged that way in the original data. Gem pricing is now keyed to the same item-number range (99&ndash;121) the Wrecked Ship&rsquo;s offering bowl already uses to recognize a valid gem, so every gem type &mdash; including quartz/crystal stones, which were also underpriced &mdash; now sells for its proper value</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2 className="text-amber-400 text-lg font-bold mb-1">v11.35.0 &mdash; August 25, 2026</h2>
+            <p className="text-gray-400 mb-3">A pass focused on summoned and controlled creatures: buff spells like Strength, Haste, and Globe of Protection can now actually be cast on a familiar, elemental, or dominated undead instead of failing outright, and two real bugs affecting controlled undead are fixed along the way.</p>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">New Feature: Buff Spells on Summoned &amp; Controlled Creatures</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Strength I/II/III, Agility I/II/III, Haste, Mystic Armor, and the whole Globe of Protection family (Globe of Protection I/II, Mass Protection, Spectral Shield, Ride the Lightning) previously only ever looked for a named player as a target, so casting one on a familiar, elemental, animated skeleton, or dominated undead failed with &ldquo;You don&rsquo;t see &lsquo;X&rsquo; here.&rdquo; Any caster &mdash; not just the pet&rsquo;s own summoner &mdash; can now target it by name</li>
+                  <li>These aren&rsquo;t cosmetic: Strength and Agility scale a creature&rsquo;s effective attack and defense rating the same way they scale a player&rsquo;s, Mystic Armor and the Globe of Protection spells add real stacking defense, and Haste actually halves the creature&rsquo;s action-tick interval so a hasted pet acts and attacks twice as often &mdash; mirroring how Haste halves a player&rsquo;s round time</li>
+                  <li>Buffing someone else&rsquo;s pet now sends them a heads-up (&ldquo;X casts Strength on your skeleton&rdquo;), the same way <code className="text-amber-300">COMMAND GUARD</code> already notifies a guarded player</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Fixed: Controlled Undead Defending Hostile Monsters Instead of Fighting Them</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Undead dominated with Control Undead I/II kept their species&rsquo; original wild instinct to guard other monster types it&rsquo;s scripted to protect &mdash; a phantom caretaker, for example, guards zombies and zovembies in the wild. Bound to a player, it kept doing that instead of obeying its new master: bringing a controlled caretaker near a hostile zovembie made it &ldquo;guard&rdquo; the zovembie and intercept attacks meant for it, instead of fighting alongside its controller. A summoned or controlled creature no longer acts as an independent guardian of its own kind</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Fixed: Item-Cast Reconstruction Healing the Living</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Reconstruction (337) correctly fizzles when <code className="text-amber-300">CAST</code> on a living target &mdash; it&rsquo;s an undead-only heal &mdash; but an item imprinted with it (like a rub-activated idol) used a separate item-triggered spell path that never had the same check, so the idol healed any player who rubbed it. Body Restoration I/II/III had the matching gap in the other direction: cast from an item on an undead target, it healed them instead of searing their undead flesh as damage. Both now match how the spells behave when cast normally</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2 className="text-amber-400 text-lg font-bold mb-1">v11.34.0 &mdash; August 14, 2026</h2>
+            <p className="text-gray-400 mb-3">A security hardening pass to protect from bots &mdash; account registration is now guarded by a CAPTCHA challenge and a much tighter rate limit. Also, a mistyped or missing spell target no longer wastes the spell.</p>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">New: Account Registration Security</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Creating an account now requires solving a CAPTCHA challenge first &mdash; invisible to almost everyone, only escalating to an interactive checkbox or puzzle when the traffic pattern looks automated, so real players notice nothing while scripted mass-account creation gets blocked outright</li>
+                  <li>The registration rate limit dropped from 5 attempts/minute to 3/hour per IP address &mdash; the old limit still allowed hundreds of accounts (and hundreds of verification emails) to be created in well under an hour from a single source</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Fixed: Spells No Longer Wasted on a Bad Target</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Casting a spell at a target that doesn&rsquo;t exist &mdash; a typo, or nothing specified at all &mdash; used to permanently consume the spell&rsquo;s mana and clear it from being <code className="text-amber-300">PREPARE</code>d, forcing a full re-prepare even though nothing was ever actually cast. Every spell that resolves a named target (damage spells, buffs, item-enchantment spells, summon/command spells, and more) now leaves the prepared spell and its mana untouched when the target can&rsquo;t be found &mdash; a spell that genuinely gets cast but fails for some other reason (resisted, already in effect, wrong creature type) still costs the attempt as before</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2 className="text-amber-400 text-lg font-bold mb-1">v11.33.0 &mdash; August 12, 2026</h2>
+            <p className="text-gray-400 mb-3">The big one: room containers like a player&rsquo;s home chest can now be marked persistent, so their contents actually survive a server restart instead of resetting every time. Also a new GM registry command, and a wide sweep of fixes to summoned creatures, item commands, and combat/social text.</p>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">New Feature: Persistent Containers (Home Chests)</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Room containers are normally rebuilt from scratch every restart, along with the rest of the world &mdash; anything a player <code className="text-amber-300">PUT</code> in a chest, bin, or other container was always gone by the next reboot. A specific room-item instance can now be flagged durable with <code className="text-amber-300">ITEMBIT19=1</code> on its <code className="text-amber-300">ITEM</code> line (or <code className="text-amber-300">EQUAL ITEMBIT19 1</code> from a script with that item in context), and its contents are written through to the database on every <code className="text-amber-300">PUT</code>/<code className="text-amber-300">GET</code> and restored on boot</li>
+                  <li><code className="text-amber-300">@rdata</code> now shows a room item&rsquo;s <code className="text-amber-300">ItemBits</code> and, for containers, their current contents &mdash; neither was visible anywhere before, unlike <code className="text-amber-300">@iexamine</code> for inventory items</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">New GM Command: @intnum3</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>INTNUM3 is a per-player identifier scripts lean on constantly &mdash; theft prevention, guildmaster/packleader checks in WOLFHOME.SCR, item ownership stamps &mdash; that GM staff used to track by hand on an external document. <code className="text-amber-300">@intnum3</code> alone lists every assignment, <code className="text-amber-300">@intnum3 &lt;plr&gt;</code> checks one player&rsquo;s value, and <code className="text-amber-300">@intnum3 &lt;plr&gt; &lt;val&gt;</code> assigns one, refusing if another player already has it (the shared GM sentinel value of 1 is exempt)</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Fixed: Summoned Creatures</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li><code className="text-amber-300">COMMAND GUARD ME</code> was silently cancelling the creature&rsquo;s follow order the moment guard mode turned on, so it got left behind the next time you moved. Guarding is now purely additive &mdash; a creature can guard several people at once &mdash; and never touches who it&rsquo;s following; only <code className="text-amber-300">COMMAND FOLLOW</code> changes that</li>
+                  <li>Bend Space I and II teleported the caster (and group) but left any summoned or guarding creature stranded in the room they left, since neither spell went through the normal movement code that brings summons along</li>
+                  <li>Bend Space I and II also broke Hidden and Invisibility on cast &mdash; per the original session logs, a hidden or invisible caster stays unseen straight through the teleport</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Fixed: Item Commands</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li><code className="text-amber-300">PUT</code> could never find a wielded weapon, so any scripted interaction that requires one to be actively held (like a weaponsmith&rsquo;s whetstone) always failed with &ldquo;You aren&rsquo;t carrying that,&rdquo; even right after wielding it</li>
+                  <li><code className="text-amber-300">LEARN</code> counted scrolls differently than <code className="text-amber-300">EXAMINE</code> does, so <code className="text-amber-300">learn 12 scroll</code> could target a different scroll than <code className="text-amber-300">exam 12 scroll</code> just showed, or fail outright if anything non-scroll shared the name</li>
+                  <li><code className="text-amber-300">@give</code> and <code className="text-amber-300">@take</code> silently deleted the item entirely when the target player wasn&rsquo;t currently online, instead of failing &mdash; both now refuse with a clear &ldquo;not online&rdquo; error</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Fixes</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li><code className="text-amber-300">WHISTLE</code> always said &ldquo;You whistle innocently,&rdquo; whether you meant it that way or not, and had no way to whistle at someone &mdash; it&rsquo;s now a plain &ldquo;You whistle,&rdquo; with target support (<code className="text-amber-300">whistle mortif</code>)</li>
+                  <li><code className="text-amber-300">PULL</code> now supports targeting another player (<code className="text-amber-300">pull mortif</code>) the same way other physical emotes do, respecting <code className="text-amber-300">AVOID</code></li>
+                  <li>Invisibility told the caster &ldquo;You fade from sight&rdquo; &mdash; which they obviously can&rsquo;t see happen to themselves &mdash; instead of &ldquo;You feel a tingling sensation,&rdquo; per the original session logs</li>
+                  <li><code className="text-amber-300">LOOK</code>/<code className="text-amber-300">EXAMINE</code> on a player listed health and injuries before worn equipment; the original always lists equipment (and any active magical effects) first</li>
+                  <li>The <code className="text-amber-300">H&gt;</code> prompt indicator only ever showed for a manual <code className="text-amber-300">HIDE</code>, not for Invisibility or Phantom Form, even though both make you just as hard to see</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2 className="text-amber-400 text-lg font-bold mb-1">v11.32.0 &mdash; August 11, 2026</h2>
+            <p className="text-gray-400 mb-3">Wizard&rsquo;s Armor, Spell Shield, and Cloak Mind were all secretly the same generic physical defense buff instead of what MAGIC.TXT actually describes them as &mdash; fixing Cloak Mind meant building an entirely new monster psionic attack system from scratch, since nothing existed for &ldquo;psi resistance&rdquo; to defend against. Also: a working Charge Wand, five new &ldquo;sigil&rdquo; item-warding trap spells, and two small player-command fixes.</p>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">New Feature: Monster Psionic Attacks</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Monster psi disciplines (<code className="text-amber-300">DISCIPLINE</code>/<code className="text-amber-300">PSIUSE</code>/<code className="text-amber-300">PSISKILL</code>/<code className="text-amber-300">PSI</code> in the script data) were parsed and stored but only ever consumed for a monster&rsquo;s own passive defense bonus &mdash; no monster had ever actually attacked a player with one. Monsters with an offensive discipline (Kinetic Thrust, Pyrokinetics, Cryokinetics, Electrify, Psychic Blast/Crush/Terror/Pain) now windup and strike with it, mirroring the existing monster-spellcasting system (windup announcement, then a hit-flavor line and damage, dodgeable, and disruptable by taking a hit mid-charge, same as an interrupted spell)</li>
+                  <li>Per GMSCRIPT.DOC (&ldquo;powerful psionic creatures should have well over 100 PSISKILL so as to defeat a player&rsquo;s natural resistance to psionics&rdquo;), every player now has a baseline psi-resistance rating even without Cloak Mind &mdash; a weak-to-moderate psionic monster can be shrugged off some of the time; a strong one usually still connects</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Fixed Spells: Wizard&rsquo;s Armor, Spell Shield, Cloak Mind</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Wizard&rsquo;s Armor (229), Spell Shield (234), and Cloak Mind (235) were all routed through the same generic timed-defense-buff spell handler as Mystic Armor or Globe of Protection, quietly granting flat physical <code className="text-amber-300">+N defense</code> &mdash; none of which matches what MAGIC.TXT documents for any of the three</li>
+                  <li>Wizard&rsquo;s Armor now does what it&rsquo;s actually supposed to: &ldquo;no spell disruption&rdquo; &mdash; while active, taking a hit no longer breaks a prepared spell. Casting it surrounds the target in &ldquo;a yellow curtain of light&rdquo; instead of granting any defense bonus</li>
+                  <li>Spell Shield now grants &ldquo;+25 magic resistance&rdquo; &mdash; a real, live mechanic: a 25% chance to deflect a spell a monster casts at the target outright, on top of the monster&rsquo;s own cast-chance and the target&rsquo;s dodge. Casting it wraps the target in &ldquo;an antimagical field&rdquo;</li>
+                  <li>Cloak Mind now grants &ldquo;+25 psi resistance&rdquo; against the new monster psionic attacks above, and deliberately shows no line at all in a <code className="text-amber-300">LOOK</code>&rsquo;s active-effects list &mdash; the point of this one is that the target doesn&rsquo;t look warded. Casting it on someone else just says &ldquo;X seems changed.&rdquo;</li>
+                  <li>All three still stack duration the same way every other timed defense spell does &mdash; 20 minutes per cast, recasting before it expires extends it, capped at 4 hours</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">New Spell: Charge Wand</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Charge Wand (243, &ldquo;Recharge Wand&rdquo; per MAGIC.TXT) requires mandrake root to prepare, then <code className="text-amber-300">CAST &lt;item&gt;</code> tops up the charges on a wand, rod, or trinket you&rsquo;re holding or wearing that already has a spell imprinted on it &mdash; it can&rsquo;t create a new magic item from scratch. Drains every point of your remaining mana and converts it into charges (remaining mana &divide; the imprinted spell&rsquo;s own mana cost, rounded up), added on top of whatever charges are already there</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">New Spells: Sigil Traps</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Imprison Rune (227), Thunder Glyph (125), Inferno Glyph (124), Ice Glyph (126), and Death Scythe (322) all share the same mechanic per MAGIC.TXT: &ldquo;cast upon an item, and attuned to the next person who touches them.&rdquo; Cast on an item you&rsquo;re holding, wearing, or one lying on the ground &mdash; including a door or gate. The first person to <code className="text-amber-300">TOUCH</code> it (or try to <code className="text-amber-300">OPEN</code> it while closed or locked) silently claims it and can go on handling it freely; anyone else springs the trap once and it disarms</li>
+                  <li>Imprison Rune traps the intruder in a 5-minute force bubble (spell 231). Thunder/Inferno/Ice Glyph hit them with their own damage type at double the roll. Death Scythe conjures a Spectral Sword (345) at 5&times; damage</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Fixes</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li><code className="text-amber-300">SIT</code> from a laying position said &ldquo;You sit down.&rdquo; like sitting from standing; it now says &ldquo;You sit up.&rdquo;</li>
+                  <li><code className="text-amber-300">ACT</code> always used your real name even while in Slime Form, Mist Form, or a Wolfling&rsquo;s wolf form &mdash; <code className="text-amber-300">ACT sloshes around</code> in Slime Form now shows &ldquo;A slime sloshes around&rdquo; instead of your name, matching how every other identity-masking system in the game already works</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2 className="text-amber-400 text-lg font-bold mb-1">v11.31.0 &mdash; August 10, 2026</h2>
+            <p className="text-gray-400 mb-3">Two new spells &mdash; a stealthy Paranoia curse and a wild-card Dispel Lesser Magic &mdash; a spellcraft rebalance to help new casters actually land their first spells, and fixes to potion drinking, herb-based spell effects, and a room-routing bug that sent departure messages to the wrong room when climbing or slipping through a portal.</p>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">New Spells: Paranoia and Dispel Lesser Magic</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Paranoia (226) settles a 20-minute creeping unease on its target: each real minute there&rsquo;s a 50% chance of one of thirteen unsettling echoes (&ldquo;Something taps you on the shoulder.&rdquo;, &ldquo;You hear a scream behind you!&rdquo;, and eleven others). Unlike every other spell, casting it at someone else produces no message at all to the caster, the target, or the room &mdash; the target has no way of knowing they&rsquo;ve been cursed &mdash; and it doesn&rsquo;t reveal a Hidden or Invisible caster the way casting normally does</li>
+                  <li>Dispel Lesser Magic (401) strips one random active timed magical effect from its target &mdash; a buff, debuff, entangle, or defense spell &mdash; regardless of how much duration it had left. &ldquo;A deep red light twinkles around&rdquo; the target is visible to everyone in the room, but which effect actually faded, if any, is only reported privately to the target</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Balance: Easier Early Spellcasting</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>The base spellcraft success chance for casting any spell rose from 25% to 50% (still Empathy/10 + spellcraft skill&times;5% on top, capped at 95%) &mdash; a fresh level-1 caster with one rank of Spellcraft was landing spells far less often than a level-1 weapon user landed hits, since casters needed a favorable roll just to get the spell off at all, on top of a second resist roll most offensive spells still require against the target</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Fixes</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Drinking a bound potion showed backwards, over-verbose messages (&ldquo;You drink the potion from a reeking bottle engraved with the writing, &lsquo;Night Vision&rsquo;.&rdquo;) &mdash; now reads &ldquo;You drink the reeking potion from a bottle.&rdquo;, naming the potion itself rather than misapplying its color to the container, and no longer spoils which spell is bound to it</li>
+                  <li><code className="text-amber-300">EAT</code> on a spell-bearing herb or mushroom only worked for a couple of hardcoded cases (Cure Poison, Body Restoration I) &mdash; anything else printed &ldquo;[Spell #318 effect coming soon.]&rdquo; even though the spell was fully implemented, e.g. a riyong mushroom&rsquo;s Body Restoration III. <code className="text-amber-300">EAT</code> now falls back to the same general spell-effect handling <code className="text-amber-300">DRINK</code> already used for potions</li>
+                  <li><code className="text-amber-300">CLIMB</code> (e.g. the ladder in room 615) and slipping through a scripted portal via <code className="text-amber-300">STEAL</code> were sending the &ldquo;X leaves.&rdquo; departure message to the destination room instead of the room being left, because the room being left was read after the room-changing script had already moved the player. Both now capture the departing room first, matching how ordinary <code className="text-amber-300">GO</code> movement already handled it</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
             <h2 className="text-amber-400 text-lg font-bold mb-1">v11.30.0 &mdash; August 7, 2026</h2>
             <p className="text-gray-400 mb-3">Guild rank now advances automatically as you train, matching the original game&rsquo;s formula, and Menelian&rsquo;s traveling cottage in Grymwood no longer leaves a stray duplicate of itself behind as it moves.</p>
 

@@ -129,6 +129,8 @@ func (e *GameEngine) processGMCommand(ctx context.Context, player *Player, verb 
 		return e.gmSet(ctx, player, args)
 	case "@SETP":
 		return e.gmSetPlayer(ctx, args)
+	case "@INTNUM3":
+		return e.gmIntNum3(ctx, args)
 	case "@RND":
 		return e.gmRnd(args)
 	case "@OPEN":
@@ -259,6 +261,7 @@ func (e *GameEngine) gmHelp() *CommandResult {
 		"@help                  - This help listing",
 		"@initiate [plr <org#> [remove]] - Init/remove player from org (no args = list orgs)",
 		"@hide / @unhide        - Hide/show on WHO list",
+		"@intnum3 [plr [val]]   - INTNUM3 registry: no args = list all assignments, plr = check theirs, plr val = assign (checked for conflicts)",
 		"@editem [plr] <item> <field> <val> - Edit an item in inventory",
 		"@iexamine		- Examine an item in inventory",
 		"@invis / @vis          - Become invisible/visible",
@@ -414,7 +417,7 @@ func (e *GameEngine) gmGive(ctx context.Context, player *Player, args []string) 
 	targetName := strings.Join(args[toIdx+1:], " ")
 	itemName, skip := parseOrdinal(itemName)
 
-	target, err := e.resolvePlayerByNameLive(ctx, targetName)
+	target, err := e.resolveOnlinePlayer(targetName)
 	if err != nil {
 		return &CommandResult{Messages: []string{err.Error()}}
 	}
@@ -460,7 +463,7 @@ func (e *GameEngine) gmTake(ctx context.Context, player *Player, args []string) 
 	targetName := strings.Join(args[fromIdx+1:], " ")
 	itemName, skip := parseOrdinal(itemName)
 
-	target, err := e.resolvePlayerByNameLive(ctx, targetName)
+	target, err := e.resolveOnlinePlayer(targetName)
 	if err != nil {
 		return &CommandResult{Messages: []string{err.Error()}}
 	}
@@ -675,6 +678,31 @@ func (e *GameEngine) gmRData(player *Player, args []string) *CommandResult {
 			ri.Adj1, ri.Adj2, ri.Adj3, ri.Val1, ri.Val2, ri.Val3, ri.Val4, ri.Val5, ri.State))
 		if len(flags) > 0 {
 			msgs = append(msgs, fmt.Sprintf("    Flags: %s", strings.Join(flags, ", ")))
+		}
+		if ri.ItemBits != 0 {
+			var set []string
+			for i := 0; i <= 19; i++ {
+				if ri.ItemBits&(1<<i) != 0 {
+					set = append(set, strconv.Itoa(i))
+				}
+			}
+			msgs = append(msgs, fmt.Sprintf("    ItemBits=%d (set: %s)", ri.ItemBits, strings.Join(set, ", ")))
+		}
+		if itemDef != nil && isContainerDef(itemDef) {
+			contents := e.roomContainerGet(num, ri.Ref)
+			if len(contents) == 0 {
+				msgs = append(msgs, "    Contents: (empty)")
+			} else {
+				var names []string
+				for _, ci := range contents {
+					cDef := e.items[ci.Archetype]
+					if cDef == nil {
+						continue
+					}
+					names = append(names, e.formatItemName(cDef, ci.Adj1, ci.Adj2, ci.Adj3, ci.Tail))
+				}
+				msgs = append(msgs, fmt.Sprintf("    Contents (%d): %s", len(contents), strings.Join(names, ", ")))
+			}
 		}
 	}
 	if room.MonsterGroup > 0 {
@@ -897,7 +925,7 @@ func (e *GameEngine) gmGenMon(player *Player, args []string) *CommandResult {
 		return &CommandResult{Messages: []string{fmt.Sprintf("Monster %d does not exist.", num)}}
 	}
 	name := FormatMonsterName(mon, e.monAdjs)
-	e.monsterMgr.SpawnOne(num, player.RoomNumber, mon.Body, mon.Mana)
+	e.monsterMgr.SpawnOne(num, player.RoomNumber, mon.Body, mon.Mana, mon.Psi)
 	e.monsterMgr.SetSedated(e.monsterMgr.lastSpawnedID(), true)
 	e.Events.Publish("monster", fmt.Sprintf("GM %s generated %s (sedated) in room %d", player.FirstName, name, player.RoomNumber))
 	return &CommandResult{Messages: []string{fmt.Sprintf("Generated %s (sedated) in room %d.", name, player.RoomNumber)}}
@@ -916,7 +944,7 @@ func (e *GameEngine) gmSpawn(player *Player, args []string) *CommandResult {
 		return &CommandResult{Messages: []string{fmt.Sprintf("Monster %d does not exist.", num)}}
 	}
 	name := FormatMonsterName(mon, e.monAdjs)
-	e.monsterMgr.SpawnOne(num, player.RoomNumber, mon.Body, mon.Mana)
+	e.monsterMgr.SpawnOne(num, player.RoomNumber, mon.Body, mon.Mana, mon.Psi)
 	e.Events.Publish("monster", fmt.Sprintf("GM %s spawned %s (active) in room %d", player.FirstName, name, player.RoomNumber))
 	// Broadcast the monster's arrival to the room
 	genText := mon.TextOverrides["TEXG"]
@@ -1870,6 +1898,100 @@ func (e *GameEngine) gmSetPlayer(ctx context.Context, args []string) *CommandRes
 	return result
 }
 
+// gmIntNum3 manages the INTNUM3 registry. INTNUM3 is a per-player identifier used
+// throughout item/room scripts (theft prevention, guildmaster/packleader gating in
+// WOLFHOME.SCR, etc). Every GM shares the sentinel value 1 ("IFVAR INTNUM3 = 1" gates
+// GM-only notes in item scripts); all other nonzero values are meant to be unique to
+// one player, historically tracked by hand on a GM staff document.
+//
+//	@intnum3            - list every player with INTNUM3 assigned, sorted by value
+//	@intnum3 <plr>       - show one player's INTNUM3
+//	@intnum3 <plr> <val> - assign INTNUM3, refusing if another player already has it
+func (e *GameEngine) gmIntNum3(ctx context.Context, args []string) *CommandResult {
+	switch len(args) {
+	case 0:
+		return e.intNum3List(ctx)
+	case 1:
+		return e.intNum3Check(ctx, args[0])
+	default:
+		return e.intNum3Set(ctx, args[0], args[1])
+	}
+}
+
+func (e *GameEngine) intNum3List(ctx context.Context) *CommandResult {
+	players, err := e.ListPlayers(ctx)
+	if err != nil {
+		return &CommandResult{Messages: []string{fmt.Sprintf("Error listing players: %v", err)}}
+	}
+	type assignment struct {
+		val  int
+		name string
+	}
+	var assigned []assignment
+	for _, p := range players {
+		if p.DeletedAt != nil {
+			continue
+		}
+		if v := p.IntNums[3]; v != 0 {
+			assigned = append(assigned, assignment{v, p.FullName()})
+		}
+	}
+	sort.Slice(assigned, func(i, j int) bool { return assigned[i].val < assigned[j].val })
+	msgs := []string{"=== INTNUM3 Registry ==="}
+	for _, a := range assigned {
+		msgs = append(msgs, fmt.Sprintf("  %-6d %s", a.val, a.name))
+	}
+	if len(msgs) == 1 {
+		msgs = append(msgs, "  No players have INTNUM3 assigned.")
+	}
+	return &CommandResult{Messages: msgs}
+}
+
+func (e *GameEngine) intNum3Check(ctx context.Context, name string) *CommandResult {
+	target, err := e.resolvePlayerByNameLive(ctx, name)
+	if err != nil {
+		return &CommandResult{Messages: []string{err.Error()}}
+	}
+	val := target.IntNums[3]
+	if val == 0 {
+		return &CommandResult{Messages: []string{fmt.Sprintf("%s has no INTNUM3 assigned.", target.FullName())}}
+	}
+	return &CommandResult{Messages: []string{fmt.Sprintf("%s: INTNUM3 = %d", target.FullName(), val)}}
+}
+
+func (e *GameEngine) intNum3Set(ctx context.Context, name, valStr string) *CommandResult {
+	val, err := strconv.Atoi(valStr)
+	if err != nil {
+		return &CommandResult{Messages: []string{"Invalid value."}}
+	}
+	target, err := e.resolvePlayerByNameLive(ctx, name)
+	if err != nil {
+		return &CommandResult{Messages: []string{err.Error()}}
+	}
+	// 1 is the shared GM sentinel every GM uses, so it's exempt from the
+	// per-player uniqueness check that applies to every other value.
+	if val != 0 && val != 1 {
+		players, err := e.ListPlayers(ctx)
+		if err != nil {
+			return &CommandResult{Messages: []string{fmt.Sprintf("Error checking registry: %v", err)}}
+		}
+		for _, p := range players {
+			if p.DeletedAt != nil || strings.EqualFold(p.FirstName, target.FirstName) {
+				continue
+			}
+			if p.IntNums[3] == val {
+				return &CommandResult{Messages: []string{fmt.Sprintf("INTNUM3 %d is already assigned to %s. Choose another value.", val, p.FullName())}}
+			}
+		}
+	}
+	if target.IntNums == nil {
+		target.IntNums = make(map[int]int)
+	}
+	target.IntNums[3] = val
+	e.SavePlayer(ctx, target)
+	return &CommandResult{Messages: []string{fmt.Sprintf("Set %s's INTNUM3 = %d", target.FullName(), val)}}
+}
+
 func (e *GameEngine) gmRnd(args []string) *CommandResult {
 	if len(args) < 1 {
 		return &CommandResult{Messages: []string{"Usage: @rnd <max>"}}
@@ -2417,22 +2539,50 @@ func (e *GameEngine) resolvePlayerArg(ctx context.Context, args []string) (*Play
 	return e.resolvePlayerByNameLive(ctx, args[0])
 }
 
+// findOnlinePlayerByPrefix returns the connected player whose first name has the
+// given prefix (case-insensitive), or nil if no one online matches.
+func (e *GameEngine) findOnlinePlayerByPrefix(name string) *Player {
+	if e.sessions == nil {
+		return nil
+	}
+	name = strings.ToLower(strings.TrimSpace(name))
+	for _, p := range e.sessions.OnlinePlayers() {
+		if strings.HasPrefix(strings.ToLower(p.FirstName), name) {
+			return p
+		}
+	}
+	return nil
+}
+
 // resolvePlayerByNameLive resolves a player by name, preferring the live online
 // session player (so changes are immediately visible) and falling back to a DB
 // lookup for offline players.
 func (e *GameEngine) resolvePlayerByNameLive(ctx context.Context, rawName string) (*Player, error) {
-	name := strings.ToLower(strings.TrimSpace(rawName))
+	name := strings.TrimSpace(rawName)
 	if name == "" {
 		return nil, fmt.Errorf("usage: provide a player name")
 	}
-	if e.sessions != nil {
-		for _, p := range e.sessions.OnlinePlayers() {
-			if strings.HasPrefix(strings.ToLower(p.FirstName), name) {
-				return p, nil
-			}
-		}
+	if p := e.findOnlinePlayerByPrefix(name); p != nil {
+		return p, nil
 	}
-	return e.resolvePlayerByName(ctx, name)
+	return e.resolvePlayerByName(ctx, strings.ToLower(name))
+}
+
+// resolveOnlinePlayer resolves name to a currently-connected player only — no DB
+// fallback. Commands that mutate another player's inventory (@give/@take) must
+// use this instead of resolvePlayerByNameLive: an offline target is only a
+// snapshot fetched from Mongo at command time, and SavePlayer does a full
+// document replace, so the edit silently vanishes the next time that player's
+// own (older, pre-edit) in-memory copy gets saved after they log in.
+func (e *GameEngine) resolveOnlinePlayer(name string) (*Player, error) {
+	name = strings.TrimSpace(name)
+	if name == "" {
+		return nil, fmt.Errorf("usage: provide a player name")
+	}
+	if p := e.findOnlinePlayerByPrefix(name); p != nil {
+		return p, nil
+	}
+	return nil, fmt.Errorf("%s is not online. This command only works on connected players.", strings.ToLower(name))
 }
 
 // ResolvePlayerByName looks up a player by first name (public for API layer).
@@ -2478,7 +2628,7 @@ var allGMVerbs = []string{
 	"@GM", "@RFLAG", "@HIDE", "@UNHIDE", "@INVIS", "@VIS",
 	"@SND", "@ANNOUNCE", "@BANNER", "@WHO", "@LWHO", "@NUM", "@QSTAT", "@STAT", "@SKILL", "@PINV",
 	"@GENMON", "@SPAWN", "@CALLPACK", "@ACTIVATE", "@SEDATE", "@ZAP", "@TREASURE",
-	"@FIND", "@LIST", "@EXAMINE", "@GLOSSARY", "@PEEK", "@SET", "@RND",
+	"@FIND", "@LIST", "@EXAMINE", "@GLOSSARY", "@PEEK", "@SET", "@SETP", "@INTNUM3", "@RND",
 	"@OPEN", "@CLOSE", "@LOCK", "@UNLOCK",
 	"@GOPLR", "@YANK", "@WHISPER", "@EDPLAYER", "@EDPL", "@EDS", "@EDSK", "@LSK", "@GRANTSP", "@PSI", "@MLIST",
 	"@ECHOPLR", "@EXCLUDE", "@SPEECH", "@TITLE", "@LINE1", "@LINE2", "@LINE3", "@VERB", "@VERBS", "@TRACE",

@@ -1430,7 +1430,7 @@ func (e *GameEngine) doTeach(ctx context.Context, player *Player, args []string)
 		player.TeachingLevel = 0
 		player.TeachingSpell = spell.ID
 		msg := fmt.Sprintf("You are now teaching the spell \"%s.\" (Number %d, level %d).", spell.Name, spell.ID, spell.Level)
-		broadcast := fmt.Sprintf("%s is now teaching the spell \"%s.\" (Number %d, level %d).", player.FirstName, spell.Name, spell.ID, spell.Level)
+		broadcast := fmt.Sprintf("%s is now teaching the spell \"%s.\" (Number %d, level %d), use TRAIN (name or number) to learn it.", player.FirstName, spell.Name, spell.ID, spell.Level)
 		return &CommandResult{
 			Messages:      []string{msg},
 			RoomBroadcast: []string{broadcast},

@@ -434,6 +434,23 @@ func psiResistRoll(player *Player, disc *PsiDiscipline, resist int) bool {
 	return rand.Intn(100) < calcToHit(casterRating, resist)
 }
 
+// playerPsiResistRoll reports whether a player resists an offensive psionic
+// discipline a monster uses against them (see resolveMonsterPsi in combat.go) — the
+// reverse direction of psiResistRoll above. Per GMSCRIPT.DOC, PSISKILL is "the total
+// chance that the psionic creature has when invoking a psionic power... Powerful
+// psionic creatures should have well over 100 so as to defeat a player's natural
+// resistance to psionics" — so every player has some baseline resistance regardless
+// of training, which Cloak Mind (spell 235, "+25 psi resistance" per MAGIC.TXT)
+// adds to. Mirrors magicResistRoll's shape (spells.go): monsterPsiSkill is the
+// "attack" side, the player's resistance rating is the "defense" side.
+func playerPsiResistRoll(target *Player, monsterPsiSkill int) bool {
+	if monsterPsiSkill <= 0 {
+		return false
+	}
+	resistRating := 25 + target.Willpower/5 + cloakMindResistBonus(target)
+	return rand.Intn(100) < calcToHit(monsterPsiSkill, resistRating)
+}
+
 func (e *GameEngine) projectDamage(player *Player, disc *PsiDiscipline, args []string) *CommandResult {
 	targetName := ""
 	if len(args) > 0 {

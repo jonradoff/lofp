@@ -484,6 +484,64 @@ func (e *GameEngine) removeFromGroup(player *Player) {
 	}
 }
 
+// followBlockedReason reports why a group member currently can't keep up
+// with a moving leader — stuck in round time, sitting, laying down, or
+// stunned — or "" if they're free to follow.
+func followBlockedReason(p *Player) string {
+	if p.RoundTimeExpiry.After(time.Now()) {
+		return "still recovering"
+	}
+	switch p.Position {
+	case 1:
+		return "sitting down"
+	case 2:
+		return "laying down"
+	}
+	if p.Stunned {
+		return "stunned"
+	}
+	return ""
+}
+
+// moveGroupFollowers relocates a leader's online group members from
+// originalRoom to destNum, for the caller to render along with the leader's
+// own move. A member who is in round time, sitting, laying down, or stunned
+// can't keep up — rather than dragging them along, they're left behind and
+// dropped from the group (mirroring removeFromGroup: their Following is
+// cleared, they come off the leader's GroupMembers list, and the leader loses
+// IsGroupLeader if that was their last member). Returns the members who
+// actually came along.
+func (e *GameEngine) moveGroupFollowers(ctx context.Context, leader *Player, originalRoom, destNum int) []*Player {
+	if !leader.IsGroupLeader || len(leader.GroupMembers) == 0 || e.sessions == nil {
+		return nil
+	}
+	var moved []*Player
+	// Snapshot the member list — removeFromGroup mutates leader.GroupMembers
+	// in place, which would otherwise skip entries while ranging over it live.
+	for _, memberName := range append([]string(nil), leader.GroupMembers...) {
+		for _, p := range e.sessions.OnlinePlayers() {
+			if p.FirstName != memberName || p.RoomNumber != originalRoom || p.Dead {
+				continue
+			}
+			if reason := followBlockedReason(p); reason != "" {
+				leaderDisplay := leader.DisplayName()
+				e.removeFromGroup(p)
+				if e.sendToPlayer != nil {
+					e.sendToPlayer(p.FirstName, []string{fmt.Sprintf("You are %s and fail to follow %s! You are no longer following them.", reason, leaderDisplay)})
+				}
+				break
+			}
+			p.RoomNumber = destNum
+			p.Submitting = false
+			e.disengageCombat(p)
+			e.SavePlayer(ctx, p)
+			moved = append(moved, p)
+			break
+		}
+	}
+	return moved
+}
+
 // doLeave handles the LEAVE command — stop following.
 func (e *GameEngine) doLeave(player *Player) *CommandResult {
 	if player.Following == "" {

@@ -696,8 +696,15 @@ func weaponPoisonLevel(wielded *InventoryItem) int {
 }
 
 func monsterDamage(def *gameworld.MonsterDef) int {
-	minDmg := max(1, def.Attack1/20)
-	maxDmg := max(2, def.Attack1/5)
+	return monsterDamageForAttack(def.Attack1)
+}
+
+// monsterDamageForAttack is monsterDamage's formula parameterized on an attack rating
+// instead of a def, so callers can pass an effective (buffed) rating — see
+// monsterEffectiveAttack — instead of the monster's raw def.Attack1.
+func monsterDamageForAttack(atk int) int {
+	minDmg := max(1, atk/20)
+	maxDmg := max(2, atk/5)
 	if maxDmg <= minDmg {
 		maxDmg = minDmg + 1
 	}
@@ -1030,7 +1037,7 @@ func (e *GameEngine) doAttackMonster(ctx context.Context, player *Player, target
 	if inst.KnockedDown {
 		attackRating += 50 // bonus for attacking a knocked-down target (LEGENDS.DOC: -50 defense while down)
 	}
-	monDefense := def.Defense + inst.DefenseBonus
+	monDefense := monsterEffectiveDefense(def, inst)
 	toHit := calcToHit(attackRating, monDefense)
 	roll := rand.Intn(100) + 1
 
@@ -1223,13 +1230,34 @@ func (e *GameEngine) doAttackMonster(ctx context.Context, player *Player, target
 				// you off your feet" — two distinct outcomes of the same crit, not the
 				// same thing (see the MonsterInstance field comments). No documented
 				// split between the two, so 50/50 is a judgment call.
+				// inst here points into a copy returned by MonstersInRoom, so the flag
+				// must be written back into the real instance slice by ID (see
+				// castSunraySpell for the same pattern) or it never actually takes effect.
 				if rand.Intn(100) < 50 {
 					stunSecs := 3 + rand.Intn(4) // 3-6 sec; no melee-crit-stun duration is documented (only psi spells have one), so this is a judgment call too
+					stunExpiry := time.Now().Add(time.Duration(stunSecs) * time.Second)
+					e.monsterMgr.mu.Lock()
+					for i := range e.monsterMgr.instances {
+						if e.monsterMgr.instances[i].ID == inst.ID {
+							e.monsterMgr.instances[i].Stunned = true
+							e.monsterMgr.instances[i].StunExpiry = stunExpiry
+							break
+						}
+					}
+					e.monsterMgr.mu.Unlock()
 					inst.Stunned = true
-					inst.StunExpiry = time.Now().Add(time.Duration(stunSecs) * time.Second)
+					inst.StunExpiry = stunExpiry
 					msgs = append(msgs, " It is stunned!")
 					staggerBroadcast = ", stun"
 				} else {
+					e.monsterMgr.mu.Lock()
+					for i := range e.monsterMgr.instances {
+						if e.monsterMgr.instances[i].ID == inst.ID {
+							e.monsterMgr.instances[i].KnockedDown = true
+							break
+						}
+					}
+					e.monsterMgr.mu.Unlock()
 					inst.KnockedDown = true
 					msgs = append(msgs, " It is knocked off its feet!")
 					staggerBroadcast = ", knockdown"
@@ -1498,7 +1526,7 @@ func (e *GameEngine) elementalGuardIntercept(_ *MonsterInstance, attackerDef *ga
 	attackLine := fmt.Sprintf("%s%s %s %s%s with its %s.", capArticle(attArticle), attName, monVerb, gArticle, gName, monWeapon)
 
 	// Roll to-hit against the elemental's defense first.
-	toHit := calcToHit(attackerDef.Attack1, gDef.Defense)
+	toHit := calcToHit(attackerDef.Attack1, monsterEffectiveDefense(gDef, g))
 	roll := rand.Intn(100) + 1
 	summonerName := g.SummonerName
 
@@ -2029,6 +2057,36 @@ func monsterSpellHitFlavor(spell *SpellDef, subject, object string) string {
 	return flavor
 }
 
+// monsterPsiHitFlavor is monsterSpellHitFlavor's counterpart for a monster's offensive
+// psi discipline (Kinetic Thrust, Pyrokinetics, etc. — see resolveMonsterPsi). The
+// Mind over Mind attacks (Psychic Blast/Crush/Terror/Pain) have no DmgType, since
+// they're pure mental damage rather than an elemental one, so they get their own
+// per-ID lines instead of falling through the DmgType switch.
+func monsterPsiHitFlavor(disc *PsiDiscipline, subject, object string) string {
+	flavor := fmt.Sprintf("%s focuses psychic energy at %s!", subject, object)
+	switch disc.DmgType {
+	case "heat":
+		flavor = fmt.Sprintf("%s hurls a mote of searing psychic fire at %s!", subject, object)
+	case "cold":
+		flavor = fmt.Sprintf("%s chills the air around %s with a wave of psychic cold!", subject, object)
+	case "electric":
+		flavor = fmt.Sprintf("%s crackles with psychic energy that arcs toward %s!", subject, object)
+	case "crushing":
+		flavor = fmt.Sprintf("%s unleashes a wave of kinetic force at %s!", subject, object)
+	}
+	switch disc.ID {
+	case 53: // Psychic Blast
+		flavor = fmt.Sprintf("%s unleashes a psychic blast at %s!", subject, object)
+	case 55: // Psychic Crush
+		flavor = fmt.Sprintf("%s's mind clenches like a fist around %s's thoughts!", subject, object)
+	case 56: // Terror
+		flavor = fmt.Sprintf("%s floods %s's mind with images of unspeakable horror!", subject, object)
+	case 65: // Pain
+		flavor = fmt.Sprintf("%s reaches into %s's mind and wrings it with agony!", subject, object)
+	}
+	return flavor
+}
+
 // resolveMonsterCast finishes a spell cast begun by monsterTryStartCast once the
 // windup (the spell's own CastTime) has passed: rolls the monster's spellcraft check
 // (SPELLSKILL) and, on success, shows TEXL (the "gestures/casts" line, per
@@ -2112,6 +2170,15 @@ func (e *GameEngine) resolveMonsterCast(inst *MonsterInstance, def *gameworld.Mo
 		return playerMsgs, roomMsgs, target
 	}
 
+	// Spell Shield (234, "+25 magic resistance" per MAGIC.TXT) gives the target a
+	// flat chance to deflect the spell outright, on top of the monster's own
+	// cast-chance and the target's dodge above.
+	if resist := spellShieldResistBonus(target); resist > 0 && rand.Intn(100) < resist {
+		roomMsgs = append(roomMsgs, fmt.Sprintf("%s but an antimagical field around %s deflects it!", hitFlavor, target.DisplayName()))
+		playerMsgs = append(playerMsgs, gestureMsg, hitFlavor, "Your antimagical field flares and deflects the spell!")
+		return playerMsgs, roomMsgs, target
+	}
+
 	dmg := rand.Intn(sp.DmgMax-sp.DmgMin+1) + sp.DmgMin
 	if dmg <= 0 {
 		dmg = 1
@@ -2121,6 +2188,141 @@ func (e *GameEngine) resolveMonsterCast(inst *MonsterInstance, def *gameworld.Mo
 	// Public room line always gets a simplified damage tier — without this an observer
 	// only sees the spell fired, never whether it did anything (the exact [N Damage]
 	// figure stays private, matching how normal/special attacks report to the room).
+	monBroadcast := fmt.Sprintf("%s %s.", hitFlavor, simplifiedDamageTier(finalDmg))
+	playerMsgs = append(playerMsgs, gestureMsg, hitFlavor, fmt.Sprintf(" %s %s to %s. [%d Damage]", damageSeverity(finalDmg, target.MaxBodyPoints), dmgNounForType(dtype), part, finalDmg))
+	if interruptMsg := interruptPreparedSpell(target); interruptMsg != "" {
+		playerMsgs = append(playerMsgs, interruptMsg)
+	}
+
+	if rawBP <= 0 {
+		outcomeMsgs, died := e.resolveDirectHitOutcome(target, rawBP, name)
+		if died {
+			playerMsgs = append(playerMsgs, fmt.Sprintf(" %s%s slays %s.", capArt, name, target.FirstName))
+			playerMsgs = append(playerMsgs, outcomeMsgs...)
+			monBroadcast += fmt.Sprintf(" %s%s slays %s!", capArt, name, target.FirstName)
+		} else {
+			playerMsgs = append(playerMsgs, outcomeMsgs...)
+			monBroadcast += fmt.Sprintf(" %s%s knocks %s unconscious!", capArt, name, target.FirstName)
+		}
+	}
+	roomMsgs = append(roomMsgs, monBroadcast)
+	return playerMsgs, roomMsgs, target
+}
+
+// monsterTryStartPsi rolls a monster's PSIUSE chance and, if it triggers, begins a
+// multi-tick psionic attack — mirrors monsterTryStartCast, but only "damage"-effect
+// disciplines from def.Disciplines are eligible (defense/buff disciplines are handled
+// as always-active passives, see monsterPsiDefenseBonus; utility ones like Telepathy
+// or Teleportation make no sense as an "attack"). Psi points are spent up front and
+// never recover, same as CurrentMana. Unlike spellcasting, this isn't gated by
+// inst.Silenced — psionics are a mental discipline, not an incantation. Returns true
+// if an attack was started (consuming this attack turn).
+func (e *GameEngine) monsterTryStartPsi(inst *MonsterInstance, def *gameworld.MonsterDef) bool {
+	if inst.PsiCasting || len(def.Disciplines) == 0 || def.PsiUse <= 0 {
+		return false
+	}
+	if rand.Intn(100) >= def.PsiUse {
+		return false
+	}
+	var affordable []int
+	for _, id := range def.Disciplines {
+		if disc := FindPsiByID(id); disc != nil && disc.Effect == "damage" && disc.PsiCost <= inst.CurrentPsi {
+			affordable = append(affordable, id)
+		}
+	}
+	if len(affordable) == 0 {
+		return false
+	}
+	targets := e.monsterAttackTargetPool(inst)
+	if len(targets) == 0 {
+		return false
+	}
+	target := targets[rand.Intn(len(targets))]
+	discID := affordable[rand.Intn(len(affordable))]
+	disc := FindPsiByID(discID)
+
+	windupSeconds := disc.RoundSec
+	if windupSeconds <= 0 {
+		windupSeconds = 5
+	}
+
+	e.monsterMgr.mu.Lock()
+	inst.CurrentPsi -= disc.PsiCost
+	inst.PsiCasting = true
+	inst.PsiCastDiscID = discID
+	inst.PsiCastTarget = target.FirstName
+	inst.PsiCastExpiry = time.Now().Add(time.Duration(windupSeconds) * time.Second)
+	e.monsterMgr.mu.Unlock()
+
+	name := FormatMonsterName(def, e.monAdjs)
+	article := articleFor(name, def.Unique)
+	if e.localRoomBroadcast != nil {
+		e.localRoomBroadcast(inst.RoomNumber, []string{fmt.Sprintf("%s%s stares intently at %s, brow furrowed in concentration.", capArticle(article), name, target.FirstName)})
+	}
+	return true
+}
+
+// resolveMonsterPsi finishes a psionic attack begun by monsterTryStartPsi once the
+// windup has passed — mirrors resolveMonsterCast, but the success check is
+// playerPsiResistRoll (psionics.go) rather than a monster-side spellcraft roll: per
+// GMSCRIPT.DOC, "PSISKILL... the total chance that the psionic creature has when
+// invoking a psionic power... Powerful psionic creatures should have well over 100 so
+// as to defeat a player's natural resistance to psionics" — so it's the target's
+// resistance (Willpower-based baseline, plus Cloak Mind's +25, see
+// cloakMindResistBonus) being weighed against the monster's PSISKILL, not a bare
+// fizzle chance independent of the target.
+func (e *GameEngine) resolveMonsterPsi(inst *MonsterInstance, def *gameworld.MonsterDef) (playerMsgs, roomMsgs []string, defender *Player) {
+	e.monsterMgr.mu.Lock()
+	discID := inst.PsiCastDiscID
+	targetName := inst.PsiCastTarget
+	inst.PsiCasting = false
+	inst.PsiCastDiscID = 0
+	inst.PsiCastTarget = ""
+	inst.PsiCastExpiry = time.Time{}
+	e.monsterMgr.mu.Unlock()
+
+	disc := FindPsiByID(discID)
+	if disc == nil || e.sessions == nil {
+		return nil, nil, nil
+	}
+	var target *Player
+	for _, p := range e.sessions.OnlinePlayers() {
+		if p.FirstName == targetName && p.RoomNumber == inst.RoomNumber && !p.Dead {
+			target = p
+			break
+		}
+	}
+	if target == nil || target.Hidden || target.Invisible || target.PhantomForm || target.GMInvis {
+		return nil, nil, nil
+	}
+
+	name := FormatMonsterName(def, e.monAdjs)
+	article := articleFor(name, def.Unique)
+	capArt := capArticle(article)
+
+	gestureMsg := fmt.Sprintf("%s%s's eyes flash as they focus their will upon %s.", capArt, name, target.FirstName)
+	roomMsgs = append(roomMsgs, gestureMsg)
+
+	hitFlavor := monsterPsiHitFlavor(disc, capArt+name, target.FirstName)
+
+	if dodge := monsterDodgeChance(target); dodge > 0 && rand.Intn(100) < dodge {
+		roomMsgs = append(roomMsgs, fmt.Sprintf("%s %s dodges out of the way!", hitFlavor, target.DisplayName()))
+		playerMsgs = append(playerMsgs, gestureMsg, hitFlavor, "You dodge out of the way!")
+		return playerMsgs, roomMsgs, target
+	}
+
+	if playerPsiResistRoll(target, def.PsiSkill) {
+		roomMsgs = append(roomMsgs, fmt.Sprintf("%s %s shrugs it off, unaffected!", hitFlavor, target.DisplayName()))
+		playerMsgs = append(playerMsgs, gestureMsg, hitFlavor, "You shrug off the psychic assault!")
+		return playerMsgs, roomMsgs, target
+	}
+
+	dmg := rand.Intn(disc.DmgMax-disc.DmgMin+1) + disc.DmgMin
+	if dmg <= 0 {
+		dmg = 1
+	}
+	finalDmg, part, dtype, rawBP := e.applyMonsterElementalDamageToPlayer(target, dmg, disc.DmgType, false)
+
 	monBroadcast := fmt.Sprintf("%s %s.", hitFlavor, simplifiedDamageTier(finalDmg))
 	playerMsgs = append(playerMsgs, gestureMsg, hitFlavor, fmt.Sprintf(" %s %s to %s. [%d Damage]", damageSeverity(finalDmg, target.MaxBodyPoints), dmgNounForType(dtype), part, finalDmg))
 	if interruptMsg := interruptPreparedSpell(target); interruptMsg != "" {
@@ -2309,6 +2511,23 @@ func (e *GameEngine) damageMonster(monsterID int, dmg int, attackerName string) 
 						name := FormatMonsterName(def, e.monAdjs)
 						article := capArticle(articleFor(name, def.Unique))
 						e.localRoomBroadcast(e.monsterMgr.instances[i].RoomNumber, []string{fmt.Sprintf("%s%s's spell is disrupted!", article, name)})
+					}
+				}
+			}
+			// Same disruption rule for an in-progress psi attack (see monsterTryStartPsi) —
+			// GMSCRIPT.DOC doesn't document a psi-specific equivalent of NONDISRUPTABLE, so
+			// this reuses the same flag/behavior as spellcasting above.
+			if e.monsterMgr.instances[i].PsiCasting {
+				def := e.monsters[e.monsterMgr.instances[i].DefNumber]
+				if def == nil || !def.NonDisruptable {
+					e.monsterMgr.instances[i].PsiCasting = false
+					e.monsterMgr.instances[i].PsiCastDiscID = 0
+					e.monsterMgr.instances[i].PsiCastTarget = ""
+					e.monsterMgr.instances[i].PsiCastExpiry = time.Time{}
+					if e.localRoomBroadcast != nil && def != nil {
+						name := FormatMonsterName(def, e.monAdjs)
+						article := capArticle(articleFor(name, def.Unique))
+						e.localRoomBroadcast(e.monsterMgr.instances[i].RoomNumber, []string{fmt.Sprintf("%s%s's concentration is disrupted!", article, name)})
 					}
 				}
 			}
@@ -2797,6 +3016,12 @@ func (e *GameEngine) findGuardFor(target *MonsterInstance, roomNum int) (*Monste
 		if inst.RoomNumber != roomNum || !inst.Alive || inst.ID == target.ID {
 			continue
 		}
+		// A summoned or controlled creature (e.g. an undead dominated via Control
+		// Undead) is under its player's command now, not acting as an independent
+		// guardian of its own kind — it must not intercept attacks on its own behalf.
+		if inst.IsSummoned {
+			continue
+		}
 		def := e.monsters[inst.DefNumber]
 		if def == nil {
 			continue
@@ -2870,7 +3095,8 @@ func (e *GameEngine) summonedAttackMonster(inst *MonsterInstance, def *gameworld
 	monWeapon := e.monsterWeaponName(def)
 	attackLine := fmt.Sprintf("%s%s %s %s%s with its %s.", capArticle(aArt), aName, monVerb, tArt, tName, monWeapon)
 
-	toHit := calcToHit(def.Attack1, targetDef.Defense)
+	effAtk := monsterEffectiveAttack(def, inst)
+	toHit := calcToHit(effAtk, monsterEffectiveDefense(targetDef, target))
 	roll := rand.Intn(100) + 1
 
 	var msgs []string
@@ -2889,7 +3115,7 @@ func (e *GameEngine) summonedAttackMonster(inst *MonsterInstance, def *gameworld
 			}
 			msgs = []string{attackLine, fmt.Sprintf("[ToHit: %d, Roll: %d] %s", toHit, roll, hitLabel), texI}
 		} else {
-			dmg := monsterDamage(def)
+			dmg := monsterDamageForAttack(effAtk)
 			dmg = applyArmor(dmg, targetDef.Armor)
 			var attackerWeaponDef *gameworld.ItemDef
 			if len(def.Weapons) > 0 {
@@ -3091,6 +3317,27 @@ func (e *GameEngine) monsterCombatTick(inst *MonsterInstance, def *gameworld.Mon
 		return
 	}
 
+	// Continue or resolve an in-progress psi attack before anything else this tick —
+	// see monsterTryStartPsi/resolveMonsterPsi. Mirrors the spellcasting block above;
+	// a psi attack in progress fully occupies the monster the same way a spell cast
+	// does, and can likewise be disrupted by taking damage (damageMonster).
+	if inst.PsiCasting {
+		if now.Before(inst.PsiCastExpiry) {
+			return
+		}
+		e.monsterMgr.mu.Unlock()
+		playerMsgs, roomMsgs, defender := e.resolveMonsterPsi(inst, def)
+		e.monsterMgr.mu.Lock()
+		e.broadcastCombatRoom(inst.RoomNumber, defender, roomMsgs)
+		if e.sendToPlayer != nil && len(playerMsgs) > 0 && defender != nil {
+			e.sendToPlayer(defender.FirstName, playerMsgs)
+		}
+		if e.db != nil && defender != nil {
+			go e.SavePlayer(context.Background(), defender)
+		}
+		return
+	}
+
 	var target *Player
 	for _, p := range e.sessions.OnlinePlayers() {
 		if p.FirstName == inst.Target && p.RoomNumber == inst.RoomNumber && !p.Dead {
@@ -3117,10 +3364,16 @@ func (e *GameEngine) monsterCombatTick(inst *MonsterInstance, def *gameworld.Mon
 	if !inst.Silenced || def.SilenceIgnore {
 		startedCast = e.monsterTryStartCast(inst, def)
 	}
+	// Psi attacks aren't gated by Silenced — psionics are a mental discipline, not an
+	// incantation (see monsterTryStartPsi).
+	startedPsi := false
+	if !startedCast {
+		startedPsi = e.monsterTryStartPsi(inst, def)
+	}
 	var playerMsgs, roomMsgs []string
 	var defender *Player
-	handled := startedCast
-	if !startedCast {
+	handled := startedCast || startedPsi
+	if !handled {
 		if specMsgs, specRoomMsgs, specDefender, used := e.monsterTrySpecialAttack(inst, def); used {
 			playerMsgs, roomMsgs, defender = specMsgs, specRoomMsgs, specDefender
 			handled = true

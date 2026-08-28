@@ -4417,3 +4417,194 @@ lit. Although the floor appears freshly sanded, there is still a dark stain
 that has seeped into the wood, resisting all efforts to remove it.
 An oak door leads back out into the hallway.
 *DESCRIPTION_END
+
+; Cypress and Moordread Home
+NUMBER 9000
+NAME Cozy Living Area
+INDOOR_FLOOR
+ASTRAL
+CALL 33
+*DESCRIPTION_START
+This is the main living area with a large sofa and a pair of smaller chairs.
+A large brick fireplace dominates one wall, a large fur rug lays
+invitingly on the floor in front of it. On the opposite wall are shelves
+lined with gems, weapons and pictures of wolves playing in the forest. A large
+pillow is on the floor between the sofa and rug. A polished greatsword is
+mounted over the mantle of the fireplace. The mantle contains several lemon
+scented candles whose aroma mixes with the smoke of the fireplace. A dark
+mahogony staircase leads upstairs. Through an arch lies the kitchen.
+*DESCRIPTION_END
+ITEM 0 943 VAL2=3800 VAL3=1234 ; Door
+ITEM 1 362 ADJ1=138 ; RUG
+ITEM 2 81 VAL2=9001 ; STAIRS
+ITEM 3 86 ADJ1=216 ; CHAIR
+ITEM 4 86 ADJ1=216 ; CHAIR
+ITEM 5 195 ADJ1=33 ; Brick Fireplace
+ITEM 6 1304 ; Sofa
+ITEM 7 193 ADJ1=178 ; Pillow
+ITEM 8 387 ADJ1=1391 ADJ2=279 ; Candles
+ITEM 9 1248 ADJ1=241 ; Polished greatsword
+ITEM 10 60 VAL2=9002 ; Arch to kitchen
+IFPREVERB TAP 8
+  CLEARVERB
+  ECHO PLAYER You light the candles on the mantle and the scent of lemons permeates the room.
+  ECHO OTHERS %N lights the candles and the scent of lemons permeates the room.
+ENDIF
+IFPREVERB LIGHT 8
+  CLEARVERB
+  ECHO PLAYER You light the candles on the mantle and the scent of lemons permeates the room.
+  ECHO OTHERS %N lights the candles and the scent of lemons permeates the room.
+ENDIF
+IFPREVERB SMELL 8
+  CLEARVERB
+  ECHO PLAYER You bend forward to smell the luscious lemon scent of the candles.
+  ECHO OTHERS %N smells the candles on the mantle.
+ENDIF
+IFPREVERB PULL 6
+  CLEARVERB
+  ECHO PLAYER You sink into the sofa and pull a comfy fur over you.
+  ECHO OTHERS %N cuddles up under a comfy fur on the sofa.
+  POSITION LAY
+ENDIF
+IFPREVERB SMELL -1
+  CLEARVERB
+  ECHO PLAYER This room smells of lemons and fireplace smoke.
+  ECHO OTHERS %N sniffs at the air.
+ENDIF
+;
+NUMBER 9001
+NAME Master Bedroom
+INDOOR_FLOOR
+ASTRAL
+CALL 33
+*DESCRIPTION_START
+A large four-poster bed dominates the room, its dark mahogany frame matching
+the staircase below. A dresser topped with an ornate mirror stands against
+one wall, and a small chest rests at the foot of the bed. A thick fur rug,
+matching the one downstairs, covers much of the floor, and a candle sits
+atop the dresser.
+*DESCRIPTION_END
+ITEM 0 355 ; Bed
+ITEM 1 1404 ITEMBIT19=1 ; Dresser
+ITEM 2 360 ; Mirror
+ITEM 3 81 VAL2=9000 ; STAIRS
+ITEM 4 333 ITEMBIT19=1 ; Chest (persistent)
+ITEM 5 362 ADJ1=138 ; Fur rug
+ITEM 6 640 ; Candle
+IFPREVERB LOOK 2
+  CLEARVERB
+  ECHO PLAYER You peer into the mirror and study your reflection for a moment.
+  ECHO OTHERS %N studies %h reflection in the mirror.
+ENDIF
+IFPREVERB GO 0
+  CLEARVERB
+  ECHO PLAYER You climb into bed and slip under the warm blankets.
+  ECHO OTHERS %N climbs into bed and slips under the warm blankets.
+  POSITION LAY
+ENDIF
+IFPREVERB PULL 0
+  CLEARVERB
+  ECHO PLAYER You flop back onto the soft bed with a contented sigh.
+  ECHO OTHERS %N flops back onto the bed with a contented sigh.
+  POSITION LAY
+ENDIF
+IFPREVERB SMELL 6
+  CLEARVERB
+  ECHO PLAYER The candle gives off a faint, warm scent of beeswax.
+  ECHO OTHERS %N leans in to smell the candle.
+ENDIF
+IFPREVERB LIGHT 6
+  CLEARVERB
+  ECHO PLAYER You light the candle on the dresser.
+  ECHO OTHERS %N lights the candle on the dresser.
+ENDIF
+IFPREVERB SMELL -1
+  CLEARVERB
+  ECHO PLAYER This room smells faintly of beeswax and old mahogany.
+  ECHO OTHERS %N sniffs at the air.
+ENDIF
+;
+NUMBER 9002
+NAME Kitchen
+INDOOR_FLOOR
+ASTRAL
+CALL 33
+*DESCRIPTION_START
+The kitchen smells of spices and some recently baked treats. A cast iron
+stove sits against one wall beside a stone counter and a row of cupboards.
+A sink stands beneath a small window, and a sturdy table sits in the center
+of the room with a pot resting atop it. Apple scented candles rest on the
+counter top. An arch leads back to the living area, and a heavy door on
+the far wall leads out to the back yard.
+*DESCRIPTION_END
+ITEM 0 1117 ; Stove
+ITEM 1 60 VAL2=9000 ; Arch to living area
+ITEM 2 387 ADJ1=969 ADJ2=279 ; Apple Candles
+ITEM 3 852 ; Counter
+ITEM 4 1034 ITEMBIT19=1 ; Cupboard
+ITEM 5 424 ; Sink
+ITEM 6 396 ; Table
+ITEM 7 382 ; Pot
+ITEM 8 943 VAL2=9003 ; Door to back yard
+IFPREVERB SMELL 0
+  CLEARVERB
+  ECHO PLAYER The stove is still warm, and carries the scent of the last meal cooked on it.
+  ECHO OTHERS %N leans toward the stove and sniffs.
+ENDIF
+IFPREVERB TOUCH 7
+  CLEARVERB
+  ECHO PLAYER You dip a spoon into the pot and take a small taste. Delicious.
+  ECHO OTHERS %N sneaks a taste from the pot.
+ENDIF
+IFPREVERB SMELL -1
+  CLEARVERB
+  ECHO PLAYER This room smells of spices, apple candles, and recently baked treats.
+  ECHO OTHERS %N sniffs at the air.
+ENDIF
+;
+NUMBER 9003
+NAME Back Yard
+OUTDOOR_FLOOR
+ASTRAL
+DAY_LIGHT
+CALL 33
+*DESCRIPTION_START
+A small, private back yard slopes down to the shore of a still lake. Reeds
+sway gently at the water's edge, and the shoreline is littered with loose
+stones, worn smooth by the lapping water. There are no paths out of the
+yard save for the heavy door set into the wall behind you, leading back
+into the kitchen.
+*DESCRIPTION_END
+ITEM 0 943 VAL2=9002 ; Door back to kitchen
+ITEM 1 348 ; Loose stones along the shore
+IFPREVERB SEARCH 1
+  IFVAR ROUNDTIME = 0
+    CLEARVERB
+    RANDOM DUMMY1 1 100 0
+    IFVAR DUMMY1 >= 90
+      NEWITEM -1 112 ADJ1=1114 ; fossilized stone
+      ECHO PLAYER You sift through the loose stones and uncover a fossilized stone, its ancient impression still visible.
+      ECHO OTHERS %N sifts through the stones along the shore.
+    ENDIF
+    IFVAR DUMMY1 >= 60
+      IFVAR DUMMY1 <= 89
+        NEWITEM -1 112 ADJ1=251 ; quartz stone
+        ECHO PLAYER You sift through the loose stones and find one veined with quartz.
+        ECHO OTHERS %N sifts through the stones along the shore.
+      ENDIF
+    ENDIF
+    IFVAR DUMMY1 >= 30
+      IFVAR DUMMY1 <= 59
+        NEWITEM -1 112 ADJ1=148 ; granite stone
+        ECHO PLAYER You sift through the loose stones and find a smooth granite stone.
+        ECHO OTHERS %N sifts through the stones along the shore.
+      ENDIF
+    ENDIF
+    IFVAR DUMMY1 <= 29
+      ECHO PLAYER You sift through the loose stones but find nothing of particular interest.
+      ECHO OTHERS %N sifts through the stones along the shore.
+    ENDIF
+    EQUAL ROUNDTIME 10
+    ECHO PLAYER [Round: 10 sec]
+  ENDIF
+ENDIF

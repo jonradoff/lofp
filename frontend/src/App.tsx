@@ -66,7 +66,7 @@ interface AuthContextType {
   user: AuthUser | null
   login: (credential: string) => Promise<void>
   loginWithPassword: (email: string, password: string) => Promise<void>
-  register: (email: string, password: string, name: string) => Promise<void>
+  register: (email: string, password: string, name: string, captchaToken: string) => Promise<void>
   logout: () => void
 }
 
@@ -183,11 +183,11 @@ function App() {
     setAuthUser(await resp.json())
   }
 
-  const register = async (email: string, password: string, name: string) => {
+  const register = async (email: string, password: string, name: string, captchaToken: string) => {
     const resp = await fetch('/api/auth/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password, name }),
+      body: JSON.stringify({ email, password, name, captchaToken }),
     })
     if (!resp.ok) {
       const errData = await resp.json().catch(() => null)

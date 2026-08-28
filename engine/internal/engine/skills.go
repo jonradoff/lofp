@@ -356,6 +356,8 @@ func (e *GameEngine) doPickLock(ctx context.Context, player *Player, args []stri
 		}
 	}
 	containerTarget, containerMine := stripMyPrefix(containerTarget)
+	containerTarget, ordSkip := parseOrdinal(containerTarget)
+	skip := ordSkip
 
 	// Find a lockpick in inventory, recording its index and material adjective.
 	pickIdx := -1
@@ -435,13 +437,20 @@ func (e *GameEngine) doPickLock(ctx context.Context, player *Player, args []stri
 	// over one merely lying in the room (matches doPut/doGetAllFromContainer).
 	for i, ii := range player.Inventory {
 		def := e.items[ii.Archetype]
-		if def == nil || strings.ToUpper(ii.State) != "LOCKED" {
+		if def == nil {
 			continue
 		}
 		if !matchesTarget(e.getItemNounName(def), containerTarget, e.getAdjName(ii.Adj1), e.getAdjName(ii.Adj2), e.getAdjName(ii.Adj3)) {
 			continue
 		}
+		if skip > 0 {
+			skip--
+			continue
+		}
 		displayName := e.formatItemName(def, ii.Adj1, ii.Adj2, ii.Adj3, ii.Tail)
+		if strings.ToUpper(ii.State) != "LOCKED" {
+			return &CommandResult{Messages: []string{fmt.Sprintf("%s isn't locked.", displayName)}}
+		}
 		chance := 30 + lockSkill*5 + player.Agility/5 - ii.Val1
 		if chance < 5 {
 			chance = 5
@@ -463,13 +472,20 @@ func (e *GameEngine) doPickLock(ctx context.Context, player *Player, args []stri
 	if room != nil && !containerMine {
 		for i, ri := range room.Items {
 			def := e.items[ri.Archetype]
-			if def == nil || strings.ToUpper(ri.State) != "LOCKED" {
+			if def == nil {
 				continue
 			}
 			if !matchesTarget(e.getItemNounName(def), containerTarget, e.getAdjName(ri.Adj1), e.getAdjName(ri.Adj2), e.getAdjName(ri.Adj3)) {
 				continue
 			}
+			if skip > 0 {
+				skip--
+				continue
+			}
 			displayName := e.formatItemName(def, ri.Adj1, ri.Adj2, ri.Adj3, ri.Extend)
+			if strings.ToUpper(ri.State) != "LOCKED" {
+				return &CommandResult{Messages: []string{fmt.Sprintf("%s isn't locked.", displayName)}}
+			}
 			chance := 30 + lockSkill*5 + player.Agility/5 - ri.Val1
 			if chance < 5 {
 				chance = 5

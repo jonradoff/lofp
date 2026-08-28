@@ -119,21 +119,7 @@ func (e *GameEngine) doMove(ctx context.Context, player *Player, dir string) *Co
 	// If this happened after doLook (as it used to), the leader's own room
 	// render would list who's present in destNum before the group/summons had
 	// actually been moved there, making it look like they didn't follow.
-	var movedFollowers []*Player
-	if player.IsGroupLeader && len(player.GroupMembers) > 0 && e.sessions != nil {
-		for _, memberName := range player.GroupMembers {
-			for _, p := range e.sessions.OnlinePlayers() {
-				if p.FirstName == memberName && p.RoomNumber == originalRoom && !p.Dead {
-					p.RoomNumber = destNum
-					p.Submitting = false
-					e.disengageCombat(p)
-					e.SavePlayer(ctx, p)
-					movedFollowers = append(movedFollowers, p)
-					break
-				}
-			}
-		}
-	}
+	movedFollowers := e.moveGroupFollowers(ctx, player, originalRoom, destNum)
 	var summonOldMsgs, summonRoomMsgs []string
 	if e.monsterMgr != nil {
 		e.monsterMgr.mu.Lock()
@@ -740,23 +726,25 @@ func (e *GameEngine) doGoPortal(ctx context.Context, player *Player, room *gamew
 	player.RoomNumber = destNum
 	e.SavePlayer(ctx, player)
 
-	// Relocate followers and summoned creatures BEFORE rendering any room look
-	// (see doMove for why — otherwise the group looks like it didn't follow).
-	var movedFollowers []*Player
-	if player.IsGroupLeader && len(player.GroupMembers) > 0 && e.sessions != nil {
-		for _, memberName := range player.GroupMembers {
+	// Moving away from leader breaks follow (see doMove — same separation check).
+	if player.Following != "" {
+		leaderHere := false
+		if e.sessions != nil {
 			for _, p := range e.sessions.OnlinePlayers() {
-				if p.FirstName == memberName && p.RoomNumber == originalRoom && !p.Dead {
-					p.RoomNumber = destNum
-					p.Submitting = false
-					e.disengageCombat(p)
-					e.SavePlayer(ctx, p)
-					movedFollowers = append(movedFollowers, p)
+				if p.FirstName == player.Following && p.RoomNumber == destNum {
+					leaderHere = true
 					break
 				}
 			}
 		}
+		if !leaderHere {
+			e.removeFromGroup(player)
+		}
 	}
+
+	// Relocate followers and summoned creatures BEFORE rendering any room look
+	// (see doMove for why — otherwise the group looks like it didn't follow).
+	movedFollowers := e.moveGroupFollowers(ctx, player, originalRoom, destNum)
 	var summonOldMsgs, summonRoomMsgs []string
 	if e.monsterMgr != nil {
 		e.monsterMgr.mu.Lock()

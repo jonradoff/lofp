@@ -662,6 +662,16 @@ func (p *fileParser) parseRoom(fields []string) {
 			block := p.parseScriptBlock(fields)
 			room.Scripts = append(room.Scripts, block)
 			continue
+		case "ECHO", "AFFECT", "RANDOM", "EQUAL", "ADD", "SUB",
+			"NEWITEM", "REMOVEITEM", "GENMON", "KILLMON", "GMMSG", "CALLPACK":
+			// Bare top-level action (e.g. "EQUAL abflag 0" resetting a flag before the
+			// IFVERB block below re-checks it). Same handling as parseCEvent/parseMacro --
+			// without this the statement is silently dropped, so a flag set to 1 by a
+			// successful script action (e.g. OUTDOOR.SCR room 706's "jump boulder") never
+			// resets and the IFVERB block it guards can never fire again.
+			room.Scripts = append(room.Scripts, gameworld.ScriptBlock{
+				Type: "ACTION", Actions: []gameworld.ScriptAction{{Command: cmd, Args: fields[1:]}},
+			})
 		case "ORGDEF":
 			if def, ok := parseOrgDef(fields); ok {
 				p.result.OrgDefs = append(p.result.OrgDefs, def)
@@ -1177,6 +1187,21 @@ func (p *fileParser) parseRoomItem(fields []string, isPut bool) gameworld.RoomIt
 			item.Val4, _ = strconv.Atoi(f[5:])
 		} else if strings.HasPrefix(upper, "VAL5=") {
 			item.Val5, _ = strconv.Atoi(f[5:])
+		} else if strings.HasPrefix(upper, "ITEMBIT") && strings.Contains(upper, "=") {
+			// ITEMBITn=1 sets bit n directly on this instance at placement time —
+			// e.g. ITEMBIT19=1 marks a room container persistent (see
+			// engine/internal/engine/persistent_containers.go). Bits set this way
+			// are re-applied on every boot along with the rest of the ITEM line,
+			// unlike a runtime EQUAL ITEMBITn inside a script block, which needs
+			// an item-targeted context (IFPREVERB <verb> <ref>) to have any effect.
+			eq := strings.IndexByte(upper, '=')
+			idx, err := strconv.Atoi(upper[len("ITEMBIT"):eq])
+			if err == nil && idx >= 0 && idx <= 19 {
+				v, _ := strconv.Atoi(f[eq+1:])
+				if v != 0 {
+					item.ItemBits |= 1 << idx
+				}
+			}
 		} else {
 			switch upper {
 			case "OPEN", "CLOSED", "LOCKED", "UNLOCKED", "LIT", "UNLIT",

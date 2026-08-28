@@ -755,6 +755,7 @@ steam in the air like beads of morning dew in a farmer's field. Their origin
 is a hot tub with high wooden walls which occupies most of the room. A little
 stairway leads up into the raised tub. You notice that the floor is made from
 a waterproof ceramic material and covered with rubber mats to prevent slipping.
+An oaken doorway leads back towards the saloon.
 *DESCRIPTION_END
 INDOOR_FLOOR
 FIXED_LIGHT
@@ -814,7 +815,8 @@ The interior of the hot tub is a rounded, watertight depression in a huge,
 circular piece of plastic taken from an Ancient ruin. It has been refinished
 with new cedar and new metal pipes have been installed. The bottom of the tub
 has a few star-symbols on it, made from rubber, meant to provide friction
-for one's feet. The owner doesn't want anyone to be trapped here. Really.
+for one's feet. The owner doesn't want anyone to be trapped here. Really. You
+can go OUT when you are ready to leave.
 *DESCRIPTION_END
 INDOOR_FLOOR
 FIXED_LIGHT

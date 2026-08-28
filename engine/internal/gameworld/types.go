@@ -43,6 +43,12 @@ type RoomItem struct {
 	Extend    string         `bson:"extend,omitempty" json:"extend,omitempty"` // extended description
 	PutIn     int            `bson:"putIn,omitempty" json:"putIn,omitempty"` // if PUT, which ref it's inside
 	IsPut     bool           `bson:"isPut,omitempty" json:"isPut,omitempty"`
+	// SigilSpellID/SigilOwner track a sigil trap (Imprison Rune 227, Thunder/Inferno/Ice
+	// Glyph 125/124/126, Death Scythe 322 — see castSigilSpell in engine/spells.go).
+	// Mirrors the same fields on engine.InventoryItem for room-floor items, dropped
+	// items, and door/gate items.
+	SigilSpellID int    `bson:"sigilSpellID,omitempty" json:"sigilSpellID,omitempty"`
+	SigilOwner   string `bson:"sigilOwner,omitempty" json:"sigilOwner,omitempty"`
 }
 
 // StoreItem represents a purchasable item in a shop room.

@@ -12,6 +12,7 @@ var physicalEmoteVerbs = map[string]bool{
 	"KISS": true, "NIBBLE": true, "LICK": true, "CARESS": true, "RUB": true,
 	"CUDDLE": true, "SNUGGLE": true, "NUZZLE": true, "TOUCH": true, "TAP": true,
 	"THUMP": true, "POKE": true, "HOLD": true, "PAW": true, "POUNCE": true,
+	"PULL": true,
 }
 
 // isAvoiding reports whether target has blocked actorName from using physical

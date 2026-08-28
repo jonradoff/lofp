@@ -145,6 +145,19 @@ func (e *GameEngine) RunPreverbScripts(player *Player, room *gameworld.Room, ver
 
 	// Check room-level scripts (only for room items; inventory items have Ref=-1)
 	if ri.Ref >= 0 {
+		// Run bare top-level room actions (e.g. "EQUAL abflag 0") unconditionally, before
+		// any IFVERB/IFPREVERB check. In the original scripts these reset a flag that a
+		// later IFVERB block in the same room re-checks (see OUTDOOR.SCR room 706's
+		// "jump boulder" flag abflag) — without re-running them on every interaction, a
+		// flag set to 1 by one successful action would stay 1 forever and permanently
+		// block the IFVERB branch that requires it to be 0.
+		for _, block := range room.Scripts {
+			if block.Type == "ACTION" {
+				for _, action := range block.Actions {
+					sc.execAction(action)
+				}
+			}
+		}
 		// Run scripts matching this specific item ref
 		for _, block := range room.Scripts {
 			if block.Type == "IFPREVERB" && len(block.Args) >= 2 {
@@ -1738,6 +1751,19 @@ func (sc *ScriptContext) setVar(name string, val int) {
 			sc.NeedsSave = true
 			return
 		}
+		// ITEMBIT19 marks this room item as a durable container (see
+		// persistent_containers.go) — register/drop it in MongoDB the moment
+		// the bit is toggled, not just when its contents next change, so a
+		// chest flagged persistent but still empty isn't forgotten on restart.
+		// Synchronous, not "go" — a background write isn't guaranteed to finish
+		// before the process exits.
+		if idx == persistentContainerBit {
+			if val != 0 {
+				sc.Engine.savePersistentContainer(sc.Room.Number, sc.ItemRef.Ref, sc.Engine.roomContainerGet(sc.Room.Number, sc.ItemRef.Ref))
+			} else {
+				sc.Engine.deletePersistentContainer(sc.Room.Number, sc.ItemRef.Ref)
+			}
+		}
 		itemCopy := *sc.ItemRef
 		sc.Engine.notifyRoomChange(RoomChange{
 			RoomNumber: sc.Room.Number, Type: "item_update",
@@ -2281,7 +2307,7 @@ func (sc *ScriptContext) doGenMon(args []string) {
 		return
 	}
 	if sc.Engine.monsterMgr != nil {
-		sc.Engine.monsterMgr.SpawnOne(monNum, sc.Room.Number, def.Body, def.Mana)
+		sc.Engine.monsterMgr.SpawnOne(monNum, sc.Room.Number, def.Body, def.Mana, def.Psi)
 		name := FormatMonsterName(def, sc.Engine.monAdjs)
 		genText := def.TextOverrides["TEXG"]
 		if genText == "" {
@@ -2482,6 +2508,35 @@ func (sc *ScriptContext) applyItemSpellOnPlayer(spell *SpellDef) {
 			healMax = healMin + 1
 		}
 		amount := healMin + rand.Intn(healMax-healMin+1)
+		// Reconstruction (337) only heals the undead; it fizzles on the living.
+		if spell.ID == 337 {
+			if !player.Undead {
+				sc.Messages = append(sc.Messages, fmt.Sprintf("The item channels %s, but the spell fizzles — you are not undead.", spell.Name))
+				return
+			}
+			player.BodyPoints += amount
+			if player.BodyPoints > player.MaxBodyPoints {
+				player.BodyPoints = player.MaxBodyPoints
+			}
+			sc.Messages = append(sc.Messages, fmt.Sprintf("The item channels %s, knitting your undead flesh back together, healing %d points. [BP: %d/%d]", spell.Name, amount, player.BodyPoints, player.MaxBodyPoints))
+			sc.RoomMsgs = append(sc.RoomMsgs, fmt.Sprintf("%s is bathed in dark energy.", player.FirstName))
+			return
+		}
+		// Body Restoration I/II/III (316/317/318) sear the undead with holy energy instead of healing them.
+		if (spell.ID == 316 || spell.ID == 317 || spell.ID == 318) && player.Undead {
+			player.BodyPoints -= amount
+			rawBP := player.BodyPoints
+			if player.BodyPoints < 0 {
+				player.BodyPoints = 0
+			}
+			sc.Messages = append(sc.Messages, fmt.Sprintf("The item channels %s, but your undead flesh sears with holy energy! [-%d BP]", spell.Name, amount))
+			sc.RoomMsgs = append(sc.RoomMsgs, fmt.Sprintf("%s cries out in pain!", player.FirstName))
+			if rawBP <= 0 {
+				outcomeMsgs, _ := sc.Engine.resolveDirectHitOutcome(player, rawBP, "the necromantic backlash")
+				sc.Messages = append(sc.Messages, outcomeMsgs...)
+			}
+			return
+		}
 		// Invigoration spells restore fatigue
 		if spell.ID == 334 || spell.ID == 335 {
 			player.Fatigue += amount
@@ -2500,7 +2555,16 @@ func (sc *ScriptContext) applyItemSpellOnPlayer(spell *SpellDef) {
 
 	case "defense":
 		mins, _ := applyTimedDefenseBuff(player, spell)
-		sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s! (+%d defense, %d minutes)", spell.Name, spell.DefBonus, mins))
+		switch spell.ID {
+		case 229: // Wizard's Armor — wards a prepared spell, no defense bonus
+			sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s! Your concentration is warded against disruption. (%d minutes)", spell.Name, mins))
+		case 234: // Spell Shield — magic resistance, no defense bonus
+			sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s! An antimagical field emanates from you. (%d minutes)", spell.Name, mins))
+		case 235: // Cloak Mind — psi resistance, no defense bonus
+			sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s! You seem changed. (%d minutes)", spell.Name, mins))
+		default:
+			sc.Messages = append(sc.Messages, fmt.Sprintf("The item casts %s! (+%d defense, %d minutes)", spell.Name, spell.DefBonus, mins))
+		}
 		sc.RoomMsgs = append(sc.RoomMsgs, fmt.Sprintf("A shimmer of protective energy surrounds %s.", player.FirstName))
 
 	case "damage":

@@ -85,6 +85,14 @@ type InventoryItem struct {
     // a weapon with all three adj slots already full at cast time keeps its existing
     // adjectives untouched (same convention as castEnchantmentSpell).
     BladeSpellAdjApplied bool `bson:"bladeSpellAdjApplied,omitempty" json:"bladeSpellAdjApplied,omitempty"`
+    // SigilSpellID/SigilOwner track a sigil trap (Imprison Rune 227, Thunder/Inferno/Ice
+    // Glyph 125/124/126, Death Scythe 322 — see castSigilSpell in spells.go). SigilSpellID
+    // is the trap spell imprinted by CAST; SigilOwner is empty until the first TOUCH (or
+    // OPEN of a closed/locked item) claims it, after which only that player may handle the
+    // item safely — anyone else triggers the trap once and it disarms (SigilSpellID reset
+    // to 0), matching the existing chest-trap convention (see checkTrap).
+    SigilSpellID int    `bson:"sigilSpellID,omitempty" json:"sigilSpellID,omitempty"`
+    SigilOwner   string `bson:"sigilOwner,omitempty" json:"sigilOwner,omitempty"`
 }
 
 // TimedDefenseBuff tracks one active defense spell with a bonus and expiry.
@@ -636,7 +644,7 @@ func (p *Player) PromptIndicators() string {
 	if p.RoundTime > 0 {
 		codes = append(codes, 'R')
 	}
-	if p.Hidden || p.GMInvis {
+	if p.Hidden || p.GMInvis || p.Invisible || p.PhantomForm {
 		codes = append(codes, 'H')
 	}
 	if p.Unconscious {

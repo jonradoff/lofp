@@ -625,6 +625,40 @@ func (e *GameEngine) findMonsterInRoomEx(player *Player, target string, includeD
 	return nil, nil
 }
 
+// findSummonedCreatureInRoom finds a summoned or controlled creature (anyone's pet, not
+// just the caster's own — so an ally can support it) by name in the player's room. Used
+// by buff spells (Strength, Agility, Haste, Mystic Armor) as the fallback target when the
+// name isn't a player — see resolveBuffTarget. Restricted to IsSummoned so these spells
+// can't be cast on a wild hostile monster.
+func (e *GameEngine) findSummonedCreatureInRoom(player *Player, target string) (*MonsterInstance, *gameworld.MonsterDef) {
+	if e.monsterMgr == nil {
+		return nil, nil
+	}
+	monsters := e.monsterMgr.MonstersInRoom(player.RoomNumber)
+	target = strings.ToLower(strings.TrimSpace(target))
+	for _, article := range []string{"a ", "an ", "the ", "some "} {
+		if strings.HasPrefix(target, article) {
+			target = strings.TrimPrefix(target, article)
+			break
+		}
+	}
+	for i := range monsters {
+		if !monsters[i].IsSummoned {
+			continue
+		}
+		def := e.monsters[monsters[i].DefNumber]
+		if def == nil {
+			continue
+		}
+		name := strings.ToLower(FormatMonsterName(def, e.monAdjs))
+		noun := strings.ToLower(def.Name)
+		if strings.HasPrefix(name, target) || strings.HasPrefix(noun, target) {
+			return &monsters[i], def
+		}
+	}
+	return nil, nil
+}
+
 // examineMonster returns a description of a monster, including its live
 // wound state.
 func (e *GameEngine) examineMonster(inst *MonsterInstance, def *gameworld.MonsterDef) *CommandResult {
@@ -779,6 +813,124 @@ func (e *GameEngine) examinePlayer(observer *Player, target *Player) *CommandRes
 		heOrSheLC = "you"
 	}
 
+	// Equipment — a wolf isn't wearing or wielding anything, skip entirely. Listed
+	// before health/wounds below, matching the original session-capture order
+	// (worn items, then active effects, then health/wounds) rather than the
+	// reverse.
+	if !target.WolfForm && !target.MistForm && !target.SlimeForm && target.Wielded != nil {
+		wDef := e.items[target.Wielded.Archetype]
+		if wDef != nil {
+			name := e.formatItemName(wDef, target.Wielded.Adj1, target.Wielded.Adj2, target.Wielded.Adj3, target.Wielded.Tail)
+			if isSelf {
+				msgs = append(msgs, fmt.Sprintf("You are wielding %s.", name))
+			} else {
+				msgs = append(msgs, fmt.Sprintf("%s wielding %s.", pronoun, name))
+			}
+		}
+	}
+	if !target.WolfForm && !target.MistForm && !target.SlimeForm && target.OffHand != nil {
+		ohDef := e.items[target.OffHand.Archetype]
+		if ohDef != nil {
+			ohName := e.formatItemName(ohDef, target.OffHand.Adj1, target.OffHand.Adj2, target.OffHand.Adj3, target.OffHand.Tail)
+			if ohDef.Type == "SHIELD" {
+				if isSelf {
+					msgs = append(msgs, fmt.Sprintf("You are carrying %s as a shield.", ohName))
+				} else {
+					msgs = append(msgs, fmt.Sprintf("%s carrying %s as a shield.", pronoun, ohName))
+				}
+			} else {
+				if isSelf {
+					msgs = append(msgs, fmt.Sprintf("You are wielding %s in your off hand.", ohName))
+				} else {
+					msgs = append(msgs, fmt.Sprintf("%s wielding %s in their off hand.", pronoun, ohName))
+				}
+			}
+		}
+	}
+
+	if !target.WolfForm && !target.MistForm && !target.SlimeForm {
+		// Build set of worn slots to determine undergarment visibility
+		wornSlots := map[string]bool{}
+		for _, w := range target.Worn {
+			wornSlots[w.WornSlot] = true
+		}
+		var wornNames []string
+		for _, worn := range target.Worn {
+			if outerSlots, isUnder := undergarmentHiddenBy[worn.WornSlot]; isUnder {
+				covered := false
+				for _, outer := range outerSlots {
+					if wornSlots[outer] {
+						covered = true
+						break
+					}
+				}
+				if covered {
+					continue
+				}
+			}
+			wDef := e.items[worn.Archetype]
+			if wDef != nil {
+				wornNames = append(wornNames, e.formatItemName(wDef, worn.Adj1, worn.Adj2, worn.Adj3, worn.Tail))
+			}
+		}
+		if len(wornNames) > 0 {
+			if isSelf {
+				msgs = append(msgs, fmt.Sprintf("You are wearing %s.", joinList(wornNames)))
+			} else {
+				msgs = append(msgs, fmt.Sprintf("%s wearing %s.", pronoun, joinList(wornNames)))
+			}
+		}
+	}
+
+	// Active spell/psi effects — shown right after equipment, before health/wounds.
+	mysticArmorActive := target.MysticArmorBonus > 0 && !target.MysticArmorExpiry.IsZero() && time.Now().Before(target.MysticArmorExpiry)
+	if mysticArmorActive {
+		msgs = append(msgs, fmt.Sprintf("%s outlined in glowing armor.", pronoun))
+	}
+	genericAura := false
+	for _, b := range target.TimedDefenseBuffs {
+		if time.Now().After(b.Expiry) {
+			continue
+		}
+		switch b.SpellID {
+		case 105: // Globe of Protection
+			msgs = append(msgs, fmt.Sprintf("%s surrounded by a prismatic globe.", pronoun))
+		case 130: // Mass Protection
+			msgs = append(msgs, fmt.Sprintf("%s the center of a large, white sphere of light.", pronoun))
+		case 326: // Spectral Shield
+			msgs = append(msgs, fmt.Sprintf("%s protected by a ghostly, hovering shield.", pronoun))
+		case 229: // Wizard's Armor
+			msgs = append(msgs, fmt.Sprintf("%s surrounded by a flickering curtain of yellow light.", pronoun))
+		case 234: // Spell Shield
+			msgs = append(msgs, fmt.Sprintf("%s surrounded by an antimagical field.", pronoun))
+		case 235: // Cloak Mind — deliberately silent; the point is the target doesn't look warded
+		default:
+			genericAura = true
+		}
+	}
+	if genericAura {
+		msgs = append(msgs, fmt.Sprintf("A shimmering magical aura surrounds %s.", isSelfOr(isSelf, "you", heOrSheLC)))
+	}
+	if target.StrengthBuffID > 0 && !target.StrengthBuffExpiry.IsZero() && time.Now().Before(target.StrengthBuffExpiry) {
+		if isSelf {
+			msgs = append(msgs, "You radiate with magical strength.")
+		} else {
+			msgs = append(msgs, fmt.Sprintf("%s radiates with magical strength.", heOrShe))
+		}
+	}
+	if target.Position == 4 && target.Race != RaceDrakin {
+		msgs = append(msgs, fmt.Sprintf("%s hovering in the air.", pronoun))
+	}
+	if target.Invisible {
+		// Only visible to self or GMs
+		if isSelf {
+			msgs = append(msgs, "You are invisible.")
+		}
+	}
+	if target.PhantomForm && isSelf {
+		msgs = append(msgs, "You are in phantom form.")
+	}
+
 	// Health description
 	healthPct := float64(100)
 	if target.MaxBodyPoints > 0 {
@@ -897,116 +1049,6 @@ func (e *GameEngine) examinePlayer(observer *Player, target *Player) *CommandRes
 			}
 		}
 		e.monsterMgr.mu.RUnlock()
-	}
-
-	// Active spell/psi effects
-	mysticArmorActive := target.MysticArmorBonus > 0 && !target.MysticArmorExpiry.IsZero() && time.Now().Before(target.MysticArmorExpiry)
-	if mysticArmorActive {
-		msgs = append(msgs, fmt.Sprintf("%s outlined in glowing armor.", pronoun))
-	}
-	genericAura := false
-	for _, b := range target.TimedDefenseBuffs {
-		if time.Now().After(b.Expiry) {
-			continue
-		}
-		switch b.SpellID {
-		case 105: // Globe of Protection
-			msgs = append(msgs, fmt.Sprintf("%s surrounded by a prismatic globe.", pronoun))
-		case 130: // Mass Protection
-			msgs = append(msgs, fmt.Sprintf("%s the center of a large, white sphere of light.", pronoun))
-		case 326: // Spectral Shield
-			msgs = append(msgs, fmt.Sprintf("%s protected by a ghostly, hovering shield.", pronoun))
-		default:
-			genericAura = true
-		}
-	}
-	if genericAura {
-		msgs = append(msgs, fmt.Sprintf("A shimmering magical aura surrounds %s.", isSelfOr(isSelf, "you", heOrSheLC)))
-	}
-	if target.StrengthBuffID > 0 && !target.StrengthBuffExpiry.IsZero() && time.Now().Before(target.StrengthBuffExpiry) {
-		if isSelf {
-			msgs = append(msgs, "You radiate with magical strength.")
-		} else {
-			msgs = append(msgs, fmt.Sprintf("%s radiates with magical strength.", heOrShe))
-		}
-	}
-	if target.Position == 4 && target.Race != RaceDrakin {
-		msgs = append(msgs, fmt.Sprintf("%s hovering in the air.", pronoun))
-	}
-	if target.Invisible {
-		// Only visible to self or GMs
-		if isSelf {
-			msgs = append(msgs, "You are invisible.")
-		}
-	}
-	if target.PhantomForm && isSelf {
-		msgs = append(msgs, "You are in phantom form.")
-	}
-
-	// Equipment — a wolf isn't wearing or wielding anything, skip entirely.
-	if !target.WolfForm && !target.MistForm && !target.SlimeForm && target.Wielded != nil {
-		wDef := e.items[target.Wielded.Archetype]
-		if wDef != nil {
-			name := e.formatItemName(wDef, target.Wielded.Adj1, target.Wielded.Adj2, target.Wielded.Adj3, target.Wielded.Tail)
-			if isSelf {
-				msgs = append(msgs, fmt.Sprintf("You are wielding %s.", name))
-			} else {
-				msgs = append(msgs, fmt.Sprintf("%s wielding %s.", pronoun, name))
-			}
-		}
-	}
-	if !target.WolfForm && !target.MistForm && !target.SlimeForm && target.OffHand != nil {
-		ohDef := e.items[target.OffHand.Archetype]
-		if ohDef != nil {
-			ohName := e.formatItemName(ohDef, target.OffHand.Adj1, target.OffHand.Adj2, target.OffHand.Adj3, target.OffHand.Tail)
-			if ohDef.Type == "SHIELD" {
-				if isSelf {
-					msgs = append(msgs, fmt.Sprintf("You are carrying %s as a shield.", ohName))
-				} else {
-					msgs = append(msgs, fmt.Sprintf("%s carrying %s as a shield.", pronoun, ohName))
-				}
-			} else {
-				if isSelf {
-					msgs = append(msgs, fmt.Sprintf("You are wielding %s in your off hand.", ohName))
-				} else {
-					msgs = append(msgs, fmt.Sprintf("%s wielding %s in their off hand.", pronoun, ohName))
-				}
-			}
-		}
-	}
-
-	if !target.WolfForm && !target.MistForm && !target.SlimeForm {
-		// Build set of worn slots to determine undergarment visibility
-		wornSlots := map[string]bool{}
-		for _, w := range target.Worn {
-			wornSlots[w.WornSlot] = true
-		}
-		var wornNames []string
-		for _, worn := range target.Worn {
-			if outerSlots, isUnder := undergarmentHiddenBy[worn.WornSlot]; isUnder {
-				covered := false
-				for _, outer := range outerSlots {
-					if wornSlots[outer] {
-						covered = true
-						break
-					}
-				}
-				if covered {
-					continue
-				}
-			}
-			wDef := e.items[worn.Archetype]
-			if wDef != nil {
-				wornNames = append(wornNames, e.formatItemName(wDef, worn.Adj1, worn.Adj2, worn.Adj3, worn.Tail))
-			}
-		}
-		if len(wornNames) > 0 {
-			if isSelf {
-				msgs = append(msgs, fmt.Sprintf("You are wearing %s.", joinList(wornNames)))
-			} else {
-				msgs = append(msgs, fmt.Sprintf("%s wearing %s.", pronoun, joinList(wornNames)))
-			}
-		}
 	}
 
 	// Player-set custom appearance line (APPEARANCE command) — suppressed in

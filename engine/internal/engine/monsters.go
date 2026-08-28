@@ -73,6 +73,19 @@ type MonsterInstance struct {
 	CastTarget  string    `json:"-"` // player FirstName chosen as the spell's target when casting began
 	CastExpiry  time.Time `json:"-"`
 
+	// Monster psionics (PSIUSE/DISCIPLINE/PSI, per GMSCRIPT.DOC): mirrors the
+	// spellcasting fields above, but only "damage"-effect disciplines from
+	// def.Disciplines are used offensively — defensive/buff disciplines are treated
+	// as always-active (see monsterPsiDefenseBonus) per GMSCRIPT.DOC ("if you give
+	// them a defense discipline ... they get genned with those disciplines already
+	// active"). CurrentPsi is seeded from def.Psi at spawn and never regenerates,
+	// same as CurrentMana.
+	CurrentPsi    int       `json:"-"`
+	PsiCasting    bool      `json:"-"`
+	PsiCastDiscID int       `json:"-"`
+	PsiCastTarget string    `json:"-"` // player FirstName chosen as the discipline's target when casting began
+	PsiCastExpiry time.Time `json:"-"`
+
 	// Summoned creature fields (transient)
 	SummonerName    string `json:"-"` // name of the player who summoned this creature
 	IsSummoned      bool   `json:"-"` // true if summoned, not a regular world spawn
@@ -82,6 +95,32 @@ type MonsterInstance struct {
 	GuardingPlayers []string `json:"-"` // names of players being guarded (for COMMAND GUARD)
 	MonsterTargetID int      `json:"-"` // instance ID of a monster this creature is attacking; 0 = none
 	ControlExpiry   time.Time `json:"-"` // Control Undead: when control lapses and the creature turns hostile again (zero = never expires)
+
+	// Timed buff spells (Strength, Agility, Haste, Mystic Armor) cast on a summoned or
+	// controlled creature by any caster, not just its summoner — see findSummonedCreatureInRoom
+	// and castStrengthSpell/castAgilitySpell/castHasteSpell/castMysticArmor. Kept as
+	// instance-level bonuses rather than baked into a base stat (unlike the player
+	// equivalents in player.go) because MonsterDef's Attack1/Defense/Speed are shared,
+	// immutable base stats — see monsterEffectiveAttack/monsterEffectiveDefense/
+	// monsterEffectiveSpeed for where they're read. Expiry is checked live at each usage
+	// site and cleared with a fade message in monsterTick, same pattern as the
+	// Sleeping/Webbed/Feared status effects above.
+	StrengthBuffID     int       `json:"-"` // spell ID of the active Strength tier (207/208/209), 0 = none
+	StrengthBuffBonus  int       `json:"-"`
+	StrengthBuffExpiry time.Time `json:"-"`
+	AgilityBuffID      int       `json:"-"` // spell ID of the active Agility tier (513/514/515), 0 = none
+	AgilityBuffBonus   int       `json:"-"`
+	AgilityBuffExpiry  time.Time `json:"-"`
+	HasteExpiry        time.Time `json:"-"`
+	MysticArmorBonus   int       `json:"-"`
+	MysticArmorExpiry  time.Time `json:"-"`
+	// TimedDefenseBuffs holds every other flat-bonus defense spell (Globe of Protection
+	// I/II, Mass Protection, Spectral Shield, Ride the Lightning — see
+	// castTimedDefenseSpell) currently active, reusing the same TimedDefenseBuff struct
+	// as the player equivalent (player.go). Kept as a list rather than a single field
+	// since, like players, a creature can have several distinct named buffs stacked at
+	// once — see monsterEffectiveDefense for where they're summed.
+	TimedDefenseBuffs []TimedDefenseBuff `json:"-"`
 
 	// Appearance is lazily rolled the first time a disguisable town NPC (commoner,
 	// trader, merchant, lawkeeper, beggar — see disguisableNPCNames) is examined, then
@@ -188,6 +227,59 @@ func monsterPsiDefenseBonus(disciplines []int) int {
 	return bonus
 }
 
+// monsterEffectiveAttack returns a monster's Attack1 rating plus any active Strength
+// buff bonus. The bonus is divided by 5 to match the player equivalent's scaling
+// (playerAttackRating adds player.Strength/5), so a Strength I/II/III cast on a
+// summoned/controlled creature is worth the same +2/+4/+6 to-hit and damage swing a
+// player gets from it, not the raw 10/20/30.
+func monsterEffectiveAttack(def *gameworld.MonsterDef, inst *MonsterInstance) int {
+	atk := def.Attack1
+	if inst.StrengthBuffBonus > 0 && !inst.StrengthBuffExpiry.IsZero() && time.Now().Before(inst.StrengthBuffExpiry) {
+		atk += inst.StrengthBuffBonus / 5
+	}
+	return atk
+}
+
+// monsterEffectiveDefense returns a monster's Defense rating plus its passive psi
+// DefenseBonus, any active Agility buff (same /5 scaling as monsterEffectiveAttack,
+// mirroring playerDefenseRating's player.Agility/5), any active Mystic Armor buff (added
+// at full value, same as applyMysticArmorBuff does for players), and every active flat
+// defense spell in TimedDefenseBuffs (Globe of Protection I/II, Mass Protection, Spectral
+// Shield, Ride the Lightning — see castTimedDefenseSpell), which stack additively same as
+// they do on a player.
+func monsterEffectiveDefense(def *gameworld.MonsterDef, inst *MonsterInstance) int {
+	d := def.Defense + inst.DefenseBonus
+	now := time.Now()
+	if inst.AgilityBuffBonus > 0 && !inst.AgilityBuffExpiry.IsZero() && now.Before(inst.AgilityBuffExpiry) {
+		d += inst.AgilityBuffBonus / 5
+	}
+	if inst.MysticArmorBonus > 0 && !inst.MysticArmorExpiry.IsZero() && now.Before(inst.MysticArmorExpiry) {
+		d += inst.MysticArmorBonus
+	}
+	for _, b := range inst.TimedDefenseBuffs {
+		if now.Before(b.Expiry) {
+			d += b.Bonus
+		}
+	}
+	return d
+}
+
+// monsterEffectiveSpeed halves a monster's action-tick interval while Haste is active
+// (minimum 1), the same way applyRoundTime halves a hasted player's round time.
+func monsterEffectiveSpeed(def *gameworld.MonsterDef, inst *MonsterInstance) int {
+	speed := def.Speed
+	if speed <= 0 {
+		speed = 3
+	}
+	if !inst.HasteExpiry.IsZero() && time.Now().Before(inst.HasteExpiry) {
+		speed /= 2
+		if speed < 1 {
+			speed = 1
+		}
+	}
+	return speed
+}
+
 // spawnForRoom checks MLIST entries for a room and spawns monsters if needed.
 // Called when a player enters a room or during periodic spawn checks.
 func (e *GameEngine) spawnForRoom(roomNum int) {
@@ -261,6 +353,7 @@ func (e *GameEngine) spawnForRoom(roomNum int) {
 				MaxHP:        hp,
 				DefenseBonus: monsterPsiDefenseBonus(def.Disciplines),
 				CurrentMana:  def.Mana,
+				CurrentPsi:   def.Psi,
 			}
 			idx := len(e.monsterMgr.instances)
 			e.monsterMgr.instances = append(e.monsterMgr.instances, inst)
@@ -285,10 +378,11 @@ func (e *GameEngine) spawnForRoom(roomNum int) {
 
 // SpawnOne creates a single monster instance in a room. hp should include ExtraBody.
 // mana seeds CurrentMana (pass the def's Mana field; 0 if the monster has no spells).
-func (mm *monsterManager) SpawnOne(defNum, roomNum, hp, mana int) {
+// psi seeds CurrentPsi likewise (pass the def's Psi field; 0 if the monster has no disciplines).
+func (mm *monsterManager) SpawnOne(defNum, roomNum, hp, mana, psi int) {
 	mm.mu.Lock()
 	defer mm.mu.Unlock()
-	inst := MonsterInstance{ID: mm.nextID, DefNumber: defNum, RoomNumber: roomNum, Alive: true, CurrentHP: hp, MaxHP: hp, CurrentMana: mana}
+	inst := MonsterInstance{ID: mm.nextID, DefNumber: defNum, RoomNumber: roomNum, Alive: true, CurrentHP: hp, MaxHP: hp, CurrentMana: mana, CurrentPsi: psi}
 	idx := len(mm.instances)
 	mm.instances = append(mm.instances, inst)
 	mm.monstersByRoom[roomNum] = append(mm.monstersByRoom[roomNum], idx)
@@ -825,11 +919,62 @@ func (e *GameEngine) monsterTick(tick int) {
 			continue
 		}
 
-		// Speed determines action frequency: speed 1 = every tick, speed 3 (default) = every 3 ticks
-		speed := def.Speed
-		if speed <= 0 {
-			speed = 3
+		// Timed buff expiry (Strength, Agility, Haste, Mystic Armor) — see
+		// monsterEffectiveAttack/monsterEffectiveDefense/monsterEffectiveSpeed for where
+		// these are read, and castStrengthSpell/castAgilitySpell/castHasteSpell/
+		// castMysticArmor for where they're applied. Checked every tick, same as the
+		// Control Undead expiry above, not gated by the speed check below.
+		now := time.Now()
+		if inst.StrengthBuffBonus > 0 && !inst.StrengthBuffExpiry.IsZero() && now.After(inst.StrengthBuffExpiry) {
+			inst.StrengthBuffID = 0
+			inst.StrengthBuffBonus = 0
+			inst.StrengthBuffExpiry = time.Time{}
+			if e.localRoomBroadcast != nil {
+				name := strings.ToLower(FormatMonsterName(def, e.monAdjs))
+				e.localRoomBroadcast(inst.RoomNumber, []string{fmt.Sprintf("The magical strength fades from the %s.", name)})
+			}
 		}
+		if inst.AgilityBuffBonus > 0 && !inst.AgilityBuffExpiry.IsZero() && now.After(inst.AgilityBuffExpiry) {
+			inst.AgilityBuffID = 0
+			inst.AgilityBuffBonus = 0
+			inst.AgilityBuffExpiry = time.Time{}
+			if e.localRoomBroadcast != nil {
+				name := strings.ToLower(FormatMonsterName(def, e.monAdjs))
+				e.localRoomBroadcast(inst.RoomNumber, []string{fmt.Sprintf("The magical agility fades from the %s.", name)})
+			}
+		}
+		if !inst.HasteExpiry.IsZero() && now.After(inst.HasteExpiry) {
+			inst.HasteExpiry = time.Time{}
+			if e.localRoomBroadcast != nil {
+				name := strings.ToLower(FormatMonsterName(def, e.monAdjs))
+				e.localRoomBroadcast(inst.RoomNumber, []string{fmt.Sprintf("The magical haste fades from the %s.", name)})
+			}
+		}
+		if inst.MysticArmorBonus > 0 && !inst.MysticArmorExpiry.IsZero() && now.After(inst.MysticArmorExpiry) {
+			inst.MysticArmorBonus = 0
+			inst.MysticArmorExpiry = time.Time{}
+			if e.localRoomBroadcast != nil {
+				name := strings.ToLower(FormatMonsterName(def, e.monAdjs))
+				e.localRoomBroadcast(inst.RoomNumber, []string{fmt.Sprintf("The Mystic Armor fades from the %s.", name)})
+			}
+		}
+		if len(inst.TimedDefenseBuffs) > 0 {
+			var active []TimedDefenseBuff
+			for _, b := range inst.TimedDefenseBuffs {
+				if now.After(b.Expiry) {
+					if e.localRoomBroadcast != nil {
+						name := strings.ToLower(FormatMonsterName(def, e.monAdjs))
+						e.localRoomBroadcast(inst.RoomNumber, []string{fmt.Sprintf("The %s fades from the %s.", b.SpellName, name)})
+					}
+				} else {
+					active = append(active, b)
+				}
+			}
+			inst.TimedDefenseBuffs = active
+		}
+
+		// Speed determines action frequency: speed 1 = every tick, speed 3 (default) = every 3 ticks
+		speed := monsterEffectiveSpeed(def, inst)
 		if tick%speed != 0 {
 			continue
 		}

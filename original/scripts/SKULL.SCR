@@ -351,6 +351,8 @@ window looks out over the graveyard past the mausoleums and markers to the
 south of the city; the poorer section of the city is visible off to the
 left, while the Eltimar and the forest of Grymwood stretches to the right,
 and the shores of the inner sea are just visible over a range of low hills.
+A chest sits at the foot of the bed.
 *DESCRIPTION_END
 ITEM 0 81 VAL2=5302 ; STAIRS
+ITEM 1 333 ITEMBIT19=1 ; Chest (persistent)
 

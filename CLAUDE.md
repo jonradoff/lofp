@@ -59,16 +59,18 @@ Load .env first if needed: `source .env`
 
 The frontend uses `VITE_GOOGLE_CLIENT_ID` at build time (baked into the JS bundle by Vite). If it's missing, the "Sign in with Google" button disappears and users see "Authentication Not Configured".
 
+**Also required: the Turnstile site key as a build arg, or the registration CAPTCHA won't render.** Same mechanism as the Google Client ID — `VITE_TURNSTILE_SITE_KEY` is baked into the JS bundle by Vite. If it's missing, the register form silently has no CAPTCHA widget and the backend falls back to skipping verification (since `TURNSTILE_SECRET_KEY` being set server-side is what actually enforces the check — see `engine/internal/auth/turnstile.go`).
+
 ### Deploy command (always use this exact pattern):
 ```sh
-GCID=$(grep GOOGLE_CLIENT_ID .env | cut -d= -f2) && fly deploy --build-arg "VITE_GOOGLE_CLIENT_ID=$GCID"
+GCID=$(grep GOOGLE_CLIENT_ID .env | cut -d= -f2) && TSK=$(grep VITE_TURNSTILE_SITE_KEY .env | cut -d= -f2) && fly deploy --build-arg "VITE_GOOGLE_CLIENT_ID=$GCID" --build-arg "VITE_TURNSTILE_SITE_KEY=$TSK"
 ```
 
 **Why this specific pattern?** The Bash tool's shell does not persist exported variables between commands. `source .env && fly deploy --build-arg VITE_GOOGLE_CLIENT_ID=$GOOGLE_CLIENT_ID` silently passes an empty string because `source` sets but does not export the variable, and the Bash tool may run commands in separate shell contexts. Using `grep | cut` directly extracts the value inline, which is reliable.
 
 If using `--no-cache` to force a fresh build, append it:
 ```sh
-GCID=$(grep GOOGLE_CLIENT_ID .env | cut -d= -f2) && fly deploy --build-arg "VITE_GOOGLE_CLIENT_ID=$GCID" --no-cache
+GCID=$(grep GOOGLE_CLIENT_ID .env | cut -d= -f2) && TSK=$(grep VITE_TURNSTILE_SITE_KEY .env | cut -d= -f2) && fly deploy --build-arg "VITE_GOOGLE_CLIENT_ID=$GCID" --build-arg "VITE_TURNSTILE_SITE_KEY=$TSK" --no-cache
 ```
 
 ### After deploying, verify Google login:
@@ -77,9 +79,15 @@ fly ssh console -a lofp -C "grep -c 718491 /app/static/assets/index-*.js"
 ```
 This should return `1`. If it returns `0`, the build arg was not passed correctly.
 
+### Also make sure the Turnstile secret is set as a Fly secret (backend-only, runtime):
+```sh
+fly secrets set TURNSTILE_SECRET_KEY=...
+```
+Without this, `TURNSTILE_SECRET_KEY` is empty and `VerifyCaptcha` silently no-ops — registration works but isn't actually protected, even if the widget renders.
+
 ### Local dev vs. production:
-- **Local**: `.env` file at project root contains `GOOGLE_CLIENT_ID=...` (among other secrets). Vite reads `VITE_GOOGLE_CLIENT_ID` from the environment when running `npm run dev`.
-- **Production**: Fly.io secrets store `MONGODB_URI`, `JWT_SECRET`, `RESEND_API_KEY`, `SSH_HOST_KEY` (set via `fly secrets set`). The Google Client ID is NOT a Fly secret — it's a **build arg** because Vite needs it at build time, not runtime.
+- **Local**: `.env` file at project root contains `GOOGLE_CLIENT_ID=...`, `TURNSTILE_SECRET_KEY=...`, `VITE_TURNSTILE_SITE_KEY=...` (among other secrets). Vite reads the `VITE_`-prefixed ones from the environment when running `npm run dev`.
+- **Production**: Fly.io secrets store `MONGODB_URI`, `JWT_SECRET`, `RESEND_API_KEY`, `SSH_HOST_KEY`, `TURNSTILE_SECRET_KEY` (set via `fly secrets set`). The Google Client ID and Turnstile site key are NOT Fly secrets — they're **build args** because Vite needs them at build time, not runtime.
 - **Never commit `.env`** — it contains production secrets. It is in `.gitignore`.
 
 ## MUD Client Protocols

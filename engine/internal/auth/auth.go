@@ -92,25 +92,27 @@ func (s *Service) SetAdmin(ctx context.Context, accountID string, isAdmin bool) 
 
 // Service handles authentication and account management.
 type Service struct {
-	db             *mongo.Database
-	googleClientID string
-	jwtSecret      []byte
-	googleKeys     map[string]*rsa.PublicKey
-	keysMu         sync.RWMutex
-	keysExpiry     time.Time
+	db              *mongo.Database
+	googleClientID  string
+	jwtSecret       []byte
+	turnstileSecret string
+	googleKeys      map[string]*rsa.PublicKey
+	keysMu          sync.RWMutex
+	keysExpiry      time.Time
 }
 
 // NewService creates a new auth service.
 // Panics if jwtSecret is empty or shorter than 32 characters.
-func NewService(db *mongo.Database, googleClientID, jwtSecret string) *Service {
+func NewService(db *mongo.Database, googleClientID, jwtSecret, turnstileSecret string) *Service {
 	if len(jwtSecret) < 32 {
 		panic("auth: JWT secret must be at least 32 characters")
 	}
 	s := &Service{
-		db:             db,
-		googleClientID: googleClientID,
-		jwtSecret:      []byte(jwtSecret),
-		googleKeys:     make(map[string]*rsa.PublicKey),
+		db:              db,
+		googleClientID:  googleClientID,
+		jwtSecret:       []byte(jwtSecret),
+		turnstileSecret: turnstileSecret,
+		googleKeys:      make(map[string]*rsa.PublicKey),
 	}
 	if db != nil {
 		coll := db.Collection("accounts")

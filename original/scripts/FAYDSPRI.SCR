@@ -3451,7 +3451,7 @@ FIXED_LIGHT
 OUTDOOR_FLOOR
 CALL 33
 ITEM 9 693 ADJ1=10
-ITEM 4 943 VAL2=2000 VAL3=1234 ; Door to Home
+ITEM 4 943 VAL1=100 VAL2=9000 VAL3=1234 ; Door to Moordread and Cypress Home
 
 *DESCRIPTION_START
 The silver and gold specks in the river-rock stones forming the walkway sparkle

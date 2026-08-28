@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { GoogleLogin } from '@react-oauth/google'
 import type { Character } from '../App'
 import { useAuth } from '../App'
@@ -9,6 +9,17 @@ const RACE_NAMES: Record<number, string> = {
 }
 
 const GOOGLE_ENABLED = !!import.meta.env.VITE_GOOGLE_CLIENT_ID
+const TURNSTILE_SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY || ''
+
+declare global {
+  interface Window {
+    turnstile?: {
+      render: (container: HTMLElement, options: { sitekey: string; callback: (token: string) => void; 'error-callback'?: () => void; 'expired-callback'?: () => void }) => string
+      reset: (widgetId?: string) => void
+      remove: (widgetId?: string) => void
+    }
+  }
+}
 
 interface SavedPlayer {
   id: string
@@ -50,8 +61,48 @@ export default function MainMenu({ onNewCharacter, onSelectCharacter, onVersionN
   const [forgotSent, setForgotSent] = useState(false)
   const [showMudInfo, setShowMudInfo] = useState(false)
   const [banner, setBanner] = useState('')
+  const [captchaToken, setCaptchaToken] = useState('')
+  const turnstileContainerRef = useRef<HTMLDivElement>(null)
+  const turnstileWidgetId = useRef<string | undefined>(undefined)
 
   const isLoggedIn = !!user
+
+  // Load and render the Cloudflare Turnstile widget while the register form is
+  // open — this is the anti-bot check on account creation (see the mass fake-
+  // account abuse this was added for). Skipped entirely if no site key is
+  // configured, same fallback convention as GOOGLE_ENABLED.
+  useEffect(() => {
+    if (authMode !== 'register' || !TURNSTILE_SITE_KEY) return
+
+    const renderWidget = () => {
+      if (!turnstileContainerRef.current || !window.turnstile) return
+      turnstileWidgetId.current = window.turnstile.render(turnstileContainerRef.current, {
+        sitekey: TURNSTILE_SITE_KEY,
+        callback: (token: string) => setCaptchaToken(token),
+        'error-callback': () => setCaptchaToken(''),
+        'expired-callback': () => setCaptchaToken(''),
+      })
+    }
+
+    if (window.turnstile) {
+      renderWidget()
+    } else {
+      const script = document.createElement('script')
+      script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js'
+      script.async = true
+      script.defer = true
+      script.onload = renderWidget
+      document.body.appendChild(script)
+    }
+
+    return () => {
+      if (turnstileWidgetId.current && window.turnstile) {
+        window.turnstile.remove(turnstileWidgetId.current)
+      }
+      turnstileWidgetId.current = undefined
+      setCaptchaToken('')
+    }
+  }, [authMode])
 
   useEffect(() => {
     fetch('/api/banner')
@@ -149,12 +200,22 @@ export default function MainMenu({ onNewCharacter, onSelectCharacter, onVersionN
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault()
+    if (TURNSTILE_SITE_KEY && !captchaToken) {
+      setLoginError('Please complete the verification challenge.')
+      return
+    }
     setSubmitting(true)
     setLoginError('')
     try {
-      await register(emailInput, passwordInput, nameInput)
+      await register(emailInput, passwordInput, nameInput, captchaToken)
     } catch (err) {
       setLoginError(err instanceof Error ? err.message : 'Registration failed')
+      // Turnstile tokens are single-use — reset the widget so the user can
+      // retry without a stale token silently failing verification again.
+      if (turnstileWidgetId.current && window.turnstile) {
+        window.turnstile.reset(turnstileWidgetId.current)
+      }
+      setCaptchaToken('')
     }
     setSubmitting(false)
   }
@@ -319,8 +380,9 @@ export default function MainMenu({ onNewCharacter, onSelectCharacter, onVersionN
                     onChange={e => setPasswordInput(e.target.value)}
                     className="w-full px-3 py-2 bg-[#111] border border-[#444] rounded font-mono text-sm text-gray-200 focus:border-amber-600 focus:outline-none"
                   />
+                  {TURNSTILE_SITE_KEY && <div ref={turnstileContainerRef} className="flex justify-center" />}
                   {loginError && <p className="text-red-400 font-mono text-xs">{loginError}</p>}
-                  <button type="submit" disabled={submitting}
+                  <button type="submit" disabled={submitting || (!!TURNSTILE_SITE_KEY && !captchaToken)}
                     className="w-full py-2 bg-amber-700 hover:bg-amber-600 text-white font-mono text-sm rounded disabled:opacity-50 transition-colors">
                     {submitting ? 'Creating...' : 'Create Account'}
                   </button>
@@ -456,7 +518,7 @@ export default function MainMenu({ onNewCharacter, onSelectCharacter, onVersionN
         )}
         <div className="mt-6 text-center">
           <button onClick={onVersionNotes} className="text-gray-600 hover:text-amber-400 text-xs font-mono">
-            Version 11.30.0 &mdash; Version Notes
+            Version 11.35.1 &mdash; Version Notes
           </button>
           <span className="text-gray-700 mx-2">|</span>
           <a href="/manual" className="text-gray-600 hover:text-amber-400 text-xs font-mono">

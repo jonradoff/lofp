@@ -128,7 +128,7 @@ func main() {
 	// Create auth service (needed for email/password login, Google OAuth, JWT validation)
 	var authSvc *auth.Service
 	if cfg.Auth.JWTSecret != "" {
-		authSvc = auth.NewService(db, cfg.Auth.GoogleClientID, cfg.Auth.JWTSecret)
+		authSvc = auth.NewService(db, cfg.Auth.GoogleClientID, cfg.Auth.JWTSecret, cfg.Auth.TurnstileSecretKey)
 		if cfg.Auth.GoogleClientID != "" {
 			log.Printf("Google OAuth enabled (client ID: %s...)", cfg.Auth.GoogleClientID[:min(20, len(cfg.Auth.GoogleClientID))])
 		}
@@ -158,6 +158,12 @@ func main() {
 	srv := api.NewServer(ge, parsed, authSvc, emailSvc, gl, h, cs, fb, cfg.Server.FrontendURL)
 	ge.LoadBanner()
 	ge.LoadGMScripts()
+	// Must run after LoadGMScripts — see LoadPersistentContainers' doc comment:
+	// GM-uploaded scripts can overwrite a room built from disk scripts (e.g. a
+	// player-home room reusing a disk room number), and restoring persisted
+	// container contents before that settles would look them up against the
+	// wrong, soon-to-be-replaced room.
+	ge.LoadPersistentContainers()
 	h.Start()
 	ge.StartTimeCycle()
 	ge.StartWeatherCycle()
