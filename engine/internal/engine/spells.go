@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"github.com/jonradoff/lofp/internal/gameworld"
+	"go.mongodb.org/mongo-driver/v2/bson"
 )
 
 // SpellDef defines a spell in the game.
@@ -1109,6 +1110,8 @@ func (e *GameEngine) doCastSpell(ctx context.Context, player *Player, args []str
 			result = e.castChargeWandSpell(player, spell, args)
 		case 227, 322: // Imprisonment Rune, Death Scythe — sigil spells
 			result = e.castSigilSpell(player, spell, args)
+		case 408: // Truename
+			result = e.castTruenameSpell(ctx, player, spell, args)
 		default:
 			result.Messages = []string{fmt.Sprintf("You gesture and cast %s.", spell.Name)}
 			result.RoomBroadcast = []string{fmt.Sprintf("%s gestures and casts %s.", player.DisplayNameCap(), spell.Name)}
@@ -5476,10 +5479,12 @@ func (e *GameEngine) castSigilSpell(player *Player, spell *SpellDef, args []stri
 	case invItem != nil:
 		invItem.SigilSpellID = spell.ID
 		invItem.SigilOwner = ""
+		invItem.SigilCaster = player.FirstName
 		itemName = e.formatItemName(def, invItem.Adj1, invItem.Adj2, invItem.Adj3, invItem.Tail)
 	case roomItem != nil:
 		roomItem.SigilSpellID = spell.ID
 		roomItem.SigilOwner = ""
+		roomItem.SigilCaster = player.FirstName
 		itemName = e.formatItemName(def, roomItem.Adj1, roomItem.Adj2, roomItem.Adj3, roomItem.Extend)
 		itemCopy := *roomItem
 		e.notifyRoomChange(RoomChange{RoomNumber: player.RoomNumber, Type: "item_update", ItemRef: roomItem.Ref, Item: &itemCopy})
@@ -5581,6 +5586,218 @@ func (e *GameEngine) springSigilTrap(ctx context.Context, player *Player, sigilS
 	}
 	e.SavePlayer(ctx, player)
 	return msgs
+}
+
+// truenameSyllables are combined to roll a random secret name — see generateTruename.
+var truenameSyllables = []string{
+	"Ra", "Zi", "Mor", "Thal", "Ky", "Vex", "Or", "Sil", "Dra", "Nyx",
+	"Fen", "Az", "Quor", "Lir", "Tha", "Bry", "Ish", "Cal", "Vor", "Es",
+}
+
+// generateTruename rolls a random 2-3 syllable secret name. There's no surviving
+// original algorithm to replicate (the GM docs only note that changing a player's
+// LastName used to regenerate it) — per the design call for this feature, a fresh
+// truename is simply rolled the first time one is needed.
+func generateTruename() string {
+	n := 2 + rand.Intn(2) // 2-3 syllables
+	var b strings.Builder
+	for i := 0; i < n; i++ {
+		b.WriteString(truenameSyllables[rand.Intn(len(truenameSyllables))])
+	}
+	return b.String()
+}
+
+// ensureTruename returns player's secret truename — a made-up name, never the player's
+// real first/last name — lazily rolling and persisting a unique one via
+// rollUniqueTruename if it's never been referenced before. Once set it never changes.
+func (e *GameEngine) ensureTruename(ctx context.Context, player *Player) string {
+	if player.Truename == "" {
+		player.Truename = e.rollUniqueTruename(ctx)
+		e.SavePlayer(ctx, player)
+	}
+	return player.Truename
+}
+
+// rollUniqueTruename rolls a made-up name via generateTruename and rerolls on
+// collision so every player's truename is unique — checked against online sessions
+// (their truename may not be saved yet) and, if that comes back clear, the
+// database. Falls back to a longer double-roll after enough collisions to
+// guarantee termination even in some cursed pigeonhole scenario.
+func (e *GameEngine) rollUniqueTruename(ctx context.Context) string {
+	for i := 0; i < 20; i++ {
+		candidate := generateTruename()
+		if !e.truenameTaken(ctx, candidate) {
+			return candidate
+		}
+	}
+	return generateTruename() + generateTruename()
+}
+
+// truenameTaken reports whether name is already someone's truename.
+func (e *GameEngine) truenameTaken(ctx context.Context, name string) bool {
+	if e.sessions != nil {
+		for _, p := range e.sessions.OnlinePlayers() {
+			if p.Truename == name {
+				return true
+			}
+		}
+	}
+	if e.db == nil {
+		return false
+	}
+	count, err := e.db.Collection("players").CountDocuments(ctx, bson.M{"truename": name})
+	if err != nil {
+		return false
+	}
+	return count > 0
+}
+
+// resolveTruenameOwner looks up the truename of a player by their real FirstName —
+// the SummonerName of a summoned/controlled creature, or the SigilCaster of an
+// inscribed sigil/glyph (see castTruenameSpell). Checks online sessions first so an
+// already-known truename shows immediately; falls back to loading their saved record
+// (and lazily rolling a truename into it) if they're offline.
+func (e *GameEngine) resolveTruenameOwner(ctx context.Context, firstName string) string {
+	if p := e.findOnlinePlayerByName(firstName); p != nil {
+		return e.ensureTruename(ctx, p)
+	}
+	owner, err := e.resolvePlayerByName(ctx, firstName)
+	if err != nil {
+		return "someone lost to time"
+	}
+	return e.ensureTruename(ctx, owner)
+}
+
+// playerMagicResistRoll reports whether target resists an invasive spell (Truename)
+// cast on them by caster. Mirrors magicResistRoll's rating-vs-rating shape (calcToHit,
+// combat.go), but built from player stats on both sides since players don't carry a
+// monster-style RESIST field: caster's rating uses Spellcraft + Empathy (same as
+// magicResistRoll), target's uses Level + Willpower, the player stat LEGENDS.DOC treats
+// as mental fortitude. A target who has SUBMITted has opted out of defending
+// themselves — see the requiresSubmit convention in emotes.go — so their resistance
+// drops to nothing (calcToHit's own 5% floor still applies, same as every other
+// resist/to-hit roll in the game).
+func playerMagicResistRoll(caster *Player, target *Player) bool {
+	casterRating := 50 + caster.Skills[23]*5 + caster.Empathy/5
+	targetRating := 50 + target.Level*3 + target.Willpower/5
+	if target.Submitting {
+		targetRating = 0
+	}
+	return rand.Intn(100) < calcToHit(casterRating, targetRating)
+}
+
+// castTruenameSpell handles spell 408 — Truename (MAGIC.TXT: "Invasive spell tell's
+// you the person's soulname, also works on sigils and controlled creatures"). It can
+// target three different things:
+//
+//   - A summoned or controlled creature (findSummonedCreatureInRoom — matches both,
+//     see spawnSummonedCreature/castControlUndead/castCommandSpell, which all set
+//     SummonerName): reveals its summoner's/controller's truename. No resistance —
+//     a creature can't defend its master's secret.
+//   - A glyphed/sigiled item (SigilSpellID/SigilCaster, set by castSigilSpell): reveals
+//     the truename of whoever inscribed it. Same reasoning — no resistance.
+//   - A player: an aggressive act. The target's normal mental defenses apply via
+//     playerMagicResistRoll, unless they've SUBMITted.
+func (e *GameEngine) castTruenameSpell(ctx context.Context, player *Player, spell *SpellDef, args []string) *CommandResult {
+	targetRaw := strings.Join(args, " ")
+	t := strings.ToLower(targetRaw)
+
+	// No target given, or an explicit "me"/"myself"/"self", casts on the caster —
+	// same default-to-self convention as the other targeted spells (see
+	// castMindlink/castParanoiaSpell/castSlowSpell/castHasteSpell). Handled up front,
+	// before the target-search branches below, for two reasons: an empty target
+	// string is a prefix of everything (matchesTarget's HasPrefix), so it would
+	// otherwise accidentally match the first summoned creature/item/monster in the
+	// room; and findPlayerInRoom deliberately excludes the caster (see its "skip
+	// self, handled separately" comment), so "me" would never resolve there anyway.
+	if len(args) == 0 || t == "me" || t == "myself" || t == "self" {
+		truename := e.ensureTruename(ctx, player)
+		return &CommandResult{
+			Messages:      []string{fmt.Sprintf("You gesture and cast %s on yourself. Your truename is %s.", spell.Name, truename)},
+			RoomBroadcast: []string{fmt.Sprintf("%s gestures and casts %s on themselves.", player.DisplayName(), spell.Name)},
+		}
+	}
+
+	// Summoned or controlled creature — reveals its summoner's truename.
+	if inst, def := e.findSummonedCreatureInRoom(player, t); inst != nil {
+		name := FormatMonsterName(def, e.monAdjs)
+		article := articleFor(name, def.Unique)
+		castMsg := fmt.Sprintf("You gesture and cast %s at %s%s.", spell.Name, article, name)
+		roomMsg := fmt.Sprintf("%s gestures and casts %s at %s%s.", player.DisplayName(), spell.Name, article, name)
+		if inst.SummonerName == "" {
+			return &CommandResult{
+				Messages:      []string{castMsg, "You sense no summoner bound to it."},
+				RoomBroadcast: []string{roomMsg},
+			}
+		}
+		truename := e.resolveTruenameOwner(ctx, inst.SummonerName)
+		return &CommandResult{
+			Messages:      []string{castMsg, fmt.Sprintf("Its summoner's truename is %s.", truename)},
+			RoomBroadcast: []string{roomMsg},
+		}
+	}
+
+	// Glyphed/sigiled item — reveals the truename of whoever inscribed it.
+	if invItem, roomItem, def := e.findMutableItemTarget(player, targetRaw); def != nil {
+		var itemName string
+		var sigilSpellID int
+		var sigilCaster string
+		if invItem != nil {
+			itemName = e.formatItemName(def, invItem.Adj1, invItem.Adj2, invItem.Adj3, invItem.Tail)
+			sigilSpellID, sigilCaster = invItem.SigilSpellID, invItem.SigilCaster
+		} else {
+			itemName = e.formatItemName(def, roomItem.Adj1, roomItem.Adj2, roomItem.Adj3, roomItem.Extend)
+			sigilSpellID, sigilCaster = roomItem.SigilSpellID, roomItem.SigilCaster
+		}
+		castMsg := fmt.Sprintf("You gesture and cast %s at %s.", spell.Name, itemName)
+		roomMsg := fmt.Sprintf("%s gestures and casts %s at %s.", player.DisplayName(), spell.Name, itemName)
+		if sigilSpellID == 0 || sigilCaster == "" {
+			return &CommandResult{
+				Messages:      []string{castMsg, "You sense nothing bound to it."},
+				RoomBroadcast: []string{roomMsg},
+			}
+		}
+		truename := e.resolveTruenameOwner(ctx, sigilCaster)
+		return &CommandResult{
+			Messages:      []string{castMsg, fmt.Sprintf("The sigil's truename is %s.", truename)},
+			RoomBroadcast: []string{roomMsg},
+		}
+	}
+
+	// Wild (non-summoned) monster — matched but has no truename to reveal.
+	if inst, def := e.findMonsterInRoom(player, t); inst != nil {
+		name := FormatMonsterName(def, e.monAdjs)
+		article := articleFor(name, def.Unique)
+		return &CommandResult{
+			Messages:      []string{fmt.Sprintf("You gesture and cast %s at %s%s.", spell.Name, article, name), "It was born of this world, not bound to anyone's truename."},
+			RoomBroadcast: []string{fmt.Sprintf("%s gestures and casts %s at %s%s.", player.DisplayName(), spell.Name, article, name)},
+		}
+	}
+
+	// Player — an aggressive act, resisted by their normal defenses unless submitting.
+	found := e.findPlayerInRoom(player, t)
+	if found == nil {
+		return &CommandResult{Messages: []string{fmt.Sprintf("You don't see '%s' here.", targetRaw)}, TargetNotFound: true}
+	}
+
+	castMsg := fmt.Sprintf("You gesture and cast %s at %s.", spell.Name, found.DisplayName())
+	roomMsg := fmt.Sprintf("%s gestures and casts %s at %s.", player.DisplayName(), spell.Name, found.DisplayName())
+	if playerMagicResistRoll(player, found) {
+		return &CommandResult{
+			Messages:      []string{castMsg, "Their mind resists your intrusion!"},
+			RoomBroadcast: []string{roomMsg},
+			TargetName:    found.FirstName,
+			TargetMsg:     []string{fmt.Sprintf("You feel a probing pressure in your mind as %s tries to pry out your truename, but your will holds firm!", player.FirstName)},
+		}
+	}
+
+	truename := e.ensureTruename(ctx, found)
+	return &CommandResult{
+		Messages:      []string{castMsg, fmt.Sprintf("Their truename is %s.", truename)},
+		RoomBroadcast: []string{roomMsg},
+		TargetName:    found.FirstName,
+		TargetMsg:     []string{fmt.Sprintf("%s's eyes bore into yours as they pry your truename from your mind!", player.FirstName)},
+	}
 }
 
 // castDetectMagic handles spell 400 — Detect Magic.

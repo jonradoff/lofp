@@ -93,6 +93,10 @@ type InventoryItem struct {
     // to 0), matching the existing chest-trap convention (see checkTrap).
     SigilSpellID int    `bson:"sigilSpellID,omitempty" json:"sigilSpellID,omitempty"`
     SigilOwner   string `bson:"sigilOwner,omitempty" json:"sigilOwner,omitempty"`
+    // SigilCaster is the real FirstName of the player who inscribed the sigil with CAST
+    // (castSigilSpell) — distinct from SigilOwner, which is whoever later claims it by
+    // touch. Used by Truename (castTruenameSpell) to reveal who created the glyph.
+    SigilCaster  string `bson:"sigilCaster,omitempty" json:"sigilCaster,omitempty"`
 }
 
 // TimedDefenseBuff tracks one active defense spell with a bonus and expiry.
@@ -117,6 +121,13 @@ type Player struct {
 	AccountID  string            `bson:"accountId,omitempty" json:"accountId,omitempty"`
 	FirstName  string            `bson:"firstName" json:"firstName"`
 	LastName   string            `bson:"lastName" json:"lastName"`
+	// Truename is a made-up secret name (MAGIC.TXT spell 408, Truename — "Invasive
+	// spell tell's you the person's soulname") — never the player's real
+	// FirstName/LastName. Left blank until first needed, then lazily rolled unique
+	// and persisted by ensureTruename/rollUniqueTruename in spells.go — by casting
+	// Truename on the player, or by the player creating something (a
+	// summoned/controlled creature, a sigil/glyph) that carries their truename.
+	Truename   string            `bson:"truename,omitempty" json:"truename,omitempty"`
 	Race       int               `bson:"race" json:"race"`
 	Gender     int               `bson:"gender" json:"gender"`
 	Level      int               `bson:"level" json:"level"`

@@ -49,6 +49,10 @@ type RoomItem struct {
 	// items, and door/gate items.
 	SigilSpellID int    `bson:"sigilSpellID,omitempty" json:"sigilSpellID,omitempty"`
 	SigilOwner   string `bson:"sigilOwner,omitempty" json:"sigilOwner,omitempty"`
+	// SigilCaster is the real FirstName of the player who inscribed the sigil with CAST
+	// (castSigilSpell in engine/spells.go) — distinct from SigilOwner, which is whoever
+	// later claims it by touch. Used by Truename to reveal who created the glyph.
+	SigilCaster string `bson:"sigilCaster,omitempty" json:"sigilCaster,omitempty"`
 }
 
 // StoreItem represents a purchasable item in a shop room.
