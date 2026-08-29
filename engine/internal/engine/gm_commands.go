@@ -131,6 +131,8 @@ func (e *GameEngine) processGMCommand(ctx context.Context, player *Player, verb 
 		return e.gmSetPlayer(ctx, args)
 	case "@INTNUM3":
 		return e.gmIntNum3(ctx, args)
+	case "@TRUENAME":
+		return e.gmTruename(ctx, args)
 	case "@RND":
 		return e.gmRnd(args)
 	case "@OPEN":
@@ -295,6 +297,7 @@ func (e *GameEngine) gmHelp() *CommandResult {
 		"@title <name> <title>  - Set player title (e.g. the Baroness)",
 		"@treasure <level>      - Conjure a lootable chest/coffer/strongbox at the given treasure level (may be locked/trapped)",
 		"@trigcevent <id>       - Immediately fire a cyclic event (for testing)",
+		"@truename <name> [truename] - View a player's truename (no truename yet = says so); with a truename, sets it (must be unique)",
 		"@unlock <item>         - Unlock item silently",
 		"@weather [value]       - Show your region's weather/temperature, or set weather (0-14)",
 		"@whisper <name> <text> - Whisper to player anywhere",
@@ -1992,6 +1995,46 @@ func (e *GameEngine) intNum3Set(ctx context.Context, name, valStr string) *Comma
 	return &CommandResult{Messages: []string{fmt.Sprintf("Set %s's INTNUM3 = %d", target.FullName(), val)}}
 }
 
+// gmTruename views or sets a player's Truename (see ensureTruename/castTruenameSpell
+// in spells.go — spell 408, Truename). A player's truename is normally rolled lazily
+// and at random the first time anything needs it; this lets a GM check what a player
+// currently has (including "not created yet") or override it outright.
+//
+//	@truename <plr>            - show <plr>'s truename, or say it hasn't been set
+//	@truename <plr> <truename> - set <plr>'s truename, refusing if another player already has it
+func (e *GameEngine) gmTruename(ctx context.Context, args []string) *CommandResult {
+	if len(args) == 0 {
+		return &CommandResult{Messages: []string{"Usage: @truename <player> [truename]"}}
+	}
+	target, err := e.resolvePlayerByNameLive(ctx, args[0])
+	if err != nil {
+		return &CommandResult{Messages: []string{err.Error()}}
+	}
+	if len(args) == 1 {
+		if target.Truename == "" {
+			return &CommandResult{Messages: []string{fmt.Sprintf("%s has no truename set yet.", target.FullName())}}
+		}
+		return &CommandResult{Messages: []string{fmt.Sprintf("%s: truename = %s", target.FullName(), target.Truename)}}
+	}
+
+	truename := strings.Join(args[1:], " ")
+	players, err := e.ListPlayers(ctx)
+	if err != nil {
+		return &CommandResult{Messages: []string{fmt.Sprintf("Error checking existing truenames: %v", err)}}
+	}
+	for _, p := range players {
+		if p.DeletedAt != nil || strings.EqualFold(p.FirstName, target.FirstName) {
+			continue
+		}
+		if p.Truename != "" && strings.EqualFold(p.Truename, truename) {
+			return &CommandResult{Messages: []string{fmt.Sprintf("%q is already %s's truename. Truenames must be unique.", truename, p.FullName())}}
+		}
+	}
+	target.Truename = truename
+	e.SavePlayer(ctx, target)
+	return &CommandResult{Messages: []string{fmt.Sprintf("Set %s's truename to %q.", target.FullName(), truename)}}
+}
+
 func (e *GameEngine) gmRnd(args []string) *CommandResult {
 	if len(args) < 1 {
 		return &CommandResult{Messages: []string{"Usage: @rnd <max>"}}
@@ -2628,7 +2671,7 @@ var allGMVerbs = []string{
 	"@GM", "@RFLAG", "@HIDE", "@UNHIDE", "@INVIS", "@VIS",
 	"@SND", "@ANNOUNCE", "@BANNER", "@WHO", "@LWHO", "@NUM", "@QSTAT", "@STAT", "@SKILL", "@PINV",
 	"@GENMON", "@SPAWN", "@CALLPACK", "@ACTIVATE", "@SEDATE", "@ZAP", "@TREASURE",
-	"@FIND", "@LIST", "@EXAMINE", "@GLOSSARY", "@PEEK", "@SET", "@SETP", "@INTNUM3", "@RND",
+	"@FIND", "@LIST", "@EXAMINE", "@GLOSSARY", "@PEEK", "@SET", "@SETP", "@INTNUM3", "@TRUENAME", "@RND",
 	"@OPEN", "@CLOSE", "@LOCK", "@UNLOCK",
 	"@GOPLR", "@YANK", "@WHISPER", "@EDPLAYER", "@EDPL", "@EDS", "@EDSK", "@LSK", "@GRANTSP", "@PSI", "@MLIST",
 	"@ECHOPLR", "@EXCLUDE", "@SPEECH", "@TITLE", "@LINE1", "@LINE2", "@LINE3", "@VERB", "@VERBS", "@TRACE",

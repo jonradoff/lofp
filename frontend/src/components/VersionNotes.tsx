@@ -9,6 +9,36 @@ export default function VersionNotes({ onBack }: { onBack: () => void }) {
 
         <div className="space-y-6 text-sm">
           <section>
+            <h2 className="text-amber-400 text-lg font-bold mb-1">v11.36.0 &mdash; August 28, 2026</h2>
+            <p className="text-gray-400 mb-3">A new invasive spell, Truename, is implemented for the first time. Also two real fixes: a melee critical hit that&rsquo;s supposed to stun or knock down a monster wasn&rsquo;t actually disabling it, and group-following now handles separation and incapacitated followers consistently across every way the group can travel.</p>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">New Spell: Truename</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Every player now has a hidden, made-up truename &mdash; never their real first/last name &mdash; randomly rolled and guaranteed unique the first time anything actually needs it: casting <code className="text-amber-300">CAST TRUENAME</code> on them, or them summoning/controlling a creature or inscribing a sigil/glyph</li>
+                  <li>Cast on a summoned or controlled creature, Truename reveals its summoner&rsquo;s truename; cast on an item you inscribed with a sigil/glyph spell (Imprison Rune, the three elemental Glyphs, Death Scythe), it reveals whoever inscribed it &mdash; neither can put up any resistance</li>
+                  <li>Cast on another player it&rsquo;s an aggressive act: their normal mental defenses apply and can make the spell fail, unless they&rsquo;ve <code className="text-amber-300">SUBMIT</code>ted first, which drops those defenses to almost nothing</li>
+                  <li>Casting with no target given (or explicitly on <code className="text-amber-300">me</code>/<code className="text-amber-300">self</code>) reveals your own truename, the same default-to-self behavior every other targeted spell already has</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Fixed: Stun/Knockdown From a Critical Hit Not Actually Applying</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>An &ldquo;Excellent Hit&rdquo; that rolls to stun or knock a monster down showed &ldquo;It is stunned!&rdquo; correctly, but wrote the flag onto a disposable copy of the monster instead of the real one tracked by the world &mdash; so the monster was free to attack again on its very next turn as if nothing had happened, sometimes less than a second later</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Fixed: Group Following on Separation and Incapacitated Members</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Walking away from your leader through a door, gate, or other portal now breaks your membership in the group the same way walking through a plain compass exit already did &mdash; previously only directional movement cleared the link, so a portal could leave you still &ldquo;following&rdquo; someone you&rsquo;d actually left behind</li>
+                  <li>When a group leader moves, a follower who&rsquo;s in round time, sitting, laying down, or stunned is no longer silently dragged along with the rest of the group &mdash; they&rsquo;re left behind and dropped from the group instead. If that was the leader&rsquo;s last follower, the leader stops being a group leader entirely</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
             <h2 className="text-amber-400 text-lg font-bold mb-1">v11.35.1 &mdash; August 27, 2026</h2>
             <p className="text-gray-400 mb-3">Three bug fixes: repeatable lockpicking on the second+ matching lock in a room, the Teeth of Shartan stream-jump only working once per direction, and several precious gems selling for a single copper instead of their real value.</p>
 
