@@ -35,6 +35,37 @@ func GameMinutes() int {
 func GameHour() int { return GameMinutes() / 60 % 24 }
 func GameDay() int  { return GameMinutes()/(60*24)%336 + 1 } // 336 days = 12 months × 28 days
 
+// TimePeriod returns the current time of day, used by the TIME command to give
+// players a more specific read than day/night. "dawn" is a single hour (6),
+// not a band — scripts key exact-moment events off IFVAR TIM = <hour> (e.g. the
+// JEZRAEL.SC1 fountain's dawn dance requires TIM = 6 exactly, SALOON.SCR's sunset
+// vista requires TIM = 19 exactly), so the displayed label must match the hour a
+// script actually checks or those events become nearly untriggerable by players
+// going solely off what TIME tells them. midnight (0) and noon (12) are the same
+// kind of exact-moment anchor and already sat correctly in the middle of their
+// bands. The two hours freed up by narrowing dawn to a point are absorbed by its
+// immediate neighbors so all 24 hours stay covered.
+func TimePeriod() string {
+	switch h := GameHour(); {
+	case h < 2 || h >= 23:
+		return "midnight"
+	case h < 6:
+		return "very early morning"
+	case h == 6:
+		return "dawn"
+	case h < 11:
+		return "mid morning"
+	case h < 14:
+		return "noon"
+	case h < 17:
+		return "afternoon"
+	case h < 20:
+		return "evening"
+	default:
+		return "night"
+	}
+}
+
 func GameMonth() int {
 	m := ((GameDay() - 1) / 28) + 1
 	if m > 12 {

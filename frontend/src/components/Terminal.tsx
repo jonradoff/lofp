@@ -6,6 +6,20 @@ interface Character {
   lastName: string
   race: number
   gender: number
+  strength?: number
+  agility?: number
+  quickness?: number
+  constitution?: number
+  perception?: number
+  willpower?: number
+  empathy?: number
+  height?: number
+  weight?: number
+  age?: number
+  eyeColor?: string
+  hairColor?: string
+  hairStyle?: string
+  skinColor?: string
 }
 
 interface PlayerState {

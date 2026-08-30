@@ -1033,6 +1033,7 @@ func (s *Server) handleTelnetConn(rawConn net.Conn, isTLS bool) {
 	}
 	s.mu.Unlock()
 
+	player.RestoreTransientState()
 	session := &Session{
 		Player:       player,
 		Conn:         tc,
@@ -1094,13 +1095,14 @@ func (s *Server) handleTelnetConn(rawConn net.Conn, isTLS bool) {
 	s.mu.Unlock()
 
 	if isActive {
+		s.engine.HandlePlayerDisconnect(player)
 		if !player.GMInvis && !player.GMHidden {
 			if !session.quitSent {
 				s.broadcastGlobal(player.FirstName,
-					[]string{fmt.Sprintf("** %s has just left the Realms.", player.FirstName)})
+					[]string{fmt.Sprintf("** %s has just left the Realms.", player.DisplayNameCap())})
 			}
 			s.broadcastToRoom(player.RoomNumber, player.FirstName,
-				[]string{fmt.Sprintf("%s fades from the Realms.", player.FirstName)})
+				[]string{fmt.Sprintf("%s fades from the Realms.", player.DisplayNameCap())})
 		}
 		s.gamelog.Log(gamelog.EventGameExit, player.FullName(), accountID,
 			fmt.Sprintf("telnet from %s", ip), player.RoomNumber, "")
@@ -1382,8 +1384,9 @@ func (s *Server) telnetCreateCharacter(tc *telnetConn, ctx context.Context, acco
 	if err != nil {
 		return nil
 	}
-	var gender int
-	fmt.Sscanf(strings.TrimSpace(genderStr), "%d", &gender)
+	var genderChoice int
+	fmt.Sscanf(strings.TrimSpace(genderStr), "%d", &genderChoice)
+	gender := genderChoice - 1 // displayed 1/2 -> internal GenderMale=0/GenderFemale=1
 
 	if err := engine.ValidateCharacterInput(firstName, lastName, race, gender); err != nil {
 		tc.writeLine(ansiRed + err.Error() + ansiReset)
@@ -1395,9 +1398,96 @@ func (s *Server) telnetCreateCharacter(tc *telnetConn, ctx context.Context, acco
 		return nil
 	}
 
-	player := s.engine.CreateNewPlayer(ctx, firstName, lastName, race, gender, accountID)
+	appearance := telnetRollAndPickAppearance(tc, race, gender)
+	if appearance == nil {
+		return nil
+	}
+
+	player := s.engine.CreateNewPlayer(ctx, firstName, lastName, race, gender, appearance, accountID)
 	tc.writeLine(ansiGreen + fmt.Sprintf("Welcome to the Shattered Realms, %s the %s!", player.FullName(), engine.RaceNameByID(player.Race)) + ansiReset)
+	tc.writeLine(ansiGreen + "Type HELP for a full list of commands, or ADVICE to get some tips for getting started." + ansiReset)
 	return player
+}
+
+// telnetRollAndPickAppearance runs the interactive "reroll until you like what you
+// see" stat loop followed by eye/skin/hair pickers, returning the finished
+// CharacterAppearance to pass into CreateNewPlayer, or nil if the connection dropped.
+func telnetRollAndPickAppearance(tc *telnetConn, race, gender int) *engine.CharacterAppearance {
+	var appearance *engine.CharacterAppearance
+	tc.writeLine("")
+	for {
+		appearance = engine.RollCharacterAppearance(race, gender)
+		heightFeet := appearance.Height / 12
+		heightInches := appearance.Height % 12
+		tc.writeLine(fmt.Sprintf("Quickness: %-3d  Constitution: %-3d  Strength: %-3d  Agility: %-3d",
+			appearance.Quickness, appearance.Constitution, appearance.Strength, appearance.Agility))
+		tc.writeLine(fmt.Sprintf("Willpower: %-3d  Perception: %-3d  Empathy: %-3d",
+			appearance.Willpower, appearance.Perception, appearance.Empathy))
+		tc.writeLine(fmt.Sprintf("Age: %-3d  Height: %d'%d  Weight: %-3d",
+			appearance.Age, heightFeet, heightInches, appearance.Weight))
+		tc.writePrompt("Reroll these stats? (Y/N): ")
+		answer, err := tc.readLine(time.Minute)
+		if err != nil {
+			return nil
+		}
+		if !strings.HasPrefix(strings.ToUpper(strings.TrimSpace(answer)), "Y") {
+			break
+		}
+		tc.writeLine("")
+	}
+
+	eyeIdx := telnetPickFromList(tc, "Eye color", engine.EyeColors)
+	if eyeIdx < 0 {
+		return nil
+	}
+	appearance.EyeColor = engine.EyeColors[eyeIdx]
+
+	skinIdx := telnetPickFromList(tc, "Skin color", engine.SkinColors)
+	if skinIdx < 0 {
+		return nil
+	}
+	appearance.SkinColor = engine.SkinColors[skinIdx]
+
+	styleIdx := telnetPickFromList(tc, "Hair style", engine.HairStyles)
+	if styleIdx < 0 {
+		return nil
+	}
+	appearance.HairStyle = engine.HairStyles[styleIdx]
+
+	if appearance.HairStyle == "bald" {
+		appearance.HairColor = ""
+	} else {
+		colorIdx := telnetPickFromList(tc, "Hair color", engine.HairColors)
+		if colorIdx < 0 {
+			return nil
+		}
+		appearance.HairColor = engine.HairColors[colorIdx]
+	}
+
+	return appearance
+}
+
+// telnetPickFromList prints a numbered list and reads a valid 1-based selection,
+// reprompting on invalid input. Returns the 0-based index, or -1 if the
+// connection dropped.
+func telnetPickFromList(tc *telnetConn, label string, options []string) int {
+	tc.writeLine("")
+	tc.writeLine(label + ":")
+	for i, opt := range options {
+		tc.writeLine(fmt.Sprintf("  %2d) %s", i+1, opt))
+	}
+	for {
+		tc.writePrompt(fmt.Sprintf("%s (1-%d): ", label, len(options)))
+		line, err := tc.readLine(time.Minute)
+		if err != nil {
+			return -1
+		}
+		var choice int
+		if _, err := fmt.Sscanf(strings.TrimSpace(line), "%d", &choice); err == nil && choice >= 1 && choice <= len(options) {
+			return choice - 1
+		}
+		tc.writeLine(ansiRed + "Invalid choice." + ansiReset)
+	}
 }
 
 func (s *Server) telnetVerifyPrompt(tc *telnetConn, ctx context.Context, account *auth.Account) bool {
@@ -1467,12 +1557,13 @@ func (s *Server) telnetCommandLoop(ctx context.Context, session *Session, tc *te
 		session.lastActivity = time.Now()
 
 		now := time.Now()
+		isGive := strings.HasPrefix(strings.ToLower(strings.TrimSpace(input)), "give ")
 		if now.Sub(session.lastCmdTime) > time.Second {
 			session.cmdCount = 0
 			session.lastCmdTime = now
 		}
 		session.cmdCount++
-		if session.cmdCount > 4 {
+		if !session.Player.IsGM && !isGive && session.cmdCount > 8 {
 			tc.writeLine("[Slow down! Too many commands.]")
 			continue
 		}
@@ -1485,7 +1576,7 @@ func (s *Server) telnetCommandLoop(ctx context.Context, session *Session, tc *te
 			}
 		}
 		session.cmdTimes = append(recentCmds, now)
-		if len(session.cmdTimes) > 10 {
+		if !session.Player.IsGM && !isGive && len(session.cmdTimes) > 20 {
 			tc.writeLine("[Slow down! Too many commands.]")
 			continue
 		}
@@ -1509,7 +1600,7 @@ func (s *Server) telnetCommandLoop(ctx context.Context, session *Session, tc *te
 		// Chat flood protection
 		if len(result.RoomBroadcast) > 0 {
 			now := time.Now()
-			chatCutoff := now.Add(-10 * time.Second)
+			chatCutoff := now.Add(-9 * time.Second)
 			var recent []time.Time
 			for _, t := range session.chatTimes {
 				if t.After(chatCutoff) {
@@ -1517,7 +1608,7 @@ func (s *Server) telnetCommandLoop(ctx context.Context, session *Session, tc *te
 				}
 			}
 			session.chatTimes = recent
-			if len(session.chatTimes) >= 5 {
+			if len(session.chatTimes) >= 10 {
 				tc.writeLine("[You are sending messages too quickly. Please wait.]")
 				continue
 			}

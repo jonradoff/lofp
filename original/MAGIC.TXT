@@ -1,0 +1,982 @@
+Magic in 1001 easy lessons.
+
+Magic on Andor is a complex subject, taking a little time to 
+understand and a lot to master. I've put together some notes 
+answering the questions I'm most commonly asked about the use 
+of spells below. I don't claim it's complete, but I hope that 
+it's of use...
+ 
+Ilhana Loereili D'Chessenta, known as Ashimi
+Elder of the Silver Arcana
+
+[It also hasn't yet been edited, so please ignore 
+transcription errors.]
+
+---------------------------------------------------------------
+
+Part One: Introduction
+ 
+I. The choice of your primary spells depends on style and 
+preference. Any mage who does not have a strong non-magic 
+skill (bow, melee weapon, psi) will eventually need at least 
+two heavily mastered spells with which to hunt. Contrary to 
+rumor, they need not be in conjuration.
+  
+II. Flexibility among schools is useful, but not an utter 
+necessity. It is possible, by harvesting or buying herbs, to 
+forego necromancy entirely. Druidic is a useful school, but 
+nice rather than a necessity. Enchantment is more difficult to 
+ignore, as eventually one either needs more defense than is 
+easily possible or the spells "Wizard's Armor", "Haste", 
+"Slow" and "Flight" to easily survive more difficult areas, 
+but it can be done. Conjuration can be foregone entirely, but 
+is has the most useful offensive and defensive array of spells 
+possible. It is better to be good in your school of choice 
+than knowledgeable, but not concentrated, in all of them.
+
+III. The Schools
+
+        A. Conjuration: A school strong on offensive and 
+        defensive spells, containing all the basic elemental
+        attacks and the ability to summon guardians 
+        (elementals).
+
+        B. Enchantment: An "enhancing" school containing 
+        spells that make transportation, hand-to-hand fighting 
+        and life easier. Can be used for defense against 
+        non-physical attacks and in emergencies, escape.
+
+        C. Necromancy: A school of both healing and 
+        destruction, necromancy's offensive capabilities are 
+        strongly underrated at the time I write this. 
+
+        D. Druidic: A school that provides protection against 
+        the vaugaries of the elements, tools to free oneself 
+        from those who would trap you, some defense and a 
+        great deal of aid to those who use a bow. 
+
+IV. Mastery - "Mastering" a spell is the process of studying a 
+spell closely in order to learn its ins and outs. The cost is 
+8 builds for the first rank of mastery and 4 for each 
+additional rank. 
+
+Any mastery reduces casting time from three seconds to two. 
+Mana cost is lessened by two for each rank of mastery down to 
+a minimum of half the original cost of the spell, rounded 
+down. Damage, on offensive spells, is increased by around 1.5 
+points per rank. 
+
+"Minimum mastery" is when you have a spell mastered enough 
+times for minimum mana cost (E.g., Freezing Sphere, a 9th rank 
+spell, is minimally mastered at 3 ranks to a cost of 4 mana.) 
+"Full mastery" is when you have mastered a spell to the 
+maximum extent allowed - the level of the spell + one. (E.g., 
+Freezing Sphere, mastered 10 times.)    
+           
+Part Two: Offense
+  
+I. After a certain point (early on, yet) the key to 
+effective use of magic is mastery. The spells first mastered 
+should be offensive. A list of the most useful candidates 
+follows:
+
+Conjuration     Enchantment     Necromancy      Druidic
+
+Force Blade     Dancing Sword   Spectral Fist   Earth Spike
+                                Spectral Sword       
+ 
+Lightning Bolt                  Destroy Undead II
+Freezing Sphere                 Destroy Undead III
+Flaming Sphere                  Body Destruction III
+
+Flaming Arrows 
+
+Whatever your school of choice, pick a low-mana, high-utility 
+spell (force blade, spectral fist, earth spike) early on and 
+fully master it. The result will be a weapon that is low cost 
+- one or two mana - that does a decent amount (usually 
+3-24/3-30) of damage. Start on this as soon as you get 12 
+spellcraft. 
+  
+Other spells can be mastered to whatever degree you prefer - 
+there are advantages to having minimum mastery (defined as 
+"enough mastery to cut the mana cost in half") of several 
+spells, especially if you like being able to move around. But 
+having one or two fully mastered spells can make for 
+impressive results in your chosen hunting areas. 
+  
+II. Some examples of workable mastery combinations:
+ 
+Force Blade & Freezing Sphere - although a fire weapon is 
+useful, full mastery of both of these spells will "take care 
+of you" through most on Andor. It's the basic conjurer's 
+toolkit, and incredibly useful in the mid-level mages 
+playground - the wastes.
+ 
+Lightning Bolt & Force Blade
+                 Earth Spike
+                 Destroy Undead
+
+Lightning Bolt is a spell that must be fully mastered to get 
+any appreciable effect on creatures not suspectible to 
+electricity. However, you can "work through" to those as 
+several of the low-to-mid level creatures, such as those in 
+the Swamp and Ursine Magi, light up quite nicely. At upper 
+levels, it is a very useful spell on the Astral Planes: 
+rollers, robots, terminators and fleshblighters all react to 
+it quite well. It is entirely possible to hunt the wastes with 
+lightning, although not quite spectacularly as someone with 
+heavily-mastered freezing sphere. 
+ 
+I list it with Earth Spike because it's a good style of spell 
+to combine with druidic magic. "Call Lightning" is both 
+expensive and rarely used as it requires being outdoors in a 
+heavy rain. 
+ 
+Destroy Undead & Earth Spike - Necromancy and Druidic are a 
+popular combination. These two spells give a nice basic weapon 
+against non-undead, and an extremely powerful one against one 
+of the most common enemies of life on and off Andor. There are 
+several advantages to Destroy Undead, including the fact that 
+there is no such thing as a "hand shot" when you are attacking 
+their very essence and the fact backfires won't hurt you 
+unless you're a vampire. The second rank is worth mastering, 
+but if you are a serious necromancer I recommend only getting 
+the minimum mastery - fully mastered DUIII is a deadly weapon 
+and worth waiting for. 
+  
+Destroy Undead & Spectral Fist & Spectral Sword - For the pure 
+necromancer, the answer to "how do I do it?" is "Master 
+everything." Spectral fist will blast your way through greater 
+skeletons and the lesser live creatures of Andor, if you're 
+patient, while Spectral Sword fully mastered will give you a 
+mid-cost solution to the "live opponent" woes. 
+  
+Dancing Sword - I do not recommend pure enchantment to anyone. 
+Period. But if you must, fully master Dancing Sword 
+immediately. It will be your only weapon, and it is a useful 
+one.
+ 
+Force Blade & Lightning Bolt & Freezing Sphere & Flaming 
+Sphere - the four basic weapons of the conjurer, these spells 
+will get you through anything, anywhere.
+ 
+Upper level mastery for a conjurer usually includes flaming 
+arrows (for those pesky Underkeep deizens), a druid who hunts 
+the planes might play with Call Lightning if his hunting 
+partners don't object to rusting weapons. A necromancer just 
+keeps adding in ranks to the Destroy Undead spell, in rotation 
+with other skills he or she wants.
+ 
+III. Weaknesses and Immunities
+ 
+"Blade" spells usually work well on all creatures except the 
+following: Skeletons, bone golems, undead heads. There are few 
+creatures suspectible to blades, but the bleeding induced can 
+be useful. 
+
+"Crushing" spells work best on skeletal creatures: skeletons, 
+bone golems.
+  
+Cold does not work on lesser undead: skeletons, ghouls, 
+greater ghouls, banshees (?), etc. Greater undead, such as 
+military ghouls, spectral lords and gnomen, are vunerable to 
+it. Cold creatures, such as frigils, rollers and so on, are 
+nearly invunerable to it. So are fleshblighters and the 
+occasional demon. Military ghouls, mechanical opponents (such 
+as robots and terminators), fire giants, sandmen, mounds and 
+stalkers all seem especially susceptible to chill.
+ 
+Lightning is deadly to creatures of the Swamp, ursine 
+magicans, the creatures on the ice-world Xertaatal, robots and 
+terminators and scattered other creatures. Gnomen necromancers 
+are immune to lightning, but it usually does normal or 
+slightly reduced damage on almost anything else.
+ 
+Fire works well on sharkor, frost giants, spectral lords, 
+gnomen necromancers, storm giants, the Darkoth and a few other 
+creatures. Chaos demons are often immune to heat, as are 
+astral stalkers.
+   
+Destroy Undead does NOT work on demons (obvious ones or less 
+obvious ones such as gnomen necromancers) or magical 
+constructs (bone golems.)
+ 
+Part Three: Defense
+ 
+There are two ways to approach defense as a spellcaster: you 
+can rely upon guards or upon yourself. The first is by far the 
+most popular and less costly approach. However, the second is 
+occasionally necessary.
+ 
+I. Defending yourself
+
+Defensive spells are available in every school but 
+enchantment. They are:
+ 
+Mystic Armor (Conjuration, 5th rank) - +20 to defense. 
+Carapace (Druidic, 8th rank) - +20 to defense, caster only.
+Spectral Shield (Necromacy, 9th rank) - +20 to defense.
+Prismatic Globe (Conjuration, 15th rank) - +50 to defense.
+Mass Protection (Conjuration, 23rd rank) - +25 to caster, +20 to 
+all joined.
+Prismatic Globe II (Conjuration, 30th rank) +100 to defense.
+ 
+However, the maximum defense with all spells and the 
+occasional defensive item will not protect a mage from any of 
+the more dangerous creatures in the Realms. The choice is 
+usually between learning other skills (psi or dodge) to 
+increase your defenses or working with a guard.
+
+II. Guards
+ 
+Guards are available in four varietes: summoned, controlled, 
+dominated or live.
+ 
+Live is when you team with a psionic or fighter and let them 
+take the damage. It is most useful (and appreciated) when you 
+trade either defensive or healing spells for this service. 
+They usually make better conversationalists than the other 
+three varieties.
+ 
+Conjurers can SUMMON an elemental guard at 12th rank. The 
+material components for these four spells are gemstones: 
+garnet (fire), tourmaline stone (earth), aquamarine (water) 
+and opal (air). An elemental will prevent all hand to hand 
+attacks by creatures employing non-magical weapons. Polearms, 
+spells and special attacks are another matter. Magical weapons 
+will kill an elemental, but you only encounter those at higher 
+levels (Skull House, the Black Towers.) High level conjurers 
+can use Tinderath's Chaotic Summons to get something 
+equivalent to, but better looking than, an elemental.
+ 
+Enchanters can DOMINATE a creature to serve as guard. Lesser 
+werewolves from Grymwood are the best low-level guards, as 
+they have an immunity to non-magical weapons and are as 
+effective as elementals. There is the drawback of needing to 
+get your guard out of the area you're in - in winter, that's 
+quite a task. Bend Space II, at 24th rank, solves the problem, 
+but until then, be prepared to find your guard where you fight.
+At higher levels, dominating a creature that's harder to hit 
+than the one that's hitting is the way to get around the fact 
+magical weapons WILL hit. A mantico with several protective 
+spells will serve as an effective guard in the Black Tower, 
+for example. Domination I is based on total body points - if 
+you're careful not to use a spell that induces bleeding, you 
+can beat a creature up until it will work. Domination II is 
+far more effective.
+   
+Necromancers can CONTROL undead. The drawback is that many 
+people consider it black magic. It's illegal in the city. 
+However, if the control is only for the purpose of a guard, it 
+can be considered a grey area - just make sure whoever sees 
+you thinks so too. Phantom caretakers are the working 
+equivalent of lesser werewolves. Spectral Lords and 
+highly-spelled gnomen would work similarly to the mantico 
+described above. Jolly Rogers are handy guards in Haven. 
+Control Undead is NOT based on body points, and beating a 
+spectral lord until it's laying on the floor still will not 
+allow Control Undead I or II to work. Black or grey 
+necromancers of 17th rank can SUMMON a greater wight, using 
+wight dust skinned from a lesser. These are ugly elementals. 
+Extremely skilled white necromancers have recourse to Spectral 
+Warriors at 32nd rank.
+ 
+Druids are out of luck. Vipers are cute, but a rat could chew 
+them to bits.
+ 
+III. Using a guard 
+
+When you are attacked by something that doesn't use a polearm, 
+simply command them to guard you. Polearm users can be 
+distracted (only one at a time, though, so be careful) by 
+commanding the elemental to slay the creature causing the 
+problem.
+
+If your guard or familar is slain, you end up stunned. Be 
+careful of this.
+         
+Part Four: Spells More Useful than They Seem 
+ 
+I. Haste and Slow
+ 
+These two spells, at the 5th rank of enchantment, are probably 
+the most useful in the books. HASTING a fighter turns him into 
+a killing machine, although he will soon be exhausted. For a 
+mage, haste is less useful because it cancels out mastery. But 
+as many creatures SLOW you throughout your adventuring career, 
+some ability to haste (whether a gallon of potion or the 
+spell) becomes a necessity. 
+
+However, the most useful application of SLOW is against 
+special attacks. Worm spit, mantico tails, robotic bullets and 
+so on can soon reduce the most able mage to a burned, bleeding 
+mess. Slow gives you the time to kill them first.
+ 
+II. Wizard's Armor and Silence
+ 
+Sooner or later, things will hit you. Polearms are 
+unavoidable. This spell stops your spells from being 
+disrupted, or lost, when you are hit. Silence keeps a mage 
+from incanting a spell, and is useless against higher level 
+magic-using creatures (necromancers, rakashka, etc.) that 
+depend on hand movements or symbols. It is, however, very 
+handy when a sorcerous assassin comes after you.
+ 
+III. Flight, Bend Space and Tree Door
+ 
+A flight item (potion, wand, ring, etc.) or the ablitity to 
+cast the spell becomes a necessity once you begin exploring 
+outside of Fayd. Without 10 ranks of climbing, getting into 
+the Deep Realms or up into the Wastes without flight is a 
+deadly or at least bruising proposition. Even the bridge to 
+Elemental Giants (and the walk to Mirdaal) is a difficulty - 
+if you're carrying too much weight, you have to fly over the 
+bridge rather than walk. Flying is also a lot more convenient.
+ 
+Bend Space is a teleportation spell, and the reason most mages 
+get lost the minute you ask them to go someplace unfamiliar. 
+It's faster than flying, but doesn't work in the grasslands, 
+Deep Realms or from the main land mass to the various islands. 
+(Haven, Crescent, Volcanic.)
+ 
+Tree Door is effectively a "one way" teleportation spell for 
+druids. It only works where there is a tree to enter into, and 
+is very picky about which tree works. (Right outside of town 
+works, the uquart groves, the silver tree at Mirdaal, the 
+Hanging Tree in the Wastes and many others do not.) However, 
+you can (for example) get back from Mirdaal and the Wastes by 
+foot - and there is a tree along the grassland path on the 
+wastes - even though getting to them is much more difficult. 
+Handy.
+ 
+IV. Body Restoration I
+ 
+One rank of necromancy can be a very solid investment. The 
+first rank of body restoration (often used hasted to speed up 
+the process) is both lighter than babich root and easier to 
+use. The higher ranks of healing contain cure poison and 
+disease and BRIII... however, BRIII is so costly that it is 
+only really efficent if mastered or if you're fighting 
+creatures that can inflict frequent, massive damage. 
+ 
+V. Cold Shield, Heat Shield and Freedom
+ 
+These are the three most useful spells in druidic magic. Cold 
+shield halves damage from heat, heat shield halves damage from 
+cold and freedom frees you from plant snare, webs, insect 
+swarms and tentacles. The protection offered allows you to 
+fight for far more time with less risk of death.
+  
+VI. Mystic Key
+ 
+Locked doors and chests are a pain. This magical "skeleton 
+key" gives you the equivalent of 7 ranks of lockpicking, and 
+opens most doors that are meant to be opened easily. (Mirdaal, 
+Kvantar Tree, Keep gate, etc.)
+ 
+VII. Spells useful to others...
+ 
+Protection spells (see "Defense") for fighters and psis. 
+Strength increases a fighter's damage and skill. Agility does 
+the same for an archer, but most have recourse to a magical 
+fountain that can provide the same result. Healing spells are 
+useful to all, and invigoration can allow a fighter to keep 
+chopping almost continually, or a psi to drain their fatigue 
+endlessly.
+ 
+Part Five: General Tips and Tricks
+
+Submission - on occasion, you will need to cast an offensive 
+spell upon yourself. To do so, SUBMIT and cast. Then 
+immediately UNSUBMIT, or any hostile spellcaster can hit you 
+at will.
+ 
+If you are webbed or entangled in plants, insects or 
+tentacles, there are several ways to get out.
+ 
+        1. Cast Freedom
+        2. Submit and cast "Dispel Lesser Magic." WARNING: You 
+        will lose a spell randomly at each cast. It may not be 
+        the web. 
+        3. Cast slime or mist form. (It is recommended you 
+        haste yourself first as transforming back takes a long 
+        time and you will be vunerable during it.) Wolflings 
+        can transform out of them as well.
+        4. If the spell is damaging, but you are not otherwise 
+        at risk, submit and web yourself. This will get rid of 
+        the insect swarm or tentacles, but you'll be caught in 
+        your own web.
+
+When fighting a creature (e.g., worms, gnomen) that take a 
+long time to kill, you may want to alternate your low-mana 
+spell (force blade, fist) with the more damaging high-mana 
+ones (sphere, destroy undead). This will let you fight a bit 
+longer between rests.
+ 
+Using marks - Bends Space, Tree Door, Translocation and Scry 
+all involve the use of "marks" - up to 10 areas a mage has 
+studied and memorized. To mark a place, MARK 1 (or 2, through 
+10.) To review your marks, type MARK. To cast a spell to or at 
+a mark (to travel there or see what's going on) CAST <mark #>. 
+E.g., to teleport to Bazaar Center:
+ 
+First, type MARK 1 when you're in Center.
+Second, walk somewhere and prepare bend space.
+Third, CAST 1.               
+                                                 
+Try to always carry a healing root or mushroom, a maufra 
+lichen and a rowik berry. There will be times you are badly 
+injured, diseased or poisoned and out of mana and these will 
+be lifesavers.                                    
+                                
+"Multi-target" spells are used this way. You TARGET up to nine 
+creatures (for fire arrows, tentacles or lightning, four for 
+translocation) and then CAST... either at the creature that 
+can resist the least or at yourself. Creatures remain 
+targeted until dead.
+  
+Some spells cancel each other out. They are:
+
+1. Wizard's Armor  
+   Spell Shield    
+   Mass Protection                          
+
+2. Weather Resistance
+   Heat Shield            
+   Cold Shield             
+   Ride the Lightning                         
+
+3. Repel Plants
+   Repel Plants & Webs   
+   Free Action
+
+4. Night Vision
+   Claws of the Elder Wolf                        
+
+5. Divine Blessing
+   True Aim
+
+6. Prismatic Globe
+   Prismatic Globe II
+
+7. Cloak Mind
+   Mindlink
+
+8. Strength I
+   Strength II
+   Strength III
+
+9. Agility I
+   Agility II
+   Agility III
+
+If you're hunting with other people, take the time to figure 
+out everyone's strengths and weaknesses and work together. 
+Teaming up can be far more effective than simply rushing to 
+kill first.                                        
+
+When all else fails - ask around. If the person is busy, ask 
+them if you can talk to them later, write them with your 
+question or if they have suggestions as to who might be able 
+to help you.                                                                                        
+
+When mastering a spell with multiple ranks, it is almost 
+always best to wait for the highest rank. Destroy Undead II 
+for a pure necromancer or necromancer/druid is the primary 
+exception, as minimum mastery will greatly help the mage get 
+to the point where they can reach the third rank.  
+
+Items or potions with the following spells are good emergency 
+devices: flight, invisibility, haste, mist form. 
+                                
+Most protective or enhancing spells are cumulative - if you 
+cast them several times, the duration of the spell is 
+increased each time, to a maximum of 28 hours. There are a few 
+spells that aren't: True Aim, Divine Blessing, Haste and Slow 
+are the most commonly used ones. If you need to maintain them 
+constantly, you can recast right before it runs out, it will 
+"reset" the duration from the beginning.  
+
+Wands and items are useable while silenced.
+
+Knocking someone over and entangling them (it's safer to 
+entangle first, knock second) will prevent almost every 
+creature or person except a pure psi from being able to attack 
+you. Some, not all, psionic creatures can attack while down. 
+Tentacles & maelstorm, or web/snare and earthwave, are popular 
+ways to accomplish this. Not all creatures are webbable, and 
+insect swarm and plant snare only work in certain (limited) 
+circumstances. Webbing and sleeping a creature will work as 
+well, if they are vunerable to sleep. 
+ 
+Stunning a psionic creature or person slows them down quite a 
+bit.                 
+
+Many of the longer-duration spells (globe, armor, carapace, 
+etc.) seem to have a maximum duration of 20 minutes per cast, 
+whether your spellcraft is 40 or 80.
+ 
+Remember to have fun.
+
+        
+Part Six: Offensive & Defensive Spells by Category
+                  
+Offensive
+
+Blade           Damage (Mastered)  School          Rank
+
+Dancing Blade   Low (Low)          Enchantment     1 
+Force Blade     Low (Medium)       Conjuration     3
+Earth Spike     Low (Medium)       Druidic         5
+Dancing Sword   Low (Medium)       Enchantment     6
+Spectral Sword  Low (Medium)       Necromancy      3
+
+Crushing
+
+Spectral Fist   Low (Low/Medium)   Necromancy      3 
+Call Meteor     High (Massive)     Conjuration     20
+Heat
+ 
+Flame Bolt      Low (Low)          Conjuration     1
+Call Fire       Low/Medium(Medium) Conjuration     8
+Flaming Sphere  Medium (High)      Conjuration     13
+Flaming Arrows  Medium/Multiple    Conjuration     18
+Rorin's Fire    High               Necromancy      17*
+Call Meteor     High (Massive)     Conjuration     20
+
+* Religion-specific spell
+ 
+Cold
+ 
+Ice Bolt        Low (Low)          Conjuration     3
+Frost Ray       Low (Medium)       Conjuration     6
+Freezing Sphere Medium (High)      Conjuration     9
+ 
+Electricity
+ 
+Shock Wave      Low (Low/Medium)   Conjuration     4
+Lightning Bolt  Low (Medium)       Conjuration     7
+Call Lightning  High (Massive)     Druidic         17
+Call Thunder    High (Massive)     Conjuration     20
+Chain Lightning Medium/Multiple    Conjuration     23
+Ride the Lightning  Special        Druidic         24
+Maelstorm       Special            Conjuration     31
+ 
+Essence
+ 
+Body Destruction
+        I       Low (Low)          Necromancy      1
+        II      Low/Medium(Medium) Necromancy      5   
+        III     Medium/High (High  Necromancy      10
+Wail of Banshee Medium/Multiple    Necromancy      ?
+Wither Limb     Special            Necromancy      23
+Contagion       Special            Necromancy      23
+Poison          Special            Necromancy      20
+
+Destroy Undead
+        I       Low (Low)          Necromancy      3
+        II      Low/Medium(Medium) Necromancy      8
+        III     Medium/High (High) Necromancy      13
+
+Entanglement    Notes              School         Rank
+
+Plant Snare     Outdoors only      Druidic        4
+Web             Three immobilize   Conjuration    10 
+Wall of Thorns  Effectively useless Druidic       14
+Imprison **     Special            Enchant        19
+Creeping Death  Damaging snare     Druidic        22
+Insect Swarm    Limited, damaging  Druidic        25
+Syrix's Tentacles Multi-target     Conjuration    26
+          
+** Imprison puts the target in a blue force bubble, which 
+prevents them from attacking or being attacked.
+                                                    
+Other Offensive
+
+Earth Wave      Stuns, knocks down Druidic        12
+Sunray          Stuns              Druidic        13
+Maelstorm       Flattens, damages  Conjuration    31
+Sleep I         Special            Enchantment    2
+Sleep II                           Enchantment    6
+Sleep III                          Enchantment    18
+                       
+Note: Sleep is based upon total body points of targets. If 
+successful, the target is placed in a prone position and is 
+unconscious either until next struck or until the spell wears 
+off (a few seconds.) 
+                  
+Defensive       Effect             School         Rank 
+
+Mystic Armor    +20 defense        Conjuration    5
+Carpace         +20 defense, self  Druidic        8
+Spectral Shield +20 defense        Necromancy     9
+Prismatic Globe +50 defense        Conjuration    15
+Globe II        +100 defense       Conjuration    30
+ 
+Wizard's Armor  No spell disruption Enchantment   9
+Spell Shield    +25 magic resistance Enchantment  14
+Cloak Mind ***  +25 psi resistance** Enchantment  22
+
+*** Cloak Mind also protects against sleep, charm, true name 
+and other mind-affecting spells.
+
+Resist Weather  Cancels rain penalty Druidic      3
+Cold Shield     Halves heat damage  Druidic       6
+Heat Shield     Halves cold damage  Druidic       7
+Repel Plants    Stops Plant Snare   Druidic       10
+Repel Plants&Web Stops Snare & Web  Druidic       18
+Ride the Lightning Absorbs Electric Druidic       24
+Free Action     Underwater Movement Druidic       20                                             
+Dispel Magic    Removes Spell ****  General       5
+Freedom         Removes Web/Snare   Druidic       9
+
+**** The effect of Dispel Lesser Magic is random. "Good" spells 
+may be cancelled before the offensive spell or sigil is removed.
+ 
+Slime Form      Transformation      Enchantment   12
+Mist Form       Transformation      Enchantment   24
+ 
+Note: These two spells are not strictly defensive, but can be 
+used to escape bonds (web, snare, tentacle, bonds of force, 
+etc.) or to try to seep under doors. Slime takes greatly 
+reduced damage from attacks, mist takes none. Mists can fly. 
+Neither form can attack, defend or speak.
+                                      
+Disjunction     Special             Enchantement  21
+
+Note: Disjunction dispels ALL spells active in the area. Do 
+not use it casually. It is the only way (other than time) to 
+get someone out of an Imprisonment bubble.
+
+Part Seven: Other Spells                 
+ 
+Guards (see Part Three)
+
+                 School  Rank   Notes
+
+Summon Elemental Conjure 12     (See Part Three)
+Summon Gargoyle  Conjure 16     Requires diamond                            
+Tinderath's    
+Chaotic Summons  Conjure 28     Component varies
+
+Command          Enchant 6      Extremely short domination.
+Domination I     Enchant 12     
+Domination II    Enchant 24
+
+Control Undead I Necro   7      Skeletons, etc.            
+              II Necro   13     Gnomen
+             III Necro   21     Spectral Lords    
+                                 
+Summon Familar   Conjure 2      Brings an animal that can 
+                                watch things for you.
+Call Animal      Druidic 1      Ditto.
+Stick to Snake   Druidic 5      Brings forth a viper. Outdoors.
+
+Transportation
+
+Tree Door        Druidic 10     See "Useful Spells"
+Flight           Enchant 11     Allows flight    
+Bend Space       Enchant 17     Teleportation 
+Bend Space II    Enchant 23     Group Teleportation
+Translocation    Enchant 29     Teleports up to four targets, 
+                                the caster need not go along.
+
+Healing
+ 
+Body Restore I   Necro   1      Heals as babich root
+             II  Necro   5      Heals as golden fruit
+             III Necro   10     Heals as rioyng mushroom
+Invigoration I   Necro   2      Restores fatigue
+Invigoration II  Necro   9      Ditto
+Reconstruction   Necro   4      Heals undead  
+Unstun           Necro   9      Unstuns target
+Cure poison      Necro   11     Cures poison *
+Cure disease     Necro   12     Cures disease 
+Breath of Life   Necro   14     Restores life
+Regeneration     Necro   27     Restores a withered limb and 
+                                speeds the natural healing 
+                                process.
+
+* Cure disease and poison will work on a dead target as well 
+as a live one. This is prevents freshly-raised people from 
+dying immediately after restoration.                
+
+Weapons/Armor Enhancement
+
+Enchant I       Enchant 4       +10 bonus to weapons/+5 to 
+                                armor/shield/helm
+Enchant II      Enchant 16      +20 weapons/+10 defensive 
+"Ensorcelled"                    Requires a spider eye
+Enchant III     Enchant 30      +30/+15 Requires an imp toe
+"Eldritched"                    Of weapons, only bows will 
+                                "hold" the eldritching. The 
+                                others will lose the magic 
+                                after a few hundred swings.                        
+
+Recharge Wand   Enchant 26      Requires mandrake root. 
+
+Create an Item  Enchant 31      Creates a wand or other magic 
+                                item. This spell is severely 
+                                draining and requires a diamond,
+                                a storm and a blank wand.
+
+Storm Blade     Conjure 24      Gives a non-magical blade 
+Inferno Blade   Conjure 19      "critical" hits for a limited 
+Winter Blade    Conjure 22      time.              
+
+Personal Enhancement
+ 
+Strength I      Enchant 4       These spells increase a weapon-
+         II     Enchant 8       user's skill and damage. Also 
+         III    Enchant 16      lets you carry more.
+Agility I       Druidic 4       These do the same for a bow 
+        II      Druidic 11      user. Also decreases the chance 
+        III     Druidic 16      of weapon-breakage.
+Diving Blessing Necro   9       Adds three ranks of weapon 
+                                skill.
+True Aim        Druidic 15      Adds 20 ranks of missile skill 
+                                for 10 seconds.
+
+Night Vision    Druidic 1       Lets you see in the dark. 
+
+Claw Growth     Druidic 2       Self only. Grows claws.
+Claws of the                                             
+Elder Wolf      Druidic 21      Lets a claw user hit magical 
+                                creatures.                     
+
+Camoflauge      Druidic 9       Gives the equivalent of 10 
+                                ranks of stealth, aids hiding.
+                    
+Mindlink        General 9       Activates telepathy.                   
+
+Summonings
+
+Sorcerous Summons I & II - these two spells summon an angry, 
+uncontrollable demon. Overuse has deadly side effects, and 
+being witnessed using them tends to bring them much more 
+quickly.
+                        
+Animate Skeleton Necro  6       Brings forth a controlled
+Animate Zombie  Necro   10      lesser undead.
+
+Miscellaneous
+ 
+Light           Conjure 1       Equivalent of a torch.
+
+Mystic Key      Conjure 2       Simple skeleton key.
+
+Analyze Ore     General 3       Tells an ore's purity.
+
+Bloodsight      General 9       Purpose unknown.
+
+Imprison Rune   Enchant 13      These "sigils" all are cast upon
+Thunder Glyph   Conjure 10      an item, and attuned to the next
+Inferno Glyph           20      person who touches them. If any 
+Ice Glyph               15      other person handles that item,
+Death Scythe    Necro   25      it will trigger the defense.
+
+See Hidden      General  3      Allows you to see hidden and 
+                                invisible creatures.
+Dispel Invisibility "    6                          
+                                                                
+Aura Sense      General  14     Allows you to see creature's 
+                                aura. From good to evil, it's: 
+                                White, soft yellow, green, blue,
+                                deep purple, absolute blackness. 
+                                Blue is neutral.
+                
+Truename        General  18     Invasive spell tell's you the 
+                                person's soulname, also works on 
+                                sigils and controlled creatures.
+
+Invisibility    Enchant  14     Allows you to remain invisible 
+                                as long as you take no 
+                                offensive action. 
+Phantom Form    Enchant  34     Undispellable invisibility.
+ 
+Pyrotechnics    Conjure  17     Fireworks display. 
+                                Night/Outdoors. Requires 
+                                beetle saliva.   
+
+Call Storm      Druidic  21     Makes the weather worse.
+Disperse Storm  Druidic  19     Makes the weather better.                                                     
+
+Paranoia        Enchant  3      Practical joke spell.
+
+Form Lock       Druidic  18     Locks target into their 
+                                current form (human, slime, 
+                                mist, wolf.)
+
+Wolf Form       Druidic  28?    Rumored spell. Allows caster
+                                to transform into a wolf.
+ 
+Commune         Druidic  27     Allows caster to ask a question
+With Nature                     of the forces of the earth. 
+                                            
+
+Appendix: Spell List (Current as of 8/6/94.)
+
+Spell      Level      Name
+-----      -----      ----
+100        1          Flame Bolt
+101        3          Force Blade
+102        5          Mystic Armor
+103        7          Lightning Bolt 
+105        15         Globe of Protection
+106        12         Summon Fire Elemental
+107        12         Summon Air Elemental
+108        12         Summon Water Elemental
+109        16         Summon Gargoyle
+112        20         Call Meteor
+113        1          Light
+114        2          Mystic Key
+115        4          Shockwave
+116        21         Thunder Call
+117        8          Call Fire
+118        13         Flaming Sphere
+119        3          Ice Bolt
+120        6          Frost Ray
+121        9          Freezing Sphere
+122        2          Summon Familiar
+123        12         Summon Earth Elemental
+124        20         Inferno Glyph
+125        10         Thunder Glyph
+126        15         Ice Glyph
+127        10         Web
+130        23         Mass Protection
+131        18         Flaming Arrows
+132        23         Chain Lightning
+133        30         Globe of Protection II
+134        25         Siryx's Terrible Tentacles
+135        24         Storm Blade
+136        19         Inferno Blade
+137        22         Winter Blade
+138        31         Energy Maelstrom
+139        20         Sorcerous Summons I
+140        35         Sorcerous Summons II
+141        17         Pyrotechnics
+144        28         Tindarath's Chaotic Summons
+
+200        1          Fear
+201        3          Charm
+202        4          Enchantment I
+203        15         Enchantment II
+204        30         Enchantment III
+205        6          Command
+206        12         Domination I
+207        4          Strength I
+208        8          Strength II
+209        16         Strength III
+210        5          Haste
+211        5          Slow
+212        25         Mass Invisibility
+213        17         Bend Space I
+214        24         Domination II
+215        10         Scry
+216        2          Slumber I
+217        6          Slumber II
+218        18         Slumber III
+219        7          Silence
+220        1          Dancing Blade
+221        6          Dancing Sword
+222        23         Bend Space II
+224        11         Fly
+225        14         Invisibility
+226        3          Paranoia
+227        13         Imprisonment Rune
+228        7          Identify
+229        9          Wizard's Armor
+230        21         Disjunction
+231        19         Imprison
+232        20         Mist Form
+234        13         Spell Shield
+235        22         Cloak Mind
+243        26         Charge Wand
+244        31         Enchant an Item
+245        13         Slime Form
+246        29         Yshtarin's Counfounding Translocation
+248        34         Phantom Form      
+
+
+301        2          Turn Undead I                 
+302        8          Turn Undead II
+           16         Turn Undead III                
+303        11         Cure Poison                   
+305        14         Breath of Life                
+306        6          Animate Skeleton              
+307        10         Animate Zombie                
+308        7          Control Undead I              
+309        13         Control Undead II
+           21         Control Undead III             
+311        3          Speak With Dead               
+313        1          Body Destruction I            
+314        5          Body Destruction II           
+315        10         Body Destruction III          
+316        1          Body Restoration I            
+317        5          Body Restoration II           
+318        10         Body Restoration III      
+319        12         Cure Disease                  
+323        3          Spectral Fist                 
+326        9          Spectral Shield               
+334        2          Invigoration I                
+335        9          Invigoration II               
+337        4          Reconstruction                
+338        9          Unstun                        
+339        3          Destroy Undead I              
+340        8          Destroy Undead II             
+341        13         Destroy Undead III            
+345        7          Spectral Sword                
+347        10         Divine Blessing   
+           17         Wight Animation
+           16-18      Wail of the Banshee
+           20         Poison
+           23         Contagion    
+           23         Wither Limb 
+           25         Symbol of Death
+           27         Regeneration         
+353        32         Summon Spectral Warrior
+                       
+400        1          Detect Magic                  
+401        5          Dispel Lesser Magic           
+403        9          Mindlink                      
+404        14         Aura Sense                    
+405        3          See Hidden                    
+406        8          Dispel Invisibility           
+407        3          Analyze Ore                   
+408        18         Truename    
+412        9          Bloodsight
+                  
+500        4          Plant Snare                   
+501        23         Call Storm                    
+502        19         Disperse Storm                
+503        17         Call Lightning                
+504        1          Call Animal                   
+505        9          Freedom                       
+506        3          Resist Weather                
+507        7          Heat Shield                   
+508        6          Cold Shield                   
+509        10         Repel Plants                  
+510        18         Repel Plants and Webs         
+511        8          Carapace                      
+512        15         True Aim                      
+513        4          Agility I                     
+514        11         Agility II                    
+515        16         Agility III                   
+516        14         Wall of Thorns                
+517        5          Stick to Snake                
+518        2          Claw Growth                   
+519        13         Sunray         
+520        1          Night Vision                  
+521        7          Camouflage                    
+522        25         Insect Swarm                  
+523        5          Earth Spike                   
+524        12         Earth Wave                    
+526        22         Creeping Death                
+528        20         Free Action                   
+531        10         Tree Door                     
+532        24         Ride the Lightning            
+533        27         Commune with Nature
+534        21         Claws of the Elder Wolf       
+535        18         Form Lock 
+           28?        Wolf Form                                          

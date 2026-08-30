@@ -23,8 +23,9 @@ type FeedbackConfig struct {
 }
 
 type AuthConfig struct {
-	GoogleClientID string `yaml:"google_client_id"`
-	JWTSecret      string `yaml:"jwt_secret"`
+	GoogleClientID     string `yaml:"google_client_id"`
+	JWTSecret          string `yaml:"jwt_secret"`
+	TurnstileSecretKey string `yaml:"turnstile_secret_key"`
 }
 
 type EmailConfig struct {

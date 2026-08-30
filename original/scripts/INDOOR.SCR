@@ -2230,6 +2230,94 @@ IFVERB JUMP -1
 	CLEARVERB
 ENDIF
 ;
+;----------------------Windrunner (Inner Sea docks -> Nyraine)------------------------
+NUMBER 7100
+NAME Windrunner, Main Deck
+*DESCRIPTION_START
+You stand on the main deck of the Windrunner, a sturdy two-masted sailing ship. Seasoned sailors move about you, hauling lines and trimming the sails, while the timbers creak beneath your feet and the wind snaps in the rigging.
+*DESCRIPTION_END
+ASTRAL
+DAY_LIGHT
+IFLOGIN
+	IFVAR INTNUM8 ! 1
+		MOVE 532
+	ENDIF
+ENDIF
+IFENTRY
+	ECHO ALL Captain Kestrel calls out the order to cast off. The crew hauls up the gangplank and unfurls the sails.
+	SETEVENT 6 10 ALWAYS
+	CONTEVENT 6
+	ECHO ALL The Windrunner catches the wind and pulls away from the dock, out into open water.
+	SETEVENT 18 10 ALWAYS
+	CONTEVENT 18
+	ECHO ALL Salt spray flies as the Windrunner cuts through the swells, her sails taut and full.
+	SETEVENT 19 10 ALWAYS
+	CONTEVENT 19
+	ECHO ALL The coast of Nyraine comes into view ahead. The crew begins hauling in the sails as the Windrunner glides toward the dock.
+	MOVE 1804
+	AFFECT 1804
+	ECHO ALL The Windrunner arrives at the dock, sailors already lowering the gangplank.
+	EQUAL INTNUM8 0
+ENDIF
+IFVERB GO 0
+	ECHO PLAYER You hurry back down the gangplank before the Windrunner casts off.
+	ECHO OTHERS %N hurries back down the gangplank onto the dock.
+	MOVE 532
+	AFFECT 532
+	ECHO OTHERS %N steps off the Windrunner and back onto the dock.
+	AFFECT 7100
+	CLEARVERB
+ENDIF
+IFVERB JUMP -1
+	ECHO PLAYER The open sea stretches out in every direction. Jumping overboard out here would be certain death.
+	ECHO OTHERS %N leans dangerously over the rail, then thinks better of it.
+	CLEARVERB
+ENDIF
+;
+;----------------------Windrunner (Nyraine -> Inner Sea docks)------------------------
+NUMBER 7101
+NAME Windrunner, Main Deck
+*DESCRIPTION_START
+You stand on the main deck of the Windrunner, a sturdy two-masted sailing ship. Seasoned sailors move about you, hauling lines and trimming the sails, while the timbers creak beneath your feet and the wind snaps in the rigging.
+*DESCRIPTION_END
+ASTRAL
+DAY_LIGHT
+IFLOGIN
+	IFVAR INTNUM8 ! 1
+		MOVE 1804
+	ENDIF
+ENDIF
+IFENTRY
+	ECHO ALL Captain Kestrel calls out the order to cast off. The crew hauls up the gangplank and unfurls the sails.
+	SETEVENT 6 10 ALWAYS
+	CONTEVENT 6
+	ECHO ALL The Windrunner catches the wind and pulls away from the dock, out into open water.
+	SETEVENT 18 10 ALWAYS
+	CONTEVENT 18
+	ECHO ALL Salt spray flies as the Windrunner cuts through the swells, her sails taut and full.
+	SETEVENT 19 10 ALWAYS
+	CONTEVENT 19
+	ECHO ALL The Inner Sea docks come into view ahead. The crew begins hauling in the sails as the Windrunner glides toward the dock.
+	MOVE 532
+	AFFECT 532
+	ECHO ALL The Windrunner arrives at the dock, sailors already lowering the gangplank.
+	EQUAL INTNUM8 0
+ENDIF
+IFVERB GO 0
+	ECHO PLAYER You hurry back down the gangplank before the Windrunner casts off.
+	ECHO OTHERS %N hurries back down the gangplank onto the dock.
+	MOVE 1804
+	AFFECT 1804
+	ECHO OTHERS %N steps off the Windrunner and back onto the dock.
+	AFFECT 7101
+	CLEARVERB
+ENDIF
+IFVERB JUMP -1
+	ECHO PLAYER The open sea stretches out in every direction. Jumping overboard out here would be certain death.
+	ECHO OTHERS %N leans dangerously over the rail, then thinks better of it.
+	CLEARVERB
+ENDIF
+;
 NUMBER 2001
 NAME Tower foyer
 *DESCRIPTION_START

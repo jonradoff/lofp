@@ -1,0 +1,1917 @@
+MLIST 119 259 5 5
+MLIST 119 260 5 5
+MLIST 119 261 5 5
+MLIST 119 278 5 5
+MLIST 120 257 5 5
+MLIST 120 258 5 5
+MLIST 120 278 5 5
+MLIST 121 339 3 3
+MLIST 121 338 3 3
+MLIST 121 340 3 3
+;
+REGIONDEF 70 SEASONS
+REGIONDEF 70 TIME
+REGIONDEF 70 WINTERTEMP 10
+REGIONDEF 70 SPRINGTEMP 45
+REGIONDEF 70 AUTUMNTEMP 45
+REGIONDEF 70 SUMMERTEMP 80
+REGIONDEF 70 PRECIPITATION -5
+REGIONDEF 70 TELEPORT ALLOWED
+REGIONDEF 70 SUMMONING ALLOWED
+REGIONDEF 70 WEATHER
+;
+NUMBER 1971
+NAME Nyraine, Forest Trail
+FOREST
+DAY_LIGHT
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+The smell of the seacoast is thick and heavy along a small
+woodland trail. Jagged rocks to the south are visible clearly
+over the treetops. The path underfoot is dry with the summer sun.
+Further travel to the northwest is blocked by numerous fallen trees,
+which seem to have been placed there on purpose.
+*DESCRIPTION_END
+EXIT SW 1972
+ITEM 0 1040 ADJ1=178
+EXTEND 0 of trees and deadfall
+ITEM 1 229 ADJ1=895
+ITEM 2 229 ADJ1=651
+ITEM 9 693
+IFPREVERB CLIMB 0
+  CLEARVERB
+  ECHO PLAYER You begin to climb, and get stuck. You return to the trail.
+ENDIF
+IFPREVERB GO 0
+  CLEARVERB
+  ECHO PLAYER There is no where to go.
+ENDIF
+;
+NUMBER 1972
+NAME Nyraine, Forest Trail
+FOREST
+DAY_LIGHT
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+The boles of the trees here are thick with a greenish moss that
+glistens slightly in the dark. The sounds of sea-birds echoes
+through the thick woodland, and, very faintly, the crash of
+waves is heard against the rocks to the south.
+*DESCRIPTION_END
+EXIT NE 1971
+EXIT SW 1973
+ITEM 0 229 ADJ1=651
+EXTEND 0 covered with a thick greenish-blue moss
+IFPREVERB LISTEN -1
+  CLEARVERB
+  ECHO PLAYER You hear the soft distant sound of waves crashing on rocks.
+  ECHO OTHERS %N seems to be listening to something.
+ENDIF
+ITEM 1 1082 ADJ1=152 ADJ2=29
+ITEM 9 693
+;
+NUMBER 1973
+NAME Nyraine, Forest Trail
+FOREST
+PARTIAL_DARKNESS
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+The trees in this region are as wide as most men are tall, and they
+grow so closely together that visibility is cut to less than six
+feet. A strong, stale smell is thick in the air, the stench of something
+rotten and decayed. Last years leaves pile are damp underfoot, the
+edges white with a fine rimming of salt from the nearby ocean.
+Small white flowers peek up from the sides of the trail.
+*DESCRIPTION_END
+EXIT NE 1972
+EXIT SW 1974
+ITEM 9 693
+;
+NUMBER 1974
+NAME Nyraine, Forest Trail
+FOREST
+DAY_LIGHT
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+Numerous trees are bent over or broken off at the base at this bend
+in the trail. Evidence of a large windstorm that swept through the
+entire area is everywhere. To the north, the forest stretches
+for miles, to the south, a large outcropping of white rocks is plainly
+visible.
+*DESCRIPTION_END
+EXIT NE 1973
+EXIT SW 1975
+ITEM 0 229 ADJ1=374 ADJ2=216
+ITEM 9 693
+;
+NUMBER 1975
+NAME Nyraine, Forest Trail Bridge
+FOREST
+DAY_LIGHT
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+Thick, groping roots reach upwards from the ground, breaking
+the smooth surface of the trail. A small freshwater stream
+crosses under a stone bridge, and winds its way south
+to the sea. An overall sense of peace and stillness fills the
+air. The fresh scent of flowers blooming fills the air.
+*DESCRIPTION_END
+EXIT NE 1974
+EXIT SW 1976
+ITEM 0 426 ADJ1=294 ADJ2=1200
+ITEM 1 608 VAL2=1976
+ITEM 9 693
+;
+NUMBER 1976
+NAME Nyraine, Forest Trail Glen
+FOREST
+DAY_LIGHT
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+The trail here spills out into a valley nestled between the thick
+forest growth, and the rocky outcroppings of the beach. A small
+track leads down into the valley, while the trail heads to the
+north, northeast. A bit of farmlands is visible to the west, the
+furrows full and thick of the coming harvest.
+*DESCRIPTION_END
+EXIT NE 1975
+ITEM 0 609 ADJ1=294 VAL2=1977
+ITEM 9 693
+;
+NUMBER 1977
+NAME Nyraine, Farmlands
+PLAIN
+DAY_LIGHT
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+Acres of farmlands stretch to the north and south, dotting the
+land with rows upon rows of crops. A few small houses
+dot the open ground. A more traveled road leads west to the
+city of Nyraine and a track leads northeasterly through the
+thick forests.
+*DESCRIPTION_END
+EXIT W 1978
+ITEM 0 609 ADJ1=294 VAL2=1976
+ITEM 9 693
+;
+NUMBER 1978
+NAME Nyraine, Farmlands
+PLAIN
+DAY_LIGHT
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+The ravages of the land are nearly healed from several years of
+gentle care by the people of Nyraine. Fields are full of new
+and healthy growth, tended by farmers.
+*DESCRIPTION_END
+EXIT E 1977
+EXIT W 1908
+ITEM 9 693
+;
+NUMBER 1908
+NAME Nyraine, City Gates
+OUTDOOR_FLOOR
+DAY_LIGHT
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+The massive iron-wrought gates of Nyraine are hung neatly on painted
+white posts, and the gates themselves are very new. The cobbles of the
+street have been recently relaid in a beautiful, random pattern.
+A small trail leads off southwards towards the rocky wall near the ocean. 
+*DESCRIPTION_END
+EXIT E 1978
+ITEM 0 68 ADJ1=189 ADJ2=505 ADJ3=169 VAL2=1899 OPEN UNLOCKED
+ITEM 1 76 VAL2=1971
+ITEM 9 693
+;
+NUMBER 1899
+NAME Nyraine, City Streets
+OUTDOOR_FLOOR
+DAY_LIGHT
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+The gates are hung on white posts, just above the newly reworked
+cobbles. The buildings all seem newly made or rebuilt. The city
+seems full of life and hope once again.
+*DESCRIPTION_END
+EXIT S 1898
+EXIT W 1896
+EXIT NW 1897
+ITEM 0 68 ADJ1=189 ADJ2=505 ADJ3=169 VAL2=1908 OPEN UNLOCKED
+ITEM 9 693
+;
+NUMBER 1897
+NAME Nyraine, Keep
+OUTDOOR_FLOOR
+DAY_LIGHT
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+The beautiful red-stone keep of Nyraine lays against the backdrop
+of a large white outcropping of rocks. Thick forest drapes its way
+around the city walls like a verdant green cloak. The walls of the
+Keep are recently rebuilt, and lovely crystal windows in place. A guard
+in black and white livery stands at the gates. A small well-used trail
+leads north towards the rocks.
+*DESCRIPTION_END
+EXIT W 1893
+EXIT S 1896
+EXIT SE 1899
+ITEM 0 68 ADJ1=163 ADJ2=347 ADJ3=310 VAL2=1805 OPEN UNLOCKED
+ITEM 9 693
+ITEM 8 76 VAL2=1917
+IFPREVERB GO 0
+  ECHO ALL A guard eyes %N warily.
+ENDIF
+;
+NUMBER 1896
+NAME Nyraine, Intersection Larch and Elder
+OUTDOOR_FLOOR
+DAY_LIGHT
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+The small, cobblestone streets meet at this well-used intersection.
+Several well-built three-story homes have been placed along the roads
+here. Most of the buildings are done in the same efficient style.
+*DESCRIPTION_END
+EXIT N 1897
+EXIT E 1899
+EXIT W 1892
+EXIT S 1895
+ITEM 9 693
+;
+NUMBER 1895
+NAME Nyraine, Larch Street
+OUTDOOR_FLOOR
+DAY_LIGHT
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+A small park sits to the south side of the city, nestled up against 
+the outer walls, protected to allow for more delicate varieties of 
+plants to grow. The cobbles here were placed with precision, allowing
+the beautiful colors of nature to color the landscape. New growth
+has been transplanted in from the nearby forest, and the grounds are being
+tended by several elder members of the Amber Eye's pack. All around 
+the beautiful flowers of summer are seen growing.
+*DESCRIPTION_END
+EXIT S 1894
+EXIT W 1891
+EXIT N 1896
+EXIT E 1898
+ITEM 9 693
+;
+NUMBER 1894
+NAME Nyraine, Larch Street
+OUTDOOR_FLOOR
+DAY_LIGHT
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+The sounds of the nearby sea seems to reach over the city walls to 
+fill the end of this street with sound. A large grouping of jagged,
+sharp edged rocks protrudes upwards at all angles directly to the
+south of the wall, and occasionally, the mist from a large wave
+will drift over to bathe the area in moisture. 
+*DESCRIPTION_END
+EXIT N 1895
+ITEM 9 693
+;
+NUMBER 1898
+NAME Nyraine, City Wall
+OUTDOOR_FLOOR
+DAY_LIGHT
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+Overhead, the rocky stretches near the beach loom, almost
+appearing ready to tumble into the streets. A small park
+rests along the wall. The wall is about ten feet high, and 
+stretches out around the city for protection.
+*DESCRIPTION_END
+EXIT W 1895
+EXIT N 1899
+ITEM 9 693
+;
+NUMBER 1893
+NAME Nyraine, Cherry Street
+OUTDOOR_FLOOR
+DAY_LIGHT
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+Past the city walls to the north, northwest, rests an ancient
+woodland. Thick trees soar upwards for hundreds of feet, blanketing
+the forest in a dazzling display of summer-time growth. Flowering limbs
+decorated pink and red sway in the breezes from the Inner Sea. To the 
+east rests a large keep, a prominent rocky outcropping clearly visible 
+behind it. 
+*DESCRIPTION_END
+EXIT S 1892
+EXIT E 1897
+ITEM 9 693
+;
+NUMBER 1892
+NAME Nyraine, Intersection Cherry and Elder
+OUTDOOR_FLOOR
+DAY_LIGHT
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+A row of pleasant houses lines both sides of the street. Small private
+gardens have been carefully planted and some small blooms are beginning
+to show. A few benches rest under new planted trees, ones that will
+provide yards of shade when full grown. A large building houses
+the city's tavern.
+*DESCRIPTION_END
+EXIT N 1893
+EXIT S 1891
+EXIT E 1896
+ITEM 0 66 VAL2=3355
+ITEM 9 693
+;
+NUMBER 1891
+NAME Nyraine, Cherry Street
+OUTDOOR_FLOOR
+DAY_LIGHT
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+Numerous buildings are around this area, each one a copy of the others. 
+Sounds of voices echoes from the open windows, filling the streets with
+laughter and life. The General Store has been rebuilt, and sits on the
+northwest corner of the intersection. An extenstion of the street travels 
+to the west out of town. A large set of gates stand on the road leading 
+out of town.
+*DESCRIPTION_END
+EXIT N 1892
+EXIT E 1895
+ITEM 0 66 VAL2=3354 OPEN UNLOCKED
+EXTEND 0 leading to the general store
+ITEM 1 68 VAL2=1890 OPEN UNLOCKED
+ITEM 9 693
+;
+NUMBER 1890
+NAME Nyraine, Road
+OUTDOOR_FLOOR
+DAY_LIGHT
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+The road traces its way beside a steep, rocky cliff, heading directly
+east towards the small city of Nyraine, or west deeper into the forest.
+The sounds of the nearby ocean crashing against the shore is heard clearly
+in the distance. The soil has several old scorch marks deeply imbedded,
+but new shoots of green grass peek their way out. A large gate blocks the 
+way into the city itself.
+*DESCRIPTION_END
+EXIT W 1889
+ITEM 0 68 VAL1=100 VAL2=1891 OPEN UNLOCKED
+ITEM 9 693
+;
+NUMBER 1889
+NAME Nyraine, Road
+FOREST
+DAY_LIGHT
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+The road twists its way west near a rocky outcropping, and heads off into
+the forest. Directly south the land slopes sharply downward, and a small
+trail twists its way out of view around the rocks. To the north and east, 
+lies the city of Nyraine. Even from this distance, the beauty of the 
+rebuilt city is evident in the new buildings.
+*DESCRIPTION_END
+EXIT E 1890
+EXIT W 1941
+ITEM 0 76 ADJ1=294 ADJ2=1258 VAL2=1888
+ITEM 1 411
+ITEM 9 693
+;
+NUMBER 1888
+NAME Nyraine, Sea Trail
+MOUNTAIN
+DAY_LIGHT
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+Small plants line the sides of the trail, which itself curls around
+rocks and plants. Far below, the sounds of the surf crashing against
+the shore echoes, filling the area with reverberations. Above, the trail
+connects with a road.
+*DESCRIPTION_END
+EXIT D 1887
+EXIT U 1889
+ITEM 9 693
+;
+NUMBER 1887
+NAME Nyraine, Sea Trail
+MOUNTAIN
+DAY_LIGHT
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+The trail here is slick with the wet spray from the ocean. Handholds
+have been carved in the rocky wall on the north side of the track. Far
+southward, the ocean is visible in all its beauty. Farther down the
+rock wall, a small opening is visible.
+*DESCRIPTION_END
+EXIT D 1809
+EXIT U 1888
+ITEM 0 420 ADJ1=264
+ITEM 9 693
+;
+NUMBER 1809
+NAME Nyraine, Wolfling Cave
+OUTDOOR_FLOOR
+DAY_LIGHT
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+There is a large ledge here, hanging over a sandy beach, and butting up
+against the rocks. Deep inside the rocks lies an opening. The sand on 
+the ledge here is full of slightly damp footprints and pawprints. The rocky
+trail continues on both sides of the ledge.
+*DESCRIPTION_END
+EXIT U 1887
+EXIT D 1808
+ITEM 0 72 VAL2=1886
+ITEM 9 693
+;
+NUMBER 1808
+NAME Nyraine, Beach Path
+OUTDOOR_FLOOR
+DAY_LIGHT
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+Directly above this area, a large mass of rocks jut out of the sandy
+beach. They gleam with water nearly constantly, and most of their surfaces
+have been worn smooth over time. The rocky part of the trail leads upwards
+along a narrow ledge, while a smooth path has been used for years over the 
+deep sand of the beach. To the south lies the shoreline.
+*DESCRIPTION_END
+EXIT S 1807
+EXIT U 1809
+ITEM 0 413
+ITEM 9 693
+;
+NUMBER 1807
+NAME Nyraine, Beach Path
+OUTDOOR_FLOOR
+DAY_LIGHT
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+A large expanse of beach exists here, bounded on the northeastern side by a 
+solid wall of rock. To the south, southwest, the pure white sands are 
+scattered for miles, following the rocky coastline. A small worn trail 
+continues north towards the rocks or south towards the ocean.
+*DESCRIPTION_END
+EXIT N 1808
+EXIT S 1806
+ITEM 9 693
+;
+NUMBER 1806
+NAME Nyraine, Beach
+OUTDOOR_FLOOR
+DAY_LIGHT
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+The smell of salt hangs pungent and thick in the air, and the crashing
+roar of waves hitting the beach and rocks fills the senses. The white
+sands of the beach are clean and beautiful to view. Small crabs and
+other sea creatures scuttle about on the sand. A huge mass of rocks is
+visible to the north and east. A small trail winds along the beach and up
+towards the rocks. To the south a long dock extends outwards into
+the ocean. The boards have recently been repaired, and a fresh coat of
+paint shines on the dock.
+*DESCRIPTION_END
+EXIT N 1807
+EXIT S 1804
+ITEM 9 693
+;
+NUMBER 1804
+NAME Nyraine, Dock
+OUTDOOR_FLOOR
+DAY_LIGHT
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+The long dock extends far out into the swirling waters of the sea. New 
+pilings and planks have refurbished the old structure. Long ropes lay
+coiled with precision awaiting the arrival of the ferry. To the north,
+across the long white beach, a great outcropping of rock is visible.
+*DESCRIPTION_END
+EXIT N 1806
+ITEM 9 693
+ITEM 0 412 ADJ1=1225
+ITEM 1 1774 ADJ1=1225
+*DESCRIPTION_START ITEM EXAM 1
+The Windrunner is a sturdy, two-masted sailing ship, her sails currently furled and lashed. A crew of seasoned sailors moves about the deck coiling rope and checking rigging, while a grizzled, weathered man in a long coat watches the horizon from the quarterdeck.
+*DESCRIPTION_END
+IFENTRY
+	ECHO PLAYER Captain Aldous Kestrel calls out from the deck of the Windrunner, "Bound for the Inner Sea docks! All aboard who's paying passage!"
+ENDIF
+IFVERB GO 0
+	IFVAR INTNUM8 ! 1
+		ECHO PLAYER Captain Kestrel blocks the top of the gangplank. "Hold on there, friend. Passage back to the mainland is two silver, paid up front."
+		ECHO OTHERS %N tries to board the Windrunner without paying the captain.
+	ENDIF
+	IFVAR INTNUM8 = 1
+		ECHO PLAYER You climb the gangplank and step aboard the Windrunner.
+		ECHO OTHERS %N climbs the gangplank and steps aboard the Windrunner.
+		MOVE 7101
+		AFFECT 7101
+		ECHO OTHERS %N crosses the gangplank from the dock and boards the Windrunner.
+		AFFECT 1804
+	ENDIF
+	CLEARVERB
+ENDIF
+IFVERB PAY -1
+	IFVAR INTNUM8 = 1
+		ECHO PLAYER Captain Kestrel tips his hat. "Already settled up, friend. No need to pay twice."
+		ECHO OTHERS %N tries to pay the captain again.
+	ENDIF
+	IFVAR INTNUM8 ! 1
+		IFVAR WEALTH < 20
+			ECHO PLAYER Captain Kestrel eyes your thin purse and shakes his head. "Come back when you've got the fare, friend."
+			ECHO OTHERS %N can't seem to scrape together the fare.
+		ENDIF
+		IFVAR WEALTH = 20
+			SUB WEALTH 20
+			ECHO PLAYER You hand over your last coin to Captain Kestrel.
+			ECHO OTHERS %N hands the captain some coins.
+			EQUAL INTNUM8 1
+		ENDIF
+		IFVAR WEALTH > 20
+			SUB WEALTH 20
+			ECHO PLAYER You pay the captain his fare. He nods and marks your name in the ship's ledger.
+			ECHO OTHERS %N hands the captain some coins.
+			EQUAL INTNUM8 1
+		ENDIF
+	ENDIF
+	CLEARVERB
+ENDIF
+;
+NUMBER 1917
+NAME Nyraine, Rocky Trail
+FOREST
+DAY_LIGHT
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+You find yourself on a small trail north of the Keep of Nyraine. To the
+north and visible above the tree tops lies the large outcropping of rocks
+inhabited by trolls. To the south, the trail spills out into the city
+itself, near the Keep.
+*DESCRIPTION_END
+EXIT N 1918
+EXIT S 1897
+ITEM 9 693
+;
+NUMBER 1918
+NAME Nyraine, Rocky Trail
+MOUNTAIN
+OBSCURED_DAY_LIGHT
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+This is a small dark area shrouded on both sides by huge piles of rock and
+granite. Small striations of quartz wind throughout the stone. There are
+two small pathways leading to the northeast and the northwest, as well
+as a southern trail that heads towards the city of Nyraine.
+*DESCRIPTION_END
+ITEM 0 76 VAL2=1917
+EXIT NE 1919
+EXIT NW 1921
+ITEM 9 693
+;
+NUMBER 1919
+NAME Nyraine, Below Outcropping
+MOUNTAIN
+DAY_LIGHT
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+The scent of a bog fills the area with a sulfuric smell. There are
+heavy rocks, and an enormous outcropping directly to the north conceals
+much of the northern sky. Scattered rocks line the edge of the forest to
+both the east and west. A large, dark opening leads into the rocks under 
+the outcropping.
+*DESCRIPTION_END
+EXIT SW 1918
+EXIT NE 1920
+ITEM 0 72 VAL2=1928
+ITEM 9 693
+;
+NUMBER 1920
+NAME Nyraine, Before Outcropping
+MOUNTAIN
+DAY_LIGHT
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+A small beaten path circles around the outcropping, next to the dark
+monster of the swampy forest nearby. To the north and east, the forest 
+wraps around the pile of rocks, and continues to the horizon. A small
+opening leads between two stones of pure black granite, and heads deep
+into the jumbled pile of rock and earth.
+*DESCRIPTION_END
+EXIT SW 1919
+ITEM 0 72 VAL2=1932
+ITEM 9 693
+;
+NUMBER 1921
+NAME Nyraine, Before Outcropping
+MOUNTAIN
+DAY_LIGHT
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+Thick bushes line the rocks that have tumbled from the massive outcropping
+above. A small, dank opening leads back through several small chunks of
+granite, and a dirt path worn smooth marks its way through the ground.
+*DESCRIPTION_END
+EXIT SE 1918
+EXIT NW 1979
+ITEM 0 72 VAL2=1929
+ITEM 9 693
+;
+NUMBER 1979
+NAME Nyraine, Before Outcropping
+MOUNTAIN
+DAY_LIGHT
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+The western and northern forests meets here, butting right up next to the
+enormous outcropping of rock. A small waterfall trickles from atop the rocks,
+and splashes nosily to a small bed of river rock. The water forms into
+a creek and winds its way off into the forest. A small opening leads
+under the outcropping.
+*DESCRIPTION_END
+EXIT SE 1921
+ITEM 0 72 VAL2=1930
+ITEM 1 198 VAL2=500
+ITEM 9 693
+IFPREVERB DRINK 1
+  CLEARVERB
+  ECHO PLAYER You take a drink of the water, and begin to feel ill.
+  SPELL 321
+  ECHO OTHERS %N takes a drink of the water, and looks green.
+  POSITION KNEEL
+ENDIF
+;
+NUMBER 1929
+NAME Nyraine, Under Outcropping
+CAVE
+DARKNESS
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+This dark, disgusting cave rests underneath the large pile of rock on the 
+surface. Odd, animal sounds come from the two tunnels, and only a small
+patch of light illuminates the southern end of the chamber, coming from the
+opening leading out. A pale white pile of bones rests in one corner,
+each piece gnawed and marked by huge teeth.
+*DESCRIPTION_END
+EXIT O 1921
+ITEM 0 77 ADJ1=1256 VAL2=1930
+ITEM 1 77 ADJ1=1148 VAL2=1928
+ITEM 2 1040 ADJ1=178
+EXTEND 2 of bones
+ITEM 9 693
+;
+NUMBER 1928
+NAME Nyraine, Troll Caves
+CAVE
+MONSTER_GROUP 120
+DARKNESS
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+This is a narrow cleft tucked deep between to huge rocks. A third has fallen
+overhead, limiting movement. The sharp edges to the rocks snag on anything
+passing through. Small bits of light filter through in the daytime, yet
+hardly enough to illuminate much at all. Tunnels lead off in three 
+directions.
+*DESCRIPTION_END
+EXIT O 1919
+ITEM 0 77 ADJ1=1256 VAL2=1931
+ITEM 1 77 ADJ1=1148 VAL2=1932
+ITEM 2 77 ADJ1=1219 VAL2=1929
+ITEM 9 693
+IFENTRY -1
+  IFVAR WEIGHTWEQ > 300 
+    EQUAL ROUNDTIME 10
+    ECHO PLAYER You can barely squeeze through the sharp rocks in the area. They catch and snag at your equipment and clothes.
+    ECHO OTHERS %N seems to get stuck and has a hard time passing through the rocks.
+  ENDIF
+ENDIF
+
+;
+NUMBER 1931
+NAME Nyraine, Troll Caves
+CAVE
+MONSTER_GROUP 120
+DARKNESS
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+The floor here is rough and uneven, and the walls are coarse rocks,
+with odd turns and shifts throughout. The chamber is roughly triangular,
+with a tunnel opening on each wall.
+*DESCRIPTION_END
+ITEM 0 77 ADJ1=1139 VAL2=1935
+ITEM 1 77 ADJ1=1216 VAL2=1928
+ITEM 2 77 ADJ1=1255 VAL2=1930
+ITEM 9 693
+;
+NUMBER 1930
+NAME Nyraine, Troll Caves
+CAVE
+MONSTER_GROUP 120
+DARKNESS
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+The harsh smell of rotting meat fills up this tiny chamber. About
+half way up the northern wall sits a ledge, covered over with half
+rotten corpses, assorted limbs and body parts.
+*DESCRIPTION_END
+EXIT O 1979
+ITEM 0 77 ADJ1=1216 VAL2=1929
+ITEM 1 77 ADJ1=1181 VAL2=1931
+ITEM 2 450 
+EXTEND 2 on the northern wall
+ITEM 9 693
+;
+NUMBER 1932
+NAME Nyraine, Troll Caves
+CAVE
+MONSTER_GROUP 120
+DARKNESS
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+The flooring of the cave is soft and boggy, and the scent of sulfur and
+other strong elements is heavy in the air. A single tunnel leads out, and
+deeper into the warren of caves of the trolls. A small opening to the
+southern side offers a faint light, but the shadows cast from the rocks
+blocks most of the useful rays.
+*DESCRIPTION_END
+EXIT O 1920
+ITEM 0 77 ADJ1=1219 VAL2=1928
+ITEM 9 693
+;
+NUMBER 1935
+NAME Nyraine, Troll Caves
+CAVE
+MONSTER_GROUP 120
+DARKNESS
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+The tunnel here slopes downwards at the northern end, and upwards to the
+south. The air is musty, and full of unnatural odors. The rocks are worn
+smooth to the touch by the passage of countless trolls over the years.
+The quiet drip of water sounds somewhere farther down the tunnels. Three
+distinct tunnel openings lead outward from this chamber.
+*DESCRIPTION_END
+ITEM 0 77 ADJ1=1217 VAL2=1931
+ITEM 1 77 ADJ1=1258 VAL2=1938
+ITEM 2 77 ADJ1=1181 VAL2=1934
+ITEM 9 693
+;
+NUMBER 1934
+NAME Nyraine, Troll Caves
+CAVE
+MONSTER_GROUP 120
+DARKNESS
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+No hint of light reaches this area, and the air is stale and musty, old
+and molded. The scrape of something sounds often in the nearby passages, 
+and dark openings of tunnels stand opposite on the walls.
+*DESCRIPTION_END
+ITEM 0 77 ADJ1=1181 VAL2=1933
+ITEM 1 77 ADJ1=1255 VAL2=1935
+ITEM 9 693
+;
+NUMBER 1933
+NAME Nyraine, Troll Caves
+CAVE
+MONSTER_GROUP 120
+DARKNESS
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+This is a wide open chamber, with large stalactites hanging from the ceiling
+above. A dark, swift underground stream rushes through the center of the 
+chamber out passes out through a small archway on the other side. Several
+tunnel openings are dark patches on the walls.
+*DESCRIPTION_END
+ITEM 0 77 ADJ1=1258 VAL2=1936
+ITEM 1 77 ADJ1=1255 VAL2=1934
+ITEM 2 426 ADJ1=87 VAL2=1936
+ITEM 3 60
+ITEM 9 693
+IFPREVERB GO 3
+  IFVAR RAC ! 8
+    CLEARVERB
+    ECHO PLAYER You are much too large to pass that way. 
+  ENDIF
+ENDIF
+;
+NUMBER 1936
+NAME Nyraine, Troll Caves
+CAVE
+MONSTER_GROUP 120
+DARKNESS
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+A small stream tracks its way from a crack in the wall, and flows to the
+south here. A few stray stalagmites grow up from the ground, but most
+have been smashed flat. The smell of refuse hangs heavy in the stale, damp
+air. 
+*DESCRIPTION_END
+ITEM 0 77 ADJ1=1257 VAL2=1933
+ITEM 1 77 ADJ1=1258 VAL2=1937
+ITEM 2 426 ADJ1=87 VAL2=1936
+ITEM 3 62 ADJ1=327 VAL2=1933
+ITEM 4 198 
+ITEM 9 693
+IFPREVERB GO 3
+  IFVAR RAC ! 8
+    CLEARVERB
+    ECHO PLAYER You are much too large to pass that way. 
+  ENDIF
+ENDIF
+IFPREVERB DRINK 4
+  CLEARVERB
+  ECHO PLAYER You take a drink of the water, it has a faint sulfur taste.
+  ECHO OTHERS As %N takes a drink of water, %h face twists into a grimace.
+ENDIF
+;
+NUMBER 1937
+NAME Nyraine, Troll Caves
+CAVE
+MONSTER_GROUP 120
+DARKNESS
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+Thick rock walls hinder any sound from traveling far in this small 
+chamber. The chamber itself is more of an elongated tunnel, stretching
+for about fifty feet in either direction. Two wide tunnel openings
+stand at each end, leading off into the darkness.
+*DESCRIPTION_END
+ITEM 0 77 ADJ1=1257 VAL2=1936
+ITEM 1 77 ADJ1=1255 VAL2=1938
+ITEM 9 693
+IFPREVERB LISTEN -1
+  CLEARVERB
+  ECHO PLAYER You hear a soft sound, but are unsure which opening it comes from.
+  ECHO OTHERS %N seems to be listening to something.
+ENDIF
+IFPREVERB LISTEN 0
+  CLEARVERB
+  ECHO PLAYER You hear the sound of running water.
+  ECHO OTHERS %N seems to be listening to something.
+ENDIF
+IFPREVERB LISTEN 1
+  CLEARVERB
+  ECHO PLAYER You hear nothing.
+  ECHO OTHERS %N seems to be listening to something.
+ENDIF
+;
+NUMBER 1938
+NAME Nyraine, Troll Caves
+CAVE
+DARKNESS
+MONSTER_GROUP 120
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+The rock wall to the north glitters slightly, reflecting any slight bit of 
+light. It seems to be veined with a thick, white crystal substance that
+travels through the ceiling above, and down into the floor below. Two
+tunnels lead in opposite directions, and a third heads to the south.
+*DESCRIPTION_END
+ITEM 0 ADJ1=1257 VAL2=1935
+ITEM 1 77 ADJ1=1255 VAL2=1939
+ITEM 2 77 ADJ1=1181 VAL2=1937
+ITEM 3 77 ADJ1=1217 VAL2=1935
+ITEM 9 693
+;
+NUMBER 1939
+NAME Nyraine, Troll Caves
+CAVE
+MONSTER_GROUP 120
+DAY_LIGHT
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+A small bit of light has managed to work its way through the layers of
+rock above and shine brightly on the floor in the center of this small
+chamber. During the day, it illuminates the dirt, and you see specks of 
+dust and small bits of debris floating casually through the beam of 
+sunlight. At night, sometimes the light of the moons shine through, though
+much more muted than the sun.
+*DESCRIPTION_END
+ITEM 0 77 ADJ1=1258 VAL2=1940
+ITEM 1 77 ADJ1=1181 VAL2=1938
+ITEM 9 693
+;
+NUMBER 1940
+NAME Nyraine, Troll Caves
+DISBAND
+MONSTER_GROUP 120
+CAVE
+DARKNESS
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+A deep depression lies in the center of this small circular chamber. 
+Carved stone pieces that resemble benches line the walls, and near the
+very center is scorched earth from the remains of numerous fires. The 
+ceiling above is also seared and black. 
+*DESCRIPTION_END
+ITEM 0 77 ADJ1=1257 VAL2=1939
+ITEM 1 420 ADJ1=1217 ADJ2=921 ADJ3=462
+ITEM 2 420 ADJ1=1181 ADJ2=921 ADJ3=462
+ITEM 3 420 ADJ1=1255 ADJ2=921 ADJ3=462
+ITEM 4 420 ADJ1=1139 ADJ2=921 ADJ3=462
+ITEM 9 693
+;
+NUMBER 1914 
+NAME Nyraine, Lower Rocky Trail
+MOUNTAIN
+DAY_LIGHT
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+The defening sound of waves crashing on rock is heard clearly from
+just the other side of the stones. A constant spray of wet, salty
+mist assaults anything on the pathway. A small trail leads northwards
+towards the farmlands.
+*DESCRIPTION_END
+EXIT E 1915
+ITEM 0 76 ADJ1=264 VAL2=1977
+ITEM 9 693
+;
+NUMBER 1915
+NAME Nyraine, Lower Rocky Trail
+MOUNTAIN
+DAY_LIGHT
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+A small opening in the rocks here shows a magnificent view of the ocean and
+the rocky shoreline. A small, perilous trail winds its way through rocks
+and crevasses, the ground formed of damp, hard-packed sand. Visible to the 
+northeast is a large bog, and to the east is a large mountain of rock.
+*DESCRIPTION_END
+EXIT W 1914
+EXIT U 1916
+ITEM 9 693
+;
+NUMBER 1916
+NAME Nyraine, Ledge
+MOUNTAIN
+DAY_LIGHT
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+You find yourself on a large stone ledge that overlooks a swampy forest
+area directly to the north. Far to the west, the tall buildings of Nyraine
+are barely visible over the trees. On the other side of the rocks, the 
+sound of the ocean is clearly heard breaking on the stone. A large
+opening rests between several small stones, and leads back into the
+mountainside.
+*DESCRIPTION_END
+EXIT D 1915
+ITEM 0 72 VAL2=1922
+ITEM 9 693
+;
+NUMBER 1922
+NAME Nyraine, Orc Caves
+CAVE
+DARKNESS
+REGION 70
+MONSTER_GROUP 119
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+Small bits of light are able to filter into this area, but the
+dark, dampness permeates outwards from deeper in the caves. 
+The walls here are rough to the touch, and a cold green moss
+grows on most of them. A single tunnel opens up and leads further
+in.
+*DESCRIPTION_END
+ITEM 1 72 VAL2=1916
+EXIT E 1923
+ITEM 0 1082 ADJ1=61 ADJ2=152
+ITEM 9 693
+;
+NUMBER 1923
+NAME Nyraine, Orc Caves
+CAVE
+MONSTER_GROUP 119
+DARKNESS
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+This small dark chamber is cramped overhead by low hanging rocks with
+nasty sharp points. No light enters this room from anywhere, and
+thus the walls are covered with a slimy, putrid moss. Dark
+crevices lead off in two directions from the area.
+*DESCRIPTION_END
+EXIT W 1922
+EXIT SE 1924
+ITEM 0 1082 ADJ1=61 ADJ2=152
+ITEM 9 693
+;
+NUMBER 1924
+NAME Nyraine, Orc Caves
+CAVE
+MONSTER_GROUP 119
+DARKNESS
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+You find yourself in a v-shaped room with a trickle of water running down 
+the back of the left facing wall. A thick dust is settled on most of the 
+floor, except for a pathway worn clear by the passage of feet. 
+*DESCRIPTION_END
+EXIT NW 1923
+EXIT NE 1925
+ITEM 9 693
+;
+NUMBER 1925
+NAME Nyraine, Orc Caves
+CAVE
+MONSTER_GROUP 119
+DARKNESS
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+You are in a large, central chamber. A broken altar-like formation rests
+against one wall, and the rest of the floor is clear except for several
+piles of bones in odd configurations. 
+*DESCRIPTION_END
+EXIT SW 1924
+EXIT N 1926
+ITEM 0 236 ADJ1=396 ADJ2=312
+ITEM 9 693
+;
+NUMBER 1926
+NAME Nyraine, Orc Caves
+CAVE
+MONSTER_GROUP 119
+DARKNESS
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+The northern end of this tunnel slopes sharply upwards, heading towards the 
+surface. To the south, the floor slopes downwards, leading deeper into the 
+earth. The walls have been worn smooth by years of water trickling down
+over the stone.
+*DESCRIPTION_END
+EXIT S 1925
+EXIT O 1927
+ITEM 9 693
+;
+NUMBER 1927
+NAME Nyraine, Orc Cave, Ledge
+MOUNTAIN
+MONSTER_GROUP 119
+DAY_LIGHT
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+The view from this ledge is incredible. The swamp below sits directly
+against the rocky mountain, and against the bog rests the forest. Far
+to the northwest, another large mountain of white rock is visible.
+*DESCRIPTION_END
+ITEM 0 72 VAL2=1926
+ITEM 9 693
+;
+NUMBER 3354
+NAME Nyraine, General Store
+INDOOR_FLOOR
+FIXED_LIGHT
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+The insides of this store are undergoing great amounts of reconstruction.
+New shelves line the walls, and the floor is clean and free of debris.
+The old countertop has been replaced with a large slab of marble.
+*DESCRIPTION_END
+ITEM 0 66 ADJ1=374 VAL2=1891 OPEN UNLOCKED
+ITEM 9 693
+;
+NUMBER 3355
+NAME Nyraine, Tavern
+INDOOR_FLOOR
+PARTIAL_DARKNESS
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+The interior of the tavern is beginning to take on the appearance of what it 
+once was. The walls are clean and the wood beginning to shine again. Years
+of neglect cannot be removed in moments.. but the overall appeal of the
+place can be seen again at last. New wooden chairs and tables have
+been recently made, the fresh scent of the pine wood hangs in the air.
+A pile of glass and rubish has been swept into the corner to be removed later.
+Several large kegs of ale have been provided by Faydians, and glasses rest on the
+counter. A large, happy bartender stands ready to fill your glass.
+*DESCRIPTION_END
+ITEM 0 66 VAL2=1892 OPEN UNLOCKED
+ITEM 9 693
+;
+NUMBER 1805
+NAME Nyraine, Keep Gate
+OUTDOOR_FLOOR
+DAY_LIGHT
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+Two large white gates hang on stone poles. Through the gates,
+the massive keep of Nyraine is visible. To the north, through 
+the gates, the keep of Nyraine are visible. Farther north, a 
+large, prominent outcropping of white rock is visible. 
+*DESCRIPTION_END
+EXIT NE 1957
+ITEM 0 68 ADJ1=163 ADJ2=347 ADJ3=310 VAL2=1897 OPEN UNLOCKED
+ITEM 9 693
+;
+NUMBER 1957
+NAME Nyraine, Keep Courtyard
+OUTDOOR_FLOOR
+DAY_LIGHT
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+A large archway to the north leads into the keep itself. To the south,
+white steel gates hang from stone poles. The walls of the keep are 
+reshorn with fresh lumber and new stones are have been brought in. A 
+beautiful oak tree covered in new leaves rests in one corner of the 
+courtyard itself. Summer flowers are growing in all the corners, lending 
+their soft fragrance to the air.
+*DESCRIPTION_END
+EXIT SW 1805
+ITEM 0 60 VAL2=1958
+;
+NUMBER 1958
+NAME Nyraine, Keep Entrance
+INDOOR_FLOOR
+DARKNESS
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+This is the grand entrance into the keep. A short hallway leads to the 
+north, and a staircase winds its way to the second floor. A beautiful, 
+polished hardwood floor lends grandeur to the old building. Thick
+crystal windows add sparkling rainbows of light in the day. The portrait 
+on the walls had some careful attention.
+*DESCRIPTION_END
+EXIT N 1959
+ITEM 0 60 VAL2=1957
+ITEM 1 81 ADJ1=1257 VAL2=1961
+ITEM 2 1308
+ITEM 9 693
+*DESCRIPTION_START ITEM EXAM 2
+The portrait is of a young boy and girl. Her face is pale, but her eyes 
+bright and she smiles up at the young boy. His face is a bit more serious, 
+but his gray eyes betray his happiness. The date of Mixus 1, 1024, is in 
+the bottom corner.
+*DESCRIPTION_END
+;
+NUMBER 1959
+NAME Nyraine, Lower Hallway
+INDOOR_FLOOR
+DARKNESS
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+The walls of this long hall have been painted a dark green color, and a soft
+rug of dark slate has been placed on the floor. A large wooden archway 
+stands to the north, leading to the throne room.
+*DESCRIPTION_END
+EXIT S 1958
+ITEM 0 60 VAL2=1960
+ITEM 1 362 ADJ1=95 ADJ2=428
+ITEM 9 693
+;
+NUMBER 1960
+NAME Nyraine, Throne Room
+INDOOR_FLOOR
+DARKNESS
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+The dual thrones sit on the raised dais, made of golden oak. Each seems 
+to almost glow. Several portraits hang on the walls, and a beautiful red 
+carpet is placed on the floor. An archway on the southern wall leads into
+a hallway. 
+*DESCRIPTION_END
+ITEM 0 60 VAL2=1959
+ITEM 1 542 ADJ1=468 ADJ2=216
+ITEM 2 542 ADJ1=468 ADJ2=216
+ITEM 3 1308 ADJ1=941 ADJ2=815
+ITEM 4 1308 ADJ1=294 ADJ2=147 ADJ3=815
+ITEM 5 1308 ADJ1=178 ADJ2=292 ADJ3=815
+ITEM 8 978 ADJ1=178 ADJ2=355 OPEN UNLOCKED
+EXTEND 8 of cold dark brown ale
+PUT 8 239 ADJ1=61 ADJ2=87 ADJ3=40 VAL2=1000
+ITEM 9 693
+*DESCRIPTION_START ITEM EXAM 3
+This is a portrait of a young man, nearly eighteen. He looks happy, and
+a smile tugs at his lips, as if he is looking at something that makes him
+smile.
+*DESCRIPTION_END
+*DESCRIPTION_START ITEM EXAM 4
+A beautiful white outcropping rests in the background of this portrait. 
+Four beautiful young children stand near several small trees. A young black
+dogs plays along side.
+*DESCRIPTION_END
+*DESCRIPTION_START ITEM EXAM 5
+This is a lovely scene of a grand keep crafted of red-brown bricks and stone.
+A large forest surrounds the area on nearly three sides, and the seashore 
+rests on a fourth. 
+*DESCRIPTION_END
+;
+VARIABLE NYRPITLIT
+NUMBER 1970
+NAME Nyraine, Pit
+CHANNEL 70
+INDOOR_FLOOR
+DARKNESS
+REGION 70
+*DESCRIPTION_START
+The roots of the giant alder weave their skein in a dizzying pattern of 
+latticework which thrusts deep into the rich soil all around you. This 
+subterranean hollow lays directly beneath the trunk of the great alder. A 
+circular fire pit rests in the precise center of the chamber. The only 
+obvious egress would be to climb through the tangle of roots back into 
+the boughs of the tree.
+*DESCRIPTION_END
+ITEM 0 1629 
+EXTEND 0 that are interlocked in a intricate and tangled skein
+ITEM 1 1398 ADJ1=126
+EXTEND 1 that lays in the very center of the chamber
+ITEM 9 693
+IFPREVERB GO 0
+  CLEARVERB
+  ECHO PLAYER You seem to become one with the roots of the tree as they envelop you...
+  ECHO OTHERS The roots open up to envelop %n, and then %s is gone.
+  MOVE 1944
+  AFFECT 1944
+  ECHO OTHERS %n walks out of the bark of the tree!
+ENDIF
+IFPREVERB GO 1
+  CLEARVERB
+  IFCARRY 1861 -1
+    IFITEM -1 WORN
+      IFVAR NYRPITLIT = 2
+        IFVAR FLAG3 = 3
+          ECHO PLAYER You step forward into the embrace of the swirling smoke...
+          ECHO OTHERS %n's body goes still.
+          MOVE 2440
+          AFFECT 2440
+          ECHO OTHERS An ethereal representation of %n arrives.
+        ELSE
+          ECHO PLAYER You are not yet prepared to do that.
+        ENDIF
+      ELSE
+        ECHO PLAYER The fire pit has not been prepared.
+      ENDIF
+    ELSE
+      ECHO PLAYER You realize you do not have the protection of your shroud.
+      ECHO OTHERS %n looks down at the shroud in %h hands with embarrassment.
+    ENDIF
+  ELSE
+    IFCARRY 142 1 
+      IFVAR NYRPITLIT = 2
+        IFVAR FLAG3 = 3
+          IFVAR ITEMVAL5 > 0
+            SUB ITEMVAL5 1
+            ECHO PLAYER You step forward into the embrace of the swirling smoke...
+            ECHO OTHERS %n's body goes still.
+            MOVE 2440
+            AFFECT 2440
+            ECHO OTHERS An ethereal representation of %n arrives.
+          ELSE
+            REMOVEITEM -1
+            ECHO PLAYER The idol uses the last remaining charge, and disappears in your hands.
+          ENDIF
+        ELSE
+          ECHO PLAYER You are not yet prepared to do that.
+        ENDIF
+      ELSE
+        ECHO PLAYER The fire pit has not been prepared.
+      ENDIF
+    ELSE
+      DAMAGEPLR BURN 999 As you step into the fire pit the flames lick at your body!
+      ECHO OTHERS %n screams in pain as %s steps into the fire!
+    ENDIF
+  ENDIF
+ENDIF
+IFPREVERB LIGHT 1
+ CLEARVERB
+ IFVAR NYRPITLIT = 0
+  EQUAL NYRPITLIT 1      
+  ECHO PLAYER You carefully ignite the kindling within the pit...
+  ECHO OTHERS %N carefully ignites the kindling within the pit...
+  PLREVENT 1
+  CONTPLREVENT
+  ECHO ALL ...The pleasant aroma of freshly lit mirmach fills your nostrils.
+  PLREVENT 2 
+  CONTPLREVENT
+  ECHO ALL The flames begin to lick higher and higher as the fuel within the pit is consumed...
+  PLREVENT 3 
+  CONTPLREVENT
+  ECHO ALL The heat of the flames bathes your face in its warm embrace...
+  PLREVENT 3 
+  CONTPLREVENT
+  ECHO ALL The fire begins to rage in the chamber, contained only by the damp soil of its walls.
+  PLREVENT 3 
+  CONTPLREVENT
+  ECHO ALL With an audible "snap!" the last logs tumble into the flames sending a dazzling shower of sparks high into the air!
+  PLREVENT 3 
+  CONTPLREVENT
+  ECHO ALL The burning embers give way to glowing coals as smoke begins to pour out of the smoldering pit...
+  EQUAL NYRPITLIT 2
+  PLREVENT 3 
+  CONTPLREVENT
+  ECHO ALL The wondrous smell of the smoldering bark fills the entire area, intoxicating you with a strange lighteadedness...
+  PLREVENT 3 
+  CONTPLREVENT
+  ECHO ALL Your head begins to spin slightly as your lungs fill with the pleasant smelling smoke...
+  PLREVENT 3 
+  CONTPLREVENT
+  ECHO ALL Your eyes grow heavy with the euphoria of the smoldering bark...%c>%c...Your eyes close.
+  PLREVENT 3 
+  CONTPLREVENT
+  ECHO ALL You feel your spirit straining to be free within its cage of flesh as the aromatic smoke dissolves your mortal bonds...
+  PLREVENT 3 
+  CONTPLREVENT
+  ECHO ALL You receive a series of strange visions... both future and past... perhaps some present...
+  PLREVENT 3 
+  CONTPLREVENT
+  ECHO ALL The visions fade slowly as the last of the embers dies away.
+  PLREVENT 3 
+  CONTPLREVENT
+  ECHO ALL The smoke clears as the pit begins to grow cold.
+  EQUAL NYRPITLIT 0
+ ELSE
+  ECHO PLAYER The fire already burns within the pit.
+ ENDIF
+ENDIF
+IFPREVERB KNEEL -1
+ IFVAR POSITION ! 3
+  CLEARVERB
+  ECHO PLAYER You kneel Aelfen fashion and rest your hands upturned upon your knees, curled in the ancient handsigns of nobility and life.
+  ECHO OTHERS %n kneels Aelfen fashion and rests %h hands upturned upon %h knees, curled in the ancient handsigns of nobility and life.
+  POSITION KNEEL
+  EQUAL FLAG3 1
+ ENDIF
+ENDIF
+IFPREVERB SMELL -1
+ CLEARVERB
+ IFVAR FLAG3 = 1
+  IFVAR NYRPITLIT = 2
+   ECHO PLAYER You close your eyes and take a deep breath, inhaling the pleasant scents of the smoldering bark.
+   ECHO OTHERS %n takes a series of long, deep breaths, exhaling with a sigh.
+   PLREVENT 1
+   CONTPLREVENT
+   ECHO PLAYER Your spirit grows light as does your head with the euphoria of the smoldering bark.
+   EQUAL FLAG3 2
+  ELSE
+   ECHO PLAYER You inhale the damp aroma of the soil.
+   ECHO OTHERS %n takes a deep breath.
+  ENDIF
+ ELSE
+  ECHO PLAYER You inhale the damp aroma of the soil.
+  ECHO OTHERS %n takes a deep breath.
+ ENDIF
+ENDIF
+IFPREVERB STAND -1
+ IFVAR POSITION = 3
+  IFVAR FLAG3 = 2
+   IFVAR NYRPITLIT = 2
+    CLEARVERB
+    ECHO PLAYER You slowly rise, realizing that you have left your body behind you...
+    ECHO OTHERS The swirling smoke in the chamber seems to outline a humanoid form, rising out of %n's body.
+    POSITION STAND
+    EQUAL FLAG3 3
+   ENDIF
+  ENDIF
+ ENDIF
+ENDIF
+;
+NUMBER 1961
+NAME Nyraine, Upper Hallway
+INDOOR_FLOOR
+DARKNESS
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+The first thing visible in this hallway are the three ornate wooden doors 
+along the hall. Next, the large winding staircase leading down into the 
+entryway.
+*DESCRIPTION_END
+ITEM 0 81 ADJ1=1258 VAL2=1958
+ITEM 1 66 VAL2=1962 OPEN UNLOCKED
+ITEM 2 66 VAL2=1963 OPEN UNLOCKED
+ITEM 3 66 VAL2=1964 OPEN UNLOCKED
+ITEM 9 693
+;
+NUMBER 1962
+NAME Nyraine, Keep Bedroom
+INDOOR_FLOOR
+DARKNESS
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+This room was the master bedroom of the Keep. A large bed rests against
+the far wall, its canopy carved from dark mahogany wood. Dressers and
+a fine table sit against the west wall, under a large bay window. 
+*DESCRIPTION_END
+ITEM 0 66 VAL2=1961 OPEN UNLOCKED
+ITEM 1 201
+ITEM 2 84 
+ITEM 3 249 ADJ1=374 
+ITEM 9 693
+IFPREVERB LOOK 3
+  SHOWROOM 1917
+ENDIF
+;
+NUMBER 1963
+NAME Nyraine, Keep Bedroom
+INDOOR_FLOOR
+DARKNESS
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+This is a large room, with a set of lovely beds against one wall. The
+beds have fresh matresses. A small dresser rests under a mirrow, and nearby
+a lovely oak desk sits under a window.
+*DESCRIPTION_END
+ITEM 0 66 VAL2=1961 OPEN UNLOCKED
+ITEM 1 362 ADJ1=415 ADJ2=592 ADJ3=728
+ITEM 9 693
+;
+NUMBER 1964
+NAME Nyraine, Keep Bedroom
+INDOOR_FLOOR
+DARKNESS
+REGION 70
+CHANNEL 70
+CALL 33
+*DESCRIPTION_START
+This room, compared to the rest of the Keep is nearly immaculate. A very 
+ornate canopy bed rests in a corner, surrounded by sheets of black fabric. 
+Pale ivory walls are comletely bare of any decoration, yet the floors are 
+nearly covered with piles of vases and other valuables stripped from the 
+rest of the keep. 
+*DESCRIPTION_END
+ITEM 0 66 VAL2=1961 OPEN UNLOCKED
+ITEM 1 362 
+ITEM 9 693
+;
+NUMBER 1886
+NAME Nyraine, Wolfling Den
+INDOOR_FLOOR
+DARKNESS
+REGION 70
+CHANNEL 70
+CALL 33
+FORGE
+*DESCRIPTION_START
+This is the home of the wolfling pack Amber Eyes. A large roomy
+den, with the sound of the sea echoing outside. Thick rugs line 
+the floors, yet the overall feeling of the den is lacking permanence.
+A large opening leads back out to a small ledge overlooking the beach
+below. A small brick forge rests at the rear of the cave. 
+*DESCRIPTION_END
+ITEM 0 72 VAL2=1809
+ITEM 1 1517 ADJ1=33
+;
+NUMBER 1941
+NAME Nyraine, Forest Road
+CALL 33
+DAY_LIGHT
+REGION 70
+CHANNEL 70
+FOREST
+*DESCRIPTION_START
+This is a small woodland road to the west of the city of Nyraine. Overhead
+hang the limbs of the trees, decorated with the fresh white flowers of
+summertime. Delicate violet and blue flowers peek out of the undergrowth.
+*DESCRIPTION_END
+EXIT E 1889
+EXIT W 1942
+ITEM 9 693
+;
+NUMBER 1942
+NAME Nyraine, Forest Road
+CALL 33
+DAY_LIGHT
+REGION 70
+CHANNEL 70
+FOREST
+*DESCRIPTION_START
+This section of road winds around a long curve, blocking the view in numerous
+places. Small tracks in the muddy road show some signs of recent travelers. 
+Cart wheels have left ruts in the road. Several tree limbs hang over the road 
+almost as if reaching to grab passers-by.
+*DESCRIPTION_END
+EXIT E 1941
+EXIT W 1943
+ITEM 9 693
+;
+NUMBER 1943
+NAME Nyraine, Forest Road
+CALL 33
+DAY_LIGHT
+REGION 70
+CHANNEL 70
+FOREST
+*DESCRIPTION_START
+This portion of the road travels further to the west, its limits unknown at 
+this time. A small, barely used trail seems to exist through the trees at the
+northern side of the road.
+*DESCRIPTION_END
+EXIT E 1942
+ITEM 0 76 ADJ1=294 VAL2=1944
+ITEM 9 693
+;
+NUMBER 1944
+NAME Nyraine, Forest, Alders
+CALL 33
+DAY_LIGHT
+REGION 70
+CHANNEL 70
+MONSTER_GROUP 121
+FOREST
+*DESCRIPTION_START
+This small area is a tiny glen, full of the sounds of the forest. Small
+tracks mark up the snow, and evidence of deers is visible from the
+missing bark of the trees. Two unused trails lead to the north, guarded
+on either side by mighty alder trees. New thick grasses are springing
+forth to cover the ground. 
+*DESCRIPTION_END
+EXIT NW 1945
+EXIT NE 1946
+ITEM 0 76 ADJ1=294 ADJ2=1217 VAL2=1943
+ITEM 2 229 
+ITEM 3 229 
+ITEM 9 693
+IFPREVERB LOOK 2
+  IFCARRY 1861 -1
+    ECHO PLAYER Something is very familiar about the tree, you are pretty sure it resembles YOUR tree, and you can enter it.
+  ENDIF
+ENDIF  
+IFPREVERB GO 2
+ IFCARRY 1861 -1
+  IFITEM -1 WORN
+   CLEARVERB
+   ECHO PLAYER You step directly into the tree becoming one with it and traveling within its roots!
+   ECHO OTHERS %n steps directly into the tree and vanishes!
+   MOVE 1970
+   AFFECT 1970
+   ECHO OTHERS %n steps out from a tangle of roots.
+  ELSE
+   CLEARVERB
+   ECHO PLAYER You realize you are not wearing your shroud, or are not a Teiwaz member.
+  ENDIF
+ ENDIF
+ENDIF
+;
+NUMBER 1945
+NAME Nyraine, Apple Grove
+CALL 33
+DAY_LIGHT
+MONSTER_GROUP 121
+REGION 70
+CHANNEL 70
+FOREST
+*DESCRIPTION_START
+This is a small wild apple grove, new leaves dotting the limbs of the
+trees. A few wild birds frequent the trees, their tiny clawed feet 
+gripping the limbs of the trees.
+*DESCRIPTION_END
+EXIT NE 1947
+EXIT SE 1944
+ITEM 0 229 ADJ1=969
+ITEM 9 693
+;
+NUMBER 1946
+NAME Nyraine, Willow Tree
+CALL 33
+DAY_LIGHT
+REGION 70
+MONSTER_GROUP 121
+CHANNEL 70
+FOREST
+*DESCRIPTION_START
+A large willow tree dominates the southern end of this clearing, its 
+supple limbs blowing back and forth in the breeze, almost as 
+if it was alive and moving. A grouping of thick rowans stands to the
+north of the clearing, as if on guard. The limbs of the willow sway 
+and move without the aid of a breeze.
+*DESCRIPTION_END
+EXIT SW 1944
+EXIT N 1948
+ITEM 0 229 ADJ1=385
+ITEM 9 693
+;
+NUMBER 1947
+NAME Nyraine, Ivy
+CALL 33
+DAY_LIGHT
+MONSTER_GROUP 121
+REGION 70
+CHANNEL 70
+FOREST
+*DESCRIPTION_START
+The trunks of the trees here are pressed up tight against each other,
+each one trying to reach higher than its neighbor for the life giving light.
+Small vines of ivy cling to the trees, colored a bright green from the fresh
+summer growth. Several trails lead between the boles of the trees.
+*DESCRIPTION_END
+EXIT SW 1945
+EXIT E 1948
+ITEM 0 76 ADJ1=294 ADJ2=1217 VAL2=1944
+ITEM 1 76 ADJ1=294 ADJ2=1148 VAL2=1950
+ITEM 2 229
+ITEM 9 693
+;
+NUMBER 1948
+NAME Nyraine, Intersection
+CALL 33
+DAY_LIGHT
+MONSTER_GROUP 121
+REGION 70
+CHANNEL 70
+FOREST
+*DESCRIPTION_START
+Many kinds of trees meet in this section of forest, and numerous
+paths and trails lead out. Up the hill to the north is a grove of
+firs, and to the west is seen birches.
+*DESCRIPTION_END
+EXIT N 1950
+EXIT W 1947
+EXIT S 1946
+ITEM 0 76 ADJ1=294 ADJ2=1148
+ITEM 9 693
+;
+NUMBER 1949
+NAME Nyraine, Oaks
+CALL 33
+DAY_LIGHT
+REGION 70
+MONSTER_GROUP 121
+CHANNEL 70
+FOREST
+*DESCRIPTION_START
+This section of forest has given away to the mighty oak trees. They stand
+proud and strong, they seem full of life and vitality. Twin trails lead 
+from the clearing to the northwest and northeast. Far to the north a 
+mountain line is visible.
+*DESCRIPTION_END
+EXIT E 1950
+ITEM 0 76 ADJ1=294 ADJ2=1148 VAL2=1953
+ITEM 1 76 ADJ1=294 ADJ2=1256 VAL2=1952
+ITEM 9 693
+;
+NUMBER 1950
+NAME Nyraine, Evergreens
+CALL 33
+DAY_LIGHT
+REGION 70
+CHANNEL 70
+MONSTER_GROUP 121
+FOREST
+*DESCRIPTION_START
+High on this hillside, a thick grove of evergreens thrives. The heady scent
+of pine and fir fills the air, and invigorates the soul. The small hillside
+overlooks the majority of this portion of the forest.
+*DESCRIPTION_END
+EXIT N 1953
+EXIT S 1948
+EXIT W 1949
+EXIT E 1951
+ITEM 0 76 ADJ1=294 ADJ2=1219 VAL2=1947
+ITEM 9 693
+;
+NUMBER 1951
+NAME Nyraine, Hazels
+CALL 33
+DAY_LIGHT
+MONSTER_GROUP 121
+REGION 70
+CHANNEL 70
+FOREST
+*DESCRIPTION_START
+A gathering of hazel trees sit in a small decline. A low stream
+runs between and on down the hillside. Small animal paths lead in, and
+end at a tiny, near clear pond. Lush spring grasses sprout from
+the banks, and the whole area has a sense of inviting peacefulness.
+*DESCRIPTION_END
+EXIT W 1950
+EXIT NW 1953
+EXIT N 1954
+EXIT NE 1955
+ITEM 0 76 ADJ1=294 ADJ2=1219 VAL2=1948
+ITEM 1 704 ADJ2=327
+PUT 1 198 ADJ1=77 ADJ2=56 VAL3=1000
+ITEM 9 693
+;
+NUMBER 1952
+NAME Nyraine, Pond
+CALL 33
+DAY_LIGHT
+MONSTER_GROUP 121
+REGION 70
+CHANNEL 70
+FOREST
+*DESCRIPTION_START
+This clearing is much larger than it could possibly be in the middle of the
+forest. Enormous trees surround it, and protect it, shadowing a small glowing
+silver pond. The ground is swept clean, and the flowers of summer cover
+it like a soft, colorful blanket. Tiny flowers bloom in brilliant colors fed
+by the warmth of the pool.
+*DESCRIPTION_END
+ITEM 0 76 VAL2=1949
+ITEM 1 736 
+EXTEND 1 of silvery colored water
+ITEM 9 693
+IFTOUCH 1 
+  CLEARVERB
+  ECHO PLAYER You cannot seem to touch the water of the pool.
+ENDIF
+IFPREVERB GET 1 
+  CLEARVERB
+  ECHO PLAYER You cannot seem to touch the water of the pool.
+ENDIF
+IFPREVERB GO 1 
+  CLEARVERB
+  ECHO PLAYER You cannot seem to touch the water of the pool.
+ENDIF
+IFPREVERB DRINK 1 
+  CLEARVERB
+  ECHO PLAYER You cannot seem to touch the water of the pool.
+ENDIF
+IFPREVERB STEAL 1 
+  CLEARVERB
+  ECHO PLAYER You cannot seem to touch the water of the pool.
+ENDIF
+IFPREVERB LEAN 1 
+  CLEARVERB
+  ECHO PLAYER You cannot seem to touch the water of the pool.
+ENDIF
+IFPREVERB KISS 1 
+  CLEARVERB
+  ECHO PLAYER You cannot seem to touch the water of the pool.
+ENDIF
+IFPREVERB TAP 1 
+  CLEARVERB
+  ECHO PLAYER You cannot seem to touch the water of the pool.
+ENDIF
+;
+NUMBER 1953
+NAME Nyraine, Firs
+CALL 33
+DAY_LIGHT
+REGION 70
+CHANNEL 70
+FOREST
+*DESCRIPTION_START
+You find yourself at the highest part of the forest, and able to see all 
+around. To the southwest lies a thick grove of oaks, to the south more
+fir trees line the hill. Far to the east a meadow sits afire with the vibrant
+summer flowers.
+*DESCRIPTION_END
+EXIT S 1950
+EXIT SE 1951
+EXIT E 1954
+ITEM 0 76 ADJ1=294 ADJ2=1219 VAL2=1949
+ITEM 9 693
+;
+NUMBER 1954
+NAME Nyraine, Populars
+CALL 33
+DAY_LIGHT
+REGION 70
+CHANNEL 70
+FOREST
+*DESCRIPTION_START
+Sparsely dotting the eastern side of the hill are the huge, almost ageless
+populars. They dominate here, reducing the other trees to the size of
+saplings. At the bottom of the hill to the east rests a meadow.
+*DESCRIPTION_END
+EXIT W 1953
+EXIT E 1955
+EXIT S 1951
+ITEM 9 693
+;
+NUMBER 1955
+NAME Nyraine, Meadow
+CALL 33
+DAY_LIGHT
+REGION 70
+CHANNEL 70
+FOREST
+*DESCRIPTION_START
+The meadow of heath is covered in the delicate blossoms
+of summertime. Deer have left tracks here and there, and the trees
+line the sides of the meadow, like solidiers around a protected
+enclave.
+*DESCRIPTION_END
+EXIT W 1954
+EXIT SW 1951
+ITEM 9 693
+;
+

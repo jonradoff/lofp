@@ -1464,6 +1464,7 @@ EXIT N 515
 EXIT ABOVE 2160
 ITEM 0 81 ADJ1=312 VAL2=517
 ITEM 1 400 ADJ1=147
+ITEM 2 60 ADJ1=784 ADJ2=407 VAL2=5
 *DESCRIPTION_START ITEM READ 1
 Engraved upon this exquisite plaque is the following:
 
@@ -1899,7 +1900,7 @@ DAY_LIGHT
 ITEM 9 693
 CALL 33
 *DESCRIPTION_START
-The sand has become extremely soft and fine. If it wasn't so dangerous, this would be an excellent place to relax and enjoy the sea. It would seem that this section of the beach was a very popular spot many years ago. Snow covered remnants of pleasure boats tied to some rotting docks that lead out from the beach are tossed roughly by whitecapped waves.
+The sand has become extremely soft and fine. If it wasn't so dangerous, this would be an excellent place to relax and enjoy the sea. It would seem that this section of the beach was a very popular spot many years ago. Snow covered remnants of pleasure boats tied to some rotting docks that lead out from the beach are tossed roughly by whitecapped waves. Recently, a two-masted sailing ship, the Windrunner, has taken up anchor along the sturdiest of the pilings, offering passage across the water to the rebuilt city of Nyraine.
 *DESCRIPTION_END
 ITEM 8 1567
 EXIT SE 533
@@ -1910,6 +1911,54 @@ ITEM 1 198 ADJ1=273 VAL2=100
 IFVERB DRINK 2
 	ECHO PLAYER Yech! Awful! Why did you do that?
 	ECHO OTHERS %N samples a swig of salty swill and swiftly spits it out.
+	CLEARVERB
+ENDIF
+ITEM 2 412 ADJ1=1225
+ITEM 3 1774 ADJ1=1225
+*DESCRIPTION_START ITEM EXAM 3
+The Windrunner is a sturdy, two-masted sailing ship, her sails currently furled and lashed. A crew of seasoned sailors moves about the deck coiling rope and checking rigging, while a grizzled, weathered man in a long coat watches the horizon from the quarterdeck.
+*DESCRIPTION_END
+IFENTRY
+	ECHO PLAYER Captain Aldous Kestrel calls out from the deck of the Windrunner, "Bound for Nyraine! All aboard who's paying passage!"
+ENDIF
+IFVERB GO 2
+	IFVAR INTNUM8 ! 1
+		ECHO PLAYER Captain Kestrel blocks the top of the gangplank. "Hold on there, friend. Passage to Nyraine is two silver, paid up front."
+		ECHO OTHERS %N tries to board the Windrunner without paying the captain.
+	ENDIF
+	IFVAR INTNUM8 = 1
+		ECHO PLAYER You climb the gangplank and step aboard the Windrunner.
+		ECHO OTHERS %N climbs the gangplank and steps aboard the Windrunner.
+		MOVE 7100
+		AFFECT 7100
+		ECHO OTHERS %N crosses the gangplank from the dock and boards the Windrunner.
+		AFFECT 532
+	ENDIF
+	CLEARVERB
+ENDIF
+IFVERB PAY -1
+	IFVAR INTNUM8 = 1
+		ECHO PLAYER Captain Kestrel tips his hat. "Already settled up, friend. No need to pay twice."
+		ECHO OTHERS %N tries to pay the captain again.
+	ENDIF
+	IFVAR INTNUM8 ! 1
+		IFVAR WEALTH < 20
+			ECHO PLAYER Captain Kestrel eyes your thin purse and shakes his head. "Come back when you've got the fare, friend."
+			ECHO OTHERS %N can't seem to scrape together the fare.
+		ENDIF
+		IFVAR WEALTH = 20
+			SUB WEALTH 20
+			ECHO PLAYER You hand over your last coin to Captain Kestrel.
+			ECHO OTHERS %N hands the captain some coins.
+			EQUAL INTNUM8 1
+		ENDIF
+		IFVAR WEALTH > 20
+			SUB WEALTH 20
+			ECHO PLAYER You pay the captain his fare. He nods and marks your name in the ship's ledger.
+			ECHO OTHERS %N hands the captain some coins.
+			EQUAL INTNUM8 1
+		ENDIF
+	ENDIF
 	CLEARVERB
 ENDIF
 ;
@@ -3447,6 +3496,9 @@ DAY_LIGHT
 EXIT ABOVE 2112
 ITEM 0 449 ADJ1=492
 ITEM 1 449 ADJ1=493
+ITEM 2 1112
+ITEM 3 72 ADJ1=178 VAL2=3715
+
 IFVERB GO 0
 	ECHO PLAYER You'll have to climb that.
 	CLEARVERB
@@ -4748,6 +4800,8 @@ ITEM 1 213 VAL2=730
 NUMBER 732
 NAME Teeth of Shartan, dam base
 ITEM 9 693
+ITEM 0 76 ADJ1=510 ADJ2=407 VAL2=3646
+; Item 0 is a snow covered trail, a climbable portal to Karhad (room 3646)
 CALL 33
 *DESCRIPTION_START
 Some unnatural force has confined the wild mountain stream here behind a magnificent earthenwork dam, which spans the wide gap between the snowy slopes of two mountains flanking the valley to the east and west. A few uquart trees, their branches bent to the ground under the weight of ice and snow, are scattered over this side of the dam. A steep road leads up the slope of the dam, alongside the icy water careening down the spillway.
@@ -5844,7 +5898,7 @@ MLIST 12 44 16 5 ; worgs
 MLIST 12 272 12 10 ; rangers
 ;
 ; Beach
-MLIST 13 121 10 9
+MLIST 13 121 15 9
 MLIST 13 122 3 2
 MLIST 13 256 1 1
 ;

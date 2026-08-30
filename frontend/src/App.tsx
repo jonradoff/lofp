@@ -32,6 +32,22 @@ export interface Character {
   race: number
   gender: number
   isGM?: boolean
+  // Appearance: only present when creating a brand-new character (see CharacterCreate.tsx).
+  // Loading an existing character omits these — the server just loads what's already saved.
+  strength?: number
+  agility?: number
+  quickness?: number
+  constitution?: number
+  perception?: number
+  willpower?: number
+  empathy?: number
+  height?: number
+  weight?: number
+  age?: number
+  eyeColor?: string
+  hairColor?: string
+  hairStyle?: string
+  skinColor?: string
 }
 
 export interface AuthUser {
@@ -50,7 +66,7 @@ interface AuthContextType {
   user: AuthUser | null
   login: (credential: string) => Promise<void>
   loginWithPassword: (email: string, password: string) => Promise<void>
-  register: (email: string, password: string, name: string) => Promise<void>
+  register: (email: string, password: string, name: string, captchaToken: string) => Promise<void>
   logout: () => void
 }
 
@@ -167,11 +183,11 @@ function App() {
     setAuthUser(await resp.json())
   }
 
-  const register = async (email: string, password: string, name: string) => {
+  const register = async (email: string, password: string, name: string, captchaToken: string) => {
     const resp = await fetch('/api/auth/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password, name }),
+      body: JSON.stringify({ email, password, name, captchaToken }),
     })
     if (!resp.ok) {
       const errData = await resp.json().catch(() => null)

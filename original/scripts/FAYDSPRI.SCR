@@ -2008,11 +2008,12 @@ CALL 33
 ITEM 9 693 ADJ1=10
 
 *DESCRIPTION_START
-The trail ends before a crumbling granite structure. One wall has partially collapsed, allowing easy entry into its weed and bramble infested interior. A few dried leaves, scattered in the cold wind, cling to the stone.
+The trail ends before a crumbling granite structure. One wall has partially collapsed, allowing easy entry into its weed and bramble infested interior. A few dried leaves, scattered in the cold wind, cling to the stone. A narrow path climbs away from the trail, winding higher into the gravestones.
 *DESCRIPTION_END
 EXIT E 302
 ITEM 0 83 VAL2=308 ADJ1=386
 ITEM 0 492 ADJ1=533 ADJ2=148
+ITEM 2 8300 VAL2=5300
 ;
 NUMBER 308
 NAME Cemetery, old house
@@ -3450,13 +3451,14 @@ FIXED_LIGHT
 OUTDOOR_FLOOR
 CALL 33
 ITEM 9 693 ADJ1=10
+ITEM 4 943 VAL1=100 VAL2=9000 VAL3=1234 ; Door to Moordread and Cypress Home
 
 *DESCRIPTION_START
 The silver and gold specks in the river-rock stones forming the walkway sparkle
 like faerie dust. Sprigs of holly have been tacked to the doorframe of a wooden
 building, its window shutters and decorative wood trim painted forest green.
 Several shallow clay bowls have been placed on either side of the entryway,
-along with some colorful handmade mats.
+along with some colorful handmade mats. A second door leads to a quaint home.
 *DESCRIPTION_END
 EXIT SE 3525
 ITEM 0 200 ADJ1=355 VAL2=3801

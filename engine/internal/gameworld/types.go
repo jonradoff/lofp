@@ -16,6 +16,7 @@ type Room struct {
 	Region           int               `bson:"region,omitempty" json:"region,omitempty"`
 	Modifiers        []string          `bson:"modifiers" json:"modifiers"` // FORGE, LOOM, MINEA, etc.
 	Scripts          []ScriptBlock     `bson:"scripts" json:"scripts"`     // conditional blocks
+	MacroCalls       []int             `bson:"macroCalls,omitempty" json:"macroCalls,omitempty"` // CALL directives; resolved into Scripts at load time
 	SourceFile       string            `bson:"sourceFile" json:"sourceFile"`
 }
 
@@ -31,10 +32,27 @@ type RoomItem struct {
 	Val3      int            `bson:"val3,omitempty" json:"val3,omitempty"`
 	Val4      int            `bson:"val4,omitempty" json:"val4,omitempty"`
 	Val5      int            `bson:"val5,omitempty" json:"val5,omitempty"`
+	Sharpness int            `bson:"sharpness,omitempty" json:"sharpness,omitempty"` // non-magical to-hit bonus forged into a weapon
+	// HardnessMod is a per-instance modifier to a weapon's Weapon Clash break-resistance
+	// (see weaponHardness in engine/combat.go), GM-editable via @editem.
+	HardnessMod int        `bson:"hardnessMod,omitempty" json:"hardnessMod,omitempty"`
+	// ItemBits holds the 0-19 boolean flags documented as ITEMBIT(#) in MANUAL.DOC — a
+	// per-instance bitmask distinct from VAL1-5. Bit N corresponds to ITEMBIT<N>.
+	ItemBits  int            `bson:"itemBits,omitempty" json:"itemBits,omitempty"`
 	State     string         `bson:"state,omitempty" json:"state,omitempty"` // OPEN, CLOSED, LOCKED, etc.
 	Extend    string         `bson:"extend,omitempty" json:"extend,omitempty"` // extended description
 	PutIn     int            `bson:"putIn,omitempty" json:"putIn,omitempty"` // if PUT, which ref it's inside
 	IsPut     bool           `bson:"isPut,omitempty" json:"isPut,omitempty"`
+	// SigilSpellID/SigilOwner track a sigil trap (Imprison Rune 227, Thunder/Inferno/Ice
+	// Glyph 125/124/126, Death Scythe 322 — see castSigilSpell in engine/spells.go).
+	// Mirrors the same fields on engine.InventoryItem for room-floor items, dropped
+	// items, and door/gate items.
+	SigilSpellID int    `bson:"sigilSpellID,omitempty" json:"sigilSpellID,omitempty"`
+	SigilOwner   string `bson:"sigilOwner,omitempty" json:"sigilOwner,omitempty"`
+	// SigilCaster is the real FirstName of the player who inscribed the sigil with CAST
+	// (castSigilSpell in engine/spells.go) — distinct from SigilOwner, which is whoever
+	// later claims it by touch. Used by Truename to reveal who created the glyph.
+	SigilCaster string `bson:"sigilCaster,omitempty" json:"sigilCaster,omitempty"`
 }
 
 // StoreItem represents a purchasable item in a shop room.
@@ -48,6 +66,15 @@ type StoreItem struct {
 type TrainingDef struct {
 	SkillID  int `bson:"skillId" json:"skillId"`
 	MaxLevel int `bson:"maxLevel" json:"maxLevel"`
+}
+
+// OrgDef represents an organization defined by an ORGDEF directive.
+type OrgDef struct {
+	Number       int    `bson:"number" json:"number"`
+	JoinType     string `bson:"joinType" json:"joinType"`     // "OPEN" or "INVITE"
+	OrgType      string `bson:"orgType" json:"orgType"`       // "GUILD", "TEMPLE", "CULT"
+	TrainingRoom int    `bson:"trainingRoom" json:"trainingRoom"`
+	Name         string `bson:"name" json:"name"`
 }
 
 // ItemDef is an item archetype definition from INUMBER blocks.
@@ -67,6 +94,8 @@ type ItemDef struct {
 	WornSlot    string   `bson:"wornSlot,omitempty" json:"wornSlot,omitempty"`
 	Flags       []string `bson:"flags" json:"flags"` // HIDDEN, LOCKABLE, OPENABLE, etc.
 	Scripts     []ScriptBlock `bson:"scripts,omitempty" json:"scripts,omitempty"`
+	MacroCalls  []int    `bson:"macroCalls,omitempty" json:"macroCalls,omitempty"` // CALL directives; resolved into Scripts at load time
+	ExamineDesc string   `bson:"examineDesc,omitempty" json:"examineDesc,omitempty"`
 	SourceFile  string   `bson:"sourceFile" json:"sourceFile"`
 }
 
@@ -119,6 +148,12 @@ type MonsterDef struct {
 	ExtraBody      int               `bson:"extraBody,omitempty" json:"extraBody,omitempty"`
 	NonDisruptable bool              `bson:"nonDisruptable,omitempty" json:"nonDisruptable,omitempty"`
 	SilenceIgnore  bool              `bson:"silenceIgnore,omitempty" json:"silenceIgnore,omitempty"`
+	// Guardian monsters never aggro players on sight regardless of STRATEGY (they still
+	// retaliate if attacked, and still never flee if STRATEGY is 501+) — instead they
+	// aggro any other monster in the room that's currently attacking a player, defending
+	// players from hostiles rather than hunting players themselves. Parsed from the
+	// GUARDIAN token (see original/scripts/modern_fixes.scr mnumber 400, "large wolf").
+	Guardian bool `bson:"guardian,omitempty" json:"guardian,omitempty"`
 	FatigueChance  int               `bson:"fatigueChance,omitempty" json:"fatigueChance,omitempty"`
 	FatigueLevel   int               `bson:"fatigueLevel,omitempty" json:"fatigueLevel,omitempty"`
 	Spells         []int             `bson:"spells,omitempty" json:"spells,omitempty"`
@@ -129,6 +164,7 @@ type MonsterDef struct {
 	PsiLevel       int               `bson:"psiLevel,omitempty" json:"psiLevel,omitempty"`
 	Disciplines    []int             `bson:"disciplines,omitempty" json:"disciplines,omitempty"`
 	Scripts        []ScriptBlock     `bson:"scripts,omitempty" json:"scripts,omitempty"`
+	MacroCalls     []int             `bson:"macroCalls,omitempty" json:"macroCalls,omitempty"` // SCRIPTMACRO directives; resolved into Scripts at load time
 	SourceFile     string            `bson:"sourceFile" json:"sourceFile"`
 }
 
@@ -147,6 +183,14 @@ type MonsterWeapon struct {
 	Probability int `bson:"probability" json:"probability"`
 }
 
+// Macro is a reusable block of script content (IF*/ACTION blocks) defined once
+// with MACRO N and attached to rooms/items via CALL N. Resolved into the
+// referencing room/item's Scripts at load time.
+type Macro struct {
+	ID      int           `bson:"id" json:"id"`
+	Scripts []ScriptBlock `bson:"scripts" json:"scripts"`
+}
+
 // CEvent represents a cyclic event that fires periodically.
 type CEvent struct {
 	ID      int           `bson:"id" json:"id"`
@@ -157,12 +201,29 @@ type CEvent struct {
 
 // ScriptBlock represents a conditional block (IFVERB...ENDIF, etc.)
 type ScriptBlock struct {
-	Type         string         `bson:"type" json:"type"`           // IFVERB, IFPREVERB, IFENTRY, IFSAY, etc.
-	Args         []string       `bson:"args" json:"args"`
-	Actions      []ScriptAction `bson:"actions" json:"actions"`
-	Children     []ScriptBlock  `bson:"children,omitempty" json:"children,omitempty"` // nested IFs
-	ElseActions  []ScriptAction `bson:"elseActions,omitempty" json:"elseActions,omitempty"`   // ELSE branch actions
-	ElseChildren []ScriptBlock  `bson:"elseChildren,omitempty" json:"elseChildren,omitempty"` // ELSE branch nested IFs
+	Type string   `bson:"type" json:"type"` // IFVERB, IFPREVERB, IFENTRY, IFSAY, ACTION, etc.
+	Args []string `bson:"args" json:"args"`
+
+	// Actions holds a flat action list only for Type=="ACTION" pseudo-blocks — the
+	// single-action wrappers used in top-level lists (room/item/monster Scripts,
+	// CEVENT/MACRO bodies) for a bare action line with no surrounding conditional.
+	Actions []ScriptAction `bson:"actions,omitempty" json:"actions,omitempty"`
+
+	// Body and ElseBody hold a real conditional block's main/ELSE branch as a single
+	// ordered sequence of actions and nested blocks, in original source order — e.g.
+	// "action1; IFVAR...ENDIF; action2" executes action1, then the nested IFVAR, then
+	// action2, rather than every flat action running before any nested block regardless
+	// of where it appeared in the source (the old split Actions/Children representation
+	// couldn't preserve that interleaving).
+	Body     []ScriptStep `bson:"body,omitempty" json:"body,omitempty"`
+	ElseBody []ScriptStep `bson:"elseBody,omitempty" json:"elseBody,omitempty"`
+}
+
+// ScriptStep is one item in a script block's Body/ElseBody: exactly one of Action or
+// Block is set, preserving the original source order of actions and nested conditionals.
+type ScriptStep struct {
+	Action *ScriptAction `bson:"action,omitempty" json:"action,omitempty"`
+	Block  *ScriptBlock  `bson:"block,omitempty" json:"block,omitempty"`
 }
 
 // ScriptAction represents a command inside a conditional block.
@@ -187,6 +248,14 @@ type AdjDef struct {
 type MonsterAdjDef struct {
 	ID   int    `bson:"id" json:"id"`
 	Name string `bson:"name" json:"name"`
+}
+
+// BreakModDef maps an item adjective ID to a hardness/break-chance modifier
+// (positive = harder to damage, negative = easier to damage). Parsed from
+// BREAKMOD directives, e.g. "BREAKMOD 5 100" for the alzyron adjective.
+type BreakModDef struct {
+	AdjID    int `bson:"adjId" json:"adjId"`
+	Modifier int `bson:"modifier" json:"modifier"`
 }
 
 // Variable is a named game variable.

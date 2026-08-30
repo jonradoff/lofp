@@ -2,7 +2,7 @@ server:
   port: 8080
   telnet_port: 4000
   ssh_port: 4022
-  frontend_url: "${FRONTEND_URL:https://lofp.fly.dev}"
+  frontend_url: "${FRONTEND_URL:https://lofp.sanburnlab.com}"
 
 mongodb:
   uri: "${MONGODB_URI}"
@@ -17,10 +17,11 @@ game:
 auth:
   google_client_id: "${GOOGLE_CLIENT_ID}"
   jwt_secret: "${JWT_SECRET}"
+  turnstile_secret_key: "${TURNSTILE_SECRET_KEY:}"
 
 email:
   resend_api_key: "${RESEND_API_KEY:}"
-  from_address: "${EMAIL_FROM:Legends of Future Past <noreply@lofp.metavert.io>}"
+  from_address: "${EMAIL_FROM:Legends of Future Past <noreply@lofp.sanburnlab.com>}"
 
 feedback:
   vibectl_url: "${VIBECTL_URL:}"

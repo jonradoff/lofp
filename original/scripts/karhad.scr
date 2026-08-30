@@ -1,0 +1,3114 @@
+;Karhad and Deepforge:written by Chyme, Kloak and monsters by Witchlet
+;finished sept of 1998. 
+;Connecting room-732-3646
+;Monster lists 55 and 7
+;Macro 48 & 49
+;Monsters for Karhad hunting areas
+;ice faerie 216
+;white-fang 281
+;winterwolf 280
+;ice imp 279
+;winter worg 44
+;snow caterpillar 92
+;includes script for ivory, workable woodlore skinitem
+REGIONDEF 43 SEASONS
+REGIONDEF 43 TIME
+REGIONDEF 43 WINTERTEMP -30
+REGIONDEF 43 SPRINGTEMP -15
+REGIONDEF 43 AUTUMNTEMP -15
+REGIONDEF 43 SUMMERTEMP -5
+REGIONDEF 43 PRECIPITATION -5
+REGIONDEF 43 TELEPORT ALLOWED
+REGIONDEF 43 SUMMONING ALLOWED
+REGIONDEF 43 DEPART 3666
+REGIONDEF 43 COLD 200
+REGIONDEF 43 HEAT -50
+REGIONDEF 43 WEATHER
+REGIONDEF 43 MINE_ADJ 1143
+MINE_ELEMENT 1143 6
+MLIST 55 280 2 9
+MLIST 55 279 1 6
+MLIST 55 44 4 3
+MLIST 55 92 4 3
+MLIST 7 216 1 3
+MLIST 7 281 3
+;macro for ice faerie, figures in all schools of magic to adjust for
+;possibility to hit, returns damage on reflected spell if failure with
+;allowance for CM skill/level
+MACRO 48
+IFPREVERB CAST -1
+  IFVAR SPELLNUM ! 0
+    RANDOM DUMMY3 1 50 0
+    ADD DUMMY3 SKILL23
+    ADD DUMMY3 SKILL7
+    ADD DUMMY3 SKILL14
+    ADD DUMMY3 SKILL17
+    ADD DUMMY3 SKILL30
+    DIV DUMMY3 3
+    IFVAR DUMMY3 > 65
+      ECHO PLAYER An ice faerie attempts to mold your mana and fails.
+      ECHO OTHERS An ice faerie attempts to mold your mana and fails.
+    ELSE
+      equal spellnum 0
+      CLEARVERB
+      RANDOM DUMMY1 1 50 0
+      ADD DUMMY1 LEV
+      ADD DUMMY1 SKILL10
+      DIV DUMMY1 4
+      IFVAR DUMMY1 < 50
+        ECHO PLAYER You attempt to cast your spell at the faerie.
+        ECHO OTHERS %n gestures at a faerie.
+        DAMAGEPLR COLD 35 The ice faerie molds the mana into an iceball and hurls it at you.
+        ECHO OTHERS The ice faerie molds the mana into an iceball and hurls it at %n.
+        ELSE
+        ECHO PLAYER You gesture at a faerie.
+        ECHO OTHERS %n gestures at a faerie.
+        ECHO PLAYER The faerie molds the mana into an iceball and hurls it at you, but misses.
+        ECHO OTHERS The faerie molds the mana into an iceball and hurls it at %n, but misses.
+      ENDIF
+    ENDIF
+  ENDIF
+ENDIF
+IFPREVERB TARGET -1
+  CLEARVERB
+  ECHO PLAYER The faerie throws back her head and laughs contemptuously, shrugging off your attempt.
+  ECHO PLAYER An ice faerie laughs contemptuously at %n.
+ENDIF
+;
+MNUMBER 216
+NAME faerie
+ADJECTIVE 169
+HUMAN
+PART 0
+PART 1
+PART 2
+PART 5
+PART 13
+PART 8
+BODY 875
+EXTRABODY 235
+ATTACK1 600
+DEFENSE 575
+STRATEGY 550
+TREASURE 25
+IMMUNITY 1 3
+IMMUNITY 2 1
+IMMUNITY 4 3
+IMMUNITY 5 0
+SKINADJ 647
+WEAPON 1967 166
+WEAPONPLUS 0
+ARMOR 36
+SKINITEM 506 30 1500
+SKINITEM 508 30 1300
+SKINITEM 514 30 1100
+SKINITEM 108 15 30000
+GENDER 1
+STEALABLE
+POISON 7
+RESIST 375
+PSIRESIST 300
+SPEED 1
+*DESCRIPTION_START
+Hair the color of midwinter moonlight swirls like icy mist around an
+ethereally beautiful creature, paler even than the ermine fur in which
+she is clad. Tall and slender, but undoubtedly fey, her frosty green
+eyes are the only hint of color in her alabaster face.
+*DESCRIPTION_END
+HIDESKILL 20
+MANA 100
+SPELLUSE 60
+SPELLSKILL 400
+CASTLEVEL 125
+;plant snare
+spell 500
+;forceblade
+spell 101
+;ice bolt
+spell 119
+;freezing sphere
+spell 121
+;slow
+spell 211
+;
+SCRIPTMACRO 48
+TEXH You catch a glimpse of pale fur.
+TEXB An ice faerie slowly fades into view.
+TEXV You hear the sound of a spell being prepared.
+TEXE You notice frosty green eyes as an ice faerie appears.
+TEXQ Thin crystals of ice hang in the air then dissipate.
+TEX1 An ice faerie pulls her cloak of frost-rimed fur around her.
+TEX1 An winter wolf howls in answer to a faerie's call.
+TEXD sinks into the ground, her icy green eyes at last warming.
+TEXM A trail of frost marks an ice faerie's path
+TEXF An ice faerie glides
+TEXG Emerald eyes regard you coldly.
+TEXS An ice faerie draws frost around her like a cloak.
+TEXL An ice faerie gestures
+TEXA An ice faerie glides toward
+TEXR An ice faerie steps back, her smile glittering coldly.
+;
+mnumber 44
+adjective 168
+NAME worg
+STRATEGY 501
+BODY 90
+TEXE A winter worg runs in.
+TEXM A winter worg runs
+TEXF A winter worg runs
+TEXG A winter worg charges out of the trees!
+TEXA A winter worg runs directly at
+TEXR A winter worg edges backwards.
+TEX1 A winter worg snarls.
+TEX2 A winter worg howls!
+TEX3 A winter worg's eyes glint with an evil light.
+TEX4 A winter worg circles, eyeing you hungrily.
+TEXX %s breathes icy cold spray at %s!
+WEAPON 280 -1 10
+ATTACK1 70
+DEFENSE 25
+ANIMAL
+skinadj 1135
+skinitem 505 10 6 0
+skinitem 510 10 8 0 8
+skinitem 509 10 21 0
+SPECUSE 20
+SPECUSES 3
+SPECBASE 8
+SPECDMG 8
+SPECDMGTYPE COLD
+*DESCRIPTION_START
+The winter worg looks like a giant wolf. Its hide is a beautiful silvery-white color, but your attention is directed more at its red, evil eyes, and great bloodstained jaws.
+*DESCRIPTION_END
+;
+;ice imp
+MNUMBER 279
+NAME 	imp
+ADJECTIVE 169
+HUMAN
+PART 0
+PART 1
+PART 2
+PART 5
+PART 13
+PART 8
+BODY 325
+EXTRABODY 100
+ATTACK1 225
+DEFENSE 200
+STRATEGY 550
+TREASURE 25
+IMMUNITY 4 4
+IMMUNITY 5 0
+SKINADJ 647
+WEAPON 711 166
+WEAPONPLUS 0
+ARMOR 50
+SKINITEM 506 30
+SKINITEM 508 50
+SKINITEM 514 50
+GENDER 2
+STEALABLE
+POISON 7
+RESIST 110
+PSIRESIST 100
+*DESCRIPTION_START
+A shock of nearly colorless hair barely contrasts with a face that seems
+to be sculpted of white marble. Fey intelligence glitters in oddly
+mesmerizing ice blue eyes.
+*DESCRIPTION_END
+HIDESKILL 50
+MANA 350
+SPELLUSE 80
+SPELLSKILL 225
+CASTLEVEL 25
+;plant snare
+spell 500
+;globe
+spell 105
+;ice bolt
+spell 119
+TEXH Light glimmers off an ice imp, and it curses.
+TEXB An ice imp slowly appears next to a winter wolf.
+TEXC An ice imp grasps a winter wolf by the scruff of the neck and disappears.
+TEXV You hear the sound of a spell being prepared.
+TEXE You notice the glittering blue of an ice imp's eyes.
+TEXQ An ice imp's eyes glitter with dark anger.
+TEXZ An ice imp glares at %s muttering about outlanders.
+TEX1 An ice imp howls in answer to a wolf's call.
+TEX2 An ice imp tosses its colorless hair out of its eyes, glaring at you.
+TEXD crumples to the ground.
+TEXF An ice imp glides
+TEXM An ice imp glides
+TEXG Glittering blue eyes gaze at you.
+TEXS An ice imp mutters some arcane words.
+TEXL An ice imp gestures
+TEXA An ice imp darts at
+TEXR An ice imp backs away.
+;
+;winter wolf
+MNUMBER 280
+NAME winterwolf
+ANIMAL
+PART 0
+PART 9
+PART 10
+PART 11
+PART 12
+BODY 300
+EXTRABODY 75
+ATTACK1 325
+DEFENSE 275
+STRATEGY 550
+TREASURE 0
+IMMUNITY 3 4
+IMMUNITY 5 0
+SKINADJ 347
+WEAPON 1967 166 90
+WEAPONPLUS 0
+ARMOR 70
+SKINITEM 509 20 1350 
+SKINITEM 521 20 500
+SKINITEM 8 20 325
+POISON 15 7
+RESIST 130
+PSIRESIST 100
+*DESCRIPTION_START
+Powerful muscles bunch and ripple beneath luxurious snowy fur that
+shades to deep gray at the ears and tip of the tail. Gray eyes glitter
+with intelligence as they take in the surroundings.
+*DESCRIPTION_END
+GUARD 279
+SPECUSE 10
+SPECUSES 5
+SPECBASE 12
+SPECDMG 30
+SPECDMGTYPE COLD
+TEXX %s slashes at %s with icy claws.
+TEXH You catch a glimpse of pale fur.
+TEXE A winter wolf pads silently in.
+TEXQ Thin crystals of ice hang in the air then dissipate.
+TEX1 A winter wolf howls mournfully.
+TEXD drops to the ground, blood frothing around its lips.
+TEXM A winter wolf pads
+TEXF A winter wolf pads
+TEXG Snow and ice slowly crystalize into a winter wolf.
+TEXA A winter wolf lunges at
+;ivory, skinitem for whitefang, workable
+ADJDEF 1093 snowy
+NOUNDEF 788 ivory
+INUMBER 1489
+NAME 788
+VOLUME 1
+WEIGHT 1
+MATERIAL2
+SUBSTANCE WOOD
+SKIN
+ARTICLE some
+PARAMETER1 170
+PARAMETER2 18
+;
+MNUMBER 281
+NAME white-fang
+STRATEGY 510
+;head
+PART 0
+;body
+PART 1
+;thorax
+PART 4
+BODY 490
+EXTRABODY 400
+ATTACK1 650
+DEFENSE 700
+SCRIPTMACRO 86
+ARMOR 90
+SKINADJ 1093
+SKINITEM 509 5 40000
+SKINITEM 1489 13 25000
+POISON 40 20
+WEAPON 1703 165 100
+IMMUNITY 0 0
+IMMUNITY 2 1
+IMMUNITY 5 0
+IMMUNITY 3 3
+IMMUNITY 1 1
+IMMUNITY 6 0
+IMMUNITY 9 0
+RACE 31
+GUARD 216
+TREASURE 0
+RESIST 300
+SPEED 1
+*DESCRIPTION_START
+Luxurious snowy fur covers a long serpentine body that twists and 
+wriggles on the snow and ice, propelling it at an enormous rate of 
+speed. Bony ivory plates its head, protecting it and serving as a 
+burrowing tool. Its maw gapes open, revealing needle-sharp fangs 
+glinting with liquid that smokes and steams in the frigid air.
+*DESCRIPTION_END
+SPECUSE 30
+SPECUSES 3
+SPECBASE 35
+SPECDMG 80
+SPECDMGTYPE SLASH
+TEXX %s snarls and lashes out at %s.
+TEXE A white-fang slithers in.
+TEXZ A white-fang howls mournfully at %s.
+;
+VARIABLE SNOWDAM
+VARIABLE PASSGRD
+MACRO 49
+IFENTRY -1
+  IFVAR INTNUM3 ! 1
+    RANDOM SNOWDAM 1 50 0
+    IFVAR SNOWDAM < 4
+      IFCARRY 831 1098
+        IFITEM -1 WORN
+          DAMAGEPLR COLD 5 The frigid cold air seeps through the coat a little, nipping at your body.
+          ECHO OTHERS %N shivers a bit in the icy cold.
+        ELSE
+          DAMAGEPLR COLD 35 The frigid cold air seeps into your body freezing parts of you nearly solid.
+          ECHO OTHERS %N winces from the icy cold air.
+        ENDIF
+      ELSE
+        IFCARRY 564 166 111
+          IFITEM -1 WORN
+            ECHO PLAYER The frigid cold air blasts at you, but a shimmering curtain of icy emerald coldfire deflects it.
+            ECHO OTHERS Around %N a shimmering curtain of icy emerald coldfire is visible for a moment.
+          ELSE
+            DAMAGEPLR COLD 35 The frigid cold air seeps into your body freezing parts of you nearly solid.
+            ECHO OTHERS %N winces from the icy cold air.
+          ENDIF
+        ENDIF
+      ENDIF
+    ENDIF
+  ENDIF
+ENDIF
+IFPREVERB HOLD -1
+  IFVAR REGION = 43
+    IFVAR RNUM >= 3732
+      IFVAR RNUM < 3809
+        CLEARVERB
+        ECHO PLAYER It's too hard to follow anyone here.
+      ENDIF
+    ENDIF
+  ENDIF
+ENDIF
+IFPREVERB FOLLOW -1
+  IFVAR REGION = 43
+    IFVAR RNUM >= 3732
+      IFVAR RNUM < 3809
+        CLEARVERB
+        ECHO PLAYER It's too hard to follow anyone here.
+      ENDIF
+    ENDIF
+  ENDIF
+ENDIF
+IFPREVERB SNEAK -1
+  IFVAR REGION = 43
+    IFVAR RNUM > 3768
+      IFVAR RNUM < 3809
+        IFVAR MONINROOM ! 0
+          ECHO PLAYER The creatures seem to notice your attempt to escape and block you.
+          CLEARVERB
+        ENDIF
+      ENDIF
+    ENDIF
+  ENDIF
+ENDIF
+MADJDEF 84 sled
+;
+MNUMBER 277
+NAME dog
+ANIMAL
+ADJECTIVE 84
+BODY 30
+ATTACK1 50
+DEFENSE 100
+STRATEGY 200
+IMMUNITY 5 1
+SKINADJ 553
+SKINITEM 514 10 0 0
+SKINITEM 509 50 0 0
+SKINITEM 508 10 0 0
+GENDER 0
+SPEED 3
+*DESCRIPTION_START
+The sled dog is a large furry animal whose coat protects him from the
+extreme cold. He seems very comfortable in ice and snow, while heat 
+and sunshine cause him to pant often. He has intelligent brown eyes 
+and a white sock on one foot. He also has a very hairy tail and large 
+thick, heavily furred ears.
+*DESCRIPTION_END
+TEXB a sled dog pads into the area.
+TEXE a sled dog pads quietly into the area.
+TEX1 a sled dog sits up and scratches vigorously behind his ear.
+TEX2 a sled dog sniffs in circles at the ground.
+TEX3 Lifting his leg, a sled dog urinates on the nearest object.
+TEX4 a sled dog lifts his head and howls loudly.
+TEXD growls once and falls dead.
+TEXF a sled dog tucks his tail and runs
+TEXM a sled dog trots
+TEXA a sled dog charges
+TEXR a sled dog backs off.
+TEXG a sled dog takes a mouthful of snow.
+;
+;Way to Karhad from Dam Top in Shartans-room 732
+NUMBER 3646
+NAME Teeth of Shartan, Steep Trail
+MOUNTAIN
+CALL 33
+MONSTER_GROUP 55
+DAY_LIGHT
+*DESCRIPTION_START
+A small winding trail works its way steadily upwards in the steepness of 
+the mountain range. The air grows still, and begins to chill as you near 
+the snowline. Along the northern side of the trail, the trees begin to 
+thin a bit. Far to the south, you can barely make out a dam and the stream
+near it.
+*DESCRIPTION_END
+ITEM 0 76 ADJ1=510 ADJ2=407 VAL2=732
+EXIT N 3647
+;
+NUMBER 3647
+NAME Shartan Trail
+CALL 33
+CALL 49
+MOUNTAIN
+DAY_LIGHT
+REGION 43
+CHANNEL 43
+*DESCRIPTION_START
+This portion of the trail leads upwards into the very edge of the line 
+of snow. A few trees are laden with it. In several places, footprints
+are visible in the drifted snow. To the south, most of the unquart has
+disappeared, to be replaced by sturdier evergreens. Above, the sky is
+clearly seen as the trail disappears over a large section of rock. 
+Visible for miles is the skyline of the rocky Shartan's, stretching 
+outwards, and reminding you how very far from Fayd you are.
+*DESCRIPTION_END
+EXIT S 3646
+EXIT N 3648
+;
+NUMBER 3648
+NAME Shartan Vista
+CALL 33
+CALL 49
+MOUNTAIN
+REGION 43
+CHANNEL 43
+DAY_LIGHT
+*DESCRIPTION_START
+The crest of this mountain is breathtaking. All around the nearby peaks 
+are visible. Down below, your eyes can see clearly back to the dam, and 
+on the other side of the peak, you see a small village thriving under 
+the protective overhang of the mountain. Small swirls of smoke drift  
+upwards, and even from the distance, you can hear the sound of dogs 
+barking. Across the tiny bowl, you see on the far side a beautiful 
+castle perched on the mountain. Another forest leads up and over
+the far mountain. A small trail leads down into the village itself.
+*DESCRIPTION_END
+EXIT S 3647
+ITEM 0 76 ADJ1=427 VAL2=3649
+EXTEND 0 leading down to the village
+;
+NUMBER 3649
+NAME Karhad Village Entrance
+CALL 33
+CALL 49
+REGION 43
+CHANNEL 43
+FOREST
+DAY_LIGHT
+*DESCRIPTION_START
+Before you is a wonderful sight caressing your senses. A large overhang
+droops over parts of the village to the south, shielding it from the worst
+of the weather. A large sleepy forest stands to the north, guarding the
+village from prying eyes. A long winding dirt road circles around inside
+the village. In the snow, you can see many pawprints of the sled dogs.
+Directly ahead, lies a small gatehouse. Its lone sentry stands at attention.
+A long windy trail leads up from the valley, and over the nearby mountainside.
+*DESCRIPTION_END
+ITEM 0 76 ADJ1=427 VAL2=3648
+EXIT E 3650
+EXIT NE 3657
+ITEM 0 465 
+ITEM 2 1567
+IFENTRY -1
+  RANDOM DUMMY1 1 10 0
+  IFVAR DUMMY1 = 1
+    GENMON 277
+  ENDIF
+ENDIF
+;
+NUMBER 3650
+NAME Karhad Village, Kennels
+CALL 33
+CALL 49
+REGION 43
+CHANNEL 43
+CAVE
+DAY_LIGHT
+*DESCRIPTION_START
+Situated underneath the start of the overhang lies a large kennel. Dogs
+bark constantly, but the noise is commonplace here. Several large tie-rings
+line the space next to the road, and sometimes you can find a man with his
+dog team tied. A large double-door stands in the building.
+*DESCRIPTION_END
+EXIT E 3651
+EXIT W 3649
+ITEM 0 65 ADJ1=97 VAL2=3658 UNLOCKED
+ITEM 1 334 ADJ1=32
+EXTEND 1 lodged deep in the ground
+ITEM 2 1567
+EXTEND 2 drifts
+;
+NUMBER 3651
+NAME Karhad Village, Road
+CALL 33
+CALL 49
+REGION 43
+CHANNEL 43
+CAVE
+PARTIAL_DARKNESS
+*DESCRIPTION_START
+Deep inside the overhang now, lies another small building that looks to be 
+a guard shack. Behind it, a small, seemingly unused, track curls back 
+deeper into the overhang, its ultimate destination out of sight. There is 
+an over-whelming sense of peace and quiet here. The guard shack appears 
+deserted.
+*DESCRIPTION_END
+EXIT N 3652
+EXIT W 3650
+ITEM 0 465 
+EXTEND 0 situated next to the start of the track
+ITEM 1 609 VAL2=3662
+EXTEND 1 leading deep into the overhang
+ITEM 2 65 VAL2=3661 UNLOCKED
+ITEM 3 1567
+EXTEND 3 drifts
+;
+NUMBER 3652
+NAME Karhad Village, Under the Overhang
+CALL 33
+CALL 49
+REGION 43
+CHANNEL 43
+CAVE
+PARTIAL_DARKNESS
+*DESCRIPTION_START
+Overhead, outcroppings of rock dangle towards you, the patterns in the rock 
+making it appear to be liquid poured into a mold. Small icicles dangle 
+pleasantly close to you, sparkling in the dim light. A large building to the 
+west of the track lies almost completely under the overhang, its roof 
+partially decorated with wind-driven snow. A sign hanging next to the door 
+reads, "Outfitter's".
+*DESCRIPTION_END
+EXIT S 3651
+EXIT NW 3653
+ITEM 0 66 VAL2=3691 CLOSED UNLOCKED
+ITEM 1 1567
+EXTEND 1 drifts
+;
+NUMBER 3691
+NAME Inside the Outfitters
+CALL 33
+REGION 43
+BUY_SKINS
+INDOOR_FLOOR
+FIXED_LIGHT
+CHANNEL 43
+*DESCRIPTION_START
+This large shop has a full range of many winter items and clothing. Racks 
+upon racks of large, thick coats, heavy tunics, and boots are displayed. 
+Along the far wall lies a counter where the proprietor does the sales. A 
+small shelf of tack for sled dogs rests against a back wall. A sign hangs 
+from several hooks near the ceiling listing current prices.
+*DESCRIPTION_END
+ITEM 0 204
+ITEM 1 66 VAL2=3652 CLOSED UNLOCKED
+ITEM 2 539
+EXTEND 2 of winter clothing
+*DESCRIPTION_START ITEM READ 0
+Welcome to Donall's Outfitters
+
+We have recent added new facilities and are able to purchase your
+skinned items!
+
+Karhadian coat 50 gold *** Guarenteed to lessen the affect of the cold!
+thick boots   15 gold
+lined tunic   10 gold
+
+leather harness   5 gold 
+
+*DESCRIPTION_END
+STOREITEM 831 1098 2000
+STOREITEM 217 443 1500
+STOREITEM 255 812 1000
+STOREITEM 1842 180 500
+;
+NUMBER 3653
+NAME Karhad Village, Front of Guardhouse
+CALL 33
+CALL 49
+REGION 43
+CHANNEL 43
+FOREST
+PARTIAL_DARKNESS
+*DESCRIPTION_START
+The overhang finally draws to an end, revealing a guard house lying
+next to a small track. This track tapers off up into the forest, hugging 
+its way closely against the side of the mountain. Unlike the track under 
+the overhang, this one seems well used, and the snow is tramped to a shiny,
+ice-covered surface. Wide enough for teams of sleds and their dogs, the
+track twists and turns out of sight both towards the village and away.
+*DESCRIPTION_END
+EXIT SE 3652
+EXIT W 3654
+ITEM 0 609 VAL2=3668
+ITEM 1 465
+EXTEND 0 leading up into the forested mountain
+EXTEND 1 set facing the road
+IFPREVERB CLIMB 0
+  GMMSG %N is trying to climb to Karhad Castle. 
+  IFVAR PASSGRD = 1
+    ECHO ALL The guard gives a curt nod and returns to attention.
+  ELSE
+    CLEARVERB
+    ECHO PLAYER A Karhadian guard steps out and says, "You may not pass this way without the Captain's permission."
+    ECHO OTHERS A Karhadian guard steps out in front of %N, and says, "You may not pass this way without the Captain's permission."
+  ENDIF
+ENDIF
+ITEM 2 1567
+EXTEND 2 drifts
+;
+NUMBER 3654
+NAME Karhad Village, Road
+CALL 33
+CALL 49
+REGION 43
+CHANNEL 43
+FOREST
+DAY_LIGHT
+*DESCRIPTION_START
+The road here starts to wind around some large, snow-covered fir trees. Small
+houses line the sides of the road in a neat, yet odd pattern. More iron rings
+protrude from the ground, and the marks of sleds and dogs are apparent along
+the road itself. High in the mountains to the back is a distant castle. It
+seems to be part of the rock, until a bit of light sparkles off a window.
+There seems to be a track running down the side of the mountain that leads
+to the castle.
+*DESCRIPTION_END
+EXIT E 3653
+EXIT W 3655
+ITEM 1 334 ADJ1=32
+EXTEND 1 lodged deep in the ground
+ITEM 2 1567
+EXTEND 2 drifts
+ITEM 3 609 VAL2=3672
+EXTEND 3 leading to a small house in the woods
+;
+NUMBER 3655
+NAME Kardan Village, Deep Forest
+REGION 43
+CALL 33
+CALL 49
+CHANNEL 43
+FOREST
+DAY_LIGHT
+*DESCRIPTION_START
+Deep in the forest, between two curves in the road, a pair of buildings is
+revealed facing each other across the snowy road. One appears to be just
+another house, while the other is a long, squat building. Sounds of dog
+barking are heard echoing off the snow blanketed trees. Several small steps
+lead up into the larger of the buildings, and a small sign it tacked above
+the door.
+*DESCRIPTION_END
+EXIT E 3654
+EXIT W 3656
+ITEM 0 1112 ADJ1=294
+EXTEND 0 tacked above the door
+*DESCRIPTION_START ITEM READ 0
+Karhad Physician's Guild and Vet
+*DESCRIPTION_END
+ITEM 1 65 VAL2=3666 UNLOCKED
+ITEM 2 1567
+EXTEND 2 drifts
+;
+NUMBER 3656
+NAME Karhad Village, Road
+REGION 43
+CALL 33
+CALL 49
+CHANNEL 43
+FOREST
+DAY_LIGHT
+*DESCRIPTION_START
+The road turns here, and heads off directly east, or you could follow it to
+the southwest. Only a single small house is here, it's tiny garden full
+of snow. From across the village, the sounds of the sled dogs are quieter, 
+but still audible.
+*DESCRIPTION_END
+EXIT SW 3657
+EXIT E 3655
+ITEM 0 418 ADJ1=294 ADJ2=510 ADJ3=407
+ITEM 1 1567
+EXTEND 1 drifts
+;
+NUMBER 3657
+NAME Karhad Village, Outside Tavern
+CALL 33
+CALL 49
+REGION 43
+CHANNEL 43
+FOREST
+DAY_LIGHT
+*DESCRIPTION_START
+The road is well-packed with several inches of snow. To one side lies a 
+large building that always has several sled teams tied in front. Light 
+filters from a large front window, and the husky voices of male laughter 
+echoes often. Snowy stairs lead up into the tavern.
+*DESCRIPTION_END
+EXIT SW 3649
+EXIT NE 3656
+ITEM 0 81 ADJ1=510 ADJ2=407 VAL2=3667
+ITEM 1 334 ADJ1=32
+IFPREVERB GO 0
+  CLEARVERB
+  ECHO PLAYER You cautiously climb the stairs leading to the tavern.
+  ECHO OTHERS %P cautiously climbs the stairs leading to the tavern.
+  AFFECT 3667
+  ECHO ALL %P arrives shaking snow from %h clothing.
+  AFFECT 3657
+  MOVEGROUP 3667
+ENDIF
+ITEM 2 1567
+EXTEND 2 drifts
+;
+NUMBER 3658
+NAME Karhad Village, Inside Kennel
+REGION 43
+CHANNEL 43
+CALL 33
+INDOOR_FLOOR
+FIXED_LIGHT
+*DESCRIPTION_START
+Inside this building, the floors are spotless. A strong smell of wet dog
+fills the air, along with the smell of meat. Ahead is a long counter with
+bowls stacked neatly and several stoppered containers. A gate leads into
+the back room where the sound of dogs apparently comes from. Rows of harness
+hang from hooks on the ceiling. Snow shoes hang neatly from a rope strung
+across the room.
+*DESCRIPTION_END
+EXIT O 3650
+ITEM 0 470
+ITEM 1 68 VAL2=3659 UNLOCKED
+ITEM 2 1122
+ITEM 3 65 VAL2=3650 UNLOCKED
+;
+NUMBER 3659
+NAME Karhad Village, Dog Kennel
+REGION 43
+CALL 33
+CHANNEL 43
+INDOOR_FLOOR
+FIXED_LIGHT
+*DESCRIPTION_START
+This room is long and divided by rows upon rows of dog runs. Each run has a
+small opening with a quilted flap leading out the back. Between each run
+lies small shelves situated on top of concrete blocks. Small gates open
+up into each run where the dogs bark in friendly greetings, tails wagging 
+emphatically. Tacked to each wall, are multitudes of harness parts, gang-
+lines, brass snaps, toggles, and collars.
+*DESCRIPTION_END
+ITEM 0 68 ADJ1=169 VAL2=3658 UNLOCKED
+ITEM 1 68 ADJ1=32 VAL2=3660 UNLOCKED
+EXTEND 0 leading back to the front
+EXTEND 1 leading into the runs
+;
+NUMBER 3660
+NAME Karhad Village, Inside Run
+CALL 33
+REGION 43
+CHANNEL 43
+INDOOR_FLOOR
+FIXED_LIGHT
+*DESCRIPTION_START
+The flooring inside the run is smooth and without cracks. A small bowl lies
+to the side containing food, while a bucket with piping holds fresh water.
+The small opening leading outside is quilted over with a heavy fabric to
+keep out the worst of the cold. The lower portion of the divider between 
+runs is a solid wall, and about four foot from the ground, it turns to 
+chain fencing.
+*DESCRIPTION_END
+ITEM 0 68 VAL2=3659 UNLOCKED
+ITEM 1 716  
+IFPREVERB GO 1
+  CLEARVERB
+  ECHO PLAYER Looking down outside the opening, you notice some dog manure. Do you really think you want to go out that way? 
+  ECHO OTHERS %N almost steps out the flap near the back, then seems to think better of it.
+ENDIF
+;
+NUMBER 3661
+NAME Karhad Village, Inside Guardhouse
+CALL 33
+REGION 43
+CHANNEL 43
+INDOOR_FLOOR
+FIXED_LIGHT
+*DESCRIPTION_START
+This tiny room has one purpose, to house guards. A small cot lies against 
+one wall, and a servicable counter lies against another. A large window 
+looks out to the front, and another to the back, showing the path under 
+the overhang.
+*DESCRIPTION_END
+EXIT O 3651
+ITEM 0 436
+ITEM 1 249
+EXTEND 1 facing the front
+ITEM 2 249
+EXTEND 2 facing the rear
+IFPREVERB LOOK 1
+  CLEARVERB
+  SHOWROOM 3651
+  AFFECT 3651
+  ECHO ALL You see the face of %N gazing out a window in the guardhouse.
+  AFFECT 3661
+  ECHO PLAYER You gaze out the front window.
+  ECHO OTHERS %N gazes out the front window.
+ENDIF
+IFPREVERB LOOK 2
+  CLEARVERB
+  SHOWROOM 3662
+  AFFECT 3662
+  ECHO ALL You see the face of %N gazing out the window in the back of the guardhouse.
+  AFFECT 3661
+  ECHO PLAYER You gaze out the rear window.
+  ECHO OTHERS %N gazes out the rear window.
+ENDIF
+;
+NUMBER 3662
+NAME Karhad Village, Tiny Path
+REGION 43
+CALL 33
+CALL 49
+CHANNEL 43
+CAVE
+PARTIAL_DARKNESS
+*DESCRIPTION_START
+This tiny track is very well taken care of. The rock around presses 
+closely down around, but it is worn smooth by the touch of countless 
+hands. There is only darkness coming from deeper under the overhang.
+*DESCRIPTION_END
+EXIT S 3663
+ITEM 0 609 VAL2=3651
+EXTEND 0 next to the guardhouse
+ITEM 1 411
+EXTEND 1 hanging closely overhead
+;
+NUMBER 3663
+NAME Karhad Village, Under the Overhang
+REGION 43
+CALL 33
+CALL 49
+CHANNEL 43
+CAVE
+DARKNESS
+*DESCRIPTION_START
+Deep under the overhang, the rock walls press down from above. Soft sounds
+of water dripping echoes from somewhere deep in the darkness. Two large
+caverns loom to the southwest and southeast. The two large openings are
+shrouded in darkness. The entire area is engulfed in a deep biting cold 
+and a terrible feeling of emptiness and longing.
+*DESCRIPTION_END
+EXIT O 3662
+EXIT SW 3664
+EXIT SE 3665
+;
+NUMBER 3664
+NAME Karhad Village, Storage
+REGION 43
+CHANNEL 43
+CALL 33
+CALL 49
+CAVE
+DARKNESS
+*DESCRIPTION_START
+This small cavern holds boxes and crates full of unknown things. The room
+is fairly warm, considering the extreme coldness of the outer chambers.
+*DESCRIPTION_END
+EXIT NE 3663
+;
+NUMBER 3665
+NAME Karhad Village, Ornate Chamber
+REGION 43
+CHANNEL 43
+CAVE
+CALL 33
+CALL 49
+FIXED_LIGHT
+*DESCRIPTION_START
+As your eyes adjust to the dimness, you see a chamber that is obviously 
+far from its former splendor. Golden columns stretch upwards from the 
+floor, and dull spots on the wall mark where gilted murals once hung from 
+the walls. Most of the objects are shrouded in dark ice, and icicles hang 
+from the ceiling above. In the center of the chamber, a large pile of 
+abandoned frozen furs lays.
+*DESCRIPTION_END
+EXIT O 3663
+ITEM 0 1040 ADJ1=165 ADJ2=407
+EXTEND 0 of furs and frozen silks
+ITEM 1 1627 ADJ1=468
+*DESCRIPTION_START ITEM EXAM 0
+There is a small hollow in the center of the furs, perhaps where a body once lay.
+*DESCRIPTION_END
+IFPREVERB LOOK 0
+  ECHO OTHERS %N gazes curiously at the pile of frozen furs.
+ENDIF
+;
+NUMBER 3666
+NAME Karhad Village, Physican's and Vet
+REGION 43
+CHANNEL 43
+CALL 33
+INDOOR_FLOOR
+FIXED_LIGHT
+*DESCRIPTION_START
+This building either bustles with activity, or remains very quiet. The 
+soft aroma of medical herbs fills the air, but most are unrecognizable. 
+Several partitians are present, and cold, metal tables sit in each one. 
+On the whole, the room is very clean, but it is also void of any 
+ornamentation.
+*DESCRIPTION_END
+EXIT O 3655
+ITEM 0 91 ADJ1=61 ADJ2=192
+ITEM 1 204 ADJ1=1066 ADJ2=227
+ITEM 9 693
+*DESCRIPTION_START ITEM READ 1
+  Item               Purpose               Price
+  ----             -----------             -----
+Thesnia Leaf       Mind-Expanding Drug     3 Silver
+Rowik Berry        Poison Purgative        6 Crowns
+Babich Root        General Healing         6 Crowns
+Deadly Nightshade  Spell Component         7 Crowns
+Mandrake Root      Spell Component       150 Crowns
+	       
+*DESCRIPTION_END
+BUY_SKINS
+STOREITEM 278 397 30
+STOREITEM 493 530 600
+STOREITEM 494 531 600
+STOREITEM 587 554 700
+STOREITEM 494 542 15000
+IFPREVERB GO 0
+  CLEARVERB
+  POSITION SIT
+  ECHO PLAYER As you sit on the metal table, a physician comes over to examine you.
+  PLREVENT 1
+  CONTPLREVENT
+  ECHO PLAYER He pulls out a large needle, aims it towards your arm, then states, "Oops, pardon me, you are not a dog."
+  PLREVENT 1
+  CONTPLREVENT
+  ECHO PLAYER He then puts the needle away, and informs you he is the local vet, and does not treat anything but animals.
+  ECHO OTHERS You notice a discussion between %N and a physican who is carrying a large needle.
+ENDIF
+IFPREVERB LAY -1
+  ECHO PLAYER As you sit on the metal table, a physician comes over to examine you.
+  PLREVENT 1
+  CONTPLREVENT
+  ECHO PLAYER He pulls out a large needle, aims it towards your arm, then states, "Oops, pardon me, you are not a dog."
+  PLREVENT 1
+  CONTPLREVENT
+  ECHO PLAYER He then puts the needle away, and informs you he is the local vet, and does not treat anything but animals.
+  ECHO OTHERS You notice a discussion between %N and a physican who is carrying a large needle.
+  POSITION SIT
+ENDIF
+IFPREVERB SIT -1
+  ECHO PLAYER As you sit on the metal table, a physician comes over to examine you.
+  PLREVENT 1
+  CONTPLREVENT
+  ECHO PLAYER He pulls out a large needle, aims it towards your arm, then states, "Oops, pardon me, you are not a dog."
+  PLREVENT 1
+  CONTPLREVENT
+  ECHO PLAYER He then puts the needle away, and informs you he is the local vet, and does not treat anything but animals.
+  ECHO OTHERS You notice a discussion between %N and a physican who is carrying a large needle.
+ENDIF
+IFENTRY -1
+  IFVAR DEAD = 1
+    EQUAL ROUNDTIME 180
+    EQUAL BODYPOINTS 1
+    POSITION LAY
+    EQUAL DEAD 0
+    ECHO PLAYER The physician runs around you, healing your wounds and bringing you back to life. At least, you hope he is the physician and not the vet.
+    ECHO PLAYER [Round: 180 sec]
+  ENDIF
+ENDIF
+;
+NUMBER 3667
+NAME Karhad Village, Tavern
+CALL 33
+REGION 43
+CHANNEL 43
+INDOOR_FLOOR
+FIXED_LIGHT
+*DESCRIPTION_START
+This small, yet cozy room contains a long birch bar resting against one 
+wall. Several small tables huddle around a blazing fireplace. Pictures 
+line the walls of sled dogs, teams, and snow-covered scenes. The sounds 
+of the howling wind and dogs is much quieter here, and the atmosphere is 
+restful. Two curtains hang near the fireplace, blocking off two small 
+booths for privacy. A set of stairs leads up to the second floor.
+*DESCRIPTION_END
+EXIT O 3657
+ITEM 0 1342 ADJ1=241 ADJ2=1037
+ITEM 1 91 ADJ1=294 ADJ2=355
+ITEM 2 86 ADJ1=63 ADJ2=180 
+ITEM 3 195 ADJ1=33
+ITEM 4 1112 ADJ1=294 ADJ2=241 ADJ3=355
+ITEM 5 1031 VAL2=3817
+ITEM 6 1031 VAL2=3818
+ITEM 7 81 VAL2=3824
+*DESCRIPTION_START ITEM READ 4
+Welcome to the Tavern.
+
+ --Enolean Greebrig, Proprietor
+
+Drinks:
+
+Warm Ale            7 gold
+Cold Ale            4 gold
+Apple Ale           5 gold
+Karhadian Ale       3 gold
+
+Water available for your dogs: 5 silver
+
+Food:
+
+Honey Bread         2 silver
+Fried Potatoes      2 silver
+*DESCRIPTION_END
+STOREITEM 239 344 700
+STOREITEM 239 61 400
+STOREITEM 239 969 500
+STOREITEM 239 1098 300
+STOREITEM 198 -1 50
+STOREITEM 1413 387 20
+STOREITEM 437 1340 20
+;
+NUMBER 3817
+NAME Karhad Tavern, Booth
+INDOOR_FLOOR
+FIXED_LIGHT
+CALL 33
+CHANNEL 43
+REGION 43
+*DESCRIPTION_START
+This small booth is rustic looking. Thick pelts decorate the chairs and 
+the table-top is covered with hard, polished leather. A small glass candle 
+casts its light over the area.
+*DESCRIPTION_END
+EXIT O 3667
+IFENTRY -1
+  ECHO ALL The curtain falls back into place as %n enters the booth.
+ENDIF
+ITEM 0 91
+ITEM 1 86
+;
+NUMBER 3818
+NAME Karhad Tavern, Booth
+INDOOR_FLOOR
+FIXED_LIGHT
+CALL 33
+CHANNEL 43
+REGION 43
+*DESCRIPTION_START
+This small booth is rustic looking. Thick pelts decorate the chairs and 
+the table-top is covered with hard, polished leather. A small glass candle 
+casts its light over the area.
+*DESCRIPTION_END
+EXIT O 3667
+IFENTRY -1
+  ECHO ALL The curtain falls back into place as %n enters the booth.
+ENDIF
+ITEM 0 91
+ITEM 1 86
+;
+NUMBER 3824
+NAME Karhad Tavern, Hall
+CALL 33
+REGION 43
+CHANNEL 43
+INDOOR_FLOOR
+FIXED_LIGHT
+*DESCRIPTION_START
+The hallway here is small and cramped, a tall being would knock a head 
+into the ceiling above. Two small doors are on either side of the hall.
+At the far end rests a small table with some kind of exotic snow flower 
+in full bloom resting in a fragile vase. A set of stairs leads back to 
+the main room below.
+*DESCRIPTION_END
+ITEM 0 81 VAL2=3667
+ITEM 1 944 ADJ1=1037 VAL2=3825 CLOSED UNLOCKED
+ITEM 2 944 ADJ1=895 VAL2=3826 CLOSED UNLOCKED
+;
+NUMBER 3825
+NAME Karhad Tavern, Private Room
+CALL 33
+REGION 43
+CHANNEL 43
+INDOOR_FLOOR
+FIXED_LIGHT
+*DESCRIPTION_START
+This small room is well appointed with a medium sized bed and a small 
+table beside. A window looks out over a beautiful vista of the mountains 
+nearby. Thick carpets underfoot and a fireplace keep the cold at bay.
+*DESCRIPTION_END
+ITEM 0 84
+EXTEND 0 with a thick, warm down comforter
+ITEM 1 91
+ITEM 2 249
+ITEM 3 195
+ITEM 4 944 VAL2=3824 CLOSED UNLATCHED
+IFPREVERB LOOK 2
+  CLEARVERB
+  ECHO PLAYER You pull open the curtains and look out upon...
+  SHOWROOM 3648
+ENDIF
+IFLOGIN
+  RELOGIN 3824
+ENDIF
+;
+NUMBER 3826
+NAME Karhad Tavern, Private Room
+CALL 33
+REGION 43
+CHANNEL 43
+INDOOR_FLOOR
+FIXED_LIGHT
+*DESCRIPTION_START
+This large room has an enormous bed and a small table sitting next to 
+it. A huge stone fireplace rests at one end, and at the other is a 
+large, overstuffed chair. 
+*DESCRIPTION_END
+ITEM 0 84
+EXTEND 0 with a thick, warm down comforter
+ITEM 1 91
+ITEM 2 195
+ITEM 3 944 VAL2=3824 CLOSED UNLATCHED
+ITEM 4 86 ADJ1=178 ADJ2=964
+IFLOGIN
+  RELOGIN 3824
+ENDIF
+;
+NUMBER 3668
+NAME Karhad Village, Frozen Track
+REGION 43
+CALL 49
+CHANNEL 43
+FOREST
+DAY_LIGHT
+*DESCRIPTION_START
+This frozen forested track is covered in snow, but the path is not slick.
+A few layers of soot and ash line one small portion, allowing for good 
+traction. The castle looms overhead, a small bastion of warmth in this 
+icy place.
+*DESCRIPTION_END
+IFENTRY -1
+  IFVAR INTNUM3 = 1
+    ECHO PLAYER Hey GM, stomp here to use the track.  Chyme says you'd better have asked her first, or yer throat's meat.
+  ENDIF
+ENDIF
+IFPREVERB STOMP -1
+  IFVAR PASSGRD = 1
+    EQUAL EXITSW -1
+    EQUAL ROUNDTIME 30
+    ECHO ALL You begin the long climb up the track, the crisp, cold air tingling all around.
+    PLREVENT 5
+    CONTPLREVENT
+    ECHO ALL The road turns here, and then, suddenly before you is a breathtaking scene of fir trees hung with thousands upon thousands of icicles.
+    PLREVENT 5
+    CONTPLREVENT
+    ECHO ALL The small track turns again, and there, finally, is the castle.
+    EQUAL PASSGRD 2
+    EQUAL EXITNE 3669
+  ELSE
+    EQUAL EXITNE -1
+    EQUAL ROUNDTIME 30
+    ECHO ALL You begin the descent back to the village, the snow slick under your feet.
+    PLREVENT 5
+    CONTPLREVENT
+    ECHO ALL The scenes unfold around you, snowy banks, and a small icy stream, but your taste for snow seems to have lessened.
+    PLREVENT 5
+    CONTPLREVENT
+    ECHO ALL Ahead, the guard shack and entrance to the village can be seen.
+    EQUAL EXITSW 3653
+  ENDIF
+ENDIF
+;
+NUMBER 3669
+NAME Karhad Castle, Courtyard
+CALL 33
+CALL 49
+REGION 43
+CHANNEL 43
+OUTDOOR_OTHER
+DAY_LIGHT
+*DESCRIPTION_START
+This tiny courtyard is a haven for snow. It drifts into the corners and 
+along the walls in an effort to escape, until you look closer. Then, 
+lines and forms begin to emerge from out of the seeming randomness. Ice 
+sculptures of dogs and sleds race along tracks of drifted snow. Drivers, 
+their faces masks of pure concentration work long strings of howling 
+huskies, their heads shrouded in fogs of condesation. Everywhere around 
+you is the beauty of this cold realm. The castle itself sits here, its 
+stone walls covered heavily in ice. A large double door leads inside.
+*DESCRIPTION_END
+ITEM 0 609 ADJ1=294 ADJ2=510 ADJ3=407 VAL2=3668
+EXTEND 0 leading back to the village
+ITEM 1 65 ADJ1=241 ADJ2=97 VAL2=3670 UNLOCKED
+;
+NUMBER 3670
+NAME Karhad Castle, Foyer
+CALL 33
+REGION 43
+CHANNEL 43
+INDOOR_FLOOR
+FIXED_LIGHT
+*DESCRIPTION_START
+The interior of the castle is warm and comforting. Pure white streamers of
+fabric line the walls, traced throughout with sparkling threads of an eerie
+icy green color. Three large archways lead into various other areas of the
+keep. To the south and the north, the arches are guarded by two Karhadians
+in full dress uniforms. To the east lies the Queen's audience chamber.
+*DESCRIPTION_END
+EXIT O 3669
+ITEM 0 60 ADJ1=178 ADJ2=1037
+ITEM 1 60 ADJ1=178 ADJ2=187 VAL2=3671
+ITEM 2 60 ADJ1=178 ADJ2=32
+IFPREVERB GO 0
+  CLEARVERB
+  ECHO ALL The guards cross their lances in front of the arch and state, "You may not pass this way."
+ENDIF
+IFPREVERB GO 2
+  CLEARVERB
+  ECHO ALL The guards cross their lances in front of the arch and state, "You may not pass this way."
+ENDIF
+;
+NUMBER 3671
+NAME Karhad Castle, Throne Room
+REGION 43
+CHANNEL 43
+CALL 33
+INDOOR_FLOOR
+FIXED_LIGHT
+*DESCRIPTION_START
+This chamber is filled with beautiful tapestries and decorated in the colors
+of white and green. Two snow-white thrones sit near the northern wall, and a
+long runner of pure white leads up to them. Several crystal windows offer
+spectacular views down the mountain, and one gives a bird's eye view of
+Karhad village.
+*DESCRIPTION_END
+EXIT O 3670
+ITEM 0 542
+EXTEND 0 carved to resemble an icy snow bank
+ITEM 4 542
+EXTEND 4 carved to resemble an icy snow bank
+ITEM 1 250
+EXTEND 1 woven of glistening threads
+ITEM 2 250
+EXTEND 2 hanging across the entire western wall
+ITEM 3 1481
+EXTEND 3 that once hung in the frozen chamber
+ITEM 5 250
+EXTEND 5 hung along the northern wall, above the thrones
+*DESCRIPTION_START ITEM EXAM 1
+The mural is woven to show a scene of two young girls playing by a small
+frozen creek. Their skin is a glistening black color, their eyes sparkle
+green as if at some secret story only they share.
+*DESCRIPTION_END
+*DESCRIPTION_START ITEM EXAM 2
+This large tapestry seems to show several time periods. First is a scene of
+bloody battle. A small black drake battles scores of Karhadian warriors.
+A distinctive looking man stands on an icy hillock, his face scarred by
+the claws of the drake. This scene blends into one of a young woman facing
+another fearsome ebony drake, her arms outstretched in what seems to be
+supplication to the scaly beast. Karhadians are running in fright and a sled
+dog dangles from the mouth of the wyrm. Finally, the last scene is one of
+peaceful snowy slumber, the village and castle decorated in ice that the
+sunlight changes into brillant rays colored like the rainbow.
+*DESCRIPTION_END
+*DESCRIPTION_START ITEM EXAM 3
+The gilted mural is decorated with pictures of small people with black skin
+and golden hair. They are running through a wooded forest, while a large
+drake shape follows. A woman with her arms outstretched faces the drake,
+tinges of greenish flames flicker along her arms.
+*DESCRIPTION_END
+*DESCRIPTION_START ITEM EXAM 5
+This newly made tapestry shows a lovely winter scene. Snowflakes fall
+everywhere, each one glistening with its silver threads. A lovely woman
+wearing a stunning gown of the brightest white with icy green highlights
+walks down an isle to join with a smiling man. His vivid eyes glow intensely
+with a passion the weaver has capture perfectly. All around the happy couple
+are beautiful snow-bound trees covered with icicles gleaming in the winter sun.
+*DESCRIPTION_END
+;
+NUMBER 3672
+NAME Karhad Village, Outside House
+CALL 33
+CALL 49
+REGION 43
+CHANNEL 43
+INDOOR_FLOOR
+FIXED_LIGHT
+*DESCRIPTION_START
+You find yourself outside of a small, empty house. To the north lies
+the rear of the house, surrounded by a small woods. To the south rests
+the road that encircles the village. A small track has been beaten down
+by the passage of many feet circling the house from front to back.
+*DESCRIPTION_END
+EXIT S 3654
+EXIT N 3673 
+;
+NUMBER 3673
+NAME Karhad Village, Backyard
+REGION 43
+CHANNEL 43
+CALL 33
+CALL 49
+FOREST
+DAY_LIGHT
+*DESCRIPTION_START
+The small clearing lies behind the house.  Tall evergreens tower
+over the small cabin, and fresh snow glistens on the ground. 
+There seems to be a well worn foot trail tracked across the yard.
+A well-used track leads off into the forest.
+*DESCRIPTION_END
+EXIT S 3672 
+ITEM 0 609 VAL2=3674
+;
+NUMBER 3674
+NAME Karhad Forest
+CALL 33
+CALL 49
+MONSTER_GROUP 55
+REGION 43
+CHANNEL 43
+FOREST
+DAY_LIGHT
+*DESCRIPTION_START
+There is evidence that a large avalanche recently passed through this area,
+sweeping it clean of any small trees. A few of the larger firs managed to
+survive, but suffered greatly from damage. A small track leads away, back
+towards the village.
+*DESCRIPTION_END
+ITEM 0 609 VAL2=3673
+EXIT E 3675
+DISBAND
+;
+NUMBER 3675
+NAME Karhad Forest
+CALL 33
+CALL 49
+MONSTER_GROUP 55
+REGION 43
+CHANNEL 43
+FOREST
+DAY_LIGHT
+*DESCRIPTION_START
+You find yourself on a small trail winding deeply through a densely packed
+forest of fir trees. A dark cliffside looms to the west and south. 
+*DESCRIPTION_END
+EXIT W 3674
+EXIT E 3676
+DISBAND
+;
+NUMBER 3676
+NAME Karhad Forest
+CALL 33
+CALL 49
+REGION 43
+CHANNEL 43
+FOREST
+DAY_LIGHT
+*DESCRIPTION_START
+To the north is a deep cleft barring all passage in that direction for miles.
+The gorge is long and narrow and its icy banks glitter under the light. Far
+to the north of the cliff, the northernmost reaches of the Shartan mountains
+are visible. To the south of where you stand, a cliff starts to rise upwards.
+The lay of the land gently slopes down in this area.
+*DESCRIPTION_END
+EXIT W 3675
+EXIT S 3677
+DISBAND
+;
+NUMBER 3678
+NAME Karhad Forest
+CALL 33
+CALL 49
+REGION 43
+CHANNEL 43
+FOREST
+DAY_LIGHT
+*DESCRIPTION_START
+Thick growths of pine and evergreens fills the air with their spicy and
+distinct scents. The trail is thickly overgrown in some spots, yet the
+ruts left from years of sledding are clearly visible.
+*DESCRIPTION_END
+EXIT W 3677
+EXIT S 3679
+DISBAND
+;
+NUMBER 3679
+NAME Karhad Forest
+CALL 33
+CALL 49
+REGION 43
+CHANNEL 43
+FOREST
+DAY_LIGHT
+*DESCRIPTION_START
+Nestled up against the cliffside is a small, man-sized opening that leads
+into a dark recess. A small track leads southward along the cliffside.
+*DESCRIPTION_END
+EXIT N 3678
+ITEM 0 716 VAL2=3680
+ITEM 1 609 VAL2=3681
+DISBAND
+;
+NUMBER 3677
+NAME Karhad Forest
+CALL 33
+CALL 49
+REGION 43
+CHANNEL 43
+FOREST
+DAY_LIGHT
+*DESCRIPTION_START
+The path winds closely to the cliff here, its jagged rocks overhanging the
+path and causing the ground underneath to be slick with unmelted ice. A row
+of pine trees blocks the coldest of winds, yet the forever frozen air
+collects and pools along the ground freezing all it touches.
+*DESCRIPTION_END
+EXIT N 3676
+EXIT E 3678
+DISBAND
+;
+NUMBER 3680
+NAME Karhad Forest, Drake's Cave
+CALL 49
+CALL 33
+REGION 43
+CHANNEL 43
+CAVE
+DARKNESS
+*DESCRIPTION_START
+Inside this cave is dull and looks as if it hasn't been used in some time.
+The cold air whistles in from the outside, creating a hollow sound that 
+echoes loudly. The walls have been worn smooth by the constant rubbing of 
+the scales of the drake against the stone. No litter lays on the floor, 
+and the earth is hardpacked underfoot.
+*DESCRIPTION_END
+ITEM 0 716 VAL2=3679
+EXTEND 0 leading back into the forest
+;
+NUMBER 3811
+NAME Karhad Forest, Caves
+CALL 33
+CALL 49
+REGION 43
+CHANNEL 43
+CAVE
+DARKNESS
+*DESCRIPTION_START
+All around you is a frozen, barren cave. The room is rounded by eons of
+blowing snow and the after affects of rushing water. Piles of bones
+sit near the back of the cave, beside an opening leading deeper into
+the cave system.
+*DESCRIPTION_END
+ITEM 0 79 VAL2=3833
+ITEM 1 72 VAL2=3812
+ITEM 2 1040
+EXTEND 2 of bones
+IFVERB RECALL 2
+  IFVAR SKILL32 > 1
+    ECHO PLAYER As you examine the bones, you realize some are centuries old. Worg and winter wolf teeth marks have gnawed them to nearly nothing, making the creature they came from unknown.
+  ENDIF
+ENDIF
+;
+NUMBER 3812
+NAME Karhad Forest, Caves
+CALL 33
+CALL 49
+REGION 43
+CHANNEL 43
+CAVE
+DARKNESS
+*DESCRIPTION_START
+This narrow cavern has walls as smooth as glass, twisting about in a 
+serpentine fashion. Powdery snow swirls across the floor, driven
+in by the wind. Two tunnels branch outwards from this area, nothing
+visible in the darkness but their yawning openings. An opening leads
+outside.
+*DESCRIPTION_END
+ITEM 0 72 VAL2=3811
+EXIT SW 3835
+EXIT SE 3815
+;
+NUMBER 3813
+NAME Karhad Forest, Caves
+CALL 33
+REGION 43
+CALL 49
+CHANNEL 43
+CAVE
+DARKNESS
+*DESCRIPTION_START
+Utter darkness fills this cavern, and stalagmites sprout up from the floor
+like new grown trees. Stalactites hang precariously from the ceiling, and
+glisten with their icy covering of minerals and frozen water. From the 
+southeast, the sound of water is heard faintly.
+*DESCRIPTION_END
+EXIT SW 3815
+EXIT SE 3816
+ITEM 0 363
+ITEM 1 368
+;
+NUMBER 3835
+NAME Karhad Forest, Caves
+CALL 33
+CALL 49
+REGION 43
+CHANNEL 43
+CAVE
+DARKNESS
+*DESCRIPTION_START
+This cave is long and narrow, with small little alcoves hidden along the 
+side. Painted on the walls are scenes from long ago, drawn crudely in 
+some cases, in other places, the artistry is extraordinary, and sends 
+its message in no uncertain terms.
+*DESCRIPTION_END
+EXIT NE 3812
+ITEM 0 432
+EXTEND 0 crudely drawn on the wall
+IFVERB RECALL 0
+  IFVAR SKILL32 > 1
+    ECHO PLAYER You gaze intently at the paintings, trying to see the image more clearly.
+    PLREVENT 1
+    CONTPLREVENT
+    ECHO PLAYER Simple scenes of a forest and frozen plain, of great hairy beasts being
+    ECHO PLAYER stalked by shaggy wolves and fur-dressed men of black skin and yellow hair.
+    PLREVENT 1
+    CONTPLREVENT
+    ECHO PLAYER The wall in one area is painted with a night-time sky, and the familiar
+    ECHO PLAYER star patterns are somewhat odd, yet you can't quite point out why.
+  ENDIF
+ENDIF
+;
+NUMBER 3815
+NAME Karhad Forest, Caves
+CALL 49
+CALL 33
+REGION 43
+CHANNEL 43
+CAVE
+DARKNESS
+*DESCRIPTION_START
+You find yourself inside a large cavern with a small opening near the top. 
+Old smoke stains rim the opening, and the floor beneath it is marred by
+decades old scortch marks. Large flat slabs of stone are situated against
+the rock walls, almost like benches. Two tunnels lead off in opposite 
+directions. A round circle of stones marks off a small fire circle. A 
+pile of wood looks oddly recent in the centuries old setting of the cave.
+*DESCRIPTION_END
+EXIT NW 3812
+EXIT NE 3813
+ITEM 0 1040
+EXTEND 0 of wood
+ITEM 1 1398
+VARIABLE KARHADPITLIT
+IFPREVERB GO 1
+  CLEARVERB
+  IFCARRY 1861 -1
+    IFITEM -1 WORN
+      IFVAR KARHADPITLIT = 2
+        IFVAR FLAG3 = 3
+          ECHO PLAYER You step forward into the embrace of the swirling smoke...
+          ECHO OTHERS %n's body goes still.
+          MOVE 2440
+          AFFECT 2440
+          ECHO OTHERS An ethereal representation of %n arrives.
+        ELSE
+          ECHO PLAYER You are not yet prepared to do that.
+        ENDIF
+      ELSE
+        ECHO PLAYER The fire pit has not been prepared.
+      ENDIF
+    ELSE
+      ECHO PLAYER You realize you do not have the protection of your shroud.
+      ECHO OTHERS %n looks down at the shroud in %h hands with embarrassment.
+    ENDIF
+  ELSE
+    IFCARRY 142 1 
+      IFVAR KARHADPITLIT = 2
+        IFVAR FLAG3 = 3
+          IFVAR ITEMVAL5 > 0
+            SUB ITEMVAL5 1
+            ECHO PLAYER You step forward into the embrace of the swirling smoke...
+            ECHO OTHERS %n's body goes still.
+            MOVE 2440
+            AFFECT 2440
+            ECHO OTHERS An ethereal representation of %n arrives.
+          ELSE
+            REMOVEITEM -1
+            ECHO PLAYER The idol uses the last remaining charge, and disappears in your hands.
+          ENDIF
+        ELSE
+          ECHO PLAYER You are not yet prepared to do that.
+        ENDIF
+      ELSE
+        ECHO PLAYER The fire pit has not been prepared.
+      ENDIF
+    ELSE
+      DAMAGEPLR BURN 999 As you step into the fire pit the flames lick at your body!
+      ECHO OTHERS %n screams in pain as %s steps into the fire!
+    ENDIF
+  ENDIF
+ENDIF
+IFPREVERB LIGHT 1
+  CLEARVERB
+  IFVAR KARHADPITLIT = 0
+    EQUAL KARHADPITLIT 1      
+    ECHO PLAYER You carefully ignite the kindling within the pit...
+    ECHO OTHERS %N carefully ignites the kindling within the pit...
+    PLREVENT 1
+    CONTPLREVENT
+    ECHO ALL ...The pleasant aroma of freshly lit wood fills your nostrils.
+    PLREVENT 2 
+    CONTPLREVENT
+    ECHO ALL The flames begin to lick higher and higher as the fuel within the pit is consumed...
+    PLREVENT 3 
+    CONTPLREVENT
+    ECHO ALL The severe cold of the area is slightly pushed back as the flames begin to grow...
+    PLREVENT 3 
+    CONTPLREVENT
+    ECHO ALL The crackling fire fills the small stone pit, held back by the overwhelming cold.
+    PLREVENT 3 
+    CONTPLREVENT
+    ECHO ALL With an audible "snap!" the last logs tumble into the flames sending a dazzling shower of sparks high into the air!
+    PLREVENT 3 
+    CONTPLREVENT
+    ECHO ALL The burning embers give way to glowing coals as smoke begins to pour out of the smoldering pit...
+    EQUAL KARHADPITLIT 2
+    PLREVENT 3 
+    CONTPLREVENT
+    ECHO ALL The wondrous smell of the smoldering bark fills the entire area, intoxicating you with a strange lighteadedness...
+    PLREVENT 3 
+    CONTPLREVENT
+    ECHO ALL Your head begins to spin slightly as your lungs fill with the pleasant smelling smoke...
+    PLREVENT 3 
+    CONTPLREVENT
+    ECHO ALL Your eyes grow heavy with the euphoria of the smoldering bark...%c>%c...Your eyes close.
+    PLREVENT 3 
+    CONTPLREVENT
+    ECHO ALL You feel your spirit straining to be free within its cage of flesh as the aromatic smoke dissolves your mortal bonds...
+    PLREVENT 3 
+    CONTPLREVENT
+    ECHO ALL You receive a series of strange visions... both future and past... perhaps some present...
+    PLREVENT 3 
+    CONTPLREVENT
+    ECHO ALL The visions fade slowly as the last of the embers dies away.
+    PLREVENT 3 
+    CONTPLREVENT
+    ECHO ALL The smoke clears as the pit begins to grow cold.
+    EQUAL KARHADPITLIT 0
+  ELSE
+    ECHO PLAYER The fire already burns within the pit.
+  ENDIF
+ENDIF
+IFPREVERB KNEEL -1
+  IFVAR POSITION ! 3
+    CLEARVERB
+    ECHO PLAYER You kneel Aelfen fashion and rest your hands upturned upon your knees, curled in the ancient handsigns of nobility and life.
+    ECHO OTHERS %n kneels Aelfen fashion and rests %h hands upturned upon %h knees, curled in the ancient handsigns of nobility and life.
+    POSITION KNEEL
+    EQUAL FLAG3 1
+  ENDIF
+ENDIF
+IFPREVERB SMELL -1
+  CLEARVERB
+  IFVAR FLAG3 = 1
+    IFVAR KARHADPITLIT = 2
+      ECHO PLAYER You close your eyes and take a deep breath, inhaling the pleasant scents of the smoldering bark.
+      ECHO OTHERS %n takes a series of long, deep breaths, exhaling with a sigh.
+      PLREVENT 1
+      CONTPLREVENT
+      ECHO PLAYER Your spirit grows light as does your head with the euphoria of the smoldering bark.
+      EQUAL FLAG3 2
+    ELSE
+      ECHO PLAYER You inhale the chill air of the cave.
+      ECHO OTHERS %n takes a deep breath.
+    ENDIF
+  ELSE
+    ECHO PLAYER You inhale the damp aroma of the soil.
+    ECHO OTHERS %n takes a deep breath.
+  ENDIF
+ENDIF
+IFPREVERB STAND -1
+  IFVAR POSITION = 3
+    IFVAR FLAG3 = 2
+      IFVAR KARHADPITLIT = 2
+        CLEARVERB
+        ECHO PLAYER You slowly rise, realizing that you have left your body behind you...
+        ECHO OTHERS The swirling smoke in the chamber seems to outline a humanoid form, rising out of %n's body.
+        POSITION STAND
+        EQUAL FLAG3 3
+      ENDIF
+    ENDIF
+  ENDIF
+ENDIF
+;
+NUMBER 3816
+NAME Karhad Forest, Caves
+CALL 33
+CALL 49
+REGION 43
+CHANNEL 43
+CAVE
+DARKNESS
+*DESCRIPTION_START
+This tiny cavern was obviously carved by water. A small stream still trickles 
+through the rock, leaving it damp to the touch. A bit of steam issues forth
+from several deep fissures in the ground. The room is almost warm compared
+to the outside air. 
+*DESCRIPTION_END
+EXIT NW 3813
+;
+NUMBER 3681
+NAME Karhad Forest
+REGION 43
+CHANNEL 43
+FOREST
+DAY_LIGHT
+*DESCRIPTION_START
+Along the side of the cliff, little light filters in to reach the snow-ridden
+ground. The trees hover closely overhead, muting the sounds of wildlife.
+Long icicles reach almost to the ground from tiny rivlets of water springing
+forth from the rocks.
+*DESCRIPTION_END
+EXIT SE 3682
+EXIT NE 3679
+ITEM 0 63 
+IFVERB SEARCH -1
+  RANDOM DUMMY1 1 100 0
+  ADD DUMMY1 PER
+  IFVAR DUMMY1 > 100
+    EQUAL FLAG1 1
+    ECHO PLAYER You spot a crevice in the side of the cliff!
+  ENDIF
+ENDIF
+IFPREVERB GO 0
+  CLEARVERB
+  IFVAR FLAG1 ! 1
+    ECHO PLAYER You can't seem to find the right crevice.
+    ELSE
+    CLEARVERB
+    DISBAND
+    EQUAL ROUNDTIME 30
+    ECHO PLAYER You squeeze into the narrow crevice and begin to make your way through it.
+    PLREVENT 3
+    CONTPLREVENT
+    ECHO PLAYER [Snowy Crevice]%cThe walls of the crevice are coated with ice and snow, and so close together that they nearly touch in some places.%cObvious exits: none.
+    PLREVENT 3
+    CONTPLREVENT
+    ECHO PLAYER For a moment you wedge in the crevice, but the ice melt allows you to continue.
+    PLREVENT 1
+    CONTPLREVENT
+    ECHO PLAYER [Snowy Crevice]%cThe walls of the crevice seem to narrow further, but ahead a light glimmers on the icy walls.%cObvious exits: none.
+    PLREVENT 3
+    CONTPLREVENT
+    ECHO PLAYER You inch forward a few feet more, and find that the crevice has widened enough to allow easy passage.
+    MOVE 3829
+    ECHO OTHERS %n squeezes into a narrow crevice in the wall of the cliff.
+  ENDIF
+ENDIF
+;
+IFPREVERB BEGONE -1
+  IFVAR ROUNDTIME ! 0
+    CLEARVERB
+    ECHO PLAYER You are stuck in the crevice for the moment!
+  ENDIF
+ENDIF
+DISBAND
+;
+;frozen tundra, surface hunting ground
+NUMBER 3829
+NAME Frozen Tundra
+OUTDOOR_FLOOR
+DAY_LIGHT
+CHANNEL 43
+REGION 43
+MONSTER_GROUP 55
+EXIT N 3830
+EXIT NW 3831
+EXIT NE 3832
+ITEM 0 63 VAL2=3681
+*DESCRIPTION_START
+The forested slope levels off, becoming an icy plateau that seems to
+stretch for miles. Hard-packed snow and ice offer little sustenance even
+for the hardy evergreens of the lower slopes, but tracks in the light
+layer of powdery snow that covers the tundra hints that food is not
+impossible to find. A crevice creases the wall of the cliff, cutting into
+the ice and snow.
+*DESCRIPTION_END
+ITEM 0 63 
+IFVERB SEARCH -1
+  RANDOM DUMMY1 1 100 0
+  ADD DUMMY1 PER
+  IFVAR DUMMY1 > 100
+    EQUAL FLAG1 1
+    ECHO PLAYER You spot a crevice in the side of the cliff!
+  ENDIF
+ENDIF
+IFPREVERB GO 0
+  CLEARVERB
+  IFVAR FLAG1 ! 1
+    ECHO PLAYER You can't seem to find the right crevice.
+    ELSE
+    CLEARVERB
+    DISBAND
+    EQUAL ROUNDTIME 30
+    ECHO PLAYER You squeeze into the narrow crevice and begin to make your way through it.
+    PLREVENT 3
+    CONTPLREVENT
+    ECHO PLAYER [Snowy Crevice]%cThe walls of the crevice are coated with ice and snow, and so close together that they nearly touch in some places.%cObvious exits: none.
+    PLREVENT 3
+    CONTPLREVENT
+    ECHO PLAYER For a moment you wedge in the crevice, but the ice melt allows you to continue.
+    PLREVENT 1
+    CONTPLREVENT
+    ECHO PLAYER [Snowy Crevice]%cThe walls of the crevice seem to narrow further, but ahead a light glimmers on the icy walls.%cObvious exits: none.
+    PLREVENT 3
+    CONTPLREVENT
+    ECHO PLAYER You inch forward a few feet more, and find that the crevice has widened enough to allow easy passage.
+    MOVE 3681
+    ECHO OTHERS %n squeezes into a narrow crevice in the wall of the cliff.
+  ENDIF
+ENDIF
+;
+number 3830
+NAME Frozen Tundra
+OUTDOOR_FLOOR
+day_light
+CHANNEL 43
+REGION 43
+EXIT S 3829
+EXIT W 3831
+EXIT E 3832
+*DESCRIPTION_START
+The icy tundra all around you is barren and appears lifeless. Cliffs and 
+jagged rocks are visible all around, creating an angular appearance to 
+the landscape. Snow drifts by, blown by the icy winds that race down the 
+mountains sides. To the north, a wall of ice rises from the plateau. A 
+light cloud of mist seems to hang in the air above and behind it.
+*DESCRIPTION_END
+ITEM 0 83 VAL2=3834
+IFPREVERB CLIMB -1
+  IFVAR ROUNDTIME ! 0
+    STRCVT 1 ROUNDTIME
+    ECHO PLAYER [Wait %1 secs....]
+  ELSE
+    CLEARVERB
+    EQUAL DUMMY1 SKILL5
+    RANDOM DUMMY2 1 10 0
+    ADD DUMMY1 DUMMY2
+    IFVAR DUMMY1 > 8
+      ECHO PLAYER You make your way up the icy wall slowly, finally scaling the top.
+      ECHO OTHERS %n climbs the icy wall.
+      EQUAL ROUNDTIME 10
+      DISBAND
+      MOVE 3834
+    ELSE
+      DAMAGEPLR CRUSH 20 You start to climb the wall but slip and fall to the ground!
+    ENDIF
+  ENDIF
+ENDIF
+;
+NUMBER 3831
+NAME Frozen Tundra
+OUTDOOR_FLOOR
+day_light
+CHANNEL 43
+REGION 43
+EXIT SE 3829
+EXIT E 3830
+*DESCRIPTION_START
+The tundra dips down into a narrow gully here, full of light, powdery snow
+that has been blown in. The frozen ground is bare of tracks and the ice 
+reflects strongly any bits of light.
+*DESCRIPTION_END
+;
+NUMBER 3832
+NAME Frozen Tundra
+OUTDOOR_FLOOR
+day_light
+MONSTER_GROUP 55
+CHANNEL 43
+REGION 43
+EXIT SW 3829
+EXIT W 3830
+*DESCRIPTION_START
+The forested slope levels off, becoming an icy plateau that seems to
+stretch for miles. Hard-packed snow and ice offer little sustenance even
+for the hardy evergreens of the lower slopes, but tracks in the light
+layer of powdery snow that covers the tundra hints that food is not
+impossible to find.
+*DESCRIPTION_END
+;
+NUMBER 3827
+NAME Frozen Tundra, Plateau
+OUTDOOR_FLOOR
+day_light
+CHANNEL 43
+REGION 43
+*DESCRIPTION_START
+The narrow ledge is slick with icy patches of melted and re-frozen snow. 
+The sunlight hits this area directly in the light of day, creating puddles 
+in the knee-deep snow. The ledge itself continues to wrap its way around 
+the cliffside here.
+*DESCRIPTION_END
+EXIT W 3833
+EXIT E 3834
+;
+NUMBER 3828
+NAME Frozen Tundra, Plateau
+OUTDOOR_FLOOR
+day_light
+CHANNEL 43
+REGION 43
+*DESCRIPTION_START
+A huge wall of ice looms above you, blocking any eastern movment here. 
+Above, out over the cliff hang a few sturdy, but stunted pines.
+*DESCRIPTION_END
+EXIT W 3834
+;
+NUMBER 3833
+NAME Frozen Tundra, Plateau
+OUTDOOR_FLOOR
+day_light
+CHANNEL 43
+REGION 43
+*DESCRIPTION_START
+A steep, inward leaning wall juts outward over the ledge, creating a 
+treacherous area of the mountain side. A dark hole is visible under 
+the overhang, protected from the worst of the icy blasts of cold wind.
+*DESCRIPTION_END
+EXIT E 3827
+ITEM 0 79 VAL2=3811
+;
+NUMBER 3834
+NAME Frozen Tundra, Plateau
+OUTDOOR_FLOOR
+MONSTER_GROUP 55
+day_light
+CHANNEL 43
+REGION 43
+*DESCRIPTION_START
+You find yourself high on an icy plateau, resting in a protected shelter of
+the cliffside around you. To the extreme north, the mountain's jagged peaks 
+stretch upwards as if trying to rip open the sky. The tips are forever 
+shrouded in a mantle of snow. A steep wall leads down to a strip of tundra. 
+Along the cliff is a small ledge leading to the west and east.
+*DESCRIPTION_END
+EXIT W 3827
+EXIT E 3828
+ITEM 0 83 VAL2=3834
+IFPREVERB CLIMB -1
+  IFVAR ROUNDTIME ! 0
+    STRCVT 1 ROUNDTIME
+    ECHO PLAYER [Wait %1 secs....]
+  ELSE
+    CLEARVERB
+    EQUAL DUMMY1 SKILL5
+    RANDOM DUMMY2 1 10 0
+    ADD DUMMY1 DUMMY2
+    IFVAR DUMMY1 > 8
+      ECHO PLAYER You make your way down the icy wall slowly, finally reaching the ground.
+      ECHO OTHERS %n climbs down the icy wall.
+      EQUAL ROUNDTIME 10
+      DISBAND
+      MOVE 3830
+    ELSE
+      DAMAGEPLR CRUSH 20 You start to climb down the wall but slip and fall to the ground!
+    ENDIF
+  ENDIF
+ENDIF
+;
+NUMBER 3682
+NAME Karhad Forest
+REGION 43
+MONSTER_GROUP 55
+CALL 33
+CALL 49
+CHANNEL 43
+FOREST
+DAY_LIGHT
+*DESCRIPTION_START
+A tiny path seems to emerge from the gloom of its surroundings, yet only to
+be lost again under a nearby pine tree. Numerous needles have fallen on the
+floor to bury hints of life underneath. Icy cold waves of wind echo, 
+whistling throughout the upper reaches of the trees.
+*DESCRIPTION_END
+EXIT NW 3681
+EXIT NE 3683
+EXIT SE 3684
+DISBAND
+;
+NUMBER 3683
+NAME Karhad Forest
+REGION 43
+CALL 33
+CALL 49
+CHANNEL 43
+FOREST
+DAY_LIGHT
+*DESCRIPTION_START
+A small clearing emerges, and on the snowy ground are signs of life. Several
+deer tracks and other wild life are found. Above opens to the sky, yet,
+your body chills even more with the biting cold. 
+*DESCRIPTION_END
+EXIT SW 3682
+EXIT SE 3685
+DISBAND
+;
+NUMBER 3684
+NAME Karhad Forest
+CALL 33
+CALL 49
+REGION 43
+CHANNEL 43
+FOREST
+DAY_LIGHT
+*DESCRIPTION_START
+To the far southwest, the cliffs loom overhead, loose rocks covered with 
+snow and avalanches threatening. Closer around though, the trees flourish 
+in the cold, their evergreen branches full of winter wildlife.
+*DESCRIPTION_END
+EXIT NE 3685
+EXIT SE 3687
+EXIT NW 3682
+DISBAND
+;
+NUMBER 3685
+NAME Karhad Forest
+CALL 33
+CALL 49
+REGION 43
+CHANNEL 43
+FOREST
+DAY_LIGHT
+*DESCRIPTION_START
+A great ravine opens up near the northeast, stretching for miles in a general
+north to south direction. The earth itself appears to have been ripped open
+by a great claw of an enormous beast. A small bit of water seems to lie at
+the bottom, flowing sluggishly over the frozen ground.
+*DESCRIPTION_END
+EXIT NW 3683
+EXIT SW 3684
+EXIT SE 3686
+DISBAND
+;
+NUMBER 3686
+NAME Open Forest
+MONSTER_GROUP 55
+REGION 43
+CALL 33
+CALL 49
+CHANNEL 43
+FOREST
+DAY_LIGHT
+*DESCRIPTION_START
+Farther along the long ravine, its slopes are steeper, and rather treacherous
+looking. A few strangling pine trees hang precariously over its edge, their
+roots holding tenaciously to the ground. All about, more and more pine
+trees rise up in their odd rows, like soldiers marching in a line. Far across
+the ravine, small plumes of smoke rise up from the Karhad village.
+*DESCRIPTION_END
+EXIT NW 3685
+EXIT W 3687
+DISBAND
+;
+NUMBER 3687
+NAME Open Forest
+REGION 43
+CALL 33
+CALL 49
+CHANNEL 43
+FOREST
+DAY_LIGHT
+*DESCRIPTION_START
+Ahead looms the cliff once more, its edge spiked upwards to the skyline,
+blocking most of the view of the sky. The animals in this area seem very
+quiet and subdued.
+*DESCRIPTION_END
+EXIT E 3686
+EXIT NW 3684
+EXIT W 3688
+DISBAND
+;
+NUMBER 3688
+NAME Open Forest
+CALL 33
+CALL 49
+REGION 43
+CHANNEL 43
+FOREST
+DAY_LIGHT
+*DESCRIPTION_START
+Right up against the cold rocks, the air seems colder than ever. Only a few
+small trees shelter you from the wind that whips down along the cliff. The
+cliff winds in and out, jetting out several hundred yards into the woods,
+then, dipping back in on itself creating small overhangs of protection.
+A small trail heads southward.
+*DESCRIPTION_END
+ITEM 0 76 VAL2=3689
+EXIT E 3687
+DISBAND
+;
+NUMBER 3689
+NAME Open Forest
+CALL 33
+CALL 49
+REGION 43
+CHANNEL 43
+FOREST
+DAY_LIGHT
+*DESCRIPTION_START
+A large section of cliff gives way here, opening up itself to a wide
+view. To the south, a large set of gates can be seen. The trees are 
+rather stunted, but another large forest is visible to the southeast. A 
+trail winds its way to the north.
+*DESCRIPTION_END
+ITEM 0 76 VAL2=3688
+EXIT S 3690
+DISBAND
+;START of Deep Forge
+;
+NUMBER 3690
+NAME Deep Forge, Inside Gate
+CHANNEL 43
+REGION 43
+CALL 33
+CALL 49
+FOREST
+DAY_LIGHT
+*DESCRIPTION_START
+Before you is a large set of massive wrought-iron gates. Two squat, 
+highlander guards stand close by. A large, snow covered cliff lingers 
+to the south-west. A well-worn road has been gouged out of the snow 
+and dirt by the passage of many feet.
+*DESCRIPTION_END
+EXIT S 3692
+EXIT E 3697
+;Gate to Kharhad area.
+ITEM 0 68 ADJ1=189 ADJ2=505 ADJ3=169 VAL2=3689 OPEN UNLOCKED  
+ITEM 9 693
+;     
+NUMBER 3704
+NAME Deep Forge, Tavern
+CHANNEL 43
+REGION 43
+CALL 33
+CALL 49
+INDOOR_FLOOR
+FIXED_LIGHT
+*DESCRIPTION_START
+This low, squat building houses one of the finest taverns in the Shartans,
+and a large brick fireplace greets your eyes when you first enter. A long,
+highly polished oak bar slices across the back of the room. Several booths,
+and many stools offer plenty of seating. A large sign painted on the far
+wall describes the many drinks on tap. A huge wooden door leads back outside.
+*DESCRIPTION_END
+;Door to 3692
+ITEM 0 66 VAL2=3693 UNLOCKED
+;Bar
+ITEM 1 1342 ADJ1=1096 ADJ2=241 ADJ3=216
+ITEM 2 204 
+EXTEND listing the drinks on tap 
+ITEM 9 693
+*DESCRIPTION_START ITEM EXAMINE 2
+Welcome to Deep Forge Tavern
+
+Drinks on tap:
+
+Hot Grog   1 shilling
+Cold Grog  1 shilling
+Amber Ale  1 shilling
+Icy Beer   3 shillings
+
+Food:
+Beef Roll  9 shillings
+Warm Stew  9 coppers
+Spicy Potatoes 5 coppers
+
+*DESCRIPTION_END
+STOREITEM 243 162 10
+STOREITEM 243 61 10
+STOREITEM 239 1085 10
+STOREITEM 1562 166 30
+STOREITEM 1585 1410 90
+STOREITEM 407 344 9
+STOREITEM 437 305 5
+;
+NUMBER 3707
+NAME Deep Forge, Alley
+REGION 43
+CALL 33
+CALL 49
+CHANNEL 43
+OUTDOOR_FLOOR
+DAY_LIGHT
+*DESCRIPTION_START
+This small alley way is nearly hip-deep in snow against some of the walls.
+Though narrow, the passageway itself is fairly clean and free of debris, 
+though some musty smell rises up from the ground.
+*DESCRIPTION_END
+EXIT N 3697
+EXIT S 3694
+ITEM 9 693
+;
+NUMBER 3708
+NAME Deep Forge, Alley
+CHANNEL 43
+REGION 43
+CALL 33
+CALL 49
+OUTDOOR_FLOOR
+DAY_LIGHT
+*DESCRIPTION_START
+This alley is dark and gloomy no matter what time of day. A few hardy rats 
+scurry back and forth, always in the corner of your sight. Several empty
+bottles and shards of glass litter the ground, glistening with a tiny 
+touch of light.
+*DESCRIPTION_END
+EXIT N 3698
+EXIT S 3695
+ITEM 9 693
+;
+NUMBER 3722
+NAME Deep Forge, Outfitters
+CHANNEL 43
+CALL 33
+REGION 43
+INDOOR_FLOOR
+FIXED_LIGHT
+*DESCRIPTION_START
+This small store is full of shelves and closely packed racks. A haphazard
+sense of organization prevails, boots overflowing a lower shelf and 
+spilling onto the floor, or a rack nearly buckling under the weight of 
+a dozen heavy coats. A large sign hand painted on a wall offers up the 
+items for sale.
+*DESCRIPTION_END
+ITEM 0 66 VAL2=3696 UNLOCKED
+;Sign
+ITEM 1 1112 ADJ1=178
+ITEM 9 693
+*DESCRIPTION_START ITEM READ 1
+Welcome!
+
+We have many fine items for sale, please take your pick.
+
+Heavy coat    10 gold
+Fur coat      20 gold
+Stout boots    5 gold
+Fur boots      7 gold
+Heavy mittens  2 gold
+Fur hood       2 gold
+Cotton scarf   1 gold
+
+*DESCRIPTION_END
+STOREITEM 831 156 1000
+STOREITEM 831 138 2000
+STOREITEM 217 997 500
+STOREITEM 217 138 700   
+STOREITEM 441 156 200
+STOREITEM 260 138 200
+STOREITEM 1472 72 100
+;
+NUMBER 3709
+NAME Deep Forge, House of Garin's Mother
+CHANNEL 43
+CALL 33
+REGION 43
+INDOOR_FLOOR
+FIXED_LIGHT
+*DESCRIPTION_START
+This small dwelling is immaculate in nature. Off the main room lies a small 
+kitchen, and the air is full of the pleasant scents of cooking. Many clay
+pots of beautiful and rare plants line the windows. The furniture is 
+elegant, yet simple. A wooden staircase heads up to the second level of the 
+house.
+*DESCRIPTION_END
+;Door to 3696
+ITEM 0 66 VAL2=3696 UNLOCKED
+;stairway
+ITEM 1 81 VAL2=3710
+ITEM 2 936
+ITEM 3 249
+ITEM 9 693
+IFPREVERB LOOK 3
+  CLEARVERB
+  ECHO PLAYER You look out of the window and see the street beyond.
+  ECHO OTHERS %N looks out of the window, pulling the drapes slightly to one side.
+  SHOWROOM 3696
+ENDIF
+IFENTRY -1
+  IFVAR INTNUM3 = 71
+    ECHO ALL Garin's mother beams in pride and gives Garin a huge kiss on the cheek.
+  ENDIF
+ENDIF
+IFSAY HELLO
+  IFVAR INTNUM3 = 71
+    ECHO ALL Garin's mother smiles fondly at her son, and says, "My, how you have grown since you've been away!"
+  ELSE
+    ECHO ALL Garin's mother smiles at %N and says, "Do you know my son Garin? I'm so very proud of him after all, and he is not as short as people think he is!"
+  ENDIF
+ENDIF
+IFSAY I_LOVE_YOU_MOTHER
+  IFVAR INTNUM3 = 71
+    ECHO PLAYER Garin's mom gets tears in her eyes, and bustles off to the kitchen.
+  ELSE
+    ECHO PLAYER Garin's mom looks at you oddly, and says, "Well, I love you too, I guess."
+  ENDIF
+ENDIF
+IFSAY FOOD?
+  IFVAR INTNUM3 = 71
+    ECHO ALL Garin's mom beams, and goes into the kitchen.
+    PLREVENT 1
+    CONTPLREVENT
+    ECHO ALL She returns in a moment with a huge platter of food.
+    NEWITEM 5 1585 ADJ1=1410
+    NEWITEM 6 1585 ADJ1=1410
+    NEWITEM 7 1585 ADJ1=1410
+    NEWITEM 8 1585 ADJ1=1410
+  ENDIF
+ENDIF
+;
+NUMBER 3692
+NAME Deep Forge, Street
+CHANNEL 43
+REGION 43
+CALL 33
+CALL 49
+OUTDOOR_FLOOR
+DAY_LIGHT
+*DESCRIPTION_START
+To the north, the large town gates can be seen. Several small, snow
+covered houses are tucked up neatly along the sides of the street. 
+To the southeast, larger buildings can be seen. Above, numerous 
+plumes of smoke waft upwards. A small winding trail leads south out
+of the village and along the cliff.
+*DESCRIPTION_END
+EXIT SE 3693
+EXIT N 3690
+;Door to 3704
+ITEM 0 66 VAL2=3704 OPEN UNLOCKED
+ITEM 0 76 ADJ1=294 ADJ2=350 VAL2=3699
+ITEM 9 693
+;
+NUMBER 3693
+NAME Deep Forge, Street
+CHANNEL 43
+CALL 33
+CALL 49
+REGION 43
+OUTDOOR_FLOOR
+DAY_LIGHT
+*DESCRIPTION_START
+Two large buildings sit across from each other on this 
+narrow street. On one side, the well traveled tavern rests. 
+On the other side, the local Claim's office is seen. The
+street itself continues to the northwest and southeast.
+*DESCRIPTION_END
+EXIT NW 3692
+EXIT SE 3694
+;Door to 3704 Tavern
+ITEM 0 66 VAL2=3704 UNLOCKED
+;Door to 3705 Claims office
+ITEM 1 66 VAL2=3705 UNLOCKED
+ITEM 9 693
+;
+NUMBER 3706
+NAME Deep Forge, Smithy
+CHANNEL 43
+CALL 33
+INDOOR_FLOOR
+REGION 43
+FIXED_LIGHT
+FORGE
+*DESCRIPTION_START
+A small, disorganized mess is the hallmark of this forge area. Long
+piles of metal bars waiting to be smelted line one side, while several
+barrels full of nails and other small metal objects sit back under
+a protective tarp. A long, sooty black forge fills nearly all of 
+rest of the area. Large plumes of oily black smoke rise up and coat 
+anything in the area. A large, hand painted sign offers the metals for
+sale.
+*DESCRIPTION_END
+ITEM 0 66 VAL2=3697 UNLOCKED
+ITEM 1 1517 ADJ1=183 ADJ2=301 ADJ3=25
+ITEM 2 204
+ITEM 9 693
+*DESCRIPTION_START ITEM READ 2
+Deep Forge Smithy
+
+We offer copper metal and steel. 
+
+Copper is 1 silver a piece. Steel is 5 gold.
+*DESCRIPTION_END
+STOREITEM 1372 -1 500
+STOREITEM 1370 68 10
+;
+NUMBER 3705
+NAME Deep Forge, Claims Office
+CALL 33
+CHANNEL 43
+REGION 43
+INDOOR_FLOOR
+FIXED_LIGHT
+*DESCRIPTION_START
+Inside this small building is a long counter with orderly stacks of
+papers stacked on it. A large map is hung behind, with numerous
+small markers and scribblings. In one corner sits a large crate
+full of pick-axes. A small bell hangs above the door. A sign hangs
+above the crate.
+*DESCRIPTION_END
+;Door to 3693
+ITEM 0 66 VAL2=3693 UNLOCKED
+ITEM 1 204
+ITEM 9 693
+*DESCRIPTION_START ITEM READ 1
+Highlander pick-axes 15 gold apiece.
+*DESCRIPTION_END
+STOREITEM 1506 160 1500
+IFENTRY -1
+  ECHO ALL A small bell above the door rings as %N enters.
+ENDIF
+;
+NUMBER 3694
+NAME Deep Forge, Street
+CHANNEL 43
+CALL 33
+CALL 49
+OUTDOOR_FLOOR
+REGION 43
+DAY_LIGHT
+*DESCRIPTION_START
+Between two of the buildings to the south, a sheer cliff rises upwards
+into view. Its breathtaking beauty is covered in slick ice. A sour
+smell wafts outwards from a nearby alley.
+*DESCRIPTION_END
+EXIT E 3695
+EXIT NW 3693
+;Alley
+ITEM 0 692 VAL2=3707
+ITEM 9 693
+;
+NUMBER 3703
+NAME Deep Forge, Sheer Cliff
+CHANNEL 43
+REGION 43
+CALL 33
+CALL 49
+OUTDOOR_FLOOR
+DAY_LIGHT
+*DESCRIPTION_START
+A long, low bit of rock starts to extend its way up into what can only be
+thought of as a sheer, uninviting cliff. Almost no footholds exist here, and 
+its icy reaches extend up perhaps one hundred feet above you. As far as the
+eye can see to the southeast the cliff extends. Only one small trail exists,
+leading back to the mine.
+*DESCRIPTION_END
+;Trail leading to room 3702
+ITEM 0 76 VAL2=3702 
+ITEM 9 693
+;
+NUMBER 3699
+NAME Deep Forge, Slope
+CHANNEL 43
+REGION 43
+CALL 33
+CALL 49
+FOREST	
+DAY_LIGHT
+*DESCRIPTION_START
+This sloped area leads away from the high cliff, and offers a safe
+passage back to the town itself. A small winding trail works its way 
+between huge boulders that have fallen in avalanches past. Numerous 
+small fir trees grow, heading upwards to the open sky.
+*DESCRIPTION_END
+EXIT S 3700
+;Trail to street 3692
+ITEM 0 76 ADJ1=294 ADJ2=350 VAL2=3692
+ITEM 9 693
+;
+NUMBER 3700
+NAME Deep Forge, Mine Entrance
+CHANNEL 43
+REGION 43
+CALL 33
+CALL 49
+FOREST
+DAY_LIGHT
+*DESCRIPTION_START
+Set back deep under an overhang of the cliff, lies a small
+entrance to a dark cave. All about are implements of mining, tools, wheel-
+barrows and other such objects. A set of tracks leads downwards, into the
+lighted depths of the mine. Two guards stand a vigil before the opening.
+A small trail leads up the nearby slope, while another heads farther to the
+southeast.
+*DESCRIPTION_END
+EXIT N 3699
+ITEM 0 72 ADJ1=87 VAL2=3723
+;Path/track to room 3702
+ITEM 1 76 VAL2=3702
+ITEM 9 693
+;
+IFPREVERB GO 0
+  CLEARVERB
+  DISBAND
+  ECHO PLAYER The guard waves you though and tells you to be careful, he further tells you that you should travel single file from here on out.
+  ECHO OTHERS %n is waved in by one of the guards.
+  MOVE 3723
+ENDIF
+;
+NUMBER 3695
+NAME Deep Forge, Street
+CHANNEL 43
+CALL 33
+CALL 49
+REGION 43
+OUTDOOR_FLOOR
+DAY_LIGHT
+*DESCRIPTION_START
+This cramped area of street is little traveled it seems. Snow
+drifts clear of footprints linger in the darker shadows. A small
+alleyway winds its way to the north.
+*DESCRIPTION_END
+EXIT W 3694
+EXIT E 3696
+;Alley
+ITEM 0 692 VAL2=3708
+ITEM 9 693
+;
+NUMBER 3696
+NAME Deep Forge, Street
+CHANNEL 43
+REGION 43
+CALL 33
+CALL 49
+OUTDOOR_FLOOR
+DAY_LIGHT
+*DESCRIPTION_START
+This is the far side of Deep Forge, and the area seems to well taken
+care of. Small flower beds would exist in spring and summer, but are
+covered over in winter's mantle of snow. To the south is a small
+empty house. Next to the house is an outfitter's shop.
+*DESCRIPTION_END
+EXIT W 3695
+EXIT NE 3698
+;Door to Garin's mother's house.
+ITEM 0 66 VAL2=3709 CLOSED UNLOCKED
+ITEM 1 66 VAL2=3722 CLOSED UNLOCKED
+ITEM 9 693
+;
+NUMBER 3710
+NAME Deep Forge, Garin's room
+CHANNEL 43
+REGION 43
+CALL 33
+INDOOR_FLOOR
+DAY_LIGHT
+*DESCRIPTION_START
+This small room seems to have been preserved exactly as left.
+A small bed rests under a window, and several shelves hold
+personal objects. A stairway leads back downstairs.
+*DESCRIPTION_END
+EXIT D 3709
+ITEM 9 693
+;
+NUMBER 3702
+NAME Deep Forge, Trail
+REGION 43
+CHANNEL 43
+CALL 33
+CALL 49
+FOREST
+DAY_LIGHT
+*DESCRIPTION_START
+This small trail works its way between several large boulders,
+and outcroppings of rock. Small, twisted firs grow at every 
+opportunity. One part of the trail leads to the cliff, another
+heads back to the mines.
+*DESCRIPTION_END
+ITEM 0 76 VAL2=3703
+ITEM 1 76 VAL2=3700
+ITEM 9 693
+;
+NUMBER 3698
+NAME Deep Forge, Street
+CHANNEL 43
+CALL 33
+CALL 49
+REGION 43
+OUTDOOR_FLOOR
+DAY_LIGHT
+*DESCRIPTION_START
+At the far northeastern end of town, this area is seldom visited by 
+travelers, much less the folks of town. Dirty crates litter
+the ground, and broken bits of glass are seen near the entrance to
+an alley.
+*DESCRIPTION_END
+EXIT W 3697
+EXIT SE 3696
+;Alley to 3708
+ITEM 0 692 VAL2=3708
+ITEM 9 693
+;
+NUMBER 3697
+NAME Deep Forge, Street
+REGION 43
+CHANNEL 43
+CALL 33
+CALL 49
+OUTDOOR_FLOOR
+DAY_LIGHT
+*DESCRIPTION_START
+This section of street is covered with soot from the nearby
+smithy. Loud banging is heard at nearly all hours, accompanied
+by the jets of foul smoke that drift upwards. A dark alley 
+leads southwards.
+*DESCRIPTION_END
+EXIT W 3690
+EXIT E 3698
+;Door to smithy 3706
+ITEM 0 66 VAL2=3706 OPEN UNLOCKED
+ITEM 1 692 VAL2=3707
+ITEM 9 693
+;----------------------------Mines of Deepforge-----------------------
+NUMBER 3723
+NAME Mine, Entrance
+CHANNEL 43
+REGION 43
+CALL 33
+CALL 49
+DEEPCAVE
+DARKNESS
+DISBAND
+*DESCRIPTION_START
+The light from the outside filters in letting shadows play upon the walls
+of the tunnel. As the tunnel heads deeper into the mountainside the murky
+depths grow ever darker.
+*DESCRIPTION_END
+EXIT O 3700
+EXIT SW 3730
+ITEM 9 693
+;
+NUMBER 3730
+NAME Mine, Split Tunnel
+CALL 33
+CALL 49
+CHANNEL 43
+MONSTER_GROUP 7
+REGION 43
+DEEPCAVE
+DARKNESS
+DISBAND
+MINEC
+*DESCRIPTION_START
+The tunnel branches in this area. One tunnel leading gradually upward, the
+other heading downward. A natural opening heads into yet a third tunnel
+heading upwards.
+*DESCRIPTION_END
+;Tunnel travelling gradually upwards
+ITEM 0 77 VAL2=3731
+;Tunnel travelling gradually downwards
+ITEM 1 77 VAL2=3768
+; wide opening
+ITEM 2 72 ADJ1=348 VAL2=3723 
+EXTEND 0 with a gradual upward slope
+EXTEND 1 with a gradual downward slope
+ITEM 9 693
+ 
+;
+NUMBER 3731
+NAME Mine, Twisting Tunnel
+CALL 33
+CALL 49
+CHANNEL 43
+MONSTER_GROUP 7
+REGION 43
+DEEPCAVE
+DARKNESS
+DISBAND
+MINEA
+*DESCRIPTION_START
+This tunnel is much like any other in the mines, the sounds of rock being
+mined echo throughout the monstrous complex of tunnels. The tunnel has many
+bends and curves, and travels in no set pattern that you can tell. 
+*DESCRIPTION_END
+;Long winding tunnel
+ITEM 0 77 ADJ1=183 ADJ2=350 VAL2=3732
+ITEM 1 77 ADJ1=183 VAL2=3730
+ITEM 9 693
+EXTEND 0 with an upward slope
+
+;
+NUMBER 3732
+NAME Mine, Twisting Tunnel
+CHANNEL 43
+CALL 33
+CALL 49
+REGION 43
+DEEPCAVE
+DARKNESS
+MINEB
+*DESCRIPTION_START
+This long twisting tunnel has a definate slope to it. A cold breeze glides
+from the higher end, indicating an exit further on. From numerous crevices and
+smaller side tunnels you can hear the echoing sounds of mining.
+*DESCRIPTION_END
+;small tunnel
+ITEM 0 77 VAL2=3731
+ITEM 1 77 VAL2=3762
+ITEM 9 693
+EXTEND 0 leading back toward the entrance
+EXTEND 1 with slope leading up to the surface
+
+;
+NUMBER 3762
+NAME Cliff Top, View
+CHANNEL 43
+CALL 33
+CALL 49
+REGION 43
+DEEPCAVE
+DARKNESS
+*DESCRIPTION_START
+>From here you can see the sprawling village that is Deep Forge. The wind
+here howls maddeningly as it races through the trees at the top of the
+cliff. Smoke hangs in the air somewhere towards the south.
+*DESCRIPTION_END
+EXIT S 3767
+ITEM 0 72 VAL2=3732
+ITEM 9 693
+;
+;-----------------------Lower Tunnels-------------------------
+NUMBER 3768
+NAME Entrance, Lower Tunnels
+CALL 49
+CALL 33
+REGION 43
+CHANNEL 43
+MONSTER_GROUP 7
+DEEPCAVE
+DARKNESS
+DISBAND
+MINEB
+*DESCRIPTION_START
+A sudden chill hits you as you enter this tunnel. The air currents are
+sluggish and icy air pools close to the ground. Your breath freezes in
+front of your face, tiny droplets of water crystalize then shatter as
+they hit the ground.
+*DESCRIPTION_END
+ITEM 0 77 VAL2=3769 
+ITEM 1 77 VAL2=3730
+ITEM 9 693
+EXTEND 0 leading down to the frigid depths below
+EXTEND 1 with a gradual upward slope
+;
+NUMBER 3769
+NAME Lower Tunnels
+CHANNEL 43
+REGION 43
+CALL 33
+CALL 49
+MONSTER_GROUP 7
+DEEPCAVE
+PARTIAL_DARKNESS
+DISBAND
+MINEC
+*DESCRIPTION_START
+A pale light flickers off the icy walls in this long tunnel. Bits of jagged
+rock pull at you as you pass, and the cold air seeps deeply into your body.
+Odd sounds creep out of the rock, and bits of rubble tumble to the ground.
+A dark tunnel leads out in one direction.
+*DESCRIPTION_END
+EXIT NW 3805
+EXIT N 3804
+EXIT SE 3773
+ITEM 0 77 VAL2=3768 
+ITEM 9 693
+;
+NUMBER 3773
+NAME Lower Tunnels
+CHANNEL 43
+CALL 33
+CALL 49
+REGION 43
+DEEPCAVE
+MONSTER_GROUP 7
+DARKNESS
+DISBAND
+MINEC
+*DESCRIPTION_START
+The rock here has taken on an almost crystalline quality.  Pale blue light
+from somewhere nearby seems to reflect oddly all around you.  
+*DESCRIPTION_END
+EXIT NW 3769
+EXIT NE 3802
+ITEM 9 693
+;
+NUMBER 3802
+NAME Lower Tunnels
+CALL 33
+CALL 49
+CHANNEL 43
+REGION 43
+DEEPCAVE
+DARKNESS
+DISBAND
+MINEC
+*DESCRIPTION_START
+This area has dipped low into the ground, and the ceiling above is rugged
+and sharp with bits and pieces of ice covered metal. An abandoned pick-axe
+lies half buried under a pile of rubble.
+*DESCRIPTION_END
+EXIT NE 3809
+EXIT NW 3803
+EXIT SW 3773
+ITEM 9 693
+
+;
+NUMBER 3803
+NAME Lower Tunnels, Chamber
+CHANNEL 43
+CALL 33
+CALL 49
+REGION 43
+DEEPCAVE
+DARKNESS
+MONSTER_GROUP 7
+DISBAND
+MINEB
+*DESCRIPTION_START
+A soft dripping sound echoes throughout this chamber, and flickering
+sparkles of light reflects from the pale silver walls. Numerous tunnels
+branch out of this area.
+*DESCRIPTION_END
+EXIT W 3804
+EXIT SE 3802
+EXIT E 3806
+ITEM 9 693
+
+;
+NUMBER 3804
+NAME Lower Tunnels, Dark Chamber
+CHANNEL 43
+CALL 33
+CALL 49
+REGION 43
+DEEPCAVE
+DARKNESS
+DISBAND
+MINEA
+*DESCRIPTION_START
+No light illuminates this area. The walls are smooth, worn down by the
+constant trickle of water slithering down the walls. Traces of icy metal
+are evident in the walls.
+*DESCRIPTION_END
+EXIT E 3803
+EXIT W 3805
+EXIT S 3769
+ITEM 9 693
+
+;
+NUMBER 3805
+NAME Lower Tunnels
+CALL 33
+CALL 49
+CHANNEL 43
+REGION 43
+DEEPCAVE
+DARKNESS
+DISBAND
+MINEC
+*DESCRIPTION_START
+Solid gray walls bend and curve, cutting visibility to almost nothing here.
+The sound of dripping water echoes nearby, yet its source is out of reach. 
+*DESCRIPTION_END
+EXIT E 3804
+EXIT SE 3769
+ITEM 9 693
+
+;
+NUMBER 3806 
+NAME Lower Tunnels
+CALL 33
+CALL 49
+DEEPCAVE
+MONSTER_GROUP 7
+REGION 43
+CHANNEL 43
+DARKNESS
+DISBAND
+MINEA
+*DESCRIPTION_START
+A huge vein of icy colored metal streaks through the wall like a jagged
+lightning bolt. Its brilliant color traces down the wall and across the
+floor before disappearing deeper into the rock below.
+*DESCRIPTION_END
+EXIT E 3809
+EXIT W 3803
+EXIT NW 3807
+ITEM 9 693
+;
+NUMBER 3807
+NAME Lower Tunnels
+CHANNEL 43
+CALL 33
+CALL 49
+DEEPCAVE
+MONSTER_GROUP 7
+REGION 43
+DARKNESS
+DISBAND
+MINEB
+*DESCRIPTION_START
+Enormous icicles glitter along the ceiling, interwoved with long delicate
+stalactites. Stalagmites grow upwards from the floor, and shine with their
+own slick coating of ice.
+*DESCRIPTION_END
+EXIT E 3808
+EXIT SE 3806
+ITEM 9 693
+;
+NUMBER 3808
+NAME Lower Tunnels, Tiny Chamber
+CALL 33
+CALL 49
+CHANNEL 43
+DEEPCAVE
+REGION 43
+DARKNESS
+MONSTER_GROUP 7
+DISBAND
+MINEC
+*DESCRIPTION_START
+Veins of metal wrist thick and shimmering with ice flood the walls in this
+tiny chamber. The ceiling above glows with a rich silver color, and the
+floor below is slick underfoot.
+*DESCRIPTION_END
+EXIT W 3807
+EXIT S 3809
+ITEM 9 693
+;
+NUMBER 3809
+NAME Lower Tunnels
+CALL 33
+CALL 49
+REGION 43
+DEEPCAVE
+MONSTER_GROUP 7
+CHANNEL 43
+DARKNESS
+DISBAND
+MINEB
+*DESCRIPTION_START
+A small frozen stream runs though a small crack in the wall, and winds its
+way down the slope of the floor to creep into another crack. Small trickles
+of flowing water are visible on top of the frozen mass of water.
+*DESCRIPTION_END
+EXIT N 3808
+EXIT SW 3802
+EXIT W 3806
+ITEM 9 693
+
+;
+NOUNDEF 1424 snowball
+VARIABLE SNOWSIZE
+;
+INUMBER 1568
+NAME 1424
+WEIGHT 1
+VOLUME 1
+SUBSTANCE PAPER
+THROWN_WEAPON
+PARAMETER1 1
+*DESCRIPTION_START
+It looks like a ball of snow.
+*DESCRIPTION_END
+IFPREVERB EAT -1
+	CLEARVERB
+	EQUAL ROUNDTIME 5
+	ECHO PLAYER You gobble up %a.%c [Round: 5 sec]
+	ECHO OTHERS %N gobbles up %a.
+	REMOVEITEM -1
+ENDIF
+IFPREVERB PUSH -1
+	CLEARVERB
+	IFVAR FLAG4 ! 0
+;		STRCVT 0 ROUNDTIME
+;		ECHO PLAYER [Wait %0 seconds...]
+		ECHO PLAYER You are already pushing the snowball.
+	ENDIF
+	IFVAR FLAG4 = 0
+		IFVAR WILDERNESS = 1
+			ECHO PLAYER Let me see if I understand you... you want to make a snowman indoors?
+		ENDIF
+		IFVAR WILDERNESS ! 1
+			EQUAL ROUNDTIME 6
+			EQUAL FLAG4 1
+			ADD SNOWSIZE 1
+			ECHO OTHERS %N rolls %a around in the snow, making it larger.
+			ECHO PLAYER You roll %a around, making it larger.%c [Round: 6 sec]
+			IFVAR SNOWSIZE > 1
+				SETITEMADJ -1 1 178
+			ENDIF
+			IFVAR SNOWSIZE > 4
+				SETITEMADJ -1 1 163
+			ENDIF
+			IFVAR SNOWSIZE > 7
+				SETITEMADJ -1 1 189
+			ENDIF
+			IFVAR SNOWSIZE > 10
+				SETITEMADJ -1 1 451
+			ENDIF
+			IFVAR SNOWSIZE > 13
+				SETITEMADJ -1 1 717
+			ENDIF
+			IFVAR SNOWSIZE > 17
+				IFITEM 9
+					STOP
+				ENDIF
+				REMOVEITEM -1
+				NEWITEM 9 1569
+				ECHO PLAYER You shape the gigantic snowball into a snowman!
+				ECHO OTHERS %N shapes the gigantic snowball into a snowman!
+				EQUAL SNOWSIZE 0
+			ENDIF
+			PLREVENT 2
+			CONTPLREVENT
+			EQUAL FLAG4 0
+		ENDIF
+	ENDIF
+ENDIF
+IFTOUCH -1
+   ifvar itembit1 ! 1
+	IFVAR ITEMVAL5 ! TIM
+		ECHO ALL %A melts away.
+		REMOVEITEM -1
+		EQUAL SNOWSIZE 0
+	ENDIF
+   endif
+ENDIF

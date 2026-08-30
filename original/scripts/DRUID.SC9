@@ -19,7 +19,7 @@ ARTICLE your
 HIDDEN
 
 IFVAR INTNUM3 ! 1
-IFVAR ITEMVAL3 < 7
+IFVAR FLAG3 < 7
   CLEARVERB
   ECHO PLAYER You listen to the object intently.
   ECHO PLAYER

@@ -1650,7 +1650,7 @@ ITEM 7 1169 ADJ1=459 ADJ2=192
 EXTEND 7 made especially for dyeing cloth and other materials
 ; Knob
 ITEM 3 379
-ITEM 9 693 ADJ1=10
+ITEM 8 693 ADJ1=10
 
 *DESCRIPTION_START ITEM EXAM 3
 This knob when turned appears to fine tune the setting.
@@ -4401,6 +4401,7 @@ EXTEND 4 labeled, "For arrows only"
 EXTEND 5 labeled, "For bolts only"
 ITEM 9 693 ADJ1=10
 
+TRAINING 18 30
 
 VARIABLE ARROWSIN
 VARIABLE ARROWSPAID

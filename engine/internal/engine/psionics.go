@@ -208,8 +208,9 @@ func (e *GameEngine) doPreparePsi(player *Player, args []string) *CommandResult 
 			RoomBroadcast: []string{fmt.Sprintf("%s concentrates intently.", player.FirstName)},
 		}
 		if disc.RoundSec > 0 {
-			player.RoundTimeExpiry = time.Now().Add(time.Duration(disc.RoundSec) * time.Second)
-			result.Messages = append(result.Messages, fmt.Sprintf(" [Round: %d sec]", disc.RoundSec))
+			psiRT := applyRoundTime(player, disc.RoundSec)
+			player.RoundTimeExpiry = time.Now().Add(time.Duration(psiRT) * time.Second)
+			result.Messages = append(result.Messages, fmt.Sprintf(" [Round: %d sec]", psiRT))
 		}
 		return result
 	}
@@ -217,7 +218,8 @@ func (e *GameEngine) doPreparePsi(player *Player, args []string) *CommandResult 
 	// Offensive/utility powers that need a target: prepare for PROJECT
 	player.PreparedPsi = disc.ID
 	if disc.RoundSec > 0 {
-		player.RoundTimeExpiry = time.Now().Add(time.Duration(disc.RoundSec) * time.Second)
+		psiRT2 := applyRoundTime(player, disc.RoundSec)
+		player.RoundTimeExpiry = time.Now().Add(time.Duration(psiRT2) * time.Second)
 	}
 
 	return &CommandResult{
@@ -277,6 +279,28 @@ func (e *GameEngine) listPsiDisciplines(player *Player) *CommandResult {
 
 // doProjectPsi handles PROJECT [target].
 func (e *GameEngine) doProjectPsi(ctx context.Context, player *Player, args []string) *CommandResult {
+	// Give a carried item's own universal IFPREVERB PROJECT -1 script (e.g. item
+	// 925, "the object") a chance to hijack the attempt before the psionics
+	// preconditions below — the item's reaction isn't tied to having a discipline
+	// prepared, so it needs to run before that check can ever reject the target.
+	if len(args) > 0 {
+		if room := e.rooms[player.RoomNumber]; room != nil {
+			target := strings.ToLower(strings.Join(args, " "))
+			for _, ii := range player.Inventory {
+				itemDef := e.items[ii.Archetype]
+				if itemDef == nil {
+					continue
+				}
+				name := e.getItemNounName(itemDef)
+				if !matchesTarget(name, target, e.getAdjName(ii.Adj1), e.getAdjName(ii.Adj2), e.getAdjName(ii.Adj3)) {
+					continue
+				}
+				if res := e.runItemOwnPreverbHook(player, room, "PROJECT", ii); res != nil {
+					return res
+				}
+			}
+		}
+	}
 	if player.Dead {
 		return &CommandResult{Messages: []string{"You can't use psionics while dead."}}
 	}
@@ -393,6 +417,40 @@ func (e *GameEngine) projectImmobilize(player *Player, args []string) *CommandRe
 	return &CommandResult{Messages: []string{fmt.Sprintf("You don't see %s here.", targetName)}}
 }
 
+// psiResistRoll reports whether a monster resists a psionic attack. Like
+// MagicResist, PSIRESIST is a rating (tens to thousands), not a 0-100
+// percentage — weighed against the caster's psi rating using the same
+// skill+school+Willpower shape as the psi cast-success check above.
+func psiResistRoll(player *Player, disc *PsiDiscipline, resist int) bool {
+	if resist <= 0 {
+		return false
+	}
+	psiSkill := player.Skills[26]
+	schoolSkill := player.Skills[27]
+	if disc.School == "Mind over Matter" {
+		schoolSkill = player.Skills[28]
+	}
+	casterRating := 50 + (psiSkill+schoolSkill)*3 + player.Willpower/5
+	return rand.Intn(100) < calcToHit(casterRating, resist)
+}
+
+// playerPsiResistRoll reports whether a player resists an offensive psionic
+// discipline a monster uses against them (see resolveMonsterPsi in combat.go) — the
+// reverse direction of psiResistRoll above. Per GMSCRIPT.DOC, PSISKILL is "the total
+// chance that the psionic creature has when invoking a psionic power... Powerful
+// psionic creatures should have well over 100 so as to defeat a player's natural
+// resistance to psionics" — so every player has some baseline resistance regardless
+// of training, which Cloak Mind (spell 235, "+25 psi resistance" per MAGIC.TXT)
+// adds to. Mirrors magicResistRoll's shape (spells.go): monsterPsiSkill is the
+// "attack" side, the player's resistance rating is the "defense" side.
+func playerPsiResistRoll(target *Player, monsterPsiSkill int) bool {
+	if monsterPsiSkill <= 0 {
+		return false
+	}
+	resistRating := 25 + target.Willpower/5 + cloakMindResistBonus(target)
+	return rand.Intn(100) < calcToHit(monsterPsiSkill, resistRating)
+}
+
 func (e *GameEngine) projectDamage(player *Player, disc *PsiDiscipline, args []string) *CommandResult {
 	targetName := ""
 	if len(args) > 0 {
@@ -431,7 +489,7 @@ func (e *GameEngine) projectDamage(player *Player, disc *PsiDiscipline, args []s
 	if resist <= 0 {
 		resist = def.MagicResist
 	}
-	if resist > 0 && rand.Intn(100) < resist {
+	if psiResistRoll(player, disc, resist) {
 		return &CommandResult{
 			Messages:      []string{fmt.Sprintf("You project %s at a %s, but it resists!", disc.Name, name)},
 			RoomBroadcast: []string{fmt.Sprintf("%s concentrates at a %s, but it resists!", player.FirstName, name)},
@@ -453,16 +511,14 @@ func (e *GameEngine) projectDamage(player *Player, disc *PsiDiscipline, args []s
 		}
 	}
 
-	killed := e.damageMonster(inst.ID, dmg)
+	killed, _ := e.damageMonster(inst.ID, dmg, player.FirstName)
 	if killed {
 		deathText := def.TextOverrides["TEXD"]
 		deathMsg := fmt.Sprintf("A %s collapses, dead!", name)
 		if deathText != "" {
 			deathMsg = fmt.Sprintf("A %s %s", name, deathText)
 		}
-		e.handleMonsterDeath(player, inst, def)
-		player.CombatTarget = nil
-		player.Joined = false
+		e.handleMonsterDeath([]*Player{player}, inst, def)
 		return &CommandResult{
 			Messages:      []string{fmt.Sprintf("You project %s at a %s for %d damage!", disc.Name, name, dmg), deathMsg},
 			RoomBroadcast: []string{fmt.Sprintf("%s focuses psychic energy at a %s!", player.FirstName, name), deathMsg},
@@ -501,13 +557,15 @@ func (e *GameEngine) projectBuff(player *Player, disc *PsiDiscipline) *CommandRe
 // projectTeleport teleports the player to a marked location.
 func (e *GameEngine) projectTeleport(ctx context.Context, player *Player, args []string) *CommandResult {
 	if player.Marks == nil || len(player.Marks) == 0 {
-		return &CommandResult{Messages: []string{"You have no marks set. Use MARK <1-5> to mark a location first."}}
+		return &CommandResult{Messages: []string{"You have no marks set. Use MARK <1-10> to mark a location first."}}
 	}
 	markNum := 1
 	if len(args) > 0 {
-		if n, err := strconv.Atoi(args[0]); err == nil && n >= 1 && n <= 5 {
-			markNum = n
+		n, err := strconv.Atoi(args[0])
+		if err != nil || n < 1 || n > 10 {
+			return &CommandResult{Messages: []string{"Mark number must be 1-10."}}
 		}
+		markNum = n
 	}
 	roomNum, ok := player.Marks[markNum]
 	if !ok {
@@ -551,16 +609,20 @@ func (e *GameEngine) projectManipulateLock(player *Player, args []string) *Comma
 			continue
 		}
 		name := e.getItemNounName(itemDef)
-		if target != "" && !matchesTarget(name, target, e.getAdjName(ri.Adj1)) {
+		if target != "" && !matchesTarget(name, target, e.getAdjName(ri.Adj1), e.getAdjName(ri.Adj2), e.getAdjName(ri.Adj3)) {
 			continue
 		}
 		// Skill check: psi skill + willpower vs lock difficulty
 		psiSkill := player.Skills[26] + player.Skills[28]
-		chance := 40 + psiSkill*3 + player.Willpower/5
+		lockDiff := ri.Val1
+		chance := 40 + psiSkill*3 + player.Willpower/5 - lockDiff
+		if chance < 10 {
+			chance = 10
+		}
 		if player.IsGM {
 			chance = 100
 		}
-		displayName := e.formatItemName(itemDef, ri.Adj1, ri.Adj2, ri.Adj3)
+		displayName := e.formatItemName(itemDef, ri.Adj1, ri.Adj2, ri.Adj3, ri.Extend)
 		if rand.Intn(100) < chance {
 			room.Items[i].State = "CLOSED"
 			e.notifyRoomChange(RoomChange{RoomNumber: player.RoomNumber, Type: "item_state", ItemRef: ri.Ref, NewState: "CLOSED"})

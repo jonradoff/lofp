@@ -44,9 +44,9 @@ func main() {
 	if err != nil {
 		log.Fatalf("Failed to parse scripts: %v", err)
 	}
-	log.Printf("Parsed %d rooms, %d items, %d monsters, %d nouns, %d adjectives in %v",
+	log.Printf("Parsed %d rooms, %d items, %d monsters, %d nouns, %d adjectives, %d regions in %v",
 		len(result.Rooms), len(result.Items), len(result.Monsters),
-		len(result.Nouns), len(result.Adjectives), time.Since(start))
+		len(result.Nouns), len(result.Adjectives), len(result.Regions), time.Since(start))
 
 	// Convert to ParsedData
 	parsed := &gameworld.ParsedData{
@@ -56,15 +56,18 @@ func main() {
 		Nouns:        result.Nouns,
 		Adjectives:   result.Adjectives,
 		MonsterAdjs:  result.MonsterAdjs,
+		BreakMods:    result.BreakMods,
 		Variables:    result.Variables,
 		Regions:      result.Regions,
 		MonsterLists:         result.MonsterLists,
 		SeasonalMonsterLists: result.SeasonalMonsterLists,
 		SeasonalRooms:        result.SeasonalRooms,
 		CEvents:      result.CEvents,
+		Macros:       result.Macros,
 		MoneyDefs:    result.MoneyDefs,
 		ForageDefs:   result.ForageDefs,
 		MineDefs:     result.MineDefs,
+		OrgDefs:      result.OrgDefs,
 		StartRoom:    result.StartRoom,
 		BumpRoom:     result.BumpRoom,
 	}
@@ -105,8 +108,10 @@ func main() {
 			Nouns:       r.Nouns,
 			Adjectives:  r.Adjectives,
 			MonsterAdjs: r.MonsterAdjs,
+			BreakMods:   r.BreakMods,
 			Variables:   r.Variables,
 			CEvents:     r.CEvents,
+			Macros:      r.Macros,
 			ForageDefs:  r.ForageDefs,
 		}, nil
 	}
@@ -123,7 +128,7 @@ func main() {
 	// Create auth service (needed for email/password login, Google OAuth, JWT validation)
 	var authSvc *auth.Service
 	if cfg.Auth.JWTSecret != "" {
-		authSvc = auth.NewService(db, cfg.Auth.GoogleClientID, cfg.Auth.JWTSecret)
+		authSvc = auth.NewService(db, cfg.Auth.GoogleClientID, cfg.Auth.JWTSecret, cfg.Auth.TurnstileSecretKey)
 		if cfg.Auth.GoogleClientID != "" {
 			log.Printf("Google OAuth enabled (client ID: %s...)", cfg.Auth.GoogleClientID[:min(20, len(cfg.Auth.GoogleClientID))])
 		}
@@ -153,6 +158,12 @@ func main() {
 	srv := api.NewServer(ge, parsed, authSvc, emailSvc, gl, h, cs, fb, cfg.Server.FrontendURL)
 	ge.LoadBanner()
 	ge.LoadGMScripts()
+	// Must run after LoadGMScripts — see LoadPersistentContainers' doc comment:
+	// GM-uploaded scripts can overwrite a room built from disk scripts (e.g. a
+	// player-home room reusing a disk room number), and restoring persisted
+	// container contents before that settles would look them up against the
+	// wrong, soon-to-be-replaced room.
+	ge.LoadPersistentContainers()
 	h.Start()
 	ge.StartTimeCycle()
 	ge.StartWeatherCycle()

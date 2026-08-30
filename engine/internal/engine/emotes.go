@@ -15,90 +15,91 @@ type emoteEntry struct {
 }
 
 var emoteTable = map[string]emoteEntry{
-	"SMILE":     {Self: "You smile.", Room: "%N smiles.", SelfTarget: "You smile at %T.", RoomTarget: "%N smiles at %T."},
-	"BOW":       {Self: "You bow.", Room: "%N bows.", SelfTarget: "You bow to %T.", RoomTarget: "%N bows to %T."},
-	"CURTSEY":   {Self: "You curtsey.", Room: "%N curtseys.", SelfTarget: "You curtsey to %T.", RoomTarget: "%N curtseys to %T."},
-	"CURTSY":    {Self: "You curtsy.", Room: "%N curtsies.", SelfTarget: "You curtsy to %T.", RoomTarget: "%N curtsies to %T."},
-	"WAVE":      {Self: "You wave.", Room: "%N waves.", SelfTarget: "You wave to %T.", RoomTarget: "%N waves to %T."},
-	"NOD":       {Self: "You nod.", Room: "%N nods.", SelfTarget: "You nod to %T.", RoomTarget: "%N nods to %T."},
-	"LAUGH":     {Self: "You laugh.", Room: "%N laughs.", SelfTarget: "You laugh at %T.", RoomTarget: "%N laughs at %T."},
-	"CHUCKLE":   {Self: "You chuckle.", Room: "%N chuckles.", SelfTarget: "You chuckle at %T.", RoomTarget: "%N chuckles at %T."},
-	"GRIN":      {Self: "You grin.", Room: "%N grins.", SelfTarget: "You grin at %T.", RoomTarget: "%N grins at %T."},
-	"FROWN":     {Self: "You frown.", Room: "%N frowns.", SelfTarget: "You frown at %T.", RoomTarget: "%N frowns at %T."},
-	"SIGH":      {Self: "You sigh.", Room: "%N sighs.", SelfTarget: "You sigh at %T.", RoomTarget: "%N sighs at %T."},
-	"SHRUG":     {Self: "You shrug.", Room: "%N shrugs.", SelfTarget: "You shrug at %T.", RoomTarget: "%N shrugs at %T."},
-	"WINK":      {Self: "You wink.", Room: "%N winks.", SelfTarget: "You wink at %T.", RoomTarget: "%N winks at %T."},
-	"CRY":       {Self: "You cry.", Room: "%N cries.", SelfTarget: "You cry on %T's shoulder.", RoomTarget: "%N cries on %T's shoulder."},
-	"DANCE":     {Self: "You dance.", Room: "%N dances.", SelfTarget: "You dance with %T.", RoomTarget: "%N dances with %T."},
-	"HUG":       {Self: "You hug yourself.", Room: "%N hugs themselves.", SelfTarget: "You hug %T.", RoomTarget: "%N hugs %T."},
-	"KISS":      {Self: "You blow a kiss.", Room: "%N blows a kiss.", SelfTarget: "You kiss %T.", RoomTarget: "%N kisses %T."},
-	"POKE":      {Self: "You poke yourself.", Room: "%N pokes themselves.", SelfTarget: "You poke %T.", RoomTarget: "%N pokes %T."},
-	"TICKLE":    {Self: "You tickle yourself.", Room: "%N tickles themselves.", SelfTarget: "You tickle %T.", RoomTarget: "%N tickles %T."},
-	"SLAP":      {Self: "You slap yourself.", Room: "%N slaps themselves.", SelfTarget: "You slap %T.", RoomTarget: "%N slaps %T."},
-	"HOWL":      {Self: "You howl.", Room: "%N howls.", SelfTarget: "You howl at %T.", RoomTarget: "%N howls at %T."},
-	"SING":      {Self: "You sing.", Room: "%N sings.", SelfTarget: "You sing to %T.", RoomTarget: "%N sings to %T."},
-	"PACE":      {Self: "You pace back and forth.", Room: "%N paces back and forth."},
-	"FIDGET":    {Self: "You fidget.", Room: "%N fidgets."},
-	"SHIVER":    {Self: "You shiver.", Room: "%N shivers."},
-	"SNORT":     {Self: "You snort.", Room: "%N snorts.", SelfTarget: "You snort at %T.", RoomTarget: "%N snorts at %T."},
-	"GROAN":     {Self: "You groan.", Room: "%N groans."},
-	"MUMBLE":    {Self: "You mumble something.", Room: "%N mumbles something."},
-	"BABBLE":    {Self: "You babble.", Room: "%N babbles."},
-	"BEAM":      {Self: "You beam.", Room: "%N beams.", SelfTarget: "You beam at %T.", RoomTarget: "%N beams at %T."},
-	"SWOON":     {Self: "You swoon.", Room: "%N swoons."},
-	"TOAST":     {Self: "You raise your glass in a toast.", Room: "%N raises a toast.", SelfTarget: "You raise a toast to %T.", RoomTarget: "%N raises a toast to %T."},
-	"SHUDDER":   {Self: "You shudder.", Room: "%N shudders."},
-	"POINT":     {Self: "You point.", Room: "%N points.", SelfTarget: "You point at %T.", RoomTarget: "%N points at %T."},
-	"KICK":      {Self: "You kick at the ground.", Room: "%N kicks at the ground.", SelfTarget: "You kick %T.", RoomTarget: "%N kicks %T."},
-	"KNOCK":     {Self: "You knock.", Room: "%N knocks.", SelfTarget: "You knock on %T.", RoomTarget: "%N knocks on %T."},
-	"TOUCH":     {Self: "You touch yourself.", Room: "%N touches themselves.", SelfTarget: "You touch %T.", RoomTarget: "%N touches %T."},
-	"RUB":       {Self: "You rub your hands together.", Room: "%N rubs %P hands together.", SelfTarget: "You rub %T.", RoomTarget: "%N rubs %T."},
-	"PET":       {Self: "You pet yourself.", Room: "%N pets themselves.", SelfTarget: "You pet %T.", RoomTarget: "%N pets %T."},
-	"PUNCH":     {Self: "You punch the air.", Room: "%N punches the air.", SelfTarget: "You punch %T.", RoomTarget: "%N punches %T."},
-	"SPIT":      {Self: "You spit.", Room: "%N spits.", SelfTarget: "You spit at %T.", RoomTarget: "%N spits at %T."},
-	"GAZE":      {Self: "You gaze about.", Room: "%N gazes about.", SelfTarget: "You gaze at %T.", RoomTarget: "%N gazes at %T."},
-	"GLARE":     {Self: "You glare.", Room: "%N glares.", SelfTarget: "You glare at %T.", RoomTarget: "%N glares at %T."},
-	"SCOWL":     {Self: "You scowl.", Room: "%N scowls.", SelfTarget: "You scowl at %T.", RoomTarget: "%N scowls at %T."},
-	"COMFORT":   {Self: "You comfort yourself.", Room: "%N comforts themselves.", SelfTarget: "You comfort %T.", RoomTarget: "%N comforts %T."},
-	"RECITE":    {Self: "You recite.", Room: "%N recites."},
-	"YAWN":      {Self: "You yawn.", Room: "%N yawns.", SelfTarget: "You yawn at %T.", RoomTarget: "%N yawns at %T."},
-	"BLINK":     {Self: "You blink.", Room: "%N blinks.", SelfTarget: "You blink at %T.", RoomTarget: "%N blinks at %T."},
-	"BLUSH":     {Self: "You blush.", Room: "%N blushes."},
-	"CRINGE":    {Self: "You cringe.", Room: "%N cringes."},
-	"CUDDLE":    {Self: "You cuddle up.", Room: "%N cuddles up.", SelfTarget: "You cuddle up to %T.", RoomTarget: "%N cuddles up to %T."},
-	"COUGH":     {Self: "You cough.", Room: "%N coughs."},
-	"FURROW":    {Self: "You furrow your brow.", Room: "%N furrows %P brow."},
-	"GASP":      {Self: "You gasp.", Room: "%N gasps."},
-	"GIGGLE":    {Self: "You giggle.", Room: "%N giggles.", SelfTarget: "You giggle at %T.", RoomTarget: "%N giggles at %T."},
-	"GRIMACE":   {Self: "You grimace.", Room: "%N grimaces."},
-	"GROWL":     {Self: "You growl.", Room: "%N growls.", SelfTarget: "You growl at %T.", RoomTarget: "%N growls at %T."},
-	"GULP":      {Self: "You gulp.", Room: "%N gulps."},
-	"JUMP":      {Self: "You jump up and down.", Room: "%N jumps up and down."},
-	"LEAN":      {Self: "You lean back.", Room: "%N leans back.", SelfTarget: "You lean on %T.", RoomTarget: "%N leans on %T."},
-	"NUZZLE":    {Self: "You nuzzle.", Room: "%N nuzzles.", SelfTarget: "You nuzzle %T affectionately.", RoomTarget: "%N nuzzles %T affectionately."},
-	"PANT":      {Self: "You pant.", Room: "%N pants."},
-	"PONDER":    {Self: "You ponder for a moment.", Room: "%N ponders."},
-	"POUT":      {Self: "You pout.", Room: "%N pouts."},
-	"ROLL":      {Self: "You roll your eyes.", Room: "%N rolls %P eyes.", SelfTarget: "You roll your eyes at %T.", RoomTarget: "%N rolls %P eyes at %T."},
-	"SCREAM":    {Self: "You scream!", Room: "%N screams!"},
-	"SMIRK":     {Self: "You smirk.", Room: "%N smirks.", SelfTarget: "You smirk at %T.", RoomTarget: "%N smirks at %T."},
-	"SNICKER":   {Self: "You snicker.", Room: "%N snickers."},
-	"SALUTE":    {Self: "You salute.", Room: "%N salutes.", SelfTarget: "You salute %T.", RoomTarget: "%N salutes %T."},
-	"STRETCH":   {Self: "You stretch your arms lazily.", Room: "%N stretches %P arms lazily."},
-	"TAP":       {Self: "You tap your foot.", Room: "%N taps %P foot.", SelfTarget: "You tap %T on the shoulder.", RoomTarget: "%N taps %T on the shoulder."},
-	"TWIRL":     {Self: "You twirl around.", Room: "%N twirls around."},
-	"WINCE":     {Self: "You wince.", Room: "%N winces."},
-	"WHISTLE":   {Self: "You whistle innocently.", Room: "%N whistles innocently."},
-	"MUTTER":    {Self: "You mutter something under your breath.", Room: "%N mutters something you can't quite make out."},
-	"CARESS":    {Self: "You caress yourself.", Room: "%N caresses themselves.", SelfTarget: "You caress %T.", RoomTarget: "%N caresses %T."},
-	"NUDGE":     {Self: "You nudge.", Room: "%N nudges.", SelfTarget: "You nudge %T.", RoomTarget: "%N nudges %T."},
-	"ARCH":      {Self: "You arch an eyebrow.", Room: "%N arches %P eyebrow.", SelfTarget: "You arch an eyebrow at %T.", RoomTarget: "%N arches %P eyebrow at %T."},
-	"RAISE":     {Self: "You raise an eyebrow.", Room: "%N raises an eyebrow.", SelfTarget: "You raise an eyebrow towards %T.", RoomTarget: "%N raises an eyebrow towards %T."},
-	"HEAD":      {Self: "You shake your head.", Room: "%N shakes %P head back and forth.", SelfTarget: "You shake your head at %T.", RoomTarget: "%N shakes %P head at %T."},
-	"SCRATCH":   {Self: "You scratch your head.", Room: "%N scratches %P head."},
-	"CLAP":      {Self: "You clap.", Room: "%N claps.", SelfTarget: "You clap for %T.", RoomTarget: "%N claps for %T."},
-	"SNIFF":     {Self: "You sniff.", Room: "%N sniffs.", SelfTarget: "You sniff %T.", RoomTarget: "%N sniffs %T."},
-	"LISTEN":    {Self: "You listen carefully.", Room: "%N listens carefully.", SelfTarget: "You listen carefully to %T.", RoomTarget: "%N listens carefully to %T."},
+	"SMILE":   {Self: "You smile.", Room: "%N smiles.", SelfTarget: "You smile at %T.", RoomTarget: "%N smiles at %T."},
+	"BOW":     {Self: "You bow.", Room: "%N bows.", SelfTarget: "You bow to %T.", RoomTarget: "%N bows to %T."},
+	"CURTSEY": {Self: "You curtsey.", Room: "%N curtseys.", SelfTarget: "You curtsey to %T.", RoomTarget: "%N curtseys to %T."},
+	"CURTSY":  {Self: "You curtsy.", Room: "%N curtsies.", SelfTarget: "You curtsy to %T.", RoomTarget: "%N curtsies to %T."},
+	"WAVE":    {Self: "You wave.", Room: "%N waves.", SelfTarget: "You wave to %T.", RoomTarget: "%N waves to %T."},
+	"NOD":     {Self: "You nod.", Room: "%N nods.", SelfTarget: "You nod to %T.", RoomTarget: "%N nods to %T."},
+	"LAUGH":   {Self: "You laugh.", Room: "%N laughs.", SelfTarget: "You laugh at %T.", RoomTarget: "%N laughs at %T."},
+	"CHUCKLE": {Self: "You chuckle.", Room: "%N chuckles.", SelfTarget: "You chuckle at %T.", RoomTarget: "%N chuckles at %T."},
+	"GRIN":    {Self: "You grin.", Room: "%N grins.", SelfTarget: "You grin at %T.", RoomTarget: "%N grins at %T."},
+	"FROWN":   {Self: "You frown.", Room: "%N frowns.", SelfTarget: "You frown at %T.", RoomTarget: "%N frowns at %T."},
+	"SIGH":    {Self: "You sigh.", Room: "%N sighs.", SelfTarget: "You sigh at %T.", RoomTarget: "%N sighs at %T."},
+	"SHRUG":   {Self: "You shrug.", Room: "%N shrugs.", SelfTarget: "You shrug at %T.", RoomTarget: "%N shrugs at %T."},
+	"WINK":    {Self: "You wink.", Room: "%N winks.", SelfTarget: "You wink at %T.", RoomTarget: "%N winks at %T."},
+	"CRY":     {Self: "You cry.", Room: "%N cries.", SelfTarget: "You cry on %T's shoulder.", RoomTarget: "%N cries on %T's shoulder."},
+	"DANCE":   {Self: "You dance.", Room: "%N dances.", SelfTarget: "You dance with %T.", RoomTarget: "%N dances with %T."},
+	"HUG":     {Self: "You hug yourself.", Room: "%N hugs themselves.", SelfTarget: "You hug %T.", RoomTarget: "%N hugs %T."},
+	"KISS":    {Self: "You blow a kiss.", Room: "%N blows a kiss.", SelfTarget: "You kiss %T.", RoomTarget: "%N kisses %T."},
+	"POKE":    {Self: "You poke yourself.", Room: "%N pokes themselves.", SelfTarget: "You poke %T.", RoomTarget: "%N pokes %T."},
+	"TICKLE":  {Self: "You tickle yourself.", Room: "%N tickles themselves.", SelfTarget: "You tickle %T.", RoomTarget: "%N tickles %T."},
+	"SLAP":    {Self: "You slap yourself.", Room: "%N slaps themselves.", SelfTarget: "You slap %T.", RoomTarget: "%N slaps %T."},
+	"HOWL":    {Self: "You howl.", Room: "%N howls.", SelfTarget: "You howl at %T.", RoomTarget: "%N howls at %T."},
+	"SING":    {Self: "You sing.", Room: "%N sings.", SelfTarget: "You sing to %T.", RoomTarget: "%N sings to %T."},
+	"PACE":    {Self: "You pace back and forth.", Room: "%N paces back and forth."},
+	"FIDGET":  {Self: "You fidget.", Room: "%N fidgets."},
+	"SHIVER":  {Self: "You shiver.", Room: "%N shivers."},
+	"SNORT":   {Self: "You snort.", Room: "%N snorts.", SelfTarget: "You snort at %T.", RoomTarget: "%N snorts at %T."},
+	"GROAN":   {Self: "You groan.", Room: "%N groans."},
+	"MUMBLE":  {Self: "You mumble something.", Room: "%N mumbles something.", SelfTarget: "You mumble something at %T.", RoomTarget: "%N mumbles something at %T."},
+	"BABBLE":  {Self: "You babble.", Room: "%N babbles.", SelfTarget: "You babble at %T.", RoomTarget: "%N babbles at %T."},
+	"BEAM":    {Self: "You beam.", Room: "%N beams.", SelfTarget: "You beam at %T.", RoomTarget: "%N beams at %T."},
+	"SWOON":   {Self: "You swoon.", Room: "%N swoons."},
+	"TOAST":   {Self: "You raise your glass in a toast.", Room: "%N raises a toast.", SelfTarget: "You raise a toast to %T.", RoomTarget: "%N raises a toast to %T."},
+	"SHUDDER": {Self: "You shudder.", Room: "%N shudders."},
+	"POINT":   {Self: "You point.", Room: "%N points.", SelfTarget: "You point at %T.", RoomTarget: "%N points at %T."},
+	"KICK":    {Self: "You kick at the ground.", Room: "%N kicks at the ground.", SelfTarget: "You kick %T.", RoomTarget: "%N kicks %T."},
+	"KNOCK":   {Self: "You knock.", Room: "%N knocks.", SelfTarget: "You knock on %T.", RoomTarget: "%N knocks on %T."},
+	"TOUCH":   {Self: "You touch yourself.", Room: "%N touches themselves.", SelfTarget: "You touch %T.", RoomTarget: "%N touches %T."},
+	"RUB":     {Self: "You rub your hands together.", Room: "%N rubs %P hands together.", SelfTarget: "You rub %T.", RoomTarget: "%N rubs %T."},
+	"PET":     {Self: "You pet yourself.", Room: "%N pets themselves.", SelfTarget: "You pet %T.", RoomTarget: "%N pets %T."},
+	"PUNCH":   {Self: "You punch the air.", Room: "%N punches the air.", SelfTarget: "You punch %T.", RoomTarget: "%N punches %T."},
+	"SPIT":    {Self: "You spit.", Room: "%N spits.", SelfTarget: "You spit at %T.", RoomTarget: "%N spits at %T."},
+	"GAZE":    {Self: "You gaze about.", Room: "%N gazes about.", SelfTarget: "You gaze at %T.", RoomTarget: "%N gazes at %T."},
+	"GLARE":   {Self: "You glare.", Room: "%N glares.", SelfTarget: "You glare at %T.", RoomTarget: "%N glares at %T."},
+	"SCOWL":   {Self: "You scowl.", Room: "%N scowls.", SelfTarget: "You scowl at %T.", RoomTarget: "%N scowls at %T."},
+	"COMFORT": {Self: "You comfort yourself.", Room: "%N comforts themselves.", SelfTarget: "You comfort %T.", RoomTarget: "%N comforts %T."},
+	"RECITE":  {Self: "You recite.", Room: "%N recites."},
+	"YAWN":    {Self: "You yawn.", Room: "%N yawns.", SelfTarget: "You yawn at %T.", RoomTarget: "%N yawns at %T."},
+	"BLINK":   {Self: "You blink.", Room: "%N blinks.", SelfTarget: "You blink at %T.", RoomTarget: "%N blinks at %T."},
+	"BLUSH":   {Self: "You blush.", Room: "%N blushes."},
+	"CRINGE":  {Self: "You cringe.", Room: "%N cringes."},
+	"CUDDLE":  {Self: "You cuddle up.", Room: "%N cuddles up.", SelfTarget: "You cuddle up to %T.", RoomTarget: "%N cuddles up to %T."},
+	"COUGH":   {Self: "You cough.", Room: "%N coughs."},
+	"FURROW":  {Self: "You furrow your brow.", Room: "%N furrows %P brow."},
+	"GASP":    {Self: "You gasp.", Room: "%N gasps."},
+	"GIGGLE":  {Self: "You giggle.", Room: "%N giggles.", SelfTarget: "You giggle at %T.", RoomTarget: "%N giggles at %T."},
+	"GRIMACE": {Self: "You grimace.", Room: "%N grimaces."},
+	"GROWL":   {Self: "You growl.", Room: "%N growls.", SelfTarget: "You growl at %T.", RoomTarget: "%N growls at %T."},
+	"GULP":    {Self: "You gulp.", Room: "%N gulps."},
+	"JUMP":    {Self: "You jump up and down.", Room: "%N jumps up and down."},
+	"LEAN":    {Self: "You lean back.", Room: "%N leans back.", SelfTarget: "You lean on %T.", RoomTarget: "%N leans on %T."},
+	"NUZZLE":  {Self: "You nuzzle.", Room: "%N nuzzles.", SelfTarget: "You nuzzle %T affectionately.", RoomTarget: "%N nuzzles %T affectionately."},
+	"PANT":    {Self: "You pant.", Room: "%N pants."},
+	"PONDER":  {Self: "You ponder for a moment.", Room: "%N ponders."},
+	"POUT":    {Self: "You pout.", Room: "%N pouts."},
+	"ROLL":    {Self: "You roll your eyes.", Room: "%N rolls %P eyes.", SelfTarget: "You roll your eyes at %T.", RoomTarget: "%N rolls %P eyes at %T."},
+	"SCREAM":  {Self: "You scream!", Room: "%N screams!"},
+	"SMIRK":   {Self: "You smirk.", Room: "%N smirks.", SelfTarget: "You smirk at %T.", RoomTarget: "%N smirks at %T."},
+	"SNICKER": {Self: "You snicker.", Room: "%N snickers."},
+	"SALUTE":  {Self: "You salute.", Room: "%N salutes.", SelfTarget: "You salute %T.", RoomTarget: "%N salutes %T."},
+	"STRETCH": {Self: "You stretch your arms lazily.", Room: "%N stretches %P arms lazily."},
+	"TAP":     {Self: "You tap your foot.", Room: "%N taps %P foot.", SelfTarget: "You tap %T on the shoulder.", RoomTarget: "%N taps %T on the shoulder."},
+	"TWIRL":   {Self: "You twirl around.", Room: "%N twirls around.", SelfTarget: "You twirl %T around.", RoomTarget: "%N twirls %T around."},
+	"WINCE":   {Self: "You wince.", Room: "%N winces."},
+	"WHISTLE": {Self: "You whistle.", Room: "%N whistles.", SelfTarget: "You whistle at %T.", RoomTarget: "%N whistles at %T."},
+	"PULL":    {Self: "You pull.", Room: "%N pulls.", SelfTarget: "You pull on %T.", RoomTarget: "%N pulls on %T."},
+	"MUTTER":  {Self: "You mutter something under your breath.", Room: "%N mutters something you can't quite make out.", SelfTarget: "You mutter something at %T.", RoomTarget: "%N mutters something at %T."},
+	"CARESS":  {Self: "You caress yourself.", Room: "%N caresses themselves.", SelfTarget: "You caress %T.", RoomTarget: "%N caresses %T."},
+	"NUDGE":   {Self: "You nudge.", Room: "%N nudges.", SelfTarget: "You nudge %T.", RoomTarget: "%N nudges %T."},
+	"ARCH":    {Self: "You arch an eyebrow.", Room: "%N arches %P eyebrow.", SelfTarget: "You arch an eyebrow at %T.", RoomTarget: "%N arches %P eyebrow at %T."},
+	"RAISE":   {Self: "You raise an eyebrow.", Room: "%N raises an eyebrow.", SelfTarget: "You raise an eyebrow towards %T.", RoomTarget: "%N raises an eyebrow towards %T."},
+	"HEAD":    {Self: "You shake your head.", Room: "%N shakes %P head back and forth.", SelfTarget: "You shake your head at %T.", RoomTarget: "%N shakes %P head at %T."},
+	"SCRATCH": {Self: "You scratch your head.", Room: "%N scratches %P head."},
+	"CLAP":    {Self: "You clap.", Room: "%N claps.", SelfTarget: "You clap for %T.", RoomTarget: "%N claps for %T."},
+	"SNIFF":   {Self: "You sniff.", Room: "%N sniffs.", SelfTarget: "You sniff %T.", RoomTarget: "%N sniffs %T."},
+	"LISTEN":  {Self: "You listen carefully.", Room: "%N listens carefully.", SelfTarget: "You listen carefully to %T.", RoomTarget: "%N listens carefully to %T."},
 
 	// Additional emotes from alphabetical list
 	"LICK":      {Self: "You lick your lips.", Room: "%N licks %P lips.", SelfTarget: "You kiss %T passionately.", RoomTarget: "%N kisses %T passionately."},
@@ -127,7 +128,7 @@ var emoteTable = map[string]emoteEntry{
 	"STOMP":     {Self: "You stomp your feet.", Room: "%N stomps %p feet.", SelfTarget: "You stomp towards %T.", RoomTarget: "%N stomps towards %T."},
 	"APPLAUD":   {Self: "You applaud.", Room: "%N applauds.", SelfTarget: "You applaud %T.", RoomTarget: "%N applauds %T."},
 	"PEER":      {Self: "You peer around.", Room: "%N peers around.", SelfTarget: "You peer at %T.", RoomTarget: "%N peers at %T."},
-	"GRUNT":     {Self: "You grunt.", Room: "%N grunts."},
+	"GRUNT":     {Self: "You grunt.", Room: "%N grunts.", SelfTarget: "You grunt at %T.", RoomTarget: "%N grunts at %T."},
 	"DIP":       {Self: "You dip.", Room: "%N dips.", SelfTarget: "You dip %T.", RoomTarget: "%N dips %T."},
 	"HANDRAISE": {Self: "You raise your hand.", Room: "%N raises %P hand."},
 	"HANDSHAKE": {Self: "You extend your hand.", Room: "%N extends %P hand.", SelfTarget: "You shake hands with %T.", RoomTarget: "%N shakes hands with %T."},
@@ -139,21 +140,21 @@ var emoteTable = map[string]emoteEntry{
 // selfOverrides maps verb+target to special self-targeted messages.
 // Key format: "VERB:me" for self-targeting overrides.
 var selfOverrides = map[string][2]string{
-	"SPIT:me":   {"You drool all over yourself.", "%N drools all over themselves."},
-	"LICK:me":   {"You lick your lips.", "%N licks %P lips."},
-	"LAUGH:me":  {"You laugh at yourself.", "%N laughs at themselves."},
-	"KICK:me":   {"You kick yourself.", "%N kicks themselves."},
-	"THUMP:me":  {"You thump yourself on the head.", "%N thumps themselves on the head."},
+	"SPIT:me":  {"You drool all over yourself.", "%N drools all over themselves."},
+	"LICK:me":  {"You lick your lips.", "%N licks %P lips."},
+	"LAUGH:me": {"You laugh at yourself.", "%N laughs at themselves."},
+	"KICK:me":  {"You kick yourself.", "%N kicks themselves."},
+	"THUMP:me": {"You thump yourself on the head.", "%N thumps themselves on the head."},
 }
 
 // raceEmotes are emotes only available to specific races. Key = "RACE:VERB".
 var raceEmotes = map[string]emoteEntry{
 	// Drakin
-	"6:FLICK":   {Self: "You flick your forked tongue.", Room: "%N flicks %P forked tongue."},
-	"6:BARE":    {Self: "You bare your teeth menacingly.", Room: "%N bares %P teeth menacingly."},
-	"6:SPREAD":  {Self: "You spread your wings wide.", Room: "%N spreads %P wings wide."},
-	"6:FOLD":    {Self: "You fold your wings against your body.", Room: "%N folds %P wings."},
-	"6:SWISH":   {Self: "You swish your tail.", Room: "%N swishes %P tail."},
+	"6:FLICK":  {Self: "You flick your forked tongue.", Room: "%N flicks %P forked tongue."},
+	"6:BARE":   {Self: "You bare your teeth menacingly.", Room: "%N bares %P teeth menacingly."},
+	"6:SPREAD": {Self: "You spread your wings wide.", Room: "%N spreads %P wings wide."},
+	"6:FOLD":   {Self: "You fold your wings against your body.", Room: "%N folds %P wings."},
+	"6:SWISH":  {Self: "You swish your tail.", Room: "%N swishes %P tail."},
 	// Aelfen
 	"2:RUBEARS": {Self: "You rub the points of your ears.", Room: "%N rubs the points of %P ears."},
 	// Highlander
@@ -167,52 +168,95 @@ var raceEmotes = map[string]emoteEntry{
 	"4:DROOP":   {Self: "You droop your tail.", Room: "%N droops %P tail."},
 }
 
+// wolfFormEmotes are extra emotes available only while a Wolfling is in
+// WolfForm (checked in processEmote, gated on player.WolfForm rather than
+// race — unlike raceEmotes above, which apply to Wolflings in either form).
+// WAG overrides the generic finger-wag; the others are new verbs.
+var wolfFormEmotes = map[string]emoteEntry{
+	"WAG":    {Self: "You wag your tail.", Room: "%N wags %P tail.", SelfTarget: "You wag your tail at %T.", RoomTarget: "%N wags %P tail at %T."},
+	"SNIFF":  {Self: "You sniff at the air.", Room: "%N sniffs at the air.", SelfTarget: "You sniff at %T curiously.", RoomTarget: "%N sniffs at %T curiously."},
+	"SHAKE":  {Self: "You shake your fur out.", Room: "%N shakes %P fur out."},
+	"PAW":    {Self: "You paw at the ground.", Room: "%N paws at the ground.", SelfTarget: "You paw at %T.", RoomTarget: "%N paws at %T."},
+	"POUNCE": {Self: "You pounce around.", Room: "%N pounces around.", SelfTarget: "You pounce on %T.", RoomTarget: "%N pounces on %T."},
+}
+
 // additionalSelfEmotes — emotes with no target that aren't in the main table.
 // These are triggered by specific verbs with no arguments.
 var additionalSelfEmotes = map[string][2]string{
-	"FUME":     {"You fume.", "%N fumes."},
-	"SQUINT":   {"You squint your eyes.", "%N squints %P eyes."},
-	"HUM":      {"You hum softly to yourself.", "%N hums softly."},
-	"SNIFFLE":  {"You sniffle.", "%N sniffles."},
-	"SLOUCH":   {"You slouch.", "%N slouches."},
-	"SNORE":    {"You snore loudly.", "%N snores loudly."},
-	"SNEEZE":   {"You sneeze.", "%N sneezes."},
-	"STARE":    {"You stare off into space.", "%N stares off into space."},
-	"PUCKER":   {"You pucker your lips.", "%N puckers %P lips."},
-	"CRACK":    {"You crack your knuckles.", "%N cracks %P knuckles."},
-	"BITE":     {"You bite your lower lip.", "%N bites %P lower lip."},
-	"BOUNCE":   {"You bounce up and down.", "%N bounces up and down."},
-	"STRIKE":   {"You strike a heroic pose.", "%N strikes a heroic pose."},
-	"CLUTCH":   {"You clutch your head.", "%N clutches %P head."},
-	"WIPE":     {"You wipe your brow.", "%N wipes %P brow."},
-	"GRIT":     {"You grit your teeth.", "%N grits %P teeth."},
-	"TOSS":     {"You toss your hands up in the air.", "%N tosses %P hands up in the air."},
+	"FUME":      {"You fume.", "%N fumes."},
+	"SQUINT":    {"You squint your eyes.", "%N squints %P eyes."},
+	"HUM":       {"You hum softly to yourself.", "%N hums softly."},
+	"SNIFFLE":   {"You sniffle.", "%N sniffles."},
+	"SLOUCH":    {"You slouch.", "%N slouches."},
+	"SNORE":     {"You snore loudly.", "%N snores loudly."},
+	"SNEEZE":    {"You sneeze.", "%N sneezes."},
+	"STARE":     {"You stare off into space.", "%N stares off into space."},
+	"PUCKER":    {"You pucker your lips.", "%N puckers %P lips."},
+	"CRACK":     {"You crack your knuckles.", "%N cracks %P knuckles."},
+	"BITE":      {"You bite your lower lip.", "%N bites %P lower lip."},
+	"BOUNCE":    {"You bounce up and down.", "%N bounces up and down."},
+	"STRIKE":    {"You strike a heroic pose.", "%N strikes a heroic pose."},
+	"CLUTCH":    {"You clutch your head.", "%N clutches %P head."},
+	"WIPE":      {"You wipe your brow.", "%N wipes %P brow."},
+	"GRIT":      {"You grit your teeth.", "%N grits %P teeth."},
+	"TOSS":      {"You toss your hands up in the air.", "%N tosses %P hands up in the air."},
 	"ATTENTION": {"You stand at attention.", "%N stands at attention."},
-	"TONGUE":   {"You stick your tongue out.", "%N sticks %P tongue out."},
-	"WRINKLE":  {"You wrinkle your nose.", "%N wrinkles %P nose."},
-	"PUFF":     {"You puff out your cheeks.", "%N puffs out %P cheeks."},
-	"DIZZY":    {"You feel dizzy.", "%N looks dizzy."},
-	"BAT":      {"You bat your eyelashes.", "%N bats %P eyelashes."},
+	"TONGUE":    {"You stick your tongue out.", "%N sticks %P tongue out."},
+	"WRINKLE":   {"You wrinkle your nose.", "%N wrinkles %P nose."},
+	"PUFF":      {"You puff out your cheeks.", "%N puffs out %P cheeks."},
+	"DIZZY":     {"You feel dizzy.", "%N looks dizzy."},
+	"BAT":       {"You bat your eyelashes.", "%N bats %P eyelashes."},
+	"FLAIL":     {"You flail your arms wildly.", "%N flails %P arms wildly."},
+	"WAKE":      {"You wake up.", "%N wakes up."},
+	"SOB":       {"You sob.", "%N sobs."},
 }
 
-// kissBodyParts defines the body parts that can be kissed and whether they require submit.
-var kissBodyParts = map[string]struct {
+// bodyPartEntry defines the self/room/target messages for a targeted body-part
+// interaction (KISS, NIBBLE) and whether the recipient must be Submitting.
+type bodyPartEntry struct {
 	requiresSubmit bool
 	selfMsg        string
 	roomMsg        string
 	targetMsg      string
-}{
-	"head":  {false, "You kiss %T on the head.", "%N kisses %T on the head.", "%N kisses you on the head."},
-	"nose":  {false, "You kiss %T on the nose.", "%N kisses %T on the nose.", "%N kisses you on the nose."},
-	"ears":  {false, "You kiss %T on the ears.", "%N kisses %T on the ears.", "%N kisses you on the ears."},
-	"neck":  {false, "You kiss %T on the neck.", "%N kisses %T on the neck.", "%N kisses you on the neck."},
-	"chest": {false, "You kiss %T on the chest.", "%N kisses %T on the chest.", "%N kisses you on the chest."},
-	"hand":  {false, "You kiss %T's hand.", "%N kisses %T's hand.", "%N kisses your hand."},
-	"lips":  {true, "You kiss %T on the lips.", "%N kisses %T on the lips.", "%N kisses you on the lips."},
-	"navel": {true, "You kiss %T on the navel.", "%N kisses %T on the navel.", "%N kisses you on the navel."},
-	"leg":   {true, "You kiss %T on the leg.", "%N kisses %T on the leg.", "%N kisses you on the leg."},
-	"knee":  {true, "You kiss %T on the knee.", "%N kisses %T on the knee.", "%N kisses you on the knee."},
-	"feet":  {true, "You kiss %T's feet.", "%N kisses %T's feet.", "%N kisses your feet."},
+}
+
+// kissBodyParts defines the body parts that can be kissed and whether they require submit.
+var kissBodyParts = map[string]bodyPartEntry{
+	"head":         {false, "You kiss %T on the head.", "%N kisses %T on the head.", "%N kisses you on the head."},
+	"nose":         {false, "You kiss %T on the nose.", "%N kisses %T on the nose.", "%N kisses you on the nose."},
+	"ears":         {false, "You kiss %T on the ears.", "%N kisses %T on the ears.", "%N kisses you on the ears."},
+	"ear":          {false, "You kiss %T on the ear.", "%N kisses %T on the ear.", "%N kisses you on the ear."},
+	"neck":         {false, "You kiss %T on the neck.", "%N kisses %T on the neck.", "%N kisses you on the neck."},
+	"chest":        {false, "You kiss %T on the chest.", "%N kisses %T on the chest.", "%N kisses you on the chest."},
+	"hand":         {false, "You kiss %T's hand.", "%N kisses %T's hand.", "%N kisses your hand."},
+	"lips":         {true, "You kiss %T on the lips.", "%N kisses %T on the lips.", "%N kisses you on the lips."},
+	"navel":        {true, "You kiss %T on the navel.", "%N kisses %T on the navel.", "%N kisses you on the navel."},
+	"leg":          {true, "You kiss %T on the leg.", "%N kisses %T on the leg.", "%N kisses you on the leg."},
+	"knee":         {true, "You kiss %T on the knee.", "%N kisses %T on the knee.", "%N kisses you on the knee."},
+	"feet":         {true, "You kiss %T's feet.", "%N kisses %T's feet.", "%N kisses your feet."},
+	"cheek":        {false, "You kiss %T on the cheek.", "%N kisses %T on the cheek.", "%N kisses you on the cheek."},
+	"forehead":     {false, "You kiss %T on the forehead.", "%N kisses %T on the forehead.", "%N kisses you on the forehead."},
+	"shoulder":     {false, "You kiss %T on the shoulder.", "%N kisses %T on the shoulder.", "%N kisses you on the shoulder."},
+	"passionately": {true, "You kiss %T passionately.", "%N kisses %T passionately.", "%N kisses you passionately."},
+}
+
+// nibbleBodyParts defines the body parts that can be nibbled and whether they require submit.
+var nibbleBodyParts = map[string]bodyPartEntry{
+	"head":     {false, "You nibble %T on the head.", "%N nibbles %T on the head.", "%N nibbles you on the head."},
+	"nose":     {false, "You nibble %T on the nose.", "%N nibbles %T on the nose.", "%N nibbles you on the nose."},
+	"ears":     {false, "You nibble %T on the ears.", "%N nibbles %T on the ears.", "%N nibbles you on the ears."},
+	"ear":      {false, "You nibble %T on the ear.", "%N nibbles %T on the ear.", "%N nibbles you on the ear."},
+	"neck":     {false, "You nibble %T on the neck.", "%N nibbles %T on the neck.", "%N nibbles you on the neck."},
+	"chest":    {false, "You nibble %T on the chest.", "%N nibbles %T on the chest.", "%N nibbles you on the chest."},
+	"cheek":    {false, "You nibble %T on the cheek.", "%N nibbles %T on the cheek.", "%N nibbles you on the cheek."},
+	"forehead": {false, "You nibble %T on the forehead.", "%N nibbles %T on the forehead.", "%N nibbles you on the forehead."},
+	"shoulder": {false, "You nibble %T on the shoulder.", "%N nibbles %T on the shoulder.", "%N nibbles you on the shoulder."},
+	"hand":     {false, "You nibble %T's hand.", "%N nibbles %T's hand.", "%N nibbles your hand."},
+	"lips":     {true, "You nibble %T on the lips.", "%N nibbles %T on the lips.", "%N nibbles you on the lips."},
+	"navel":    {true, "You nibble %T on the navel.", "%N nibbles %T on the navel.", "%N nibbles you on the navel."},
+	"leg":      {true, "You nibble %T on the leg.", "%N nibbles %T on the leg.", "%N nibbles you on the leg."},
+	"knee":     {true, "You nibble %T on the knee.", "%N nibbles %T on the knee.", "%N nibbles you on the knee."},
+	"feet":     {true, "You nibble %T's feet.", "%N nibbles %T's feet.", "%N nibbles your feet."},
 }
 
 // expandEmote replaces %N, %P, %O, %E, %T placeholders in emote strings.
@@ -223,7 +267,7 @@ func expandEmote(template string, actor *Player, targetName string) string {
 			var replacement string
 			switch result[i+1] {
 			case 'N':
-				replacement = actor.FirstName
+				replacement = actor.DisplayNameCap()
 			case 'P':
 				replacement = actor.Possessive()
 			case 'O':
@@ -244,6 +288,29 @@ func expandEmote(template string, actor *Player, targetName string) string {
 
 // processEmote handles emote commands using the emote table.
 func (e *GameEngine) processEmote(player *Player, verb string, args []string) *CommandResult {
+	// Mist Form / Slime Form block every emote, even a smile — a cloud of mist
+	// or a shapeless slime has no face to smile with.
+	if msg := formActionBlockMessage(player); msg != "" {
+		return &CommandResult{Messages: []string{msg}}
+	}
+
+	// A smile reaches your eyes even when the rest of you shouldn't be seen —
+	// it dispels the Invisibility/Phantom Form spells, unlike other emotes.
+	wasInvisible := verb == "SMILE" && (player.Invisible || player.PhantomForm)
+	if wasInvisible {
+		player.Invisible = false
+		player.PhantomForm = false
+	}
+
+	result := e.processEmoteCore(player, verb, args)
+
+	if wasInvisible {
+		result.Messages = append([]string{"Your smile causes you to fade back into view!"}, result.Messages...)
+	}
+	return result
+}
+
+func (e *GameEngine) processEmoteCore(player *Player, verb string, args []string) *CommandResult {
 	// Emotes always reveal you
 	if player.Hidden {
 		player.Hidden = false
@@ -267,12 +334,17 @@ func (e *GameEngine) processEmote(player *Player, verb string, args []string) *C
 	}
 
 	entry, ok := emoteTable[verb]
+	if player.WolfForm {
+		if wolfEntry, wolfOk := wolfFormEmotes[verb]; wolfOk {
+			entry, ok = wolfEntry, true
+		}
+	}
 	if !ok {
 		// Fallback generic
 		v := strings.ToLower(verb)
 		return &CommandResult{
 			Messages:      []string{fmt.Sprintf("You %s.", v)},
-			RoomBroadcast: []string{fmt.Sprintf("%s %ss.", player.FirstName, v)},
+			RoomBroadcast: []string{fmt.Sprintf("%s %ss.", player.DisplayNameCap(), v)},
 		}
 	}
 
@@ -284,11 +356,11 @@ func (e *GameEngine) processEmote(player *Player, verb string, args []string) *C
 			key := verb + ":me"
 			if override, ok := selfOverrides[key]; ok {
 				selfMsg := expandEmote(override[0], player, player.FirstName)
-				roomMsg := expandEmote(override[1], player, player.FirstName)
+				roomMsg := expandEmote(override[1], player, player.DisplayName())
 				return &CommandResult{Messages: []string{selfMsg}, RoomBroadcast: []string{roomMsg}}
 			}
 			selfMsg := expandEmote(entry.Self, player, player.FirstName)
-			roomMsg := expandEmote(entry.Room, player, player.FirstName)
+			roomMsg := expandEmote(entry.Room, player, player.DisplayName())
 			return &CommandResult{Messages: []string{selfMsg}, RoomBroadcast: []string{roomMsg}}
 		}
 
@@ -302,12 +374,20 @@ func (e *GameEngine) processEmote(player *Player, verb string, args []string) *C
 			return e.processLick(player, args)
 		}
 
+		// NIBBLE with body part qualifier: "nibble <person> <bodypart>"
+		if verb == "NIBBLE" {
+			return e.processNibble(player, args)
+		}
+
 		// If targeted emote templates exist
 		if entry.SelfTarget != "" && entry.RoomTarget != "" {
 			// Try to resolve as a player in the room
 			found := e.findPlayerInRoom(player, targetName)
 			if found != nil {
-				displayTarget := found.FirstName
+				if physicalEmoteVerbs[verb] && e.isAvoiding(player.FirstName, found) {
+					return avoidBlockMessage(found.DisplayNameCap())
+				}
+				displayTarget := found.DisplayName()
 				selfMsg := expandEmote(entry.SelfTarget, player, displayTarget)
 				roomMsg := expandEmote(entry.RoomTarget, player, displayTarget)
 				targetMsg := expandEmote(entry.RoomTarget, player, "you")
@@ -329,18 +409,23 @@ func (e *GameEngine) processEmote(player *Player, verb string, args []string) *C
 			}
 
 			// Try to resolve as a room item
+			itemTarget, itemSkip := parseOrdinal(targetName)
 			room := e.rooms[player.RoomNumber]
 			if room != nil {
+				skip := itemSkip
 				for _, ri := range room.Items {
 					itemDef := e.items[ri.Archetype]
 					if itemDef == nil {
 						continue
 					}
 					name := e.getItemNounName(itemDef)
-					if matchesTarget(name, targetName, e.getAdjName(ri.Adj1)) {
-						displayTarget := e.formatItemName(itemDef, ri.Adj1, ri.Adj2, ri.Adj3)
+					if matchesTargetOrdinal(name, itemTarget, &skip, e.getAdjName(ri.Adj1), e.getAdjName(ri.Adj2), e.getAdjName(ri.Adj3)) {
+						displayTarget := e.formatItemName(itemDef, ri.Adj1, ri.Adj2, ri.Adj3, ri.Extend)
 						selfMsg := expandEmote(entry.SelfTarget, player, displayTarget)
 						roomMsg := expandEmote(entry.RoomTarget, player, displayTarget)
+						if verb == "KNOCK" && isPortal(itemDef.Type) && ri.Val2 > 0 && e.roomBroadcast != nil {
+							e.roomBroadcast(ri.Val2, []string{fmt.Sprintf("There is a knock on %s.", displayTarget)})
+						}
 						return &CommandResult{Messages: []string{selfMsg}, RoomBroadcast: []string{roomMsg}}
 					}
 				}
@@ -353,14 +438,15 @@ func (e *GameEngine) processEmote(player *Player, verb string, args []string) *C
 			if player.Wielded != nil {
 				allItems = append(allItems, *player.Wielded)
 			}
+			skip := itemSkip
 			for _, ii := range allItems {
 				itemDef := e.items[ii.Archetype]
 				if itemDef == nil {
 					continue
 				}
 				name := e.getItemNounName(itemDef)
-				if matchesTarget(name, targetName, e.getAdjName(ii.Adj1)) || matchesTarget(name, targetName, e.getAdjName(ii.Adj3)) {
-					displayTarget := e.formatItemName(itemDef, ii.Adj1, ii.Adj2, ii.Adj3)
+				if matchesTargetOrdinal(name, itemTarget, &skip, e.getAdjName(ii.Adj1), e.getAdjName(ii.Adj2), e.getAdjName(ii.Adj3)) {
+					displayTarget := e.formatItemName(itemDef, ii.Adj1, ii.Adj2, ii.Adj3, ii.Tail)
 					selfMsg := expandEmote(entry.SelfTarget, player, displayTarget)
 					roomMsg := expandEmote(entry.RoomTarget, player, displayTarget)
 					return &CommandResult{Messages: []string{selfMsg}, RoomBroadcast: []string{roomMsg}}
@@ -382,7 +468,7 @@ func (e *GameEngine) processEmote(player *Player, verb string, args []string) *C
 // "kiss <person> <bodypart>" — kiss on specific body part (some require submit)
 func (e *GameEngine) processKiss(player *Player, args []string) *CommandResult {
 	if len(args) == 0 {
-		return &CommandResult{Messages: []string{"You blow a kiss."}, RoomBroadcast: []string{fmt.Sprintf("%s blows a kiss.", player.FirstName)}}
+		return &CommandResult{Messages: []string{"You blow a kiss."}, RoomBroadcast: []string{fmt.Sprintf("%s blows a kiss.", player.DisplayNameCap())}}
 	}
 
 	// Check if last arg is a body part
@@ -406,16 +492,18 @@ func (e *GameEngine) processKiss(player *Player, args []string) *CommandResult {
 		entry := emoteTable["KISS"]
 		if entry.SelfTarget != "" {
 			// Try room items, inventory, etc.
+			itemTarget, itemSkip := parseOrdinal(targetName)
 			room := e.rooms[player.RoomNumber]
 			if room != nil {
+				skip := itemSkip
 				for _, ri := range room.Items {
 					itemDef := e.items[ri.Archetype]
 					if itemDef == nil {
 						continue
 					}
 					name := e.getItemNounName(itemDef)
-					if matchesTarget(name, targetName, e.getAdjName(ri.Adj1)) {
-						displayTarget := e.formatItemName(itemDef, ri.Adj1, ri.Adj2, ri.Adj3)
+					if matchesTargetOrdinal(name, itemTarget, &skip, e.getAdjName(ri.Adj1), e.getAdjName(ri.Adj2), e.getAdjName(ri.Adj3)) {
+						displayTarget := e.formatItemName(itemDef, ri.Adj1, ri.Adj2, ri.Adj3, ri.Extend)
 						selfMsg := expandEmote(entry.SelfTarget, player, displayTarget)
 						roomMsg := expandEmote(entry.RoomTarget, player, displayTarget)
 						return &CommandResult{Messages: []string{selfMsg}, RoomBroadcast: []string{roomMsg}}
@@ -425,12 +513,15 @@ func (e *GameEngine) processKiss(player *Player, args []string) *CommandResult {
 		}
 		return &CommandResult{Messages: []string{fmt.Sprintf("You don't see '%s' here.", targetName)}}
 	}
+	if e.isAvoiding(player.FirstName, found) {
+		return avoidBlockMessage(found.DisplayNameCap())
+	}
 
-	displayTarget := found.FirstName
+	displayTarget := found.DisplayName()
 
 	if bodyPart != "" {
 		bp := kissBodyParts[bodyPart]
-		if bp.requiresSubmit && !found.Submitting {
+		if bp.requiresSubmit && !found.Submitting && !e.isAllowedBy(player.FirstName, found) {
 			return &CommandResult{Messages: []string{fmt.Sprintf("%s is not allowing that.", displayTarget)}}
 		}
 		selfMsg := expandEmote(bp.selfMsg, player, displayTarget)
@@ -446,8 +537,8 @@ func (e *GameEngine) processKiss(player *Player, args []string) *CommandResult {
 
 	// Basic kiss (no body part)
 	selfMsg := fmt.Sprintf("You kiss %s.", displayTarget)
-	roomMsg := fmt.Sprintf("%s kisses %s.", player.FirstName, displayTarget)
-	targetMsg := fmt.Sprintf("%s kisses you.", player.FirstName)
+	roomMsg := fmt.Sprintf("%s kisses %s.", player.DisplayNameCap(), displayTarget)
+	targetMsg := fmt.Sprintf("%s kisses you.", player.DisplayNameCap())
 	return &CommandResult{
 		Messages:      []string{selfMsg},
 		RoomBroadcast: []string{roomMsg},
@@ -456,25 +547,165 @@ func (e *GameEngine) processKiss(player *Player, args []string) *CommandResult {
 	}
 }
 
+// processNibble handles NIBBLE with body part qualifiers.
+// "nibble <person>" — basic nibble
+// "nibble <person> <bodypart>" — nibble on specific body part (some require submit)
+func (e *GameEngine) processNibble(player *Player, args []string) *CommandResult {
+	if len(args) == 0 {
+		return &CommandResult{Messages: []string{"You nibble."}, RoomBroadcast: []string{fmt.Sprintf("%s nibbles.", player.DisplayNameCap())}}
+	}
+
+	// Check if last arg is a body part
+	var targetArgs []string
+	var bodyPart string
+	if len(args) >= 2 {
+		lastArg := strings.ToLower(args[len(args)-1])
+		if _, ok := nibbleBodyParts[lastArg]; ok {
+			bodyPart = lastArg
+			targetArgs = args[:len(args)-1]
+		}
+	}
+	if bodyPart == "" {
+		targetArgs = args
+	}
+
+	targetName := strings.ToLower(strings.Join(targetArgs, " "))
+	found := e.findPlayerInRoom(player, targetName)
+	if found == nil {
+		// Fall back to basic emote behavior for non-players
+		entry := emoteTable["NIBBLE"]
+		if entry.SelfTarget != "" {
+			// Try room items, inventory, etc.
+			itemTarget, itemSkip := parseOrdinal(targetName)
+			room := e.rooms[player.RoomNumber]
+			if room != nil {
+				skip := itemSkip
+				for _, ri := range room.Items {
+					itemDef := e.items[ri.Archetype]
+					if itemDef == nil {
+						continue
+					}
+					name := e.getItemNounName(itemDef)
+					if matchesTargetOrdinal(name, itemTarget, &skip, e.getAdjName(ri.Adj1), e.getAdjName(ri.Adj2), e.getAdjName(ri.Adj3)) {
+						displayTarget := e.formatItemName(itemDef, ri.Adj1, ri.Adj2, ri.Adj3, ri.Extend)
+						selfMsg := expandEmote(entry.SelfTarget, player, displayTarget)
+						roomMsg := expandEmote(entry.RoomTarget, player, displayTarget)
+						return &CommandResult{Messages: []string{selfMsg}, RoomBroadcast: []string{roomMsg}}
+					}
+				}
+			}
+		}
+		return &CommandResult{Messages: []string{fmt.Sprintf("You don't see '%s' here.", targetName)}}
+	}
+	if e.isAvoiding(player.FirstName, found) {
+		return avoidBlockMessage(found.DisplayNameCap())
+	}
+
+	displayTarget := found.DisplayName()
+
+	if bodyPart != "" {
+		bp := nibbleBodyParts[bodyPart]
+		if bp.requiresSubmit && !found.Submitting && !e.isAllowedBy(player.FirstName, found) {
+			return &CommandResult{Messages: []string{fmt.Sprintf("%s is not allowing that.", displayTarget)}}
+		}
+		selfMsg := expandEmote(bp.selfMsg, player, displayTarget)
+		roomMsg := expandEmote(bp.roomMsg, player, displayTarget)
+		targetMsg := expandEmote(bp.targetMsg, player, displayTarget)
+		return &CommandResult{
+			Messages:      []string{selfMsg},
+			RoomBroadcast: []string{roomMsg},
+			TargetName:    found.FirstName,
+			TargetMsg:     []string{targetMsg},
+		}
+	}
+
+	// Basic nibble (no body part)
+	selfMsg := fmt.Sprintf("You nibble on %s.", displayTarget)
+	roomMsg := fmt.Sprintf("%s nibbles on %s.", player.DisplayNameCap(), displayTarget)
+	targetMsg := fmt.Sprintf("%s nibbles on you.", player.DisplayNameCap())
+	return &CommandResult{
+		Messages:      []string{selfMsg},
+		RoomBroadcast: []string{roomMsg},
+		TargetName:    found.FirstName,
+		TargetMsg:     []string{targetMsg},
+	}
+}
+
+// rubPartMessages defines the self/room/target messages for "rub <person> <part>"
+// variants that produce a specific message instead of the generic rub emote.
+var rubPartMessages = map[string]struct {
+	self, room, target string
+}{
+	"back": {"You give %s a backrub.", "%s gives %s a backrub.", "%s gives you a backrub."},
+	"foot": {"You rub %s's foot.", "%s rubs %s's foot.", "%s rubs your foot."},
+	"feet": {"You rub %s's feet.", "%s rubs %s's feet.", "%s rubs your feet."},
+}
+
+// processRubPart handles "rub <person> back/foot/feet" -> a specific message
+// instead of the generic "You rub <person>." emote.
+func (e *GameEngine) processRubPart(player *Player, args []string, part string) *CommandResult {
+	if len(args) == 0 {
+		return &CommandResult{Messages: []string{fmt.Sprintf("Rub whose %s?", part)}}
+	}
+	targetName := strings.ToLower(strings.Join(args, " "))
+	found := e.findPlayerInRoom(player, targetName)
+	if found == nil {
+		return &CommandResult{Messages: []string{fmt.Sprintf("You don't see '%s' here.", targetName)}}
+	}
+	if e.isAvoiding(player.FirstName, found) {
+		return avoidBlockMessage(found.DisplayNameCap())
+	}
+	msgs := rubPartMessages[part]
+	displayTarget := found.DisplayName()
+	return &CommandResult{
+		Messages:      []string{fmt.Sprintf(msgs.self, displayTarget)},
+		RoomBroadcast: []string{fmt.Sprintf(msgs.room, player.DisplayNameCap(), displayTarget)},
+		TargetName:    found.FirstName,
+		TargetMsg:     []string{fmt.Sprintf(msgs.target, player.DisplayNameCap())},
+	}
+}
+
 // processLick handles LICK with submit-dependent behavior.
 // lick <person> — "You kiss <person> passionately." (if not submitted)
 // lick <person> — "You lick <person> all over their body." (if submitted)
 func (e *GameEngine) processLick(player *Player, args []string) *CommandResult {
 	if len(args) == 0 {
+		if player.WolfForm {
+			return &CommandResult{
+				Messages:      []string{"You lick your muzzle."},
+				RoomBroadcast: []string{fmt.Sprintf("%s licks %s muzzle.", player.DisplayNameCap(), player.Possessive())},
+			}
+		}
 		return &CommandResult{
 			Messages:      []string{"You lick your lips."},
-			RoomBroadcast: []string{fmt.Sprintf("%s licks %s lips.", player.FirstName, player.Possessive())},
+			RoomBroadcast: []string{fmt.Sprintf("%s licks %s lips.", player.DisplayNameCap(), player.Possessive())},
 		}
 	}
 
 	targetName := strings.ToLower(strings.Join(args, " "))
 	found := e.findPlayerInRoom(player, targetName)
 	if found != nil {
-		displayTarget := found.FirstName
+		if e.isAvoiding(player.FirstName, found) {
+			return avoidBlockMessage(found.DisplayNameCap())
+		}
+		displayTarget := found.DisplayName()
+		// A wolf's lick is always the sloppy, unromantic kind — it doesn't
+		// follow the human kiss-passionately/lick-all-over-body split below.
+		if player.WolfForm {
+			selfMsg := fmt.Sprintf("You sloppily lick %s.", displayTarget)
+			roomMsg := fmt.Sprintf("%s sloppily licks %s.", player.DisplayNameCap(), displayTarget)
+			targetMsg := fmt.Sprintf("%s sloppily licks you.", player.DisplayNameCap())
+			return &CommandResult{
+				Messages:      []string{selfMsg},
+				RoomBroadcast: []string{roomMsg},
+				TargetName:    found.FirstName,
+				TargetMsg:     []string{targetMsg},
+			}
+		}
 		if found.Submitting {
 			selfMsg := fmt.Sprintf("You lick %s all over their body.", displayTarget)
-			roomMsg := fmt.Sprintf("%s licks %s all over their body.", player.FirstName, displayTarget)
-			targetMsg := fmt.Sprintf("%s licks you all over your body.", player.FirstName)
+			roomMsg := fmt.Sprintf("%s licks %s all over their body.", player.DisplayNameCap(), displayTarget)
+			targetMsg := fmt.Sprintf("%s licks you all over your body.", player.DisplayNameCap())
 			return &CommandResult{
 				Messages:      []string{selfMsg},
 				RoomBroadcast: []string{roomMsg},
@@ -483,8 +714,8 @@ func (e *GameEngine) processLick(player *Player, args []string) *CommandResult {
 			}
 		}
 		selfMsg := fmt.Sprintf("You kiss %s passionately.", displayTarget)
-		roomMsg := fmt.Sprintf("%s kisses %s passionately.", player.FirstName, displayTarget)
-		targetMsg := fmt.Sprintf("%s kisses you passionately.", player.FirstName)
+		roomMsg := fmt.Sprintf("%s kisses %s passionately.", player.DisplayNameCap(), displayTarget)
+		targetMsg := fmt.Sprintf("%s kisses you passionately.", player.DisplayNameCap())
 		return &CommandResult{
 			Messages:      []string{selfMsg},
 			RoomBroadcast: []string{roomMsg},
@@ -495,16 +726,18 @@ func (e *GameEngine) processLick(player *Player, args []string) *CommandResult {
 
 	// Fall back to standard emote item targeting
 	entry := emoteTable["LICK"]
+	itemTarget, itemSkip := parseOrdinal(targetName)
 	room := e.rooms[player.RoomNumber]
 	if room != nil && entry.SelfTarget != "" {
+		skip := itemSkip
 		for _, ri := range room.Items {
 			itemDef := e.items[ri.Archetype]
 			if itemDef == nil {
 				continue
 			}
 			name := e.getItemNounName(itemDef)
-			if matchesTarget(name, targetName, e.getAdjName(ri.Adj1)) {
-				displayTarget := e.formatItemName(itemDef, ri.Adj1, ri.Adj2, ri.Adj3)
+			if matchesTargetOrdinal(name, itemTarget, &skip, e.getAdjName(ri.Adj1), e.getAdjName(ri.Adj2), e.getAdjName(ri.Adj3)) {
+				displayTarget := e.formatItemName(itemDef, ri.Adj1, ri.Adj2, ri.Adj3, ri.Extend)
 				selfMsg := expandEmote(entry.SelfTarget, player, displayTarget)
 				roomMsg := expandEmote(entry.RoomTarget, player, displayTarget)
 				return &CommandResult{Messages: []string{selfMsg}, RoomBroadcast: []string{roomMsg}}

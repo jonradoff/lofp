@@ -53,23 +53,23 @@
 ;                                   3238
 ;
 ;List of Room Names:
-;3214: The gates of Salicae û
-;3215: Grave Street         û
-;3216: Grave Street         û
-;3217: Grave Street         û
-;3218: Meat Street          û
-;3219: Meat Street          û
-;3220: Meat Street          û
-;3221: Claw Alley           û
-;3222: Claw Alley           û
-;3223: Claw Alley           û
-;3224: Bone Street          û
-;3225: Bone Street          û
-;3226: Bone Street          û
-;3227: Gristle Alley        û
-;3228: Gristle Alley        û
-;3229: Gristle Alley        û
-;3230: The Abbatoir bar and grill û
+;3214: The gates of Salicae  
+;3215: Grave Street          
+;3216: Grave Street          
+;3217: Grave Street          
+;3218: Meat Street           
+;3219: Meat Street           
+;3220: Meat Street           
+;3221: Claw Alley            
+;3222: Claw Alley            
+;3223: Claw Alley            
+;3224: Bone Street           
+;3225: Bone Street           
+;3226: Bone Street           
+;3227: Gristle Alley         
+;3228: Gristle Alley         
+;3229: Gristle Alley         
+;3230: The Abbatoir bar and grill  
 ;3231: Trash tunnels
 ;3232: Trash tunnels
 ;3233: Trash tunnels
@@ -1143,7 +1143,7 @@ ITEM 1 420
 ; Wall
 ITEM 2 1062 ADJ1=58 ADJ2=347 VAL2=3234
 ; Cloudy white water
-IFPREVERB GO 0
+IFPREVERB GO 2
 	CLEARVERB
 	ECHO PLAYER You duck down under the water, but are unable to find anything within it.
 ENDIF

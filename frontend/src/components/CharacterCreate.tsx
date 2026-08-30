@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useAuth } from '../App'
 
 const RACES = [
   {
@@ -51,23 +52,120 @@ const RACES = [
   },
 ]
 
+// Mirrors engine/internal/engine/appearance.go — must stay in sync with the Go lists,
+// since the server validates whatever is finally submitted against them.
+const EYE_COLORS = ['blue', 'green', 'brown', 'hazel', 'gray', 'amber', 'violet', 'yellow', 'silver', 'black', 'red']
+const SKIN_COLORS = ['fair', 'pale', 'tan', 'olive', 'bronze', 'dark', 'ebony', 'golden', 'ashen', 'ruddy', 'copper', 'porcelain']
+const HAIR_COLORS = ['black', 'brown', 'dark brown', 'chestnut', 'auburn', 'red', 'strawberry blond', 'blond', 'golden blond', 'dark-blond', 'sandy', 'gray', 'silver', 'white']
+const HAIR_STYLES = ['long, flowing', 'long, straight', 'long, messy', 'long, curly', 'short, flowing', 'short, straight', 'short, curly', 'short, messy', 'mohawk', 'braided', 'shaved sides', 'bald', 'short', 'long', 'unkempt', 'spiky']
+
+interface RolledStats {
+  strength: number
+  agility: number
+  quickness: number
+  constitution: number
+  perception: number
+  willpower: number
+  empathy: number
+  height: number
+  weight: number
+  age: number
+}
+
+interface CreatedCharacter {
+  firstName: string
+  lastName: string
+  race: number
+  gender: number
+  strength: number
+  agility: number
+  quickness: number
+  constitution: number
+  perception: number
+  willpower: number
+  empathy: number
+  height: number
+  weight: number
+  age: number
+  eyeColor: string
+  hairColor: string
+  hairStyle: string
+  skinColor: string
+}
+
 interface Props {
-  onCreated: (char: { firstName: string; lastName: string; race: number; gender: number }) => void
+  onCreated: (char: CreatedCharacter) => void
   onOpenManual?: () => void
 }
 
+type Step = 'basics' | 'stats' | 'appearance'
+
 export default function CharacterCreate({ onCreated, onOpenManual }: Props) {
+  const { user } = useAuth()
+  const [step, setStep] = useState<Step>('basics')
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [race, setRace] = useState(1)
   const [gender, setGender] = useState(0)
   const [selectedRace, setSelectedRace] = useState(RACES[0])
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [rolled, setRolled] = useState<RolledStats | null>(null)
+  const [rolling, setRolling] = useState(false)
+  const [rollError, setRollError] = useState('')
+
+  const [eyeColor, setEyeColor] = useState('')
+  const [skinColor, setSkinColor] = useState('')
+  const [hairStyle, setHairStyle] = useState('')
+  const [hairColor, setHairColor] = useState('')
+
+  const authHeaders = (): Record<string, string> => {
+    const headers: Record<string, string> = { 'Content-Type': 'application/json' }
+    if (user?.token) headers['Authorization'] = `Bearer ${user.token}`
+    return headers
+  }
+
+  const rollStats = async (r = race, g = gender) => {
+    setRolling(true)
+    setRollError('')
+    try {
+      const resp = await fetch('/api/characters/roll', {
+        method: 'POST',
+        headers: authHeaders(),
+        body: JSON.stringify({ race: r, gender: g }),
+      })
+      if (!resp.ok) throw new Error('Failed to roll stats')
+      setRolled(await resp.json())
+    } catch {
+      setRollError('Could not roll stats. Please try again.')
+    } finally {
+      setRolling(false)
+    }
+  }
+
+  const handleBasicsSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     if (!firstName.trim() || !lastName.trim()) return
-    onCreated({ firstName: firstName.trim(), lastName: lastName.trim(), race, gender })
+    setStep('stats')
+    rollStats()
   }
+
+  const handleAcceptStats = () => {
+    setStep('appearance')
+  }
+
+  const handleCreate = () => {
+    if (!rolled || !eyeColor || !skinColor || !hairStyle) return
+    onCreated({
+      firstName: firstName.trim(),
+      lastName: lastName.trim(),
+      race, gender,
+      ...rolled,
+      eyeColor, skinColor, hairStyle,
+      hairColor: hairStyle === 'bald' ? '' : hairColor,
+    })
+  }
+
+  const canCreate = !!rolled && !!eyeColor && !!skinColor && !!hairStyle && (hairStyle === 'bald' || !!hairColor)
 
   return (
     <div className="flex items-start sm:items-center justify-center h-full pt-4 px-4 pb-4 sm:p-8 overflow-y-auto">
@@ -79,102 +177,199 @@ export default function CharacterCreate({ onCreated, onOpenManual }: Props) {
           Choose wisely — your race and abilities will shape your destiny in the Shattered Realms
         </p>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Name */}
-          <div className="bg-[#0a0a0a] border border-amber-900/50 rounded-lg p-3 mb-2">
-            <p className="text-gray-400 text-xs font-mono leading-relaxed">
-              Legends is a roleplaying game &mdash; please choose a name that fits the fantasy setting.
-              Avoid modern names, pop culture references, or joke names.{' '}
-              <button type="button" onClick={onOpenManual} className="text-amber-500 hover:text-amber-400 underline cursor-pointer">
-                Read more about roleplaying &rarr;
-              </button>
+        {step === 'basics' && (
+          <form onSubmit={handleBasicsSubmit} className="space-y-6">
+            {/* Name */}
+            <div className="bg-[#0a0a0a] border border-amber-900/50 rounded-lg p-3 mb-2">
+              <p className="text-gray-400 text-xs font-mono leading-relaxed">
+                Legends is a roleplaying game &mdash; please choose a name that fits the fantasy setting.
+                Avoid modern names, pop culture references, or joke names.{' '}
+                <button type="button" onClick={onOpenManual} className="text-amber-500 hover:text-amber-400 underline cursor-pointer">
+                  Read more about roleplaying &rarr;
+                </button>
+              </p>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-gray-400 text-sm font-mono mb-1">First Name</label>
+                <input
+                  type="text"
+                  value={firstName}
+                  onChange={e => setFirstName(e.target.value)}
+                  maxLength={15}
+                  className="w-full bg-[#0a0a0a] border border-[#444] rounded px-3 py-2 text-gray-200 font-mono focus:border-amber-500 focus:outline-none"
+                  placeholder="Balthazar"
+                  autoFocus
+                />
+              </div>
+              <div>
+                <label className="block text-gray-400 text-sm font-mono mb-1">Last Name</label>
+                <input
+                  type="text"
+                  value={lastName}
+                  onChange={e => setLastName(e.target.value)}
+                  maxLength={15}
+                  className="w-full bg-[#0a0a0a] border border-[#444] rounded px-3 py-2 text-gray-200 font-mono focus:border-amber-500 focus:outline-none"
+                  placeholder="Thinvar"
+                />
+                <p className="text-gray-600 text-[10px] font-mono mt-1">Hyphens and accents permitted in last name</p>
+              </div>
+            </div>
+
+            {/* Gender */}
+            <div>
+              <label className="block text-gray-400 text-sm font-mono mb-1">Gender</label>
+              <div className="flex gap-4">
+                {[{ v: 0, l: 'Male' }, { v: 1, l: 'Female' }].map(g => (
+                  <button
+                    key={g.v}
+                    type="button"
+                    onClick={() => setGender(g.v)}
+                    className={`px-6 py-2.5 min-h-[44px] rounded font-mono text-sm transition-colors ${gender === g.v ? 'bg-amber-700 text-white' : 'bg-[#1a1a1a] text-gray-400 border border-[#444] hover:border-amber-600'}`}
+                  >
+                    {g.l}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Race selection */}
+            <div>
+              <label className="block text-gray-400 text-sm font-mono mb-2">Race</label>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-3">
+                {RACES.map(r => (
+                  <button
+                    key={r.id}
+                    type="button"
+                    onClick={() => { setRace(r.id); setSelectedRace(r) }}
+                    className={`px-2 py-3 min-h-[44px] rounded font-mono text-sm transition-colors ${race === r.id ? 'bg-amber-700 text-white border border-amber-600' : 'bg-[#1a1a1a] text-gray-400 border border-[#444] hover:border-amber-600'}`}
+                  >
+                    {r.name}
+                  </button>
+                ))}
+              </div>
+
+              {/* Race detail */}
+              <div className="bg-[#0a0a0a] border border-[#333] rounded-lg p-4 space-y-3">
+                <div className="flex items-center gap-3">
+                  <h3 className="text-amber-400 font-mono text-lg font-bold">{selectedRace.name}</h3>
+                </div>
+                <p className="text-gray-300 font-mono text-xs leading-relaxed">{selectedRace.desc}</p>
+                <div className="bg-[#111] border border-[#2a2a2a] rounded p-2">
+                  <p className="text-green-400 font-mono text-xs">
+                    <span className="text-gray-500">Ability:</span> {selectedRace.ability}
+                  </p>
+                </div>
+                <div className="bg-[#111] border border-[#2a2a2a] rounded p-2">
+                  <p className="text-cyan-400 font-mono text-[10px] tracking-wider">{selectedRace.stats}</p>
+                </div>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              disabled={!firstName.trim() || !lastName.trim()}
+              className="w-full py-3 bg-amber-700 hover:bg-amber-600 disabled:bg-gray-700 disabled:text-gray-500 text-white font-mono rounded text-lg transition-colors cursor-pointer"
+            >
+              Next: Roll Stats
+            </button>
+          </form>
+        )}
+
+        {step === 'stats' && (
+          <div className="space-y-6">
+            <p className="text-gray-400 text-sm font-mono text-center">
+              Your character's statistics are rolled randomly, modified by race. Reroll as many times as you like.
             </p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-gray-400 text-sm font-mono mb-1">First Name</label>
-              <input
-                type="text"
-                value={firstName}
-                onChange={e => setFirstName(e.target.value)}
-                maxLength={15}
-                className="w-full bg-[#0a0a0a] border border-[#444] rounded px-3 py-2 text-gray-200 font-mono focus:border-amber-500 focus:outline-none"
-                placeholder="Balthazar"
-                autoFocus
-              />
+            <div className="bg-[#0a0a0a] border border-[#333] rounded-lg p-4 font-mono text-sm text-gray-200 min-h-[140px] flex items-center justify-center">
+              {rolling && <p className="text-gray-500">Rolling...</p>}
+              {!rolling && rollError && <p className="text-red-400">{rollError}</p>}
+              {!rolling && !rollError && rolled && (
+                <div className="space-y-1 w-full">
+                  <p>Quickness: <span className="text-cyan-400">{rolled.quickness}</span>   Constitution: <span className="text-cyan-400">{rolled.constitution}</span>   Strength: <span className="text-cyan-400">{rolled.strength}</span>   Agility: <span className="text-cyan-400">{rolled.agility}</span></p>
+                  <p>Willpower: <span className="text-cyan-400">{rolled.willpower}</span>   Perception: <span className="text-cyan-400">{rolled.perception}</span>   Empathy: <span className="text-cyan-400">{rolled.empathy}</span></p>
+                  <p>Age: <span className="text-cyan-400">{rolled.age}</span>   Height: <span className="text-cyan-400">{Math.floor(rolled.height / 12)}'{rolled.height % 12}</span>   Weight: <span className="text-cyan-400">{rolled.weight}</span></p>
+                </div>
+              )}
             </div>
-            <div>
-              <label className="block text-gray-400 text-sm font-mono mb-1">Last Name</label>
-              <input
-                type="text"
-                value={lastName}
-                onChange={e => setLastName(e.target.value)}
-                maxLength={15}
-                className="w-full bg-[#0a0a0a] border border-[#444] rounded px-3 py-2 text-gray-200 font-mono focus:border-amber-500 focus:outline-none"
-                placeholder="Thinvar"
-              />
-              <p className="text-gray-600 text-[10px] font-mono mt-1">Hyphens and accents permitted in last name</p>
-            </div>
-          </div>
-
-          {/* Gender */}
-          <div>
-            <label className="block text-gray-400 text-sm font-mono mb-1">Gender</label>
-            <div className="flex gap-4">
-              {[{ v: 0, l: 'Male' }, { v: 1, l: 'Female' }].map(g => (
-                <button
-                  key={g.v}
-                  type="button"
-                  onClick={() => setGender(g.v)}
-                  className={`px-6 py-2.5 min-h-[44px] rounded font-mono text-sm transition-colors ${gender === g.v ? 'bg-amber-700 text-white' : 'bg-[#1a1a1a] text-gray-400 border border-[#444] hover:border-amber-600'}`}
-                >
-                  {g.l}
-                </button>
-              ))}
+            <div className="flex gap-3">
+              <button
+                type="button"
+                onClick={() => setStep('basics')}
+                className="px-6 py-3 bg-[#1a1a1a] text-gray-400 border border-[#444] hover:border-amber-600 rounded font-mono transition-colors cursor-pointer"
+              >
+                Back
+              </button>
+              <button
+                type="button"
+                onClick={() => rollStats()}
+                disabled={rolling}
+                className="flex-1 py-3 bg-[#1a1a1a] text-gray-200 border border-amber-700 hover:border-amber-500 disabled:opacity-50 rounded font-mono transition-colors cursor-pointer"
+              >
+                Reroll
+              </button>
+              <button
+                type="button"
+                onClick={handleAcceptStats}
+                disabled={rolling || !rolled}
+                className="flex-1 py-3 bg-amber-700 hover:bg-amber-600 disabled:bg-gray-700 disabled:text-gray-500 text-white font-mono rounded transition-colors cursor-pointer"
+              >
+                Accept These Stats
+              </button>
             </div>
           </div>
+        )}
 
-          {/* Race selection */}
-          <div>
-            <label className="block text-gray-400 text-sm font-mono mb-2">Race</label>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-3">
-              {RACES.map(r => (
-                <button
-                  key={r.id}
-                  type="button"
-                  onClick={() => { setRace(r.id); setSelectedRace(r) }}
-                  className={`px-2 py-3 min-h-[44px] rounded font-mono text-sm transition-colors ${race === r.id ? 'bg-amber-700 text-white border border-amber-600' : 'bg-[#1a1a1a] text-gray-400 border border-[#444] hover:border-amber-600'}`}
-                >
-                  {r.name}
-                </button>
-              ))}
-            </div>
+        {step === 'appearance' && (
+          <div className="space-y-6">
+            <p className="text-gray-400 text-sm font-mono text-center">Choose your character's appearance.</p>
 
-            {/* Race detail */}
-            <div className="bg-[#0a0a0a] border border-[#333] rounded-lg p-4 space-y-3">
-              <div className="flex items-center gap-3">
-                <h3 className="text-amber-400 font-mono text-lg font-bold">{selectedRace.name}</h3>
-              </div>
-              <p className="text-gray-300 font-mono text-xs leading-relaxed">{selectedRace.desc}</p>
-              <div className="bg-[#111] border border-[#2a2a2a] rounded p-2">
-                <p className="text-green-400 font-mono text-xs">
-                  <span className="text-gray-500">Ability:</span> {selectedRace.ability}
-                </p>
-              </div>
-              <div className="bg-[#111] border border-[#2a2a2a] rounded p-2">
-                <p className="text-cyan-400 font-mono text-[10px] tracking-wider">{selectedRace.stats}</p>
-              </div>
+            <AppearancePicker label="Eye Color" options={EYE_COLORS} value={eyeColor} onChange={setEyeColor} />
+            <AppearancePicker label="Skin Color" options={SKIN_COLORS} value={skinColor} onChange={setSkinColor} />
+            <AppearancePicker label="Hair Style" options={HAIR_STYLES} value={hairStyle} onChange={setHairStyle} />
+            {hairStyle !== '' && hairStyle !== 'bald' && (
+              <AppearancePicker label="Hair Color" options={HAIR_COLORS} value={hairColor} onChange={setHairColor} />
+            )}
+
+            <div className="flex gap-3">
+              <button
+                type="button"
+                onClick={() => setStep('stats')}
+                className="px-6 py-3 bg-[#1a1a1a] text-gray-400 border border-[#444] hover:border-amber-600 rounded font-mono transition-colors cursor-pointer"
+              >
+                Back
+              </button>
+              <button
+                type="button"
+                onClick={handleCreate}
+                disabled={!canCreate}
+                className="flex-1 py-3 bg-amber-700 hover:bg-amber-600 disabled:bg-gray-700 disabled:text-gray-500 text-white font-mono rounded text-lg transition-colors cursor-pointer"
+              >
+                Enter the Shattered Realms
+              </button>
             </div>
           </div>
+        )}
+      </div>
+    </div>
+  )
+}
 
+function AppearancePicker({ label, options, value, onChange }: { label: string; options: string[]; value: string; onChange: (v: string) => void }) {
+  return (
+    <div>
+      <label className="block text-gray-400 text-sm font-mono mb-2">{label}</label>
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+        {options.map(opt => (
           <button
-            type="submit"
-            disabled={!firstName.trim() || !lastName.trim()}
-            className="w-full py-3 bg-amber-700 hover:bg-amber-600 disabled:bg-gray-700 disabled:text-gray-500 text-white font-mono rounded text-lg transition-colors cursor-pointer"
+            key={opt}
+            type="button"
+            onClick={() => onChange(opt)}
+            className={`px-2 py-2.5 min-h-[44px] rounded font-mono text-sm transition-colors capitalize ${value === opt ? 'bg-amber-700 text-white border border-amber-600' : 'bg-[#1a1a1a] text-gray-400 border border-[#444] hover:border-amber-600'}`}
           >
-            Enter the Shattered Realms
+            {opt}
           </button>
-        </form>
+        ))}
       </div>
     </div>
   )
