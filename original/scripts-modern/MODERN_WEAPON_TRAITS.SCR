@@ -1,0 +1,203 @@
+; ============================================================
+; Modern Weapon Traits
+; ============================================================
+
+TRAITDEF GENERIC_SWORD
+    IFVERB WIELD -1
+        ECHO PLAYER With a flourish, you wield %a.
+        ECHO OTHERS With a flourish %N wields %a.
+    ENDIF
+
+    IFVERB UNWIELD -1
+        ECHO PLAYER You put away %a.
+        ECHO OTHERS %N puts away %a.
+    ENDIF
+
+    IFPREVERB TURN -1
+        IFITEM -1 WIELDED
+            CLEARVERB
+            ECHO PLAYER You turn %a in your hand, testing its balance.
+            ECHO OTHERS %N turns %a in %h hand, testing its balance.
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+TRAITDEF GENERIC_AXE
+    IFVERB WIELD -1
+        ECHO PLAYER You wield %a with a grunt.
+        ECHO OTHERS %N wields %a with a grunt.
+    ENDIF
+
+    IFVERB UNWIELD -1
+        ECHO PLAYER You slide %a into your belt loop.
+        ECHO OTHERS %N slides %a. into their belt loop.
+    ENDIF
+
+    IFPREVERB TURN -1
+        IFITEM -1 WIELDED
+            CLEARVERB
+            ECHO PLAYER You heft %a in your hand, inspecting its haft and blade.
+            ECHO OTHERS %N turns %a in %h hand, inspecting its haft and blade.
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+TRAITDEF GENERIC_DAGGER
+    IFVERB WIELD -1
+        ECHO PLAYER You draw %a with a quick flick of your wrist.
+        ECHO OTHERS %N draws %a with a quick flick of the wrist.
+    ENDIF
+
+    IFVERB UNWIELD -1
+        ECHO PLAYER You slip %a away.
+        ECHO OTHERS %N slips %a away.
+    ENDIF
+
+    IFPREVERB TURN -1
+        IFITEM -1 WIELDED
+            CLEARVERB
+            ECHO PLAYER You roll %a between your fingers, inspecting its point and edge.
+            ECHO OTHERS %N rolls %a between %h fingers, inspecting its point and edge.
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+
+TRAITDEF GENERIC_BLUNT
+    IFVERB WIELD -1
+        ECHO PLAYER You heft %a into a firm grip.
+        ECHO OTHERS %N hefts %a into a firm grip.
+    ENDIF
+
+    IFVERB UNWIELD -1
+        ECHO PLAYER You lower %a and put it away.
+        ECHO OTHERS %N lowers %a and puts it away.
+    ENDIF
+
+    IFPREVERB TURN -1
+        IFITEM -1 WIELDED
+            CLEARVERB
+            ECHO PLAYER You turn %a in your hand, feeling its weight and balance.
+            ECHO OTHERS %N turns %a in %h hand, testing its weight and balance.
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+
+TRAITDEF GENERIC_STAFF
+    IFVERB WIELD -1
+        ECHO PLAYER You take %a firmly in hand.
+        ECHO OTHERS %N takes %a firmly in hand.
+    ENDIF
+
+    IFVERB UNWIELD -1
+        ECHO PLAYER You lower %a and tuck it against your side.
+        ECHO OTHERS %N lowers %a and tucks it against %h side.
+    ENDIF
+
+    IFPREVERB TURN -1
+        IFITEM -1 WIELDED
+            CLEARVERB
+            ECHO PLAYER You roll %a between your hands, testing its balance.
+            ECHO OTHERS %N rolls %a between %h hands, testing its balance.
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+
+TRAITDEF GENERIC_POLEARM
+    IFVERB WIELD -1
+        ECHO PLAYER You bring %a up into a ready position.
+        ECHO OTHERS %N brings %a up into a ready position.
+    ENDIF
+
+    IFVERB UNWIELD -1
+        ECHO PLAYER You lower %a and rest it against your shoulder.
+        ECHO OTHERS %N lowers %a and rests it against %h shoulder.
+    ENDIF
+
+    IFPREVERB TURN -1
+        IFITEM -1 WIELDED
+            CLEARVERB
+            ECHO PLAYER You shift %a through your hands, inspecting its shaft and head.
+            ECHO OTHERS %N shifts %a through %h hands, inspecting its shaft and head.
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+
+TRAITDEF GENERIC_THROWN
+    IFVERB WIELD -1
+        ECHO PLAYER You take %a in hand and ready it for a throw.
+        ECHO OTHERS %N takes %a in hand and readies it for a throw.
+    ENDIF
+
+    IFVERB UNWIELD -1
+        ECHO PLAYER You lower %a and put it away.
+        ECHO OTHERS %N lowers %a and puts it away.
+    ENDIF
+
+    IFPREVERB TURN -1
+        IFITEM -1 WIELDED
+            CLEARVERB
+            ECHO PLAYER You turn %a in your hand, judging its weight and balance.
+            ECHO OTHERS %N turns %a in %h hand, judging its weight and balance.
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+
+TRAITDEF GENERIC_BOW
+    IFVERB WIELD -1
+        ECHO PLAYER You take %a in hand and ready the string.
+        ECHO OTHERS %N takes %a in hand and readies the string.
+    ENDIF
+
+    IFVERB UNWIELD -1
+        ECHO PLAYER You lower %a and sling it away.
+        ECHO OTHERS %N lowers %a and slings it away.
+    ENDIF
+
+    IFPREVERB TURN -1
+        IFITEM -1 WIELDED
+            CLEARVERB
+            ECHO PLAYER You turn %a in your hands, inspecting its limbs and string.
+            ECHO OTHERS %N turns %a in %h hands, inspecting its limbs and string.
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+
+TRAITDEF GENERIC_CROSSBOW
+    IFVERB WIELD -1
+        ECHO PLAYER You bring %a up and settle it firmly in your hands.
+        ECHO OTHERS %N brings %a up and settles it firmly in %h hands.
+    ENDIF
+
+    IFVERB UNWIELD -1
+        ECHO PLAYER You lower %a and put it away.
+        ECHO OTHERS %N lowers %a and puts it away.
+    ENDIF
+
+    IFPREVERB TURN -1
+        IFITEM -1 WIELDED
+            CLEARVERB
+            ECHO PLAYER You turn %a in your hands, inspecting its stock, limbs, and mechanism.
+            ECHO OTHERS %N turns %a in %h hands, inspecting its stock, limbs, and mechanism.
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+
+TRAITDEF GLOWING
+    POWER 1
+    IFPREVERB RUB -1
+        CLEARVERB
+        ECHO PLAYER %a gives off a faint glow.
+        ECHO OTHERS %N rubs %a, which gives off a faint glow.
+    ENDIF
+ENDTRAIT
+
+
+
+

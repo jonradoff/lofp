@@ -1,27 +1,29 @@
 package engine
 
 import (
+	"context"
 	"fmt"
 	"math/rand"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/jonradoff/lofp/internal/gameworld"
 )
 
 // ScriptContext holds state for script execution within a single trigger.
 type ScriptContext struct {
-	Player   *Player
-	Room     *gameworld.Room
-	Engine   *GameEngine
-	Messages []string // ECHO PLAYER messages to send to the player
-	RoomMsgs []string // ECHO ALL / ECHO OTHERS messages for the room
-	GMMsgs   []string // GMMSG messages for gamemasters
-	Blocked      bool // CLEARVERB: block the triggering action
-	MoveTo       int  // MOVE: destination room (0 = no move)
-	MoveGroupTo  int  // MOVEGROUP: move all players in room to destination
+	Player      *Player
+	Room        *gameworld.Room
+	Engine      *GameEngine
+	Messages    []string // ECHO PLAYER messages to send to the player
+	RoomMsgs    []string // ECHO ALL / ECHO OTHERS messages for the room
+	GMMsgs      []string // GMMSG messages for gamemasters
+	Blocked     bool     // CLEARVERB: block the triggering action
+	MoveTo      int      // MOVE: destination room (0 = no move)
+	MoveGroupTo int      // MOVEGROUP: move all players in room to destination
 
-	StrVars  map[int]string // %0-%9 from STRCVT
+	StrVars  map[int]string  // %0-%9 from STRCVT
 	OrigRoom *gameworld.Room // saved room for AFFECT
 
 	// Item interaction context (set when running IFPREVERB/IFVERB on a room item)
@@ -29,6 +31,10 @@ type ScriptContext struct {
 	ItemDef *gameworld.ItemDef  // its archetype definition
 
 	DummyVars map[int]int // DUMMY1-5 temporary variables
+
+	PlayerEventEnabled bool
+	PlayerEventDelay   time.Duration
+	Suspended          bool
 }
 
 // RunEntryScripts executes all IFENTRY script blocks for a room.
@@ -68,33 +74,137 @@ func (e *GameEngine) RunSayScripts(player *Player, room *gameworld.Room, text st
 
 // RunPreverbScripts executes IFPREVERB blocks for a specific verb and item ref.
 // Returns the script context. Check sc.Blocked to see if the action should be cancelled.
-func (e *GameEngine) RunPreverbScripts(player *Player, room *gameworld.Room, verb string, ri *gameworld.RoomItem, def *gameworld.ItemDef) *ScriptContext {
+func (e *GameEngine) RunPreverbScripts(player *Player, room *gameworld.Room, verb string, ri *gameworld.RoomItem, def *gameworld.ItemDef, ri2 ...*gameworld.RoomItem) *ScriptContext {
+
 	sc := &ScriptContext{
-		Player:  player,
-		Room:    room,
-		Engine:  e,
-		ItemRef: ri,
-		ItemDef: def,
+		Player:             player,
+		Room:               room,
+		Engine:             e,
+		ItemRef:            ri,
+		ItemDef:            def,
+		PlayerEventEnabled: ri != nil && ri.Ref == -1,
 	}
-	refStr := fmt.Sprintf("%d", ri.Ref)
+
 	verb = strings.ToUpper(verb)
 
-	// Check room-level scripts
-	for _, block := range room.Scripts {
-		if block.Type == "IFPREVERB" && len(block.Args) >= 2 {
-			if strings.ToUpper(block.Args[0]) == verb && block.Args[1] == refStr {
-				sc.execBlock(block)
+	// -1 means bare/no-target room preverb.
+	refStr := "-1"
+	if ri != nil {
+		refStr = fmt.Sprintf("%d", ri.Ref)
+	}
+
+	// ------------------------------------------------------------
+	// ROOM IFPREVERB
+	// ------------------------------------------------------------
+
+	if room != nil {
+		for _, block := range room.Scripts {
+			if block.Type == "IFPREVERB" && len(block.Args) >= 2 {
+				if strings.ToUpper(block.Args[0]) == verb &&
+					(block.Args[1] == refStr || block.Args[1] == "-1") {
+
+					sc.execBlock(block)
+				}
 			}
 		}
 	}
 
-	// Check item-level scripts (on the archetype definition)
-	for _, block := range def.Scripts {
-		if block.Type == "IFPREVERB" && len(block.Args) >= 1 {
-			if strings.ToUpper(block.Args[0]) == verb {
-				// Item scripts use -1 as self-reference
-				if len(block.Args) < 2 || block.Args[1] == "-1" {
-					sc.execBlock(block)
+	// ------------------------------------------------------------
+	// ITEM ARCHETYPE IFPREVERB
+	// ------------------------------------------------------------
+
+	if def != nil {
+		for _, block := range def.Scripts {
+			if block.Type == "IFPREVERB" && len(block.Args) >= 1 {
+				if strings.ToUpper(block.Args[0]) == verb {
+					if len(block.Args) < 2 || block.Args[1] == "-1" {
+						sc.execBlock(block)
+					}
+				}
+			}
+		}
+	}
+
+	// ------------------------------------------------------------
+	// TRAIT IFPREVERB
+	// Last attached trait defining this verb wins.
+	// ------------------------------------------------------------
+
+	// Archetype traits first, then instance traits.
+	// Last trait defining this verb wins.
+	if def != nil {
+		var traitBlock *gameworld.ScriptBlock
+
+		traitNames := append([]string{}, def.Traits...)
+
+		if ri != nil {
+			traitNames = append(traitNames, ri.Traits...)
+		}
+
+		for _, traitName := range traitNames {
+			trait := e.traits[strings.ToUpper(traitName)]
+			if trait == nil {
+				continue
+			}
+
+			for i := range trait.Scripts {
+				block := &trait.Scripts[i]
+
+				if block.Type != "IFPREVERB" {
+					continue
+				}
+
+				if len(block.Args) < 1 {
+					continue
+				}
+
+				if strings.ToUpper(block.Args[0]) != verb {
+					continue
+				}
+
+				if len(block.Args) >= 2 && block.Args[1] != "-1" {
+					continue
+				}
+
+				traitBlock = block
+			}
+		}
+
+		if traitBlock != nil {
+			sc.execBlock(*traitBlock)
+		}
+	}
+
+	// ------------------------------------------------------------
+	// IFPREVERB2
+	// ------------------------------------------------------------
+
+	if len(ri2) > 0 && ri2[0] != nil {
+		secondItem := ri2[0]
+		secondRefStr := fmt.Sprintf("%d", secondItem.Ref)
+
+		if room != nil {
+			for _, block := range room.Scripts {
+				if block.Type == "IFPREVERB2" && len(block.Args) >= 2 {
+					if strings.ToUpper(block.Args[0]) == verb &&
+						block.Args[1] == secondRefStr {
+
+						sc.execBlock(block)
+					}
+				}
+			}
+		}
+
+		secondDef := e.items[secondItem.Archetype]
+
+		if secondDef != nil {
+			for _, block := range secondDef.Scripts {
+				if block.Type == "IFPREVERB2" && len(block.Args) >= 1 {
+					if strings.ToUpper(block.Args[0]) == verb {
+						if len(block.Args) < 2 || block.Args[1] == "-1" {
+							sc.execBlock(block)
+						}
+					}
 				}
 			}
 		}
@@ -124,6 +234,7 @@ func (e *GameEngine) RunItemScripts(player *Player, room *gameworld.Room, ri *ga
 }
 
 func (e *GameEngine) RunVerbScripts(player *Player, room *gameworld.Room, verb string, ri *gameworld.RoomItem, def *gameworld.ItemDef) *ScriptContext {
+
 	sc := &ScriptContext{
 		Player:  player,
 		Room:    room,
@@ -131,21 +242,30 @@ func (e *GameEngine) RunVerbScripts(player *Player, room *gameworld.Room, verb s
 		ItemRef: ri,
 		ItemDef: def,
 	}
+
 	refStr := fmt.Sprintf("%d", ri.Ref)
 	verb = strings.ToUpper(verb)
 
-	// Check room-level IFVERB scripts (e.g., IFVERB PUSH 0 in room definition)
+	// ------------------------------------------------------------
+	// ROOM IFVERB
+	// ------------------------------------------------------------
+
 	if room != nil {
 		for _, block := range room.Scripts {
 			if block.Type == "IFVERB" && len(block.Args) >= 2 {
-				if strings.ToUpper(block.Args[0]) == verb && block.Args[1] == refStr {
+				if strings.ToUpper(block.Args[0]) == verb &&
+					block.Args[1] == refStr {
+
 					sc.execBlock(block)
 				}
 			}
 		}
 	}
 
-	// Check item-level scripts (on the archetype definition)
+	// ------------------------------------------------------------
+	// ITEM ARCHETYPE IFVERB
+	// ------------------------------------------------------------
+
 	for _, block := range def.Scripts {
 		if block.Type == "IFVERB" && len(block.Args) >= 1 {
 			if strings.ToUpper(block.Args[0]) == verb {
@@ -154,6 +274,59 @@ func (e *GameEngine) RunVerbScripts(player *Player, room *gameworld.Room, verb s
 				}
 			}
 		}
+	}
+
+	// ------------------------------------------------------------
+	// TRAIT IFVERB
+	//
+	// Traits are attached to the item in order:
+	//
+	// TRAIT GENERIC_SWORD
+	// TRAIT FANCY_SWORD
+	//
+	// If more than one trait defines the same IFVERB,
+	// the LAST attached trait wins.
+	// ------------------------------------------------------------
+
+	var traitBlock *gameworld.ScriptBlock
+
+	traitNames := append([]string{}, def.Traits...)
+
+	if ri != nil {
+		traitNames = append(traitNames, ri.Traits...)
+	}
+
+	for _, traitName := range traitNames {
+		trait := e.traits[strings.ToUpper(traitName)]
+		if trait == nil {
+			continue
+		}
+
+		for i := range trait.Scripts {
+			block := &trait.Scripts[i]
+
+			if block.Type != "IFVERB" {
+				continue
+			}
+
+			if len(block.Args) < 1 {
+				continue
+			}
+
+			if strings.ToUpper(block.Args[0]) != verb {
+				continue
+			}
+
+			if len(block.Args) >= 2 && block.Args[1] != "-1" {
+				continue
+			}
+
+			traitBlock = block
+		}
+	}
+
+	if traitBlock != nil {
+		sc.execBlock(*traitBlock)
 	}
 
 	return sc
@@ -171,11 +344,12 @@ func (sc *ScriptContext) execBlock(block gameworld.ScriptBlock) {
 	case "IFENTRY":
 		sc.execChildren(block)
 
-	case "IFPREVERB", "IFVERB":
+	case "IFPREVERB", "IFVERB", "IFPREVERB2":
 		sc.execChildren(block)
 
 	case "IFVAR":
 		result := sc.evalIfVar(block.Args)
+
 		if sc.Player.GMTrace {
 			sc.Messages = append(sc.Messages, fmt.Sprintf("[TRACE]   IFVAR %s → %v", strings.Join(block.Args, " "), result))
 		}
@@ -233,29 +407,118 @@ func (sc *ScriptContext) execBlock(block gameworld.ScriptBlock) {
 	}
 }
 
+/*
 // execElse runs the ELSE branch of a conditional block (if it has one).
 func (sc *ScriptContext) execElse(block gameworld.ScriptBlock) {
-	for _, action := range block.ElseActions {
-		sc.execAction(action)
-	}
-	for _, child := range block.ElseChildren {
-		sc.execBlock(child)
+	for _, stmt := range block.ElseStatements {
+		if stmt.Action != nil {
+			sc.execAction(*stmt.Action)
+			continue
+		}
+
+		if stmt.Block != nil {
+			sc.execBlock(*stmt.Block)
+		}
 	}
 }
 
 // execChildren runs the actions and nested blocks within a script block.
 func (sc *ScriptContext) execChildren(block gameworld.ScriptBlock) {
-	for _, action := range block.Actions {
-		sc.execAction(action)
+	for _, stmt := range block.Statements {
+		if stmt.Action != nil {
+
+			if sc.Player != nil && sc.Player.GMTrace {
+				sc.Messages = append(
+					sc.Messages,
+					fmt.Sprintf(
+						"[TRACE] %s %s",
+						stmt.Action.Command,
+						strings.Join(stmt.Action.Args, " "),
+					),
+				)
+			}
+
+			sc.execAction(*stmt.Action)
+			continue
+		}
+
+		if stmt.Block != nil {
+			sc.execBlock(*stmt.Block)
+		}
 	}
-	for _, child := range block.Children {
-		sc.execBlock(child)
+}
+*/
+
+// execElse runs the ELSE branch of a conditional block.
+func (sc *ScriptContext) execElse(block gameworld.ScriptBlock) {
+	sc.execStatements(block.ElseStatements)
+}
+
+// execChildren runs the ordered statements within a script block.
+func (sc *ScriptContext) execChildren(block gameworld.ScriptBlock) {
+	sc.execStatements(block.Statements)
+}
+
+func (sc *ScriptContext) execStatements(statements []gameworld.ScriptStatement) {
+	for i := 0; i < len(statements); i++ {
+		stmt := statements[i]
+
+		if stmt.Action != nil {
+			action := *stmt.Action
+			cmd := strings.ToUpper(action.Command)
+
+			if sc.PlayerEventEnabled && cmd == "PLREVENT" {
+				sc.execAction(action)
+
+				// PLREVENT is followed by CONTPLREVENT.
+				// Everything after CONTPLREVENT resumes later.
+				if i+1 < len(statements) &&
+					statements[i+1].Action != nil &&
+					strings.EqualFold(
+						statements[i+1].Action.Command,
+						"CONTPLREVENT",
+					) {
+
+					sc.schedulePlayerEvent(
+						sc.PlayerEventDelay,
+						statements[i+2:],
+					)
+
+					sc.Suspended = true
+					return
+				}
+
+				continue
+			}
+
+			if sc.PlayerEventEnabled && cmd == "CONTPLREVENT" {
+				continue
+			}
+
+			sc.execAction(action)
+
+			if sc.Suspended {
+				return
+			}
+
+			continue
+		}
+
+		if stmt.Block != nil {
+			sc.execBlock(*stmt.Block)
+
+			if sc.Suspended {
+				return
+			}
+		}
 	}
 }
 
 // execAction executes a single script action.
 func (sc *ScriptContext) execAction(action gameworld.ScriptAction) {
 	switch action.Command {
+	case "SPELL":
+		sc.doSpell(action.Args)
 	case "ECHO":
 		sc.doEcho(action.Args)
 	case "EQUAL":
@@ -272,14 +535,27 @@ func (sc *ScriptContext) execAction(action gameworld.ScriptAction) {
 		sc.doMoveGroup(action.Args)
 	case "SHOWROOM":
 		sc.doShowRoom(action.Args)
-	case "PLREVENT", "CONTPLREVENT":
-		// Timing/event delay — not yet implemented; ignore silently
+	case "PLREVENT":
+		if sc.PlayerEventEnabled && len(action.Args) > 0 {
+			seconds := sc.resolveNumericArg(action.Args[0])
+			if seconds < 0 {
+				seconds = 0
+			}
+
+			sc.PlayerEventDelay =
+				time.Duration(seconds) * time.Second
+		}
+
+	case "CONTPLREVENT":
+		// Marker used by PLREVENT continuation handling.
 	case "AFFECT":
 		sc.doAffect(action.Args)
 	case "RANDOM":
 		sc.doRandom(action.Args)
 	case "DAMAGEPLR":
 		sc.doDamagePlr(action.Args)
+	case "HEALPLR":
+		sc.doHealPlr(action.Args)
 	case "STRCVT":
 		sc.doStrCvt(action.Args)
 	case "STRCPY":
@@ -313,7 +589,7 @@ func (sc *ScriptContext) execAction(action gameworld.ScriptAction) {
 				sc.Player.RoomNumber = dest
 			}
 		}
-	case "MUL":
+	case "MUL", "MULT":
 		sc.doMul(action.Args)
 	case "DIV":
 		sc.doDiv(action.Args)
@@ -347,6 +623,119 @@ func (sc *ScriptContext) execAction(action gameworld.ScriptAction) {
 	}
 }
 
+func (sc *ScriptContext) schedulePlayerEvent(
+	delay time.Duration,
+	statements []gameworld.ScriptStatement,
+) {
+	if len(statements) == 0 {
+		return
+	}
+
+	// Make a continuation context. Do NOT keep using the caller's
+	// temporary RoomItem because the original command is about to return.
+	next := *sc
+
+	next.Messages = nil
+	next.RoomMsgs = nil
+	next.GMMsgs = nil
+	next.Suspended = false
+	next.PlayerEventDelay = 0
+
+	if sc.ItemRef != nil {
+		itemCopy := *sc.ItemRef
+		next.ItemRef = &itemCopy
+	}
+
+	continuation := append(
+		[]gameworld.ScriptStatement(nil),
+		statements...,
+	)
+
+	go func() {
+		timer := time.NewTimer(delay)
+		defer timer.Stop()
+
+		<-timer.C
+
+		next.execStatements(continuation)
+
+		// Persist ITEMVAL changes back to the actual player item.
+		next.persistPlayerEventItem()
+
+		if next.Engine != nil && next.Player != nil {
+			next.Engine.SavePlayer(
+				context.Background(),
+				next.Player,
+			)
+
+			if len(next.Messages) > 0 &&
+				next.Engine.sendToPlayer != nil {
+
+				next.Engine.sendToPlayer(
+					next.Player.FirstName,
+					next.Messages,
+				)
+			}
+
+			if len(next.RoomMsgs) > 0 &&
+				next.Engine.roomBroadcast != nil {
+
+				next.Engine.roomBroadcast(
+					next.Player.RoomNumber,
+					next.RoomMsgs,
+				)
+			}
+		}
+	}()
+}
+
+func (sc *ScriptContext) persistPlayerEventItem() {
+	if sc.Player == nil ||
+		sc.ItemRef == nil ||
+		sc.ItemRef.Ref != -1 {
+		return
+	}
+
+	src := sc.ItemRef
+
+	copyVals := func(ii *InventoryItem) bool {
+		if ii == nil {
+			return false
+		}
+
+		if ii.Archetype != src.Archetype ||
+			ii.Adj1 != src.Adj1 ||
+			ii.Adj2 != src.Adj2 ||
+			ii.Adj3 != src.Adj3 {
+			return false
+		}
+
+		ii.Val1 = src.Val1
+		ii.Val2 = src.Val2
+		ii.Val3 = src.Val3
+		ii.Val4 = src.Val4
+		ii.Val5 = src.Val5
+
+		return true
+	}
+
+	for i := range sc.Player.Inventory {
+		if copyVals(&sc.Player.Inventory[i]) {
+			return
+		}
+	}
+
+	for i := range sc.Player.Worn {
+		if copyVals(&sc.Player.Worn[i]) {
+			return
+		}
+	}
+
+	if sc.Player.Wielded != nil {
+		copyVals(sc.Player.Wielded)
+	}
+}
+
 // doEcho handles ECHO PLAYER, ECHO ALL, ECHO OTHERS.
 func (sc *ScriptContext) doEcho(args []string) {
 	if len(args) < 2 {
@@ -359,7 +748,7 @@ func (sc *ScriptContext) doEcho(args []string) {
 	switch target {
 	case "PLAYER":
 		sc.Messages = append(sc.Messages, text)
-	case "ALL":
+	case "ALL", "GROUP":
 		sc.Messages = append(sc.Messages, text)
 		sc.RoomMsgs = append(sc.RoomMsgs, text)
 	case "OTHERS":
@@ -372,12 +761,18 @@ func (sc *ScriptContext) doEqual(args []string) {
 	if len(args) < 2 {
 		return
 	}
+
 	varName := strings.ToUpper(args[0])
-	val, err := strconv.Atoi(args[1])
-	if err != nil {
-		return
-	}
+	val := sc.resolveNumericArg(args[1])
+
 	sc.setVar(varName, val)
+
+	if sc.Player != nil && sc.Player.GMTrace {
+		sc.Messages = append(
+			sc.Messages,
+			fmt.Sprintf("[TRACE]   %s = %d", varName, val),
+		)
+	}
 }
 
 // doAdd handles ADD INTNUMn value — increments a variable.
@@ -475,6 +870,7 @@ func (sc *ScriptContext) doMove(args []string) {
 	dest := sc.resolveNumericArg(args[0])
 	if dest > 0 {
 		sc.MoveTo = dest
+		//	e.movePlayerToRoom(ctx, player, sc.MoveTo, result)
 	}
 }
 
@@ -511,21 +907,136 @@ func (sc *ScriptContext) doSetItemVal(args []string) {
 }
 
 // doRemoveItem handles REMOVEITEM ref — removes item from player or room.
+// doRemoveItem handles REMOVEITEM ref.
+// ref -1 means remove the currently active item.
 func (sc *ScriptContext) doRemoveItem(args []string) {
 	if len(args) == 0 {
 		return
 	}
+
 	ref, err := strconv.Atoi(args[0])
 	if err != nil {
 		return
 	}
+
+	// ------------------------------------------------------------
+	// REMOVEITEM -1 = remove the currently active item.
+	// ------------------------------------------------------------
 	if ref == -1 && sc.ItemRef != nil {
-		// Remove current item from inventory (by archetype match)
-		for i, ii := range sc.Player.Inventory {
-			if ii.Archetype == sc.ItemRef.Archetype {
-				sc.Player.Inventory = append(sc.Player.Inventory[:i], sc.Player.Inventory[i+1:]...)
-				break
+
+		// First check whether the active item is a room item.
+		if sc.Room != nil {
+			for i := range sc.Room.Items {
+				ri := sc.Room.Items[i]
+
+				if ri.Ref == sc.ItemRef.Ref &&
+					ri.Archetype == sc.ItemRef.Archetype &&
+					ri.Adj1 == sc.ItemRef.Adj1 &&
+					ri.Adj2 == sc.ItemRef.Adj2 &&
+					ri.Adj3 == sc.ItemRef.Adj3 {
+
+					sc.Room.Items = append(
+						sc.Room.Items[:i],
+						sc.Room.Items[i+1:]...,
+					)
+
+					sc.Engine.notifyRoomChange(RoomChange{
+						RoomNumber: sc.Room.Number,
+						Type:       "item_remove",
+						ItemRef:    ri.Ref,
+					})
+
+					if sc.Player != nil && sc.Player.GMTrace {
+						sc.Messages = append(
+							sc.Messages,
+							fmt.Sprintf(
+								"[TRACE]   REMOVEITEM -1 removed room item ref=%d archetype=%d",
+								ri.Ref,
+								ri.Archetype,
+							),
+						)
+					}
+
+					return
+				}
 			}
+		}
+
+		// If it wasn't in the room, try player inventory.
+		for i, ii := range sc.Player.Inventory {
+			if ii.Archetype == sc.ItemRef.Archetype &&
+				ii.Adj1 == sc.ItemRef.Adj1 &&
+				ii.Adj2 == sc.ItemRef.Adj2 &&
+				ii.Adj3 == sc.ItemRef.Adj3 &&
+				ii.Val1 == sc.ItemRef.Val1 &&
+				ii.Val2 == sc.ItemRef.Val2 &&
+				ii.Val3 == sc.ItemRef.Val3 &&
+				ii.Val4 == sc.ItemRef.Val4 &&
+				ii.Val5 == sc.ItemRef.Val5 {
+
+				sc.Player.Inventory = append(
+					sc.Player.Inventory[:i],
+					sc.Player.Inventory[i+1:]...,
+				)
+
+				if sc.Player.GMTrace {
+					sc.Messages = append(
+						sc.Messages,
+						fmt.Sprintf(
+							"[TRACE]   REMOVEITEM -1 removed inventory item archetype=%d",
+							ii.Archetype,
+						),
+					)
+				}
+
+				return
+			}
+		}
+
+		if sc.Player.GMTrace {
+			sc.Messages = append(
+				sc.Messages,
+				"[TRACE]   REMOVEITEM -1 could not find active item",
+			)
+		}
+
+		return
+	}
+
+	// ------------------------------------------------------------
+	// REMOVEITEM <ref> = remove a specific room item reference.
+	// ------------------------------------------------------------
+	if ref >= 0 && sc.Room != nil {
+		for i := range sc.Room.Items {
+			ri := sc.Room.Items[i]
+
+			if ri.Ref != ref || ri.IsPut {
+				continue
+			}
+
+			sc.Room.Items = append(
+				sc.Room.Items[:i],
+				sc.Room.Items[i+1:]...,
+			)
+
+			sc.Engine.notifyRoomChange(RoomChange{
+				RoomNumber: sc.Room.Number,
+				Type:       "item_remove",
+				ItemRef:    ref,
+			})
+
+			if sc.Player != nil && sc.Player.GMTrace {
+				sc.Messages = append(
+					sc.Messages,
+					fmt.Sprintf(
+						"[TRACE]   REMOVEITEM %d removed room item archetype=%d",
+						ref,
+						ri.Archetype,
+					),
+				)
+			}
+
+			return
 		}
 	}
 }
@@ -553,14 +1064,12 @@ func (sc *ScriptContext) evalIfVar(args []string) bool {
 	if len(args) < 3 {
 		return false
 	}
+
 	varName := strings.ToUpper(args[0])
 	op := args[1]
-	expected, err := strconv.Atoi(args[2])
-	if err != nil {
-		return false
-	}
 
 	actual := sc.getVar(varName)
+	expected := sc.resolveNumericArg(args[2])
 
 	switch op {
 	case "=":
@@ -576,21 +1085,26 @@ func (sc *ScriptContext) evalIfVar(args []string) bool {
 	case "<=":
 		return actual <= expected
 	}
+
 	return false
 }
 
+// evalIfItem evaluates IFITEM conditions like "IFITEM 0 OPEN" or "IFITEM -1 CLOSED".
 // evalIfItem evaluates IFITEM conditions like "IFITEM 0 OPEN" or "IFITEM -1 CLOSED".
 func (sc *ScriptContext) evalIfItem(args []string) bool {
 	if len(args) < 2 {
 		return false
 	}
+
 	ref, err := strconv.Atoi(args[0])
 	if err != nil {
 		return false
 	}
+
 	expectedState := strings.ToUpper(args[1])
 
 	var ri *gameworld.RoomItem
+
 	if ref == -1 && sc.ItemRef != nil {
 		ri = sc.ItemRef
 	} else {
@@ -601,21 +1115,51 @@ func (sc *ScriptContext) evalIfItem(args []string) bool {
 			}
 		}
 	}
+
 	if ri == nil {
 		return false
 	}
 
 	state := strings.ToUpper(ri.State)
+
 	switch expectedState {
 	case "OPEN":
 		return state == "OPEN"
+
 	case "CLOSED":
 		return state == "CLOSED" || state == ""
+
 	case "LOCKED":
 		return state == "LOCKED"
+
 	case "UNLOCKED":
 		return state == "UNLOCKED" || state == "OPEN"
+
+	case "WORN":
+		for i := range sc.Player.Worn {
+			item := &sc.Player.Worn[i]
+
+			if item.Archetype == ri.Archetype &&
+				item.Adj1 == ri.Adj1 &&
+				item.Adj2 == ri.Adj2 &&
+				item.Adj3 == ri.Adj3 {
+				return true
+			}
+		}
+
+	case "WIELDED":
+		if sc.Player.Wielded == nil {
+			return false
+		}
+
+		item := sc.Player.Wielded
+
+		return item.Archetype == ri.Archetype &&
+			item.Adj1 == ri.Adj1 &&
+			item.Adj2 == ri.Adj2 &&
+			item.Adj3 == ri.Adj3
 	}
+
 	return false
 }
 
@@ -713,10 +1257,14 @@ func (sc *ScriptContext) getVar(name string) int {
 			return 0
 		}
 		switch idx {
-		case 1: return sc.Player.Flag1
-		case 2: return sc.Player.Flag2
-		case 3: return sc.Player.Flag3
-		case 4: return sc.Player.Flag4
+		case 1:
+			return sc.Player.Flag1
+		case 2:
+			return sc.Player.Flag2
+		case 3:
+			return sc.Player.Flag3
+		case 4:
+			return sc.Player.Flag4
 		}
 		return 0
 	}
@@ -739,23 +1287,46 @@ func (sc *ScriptContext) getVar(name string) int {
 	case "RAC":
 		return sc.Player.Race
 	case "MISTFORM":
-		if sc.Player.Race == 8 { return 1 }
+		if sc.Player.Race == 8 {
+			return 1
+		}
 		return 0
 	// Player stats
-	case "STR", "STRT":
+	// case "STR" returns the base strength, while "STRT" returns the effective strength after modifiers.
+	case "STR":
 		return sc.Player.Strength
-	case "AGI", "AGIT":
+	case "STRT":
+		return sc.Player.EffectiveStat(StatStrength)
+
+	case "AGI":
 		return sc.Player.Agility
-	case "CON", "CONT":
+	case "AGIT":
+		return sc.Player.EffectiveStat(StatAgility)
+
+	case "CON":
 		return sc.Player.Constitution
-	case "QUI", "QUIT":
+	case "CONT":
+		return sc.Player.EffectiveStat(StatConstitution)
+
+	case "QUI":
 		return sc.Player.Quickness
-	case "WIL", "WILT":
+	case "QUIT":
+		return sc.Player.EffectiveStat(StatQuickness)
+
+	case "WIL":
 		return sc.Player.Willpower
-	case "PER", "PERT":
+	case "WILT":
+		return sc.Player.EffectiveStat(StatWillpower)
+
+	case "PER":
 		return sc.Player.Perception
-	case "EMP", "EMPT":
+	case "PERT":
+		return sc.Player.EffectiveStat(StatPerception)
+
+	case "EMP":
 		return sc.Player.Empathy
+	case "EMPT":
+		return sc.Player.EffectiveStat(StatEmpathy)
 	// Player resources
 	case "BODYPOINTS":
 		return sc.Player.BodyPoints
@@ -775,25 +1346,39 @@ func (sc *ScriptContext) getVar(name string) int {
 		return sc.Player.MaxPsi
 	// Player state
 	case "DEAD":
-		if sc.Player.Dead { return 1 }
+		if sc.Player.Dead {
+			return 1
+		}
 		return 0
 	case "FLYING":
-		if sc.Player.Position == 4 { return 1 }
+		if sc.Player.Position == 4 {
+			return 1
+		}
 		return 0
 	case "KNEELING":
-		if sc.Player.Position == 3 { return 1 }
+		if sc.Player.Position == 3 {
+			return 1
+		}
 		return 0
 	case "LAYING":
-		if sc.Player.Position == 2 { return 1 }
+		if sc.Player.Position == 2 {
+			return 1
+		}
 		return 0
 	case "SITTING":
-		if sc.Player.Position == 1 { return 1 }
+		if sc.Player.Position == 1 {
+			return 1
+		}
 		return 0
 	case "STANDING":
-		if sc.Player.Position == 0 { return 1 }
+		if sc.Player.Position == 0 {
+			return 1
+		}
 		return 0
 	case "HIDDEN":
-		if sc.Player.Hidden { return 1 }
+		if sc.Player.Hidden {
+			return 1
+		}
 		return 0
 	// Organization
 	case "ORG":
@@ -806,22 +1391,31 @@ func (sc *ScriptContext) getVar(name string) int {
 		return sc.Player.BuildPoints
 	// Wielded
 	case "WIELDED":
-		if sc.Player.Wielded != nil { return 1 }
+		if sc.Player.Wielded != nil {
+			return 1
+		}
 		return 0
+
 	case "ARCHNUM":
-		if sc.Player.Wielded != nil { return sc.Player.Wielded.Archetype }
-		return 0
+		if sc.ItemRef != nil {
+			return sc.ItemRef.Archetype
+		}
+		return -1
 	// Room info
 	case "RNUM":
 		return sc.Player.RoomNumber
 	case "OUTDOOR":
-		if sc.Room != nil && isOutdoorTerrain(sc.Room.Terrain) { return 1 }
+		if sc.Room != nil && isOutdoorTerrain(sc.Room.Terrain) {
+			return 1
+		}
 		return 0
 	case "PLRSINROOM":
 		if sc.Engine.sessions != nil {
 			count := 0
 			for _, p := range sc.Engine.sessions.OnlinePlayers() {
-				if p.RoomNumber == sc.Player.RoomNumber { count++ }
+				if p.RoomNumber == sc.Player.RoomNumber {
+					count++
+				}
 			}
 			return count
 		}
@@ -835,10 +1429,14 @@ func (sc *ScriptContext) getVar(name string) int {
 	case "TIM":
 		return GameHour()
 	case "DAY":
-		if IsDay() { return 1 }
+		if IsDay() {
+			return 1
+		}
 		return 0
 	case "NIGHT":
-		if IsNight() { return 1 }
+		if IsNight() {
+			return 1
+		}
 		return 0
 	case "DATE":
 		return GameDay()
@@ -870,25 +1468,39 @@ func (sc *ScriptContext) getVar(name string) int {
 		return sc.Player.AgeTrue
 	// Form states
 	case "WOLFFORM":
-		if sc.Player.WolfForm { return 1 }
+		if sc.Player.WolfForm {
+			return 1
+		}
 		return 0
 	case "SLIMEFORM":
-		if sc.Player.SlimeForm { return 1 }
+		if sc.Player.SlimeForm {
+			return 1
+		}
 		return 0
 	case "OTHERFORM":
-		if sc.Player.WolfForm || sc.Player.SlimeForm || (sc.Player.Race == 8 && sc.Player.Hidden) { return 1 }
+		if sc.Player.WolfForm || sc.Player.SlimeForm || (sc.Player.Race == 8 && sc.Player.Hidden) {
+			return 1
+		}
 		return 0
 	case "UNDEAD":
-		if sc.Player.Undead { return 1 }
+		if sc.Player.Undead {
+			return 1
+		}
 		return 0
 	case "DISGUISED":
-		if sc.Player.Disguised { return 1 }
+		if sc.Player.Disguised {
+			return 1
+		}
 		return 0
 	case "SLEEPING":
-		if sc.Player.Sleeping { return 1 }
+		if sc.Player.Sleeping {
+			return 1
+		}
 		return 0
 	case "SUBMITTING":
-		if sc.Player.Submitting { return 1 }
+		if sc.Player.Submitting {
+			return 1
+		}
 		return 0
 	case "ROUNDTIME":
 		return sc.Player.RoundTime
@@ -909,7 +1521,9 @@ func (sc *ScriptContext) getVar(name string) int {
 		}
 		return 0
 	case "ASTRAL":
-		if sc.Room != nil && sc.Room.Terrain == "ASTRAL" { return 1 }
+		if sc.Room != nil && sc.Room.Terrain == "ASTRAL" {
+			return 1
+		}
 		return 0
 	case "TERRAIN":
 		if sc.Room != nil {
@@ -940,7 +1554,9 @@ func (sc *ScriptContext) getVar(name string) int {
 	case "WEALTH2", "WEALTH3", "WEALTH4", "WEALTH5", "WEALTH6", "WEALTH7", "WEALTH8", "WEALTH9":
 		return 0 // TODO: multi-currency per region
 	case "OBJWEIGHT":
-		if sc.ItemDef != nil { return sc.ItemDef.Weight }
+		if sc.ItemDef != nil {
+			return sc.ItemDef.Weight
+		}
 		return 0
 	case "PLAYERNUM":
 		return 0 // TODO: unique player number
@@ -1017,10 +1633,14 @@ func (sc *ScriptContext) setVar(name string, val int) {
 	if strings.HasPrefix(name, "FLAG") {
 		idx, _ := strconv.Atoi(name[4:])
 		switch idx {
-		case 1: sc.Player.Flag1 = val
-		case 2: sc.Player.Flag2 = val
-		case 3: sc.Player.Flag3 = val
-		case 4: sc.Player.Flag4 = val
+		case 1:
+			sc.Player.Flag1 = val
+		case 2:
+			sc.Player.Flag2 = val
+		case 3:
+			sc.Player.Flag3 = val
+		case 4:
+			sc.Player.Flag4 = val
 		}
 		return
 	}
@@ -1041,7 +1661,16 @@ func (sc *ScriptContext) setVar(name string, val int) {
 	case "ALIGN":
 		sc.Player.Alignment = val
 	case "BODYPOINTS":
+		if val > sc.Player.MaxBodyPoints {
+			val = sc.Player.MaxBodyPoints
+		}
+		if val < 0 {
+			val = 0
+		}
 		sc.Player.BodyPoints = val
+	case "ROUNDTIME":
+		sc.Player.RoundTime = val
+		sc.Player.RoundTimeExpiry = time.Now().Add(time.Duration(val) * time.Second)
 	case "MANAPOINTS":
 		sc.Player.Mana = val
 	case "PSIPOINTS":
@@ -1068,19 +1697,14 @@ func (sc *ScriptContext) setVar(name string, val int) {
 	}
 }
 
-
-// resolveNumericArg resolves a script argument that can be a literal number
-// or a variable reference like ITEMVAL2.
 func (sc *ScriptContext) resolveNumericArg(arg string) int {
-	upper := strings.ToUpper(arg)
-	if strings.HasPrefix(upper, "ITEMVAL") {
-		return sc.getVar(upper)
+	// First try a literal number.
+	if val, err := strconv.Atoi(arg); err == nil {
+		return val
 	}
-	val, err := strconv.Atoi(arg)
-	if err != nil {
-		return 0
-	}
-	return val
+
+	// Otherwise treat it as a script variable.
+	return sc.getVar(strings.ToUpper(arg))
 }
 
 // expandScriptText replaces script placeholders in text.
@@ -1097,13 +1721,19 @@ func (sc *ScriptContext) evalIfCarry(args []string) bool {
 	if len(args) >= 2 {
 		adj, _ = strconv.Atoi(args[1])
 	}
-	for _, ii := range sc.Player.Inventory {
+
+	if sc.Player.HasItem(archetype, adj) {
+		return true
+	}
+
+	/*for _, ii := range sc.Player.Inventory {
 		if ii.Archetype == archetype {
 			if adj < 0 || ii.Adj1 == adj {
 				return true
 			}
 		}
-	}
+	}*/
+
 	return false
 }
 
@@ -1125,41 +1755,144 @@ func (sc *ScriptContext) doAffect(args []string) {
 
 // doRandom sets a variable to a random value.
 func (sc *ScriptContext) doRandom(args []string) {
-	if len(args) < 2 {
+	if len(args) < 4 {
 		return
 	}
+
 	varName := strings.ToUpper(args[0])
-	max, err := strconv.Atoi(args[1])
-	if err != nil || max <= 0 {
+
+	start, err1 := strconv.Atoi(args[1])
+	end, err2 := strconv.Atoi(args[2])
+	modifier, err3 := strconv.Atoi(args[3])
+
+	if err1 != nil || err2 != nil || err3 != nil {
 		return
 	}
-	sc.setVar(varName, rand.Intn(max))
+
+	if end < start {
+		return
+	}
+
+	value := rand.Intn(end-start+1) + start + modifier
+
+	sc.setVar(varName, value)
+
+	if sc.Player != nil && sc.Player.GMTrace {
+		sc.Messages = append(
+			sc.Messages,
+			fmt.Sprintf("[TRACE]   %s = %d", varName, value),
+		)
+	}
 }
 
-// doDamagePlr applies damage to the player.
 func (sc *ScriptContext) doDamagePlr(args []string) {
-	if len(args) < 2 {
+	if len(args) < 1 {
 		return
 	}
-	// DAMAGEPLR BODYONLY <amount> <text...>
-	// or DAMAGEPLR <amount> <text...>
+
 	idx := 0
-	if strings.ToUpper(args[0]) == "BODYONLY" {
-		idx = 1
+	bodyOnly := false
+	damageType := ""
+
+	// Optional BODYONLY keyword.
+	if strings.EqualFold(args[idx], "BODYONLY") {
+		bodyOnly = true
+		idx++
 	}
+
 	if idx >= len(args) {
 		return
 	}
-	amount, err := strconv.Atoi(args[idx])
+
+	// Support both:
+	// DAMAGEPLR 15 message...
+	// DAMAGEPLR ELECTRIC 15 message...
+	if _, err := strconv.Atoi(args[idx]); err != nil {
+		damageType = strings.ToUpper(args[idx])
+		idx++
+	}
+
+	if idx >= len(args) {
+		return
+	}
+
+	/*amount, err := strconv.Atoi(args[idx])
 	if err != nil {
 		return
 	}
-	sc.Player.BodyPoints -= amount
+	idx++  */
+
+	amount := sc.resolveNumericArg(args[idx])
+	idx++
+
+	finalDamage := amount
+
+	if !bodyOnly && damageType != "" {
+		finalDamage = sc.applyPlayerResistance(damageType, amount)
+	}
+
+	if finalDamage < 0 {
+		finalDamage = 0
+	}
+
+	sc.Player.BodyPoints -= finalDamage
 	if sc.Player.BodyPoints < 0 {
 		sc.Player.BodyPoints = 0
 	}
-	if idx+1 < len(args) {
-		text := strings.Join(args[idx+1:], " ")
+
+	if idx < len(args) {
+		text := strings.Join(args[idx:], " ")
+		sc.Messages = append(sc.Messages, sc.expandScriptText(text))
+	}
+}
+
+func (sc *ScriptContext) applyPlayerResistance(damageType string, amount int) int {
+	resistance := 0
+
+	switch strings.ToUpper(damageType) {
+	case "BURN", "FIRE":
+		resistance = 0 //todo: sc.Player.FireResistance
+	case "ELECTRIC", "LIGHTNING":
+		resistance = 0 //todo sc.Player.ElectricResistance
+	case "COLD", "ICE":
+		resistance = 0 //todo: sc.Player.ColdResistance
+	case "POISON":
+		resistance = 0 //todo: sc.Player.PoisonResistance
+	}
+
+	// Assuming resistance is a percentage from 0 to 100.
+	if resistance < 0 {
+		resistance = 0
+	}
+	if resistance > 100 {
+		resistance = 100
+	}
+
+	return amount * (100 - resistance) / 100
+}
+
+func (sc *ScriptContext) doHealPlr(args []string) {
+	if len(args) < 1 {
+		return
+	}
+
+	amount := sc.resolveNumericArg(args[0])
+	if amount < 0 {
+		amount = 0
+	}
+
+	oldBP := sc.Player.BodyPoints
+
+	sc.Player.BodyPoints += amount
+	if sc.Player.BodyPoints > sc.Player.MaxBodyPoints {
+		sc.Player.BodyPoints = sc.Player.MaxBodyPoints
+	}
+
+	actualHeal := sc.Player.BodyPoints - oldBP
+
+	if len(args) > 1 {
+		text := strings.Join(args[1:], " ")
+		text = strings.ReplaceAll(text, "%D", strconv.Itoa(actualHeal))
 		sc.Messages = append(sc.Messages, sc.expandScriptText(text))
 	}
 }
@@ -1263,12 +1996,23 @@ func (sc *ScriptContext) doMul(args []string) {
 	if len(args) < 2 {
 		return
 	}
+
 	varName := strings.ToUpper(args[0])
+
 	val, err := strconv.Atoi(args[1])
 	if err != nil {
 		return
 	}
-	sc.setVar(varName, sc.getVar(varName)*val)
+
+	result := sc.getVar(varName) * val
+	sc.setVar(varName, result)
+
+	if sc.Player != nil && sc.Player.GMTrace {
+		sc.Messages = append(
+			sc.Messages,
+			fmt.Sprintf("[TRACE]   %s = %d", varName, result),
+		)
+	}
 }
 
 // doDiv handles DIV varName value — divides a variable.
@@ -1289,12 +2033,23 @@ func (sc *ScriptContext) doMod(args []string) {
 	if len(args) < 2 {
 		return
 	}
+
 	varName := strings.ToUpper(args[0])
-	val, err := strconv.Atoi(args[1])
-	if err != nil || val == 0 {
+	mod := sc.resolveNumericArg(args[1])
+
+	if mod == 0 {
 		return
 	}
-	sc.setVar(varName, sc.getVar(varName)%val)
+
+	result := sc.getVar(varName) % mod
+	sc.setVar(varName, result)
+
+	if sc.Player != nil && sc.Player.GMTrace {
+		sc.Messages = append(
+			sc.Messages,
+			fmt.Sprintf("[TRACE]   %s = %d", varName, result),
+		)
+	}
 }
 
 // doGenMon spawns a monster in the current room.
@@ -1414,8 +2169,18 @@ func (sc *ScriptContext) expandScriptText(text string) string {
 		text = strings.ReplaceAll(text, "%i", "her")
 	}
 	// Legacy aliases
-	text = strings.ReplaceAll(text, "%e", func() string { if sc.Player.Gender == 0 { return "he" }; return "she" }())
-	text = strings.ReplaceAll(text, "%o", func() string { if sc.Player.Gender == 0 { return "him" }; return "her" }())
+	text = strings.ReplaceAll(text, "%e", func() string {
+		if sc.Player.Gender == 0 {
+			return "he"
+		}
+		return "she"
+	}())
+	text = strings.ReplaceAll(text, "%o", func() string {
+		if sc.Player.Gender == 0 {
+			return "him"
+		}
+		return "her"
+	}())
 	// STRCVT %0-%9
 	if sc.StrVars != nil {
 		for i := 0; i <= 9; i++ {
@@ -1425,4 +2190,47 @@ func (sc *ScriptContext) expandScriptText(text string) string {
 		}
 	}
 	return text
+}
+
+func (sc *ScriptContext) doSpell(args []string) {
+	if len(args) == 0 {
+		return
+	}
+
+	spellID := sc.resolveNumericArg(args[0])
+	if spellID <= 0 {
+		return
+	}
+
+	spell := FindSpellByID(spellID)
+	if spell == nil {
+		return
+	}
+
+	switch spell.Effect {
+	case "heal":
+		result := sc.Engine.castHealSpell(
+			sc.Player,
+			spell,
+			nil,
+			false,
+		)
+
+		if result != nil {
+			sc.Messages = append(sc.Messages, result.Messages...)
+			sc.RoomMsgs = append(sc.RoomMsgs, result.RoomBroadcast...)
+		}
+	default:
+		result := sc.Engine.castStatusSpell(
+			sc.Player,
+			spell,
+			nil,
+			false,
+		)
+
+		if result != nil {
+			sc.Messages = append(sc.Messages, result.Messages...)
+			sc.RoomMsgs = append(sc.RoomMsgs, result.RoomBroadcast...)
+		}
+	}
 }
