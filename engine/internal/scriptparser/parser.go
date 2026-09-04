@@ -13,23 +13,25 @@ import (
 
 // ParseResult holds all data parsed from script files.
 type ParseResult struct {
-	Rooms       []gameworld.Room
-	Items       []gameworld.ItemDef
-	Monsters    []gameworld.MonsterDef
-	Nouns       []gameworld.NounDef
-	Adjectives  []gameworld.AdjDef
-	MonsterAdjs []gameworld.MonsterAdjDef
-	Variables   []gameworld.Variable
-	Regions     []gameworld.Region
+	Rooms                []gameworld.Room
+	Items                []gameworld.ItemDef
+	Traits               []gameworld.TraitDef
+	Monsters             []gameworld.MonsterDef
+	Nouns                []gameworld.NounDef
+	Adjectives           []gameworld.AdjDef
+	MonsterAdjs          []gameworld.MonsterAdjDef
+	Variables            []gameworld.Variable
+	Regions              []gameworld.Region
 	MonsterLists         []gameworld.MonsterList
-	SeasonalMonsterLists map[string][]gameworld.MonsterList // "PSCRIPT" -> spring MLISTs, etc.
-	SeasonalRooms        map[string][]gameworld.Room        // seasonal room description overrides
-	CEvents     []gameworld.CEvent
-	MoneyDefs   []gameworld.MoneyDef
-	ForageDefs  []gameworld.ForageDef
-	MineDefs    []gameworld.MineDef
-	StartRoom   int
-	BumpRoom    int
+	SeasonalMonsterLists map[string][]gameworld.MonsterList
+	SeasonalRooms        map[string][]gameworld.Room
+	CEvents              []gameworld.CEvent
+	MoneyDefs            []gameworld.MoneyDef
+	ForageDefs           []gameworld.ForageDef
+	SeasonalForageDefs   map[string][]gameworld.ForageDef
+	MineDefs             []gameworld.MineDef
+	StartRoom            int
+	BumpRoom             int
 }
 
 // ParseConfig reads LEGENDS.CFG and loads all referenced script files.
@@ -105,11 +107,16 @@ func ParseConfig(configPath string) (*ParseResult, error) {
 				if result.SeasonalRooms == nil {
 					result.SeasonalRooms = make(map[string][]gameworld.Room)
 				}
+				if result.SeasonalForageDefs == nil {
+					result.SeasonalForageDefs = make(map[string][]gameworld.ForageDef)
+				}
 				result.SeasonalMonsterLists[cmd] = append(result.SeasonalMonsterLists[cmd], seasonResult.MonsterLists...)
 				result.SeasonalRooms[cmd] = append(result.SeasonalRooms[cmd], seasonResult.Rooms...)
+				result.SeasonalForageDefs[cmd] = append(result.SeasonalForageDefs[cmd], seasonResult.ForageDefs...)
 				// Monsters/items/etc from seasonal scripts go into the main collections
 				result.Monsters = append(result.Monsters, seasonResult.Monsters...)
 				result.Items = append(result.Items, seasonResult.Items...)
+
 			}
 		}
 	}
@@ -168,6 +175,7 @@ func deduplicateRooms(rooms []gameworld.Room) []gameworld.Room {
 
 func parseScriptFile(path string, result *ParseResult) error {
 	path = resolveFileCaseInsensitive(path)
+
 	f, err := os.Open(path)
 	if err != nil {
 		return err
@@ -175,23 +183,53 @@ func parseScriptFile(path string, result *ParseResult) error {
 	defer f.Close()
 
 	filename := filepath.Base(path)
+
 	var lines []string
 	scanner := bufio.NewScanner(f)
-	scanner.Buffer(make([]byte, 0, 1024*1024), 1024*1024)
+
+	// Give Scanner plenty of room for unusually long script lines.
+	scanner.Buffer(make([]byte, 64*1024), 10*1024*1024)
+
 	for scanner.Scan() {
 		lines = append(lines, scanner.Text())
 	}
+
 	if err := scanner.Err(); err != nil {
-		return err
+		return fmt.Errorf(
+			"scan %s stopped after %d lines: %w",
+			filename,
+			len(lines),
+			err,
+		)
 	}
 
+	fmt.Printf(
+		"\n===== PARSING %s: %d lines =====\n",
+		filename,
+		len(lines),
+	)
+
+	// Temporary: dump the entire file as Scanner actually read it.
+	/*
+		if strings.EqualFold(filename, "AUTOUT.SCR") {
+			for i, line := range lines {
+				fmt.Printf(
+					"AUTOUT RAW %04d: %q\n",
+					i+1,
+					line,
+				)
+			}
+		}
+	*/
 	p := &fileParser{
 		lines:    lines,
 		pos:      0,
 		filename: filename,
 		result:   result,
 	}
+
 	p.parse()
+
 	return nil
 }
 
@@ -227,6 +265,17 @@ func (p *fileParser) parse() {
 		fields := strings.Fields(line)
 		cmd := strings.ToUpper(fields[0])
 
+		/*  testing forage loads
+		if strings.Contains(strings.ToUpper(line), "FORAGEDEF") {
+			fmt.Printf(
+				"FORAGE RAW: file=%s pos=%d line=%q fields=%v\n",
+				p.filename,
+				p.pos,
+				line,
+				fields,
+			)
+		}
+		*/
 		switch cmd {
 		case "NUMBER":
 			p.parseRoom(fields)
@@ -234,6 +283,8 @@ func (p *fileParser) parse() {
 			p.parseItem(fields)
 		case "MNUMBER":
 			p.parseMonster(fields)
+		case "TRAITDEF":
+			p.parseTrait(fields)
 		case "NOUNDEF":
 			if len(fields) >= 3 {
 				id, _ := strconv.Atoi(fields[1])
@@ -295,17 +346,33 @@ func (p *fileParser) parse() {
 			}
 			p.pos++
 		case "FORAGEDEF":
-			if len(fields) >= 7 {
+
+			if len(fields) >= 6 {
 				terrain := strings.ToUpper(fields[1])
 				itemNum, _ := strconv.Atoi(fields[2])
 				adjNum, _ := strconv.Atoi(fields[3])
 				ratio, _ := strconv.Atoi(fields[4])
 				v2, _ := strconv.Atoi(fields[5])
-				v5, _ := strconv.Atoi(fields[6])
-				p.result.ForageDefs = append(p.result.ForageDefs, gameworld.ForageDef{
-					Terrain: terrain, ItemNum: itemNum, AdjNum: adjNum, Ratio: ratio, Val2: v2, Val5: v5,
-				})
+
+				v5 := 0
+				if len(fields) >= 7 {
+					v5, _ = strconv.Atoi(fields[6])
+				}
+
+				p.result.ForageDefs = append(
+					p.result.ForageDefs,
+					gameworld.ForageDef{
+						Terrain: terrain,
+						ItemNum: itemNum,
+						AdjNum:  adjNum,
+						Ratio:   ratio,
+						Val2:    v2,
+						Val5:    v5,
+					},
+				)
+
 			}
+
 			p.pos++
 		case "MINDEF":
 			if len(fields) >= 6 {
@@ -325,6 +392,65 @@ func (p *fileParser) parse() {
 	}
 }
 
+func (p *fileParser) parseTrait(fields []string) {
+	if len(fields) < 2 {
+		p.pos++
+		return
+	}
+
+	trait := gameworld.TraitDef{
+		Name: strings.ToUpper(fields[1]),
+	}
+
+	p.pos++
+
+	for p.pos < len(p.lines) {
+		line := strings.TrimSpace(p.lines[p.pos])
+
+		if line == "" || strings.HasPrefix(line, ";") {
+			p.pos++
+			continue
+		}
+
+		fields := strings.Fields(line)
+		cmd := strings.ToUpper(fields[0])
+
+		if cmd == "ENDTRAIT" {
+			p.pos++
+			break
+		}
+
+		switch cmd {
+
+		case "POWER":
+			if len(fields) >= 2 {
+				if n, err := strconv.Atoi(fields[1]); err == nil {
+					trait.Power = n
+				}
+			}
+			p.pos++
+			continue
+
+		case "ITEMVAL2", "ITEMVAL3", "ITEMVAL5", "ADJDEF":
+			trait.Scripts = append(trait.Scripts, gameworld.ScriptBlock{
+				Type: cmd,
+				Args: fields[1:],
+			})
+
+		case "IFVERB", "IFPREVERB", "IFVERB2", "IFPREVERB2",
+			"IFITEM", "IFTOUCH", "IFVAR", "IFNOITEM",
+			"IFSEEK", "IFSAY", "IFCARRY":
+
+			block := p.parseScriptBlock(fields)
+			trait.Scripts = append(trait.Scripts, block)
+			continue
+		}
+
+		p.pos++
+	}
+
+	p.result.Traits = append(p.result.Traits, trait)
+}
 func (p *fileParser) parseRoom(fields []string) {
 	if len(fields) < 2 {
 		p.pos++
@@ -349,7 +475,24 @@ func (p *fileParser) parseRoom(fields []string) {
 		cmd := strings.ToUpper(fields[0])
 
 		// A new NUMBER or INUMBER or MNUMBER starts a new block
-		if cmd == "NUMBER" || cmd == "INUMBER" || cmd == "MNUMBER" {
+		//	if cmd == "NUMBER" || cmd == "INUMBER" || cmd == "MNUMBER" {
+		//		break
+		//	}
+
+		// A top-level definition ends the current room block.
+		// Don't advance p.pos — parse() needs to process this line.
+		if cmd == "NUMBER" ||
+			cmd == "INUMBER" ||
+			cmd == "MNUMBER" ||
+			cmd == "REGIONDEF" ||
+			cmd == "FORAGEDEF" ||
+			cmd == "MINDEF" ||
+			cmd == "MLIST" ||
+			cmd == "MONEYDEF" ||
+			cmd == "NOUNDEF" ||
+			cmd == "ADJDEF" ||
+			cmd == "MACRO" ||
+			cmd == "MADJDEF" {
 			break
 		}
 
@@ -426,7 +569,7 @@ func (p *fileParser) parseRoom(fields []string) {
 				room.Region, _ = strconv.Atoi(fields[1])
 			}
 		case "FORGE", "LOOM", "MINEA", "MINEB", "MINEC",
-			"BUY_ARMOR", "BUY_SKINS", "BUY_JEWELRY", "SUBMERGED",
+			"BUY_ARMOR", "BUY_SKINS", "BUY_JEWELRY", "SUBMERGED", "BANK", "HEALER",
 			"MOVEMENT_ASTRAL":
 			room.Modifiers = append(room.Modifiers, cmd)
 		case "IFVERB", "IFPREVERB", "IFVERB2", "IFPREVERB2",
@@ -561,7 +704,9 @@ func (p *fileParser) parseItem(fields []string) {
 			p.readDescription()
 			continue
 		// Item types
-		case "AMMO", "ARMOR", "BITE_WEAPON", "BOW_WEAPON", "CLAW_WEAPON",
+		case "AMMO", "ARMOR",
+			"BITE_WEAPON", "BOW_WEAPON", "CHARGE_WEAPON", "CLAW_WEAPON",
+			"FIST_WEAPON",
 			"CRUSH_WEAPON", "DRAKIN_CRUSH", "DRAKIN_POLE", "DRAKIN_SLASH",
 			"DRAKIN_THROWN", "FOOD", "HANDGUN", "KEY", "LIQCONTAINER",
 			"LIQUID", "LOCKPICK", "MINETOOL", "MISC", "MONEY",
@@ -570,11 +715,13 @@ func (p *fileParser) parseItem(fields []string) {
 			"PORTAL_OVER", "PORTAL", "PUNCTURE_WEAPON",
 			"RIFLE", "SCROLL", "SHIELD", "SLASH_WEAPON", "STABTHROWN",
 			"THROWN_WEAPON", "TRAP", "TWOHAND_WEAPON", "ORE":
+
 			item.Type = cmd
+			//Shields are now offhand items, not worn armor. The engine will handle this automatically.
 			// Shields default to WORN_ARMOR if no explicit worn slot
-			if cmd == "SHIELD" && item.WornSlot == "" {
-				item.WornSlot = "WORN_ARMOR"
-			}
+			//if cmd == "SHIELD" && item.WornSlot == "" {
+			//	item.WornSlot = "WORN_ARMOR"
+			//}
 		// Worn slots
 		case "WORN_AROUND", "WORN_BACK", "WORN_BODY", "WORN_DON",
 			"WORN_EAR", "WORN_FEET1", "WORN_FEET2", "WORN_HAIR",
@@ -587,6 +734,10 @@ func (p *fileParser) parseItem(fields []string) {
 			"HIDDEN", "LATCHABLE", "LIGHTABLE", "LOCKABLE", "OPENABLE",
 			"REAGENT", "SKIN", "TURNABLE", "SEALED", "MATERIAL2":
 			item.Flags = append(item.Flags, cmd)
+		case "TRAIT":
+			if len(fields) >= 2 {
+				item.Traits = append(item.Traits, strings.ToUpper(fields[1]))
+			}
 		case "IFVERB", "IFPREVERB", "IFVERB2", "IFPREVERB2",
 			"IFITEM", "IFTOUCH", "IFVAR", "IFNOITEM",
 			"IFSEEK", "IFSAY", "IFCARRY":
@@ -627,7 +778,10 @@ func (p *fileParser) parseMonster(fields []string) {
 		fields := strings.Fields(line)
 		cmd := strings.ToUpper(fields[0])
 
-		if cmd == "NUMBER" || cmd == "INUMBER" || cmd == "MNUMBER" {
+		if cmd == "NUMBER" ||
+			cmd == "INUMBER" ||
+			cmd == "MNUMBER" ||
+			cmd == "TRAITDEF" {
 			break
 		}
 
@@ -683,21 +837,37 @@ func (p *fileParser) parseMonster(fields []string) {
 				mon.Gender, _ = strconv.Atoi(fields[1])
 			}
 		case "ALIGNMENT":
-			if len(fields) >= 2 { mon.Alignment, _ = strconv.Atoi(fields[1]) }
+			if len(fields) >= 2 {
+				mon.Alignment, _ = strconv.Atoi(fields[1])
+			}
 		case "RESIST":
-			if len(fields) >= 2 { mon.MagicResist, _ = strconv.Atoi(fields[1]) }
+			if len(fields) >= 2 {
+				mon.MagicResist, _ = strconv.Atoi(fields[1])
+			}
 		case "MANA":
-			if len(fields) >= 2 { mon.Mana, _ = strconv.Atoi(fields[1]) }
+			if len(fields) >= 2 {
+				mon.Mana, _ = strconv.Atoi(fields[1])
+			}
 		case "SPELLUSE":
-			if len(fields) >= 2 { mon.SpellUse, _ = strconv.Atoi(fields[1]) }
+			if len(fields) >= 2 {
+				mon.SpellUse, _ = strconv.Atoi(fields[1])
+			}
 		case "SPELLSKILL":
-			if len(fields) >= 2 { mon.SpellSkill, _ = strconv.Atoi(fields[1]) }
+			if len(fields) >= 2 {
+				mon.SpellSkill, _ = strconv.Atoi(fields[1])
+			}
 		case "CASTLEVEL":
-			if len(fields) >= 2 { mon.CastLevel, _ = strconv.Atoi(fields[1]) }
+			if len(fields) >= 2 {
+				mon.CastLevel, _ = strconv.Atoi(fields[1])
+			}
 		case "HIDESKILL":
-			if len(fields) >= 2 { mon.HideSkill, _ = strconv.Atoi(fields[1]) }
+			if len(fields) >= 2 {
+				mon.HideSkill, _ = strconv.Atoi(fields[1])
+			}
 		case "GUARD":
-			if len(fields) >= 2 { mon.GuardItem, _ = strconv.Atoi(fields[1]) }
+			if len(fields) >= 2 {
+				mon.GuardItem, _ = strconv.Atoi(fields[1])
+			}
 		case "STEALABLE":
 			mon.Stealable = true
 		case "ETERNAL":
@@ -715,15 +885,25 @@ func (p *fileParser) parseMonster(fields []string) {
 				mon.DiseaseLevel, _ = strconv.Atoi(fields[2])
 			}
 		case "SKINADJ":
-			if len(fields) >= 2 { mon.SkinAdj, _ = strconv.Atoi(fields[1]) }
+			if len(fields) >= 2 {
+				mon.SkinAdj, _ = strconv.Atoi(fields[1])
+			}
 		case "SKINITEM":
 			if len(fields) >= 2 {
 				mon.SkinItem, _ = strconv.Atoi(fields[1])
 				sd := gameworld.SkinDrop{Archetype: mon.SkinItem}
-				if len(fields) >= 3 { sd.Probability, _ = strconv.Atoi(fields[2]) }
-				if len(fields) >= 4 { sd.Value, _ = strconv.Atoi(fields[3]) }
-				if len(fields) >= 5 { sd.Magic, _ = strconv.Atoi(fields[4]) }
-				if sd.Probability <= 0 { sd.Probability = 10 }
+				if len(fields) >= 3 {
+					sd.Probability, _ = strconv.Atoi(fields[2])
+				}
+				if len(fields) >= 4 {
+					sd.Value, _ = strconv.Atoi(fields[3])
+				}
+				if len(fields) >= 5 {
+					sd.Magic, _ = strconv.Atoi(fields[4])
+				}
+				if sd.Probability <= 0 {
+					sd.Probability = 10
+				}
 				mon.SkinItems = append(mon.SkinItems, sd)
 			}
 		case "IMMUNITY":
@@ -789,15 +969,25 @@ func (p *fileParser) parseMonster(fields []string) {
 				mon.Spells = append(mon.Spells, spellID)
 			}
 		case "PSI":
-			if len(fields) >= 2 { mon.Psi, _ = strconv.Atoi(fields[1]) }
+			if len(fields) >= 2 {
+				mon.Psi, _ = strconv.Atoi(fields[1])
+			}
 		case "PSIUSE":
-			if len(fields) >= 2 { mon.PsiUse, _ = strconv.Atoi(fields[1]) }
+			if len(fields) >= 2 {
+				mon.PsiUse, _ = strconv.Atoi(fields[1])
+			}
 		case "PSISKILL":
-			if len(fields) >= 2 { mon.PsiSkill, _ = strconv.Atoi(fields[1]) }
+			if len(fields) >= 2 {
+				mon.PsiSkill, _ = strconv.Atoi(fields[1])
+			}
 		case "PSIRESIST":
-			if len(fields) >= 2 { mon.PsiResist, _ = strconv.Atoi(fields[1]) }
+			if len(fields) >= 2 {
+				mon.PsiResist, _ = strconv.Atoi(fields[1])
+			}
 		case "PSILEVEL":
-			if len(fields) >= 2 { mon.PsiLevel, _ = strconv.Atoi(fields[1]) }
+			if len(fields) >= 2 {
+				mon.PsiLevel, _ = strconv.Atoi(fields[1])
+			}
 		case "DISCIPLINE":
 			if len(fields) >= 2 {
 				disc, _ := strconv.Atoi(fields[1])
@@ -807,7 +997,9 @@ func (p *fileParser) parseMonster(fields []string) {
 			"TEXI", "TEXL", "TEXM", "TEXQ", "TEXR", "TEXTS", "TEXS", "TEXV", "TEXZ",
 			"TEX1", "TEX2", "TEX3", "TEX4":
 			if len(fields) >= 2 {
-				if mon.TextOverrides == nil { mon.TextOverrides = make(map[string]string) }
+				if mon.TextOverrides == nil {
+					mon.TextOverrides = make(map[string]string)
+				}
 				mon.TextOverrides[cmd] = strings.Join(fields[1:], " ")
 			}
 		case "*DESCRIPTION_START":
@@ -826,9 +1018,11 @@ func (p *fileParser) parseMonster(fields []string) {
 }
 
 // parseItemDescArgs parses the args after "*DESCRIPTION_START ITEM", handling:
-//   EXAM 0, READ 5, IN 3, ON 2, UNDER 1, BEHIND 0  (verb ref)
-//   0 EXAM, 1 IN, 1 READ                            (ref verb - reversed)
-//   4                                                (bare ref - defaults to EXAMINE)
+//
+//	EXAM 0, READ 5, IN 3, ON 2, UNDER 1, BEHIND 0  (verb ref)
+//	0 EXAM, 1 IN, 1 READ                            (ref verb - reversed)
+//	4                                                (bare ref - defaults to EXAMINE)
+//
 // Returns normalized (action, ref) pair.
 func (p *fileParser) parseItemDescArgs(args []string) (string, string) {
 	normalizeVerb := func(v string) string {
@@ -953,6 +1147,7 @@ func (p *fileParser) parseScriptBlock(fields []string) gameworld.ScriptBlock {
 			p.pos++
 			continue
 		}
+
 		fields := strings.Fields(line)
 		cmd := strings.ToUpper(fields[0])
 
@@ -966,62 +1161,148 @@ func (p *fileParser) parseScriptBlock(fields []string) gameworld.ScriptBlock {
 			return block
 		}
 
+		// ------------------------------------------------------------
+		// ELSE branch
+		// ------------------------------------------------------------
 		if cmd == "ELSE" {
 			p.pos++
-			// Parse remaining actions/children into the ELSE branch
+
 			for p.pos < len(p.lines) {
 				eline := strings.TrimSpace(p.lines[p.pos])
+
 				if eline == "" || strings.HasPrefix(eline, ";") {
 					p.pos++
 					continue
 				}
+
 				efields := strings.Fields(eline)
 				ecmd := strings.ToUpper(efields[0])
-				if ecmd == "ENDIF" || ecmd == "NUMBER" || ecmd == "INUMBER" || ecmd == "MNUMBER" {
+
+				if ecmd == "ENDIF" ||
+					ecmd == "NUMBER" ||
+					ecmd == "INUMBER" ||
+					ecmd == "MNUMBER" {
 					break
 				}
+
 				if ecmd == "ELSE" {
 					p.pos++
-					break // nested ELSE not supported, just stop
+					break
 				}
+
+				// Nested conditional inside ELSE
 				if strings.HasPrefix(ecmd, "IF") {
 					child := p.parseScriptBlock(efields)
-					block.ElseChildren = append(block.ElseChildren, child)
+
+					block.ElseChildren = append(
+						block.ElseChildren,
+						child,
+					)
+
+					block.ElseStatements = append(
+						block.ElseStatements,
+						gameworld.ScriptStatement{
+							Block: &child,
+						},
+					)
+
 					continue
 				}
-				block.ElseActions = append(block.ElseActions, gameworld.ScriptAction{
+
+				// Normal action inside ELSE
+				action := gameworld.ScriptAction{
 					Command: ecmd,
 					Args:    efields[1:],
-				})
+				}
+
+				block.ElseActions = append(
+					block.ElseActions,
+					action,
+				)
+
+				block.ElseStatements = append(
+					block.ElseStatements,
+					gameworld.ScriptStatement{
+						Action: &action,
+					},
+				)
+
 				p.pos++
 			}
+
 			continue
 		}
 
+		// ------------------------------------------------------------
 		// Nested conditional
+		// ------------------------------------------------------------
 		if strings.HasPrefix(cmd, "IF") {
-			// If we're in a verb/preverb block and we see another verb/preverb block,
-			// it's a sibling, not a child — implicitly close this block.
-			// The original engine treated encountering a new IFPREVERB/IFVERB/IFSAY/IFENTRY
-			// as an implicit ENDIF for the current verb block.
-			isVerbBlock := cmd == "IFVERB" || cmd == "IFVERB2" || cmd == "IFPREVERB" || cmd == "IFPREVERB2" ||
-				cmd == "IFSAY" || cmd == "IFENTRY" || cmd == "IFTOUCH" || cmd == "IFLOGIN"
-			parentIsVerbBlock := block.Type == "IFVERB" || block.Type == "IFVERB2" || block.Type == "IFPREVERB" || block.Type == "IFPREVERB2" ||
-				block.Type == "IFSAY" || block.Type == "IFENTRY" || block.Type == "IFTOUCH" || block.Type == "IFLOGIN"
+
+			// If we're in a verb/preverb block and we see another
+			// verb/preverb block, it's a sibling, not a child.
+			isVerbBlock :=
+				cmd == "IFVERB" ||
+					cmd == "IFVERB2" ||
+					cmd == "IFPREVERB" ||
+					cmd == "IFPREVERB2" ||
+					cmd == "IFSAY" ||
+					cmd == "IFENTRY" ||
+					cmd == "IFTOUCH" ||
+					cmd == "IFLOGIN"
+
+			parentIsVerbBlock :=
+				block.Type == "IFVERB" ||
+					block.Type == "IFVERB2" ||
+					block.Type == "IFPREVERB" ||
+					block.Type == "IFPREVERB2" ||
+					block.Type == "IFSAY" ||
+					block.Type == "IFENTRY" ||
+					block.Type == "IFTOUCH" ||
+					block.Type == "IFLOGIN"
+
 			if isVerbBlock && parentIsVerbBlock {
-				// Implicit ENDIF — return current block, let parent re-parse this line
+				// Implicit ENDIF — return current block,
+				// let parent re-parse this line.
 				return block
 			}
+
 			child := p.parseScriptBlock(fields)
-			block.Children = append(block.Children, child)
+
+			block.Children = append(
+				block.Children,
+				child,
+			)
+
+			block.Statements = append(
+				block.Statements,
+				gameworld.ScriptStatement{
+					Block: &child,
+				},
+			)
+
 			continue
 		}
 
-		// It's an action
-		block.Actions = append(block.Actions, gameworld.ScriptAction{
+		// ------------------------------------------------------------
+		// Normal action
+		// ------------------------------------------------------------
+		action := gameworld.ScriptAction{
 			Command: cmd,
 			Args:    fields[1:],
-		})
+		}
+
+		block.Actions = append(
+			block.Actions,
+			action,
+		)
+
+		block.Statements = append(
+			block.Statements,
+			gameworld.ScriptStatement{
+				Action: &action,
+			},
+		)
+
 		p.pos++
 	}
 
@@ -1077,4 +1358,3 @@ func (p *fileParser) parseRegion(fields []string) {
 		region.MineAdj, _ = strconv.Atoi(val)
 	}
 }
-

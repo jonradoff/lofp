@@ -7,23 +7,33 @@ import (
 	"sync"
 	"time"
 
+	"go.mongodb.org/mongo-driver/v2/bson"
+
 	"github.com/jonradoff/lofp/internal/gameworld"
 )
 
 // MonsterInstance represents a spawned monster in the world.
 type MonsterInstance struct {
-	ID           int       `json:"id"`
-	DefNumber    int       `json:"defNumber"`
-	RoomNumber   int       `json:"roomNumber"`
-	Alive        bool      `json:"alive"`
-	Sedated      bool      `json:"sedated"`
-	Stunned      bool      `json:"-"` // stunned: skip next combat tick, easier to hit
-	Skinned      bool      `json:"-"` // already skinned
-	DefenseBonus int       `json:"-"` // from active psi defenses
-	CurrentHP  int       `json:"currentHP"`
-	Target     string    `json:"-"`
-	Searched   bool      `json:"-"` // already searched for loot
-	DeathTime  time.Time `json:"-"` // when it died (for corpse decay)
+	ID             int                   `json:"id"`
+	DefNumber      int                   `json:"defNumber"`
+	RoomNumber     int                   `json:"roomNumber"`
+	Alive          bool                  `json:"alive"`
+	Sedated        bool                  `json:"sedated"`
+	Stunned        bool                  `json:"-"` // stunned: skip next combat tick, easier to hit
+	Skinned        bool                  `json:"-"` // already skinned
+	DefenseBonus   int                   `json:"-"` // from active psi defenses
+	CurrentHP      int                   `json:"currentHP"`
+	Target         string                `json:"-"`
+	Searched       bool                  `json:"-"` // already searched for loot
+	DeathTime      time.Time             `json:"-"` // when it died (for corpse decay)
+	DamageByPlayer map[bson.ObjectID]int `json:"-"` // tracks damage dealt by players for loot distribution
+
+	CommanderID     string `json:"-"` //player NAME of the summoner/controller (if any)
+	ControlType     string `json:"-"` // "SUMMONED" or "CONTROLLED" for player-controlled monsters
+	Following       string `json:"-"` //is following a player (for summoned monsters)
+	TargetMonsterID int    `json:"-"` //track controlled monster target // -1 means no monster target
+	Guarding        string `json:"-"` //creature guarding a player (for summoned monsters)
+	Watching        bool   `json:"-"` //creature is watching wich broadcasts the room back to the player on move
 }
 
 // monsterManager handles monster spawning and tracking.
@@ -31,7 +41,7 @@ type monsterManager struct {
 	mu             sync.RWMutex
 	instances      []MonsterInstance
 	nextID         int
-	monstersByRoom map[int][]int    // roomNumber -> slice of instance indices
+	monstersByRoom map[int][]int     // roomNumber -> slice of instance indices
 	roomLastPlayer map[int]time.Time // roomNumber -> last time a player was present
 }
 
@@ -130,12 +140,13 @@ func (e *GameEngine) spawnForRoom(roomNum int) {
 				hp += rand.Intn(def.ExtraBody/2+1) + def.ExtraBody/2
 			}
 			inst := MonsterInstance{
-				ID:           e.monsterMgr.nextID,
-				DefNumber:    ml.MonsterID,
-				RoomNumber:   roomNum,
-				Alive:        true,
-				CurrentHP:    hp,
-				DefenseBonus: monsterPsiDefenseBonus(def.Disciplines),
+				ID:              e.monsterMgr.nextID,
+				DefNumber:       ml.MonsterID,
+				RoomNumber:      roomNum,
+				Alive:           true,
+				CurrentHP:       hp,
+				DefenseBonus:    monsterPsiDefenseBonus(def.Disciplines),
+				TargetMonsterID: -1, // no monster target by default
 			}
 			idx := len(e.monsterMgr.instances)
 			e.monsterMgr.instances = append(e.monsterMgr.instances, inst)
@@ -159,14 +170,25 @@ func (e *GameEngine) spawnForRoom(roomNum int) {
 }
 
 // SpawnOne creates a single monster instance in a room. hp should include ExtraBody.
-func (mm *monsterManager) SpawnOne(defNum, roomNum, hp int) {
+func (mm *monsterManager) SpawnOne(defNum, roomNum, hp int) *MonsterInstance {
 	mm.mu.Lock()
 	defer mm.mu.Unlock()
-	inst := MonsterInstance{ID: mm.nextID, DefNumber: defNum, RoomNumber: roomNum, Alive: true, CurrentHP: hp}
+
+	inst := MonsterInstance{
+		ID:              mm.nextID,
+		DefNumber:       defNum,
+		RoomNumber:      roomNum,
+		Alive:           true,
+		CurrentHP:       hp,
+		TargetMonsterID: -1, // no monster target by default
+	}
+
 	idx := len(mm.instances)
 	mm.instances = append(mm.instances, inst)
 	mm.monstersByRoom[roomNum] = append(mm.monstersByRoom[roomNum], idx)
 	mm.nextID++
+
+	return &mm.instances[idx]
 }
 
 // lastSpawnedID returns the ID of the most recently spawned monster.
@@ -231,6 +253,26 @@ func (mm *monsterManager) AllMonstersInRoom(roomNum int) []MonsterInstance {
 		}
 	}
 	return result
+}
+
+func (mm *monsterManager) MarkSkinned(instanceID int) bool {
+	mm.mu.Lock()
+	defer mm.mu.Unlock()
+
+	for i := range mm.instances {
+		if mm.instances[i].ID != instanceID {
+			continue
+		}
+
+		if mm.instances[i].Skinned {
+			return false
+		}
+
+		mm.instances[i].Skinned = true
+		return true
+	}
+
+	return false
 }
 
 // moveMonster moves a monster instance to a new room. Must be called under lock.
@@ -457,6 +499,7 @@ func (e *GameEngine) monsterTick(tick int) {
 
 	for idx := range e.monsterMgr.instances {
 		inst := &e.monsterMgr.instances[idx]
+
 		if !inst.Alive || inst.Sedated {
 			continue
 		}
@@ -466,127 +509,243 @@ func (e *GameEngine) monsterTick(tick int) {
 			continue
 		}
 
-		// Speed determines action frequency: speed 1 = every tick, speed 3 (default) = every 3 ticks
+		// Commanded creatures do nothing autonomously unless they
+		// have been explicitly ordered to attack another monster.
+		if inst.CommanderID != "" &&
+			inst.TargetMonsterID < 0 {
+			continue
+		}
+
+		// Speed determines action frequency:
+		// speed 1 = every tick, speed 3 = every 3 ticks.
 		speed := def.Speed
 		if speed <= 0 {
 			speed = 3
 		}
+
 		if tick%speed != 0 {
 			continue
 		}
 
-		// If monster is in combat, process combat instead of wandering/texting
-		if inst.Target != "" {
+		// ------------------------------------------------------------
+		// COMBAT
+		//
+		// A monster may now be fighting either:
+		//   Target          = player
+		//   TargetMonsterID = monster
+		// ------------------------------------------------------------
+
+		if inst.Target != "" || inst.TargetMonsterID >= 0 {
 			e.monsterCombatTick(inst, def)
 			continue
 		}
 
 		name := FormatMonsterName(def, e.monAdjs)
 
-		// Hostile monsters without a target — look for players in room
-		if def.Strategy >= 301 && inst.Target == "" {
+		// ------------------------------------------------------------
+		// AUTONOMOUS AGGRO
+		//
+		// Only acquire a player if the monster has NO target at all.
+		// ------------------------------------------------------------
+
+		if def.Strategy >= 301 &&
+			inst.Target == "" &&
+			inst.TargetMonsterID < 0 {
+
 			if e.sessions != nil {
 				for _, p := range e.sessions.OnlinePlayers() {
-					if p.RoomNumber == inst.RoomNumber && !p.Dead && !p.Hidden && !p.GMInvis {
-						inst.Target = p.FirstName
-						if e.sendToPlayer != nil {
-							e.sendToPlayer(p.FirstName, []string{fmt.Sprintf("A %s snarls and attacks you!", name)})
-						}
-						break
+					if p.RoomNumber != inst.RoomNumber ||
+						p.Dead ||
+						p.Hidden ||
+						p.Invisible ||
+						p.GMInvis {
+						continue
 					}
+
+					inst.Target = p.FirstName
+
+					if e.sendToPlayer != nil {
+						e.sendToPlayer(
+							p.FirstName,
+							[]string{
+								fmt.Sprintf(
+									"A %s snarls and attacks you!",
+									name,
+								),
+							},
+						)
+					}
+
+					break
 				}
 			}
+
 			if inst.Target != "" {
-				continue // start combat next tick
+				continue // start combat next action tick
 			}
 		}
 
-		// Random text (TEX1-4): ~8% chance per action tick
+		// ------------------------------------------------------------
+		// RANDOM MONSTER TEXT
+		// ------------------------------------------------------------
+
 		if rand.Intn(100) < 8 {
 			var texts []string
-			for _, key := range []string{"TEX1", "TEX2", "TEX3", "TEX4"} {
+
+			for _, key := range []string{
+				"TEX1",
+				"TEX2",
+				"TEX3",
+				"TEX4",
+			} {
 				if t, ok := def.TextOverrides[key]; ok && t != "" {
 					texts = append(texts, t)
 				}
 			}
+
 			if len(texts) > 0 {
 				msg := texts[rand.Intn(len(texts))]
-				e.localRoomBroadcast(inst.RoomNumber, []string{msg})
+
+				e.localRoomBroadcast(
+					inst.RoomNumber,
+					[]string{msg},
+				)
 			}
 		}
 
-		// Wandering: ~5% chance per action tick for non-hostile, non-combat monsters
-		if def.Strategy < 301 && inst.Target == "" && rand.Intn(100) < 5 {
+		// ------------------------------------------------------------
+		// WANDERING
+		//
+		// Never wander while fighting either a player or monster.
+		// ------------------------------------------------------------
+
+		if def.Strategy < 301 &&
+			inst.Target == "" &&
+			inst.TargetMonsterID < 0 &&
+			rand.Intn(100) < 5 {
+
 			room := e.rooms[inst.RoomNumber]
 			if room == nil {
 				continue
 			}
 
-			// Collect valid exits
 			type exitInfo struct {
 				dir    string
 				destID int
 			}
+
 			var exits []exitInfo
+
 			for dir, destID := range room.Exits {
-				if destID > 0 {
-					// Non-flying monsters can't use ABOVE exits
-					if strings.EqualFold(dir, "ABOVE") || strings.EqualFold(dir, "UP") {
-						continue
-					}
-					exits = append(exits, exitInfo{dir, destID})
+				if destID <= 0 {
+					continue
 				}
+
+				// Non-flying monsters can't use vertical exits.
+				if strings.EqualFold(dir, "ABOVE") ||
+					strings.EqualFold(dir, "UP") {
+					continue
+				}
+
+				exits = append(
+					exits,
+					exitInfo{
+						dir:    dir,
+						destID: destID,
+					},
+				)
 			}
+
 			if len(exits) == 0 {
 				continue
 			}
 
-			// Pick a random exit
 			chosen := exits[rand.Intn(len(exits))]
-			destRoom := e.rooms[chosen.destID]
-			if destRoom == nil {
+
+			if !e.moveMonsterDirection(
+				idx,
+				inst,
+				def,
+				chosen.dir,
+			) {
 				continue
-			}
-
-			dirName := directionNames[chosen.dir]
-			if dirName == "" {
-				dirName = strings.ToLower(chosen.dir)
-			}
-
-			// Departure message
-			moveText := def.TextOverrides["TEXM"]
-			if moveText != "" {
-				e.localRoomBroadcast(inst.RoomNumber, []string{moveText + " " + dirName + "."})
-			} else {
-				article := "A"
-				if len(name) > 0 && strings.ContainsRune("aeiouAEIOU", rune(name[0])) {
-					article = "An"
-				}
-				if def.Unique {
-					e.localRoomBroadcast(inst.RoomNumber, []string{fmt.Sprintf("%s wanders %s.", name, dirName)})
-				} else {
-					e.localRoomBroadcast(inst.RoomNumber, []string{fmt.Sprintf("%s %s wanders %s.", article, name, dirName)})
-				}
-			}
-
-			// Move the monster
-			e.monsterMgr.moveMonster(idx, chosen.destID)
-
-			// Arrival message
-			entryText := def.TextOverrides["TEXE"]
-			if entryText != "" {
-				e.localRoomBroadcast(chosen.destID, []string{entryText})
-			} else {
-				article := "A"
-				if len(name) > 0 && strings.ContainsRune("aeiouAEIOU", rune(name[0])) {
-					article = "An"
-				}
-				if def.Unique {
-					e.localRoomBroadcast(chosen.destID, []string{fmt.Sprintf("%s has arrived.", name)})
-				} else {
-					e.localRoomBroadcast(chosen.destID, []string{fmt.Sprintf("%s %s has arrived.", article, name)})
-				}
 			}
 		}
 	}
+}
+func (e *GameEngine) moveMonsterDirection(idx int, inst *MonsterInstance, def *gameworld.MonsterDef, dir string) bool {
+	room := e.rooms[inst.RoomNumber]
+	if room == nil {
+		return false
+	}
+
+	destID, ok := room.Exits[dir]
+	if !ok || destID <= 0 {
+		return false
+	}
+
+	destRoom := e.rooms[destID]
+	if destRoom == nil {
+		return false
+	}
+
+	name := FormatMonsterName(def, e.monAdjs)
+
+	dirName := directionNames[dir]
+	if dirName == "" {
+		dirName = strings.ToLower(dir)
+	}
+
+	// Departure
+	moveText := def.TextOverrides["TEXM"]
+	if moveText != "" {
+		e.localRoomBroadcast(
+			inst.RoomNumber,
+			[]string{moveText + " " + dirName + "."},
+		)
+	} else {
+		article := "A"
+		if len(name) > 0 && strings.ContainsRune("aeiouAEIOU", rune(name[0])) {
+			article = "An"
+		}
+
+		if def.Unique {
+			e.localRoomBroadcast(
+				inst.RoomNumber,
+				[]string{fmt.Sprintf("%s wanders %s.", name, dirName)},
+			)
+		} else {
+			e.localRoomBroadcast(
+				inst.RoomNumber,
+				[]string{fmt.Sprintf("%s %s wanders %s.", article, name, dirName)},
+			)
+		}
+	}
+
+	e.monsterMgr.moveMonster(idx, destID)
+
+	// Arrival
+	entryText := def.TextOverrides["TEXE"]
+	if entryText != "" {
+		e.localRoomBroadcast(destID, []string{entryText})
+	} else {
+		article := "A"
+		if len(name) > 0 && strings.ContainsRune("aeiouAEIOU", rune(name[0])) {
+			article = "An"
+		}
+
+		if def.Unique {
+			e.localRoomBroadcast(
+				destID,
+				[]string{fmt.Sprintf("%s has arrived.", name)},
+			)
+		} else {
+			e.localRoomBroadcast(
+				destID,
+				[]string{fmt.Sprintf("%s %s has arrived.", article, name)},
+			)
+		}
+	}
+
+	return true
 }

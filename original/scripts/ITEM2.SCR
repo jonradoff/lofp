@@ -6223,6 +6223,8 @@ IFPREVERB GAZE -1
         IFVAR ITEMVAL5 = TIM
                 ECHO PLAYER A voice in your mind rasps, "You call when I am weak!"
         ELSE
+				EQUAL ITEMVAL5 TIM
+				
                 PLREVENT 1
                 CONTPLREVENT
                 ECHO PLAYER You feel energy flowing into you from the circlet.
@@ -6248,6 +6250,7 @@ IFPREVERB GAZE -1
                 ECHO PLAYER You feel energy flowing into you from the circlet.
                 ADD BODYPOINTS 20
         ENDIF
+	
 ENDIF
 
 ;
