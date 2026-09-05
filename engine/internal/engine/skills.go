@@ -6,6 +6,8 @@ import (
 	"math/rand"
 	"strings"
 	"time"
+
+	"github.com/jonradoff/lofp/internal/gameworld"
 )
 
 // SkillCost defines the build point cost for a skill.
@@ -17,42 +19,42 @@ type SkillCost struct {
 
 // SkillCosts maps skill ID to build point costs (from skills.txt).
 var SkillCosts = map[int]SkillCost{
-	0:  {10, 5}, // Jeweler
-	1:  {10, 4}, // Two Weapons
-	2:  {12, 5}, // Backstab
-	3:  {12, 5}, // Missile Weapons
-	4:  {10, 3}, // Natural Weapons (Claws)
-	5:  {6, 3},  // Climbing
-	6:  {8, 4},  // Dodging & Parrying
-	7:  {10, 5}, // Conjuration
-	8:  {10, 5}, // Weaponsmithing
-	9:  {12, 5}, // Crushing Weapons
-	10: {10, 5}, // Combat Maneuvering
-	11: {8, 4},  // Endurance
-	12: {6, 3},  // Trap & Poison Lore
-	13: {12, 5}, // Edged Weapons
-	14: {10, 5}, // Enchantment
-	15: {8, 4},  // Dyeing/Weaving
-	16: {12, 5}, // Drakin Weapons
-	17: {10, 5}, // Druidic Magic
-	18: {8, 3},  // Wood Lore
-	19: {12, 5}, // Thrown Weapons
-	20: {20, 2}, // Healing
-	21: {12, 4}, // Legerdemain
-	22: {10, 4}, // Lockpicking
-	23: {20, 5}, // Spellcraft
-	24: {12, 5}, // Martial Arts
-	25: {12, 5}, // Polearms
-	26: {20, 5}, // Psionics
-	27: {10, 5}, // Mind over Mind
-	28: {10, 5}, // Mind over Matter
-	29: {10, 2}, // Transcendence
-	30: {10, 5}, // Necromancy
-	31: {15, 5}, // Alchemy
-	32: {5, 3},  // Sagecraft
-	33: {10, 4}, // Stealth
+	0:  {10, 5},  // Jeweler
+	1:  {10, 4},  // Two Weapons
+	2:  {12, 5},  // Backstab
+	3:  {12, 5},  // Missile Weapons
+	4:  {10, 3},  // Natural Weapons (Claws)
+	5:  {6, 3},   // Climbing
+	6:  {8, 4},   // Dodging & Parrying
+	7:  {10, 5},  // Conjuration
+	8:  {10, 5},  // Weaponsmithing
+	9:  {12, 5},  // Crushing Weapons
+	10: {10, 5},  // Combat Maneuvering
+	11: {8, 4},   // Endurance
+	12: {6, 3},   // Trap & Poison Lore
+	13: {12, 5},  // Edged Weapons
+	14: {10, 5},  // Enchantment
+	15: {8, 4},   // Dyeing/Weaving
+	16: {12, 5},  // Drakin Weapons
+	17: {10, 5},  // Druidic Magic
+	18: {8, 3},   // Wood Lore
+	19: {12, 5},  // Thrown Weapons
+	20: {20, 2},  // Healing
+	21: {12, 4},  // Legerdemain
+	22: {10, 4},  // Lockpicking
+	23: {20, 5},  // Spellcraft
+	24: {12, 5},  // Martial Arts
+	25: {12, 5},  // Polearms
+	26: {20, 5},  // Psionics
+	27: {10, 5},  // Mind over Mind
+	28: {10, 5},  // Mind over Matter
+	29: {10, 2},  // Transcendence
+	30: {10, 5},  // Necromancy
+	31: {15, 5},  // Alchemy
+	32: {5, 3},   // Sagecraft
+	33: {10, 4},  // Stealth
 	34: {15, 10}, // Disguise
-	35: {8, 4},  // Mining
+	35: {8, 4},   // Mining
 }
 
 // skillBPCost returns the build point cost for training to the next rank.
@@ -71,13 +73,13 @@ func skillBPCost(skillID, currentRank int) int {
 // Player must have at least 1 rank in each prerequisite.
 var SkillPrerequisites = map[int][]int{
 	6:  {13, 16, 9, 4, 24, 3, 25}, // Dodge: any one weapon skill (OR logic)
-	7:  {23},                        // Conjuration requires Spellcraft
-	14: {23},                        // Enchantment requires Spellcraft
-	17: {23},                        // Druidic requires Spellcraft
-	30: {23},                        // Necromancy requires Spellcraft
-	27: {26},                        // Mind over Mind requires Psionics
-	28: {26},                        // Mind over Matter requires Psionics
-	34: {33},                        // Disguise requires Stealth
+	7:  {23},                      // Conjuration requires Spellcraft
+	14: {23},                      // Enchantment requires Spellcraft
+	17: {23},                      // Druidic requires Spellcraft
+	30: {23},                      // Necromancy requires Spellcraft
+	27: {26},                      // Mind over Mind requires Psionics
+	28: {26},                      // Mind over Matter requires Psionics
+	34: {33},                      // Disguise requires Stealth
 }
 
 // checkPrerequisite returns true if the player meets prerequisites for a skill.
@@ -200,7 +202,7 @@ func (e *GameEngine) doTrainWithBP(ctx context.Context, player *Player, args []s
 			goldMsg = fmt.Sprintf(", %d gold", goldCost)
 		}
 		return &CommandResult{
-			Messages: []string{fmt.Sprintf("You train in %s to rank %d. (-%d BP%s, %d BP remaining)", name, currentLvl+1, bpCost, goldMsg, player.BuildPoints)},
+			Messages:    []string{fmt.Sprintf("You train in %s to rank %d. (-%d BP%s, %d BP remaining)", name, currentLvl+1, bpCost, goldMsg, player.BuildPoints)},
 			PlayerState: player,
 		}
 	}
@@ -232,9 +234,9 @@ func (e *GameEngine) doAnoint(ctx context.Context, player *Player, args []string
 		wepName = e.getItemNounName(wepDef)
 	}
 	return &CommandResult{
-		Messages: []string{fmt.Sprintf("You carefully apply a level %d poison to your %s.", poisonLevel, wepName)},
+		Messages:      []string{fmt.Sprintf("You carefully apply a level %d poison to your %s.", poisonLevel, wepName)},
 		RoomBroadcast: []string{fmt.Sprintf("%s applies something to %s weapon.", player.FirstName, player.Possessive())},
-		PlayerState: player,
+		PlayerState:   player,
 	}
 }
 
@@ -306,16 +308,455 @@ func (e *GameEngine) doTend(ctx context.Context, player *Player, args []string) 
 
 	if target == player {
 		return &CommandResult{
-			Messages: []string{fmt.Sprintf("You tend to your wounds, healing %d body points. [Round: 5 sec] [BP: %d/%d]", heal, target.BodyPoints, target.MaxBodyPoints)},
+			Messages:      []string{fmt.Sprintf("You tend to your wounds, healing %d body points. [Round: 5 sec] [BP: %d/%d]", heal, target.BodyPoints, target.MaxBodyPoints)},
 			RoomBroadcast: []string{fmt.Sprintf("%s tends to %s wounds.", player.FirstName, player.Possessive())},
-			PlayerState: player,
+			PlayerState:   player,
 		}
 	}
 
 	return &CommandResult{
-		Messages: []string{fmt.Sprintf("You tend to %s's wounds, healing %d body points.", targetName, heal)},
+		Messages:      []string{fmt.Sprintf("You tend to %s's wounds, healing %d body points.", targetName, heal)},
 		RoomBroadcast: []string{fmt.Sprintf("%s tends to %s's wounds.", player.FirstName, targetName)},
-		TargetName: target.FirstName,
-		TargetMsg: []string{fmt.Sprintf("%s tends to your wounds, healing %d body points. [BP: %d/%d]", player.FirstName, heal, target.BodyPoints, target.MaxBodyPoints)},
+		TargetName:    target.FirstName,
+		TargetMsg:     []string{fmt.Sprintf("%s tends to your wounds, healing %d body points. [BP: %d/%d]", player.FirstName, heal, target.BodyPoints, target.MaxBodyPoints)},
 	}
+}
+
+// ---- PICK (Lockpicking skill) ----
+
+func (e *GameEngine) doPick(ctx context.Context, player *Player, args []string) *CommandResult {
+
+	if len(args) == 0 {
+		return &CommandResult{
+			Messages: []string{"Pick what with what?"},
+		}
+	}
+
+	raw := strings.ToLower(strings.Join(args, " "))
+
+	parts := strings.SplitN(raw, " with ", 2)
+	if len(parts) != 2 {
+		return &CommandResult{
+			Messages: []string{"Pick what with what?"},
+		}
+	}
+
+	targetName := strings.TrimSpace(parts[0])
+	toolName := strings.TrimSpace(parts[1])
+
+	targetName = strings.TrimPrefix(targetName, "my ")
+	toolName = strings.TrimPrefix(toolName, "my ")
+
+	if targetName == "" || toolName == "" {
+		return &CommandResult{
+			Messages: []string{"Pick what with what?"},
+		}
+	}
+
+	// Support things like:
+	// PICK SECOND CHEST WITH LOCKPICK
+	// PICK CHEST 2 WITH LOCKPICK
+	targetName, targetSkip := parseOrdinal(targetName)
+
+	room := e.rooms[player.RoomNumber]
+	if room == nil {
+		return &CommandResult{
+			Messages: []string{"You can't do that here."},
+		}
+	}
+
+	// ------------------------------------------------------------
+	// Find the requested lockpick tool in inventory.
+	// Any item whose type is LOCKPICK qualifies.
+	// ------------------------------------------------------------
+
+	toolIndex := -1
+
+	for i := range player.Inventory {
+		ii := &player.Inventory[i]
+
+		def := e.items[ii.Archetype]
+		if def == nil || def.Type != "LOCKPICK" {
+			continue
+		}
+
+		noun := e.getItemNounName(def)
+
+		matched :=
+			matchesTarget(
+				noun,
+				toolName,
+				e.getAdjName(ii.Adj1),
+			) ||
+				matchesTarget(
+					noun,
+					toolName,
+					e.getAdjName(ii.Adj2),
+				) ||
+				matchesTarget(
+					noun,
+					toolName,
+					e.getAdjName(ii.Adj3),
+				)
+
+		if !matched {
+			continue
+		}
+
+		toolIndex = i
+		break
+	}
+
+	if toolIndex < 0 {
+		return &CommandResult{
+			Messages: []string{
+				"What are you referring to?  Please be more specific.",
+			},
+		}
+	}
+
+	tool := player.Inventory[toolIndex]
+	toolDef := e.items[tool.Archetype]
+
+	toolDisplayName := e.formatItemName(
+		toolDef,
+		tool.Adj1,
+		tool.Adj2,
+		tool.Adj3,
+	)
+
+	// ------------------------------------------------------------
+	// Find target.
+	//
+	// Inventory first, then room.
+	// Only containers are supported for now.
+	// ------------------------------------------------------------
+
+	var inventoryTarget *InventoryItem
+	var roomTarget *gameworld.RoomItem
+	var targetDef *gameworld.ItemDef
+
+	// ------------------------------------------------------------
+	// Search carried containers.
+	// ------------------------------------------------------------
+
+	skip := targetSkip
+
+	for i := range player.Inventory {
+		ii := &player.Inventory[i]
+
+		def := e.items[ii.Archetype]
+		if def == nil {
+			continue
+		}
+
+		// For now PICK only supports containers.
+		if def.Container == "" {
+			continue
+		}
+
+		noun := e.getItemNounName(def)
+
+		matched :=
+			matchesTarget(
+				noun,
+				targetName,
+				e.getAdjName(ii.Adj1),
+			) ||
+				matchesTarget(
+					noun,
+					targetName,
+					e.getAdjName(ii.Adj2),
+				) ||
+				matchesTarget(
+					noun,
+					targetName,
+					e.getAdjName(ii.Adj3),
+				)
+
+		if !matched {
+			continue
+		}
+
+		if skip > 0 {
+			skip--
+			continue
+		}
+
+		inventoryTarget = ii
+		targetDef = def
+		break
+	}
+
+	// ------------------------------------------------------------
+	// If not carried, search room containers.
+	// ------------------------------------------------------------
+
+	if inventoryTarget == nil {
+		skip = targetSkip
+
+		for i := range room.Items {
+			ri := &room.Items[i]
+
+			// Don't target something inside another container.
+			if ri.IsPut {
+				continue
+			}
+
+			def := e.items[ri.Archetype]
+			if def == nil {
+				continue
+			}
+
+			// For now PICK only supports containers.
+			if !containsFlag(def.Flags, "LOCKABLE") {
+				continue
+			}
+
+			noun := e.getItemNounName(def)
+
+			matched :=
+				matchesTarget(
+					noun,
+					targetName,
+					e.getAdjName(ri.Adj1),
+				) ||
+					matchesTarget(
+						noun,
+						targetName,
+						e.getAdjName(ri.Adj2),
+					) ||
+					matchesTarget(
+						noun,
+						targetName,
+						e.getAdjName(ri.Adj3),
+					)
+
+			if !matched {
+				continue
+			}
+
+			if skip > 0 {
+				skip--
+				continue
+			}
+
+			roomTarget = ri
+			targetDef = def
+			break
+		}
+	}
+
+	if inventoryTarget == nil && roomTarget == nil {
+		return &CommandResult{
+			Messages: []string{"You don't see that here."},
+		}
+	}
+
+	if targetDef == nil {
+		return &CommandResult{
+			Messages: []string{"You can't pick that."},
+		}
+	}
+
+	// ------------------------------------------------------------
+	// Make sure the target actually has a lock.
+	// ------------------------------------------------------------
+
+	if !containsFlag(targetDef.Flags, "LOCKABLE") {
+		return &CommandResult{
+			Messages: []string{"That doesn't have a lock."},
+		}
+	}
+
+	state := ""
+	lockDifficulty := 0
+
+	if inventoryTarget != nil {
+		state = inventoryTarget.State
+		lockDifficulty = inventoryTarget.Val1
+	} else {
+		state = roomTarget.State
+		lockDifficulty = roomTarget.Val1
+	}
+
+	if !strings.EqualFold(state, "LOCKED") {
+		return &CommandResult{
+			Messages: []string{"It isn't locked."},
+		}
+	}
+
+	// ------------------------------------------------------------
+	// Lockpicking skill.
+	//
+	// Skill #22 = Lockpicking
+	//
+	// 1 rank               = 30% base
+	// each additional rank = +5%
+	// every 10 Perception  = +1%
+	// VAL1                 = lock difficulty
+	//
+	// Chance =
+	//   30
+	//   + (ranks - 1) * 5
+	//   + PER / 10
+	//   - VAL1
+	// ------------------------------------------------------------
+
+	lockpickRanks := player.Skills[22]
+
+	if lockpickRanks < 1 {
+		return &CommandResult{
+			Messages: []string{
+				"You have no training in Lockpicking.",
+			},
+		}
+	}
+
+	perception := player.Perception
+
+	chance := 30 +
+		(lockpickRanks-1)*5 +
+		perception/10 -
+		lockDifficulty
+
+	if chance < 1 {
+		chance = 1
+	}
+
+	if chance > 95 {
+		chance = 95
+	}
+
+	roll := rand.Intn(100) + 1
+
+	// ------------------------------------------------------------
+	// Target display name.
+	// ------------------------------------------------------------
+
+	var displayName string
+
+	if inventoryTarget != nil {
+		displayName = e.formatItemName(
+			targetDef,
+			inventoryTarget.Adj1,
+			inventoryTarget.Adj2,
+			inventoryTarget.Adj3,
+		)
+	} else {
+		displayName = e.formatItemName(
+			targetDef,
+			roomTarget.Adj1,
+			roomTarget.Adj2,
+			roomTarget.Adj3,
+		)
+	}
+
+	// Every attempt takes 5 seconds.
+	player.RoundTimeExpiry = time.Now().Add(5 * time.Second)
+
+	result := &CommandResult{}
+
+	// ------------------------------------------------------------
+	// SUCCESS
+	// ------------------------------------------------------------
+
+	if roll <= chance {
+
+		// Picking unlocks the container but does not open it.
+		if inventoryTarget != nil {
+			inventoryTarget.State = "CLOSED"
+		} else {
+			roomTarget.State = "CLOSED"
+		}
+
+		result.Messages = append(
+			result.Messages,
+			fmt.Sprintf(
+				"[Success: %d%%, Roll: %d] Success!",
+				chance,
+				roll,
+			),
+			fmt.Sprintf(
+				"You hear a click as you succeed in picking the lock on %s.",
+				displayName,
+			),
+			" [Round: 5 sec]",
+		)
+
+		result.RoomBroadcast = append(
+			result.RoomBroadcast,
+			fmt.Sprintf(
+				"%s works at the lock on %s.",
+				player.FirstName,
+				displayName,
+			),
+		)
+
+		e.SavePlayer(ctx, player)
+
+		return result
+	}
+
+	// ------------------------------------------------------------
+	// EXTREME FAILURE
+	// ------------------------------------------------------------
+
+	if roll >= 99 {
+
+		result.Messages = append(
+			result.Messages,
+			fmt.Sprintf(
+				"[Success: %d%%, Roll: %d] Extreme failure!",
+				chance,
+				roll,
+			),
+			fmt.Sprintf(
+				"You snap %s in the attempt!",
+				toolDisplayName,
+			),
+			" [Round: 5 sec]",
+		)
+
+		result.RoomBroadcast = append(result.RoomBroadcast,
+			fmt.Sprintf(
+				"you hear an audible snap as %s works at the lock.",
+				player.FirstName))
+
+		// Destroy the selected lockpick/hairpin.
+		player.Inventory = append(
+			player.Inventory[:toolIndex],
+			player.Inventory[toolIndex+1:]...,
+		)
+
+		e.SavePlayer(ctx, player)
+
+		return result
+	}
+
+	// ------------------------------------------------------------
+	// NORMAL FAILURE
+	// ------------------------------------------------------------
+
+	result.Messages = append(
+		result.Messages,
+		fmt.Sprintf(
+			"[Success: %d%%, Roll: %d] Failure.",
+			chance,
+			roll,
+		),
+		fmt.Sprintf(
+			"You fail to pick the lock on %s.",
+			displayName,
+		),
+		" [Round: 5 sec]",
+	)
+
+	result.RoomBroadcast = append(result.RoomBroadcast, fmt.Sprintf(
+		" %s mutters audibly as they work at the lock.",
+		player.FirstName))
+
+	e.SavePlayer(ctx, player)
+
+	return result
 }
