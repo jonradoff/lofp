@@ -58,6 +58,7 @@ const (
 	NightVisionBuff
 	RemovePoison
 	RemoveDisease
+	StunnedEffect
 )
 
 const (
@@ -79,6 +80,7 @@ const (
 	EffectSourceGM
 	EffectSourceScript
 	EffectSourceEncumbrance
+	EffectStunned
 )
 
 // Gender constants

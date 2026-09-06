@@ -428,6 +428,12 @@ func (e *GameEngine) unloadDistantMonsters() {
 			continue
 		}
 
+		// Summoned creatures are controlled by their summoner
+		// and should not be removed by distant-room cleanup.
+		if inst.ControlType == "SUMMONED" {
+			continue
+		}
+
 		// Don't unload if players are in the room
 		if playerRooms[inst.RoomNumber] {
 			continue

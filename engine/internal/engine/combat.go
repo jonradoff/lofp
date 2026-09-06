@@ -1548,6 +1548,65 @@ func (e *GameEngine) damageMonster(player *Player, monsterID int, dmg int) bool 
 // ---- Monster Death ----
 
 func (e *GameEngine) handleMonsterDeath(killer *Player, inst *MonsterInstance, def *gameworld.MonsterDef) {
+	// ------------------------------------------------------------
+	// Summoned creature backlash.
+	// ------------------------------------------------------------
+
+	if inst.ControlType == "SUMMONED" && inst.CommanderID != "" {
+		if e.sessions != nil {
+			for _, p := range e.sessions.OnlinePlayers() {
+				if strings.EqualFold(p.FirstName, inst.CommanderID) {
+					p.Stunned = true
+
+					p.ActiveStatEffects = append(
+						p.ActiveStatEffects,
+						StatEffect{
+							EffectID:  0,
+							Source:    EffectStunned,
+							Stat:      StunnedEffect,
+							Modifier:  0,
+							ExpiresAt: time.Now().Add(20 * time.Second),
+						},
+						StatEffect{
+							Source:    EffectStunned,
+							Stat:      StatAgility,
+							Modifier:  -p.EffectiveStat(StatAgility),
+							ExpiresAt: time.Now().Add(20 * time.Second)},
+						StatEffect{
+							Source:    EffectStunned,
+							Stat:      StatQuickness,
+							Modifier:  -p.EffectiveStat(StatQuickness),
+							ExpiresAt: time.Now().Add(20 * time.Second),
+						},
+					)
+
+					if e.sendToPlayer != nil {
+						e.sendToPlayer(
+							p.FirstName,
+							[]string{
+								"The death of your summoned creature sends a violent shock through you. You are stunned!",
+							},
+						)
+					}
+
+					if e.localRoomBroadcast != nil {
+						e.localRoomBroadcast(
+							p.RoomNumber,
+							[]string{
+								fmt.Sprintf(
+									"%s reels from the death of their summoned creature and is stunned!",
+									p.FirstName,
+								),
+							},
+						)
+					}
+
+					break
+				}
+			}
+		}
+	}
+
 	// Base XP formula: Body (not ExtraBody) + Attack/5 + Defense/5 + Armor/2.
 	baseXP := def.Body + def.Attack1/5 + def.Defense/5 + def.Armor/2
 
@@ -2400,15 +2459,12 @@ func (e *GameEngine) monsterAttackMonster(
 
 	weaponName := e.monsterWeaponName(attackerDef)
 
-	attackVerb, damageNoun :=
-		monsterAttackVerb(attackerDef, e.items)
+	attackVerb, damageNoun := monsterAttackVerb(attackerDef, e.items)
 
 	// Same basic attack calculation used by monster -> player.
 	wMod := e.weatherMod(attacker.RoomNumber)
 
-	defRating :=
-		targetDef.Defense +
-			target.DefenseBonus
+	defRating := targetDef.Defense + target.DefenseBonus
 
 	toHit := calcToHit(
 		attackerDef.Attack1+wMod,
@@ -2501,6 +2557,63 @@ func (e *GameEngine) monsterAttackMonster(
 		target.Alive = false
 		target.DeathTime = time.Now()
 
+		// ------------------------------------------------------------
+		// Summoned creature backlash.
+		// ------------------------------------------------------------
+
+		if target.ControlType == "SUMMONED" && target.CommanderID != "" {
+			if e.sessions != nil {
+				for _, p := range e.sessions.OnlinePlayers() {
+					if strings.EqualFold(p.FirstName, target.CommanderID) {
+						p.Stunned = true
+
+						p.ActiveStatEffects = append(
+							p.ActiveStatEffects,
+							StatEffect{
+								EffectID:  0,
+								Source:    EffectStunned,
+								Stat:      StunnedEffect,
+								Modifier:  0,
+								ExpiresAt: time.Now().Add(20 * time.Second),
+							},
+							StatEffect{
+								Source:    EffectStunned,
+								Stat:      StatAgility,
+								Modifier:  -p.EffectiveStat(StatAgility),
+								ExpiresAt: time.Now().Add(20 * time.Second)},
+							StatEffect{
+								Source:    EffectStunned,
+								Stat:      StatQuickness,
+								Modifier:  -p.EffectiveStat(StatQuickness),
+								ExpiresAt: time.Now().Add(20 * time.Second)},
+						)
+
+						if e.sendToPlayer != nil {
+							e.sendToPlayer(
+								p.FirstName,
+								[]string{
+									"The death of your summoned creature sends a violent shock through you. You are stunned!",
+								},
+							)
+						}
+
+						if e.localRoomBroadcast != nil {
+							e.localRoomBroadcast(
+								p.RoomNumber,
+								[]string{
+									fmt.Sprintf(
+										"%s reels from the death of their summoned creature and is stunned!",
+										p.FirstName,
+									),
+								},
+							)
+						}
+
+						break
+					}
+				}
+			}
+		}
 		// Attacker is finished with this target.
 		attacker.TargetMonsterID = 0
 

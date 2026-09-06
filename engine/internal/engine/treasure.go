@@ -74,7 +74,7 @@ func (e *GameEngine) generateTreasure(roomNum int, treasureLevel int) []string {
 		dropChance = 60
 	}
 
-	dropChance = 100 //test lets drop things all the ime
+	//dropChance = 100 //test lets drop things all the ime
 
 	if rand.Intn(100) < dropChance {
 		// Determine drop type — all tiers available from treasure level 1.

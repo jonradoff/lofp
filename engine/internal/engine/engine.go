@@ -777,6 +777,28 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 		}
 	}
 
+	// Stunned players can observe their condition, but cannot act.
+	if player.Stunned {
+		verb := strings.ToUpper(strings.Fields(input)[0])
+
+		switch verb {
+		case "LOOK", "L",
+			"STATUS", "STAT",
+			"HEALTH", "DIAGNOSE",
+			"EXP", "EXPERIENCE",
+			"WHO",
+			"HELP":
+			// allowed — fall through to normal processing
+
+		default:
+			return &CommandResult{
+				Messages: []string{
+					"You are stunned and unable to act.",
+				},
+			}
+		}
+	}
+
 	// Handle speech
 	if strings.HasPrefix(input, "'") || strings.HasPrefix(input, "\"") {
 		msg := input[1:]
@@ -2017,6 +2039,12 @@ func (e *GameEngine) RemoveExpiredStatEffects(player *Player) []string {
 			continue
 		}
 
+		if effect.Stat == StunnedEffect {
+			player.Stunned = false
+			messages = append(messages, "You are no longer stunned.")
+			continue
+		}
+
 		switch effect.Source {
 		case EffectSourceSpell:
 			if spell := FindSpellByID(effect.EffectID); spell != nil {
@@ -2847,16 +2875,39 @@ func (e *GameEngine) itemExamineStats(def *gameworld.ItemDef) []string {
 
 	var msgs []string
 
-	if strings.HasSuffix(def.Type, "_WEAPON") {
+	isWeapon := strings.HasSuffix(def.Type, "_WEAPON")
+	isArmor := def.Type == "ARMOR"
+
+	if isWeapon {
 		weaponType := strings.TrimSuffix(def.Type, "_WEAPON")
 		weaponType = strings.ReplaceAll(weaponType, "_", " ")
 		weaponType = strings.ToLower(weaponType)
 
-		msgs = append(msgs, fmt.Sprintf("Weapon type: %s", weaponType))
+		msgs = append(msgs, fmt.Sprintf(
+			"Weapon type: %s",
+			weaponType,
+		))
+	}
+
+	if isArmor && def.Parameter1 > 0 {
+		msgs = append(msgs, fmt.Sprintf(
+			"Armor: %d",
+			def.Parameter1,
+		))
+	}
+
+	if isWeapon && def.Parameter1 > 0 {
+		msgs = append(msgs, fmt.Sprintf(
+			"Damage: %d",
+			def.Parameter1,
+		))
 	}
 
 	if def.Weight > 0 {
-		msgs = append(msgs, fmt.Sprintf("Weight: %d", def.Weight))
+		msgs = append(msgs, fmt.Sprintf(
+			"Weight: %d",
+			def.Weight,
+		))
 	}
 
 	if def.Substance != "" {
@@ -2873,14 +2924,6 @@ func (e *GameEngine) itemExamineStats(def *gameworld.ItemDef) []string {
 		))
 	}
 
-	if def.Parameter1 > 0 &&
-		strings.HasSuffix(def.Type, "_WEAPON") {
-
-		msgs = append(msgs, fmt.Sprintf(
-			"Damage: %d",
-			def.Parameter1,
-		))
-	}
 	return msgs
 }
 
@@ -4866,20 +4909,38 @@ func (e *GameEngine) doClimb(ctx context.Context, player *Player, args []string)
 	if len(args) == 0 {
 		return &CommandResult{Messages: []string{"Climb what?"}}
 	}
+
 	if player.Position != 0 && player.Position != 4 {
-		posNames := map[int]string{1: "sitting", 2: "laying down", 3: "kneeling"}
+		posNames := map[int]string{
+			1: "sitting",
+			2: "laying down",
+			3: "kneeling",
+		}
+
 		posName := posNames[player.Position]
 		if posName == "" {
 			posName = "not standing"
 		}
-		return &CommandResult{Messages: []string{fmt.Sprintf("You can't climb while %s! Try STANDing first.", posName)}}
+
+		return &CommandResult{
+			Messages: []string{
+				fmt.Sprintf(
+					"You can't climb while %s! Try STANDing first.",
+					posName,
+				),
+			},
+		}
 	}
+
 	target := strings.ToLower(strings.Join(args, " "))
 	target, ordSkip := parseOrdinal(target)
 	skip := ordSkip
+
 	room := e.rooms[player.RoomNumber]
 	if room == nil {
-		return &CommandResult{Messages: []string{"You can't do that here."}}
+		return &CommandResult{
+			Messages: []string{"You can't do that here."},
+		}
 	}
 
 	for i, ri := range room.Items {
@@ -4887,49 +4948,40 @@ func (e *GameEngine) doClimb(ctx context.Context, player *Player, args []string)
 		if itemDef == nil {
 			continue
 		}
+
 		name := e.getItemNounName(itemDef)
-		if matchesTarget(name, target, e.getAdjName(ri.Adj1)) {
-			if skip > 0 {
-				skip--
-				continue
-			}
-			if isPortal(itemDef.Type) {
-				return e.doGoPortal(ctx, player, room, &room.Items[i], itemDef)
-			}
-			// Run IFPREVERB CLIMB scripts on non-portal items
-			sc := e.RunPreverbScripts(player, room, "CLIMB", &room.Items[i], itemDef)
-			result := &CommandResult{}
-			result.Messages = append(result.Messages, sc.Messages...)
-			result.RoomBroadcast = append(result.RoomBroadcast, sc.RoomMsgs...)
-			result.GMBroadcast = append(result.GMBroadcast, sc.GMMsgs...)
-			if sc.MoveTo > 0 {
-				dest := e.rooms[sc.MoveTo]
-				if dest != nil {
-					oldRoom := player.RoomNumber
-					player.RoomNumber = sc.MoveTo
-					leftBehind := e.breakCommandedFollowers(player, oldRoom)
-					e.SavePlayer(ctx, player)
-					lookResult := e.doLook(player)
-					result.Messages = append(result.Messages, lookResult.Messages...)
-					result.Messages = append(result.Messages, leftBehind...)
-					result.RoomName = lookResult.RoomName
-					result.RoomDesc = lookResult.RoomDesc
-					result.Exits = lookResult.Exits
-					result.Items = lookResult.Items
-					result.OldRoom = oldRoom
-					result.OldRoomMsg = []string{fmt.Sprintf("%s leaves.", player.FirstName)}
-					result.RoomBroadcast = append(result.RoomBroadcast, fmt.Sprintf("%s arrives.", player.FirstName))
-					e.applyEntryScripts(ctx, player, dest, result)
-				}
-			}
-			if len(result.Messages) == 0 {
-				result.Messages = []string{"You can't climb that."}
-			}
-			return result
+
+		if !matchesTarget(name, target, e.getAdjName(ri.Adj1)) &&
+			!matchesTarget(name, target, e.getAdjName(ri.Adj2)) &&
+			!matchesTarget(name, target, e.getAdjName(ri.Adj3)) {
+			continue
 		}
+
+		if skip > 0 {
+			skip--
+			continue
+		}
+
+		// Portals retain CLIMB's special portal behavior.
+		if isPortal(itemDef.Type) {
+			return e.doGoPortal(
+				ctx,
+				player,
+				room,
+				&room.Items[i],
+				itemDef,
+			)
+		}
+
+		// Normal room items use the standard scripted interaction path.
+		// This runs both IFPREVERB CLIMB and IFVERB CLIMB,
+		// including SKILLCHECK, MOVE, CLEARVERB, etc.
+		return e.doItemInteraction(ctx, player, "CLIMB", args)
 	}
 
-	return &CommandResult{Messages: []string{"You don't see that here."}}
+	return &CommandResult{
+		Messages: []string{"You don't see that here."},
+	}
 }
 
 func (e *GameEngine) breakCommandedFollowers(player *Player, roomNum int) []string {
@@ -7600,6 +7652,8 @@ func (e *GameEngine) doStatus(player *Player) *CommandResult {
 			name = "Item Effect"
 		case EffectSourceScript:
 			name = "Scripted Effect"
+		case EffectStunned:
+			name = "Stunned"
 		case EffectSourceEncumbrance:
 			name = "Encumbered"
 		}
@@ -11155,13 +11209,25 @@ func (e *GameEngine) doSpellList(player *Player) *CommandResult {
 	if player.KnownSpells == nil || len(player.KnownSpells) == 0 {
 		return &CommandResult{Messages: []string{"You don't know any spells."}}
 	}
+
 	msgs := []string{"=== Known Spells ==="}
+
+	ids := make([]int, 0, len(player.KnownSpells))
 	for id := range player.KnownSpells {
+		ids = append(ids, id)
+	}
+	sort.Ints(ids)
+
+	for _, id := range ids {
 		spell := FindSpellByID(id)
 		if spell != nil {
-			msgs = append(msgs, fmt.Sprintf("  %s (%s, Level %d)", spell.Name, spell.School, spell.Level))
+			msgs = append(msgs, fmt.Sprintf(
+				"  %3d  %s (%s, Level %d)",
+				id, spell.Name, spell.School, spell.Level,
+			))
 		}
 	}
+
 	return &CommandResult{Messages: msgs}
 }
 

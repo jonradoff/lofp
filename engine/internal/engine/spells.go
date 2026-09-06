@@ -42,10 +42,10 @@ func init() {
 		{ID: 102, Name: "Mystic Armor", School: "Conjuration", Level: 5, ManaCost: 8, CastTime: 3, Effect: "defense", DefBonus: 20, Duration: 30 * time.Minute, Family: "armor", StatusType: DefensiveBuff},
 		{ID: 103, Name: "Lightning Bolt", School: "Conjuration", Level: 7, ManaCost: 10, CastTime: 3, Effect: "damage", DmgMin: 8, DmgMax: 30, DmgType: "electric"},
 		{ID: 105, Name: "Globe of Protection", School: "Conjuration", Level: 15, ManaCost: 20, CastTime: 3, Effect: "defense", DefBonus: 50, Duration: 90 * time.Minute, Family: "armor", StatusType: DefensiveBuff},
-		{ID: 106, Name: "Summon Fire Elemental", School: "Conjuration", Level: 12, ManaCost: 25, CastTime: 5, Effect: "utility"},
-		{ID: 107, Name: "Summon Air Elemental", School: "Conjuration", Level: 12, ManaCost: 25, CastTime: 5, Effect: "utility"},
-		{ID: 108, Name: "Summon Water Elemental", School: "Conjuration", Level: 12, ManaCost: 25, CastTime: 5, Effect: "utility"},
-		{ID: 109, Name: "Summon Gargoyle", School: "Conjuration", Level: 16, ManaCost: 30, CastTime: 5, Effect: "utility"},
+		{ID: 106, Name: "Summon Fire Elemental", School: "Conjuration", Level: 12, ManaCost: 25, CastTime: 5, Effect: "summon"},
+		{ID: 107, Name: "Summon Air Elemental", School: "Conjuration", Level: 12, ManaCost: 25, CastTime: 5, Effect: "summon"},
+		{ID: 108, Name: "Summon Water Elemental", School: "Conjuration", Level: 12, ManaCost: 25, CastTime: 5, Effect: "summon"},
+		{ID: 109, Name: "Summon Gargoyle", School: "Conjuration", Level: 16, ManaCost: 30, CastTime: 5, Effect: "summon"},
 		{ID: 112, Name: "Call Meteor", School: "Conjuration", Level: 20, ManaCost: 30, CastTime: 4, Effect: "damage", DmgMin: 25, DmgMax: 60, DmgType: "heat"},
 		{ID: 113, Name: "Light", School: "Conjuration", Level: 1, ManaCost: 2, CastTime: 2, Effect: "buff", Family: "light", Duration: 30 * time.Minute, StatusType: LightBuff, StatusMsg: "A soft light surrounds you."},
 		{ID: 114, Name: "Mystic Key", School: "Conjuration", Level: 2, ManaCost: 4, CastTime: 3, Effect: "utility"},
@@ -57,7 +57,7 @@ func init() {
 		{ID: 120, Name: "Frost Ray", School: "Conjuration", Level: 6, ManaCost: 8, CastTime: 3, Effect: "damage", DmgMin: 7, DmgMax: 22, DmgType: "cold"},
 		{ID: 121, Name: "Freezing Sphere", School: "Conjuration", Level: 9, ManaCost: 14, CastTime: 3, Effect: "damage", DmgMin: 10, DmgMax: 30, DmgType: "cold"},
 		{ID: 122, Name: "Summon Familiar", School: "Conjuration", Level: 2, ManaCost: 10, CastTime: 5, Effect: "summon"},
-		{ID: 123, Name: "Summon Earth Elemental", School: "Conjuration", Level: 12, ManaCost: 25, CastTime: 5, Effect: "utility"},
+		{ID: 123, Name: "Summon Earth Elemental", School: "Conjuration", Level: 12, ManaCost: 25, CastTime: 5, Effect: "summon"},
 		{ID: 124, Name: "Inferno Glyph", School: "Conjuration", Level: 20, ManaCost: 25, CastTime: 4, Effect: "damage", DmgMin: 20, DmgMax: 55, DmgType: "heat"},
 		{ID: 125, Name: "Thunder Glyph", School: "Conjuration", Level: 10, ManaCost: 15, CastTime: 3, Effect: "damage", DmgMin: 12, DmgMax: 30, DmgType: "electric"},
 		{ID: 126, Name: "Ice Glyph", School: "Conjuration", Level: 15, ManaCost: 20, CastTime: 3, Effect: "damage", DmgMin: 15, DmgMax: 40, DmgType: "cold"},
@@ -115,6 +115,7 @@ func init() {
 		{ID: 345, Name: "Spectral Sword", School: "Necromancy", Level: 7, ManaCost: 10, CastTime: 3, Effect: "damage", DmgMin: 6, DmgMax: 22, DmgType: ""},
 		{ID: 347, Name: "Divine Blessing", School: "Necromancy", Level: 10, ManaCost: 12, CastTime: 3, Effect: "buff", Duration: 45 * time.Minute},
 		{ID: 354, Name: "Rorin's Fire", School: "Necromancy", Level: 17, ManaCost: 22, CastTime: 3, Effect: "damage", DmgMin: 15, DmgMax: 40, DmgType: "heat"},
+		{ID: 355, Name: "Summon Greater Wight", School: "Necromancy", Level: 17, ManaCost: 35, CastTime: 5, Effect: "summon"},
 	}
 	// General (400-415)
 	gen := []SpellDef{
@@ -150,6 +151,16 @@ func init() {
 	spellRegistry = append(spellRegistry, necro...)
 	spellRegistry = append(spellRegistry, gen...)
 	spellRegistry = append(spellRegistry, druid...)
+}
+
+var summonComponents = map[int]string{
+	122: "termite eye",      // Summon Familiar
+	106: "garnet",           // Fire Elemental
+	107: "opal",             // Air Elemental
+	108: "aquamarine",       // Water Elemental
+	109: "diamond",          // Gargoyle
+	123: "tourmaline stone", // Earth Elemental
+	355: "wight dust",       // Greater Wight
 }
 
 // FindSpellByID returns a spell by its numeric ID.
@@ -309,28 +320,218 @@ func (e *GameEngine) doPrepareSpell(player *Player, args []string) *CommandResul
 	if len(args) == 0 {
 		return &CommandResult{Messages: []string{"Prepare what spell?"}}
 	}
+
 	if player.Dead {
 		return &CommandResult{Messages: []string{"You can't cast spells while dead."}}
 	}
 
-	spellName := strings.Join(args, " ")
-	spell := FindSpellByName(spellName)
+	// Split:
+	// PREPARE <spell> WITH <component>
+	withIndex := -1
+	for i, arg := range args {
+		if strings.EqualFold(arg, "with") {
+			withIndex = i
+			break
+		}
+	}
+
+	spellArgs := args
+	componentArgs := []string{}
+
+	if withIndex >= 0 {
+		spellArgs = args[:withIndex]
+
+		if withIndex+1 < len(args) {
+			componentArgs = args[withIndex+1:]
+		}
+	}
+
+	if len(spellArgs) == 0 {
+		return &CommandResult{Messages: []string{"Prepare what spell?"}}
+	}
+
+	spellText := strings.Join(spellArgs, " ")
+
+	// Allow both numeric IDs and spell names.
+	var spell *SpellDef
+
+	if spellID, err := strconv.Atoi(spellText); err == nil {
+		spell = FindSpellByID(spellID)
+	} else {
+		spell = FindSpellByName(spellText)
+	}
+
 	if spell == nil {
 		return &CommandResult{Messages: []string{"You don't know that spell."}}
 	}
+
 	if !player.KnownSpells[spell.ID] && !player.IsGM {
-		return &CommandResult{Messages: []string{fmt.Sprintf("You haven't learned %s.", spell.Name)}}
+		return &CommandResult{
+			Messages: []string{
+				fmt.Sprintf("You haven't learned %s.", spell.Name),
+			},
+		}
 	}
+
 	if player.Mana < spell.ManaCost {
-		return &CommandResult{Messages: []string{fmt.Sprintf("You don't have enough mana. (%s costs %d, you have %d)", spell.Name, spell.ManaCost, player.Mana)}}
+		return &CommandResult{
+			Messages: []string{
+				fmt.Sprintf(
+					"You don't have enough mana. (%s costs %d, you have %d)",
+					spell.Name,
+					spell.ManaCost,
+					player.Mana,
+				),
+			},
+		}
 	}
+
+	// ---------------------------------------------------------
+	// MATERIAL COMPONENT
+	// ---------------------------------------------------------
+
+	componentName, needsComponent := summonComponents[spell.ID]
+
+	// Aelfen do not need a material component for Summon Familiar.
+	if spell.ID == 122 && player.Race == RaceAelfen {
+		needsComponent = false
+	}
+
+	if needsComponent {
+		// No WITH supplied.
+		if len(componentArgs) == 0 {
+			return &CommandResult{
+				Messages: []string{
+					fmt.Sprintf(
+						"This spell requires a material component: %s",
+						componentName,
+					),
+					fmt.Sprintf(
+						`[Use "PREPARE %d WITH %s" to properly invoke this spell]`,
+						spell.ID,
+						componentName,
+					),
+				},
+			}
+		}
+
+		componentTarget := strings.ToLower(strings.Join(componentArgs, " "))
+		componentTarget = strings.TrimSpace(componentTarget)
+		componentTarget = strings.TrimPrefix(componentTarget, "my ")
+
+		foundIndex := -1
+		foundName := ""
+
+		for i, ii := range player.Inventory {
+			itemDef := e.items[ii.Archetype]
+			if itemDef == nil {
+				continue
+			}
+
+			fullName := strings.ToLower(
+				e.formatItemName(
+					itemDef,
+					ii.Adj1,
+					ii.Adj2,
+					ii.Adj3,
+				),
+			)
+
+			noun := strings.ToLower(e.getItemNounName(itemDef))
+
+			// Strip articles from formatted item name.
+			checkName := strings.TrimSpace(fullName)
+			checkName = strings.TrimPrefix(checkName, "a ")
+			checkName = strings.TrimPrefix(checkName, "an ")
+			checkName = strings.TrimPrefix(checkName, "some ")
+			checkName = strings.TrimPrefix(checkName, "the ")
+
+			// The required component must actually be present
+			// in the item's resolved name.
+			required := strings.ToLower(componentName)
+
+			if strings.Contains(checkName, required) ||
+				strings.EqualFold(noun, required) {
+
+				// If the player supplied a component name,
+				// make sure this particular item matches it too.
+				if componentTarget == "" ||
+					strings.Contains(checkName, componentTarget) ||
+					strings.Contains(componentTarget, checkName) {
+
+					foundIndex = i
+					foundName = fullName
+					break
+				}
+			}
+		}
+
+		if foundIndex < 0 {
+			return &CommandResult{
+				Messages: []string{
+					fmt.Sprintf(
+						"You do not have the required material component: %s.",
+						componentName,
+					),
+				},
+			}
+		}
+
+		// Consume component AT PREPARE TIME.
+		player.Inventory = append(
+			player.Inventory[:foundIndex],
+			player.Inventory[foundIndex+1:]...,
+		)
+
+		// Keep article/capitalization close to original game text.
+		foundName = strings.TrimSpace(foundName)
+
+		if len(foundName) > 0 {
+			foundName = strings.ToUpper(foundName[:1]) + foundName[1:]
+		}
+
+		// Finish preparation below, but remember the component message.
+		player.PreparedSpell = spell.ID
+		player.RoundTimeExpiry =
+			time.Now().Add(time.Duration(spell.CastTime) * time.Second)
+
+		return &CommandResult{
+			Messages: []string{
+				fmt.Sprintf(
+					"%s turns to dust as it is absorbed by the magic of your spell!",
+					foundName,
+				),
+				fmt.Sprintf(
+					"You prepare the %s spell.",
+					spell.Name,
+				),
+				fmt.Sprintf(
+					"[Round: %d sec]",
+					spell.CastTime,
+				),
+			},
+			RoomBroadcast: []string{
+				fmt.Sprintf("%s prepares a spell.", player.FirstName),
+			},
+		}
+	}
+
+	// ---------------------------------------------------------
+	// NORMAL SPELL
+	// ---------------------------------------------------------
 
 	player.PreparedSpell = spell.ID
-	player.RoundTimeExpiry = time.Now().Add(time.Duration(spell.CastTime) * time.Second)
+	player.RoundTimeExpiry =
+		time.Now().Add(time.Duration(spell.CastTime) * time.Second)
 
 	return &CommandResult{
-		Messages:      []string{fmt.Sprintf("You begin preparing %s... (type CAST to release, or CAST <target>)", spell.Name)},
-		RoomBroadcast: []string{fmt.Sprintf("%s begins preparing a spell.", player.FirstName)},
+		Messages: []string{
+			fmt.Sprintf("You prepare the %s spell.", spell.Name),
+			fmt.Sprintf("[Round: %d sec]", spell.CastTime),
+		},
+		RoomBroadcast: []string{
+			fmt.Sprintf("%s prepares a spell.", player.FirstName),
+		},
 	}
 }
 
@@ -637,33 +838,70 @@ func (e *GameEngine) castSummonSpell(player *Player, spell *SpellDef, args []str
 	case 122: // Summon Familiar
 		familiarPool := []int{58, 9, 10, 11, 8, 7}
 		monsterNum := familiarPool[rand.Intn(len(familiarPool))]
+		return e.summonCreature(player, monsterNum)
 
-		def := e.monsters[monsterNum]
+	case 106: // Summon Fire Elemental
+		return e.summonCreature(player, 5)
 
-		if def == nil || e.monsterMgr == nil {
-			return &CommandResult{
-				Messages: []string{"Your spell fails to summon a familiar."},
-			}
-		}
+	case 107: // Summon Air Elemental
+		return e.summonCreature(player, 3)
 
-		inst := e.monsterMgr.SpawnOne(monsterNum, player.RoomNumber, def.Body+def.ExtraBody)
+	case 108: // Summon Water Elemental
+		return e.summonCreature(player, 6)
 
-		inst.CommanderID = player.FirstName
-		inst.ControlType = "SUMMONED"
+	case 123: // Summon Earth Elemental
+		return e.summonCreature(player, 4)
 
-		return &CommandResult{
-			Messages: []string{
-				fmt.Sprintf("A %s appears before you.", def.Name),
-			},
-			RoomBroadcast: []string{
-				fmt.Sprintf("A %s appears before %s.", def.Name, player.FirstName),
-			},
-		}
+	case 109: // Summon Gargoyle
+		return e.summonCreature(player, 0)
+
+	case 355: // Summon Greater Wight
+		return e.summonCreature(player, 53)
 
 	default:
 		return &CommandResult{
 			Messages: []string{"Nothing answers your summons."},
 		}
+	}
+}
+
+func (e *GameEngine) summonCreature(player *Player, monsterNum int) *CommandResult {
+
+	def := e.monsters[monsterNum]
+	if def == nil || e.monsterMgr == nil {
+		return &CommandResult{
+			Messages: []string{"Nothing answers your summons."},
+		}
+	}
+
+	inst := e.monsterMgr.SpawnOne(
+		monsterNum,
+		player.RoomNumber,
+		def.Body+def.ExtraBody,
+	)
+
+	if inst == nil {
+		return &CommandResult{
+			Messages: []string{"Your summoning fails."},
+		}
+	}
+
+	inst.CommanderID = player.FirstName
+	inst.ControlType = "SUMMONED"
+
+	displayName := FormatMonsterName(def, e.monAdjs)
+
+	return &CommandResult{
+		Messages: []string{
+			fmt.Sprintf("%s appears before you.", capArticle(displayName)),
+		},
+		RoomBroadcast: []string{
+			fmt.Sprintf(
+				"%s appears before %s.",
+				capArticle(displayName),
+				player.FirstName,
+			),
+		},
 	}
 }
 
