@@ -5662,6 +5662,7 @@ func (e *GameEngine) doGet(ctx context.Context, player *Player, args []string) *
 					Val4:      child.Val4,
 					Val5:      child.Val5,
 					State:     child.State,
+					Traits:    append([]string(nil), child.Traits...),
 				},
 			)
 		}
@@ -5684,6 +5685,7 @@ func (e *GameEngine) doGet(ctx context.Context, player *Player, args []string) *
 				Val5:      pickedUp.Val5,
 				State:     pickedUp.State,
 				Contents:  contents,
+				Traits:    append([]string(nil), pickedUp.Traits...),
 			},
 		)
 
@@ -5834,9 +5836,12 @@ func (e *GameEngine) doGetFromContainer(ctx context.Context, player *Player, raw
 		}
 	}
 
+	// ------------------------------------------------------------
 	// Support:
 	// GET COIN FROM CHEST 2
 	// GET COIN FROM SECOND CHEST
+	// ------------------------------------------------------------
+
 	containerTarget, containerOrdSkip := parseOrdinal(containerTarget)
 
 	room := e.rooms[player.RoomNumber]
@@ -5987,8 +5992,11 @@ func (e *GameEngine) doGetFromContainer(ctx context.Context, player *Player, raw
 				}
 			}
 
+			// ------------------------------------------------------------
 			// Support:
 			// GET SECOND SCROLL FROM SACK
+			// ------------------------------------------------------------
+
 			parsedItemTarget, ordSkip := parseOrdinal(itemTarget)
 			skip := ordSkip
 
@@ -6025,7 +6033,10 @@ func (e *GameEngine) doGetFromContainer(ctx context.Context, player *Player, raw
 					continue
 				}
 
+				// ------------------------------------------------------------
 				// MONEY inside a carried container.
+				// ------------------------------------------------------------
+
 				if childDef.Type == "MONEY" || child.State == "MONEY" {
 					coins := child.Val1
 					if coins <= 0 {
@@ -6065,16 +6076,22 @@ func (e *GameEngine) doGetFromContainer(ctx context.Context, player *Player, raw
 					}
 				}
 
+				// ------------------------------------------------------------
 				// Remove from container.
+				// ------------------------------------------------------------
+
 				invContainer.Contents = append(
 					invContainer.Contents[:ii],
 					invContainer.Contents[ii+1:]...,
 				)
 
+				// ------------------------------------------------------------
 				// Add to ordinary inventory.
 				//
-				// child already contains its own Contents, so nested
-				// containers remain intact automatically.
+				// child is already an InventoryItem, so all fields,
+				// including Traits and nested Contents, are preserved.
+				// ------------------------------------------------------------
+
 				player.Inventory = append(
 					player.Inventory,
 					child,
@@ -6149,12 +6166,18 @@ func (e *GameEngine) doGetFromContainer(ctx context.Context, player *Player, raw
 		}
 	}
 
+	// ------------------------------------------------------------
 	// Support:
 	// GET SECOND SCROLL FROM BIN
+	// ------------------------------------------------------------
+
 	parsedItemTarget, ordSkip := parseOrdinal(itemTarget)
 	skip := ordSkip
 
+	// ------------------------------------------------------------
 	// Find only items PUT inside this specific container.
+	// ------------------------------------------------------------
+
 	for _, ri := range room.Items {
 		if !ri.IsPut || ri.PutIn != container.Ref {
 			continue
@@ -6314,6 +6337,9 @@ func (e *GameEngine) doGetFromContainer(ctx context.Context, player *Player, raw
 					Val4:      child.Val4,
 					Val5:      child.Val5,
 					State:     child.State,
+
+					// Preserve the CHILD'S traits.
+					Traits: append([]string(nil), child.Traits...),
 				},
 			)
 		}
@@ -6336,6 +6362,9 @@ func (e *GameEngine) doGetFromContainer(ctx context.Context, player *Player, raw
 				Val5:      pickedUp.Val5,
 				State:     pickedUp.State,
 				Contents:  contents,
+
+				// Preserve the picked-up item's own traits.
+				Traits: append([]string(nil), pickedUp.Traits...),
 			},
 		)
 

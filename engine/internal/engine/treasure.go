@@ -95,6 +95,10 @@ func (e *GameEngine) generateTreasure(roomNum int, treasureLevel int) []string {
 						item.Adj3,
 					)
 
+					if len(item.Traits) > 0 {
+						found = append(found, "A faint magical aura shimmers briefly around the weapon.")
+					}
+
 					found = append(found, fmt.Sprintf("%s drops to the ground", name))
 				}
 			}
@@ -228,10 +232,8 @@ func (e *GameEngine) randomWeaponDrop(treasureLevel int) *gameworld.RoomItem {
 		Archetype: chosen,
 	}
 
-	// Chance for magic bonus (higher treasure = higher chance and bonus)
-	if treasureLevel >= 15 && rand.Intn(100) < treasureLevel/3 {
-		item.Val2 = rand.Intn(treasureLevel/10+1) + 1 // +1 to +N magic bonus
-	}
+	// Chance for magical trait based on treasure level.
+	e.maybeEnchantWeapon(item, treasureLevel)
 
 	// Chance for premium material adjective
 	if treasureLevel >= 30 && rand.Intn(100) < 15 {
@@ -240,6 +242,102 @@ func (e *GameEngine) randomWeaponDrop(treasureLevel int) *gameworld.RoomItem {
 	}
 
 	return item
+}
+
+func (e *GameEngine) maybeEnchantWeapon(item *gameworld.RoomItem, treasureLevel int) {
+	if item == nil || treasureLevel <= 0 {
+		return
+	}
+
+	// Any treasure-bearing monster can potentially drop a magical weapon.
+	// Chance increases with treasure level, capped at 35%.
+	chance := 5 + treasureLevel/2
+
+	if chance > 35 {
+		chance = 35
+	}
+
+	// TEST: 100% chance for a dropped weapon to be magical.
+	//chance = 100
+
+	if rand.Intn(100) >= chance {
+		return
+	}
+
+	// Treasure level determines the strongest enchantment possible.
+	//
+	// Treasure  1-19 -> POWER 1
+	// Treasure 20-29 -> POWER 2
+	// Treasure 30-39 -> POWER 3
+	// Treasure 40-49 -> POWER 4
+	// Treasure 50+   -> POWER 5
+	maxPower := 1
+
+	switch {
+	case treasureLevel >= 50:
+		maxPower = 5
+	case treasureLevel >= 40:
+		maxPower = 4
+	case treasureLevel >= 30:
+		maxPower = 3
+	case treasureLevel >= 20:
+		maxPower = 2
+	}
+
+	// Higher powers are progressively rarer even when the
+	// treasure level is high enough to allow them.
+	power := rollWeaponMagicPower(maxPower)
+
+	var trait string
+
+	// Magic+ is the most common enchantment.
+	// Elemental enchantments are less common.
+	switch roll := rand.Intn(100); {
+	case roll < 50:
+		trait = fmt.Sprintf("MAGIC_PLUS_%d", power*5)
+
+	case roll < 67:
+		trait = fmt.Sprintf("FLAMING_%d", power*5)
+
+	case roll < 84:
+		trait = fmt.Sprintf("FREEZING_%d", power*5)
+
+	default:
+		trait = fmt.Sprintf("SHOCKING_%d", power*5)
+	}
+
+	// Safety check: don't attach a trait that isn't defined.
+	if e.traits[trait] == nil {
+		return
+	}
+
+	item.Traits = append(item.Traits, trait)
+
+}
+
+func rollWeaponMagicPower(maxPower int) int {
+	if maxPower <= 1 {
+		return 1
+	}
+
+	roll := rand.Intn(100)
+
+	switch {
+	case maxPower >= 5 && roll < 5:
+		return 5
+
+	case maxPower >= 4 && roll < 15:
+		return 4
+
+	case maxPower >= 3 && roll < 35:
+		return 3
+
+	case maxPower >= 2 && roll < 65:
+		return 2
+
+	default:
+		return 1
+	}
 }
 
 // randomArmorDrop selects random armor appropriate for treasure level.

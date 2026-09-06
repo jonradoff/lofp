@@ -619,25 +619,29 @@ func weaponCritDamage(wielded *InventoryItem, weaponDef *gameworld.ItemDef, monD
 		case 3:
 			chance, dmgType = 50, "cold"
 		case 4:
-			chance, dmgType = 40, "electric"
+			chance, dmgType = 50, "electric"
+
 		case 5:
 			chance, dmgType = 40, "heat"
 		case 6:
 			chance, dmgType = 40, "cold"
 		case 7:
 			chance, dmgType = 40, "electric"
+
 		case 10:
 			chance, dmgType = 30, "heat"
 		case 11:
 			chance, dmgType = 30, "cold"
 		case 12:
 			chance, dmgType = 30, "electric"
+
 		case 13:
 			chance, dmgType = 20, "heat"
 		case 14:
 			chance, dmgType = 20, "cold"
 		case 15:
 			chance, dmgType = 20, "electric"
+
 		case 16:
 			chance, dmgType = 10, "heat"
 		case 17:

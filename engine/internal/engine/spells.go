@@ -1627,7 +1627,24 @@ func (e *GameEngine) identifyItem(player *Player, item *InventoryItem) []string 
 		item.Adj3,
 	)
 
-	return []string{
+	messages := []string{
 		fmt.Sprintf("You identify %s.", itemName),
 	}
+
+	enchantments := e.itemEnchantments(item, def)
+
+	if len(enchantments) == 0 {
+		messages = append(messages, "You detect no magical enchantments.")
+	} else {
+		if len(enchantments) == 1 {
+			messages = append(messages, "It bears the following enchantment:")
+		} else {
+			messages = append(messages, "It bears the following enchantments:")
+		}
+
+		for _, enchantment := range enchantments {
+			messages = append(messages, "  "+enchantment)
+		}
+	}
+	return messages
 }
