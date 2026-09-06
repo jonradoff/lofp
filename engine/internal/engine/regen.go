@@ -41,8 +41,15 @@ func (e *GameEngine) regenTick() {
 			continue
 		}
 
+		healMult := 1.0
+
+		if room := e.rooms[p.RoomNumber]; room != nil && containsModifier(room.Modifiers, "HEALER") {
+			if p.Position == 1 || p.Position == 2 {
+				healMult *= 2.0
+			}
+		}
 		// Position multiplier
-		mult := positionMultiplier(p.Position)
+		mult := positionMultiplier(p.Position) * healMult
 
 		changed := false
 

@@ -1,0 +1,346 @@
+TRAITDEF AXE
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A sturdy hafted weapon with a heavy, sharpened head designed for powerful chopping blows.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF BATTLEAXE
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A large, heavy axe with a broad cutting head and long haft, built for powerful two-handed swings.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF DAGGER
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A short, sharply pointed blade suited to quick thrusts, close fighting, and precise cuts.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF SWORD_RAPIER
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A slender, finely balanced sword with a long narrow blade, designed for speed, precision, and thrusting attacks.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF STILETTO
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A narrow dagger with a rigid, needle-like point designed primarily for precise thrusts.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF SWORD_SHORT
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A short, one-handed sword designed primarily for slashing. Its compact blade favors speed and maneuverability over reach.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF SWORD_LONG
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A long, straight-bladed sword built for reach and powerful cuts while remaining balanced enough for quick changes in attack.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF SWORD_GREAT
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A massive two-handed sword with a long, heavy blade built to deliver powerful cutting blows.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF SWORD_SABRE
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A light, curved sword with a keen cutting edge, built for fast sweeping attacks.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF SWORD_SCIMITAR
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A broad, curved sword whose sweeping blade is designed to deliver strong slashing cuts.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF CLUB
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A simple, solid wooden weapon built to deliver heavy crushing blows through weight and momentum.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF MACE
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A heavy-headed metal weapon designed to deliver powerful crushing blows at close range.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF MORNING_STAR
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A heavy striking weapon built to deliver brutal crushing blows through weight and momentum.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF MATTOCK
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A heavy hafted weapon with a substantial head, relying on leverage and weight to deliver crushing strikes.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF QUARTERSTAFF
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A long wooden staff balanced for sweeping strikes, thrusts, and defensive movement.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF GLAIVE
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A long polearm tipped with a broad cutting blade, giving its wielder considerable reach.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF HALBERD
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A long polearm combining a heavy cutting blade with the reach and leverage of a staff weapon.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF LANCE
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A long, heavy pole weapon designed to focus tremendous force through its pointed tip.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF PIKE
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A very long pole weapon tipped with a narrow point, designed to keep an opponent at considerable distance.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF JAVELIN
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A light spear balanced for throwing, while remaining useful as a close-range thrusting weapon.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF HARPOON
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A heavy throwing weapon with a long shaft and a strong penetrating point.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF BOW_SHORT
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A compact wooden bow built for quick handling at the expense of some range and power.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF BOW_COMPOSITE
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A reinforced bow designed to store substantial energy while remaining relatively compact.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF BOW_LONG
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A tall wooden bow with long flexible limbs, designed to deliver arrows with substantial range and force.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF CROSSBOW_LIGHT
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A compact crossbow built for easier handling and relatively quick use.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF CROSSBOW_HEAVY
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A large, powerful crossbow with heavy limbs capable of driving a bolt with considerable force.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF DIRK
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A long-bladed dagger with a sturdy point and keen edges, heavier than a common knife but quicker in the hand than a sword.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF CLEAVER
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A broad, heavy chopping blade with a short handle, built to deliver powerful cuts at close range.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF SWORD_BROAD
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A broad-bladed sword with substantial weight behind its edge, designed for strong cutting blows.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF BOW_GREAT
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A large, powerful bow with long heavy limbs, built to launch arrows with exceptional force.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF SWORD_EPEE
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A slender thrusting sword with a narrow blade and fine balance, designed for quick and precise attacks.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF SWORD_FOIL
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A light, flexible thrusting sword with a narrow blade, favoring speed and precision over cutting power.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF SWORD_PAPENHEIMER
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A finely balanced thrusting sword with a long narrow blade and an elaborate protective hilt.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF PONIARD
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A compact pointed dagger with a narrow blade, designed for fast and precise thrusts at close range.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF SWORD_CLAIDHMORE
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A massive two-handed sword with a long blade and extended grip, built to deliver sweeping, powerful cuts.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF SLING
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A simple ranged weapon of cords and a flexible pouch, used to hurl stones or shot at considerable speed.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF BLOWGUN
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A long hollow tube used to propel small darts with a sharp burst of breath.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF WARHAMMER
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A heavy warhammer with a massive metal head, built to deliver devastating crushing blows through sheer weight and force.
+    ENDIF
+ENDTRAIT
+
+; ============================================================
+; ADDITIONAL WEAPON EXAMINE TRAITS
+; ============================================================
+
+
+TRAITDEF CUTLASS
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A sturdy, slightly curved sword with a broad cutting blade, well suited to fast slashing attacks at close range.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF BLADE
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A compact metal blade with a keen cutting edge, light enough for quick use at close range.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF ZULFIKHAR
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A substantial sword with a long cutting blade, balanced to deliver strong slashing attacks.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF DAGGER_THROWN
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A compact dagger balanced for throwing, with enough point and edge to remain dangerous in close combat.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF SWORD_CANE
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER An unassuming cane concealing a narrow steel blade, allowing it to serve as both walking stick and thrusting weapon.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF KNIFE
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A small, simple knife with a short pointed blade suited to precise cuts and close work.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF STAFF
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A long wooden staff with enough weight and reach to deliver solid sweeping and crushing blows.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF SLEDGEHAMMER
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A massive long-handled hammer with an exceptionally heavy head, relying on sheer weight and momentum to deliver crushing blows.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF CANE
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A sturdy wooden cane that can serve as an improvised club when the need arises.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF HAMMER
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A compact metal hammer whose solid head can deliver short, forceful crushing blows.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF FLAIL
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A flexible striking weapon whose heavy head gains force as it swings through an arc.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF PICK
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A sturdy metal pick with a narrow striking head designed to concentrate the force of a blow onto a small point.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF TRIDENT
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A long pole weapon tipped with three sturdy points, giving it considerable reach and a broad thrusting head.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF WHIP
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A long flexible weapon designed to snap outward with speed, striking from beyond normal hand-to-hand reach.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF SPEAR
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A long wooden shaft tipped with a pointed head, useful for thrusting at reach and balanced well enough to throw.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF DOIP
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A small, oddly shaped throwing weapon whose compact form is designed to be hurled with force.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF SIDEBOW
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A sturdy ranged weapon built around a compact bow, designed to launch its ammunition with considerable force.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF CHCHAK
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER An enormous two-handed weapon of intimidating weight and size, built to deliver devastating blows through brute force.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF KAIEKRA
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A large two-handed bladed weapon balanced for broad, powerful cutting attacks.
+    ENDIF
+ENDTRAIT
