@@ -30,6 +30,8 @@ func (e *GameEngine) processGMCommand(ctx context.Context, player *Player, verb 
 		return e.gmHeal(ctx, player, args)
 	case "@KILL":
 		return e.gmKill(ctx, player, args)
+	case "@FORAGE":
+		return e.gmForage(ctx, player, args)
 	case "@EXP":
 		return e.gmExp(ctx, player, args)
 	case "@GM":
@@ -89,9 +91,10 @@ func (e *GameEngine) processGMCommand(ctx context.Context, player *Player, verb 
 	case "@SPAWN":
 		return e.gmSpawn(player, args)
 	case "@ACTIVATE":
-		return &CommandResult{Messages: []string{"Monster activated."}}
+		return e.gmActivate(player, args)
+
 	case "@SEDATE":
-		return &CommandResult{Messages: []string{"Monster sedated."}}
+		return e.gmSedate(player, args)
 	case "@ZAP":
 		return e.gmZap(player, args)
 	case "@MLIST":
@@ -424,6 +427,82 @@ func (e *GameEngine) gmKill(ctx context.Context, player *Player, args []string) 
 	return &CommandResult{Messages: []string{fmt.Sprintf("%s has been slain.", target.FullName())}}
 }
 
+func (e *GameEngine) gmForage(ctx context.Context, player *Player, args []string) *CommandResult {
+	room := e.rooms[player.RoomNumber]
+	if room == nil {
+		return &CommandResult{
+			Messages: []string{"Room not found."},
+		}
+	}
+
+	terrain := strings.ToUpper(room.Terrain)
+
+	seasonal := e.seasonalForageDefs[e.currentSeason]
+
+	var messages []string
+
+	messages = append(messages,
+		fmt.Sprintf(
+			"Forage: room %d | terrain=%s | season=%s",
+			room.Number,
+			terrain,
+			SeasonName(),
+		),
+	)
+
+	messages = append(messages,
+		fmt.Sprintf(
+			"Base=%d | Seasonal=%d | Active=%d",
+			len(e.baseForageDefs),
+			len(seasonal),
+			len(e.forageDefs),
+		),
+	)
+
+	count := 0
+
+	for _, def := range e.forageDefs {
+		if strings.ToUpper(def.Terrain) != terrain {
+			continue
+		}
+
+		count++
+
+		source := "BASE"
+
+		for _, sdef := range seasonal {
+			if sdef == def {
+				source = "SEASONAL"
+				break
+			}
+		}
+		name := e.forageDisplayName(def)
+
+		messages = append(messages,
+			fmt.Sprintf(
+				"%s %s [item=%d adj=%d ratio=%d val2=%d val5=%d]",
+				source,
+				name,
+				def.ItemNum,
+				def.AdjNum,
+				def.Ratio,
+				def.Val2,
+				def.Val5,
+			),
+		)
+
+	}
+
+	if count == 0 {
+		messages = append(messages, "Nothing is forageable here.")
+	} else {
+		messages = append(messages,
+			fmt.Sprintf("%d forage definitions for this terrain.", count),
+		)
+	}
+
+	return &CommandResult{Messages: messages}
+}
 func (e *GameEngine) gmExp(ctx context.Context, player *Player, args []string) *CommandResult {
 	if len(args) < 2 {
 		return &CommandResult{Messages: []string{"Usage: @exp <name> <points>"}}
@@ -1032,16 +1111,49 @@ func (e *GameEngine) gmMList() *CommandResult {
 		msgs = append(msgs, fmt.Sprintf("  Monster lists loaded: %d entries", len(e.monsterLists)))
 		if len(e.monsterLists) > 0 {
 			for i, ml := range e.monsterLists {
-				if i >= 10 { break }
+				if i >= 10 {
+					break
+				}
 				def := e.monsters[ml.MonsterID]
 				defName := "???"
-				if def != nil { defName = def.Name }
+				if def != nil {
+					defName = def.Name
+				}
 				msgs = append(msgs, fmt.Sprintf("  MLIST: room %d, monster %d (%s), prob %d%%, max %d", ml.Room, ml.MonsterID, defName, ml.Probability, ml.MaxCount))
 			}
 		}
 	}
 
 	return &CommandResult{Messages: msgs}
+}
+
+func (e *GameEngine) forageDisplayName(def gameworld.ForageDef) string {
+	itemName := fmt.Sprintf("item#%d", def.ItemNum)
+
+	var nounID int
+	foundItem := false
+
+	for _, item := range e.items {
+		if item.Number == def.ItemNum {
+			nounID = item.NameID
+			foundItem = true
+			break
+		}
+	}
+
+	if foundItem {
+		if noun, ok := e.nouns[nounID]; ok {
+			itemName = noun
+		}
+	}
+
+	if def.AdjNum >= 0 {
+		if adj, ok := e.adjectives[def.AdjNum]; ok {
+			itemName = adj + " " + itemName
+		}
+	}
+
+	return itemName
 }
 
 func (e *GameEngine) gmFind(args []string) *CommandResult {
@@ -1709,4 +1821,79 @@ func resolveGMVerb(input string) string {
 		return match
 	}
 	return input
+}
+func (e *GameEngine) gmSedate(player *Player, args []string) *CommandResult {
+	if len(args) == 0 {
+		return &CommandResult{Messages: []string{"Sedate which monster?"}}
+	}
+
+	target := strings.ToLower(strings.Join(args, " "))
+
+	e.monsterMgr.mu.Lock()
+	defer e.monsterMgr.mu.Unlock()
+
+	for i := range e.monsterMgr.instances {
+		inst := &e.monsterMgr.instances[i]
+
+		if !inst.Alive || inst.RoomNumber != player.RoomNumber {
+			continue
+		}
+
+		def := e.monsters[inst.DefNumber]
+		if def == nil {
+			continue
+		}
+
+		name := FormatMonsterName(def, e.monAdjs)
+
+		if strings.Contains(strings.ToLower(name), target) {
+			inst.Sedated = true
+
+			return &CommandResult{
+				Messages: []string{
+					fmt.Sprintf("%s sedated.", name),
+				},
+			}
+		}
+	}
+
+	return &CommandResult{Messages: []string{"Monster not found."}}
+}
+
+func (e *GameEngine) gmActivate(player *Player, args []string) *CommandResult {
+	if len(args) == 0 {
+		return &CommandResult{Messages: []string{"Activate which monster?"}}
+	}
+
+	target := strings.ToLower(strings.Join(args, " "))
+
+	e.monsterMgr.mu.Lock()
+	defer e.monsterMgr.mu.Unlock()
+
+	for i := range e.monsterMgr.instances {
+		inst := &e.monsterMgr.instances[i]
+
+		if !inst.Alive || inst.RoomNumber != player.RoomNumber {
+			continue
+		}
+
+		def := e.monsters[inst.DefNumber]
+		if def == nil {
+			continue
+		}
+
+		name := FormatMonsterName(def, e.monAdjs)
+
+		if strings.Contains(strings.ToLower(name), target) {
+			inst.Sedated = false
+
+			return &CommandResult{
+				Messages: []string{
+					fmt.Sprintf("%s activated.", name),
+				},
+			}
+		}
+	}
+
+	return &CommandResult{Messages: []string{"Monster not found."}}
 }
