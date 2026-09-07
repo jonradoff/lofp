@@ -518,6 +518,7 @@ func (e *GameEngine) projectTeleport(ctx context.Context, player *Player, args [
 		return &CommandResult{Messages: []string{"That mark leads to a room that no longer exists."}}
 	}
 	oldRoom := player.RoomNumber
+	player.ResetRoomVars()
 	player.RoomNumber = roomNum
 	e.SavePlayer(ctx, player)
 	lookResult := e.doLook(player)

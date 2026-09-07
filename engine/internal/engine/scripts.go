@@ -586,6 +586,7 @@ func (sc *ScriptContext) execAction(action gameworld.ScriptAction) {
 		if len(action.Args) >= 1 {
 			dest := sc.resolveNumericArg(action.Args[0])
 			if dest > 0 {
+				sc.Player.ResetRoomVars()
 				sc.Player.RoomNumber = dest
 			}
 		}
@@ -609,13 +610,7 @@ func (sc *ScriptContext) execAction(action gameworld.ScriptAction) {
 		// TODO: recalculate player offense/defense after stat changes
 	case "DAMAGE":
 		// TODO: deal damage to current target (monster or item)
-		if len(action.Args) >= 1 {
-			amount, _ := strconv.Atoi(action.Args[0])
-			sc.Player.BodyPoints -= amount
-			if sc.Player.BodyPoints < 0 {
-				sc.Player.BodyPoints = 0
-			}
-		}
+		sc.doDamage(action.Args)
 	case "DROPLOC":
 		// TODO: set room where defeated players are moved
 	case "CHANNEL":
@@ -754,6 +749,30 @@ func (sc *ScriptContext) doEcho(args []string) {
 	case "OTHERS":
 		sc.RoomMsgs = append(sc.RoomMsgs, text)
 	}
+}
+
+func (sc *ScriptContext) doDamage(args []string) {
+	if len(args) < 2 {
+		return
+	}
+
+	damageType := strings.ToUpper(args[0])
+	amount := sc.resolveNumericArg(args[1])
+
+	sc.Player.BodyPoints -= amount
+	if sc.Player.BodyPoints < 0 {
+		sc.Player.BodyPoints = 0
+	}
+
+	if len(args) > 2 {
+		text := strings.Join(args[2:], " ")
+		text = sc.expandScriptText(text)
+
+		sc.Messages = append(sc.Messages, text)
+		sc.RoomMsgs = append(sc.RoomMsgs, text)
+	}
+
+	_ = damageType
 }
 
 // doEqual handles EQUAL INTNUMn value — sets a variable on the player.

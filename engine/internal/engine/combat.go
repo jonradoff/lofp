@@ -1491,7 +1491,9 @@ func (e *GameEngine) doDepart(player *Player) *CommandResult {
 		player.BodyPoints = 1
 	}
 
+	player.ResetRoomVars()
 	// Send to bump/depart room (201 City Gate), not start room (3950 tutorial)
+
 	if e.departRoom > 0 {
 		player.RoomNumber = e.departRoom
 	} else {
@@ -1902,6 +1904,7 @@ func (e *GameEngine) doFlee(ctx context.Context, player *Player) *CommandResult 
 	}
 
 	oldRoom := player.RoomNumber
+	player.ResetRoomVars()
 	player.RoomNumber = chosen.destID
 	player.Position = 0
 	player.Submitting = false

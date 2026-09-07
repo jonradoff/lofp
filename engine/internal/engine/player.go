@@ -556,3 +556,10 @@ func (p *Player) HasTelepathy() bool {
 
 	return false
 }
+
+func (p *Player) ResetRoomVars() {
+	p.Flag1 = 0
+	p.Flag2 = 0
+	p.Flag3 = 0
+	p.Flag4 = 0
+}

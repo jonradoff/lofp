@@ -928,7 +928,7 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 
 					if dest != nil {
 						oldRoom := player.RoomNumber
-
+						player.ResetRoomVars()
 						player.RoomNumber = sc.MoveTo
 						e.SavePlayer(ctx, player)
 
@@ -1324,6 +1324,13 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 		if len(args) > 0 {
 			return e.doItemInteraction(ctx, player, verb, args)
 		}
+
+		// Check room-level IFVERB <VERB> -1 first.
+		if result := e.doRoomScriptVerb(ctx, player, verb); result != nil {
+			return result
+		}
+
+		// No room script, use normal emote.
 		return e.processEmote(player, verb, args)
 	case "ACT":
 		if len(args) == 0 {
@@ -2331,7 +2338,7 @@ func (e *GameEngine) doMove(ctx context.Context, player *Player, dir string) *Co
 	// ------------------------------------------------------------
 	// Move the leader.
 	// ------------------------------------------------------------
-
+	player.ResetRoomVars()
 	player.RoomNumber = destNum
 	player.Submitting = false
 
@@ -4258,7 +4265,7 @@ func (e *GameEngine) doGo(ctx context.Context, player *Player, args []string) *C
 			}
 
 			oldRoom := player.RoomNumber
-
+			player.ResetRoomVars()
 			// Move leader first.
 			player.RoomNumber = destNum
 			player.Submitting = false
@@ -4295,8 +4302,10 @@ func (e *GameEngine) doGo(ctx context.Context, player *Player, args []string) *C
 							continue
 						}
 
+						p.ResetRoomVars()
 						p.RoomNumber = destNum
 						p.Submitting = false
+
 						e.disengageCombat(p)
 						e.SavePlayer(ctx, p)
 
@@ -4559,7 +4568,7 @@ func (e *GameEngine) applyGoScriptResult(
 		if dest == nil {
 			return true
 		}
-
+		player.ResetRoomVars()
 		player.RoomNumber = sc.MoveTo
 		e.SavePlayer(ctx, player)
 
@@ -4638,7 +4647,7 @@ func (e *GameEngine) movePlayerToRoom(ctx context.Context, player *Player, roomN
 	}
 
 	oldRoom := player.RoomNumber
-
+	player.ResetRoomVars()
 	player.RoomNumber = roomNum
 	e.SavePlayer(ctx, player)
 
@@ -4699,6 +4708,7 @@ func (e *GameEngine) doGoPortal(ctx context.Context, player *Player, room *gamew
 
 	oldRoom := player.RoomNumber
 	portalName := e.formatItemName(itemDef, ri.Adj1, ri.Adj2, ri.Adj3)
+	player.ResetRoomVars()
 	player.RoomNumber = destNum
 	e.SavePlayer(ctx, player)
 
@@ -4962,7 +4972,17 @@ func (e *GameEngine) doClimb(ctx context.Context, player *Player, args []string)
 			continue
 		}
 
-		// Portals retain CLIMB's special portal behavior.
+		// Give room/item scripts first crack at CLIMB.
+		// This is important for scripted portals such as:
+		//   IFVERB CLIMB 0
+		//   IFVERB CLIMB 1
+		result := e.doItemInteraction(ctx, player, "CLIMB", args)
+
+		if result != nil {
+			return result
+		}
+
+		// If no script handled it, use generic portal behavior.
 		if isPortal(itemDef.Type) {
 			return e.doGoPortal(
 				ctx,
@@ -4972,18 +4992,12 @@ func (e *GameEngine) doClimb(ctx context.Context, player *Player, args []string)
 				itemDef,
 			)
 		}
-
-		// Normal room items use the standard scripted interaction path.
-		// This runs both IFPREVERB CLIMB and IFVERB CLIMB,
-		// including SKILLCHECK, MOVE, CLEARVERB, etc.
-		return e.doItemInteraction(ctx, player, "CLIMB", args)
 	}
 
 	return &CommandResult{
 		Messages: []string{"You don't see that here."},
 	}
 }
-
 func (e *GameEngine) breakCommandedFollowers(player *Player, roomNum int) []string {
 	if e.monsterMgr == nil {
 		return nil
@@ -5130,6 +5144,7 @@ func (e *GameEngine) doItemInteraction(ctx context.Context, player *Player, verb
 			dest := e.rooms[moveTo]
 			if dest != nil {
 				oldRoom := player.RoomNumber
+				player.ResetRoomVars()
 				player.RoomNumber = moveTo
 
 				e.SavePlayer(ctx, player)
@@ -10618,7 +10633,7 @@ func (e *GameEngine) doRoomScriptVerb(ctx context.Context, player *Player, verb 
 
 		if dest != nil {
 			oldRoom := player.RoomNumber
-
+			player.ResetRoomVars()
 			player.RoomNumber = sc.MoveTo
 			e.SavePlayer(ctx, player)
 
@@ -10926,19 +10941,38 @@ func (e *GameEngine) doWithdrawItem(ctx context.Context, player *Player, args []
 	target, ordSkip := parseOrdinal(target)
 	skip := ordSkip
 
+	scrollSpellTarget := ""
+	if strings.HasPrefix(target, "scroll of ") {
+		scrollSpellTarget = strings.TrimSpace(strings.TrimPrefix(target, "scroll of "))
+	}
+
 	for i, ii := range player.BankInventory {
 		itemDef := e.items[ii.Archetype]
 		if itemDef == nil {
 			continue
 		}
 
-		name := e.getItemNounName(itemDef)
+		matched := false
 
-		if !matchesTarget(
-			name,
-			target,
-			e.getAdjName(ii.Adj1),
-		) {
+		// Allow: withdraw scroll of identify
+		if scrollSpellTarget != "" && ii.Archetype == 168 {
+			if spell := FindSpellByID(ii.Val3); spell != nil {
+				matched = strings.EqualFold(spell.Name, scrollSpellTarget)
+			}
+		} else {
+			// Normal item matching, including:
+			// withdraw scroll
+			// withdraw scroll 3
+			name := e.getItemNounName(itemDef)
+
+			matched = matchesTarget(
+				name,
+				target,
+				e.getAdjName(ii.Adj1),
+			)
+		}
+
+		if !matched {
 			continue
 		}
 
@@ -10948,8 +10982,6 @@ func (e *GameEngine) doWithdrawItem(ctx context.Context, player *Player, args []
 		}
 
 		// Move the complete item back into carried inventory.
-		// Contents come with it automatically because they're
-		// stored inside the inventory item.
 		player.Inventory = append(
 			player.Inventory,
 			ii,
@@ -11226,6 +11258,15 @@ func (e *GameEngine) doBalance(player *Player) *CommandResult {
 				ii.Adj2,
 				ii.Adj3,
 			)
+
+			// Show the spell contained in scrolls.
+			if ii.Archetype == 168 && ii.Val3 > 0 {
+				if spell := FindSpellByID(ii.Val3); spell != nil {
+					fullName = fmt.Sprintf("%s of %s", fullName, spell.Name)
+				} else {
+					fullName = fmt.Sprintf("%s containing spell #%d", fullName, ii.Val3)
+				}
+			}
 
 			msgs = append(msgs, "  "+fullName)
 		}

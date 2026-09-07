@@ -58,7 +58,7 @@ func (e *GameEngine) processGMCommand(ctx context.Context, player *Player, verb 
 		player.Hidden = true
 		e.SavePlayer(ctx, player)
 		return &CommandResult{Messages: []string{"You fade from sight."}}
-	case "@VIS":
+	case "@VIS", "@VISIBLE":
 		if !player.GMInvis {
 			return &CommandResult{Messages: []string{"You are already visible."}}
 		}
@@ -282,6 +282,7 @@ func (e *GameEngine) gmGo(ctx context.Context, player *Player, args []string) *C
 		return &CommandResult{Messages: []string{fmt.Sprintf("Room %d does not exist.", num)}}
 	}
 	oldRoom := player.RoomNumber
+	player.ResetRoomVars()
 	player.RoomNumber = num
 	e.SavePlayer(ctx, player)
 	result := e.doLook(player)
@@ -1467,6 +1468,7 @@ func (e *GameEngine) gmGoPlr(ctx context.Context, player *Player, args []string)
 		return &CommandResult{Messages: []string{err.Error()}}
 	}
 	oldRoom := player.RoomNumber
+	player.ResetRoomVars()
 	player.RoomNumber = target.RoomNumber
 	e.SavePlayer(ctx, player)
 	result := e.doLook(player)
@@ -1492,6 +1494,7 @@ func (e *GameEngine) gmAnswer(ctx context.Context, player *Player) *CommandResul
 		return &CommandResult{Messages: []string{"No pending assist requests."}}
 	}
 	oldRoom := player.RoomNumber
+	player.ResetRoomVars()
 	player.RoomNumber = e.lastAssistRoom
 	e.SavePlayer(ctx, player)
 	result := e.doLook(player)
