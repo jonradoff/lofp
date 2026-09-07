@@ -71,12 +71,8 @@ IFVERB LISTEN -1
 	ENDIF
 ENDIF
 IFVERB JUMP -1
-	IFVAR FLAG1 = 0
-		ECHO PLAYER Do you really want to jump to your death.
-		ECHO OTHERS %N looks as if %s wants to jump.
-		EQUAL FLAG1 1
-	ENDIF
-	IFVAR FLAG1 = 1
+
+IFVAR FLAG1 = 1
 		ECHO PLAYER You jump off!
 		ECHO OTHERS %N jumps off!
 		MOVE 620
@@ -87,6 +83,13 @@ IFVERB JUMP -1
 		DAMAGEPLR CRUSH WHATANASS3 %N hits the ground with a thud.
 		AFFECT 621
 	ENDIF
+
+	IFVAR FLAG1 = 0
+		ECHO PLAYER Do you really want to jump to your death.
+		ECHO OTHERS %N looks as if %s wants to jump.
+		EQUAL FLAG1 1
+	ENDIF
+	
 ENDIF
 
 ; 3715-3717

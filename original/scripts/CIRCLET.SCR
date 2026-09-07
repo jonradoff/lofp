@@ -55,7 +55,7 @@ IFVERB CONCENTRATE -1
 				RANDOM DUMMY1 1 3 0
 				IFVAR DUMMY1 = 1
 					ECHO PLAYER You feel a moment\
-of unease as you sense the closeness of the black circlet's wielder.
+                                        of unease as you sense the closeness of the black circlet's wielder.
 				ENDIF
 				IFVAR DUMMY1 = 2
 					IFVAR DUMMY1 = 2
@@ -65,15 +65,15 @@ of unease as you sense the closeness of the black circlet's wielder.
 				ENDIF
 				IFVAR DUMMY1 = 3
 					ECHO PLAYER A voice whispers\
-in your mind, "Beware, my friend. Someone has invoked the power of\
-the black circlet!"
+                                        in your mind, "Beware, my friend. Someone has invoked the power of\
+                                        the black circlet!"
 				ENDIF
 				ENDIF
 			ENDIF
 		ELSE
 			SPELL 313 10
 			ECHO PLAYER A voice whispers in your mind, "\
-Be too greedy with my power, and I shall punish you, mortal."
+                        Be too greedy with my power, and I shall punish you, mortal."
                 ENDIF
         ENDIF
 ENDIF

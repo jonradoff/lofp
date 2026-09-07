@@ -312,7 +312,7 @@ func (e *GameEngine) doProjectPsi(ctx context.Context, player *Player, args []st
 	} else {
 		schoolSkill = player.Skills[27]
 	}
-	castChance := 50 + (psiSkill+schoolSkill)*3 + player.Willpower/5 - disc.Level*2
+	castChance := 50 + (psiSkill+schoolSkill)*3 + player.EffectiveStat(StatWillpower)/5 - disc.Level*2
 	if castChance < 15 {
 		castChance = 15
 	}
@@ -453,7 +453,7 @@ func (e *GameEngine) projectDamage(player *Player, disc *PsiDiscipline, args []s
 		}
 	}
 
-	killed := e.damageMonster(inst.ID, dmg)
+	killed := e.damageMonster(player, inst.ID, dmg)
 	if killed {
 		deathText := def.TextOverrides["TEXD"]
 		deathMsg := fmt.Sprintf("A %s collapses, dead!", name)
@@ -518,6 +518,7 @@ func (e *GameEngine) projectTeleport(ctx context.Context, player *Player, args [
 		return &CommandResult{Messages: []string{"That mark leads to a room that no longer exists."}}
 	}
 	oldRoom := player.RoomNumber
+	player.ResetRoomVars()
 	player.RoomNumber = roomNum
 	e.SavePlayer(ctx, player)
 	lookResult := e.doLook(player)
@@ -556,7 +557,7 @@ func (e *GameEngine) projectManipulateLock(player *Player, args []string) *Comma
 		}
 		// Skill check: psi skill + willpower vs lock difficulty
 		psiSkill := player.Skills[26] + player.Skills[28]
-		chance := 40 + psiSkill*3 + player.Willpower/5
+		chance := 40 + psiSkill*3 + player.EffectiveStat(StatWillpower)/5
 		if player.IsGM {
 			chance = 100
 		}

@@ -1,0 +1,263 @@
+;==============================================================================
+; MAGIC WEAPON TRAITS
+;==============================================================================
+;
+; Magic weapon traits use the original LOFP ITEMVAL fields.
+;
+; POWER
+;   Modern trait power rating. This is NOT an original ITEMVAL.
+;   Used to indicate the relative magical strength of a trait.
+;   POWER > 0 also marks the trait as magical for detection/identification.
+;
+; ADJDEF
+;   Adjective revealed when the magical property is identified.
+;   The number refers to the normal ADJDEF table.
+;   If the item has a free adjective slot, Identify may add this adjective
+;   to the item. Existing adjectives are never replaced.
+;
+; ITEMVAL2 - MAGIC WEAPON BONUS
+;   The weapon's general magical bonus.
+;   This bonus is added to the weapon's attack/to-hit rating.
+;
+;   Original MAGICWEAPON requirements:
+;       ITEMVAL2 > 0   = magic weapon
+;       ITEMVAL2 >= 10 = +10 or better magic weapon
+;       ITEMVAL2 >= 21 = +21 or better magic weapon
+;
+;   Examples:
+;       ITEMVAL2 5
+;       ITEMVAL2 10
+;       ITEMVAL2 15
+;       ITEMVAL2 20
+;       ITEMVAL2 25
+;
+; ITEMVAL3 - SPECIAL WEAPON EFFECT
+;   Defines the type and proc chance of an elemental effect, or the race
+;   affected by a slaying weapon.
+;
+;   Elemental effects:
+;        2 = Heat      50%
+;        3 = Cold      50%
+;        4 = Electric  50%
+;
+;        5 = Heat      40%
+;        6 = Cold      40%
+;        7 = Electric  40%
+;
+;       10 = Heat      30%
+;       11 = Cold      30%
+;       12 = Electric  30%
+;
+;       13 = Heat      20%
+;       14 = Cold      20%
+;       15 = Electric  20%
+;
+;       16 = Heat      10%
+;       17 = Cold      10%
+;       18 = Electric  10%
+;
+;   Alignment weapons:
+;        8 = Evil weapon; good slayer
+;        9 = Good weapon; evil slayer
+;   NOTE: These require alignment-specific behavior and may not yet be
+;   implemented by the modern combat engine.
+;
+;   Slaying weapons:
+;       21 = Extraplanar
+;       22 = Undead
+;       23 = Arachnid
+;       24 = Kvantar
+;       25 = Troll
+;       26 = Lycanthrope
+;       27 = Giant
+;       28 = Constructs (magical/technological)
+;       29 = Goblin
+;       30 = Ogre
+;       31 = Dragon
+;
+;   Temporary blade-spell effects:
+;       96 = Storm Blade
+;       97 = Winter Blade
+;       98 = Inferno Blade
+;
+;   The original system decreases ITEMVAL5 with each swing for the
+;   blade-spell effects. These may require additional engine support.
+;
+; ITEMVAL5 - SPECIAL DAMAGE MODIFIER
+;   Controls the strength/damage of the effect selected by ITEMVAL3.
+;
+;   For elemental weapons, ITEMVAL5 is the maximum additional elemental
+;   damage rolled when the effect procs.
+;
+;       ITEMVAL5 15 -> 1-15 additional elemental damage
+;
+;   For slaying weapons, ITEMVAL5 is the additional slayer damage.
+;
+;   Original LOFP notes recommend approximately 12-15 for player weapons.
+;
+; EXAMPLES
+;
+;   A +10 magic weapon:
+;
+;       TRAIT MAGIC_PLUS_10
+;
+;   A flaming weapon:
+;
+;       TRAIT FLAMING
+;
+;   A +10 flaming weapon:
+;
+;       TRAIT MAGIC_PLUS_10
+;       TRAIT FLAMING
+;
+;   A +15 undead-slaying weapon:
+;
+;       TRAIT MAGIC_PLUS_15
+;       TRAIT UNDEAD_SLAYER
+;
+; Traits are stacked directly on the weapon. If multiple traits set the
+; same ITEMVAL, the last attached trait that sets that value wins.
+; ITEMVAL3 represents one special-effect slot, so, for example, FLAMING
+; and UNDEAD_SLAYER cannot both be active ITEMVAL3 effects simultaneously.
+;==============================================================================
+
+TRAITDEF MAGIC_PLUS_5
+    POWER 1
+    ITEMVAL2 5
+    ADJDEF 523
+ENDTRAIT
+
+TRAITDEF MAGIC_PLUS_10
+    POWER 2
+    ITEMVAL2 10
+    ADJDEF 523
+ENDTRAIT
+
+TRAITDEF MAGIC_PLUS_15
+    POWER 3
+    ITEMVAL2 15
+    ADJDEF 523
+ENDTRAIT
+
+TRAITDEF MAGIC_PLUS_20
+    POWER 4
+    ITEMVAL2 20
+    ADJDEF 523
+ENDTRAIT
+
+TRAITDEF MAGIC_PLUS_25
+    POWER 5
+    ITEMVAL2 25
+    ADJDEF 523
+ENDTRAIT
+
+TRAITDEF MAGIC_PLUS_30
+    POWER 6
+    ITEMVAL2 30
+    ADJDEF 523
+ENDTRAIT
+
+TRAITDEF FREEZING_5
+    POWER 1
+    ITEMVAL3 17
+    ITEMVAL5 5
+    ADJDEF 166
+ENDTRAIT
+
+TRAITDEF FREEZING_10
+    POWER 2
+    ITEMVAL3 14
+    ITEMVAL5 10
+    ADJDEF 166
+ENDTRAIT
+
+TRAITDEF FREEZING_15
+    POWER 3
+    ITEMVAL3 11
+    ITEMVAL5 15
+    ADJDEF 166
+ENDTRAIT
+
+TRAITDEF FREEZING_20
+    POWER 4
+    ITEMVAL3 6
+    ITEMVAL5 20
+    ADJDEF 166
+ENDTRAIT
+
+TRAITDEF FREEZING_25
+    POWER 5
+    ITEMVAL3 3
+    ITEMVAL5 25
+    ADJDEF 166
+ENDTRAIT
+
+TRAITDEF SHOCKING_5
+    POWER 1
+    ITEMVAL3 18
+    ITEMVAL5 5
+    ADJDEF 641
+ENDTRAIT
+
+TRAITDEF SHOCKING_10
+    POWER 2
+    ITEMVAL3 15
+    ITEMVAL5 10
+    ADJDEF 641
+ENDTRAIT
+
+TRAITDEF SHOCKING_15
+    POWER 3
+    ITEMVAL3 12
+    ITEMVAL5 15
+    ADJDEF 641
+ENDTRAIT
+
+TRAITDEF SHOCKING_20
+    POWER 4
+    ITEMVAL3 7
+    ITEMVAL5 20
+    ADJDEF 641
+ENDTRAIT
+
+TRAITDEF SHOCKING_25
+    POWER 5
+    ITEMVAL3 4
+    ITEMVAL5 25
+    ADJDEF 641
+ENDTRAIT
+
+TRAITDEF FLAMING_5
+    POWER 1
+    ITEMVAL3 16
+    ITEMVAL5 5
+    ADJDEF 526
+ENDTRAIT
+
+TRAITDEF FLAMING_10
+    POWER 2
+    ITEMVAL3 13
+    ITEMVAL5 10
+    ADJDEF 526
+ENDTRAIT
+
+TRAITDEF FLAMING_15
+    POWER 3
+    ITEMVAL3 10
+    ITEMVAL5 15
+    ADJDEF 526
+ENDTRAIT
+
+TRAITDEF FLAMING_20
+    POWER 4
+    ITEMVAL3 5
+    ITEMVAL5 20
+    ADJDEF 526
+ENDTRAIT
+
+TRAITDEF FLAMING_25
+    POWER 5
+    ITEMVAL3 2
+    ITEMVAL5 25
+    ADJDEF 526
+ENDTRAIT

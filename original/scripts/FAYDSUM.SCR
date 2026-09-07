@@ -393,6 +393,12 @@ OUTDOOR_OTHER
 FIXED_LIGHT
 ITEM 9 693 ADJ1=10
 
+;ITEM 0 168 VAL3=228
+;ITEM 1 168 VAL3=228
+;ITEM 2 168 VAL3=122
+;ITEM 3 168 VAL3=109
+;ITEM 4 168 VAL3=123
+
 EXIT ABOVE 2152
 EXIT E 206
 EXIT NE 207
@@ -1850,7 +1856,7 @@ MONSTER_GROUP 2
 DAY_LIGHT
 CALL 33
 *DESCRIPTION_START
-Boards have been nailed across the door of the old Temple of Kaliban, preventing entry. Small particles of wood and sawdust lie at the base of a sawed-off stump. There is a small sign tacked up across the boards.
+Boards 4have been nailed across the door of the old Temple of Kaliban, preventing entry. Small particles of wood and sawdust lie at the base of a sawed-off stump. There is a small sign tacked up across the boards.
 *DESCRIPTION_END
 EXIT W 288
 EXIT SE 291
@@ -1859,6 +1865,13 @@ EXIT ABOVE 2152
 ITEM 9 693 ADJ1=10
 
 ITEM 0 68 ADJ1=25 ADJ2=192 VAL2=2605
+
+IFTOUCH 0
+    ECHO OTHERS %N touches the black metal gate...
+    ECHO PLAYER You touch the black metal gate...
+    DAMAGE ELECTRIC 15 %N is struck by an arc of lightning from the gate!
+    CLEARVERB
+ENDIF
 ;
 NUMBER 290
 NAME Poor Quarter
@@ -1908,6 +1921,7 @@ EXIT N 291
 EXIT SW 294
 EXIT ABOVE 2152
 ITEM 9 693 ADJ1=10
+
 
 ;
 NUMBER 294

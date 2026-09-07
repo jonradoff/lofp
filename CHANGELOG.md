@@ -389,7 +389,7 @@ Bots were not part of the original game — this is a new feature added to help 
 ### Parsing
 - **REGIONDEF** expanded: DepartRoom, Weather, Treasure, Teleport, Summoning, spell modifiers, MineAdj
 - **MONEYDEF** — multi-currency per region definitions
-- **FORAGEDEF/MINDEF** — full forage and mining definitions parsed
+- **FORAGEDEF/MINEDEF** — full forage and mining definitions parsed
 - **Room REGION field** parsed and accessible in scripts
 - **Monster psionics** — PSI, PSIUSE, PSISKILL, PSIRESIST, PSILEVEL, DISCIPLINE
 - **Monster combat** — IMMUNITY (10 types), WEAPON, WEAPONPLUS, MAGICWEAPON, SPECUSE/SPECDMG, EXTRABODY, FATIGUE
