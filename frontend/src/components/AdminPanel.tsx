@@ -244,6 +244,9 @@ interface LogEntry {
   details?: string
   roomNum?: number
   roomName?: string
+  resolved?: boolean
+  resolvedBy?: string
+  resolvedAt?: string
 }
 
 const EventLabels: Record<string, string> = {
@@ -319,6 +322,7 @@ export default function AdminPanel() {
   const [logs, setLogs] = useState<LogEntry[]>([])
   const [logEventFilter, setLogEventFilter] = useState('')
   const [logPlayerFilter, setLogPlayerFilter] = useState('')
+  const [logResolvedFilter, setLogResolvedFilter] = useState('false')
   // Event Monitor
   const [events, setEvents] = useState<EngineEvent[]>([])
   const [eventWs, setEventWs] = useState<WebSocket | null>(null)
@@ -592,10 +596,32 @@ export default function AdminPanel() {
     const params = new URLSearchParams()
     if (logEventFilter) params.set('event', logEventFilter)
     if (logPlayerFilter) params.set('player', logPlayerFilter)
+    if (logResolvedFilter) params.set('resolved', logResolvedFilter)
     params.set('limit', '200')
     fetch(`/api/admin/logs?${params}`, { headers: authHeaders() })
       .then(r => r.json())
       .then((data: LogEntry[]) => setLogs(data || []))
+  }
+
+  // Mark (or unmark) a log entry — chiefly a player REPORT — as resolved, then
+  // refresh so it moves out of (or back into) the "Unresolved" view.
+  const setLogResolved = (id: string, resolved: boolean) => {
+    fetch(`/api/admin/logs/${id}/resolve`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', ...authHeaders() },
+      body: JSON.stringify({ resolved }),
+    })
+      .then(r => r.ok ? r.json() : null)
+      .then((updated: LogEntry | null) => {
+        if (!updated) return
+        setLogs(prev => {
+          // If we're filtering to a specific resolved state, an entry that no
+          // longer matches should disappear from view instead of just updating.
+          if (logResolvedFilter === 'true' && !updated.resolved) return prev.filter(e => e.id !== id)
+          if (logResolvedFilter === 'false' && updated.resolved) return prev.filter(e => e.id !== id)
+          return prev.map(e => e.id === id ? updated : e)
+        })
+      })
   }
 
   // Find account name for a given accountId
@@ -1353,6 +1379,16 @@ export default function AdminPanel() {
                 placeholder="Filter by player..."
                 className="bg-[#0a0a0a] border border-[#444] rounded px-2 py-1 text-gray-200 focus:border-amber-500 focus:outline-none text-xs w-48"
               />
+              <select
+                value={logResolvedFilter}
+                onChange={e => setLogResolvedFilter(e.target.value)}
+                title="Filters on the Resolved flag (set via the Player Report Done/Reopen button)"
+                className="bg-[#0a0a0a] border border-[#444] rounded px-2 py-1 text-gray-200 focus:border-amber-500 focus:outline-none text-xs"
+              >
+                <option value="false">Unresolved</option>
+                <option value="true">Resolved</option>
+                <option value="">All</option>
+              </select>
               <button
                 onClick={fetchLogs}
                 className="px-3 py-1 bg-amber-700 text-white rounded text-xs hover:bg-amber-600"
@@ -1369,11 +1405,12 @@ export default function AdminPanel() {
                     <th className="text-left px-3 py-2 w-28">Event</th>
                     <th className="text-left px-3 py-2 w-40">Player</th>
                     <th className="text-left px-3 py-2">Details</th>
+                    <th className="text-left px-3 py-2 w-24">Status</th>
                   </tr>
                 </thead>
                 <tbody>
                   {logs.map((entry, i) => (
-                    <tr key={entry.id || i} className="border-b border-[#222] hover:bg-[#1a1a2e]">
+                    <tr key={entry.id || i} className={`border-b border-[#222] hover:bg-[#1a1a2e] ${entry.resolved ? 'opacity-50' : ''}`}>
                       <td className="px-3 py-1.5 text-gray-500">{formatTimestamp(entry.timestamp)}</td>
                       <td className={`px-3 py-1.5 ${EventColors[entry.event] || 'text-gray-300'}`}>
                         {EventLabels[entry.event] || entry.event}
@@ -1389,16 +1426,36 @@ export default function AdminPanel() {
                           )
                         ) : <span className="text-gray-500">-</span>}
                       </td>
-                      <td className="px-3 py-1.5 text-gray-500">
+                      <td className={`px-3 py-1.5 text-gray-500 ${entry.resolved ? 'line-through' : ''}`}>
                         {entry.accountId && entry.event !== 'login' && entry.event !== 'logout' && (
                           <button onClick={() => { setTab('users'); setTimeout(() => selectAccount(entry.accountId!), 100) }} className="text-blue-400 hover:underline mr-2">[user]</button>
                         )}
                         {entry.details}
                       </td>
+                      <td className="px-3 py-1.5">
+                        {entry.event === 'report' && (
+                          entry.resolved ? (
+                            <button
+                              onClick={() => setLogResolved(entry.id, false)}
+                              title={entry.resolvedBy ? `Resolved by ${entry.resolvedBy}${entry.resolvedAt ? ' on ' + formatTimestamp(entry.resolvedAt) : ''}` : 'Resolved'}
+                              className="px-2 py-0.5 rounded border border-green-700 text-green-400 hover:bg-green-900/30 text-xs"
+                            >
+                              ✓ Done
+                            </button>
+                          ) : (
+                            <button
+                              onClick={() => setLogResolved(entry.id, true)}
+                              className="px-2 py-0.5 rounded border border-[#444] text-gray-300 hover:bg-amber-900/30 hover:border-amber-600 hover:text-amber-300 text-xs"
+                            >
+                              Mark Done
+                            </button>
+                          )
+                        )}
+                      </td>
                     </tr>
                   ))}
                   {logs.length === 0 && (
-                    <tr><td colSpan={4} className="px-3 py-8 text-center text-gray-600">No log entries</td></tr>
+                    <tr><td colSpan={5} className="px-3 py-8 text-center text-gray-600">No log entries</td></tr>
                   )}
                 </tbody>
               </table>

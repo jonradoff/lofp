@@ -256,6 +256,11 @@ func NewServer(ge *engine.GameEngine, parsed *gameworld.ParsedData, authSvc *aut
 		s.sendToPlayer(playerName, messages)
 	})
 
+	// Set up GM-wide notifications for background tasks (e.g. a queued treasure drop)
+	ge.SetGMBroadcast(func(messages []string) {
+		s.broadcastToGMs(messages)
+	})
+
 	return s
 }
 
@@ -381,6 +386,7 @@ func (s *Server) setupRoutes() {
 	api.HandleFunc("/admin/characters/{firstName}", s.handleAdminGetCharacter).Methods("GET")
 	api.HandleFunc("/admin/characters/{firstName}/reassign", s.handleAdminReassignCharacter).Methods("PUT")
 	api.HandleFunc("/admin/logs", s.handleAdminLogs).Methods("GET")
+	api.HandleFunc("/admin/logs/{id}/resolve", s.handleAdminResolveLog).Methods("PUT")
 	api.HandleFunc("/admin/characters/deleted", s.handleAdminListDeletedCharacters).Methods("GET")
 	api.HandleFunc("/admin/characters/{firstName}/recover", s.handleAdminRecoverCharacter).Methods("PUT")
 
@@ -713,7 +719,7 @@ func (s *Server) handleGameWS(w http.ResponseWriter, r *http.Request) {
 				player.IsGM, player.GMHat, player.GMHidden, player.GMInvis, player.Hidden)
 			s.gamelog.Log(gamelog.EventGameEnter, player.FullName(), player.AccountID,
 				"bot login via API key", player.RoomNumber, "")
-			if !player.GMInvis && !player.GMHidden && !player.IsBot {
+			if !player.IsConcealed() && !player.IsBot {
 				s.broadcastGlobal(player.FirstName,
 					[]string{fmt.Sprintf("** %s has just entered the Realms.", player.FirstName)})
 				s.broadcastToRoom(player.RoomNumber, player.FirstName, []string{fmt.Sprintf("%s arrives.", player.DisplayNameCap())})
@@ -809,7 +815,7 @@ func (s *Server) handleGameWS(w http.ResponseWriter, r *http.Request) {
 			// Log character entering the game world
 			s.gamelog.Log(gamelog.EventGameEnter, player.FullName(), accountID,
 				fmt.Sprintf("%s (%s)", authName, authEmail), player.RoomNumber, "")
-			if !player.GMInvis && !player.GMHidden {
+			if !player.IsConcealed() {
 				s.broadcastGlobal(player.FirstName,
 					[]string{fmt.Sprintf("** %s has just entered the Realms.", player.FirstName)})
 				s.broadcastToRoom(player.RoomNumber, player.FirstName, []string{fmt.Sprintf("%s arrives.", player.DisplayNameCap())})
@@ -988,8 +994,19 @@ func (s *Server) dispatchCommandResult(session *Session, result *engine.CommandR
 	sanitizeMessages(result.GlobalBroadcast)
 	sanitizeMessages(result.GMBroadcast)
 
-	// Broadcast to others in the room (excluding emote target if they get a special message)
-	if len(result.RoomBroadcast) > 0 {
+	// Broadcast to others in the room (excluding emote target if they get a special message).
+	// A concealed actor (Hidden, Invisible spell, Phantom Form, or a GM with @hide/@invis
+	// set — see Player.IsConcealed) produces NO room-visible trace of their action at all
+	// by default: this is the single choke point every command's RoomBroadcast/OldRoomMsg
+	// passes through (shared by the WebSocket, telnet, and SSH paths), so gating it here
+	// covers every command handler uniformly instead of relying on each one to remember
+	// its own check. A command that has already built its own appropriately-anonymized
+	// text for a still-concealed actor (see ConcealedBroadcastOK) opts out of the
+	// suppression instead — e.g. GIVE reveals a Hidden giver outright but keeps an
+	// Invisible one unnamed ("Something gives a sword to Bob.") rather than silent.
+	concealed := session.Player.IsConcealed()
+	suppress := concealed && !result.ConcealedBroadcastOK
+	if len(result.RoomBroadcast) > 0 && !suppress {
 		if result.TargetName != "" {
 			s.broadcastToRoom(session.Player.RoomNumber, session.Player.FirstName, result.RoomBroadcast, result.TargetName)
 		} else {
@@ -1001,8 +1018,10 @@ func (s *Server) dispatchCommandResult(session *Session, result *engine.CommandR
 		s.sendToPlayer(result.TargetName, result.TargetMsg)
 	}
 	// Broadcast departure to old room (movement)
-	if result.OldRoom > 0 && len(result.OldRoomMsg) > 0 {
+	if result.OldRoom > 0 && len(result.OldRoomMsg) > 0 && !suppress {
 		s.broadcastToRoom(result.OldRoom, session.Player.FirstName, result.OldRoomMsg)
+	}
+	if result.OldRoom > 0 {
 		s.hub.UpdatePlayerRoom(session.Player.FirstName, session.Player.RoomNumber)
 	}
 	// Whisper to specific target
@@ -2616,17 +2635,46 @@ func (s *Server) handleAdminLogs(w http.ResponseWriter, r *http.Request) {
 	}
 	event := r.URL.Query().Get("event")
 	player := r.URL.Query().Get("player")
+	resolved := r.URL.Query().Get("resolved")
 	limit := 100
 	if l := r.URL.Query().Get("limit"); l != "" {
 		fmt.Sscanf(l, "%d", &limit)
 	}
-	entries, err := s.gamelog.Query(r.Context(), event, player, limit)
+	entries, err := s.gamelog.Query(r.Context(), event, player, resolved, limit)
 	if err != nil {
 		http.Error(w, "failed to query logs", 500)
 		return
 	}
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(entries)
+}
+
+// handleAdminResolveLog marks (or unmarks) a log entry — chiefly a player REPORT
+// — as resolved, so the admin Logs UI can distinguish what still needs work.
+func (s *Server) handleAdminResolveLog(w http.ResponseWriter, r *http.Request) {
+	account := s.requireAdmin(w, r)
+	if account == nil {
+		return
+	}
+	vars := mux.Vars(r)
+	var req struct {
+		Resolved bool `json:"resolved"`
+	}
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		http.Error(w, "invalid request", 400)
+		return
+	}
+	resolvedBy := account.Name
+	if resolvedBy == "" {
+		resolvedBy = account.Email
+	}
+	entry, err := s.gamelog.SetResolved(r.Context(), vars["id"], req.Resolved, resolvedBy)
+	if err != nil {
+		http.Error(w, err.Error(), 404)
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(entry)
 }
 
 func (s *Server) handleBootstrapAdmin(w http.ResponseWriter, r *http.Request) {

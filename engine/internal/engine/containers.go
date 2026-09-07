@@ -1770,7 +1770,13 @@ func (e *GameEngine) randomGemDrop(treasureLevel int) *gameworld.RoomItem {
 	}
 
 	// Combined value multiplier: quality × size
-	item.Val2 = int(q.multiplier * sz.multiplier * 100)
+	qualMult := q.multiplier * sz.multiplier
+	item.Val2 = int(qualMult * 100)
+
+	// Lock in the gem's final copper value now, with random variance, so this
+	// specific gem always sells/appraises for the same amount from here on —
+	// see computeGemValue and gemValueVariance in inventory_commands.go.
+	item.Val1 = e.computeGemValue(chosen, qualMult)
 
 	return item
 }

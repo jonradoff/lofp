@@ -38,6 +38,11 @@ type MonsterInstance struct {
 	Searched   bool      `json:"-"` // already searched for loot
 	DeathTime  time.Time `json:"-"` // when it died (for corpse decay)
 	LastAttacker string  `json:"-"` // name of the last player to damage this monster (set in damageMonster), for death XP attribution when it dies with no single decisive blow (bleed-out, etc.)
+	// CarriedItems holds items a GM silently staged into this monster with
+	// "@give <item> to <monster>" (see gmGiveToMonster in gm_commands.go) so they
+	// drop as loot when it dies (dropMonsterCarriedItems in combat.go). In-memory
+	// only like the rest of MonsterInstance — lost if the monster despawns without dying.
+	CarriedItems []InventoryItem `json:"-"`
 
 	// Spell status effects
 	Sleeping    bool      `json:"-"` // Slumber spell: no attack, no flee

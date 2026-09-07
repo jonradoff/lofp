@@ -2,6 +2,7 @@ package gamelog
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"regexp"
 	"time"
@@ -35,6 +36,12 @@ type LogEntry struct {
 	Details   string        `bson:"details,omitempty" json:"details,omitempty"`
 	RoomNum   int           `bson:"roomNum,omitempty" json:"roomNum,omitempty"`
 	RoomName  string        `bson:"roomName,omitempty" json:"roomName,omitempty"`
+	// Resolved marks a log entry (chiefly a player REPORT) as addressed, so the
+	// admin Logs UI can tell what still needs work from what's already been
+	// handled. ResolvedBy/ResolvedAt record who cleared it and when.
+	Resolved   bool       `bson:"resolved,omitempty" json:"resolved,omitempty"`
+	ResolvedBy string     `bson:"resolvedBy,omitempty" json:"resolvedBy,omitempty"`
+	ResolvedAt *time.Time `bson:"resolvedAt,omitempty" json:"resolvedAt,omitempty"`
 }
 
 type Logger struct {
@@ -87,7 +94,9 @@ func (l *Logger) Log(event EventType, player, accountID, details string, roomNum
 	}()
 }
 
-func (l *Logger) Query(ctx context.Context, eventFilter string, playerFilter string, limit int) ([]LogEntry, error) {
+// resolvedFilter selects on the Resolved flag: "true" or "false" filters to that
+// state, anything else (including "") returns entries regardless of it.
+func (l *Logger) Query(ctx context.Context, eventFilter string, playerFilter string, resolvedFilter string, limit int) ([]LogEntry, error) {
 	if l.coll == nil {
 		return nil, nil
 	}
@@ -97,6 +106,12 @@ func (l *Logger) Query(ctx context.Context, eventFilter string, playerFilter str
 	}
 	if playerFilter != "" {
 		filter["player"] = bson.M{"$regex": regexp.QuoteMeta(playerFilter), "$options": "i"}
+	}
+	switch resolvedFilter {
+	case "true":
+		filter["resolved"] = true
+	case "false":
+		filter["resolved"] = bson.M{"$ne": true}
 	}
 	if limit <= 0 || limit > 500 {
 		limit = 100
@@ -111,4 +126,31 @@ func (l *Logger) Query(ctx context.Context, eventFilter string, playerFilter str
 		return nil, err
 	}
 	return entries, nil
+}
+
+// SetResolved marks (or unmarks) a log entry as resolved and returns the updated
+// entry. Used by the admin Logs UI's "mark done" action on a player REPORT.
+func (l *Logger) SetResolved(ctx context.Context, id string, resolved bool, resolvedBy string) (*LogEntry, error) {
+	if l.coll == nil {
+		return nil, fmt.Errorf("no database connection")
+	}
+	oid, err := bson.ObjectIDFromHex(id)
+	if err != nil {
+		return nil, fmt.Errorf("invalid log id: %w", err)
+	}
+	update := bson.M{"resolved": resolved}
+	if resolved {
+		update["resolvedBy"] = resolvedBy
+		update["resolvedAt"] = time.Now()
+	} else {
+		update["resolvedBy"] = ""
+		update["resolvedAt"] = nil
+	}
+	res := l.coll.FindOneAndUpdate(ctx, bson.M{"_id": oid}, bson.M{"$set": update},
+		options.FindOneAndUpdate().SetReturnDocument(options.After))
+	var entry LogEntry
+	if err := res.Decode(&entry); err != nil {
+		return nil, err
+	}
+	return &entry, nil
 }

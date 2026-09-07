@@ -92,6 +92,16 @@ type ItemDef struct {
 	Container   string   `bson:"container,omitempty" json:"container,omitempty"` // IN, ON, UNDER, BEHIND
 	Interior    int      `bson:"interior,omitempty" json:"interior,omitempty"`
 	WornSlot    string   `bson:"wornSlot,omitempty" json:"wornSlot,omitempty"`
+	// Adjective/Adjective2 are a FIXED archetype-level adjective (or two, for a
+	// two-word shape like "large round shield") baked into every instance's
+	// displayed name, distinct from the three per-instance Adj1-3 slots (which
+	// carry crafted-in material, dye, encrusted gems, etc.). Mirrors
+	// MonsterDef.Adjective/FormatMonsterName. Needed because CRAFTABLE items
+	// have no room placement or StoreItem entry to hang a per-instance
+	// adjective off of, so an archetype like "round shield" needs its own way
+	// to say it's round without a new noun per shape.
+	Adjective  int `bson:"adjective,omitempty" json:"adjective,omitempty"`
+	Adjective2 int `bson:"adjective2,omitempty" json:"adjective2,omitempty"`
 	Flags       []string `bson:"flags" json:"flags"` // HIDDEN, LOCKABLE, OPENABLE, etc.
 	Scripts     []ScriptBlock `bson:"scripts,omitempty" json:"scripts,omitempty"`
 	MacroCalls  []int    `bson:"macroCalls,omitempty" json:"macroCalls,omitempty"` // CALL directives; resolved into Scripts at load time

@@ -9,6 +9,233 @@ export default function VersionNotes({ onBack }: { onBack: () => void }) {
 
         <div className="space-y-6 text-sm">
           <section>
+            <h2 className="text-amber-400 text-lg font-bold mb-1">v12.4.0 &mdash; September 7, 2026</h2>
+            <p className="text-gray-400 mb-3">A first real alignment system: life-affirming spells nudge your alignment, <code className="text-amber-300">Aura Sense</code> reveals anyone&rsquo;s as a color, and GMs can view and set it directly. Mass Protection now shares its defense bonus with your whole group instead of just the caster. Also fixed a cluster of Island pool/volcano-vent bugs (a broken cave exit, an unreliable breath-holding mechanic, a ritual that echoed its message three times, and a crank mistaken for a book), the Cult of Dahkahn&rsquo;s temple pointing at the wrong building, and a gem-molding bug that could destroy a flawless gem&rsquo;s quality instead of just polishing it.</p>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">New: Alignment System</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Casting Body Restoration I, II, or III on a living target now nudges your alignment toward good, with the flavor line &ldquo;You sense the pleasure of the gods as you call upon the forces of life.&rdquo; Breath of Life does the same at double strength, since pulling someone back from death is the greater act</li>
+                  <li><code className="text-amber-300">Aura Sense</code> (spell 404), previously a complete no-op, now reveals a target&rsquo;s (or your own) alignment as a color, using the original scale: 50+ White, 10&ndash;49 Soft Yellow, 1&ndash;9 Green, -5&ndash;0 Blue, -99&ndash;-6 Deep Purple, -100 Pure Darkness</li>
+                  <li>GMs can now see a player&rsquo;s alignment via <code className="text-amber-300">@edpl</code> and change it directly with <code className="text-amber-300">@set align &lt;value&gt;</code></li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Changed: Mass Protection Now Protects the Whole Group</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Mass Protection&rsquo;s +25 defense used to apply only to the caster &mdash; it now extends to every other member of the caster&rsquo;s group, leader or follower, whoever happens to be holding the spell</li>
+                  <li>It never stacks: if two group members each have their own copy active, the group still only gets +25 total</li>
+                  <li>The bonus is tracked live rather than copied onto each member, so leaving the group (either the beneficiary&rsquo;s or the original caster&rsquo;s) drops it immediately</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Fixed: Island Pool and Volcano Vent Scripts</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li><code className="text-amber-300">GO SURFACE</code> always failed in the underwater pools &mdash; the surfacing script was checking a hidden placeholder item instead of the actual &ldquo;surface&rdquo; the command resolves to</li>
+                  <li>The &ldquo;you can&rsquo;t hold your breath&rdquo; auto-surface only ever worked if you happened to say something out loud &mdash; it now fires reliably from any action that raises your held-breath count, regardless of whether you speak</li>
+                  <li>Speaking the volcano vent&rsquo;s sacrifice phrase printed &ldquo;You feel a rumbling.&rdquo; three times instead of once, since the room script defines several near-duplicate triggers (for punctuation and a misspelling) that our engine was firing all at once</li>
+                  <li>Turning the volcano vent&rsquo;s crank got swallowed as &ldquo;You carefully turn the page&rdquo; once the sacrifice ritual had touched it &mdash; the engine was mistaking the crank&rsquo;s internal state value for a book&rsquo;s page count</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Fixed: Cult of Dahkahn&rsquo;s Temple Pointed at the Wrong Room</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Two conflicting registrations meant the org&rsquo;s temple was either a nonexistent room or literally Shin-jah&rsquo;s altar &mdash; training worked there but never counted toward Cult of Dahkahn rank. It now points at the Dark Cathedral chancel, where the training list and altar actually are</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Fixed: MOLD Could Destroy a Flawless Gem&rsquo;s Quality</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Molding a flawless or perfect gem overwrote that adjective with &ldquo;polished&rdquo; instead of adding polish alongside it &mdash; only an actual flaw (chipped or cracked) should ever get replaced</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2 className="text-amber-400 text-lg font-bold mb-1">v12.3.0 &mdash; September 6, 2026</h2>
+            <p className="text-gray-400 mb-3">A big batch of fixes to verbs that silently failed against scripted items &mdash; BREAK, WIELD, and GO all now actually reach the item scripts written for them, fixing a breakable window, a huggable doll, and a bedroll/coffin you could get stuck inside with no way out. Also: GMs get two new broadcast tools (<code className="text-amber-300">@monitor</code>, <code className="text-amber-300">@sndroom</code>), <code className="text-amber-300">@snd</code> finally reaches the room instead of just the GM, and the admin Logs page can mark a player report as done.</p>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Fixed: BREAK, WIELD, and GO Ignoring Scripted Items</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li><code className="text-amber-300">BREAK</code> was entirely stubbed out (&ldquo;Object destruction coming soon&rdquo;) and never checked an item&rsquo;s own script &mdash; a wasteland window that was supposed to shatter open under a solid hit now actually breaks</li>
+                  <li><code className="text-amber-300">WIELD</code> only ever ran a weapon&rsquo;s or shield&rsquo;s normal equip logic &mdash; a decorative item with its own scripted reaction to being wielded (like a child&rsquo;s doll you can only brandish &ldquo;like a shield&rdquo;) now gets a chance to show that reaction instead of a flat &ldquo;you can&rsquo;t wield that&rdquo;</li>
+                  <li><code className="text-amber-300">GO</code> never checked your inventory at all &mdash; only the room floor &mdash; so a portable bedroll or coffin you carry and crawl inside of had no way to trigger its own &ldquo;go&rdquo; script. Fixed, along with a deeper parsing gap that made a script nested inside an item-state check (&ldquo;while the bedroll is open, going in does X&rdquo;) unreachable no matter what</li>
+                  <li>The bedroll and coffin scripts themselves also had a copy-pasted ordering bug: they recorded which room to return to <em>after</em> already moving you into the pocket room, so &ldquo;go opening&rdquo; from inside just sent you right back into the same tiny room. Both now save your original room first</li>
+                  <li>The <code className="text-amber-300">APPEAR</code> script command (used by items to change how you look to others, e.g. pants pulled down or a face stained with jelly) was broadcasting its text as a one-time room announcement instead of actually setting your appearance line &mdash; it now sets the persistent line, visible to anyone who examines you until it&rsquo;s set again</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">New: @monitor &mdash; Relay a Room&rsquo;s Activity to a GM</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li><code className="text-amber-300">@monitor &lt;room#&gt;</code> or <code className="text-amber-300">@monitor &lt;player&gt;</code> silently relays everything happening in that room back to the GM as <code className="text-amber-300">**</code>-prefixed lines, the same way a familiar&rsquo;s <code className="text-amber-300">COMMAND WATCH WILL</code> already does &mdash; <code className="text-amber-300">@monitor off</code> stops it, and <code className="text-amber-300">@monitor</code> alone shows what you&rsquo;re currently watching</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Fixed/New: @snd, @sndroom, and @announce</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li><code className="text-amber-300">@snd &lt;text&gt;</code> used to only show the message to the GM who typed it &mdash; it now actually echoes to everyone else in the room too</li>
+                  <li>New <code className="text-amber-300">@sndroom &lt;room#&gt; &lt;text&gt;</code> echoes a line to every player in a room by number, even when the GM isn&rsquo;t standing there</li>
+                  <li><code className="text-amber-300">@announce 1 &lt;msg&gt;</code> no longer prefixes the message with &ldquo;[Global Announcement]&rdquo; &mdash; it sends the plain text as-is; mode 2 (mindlink) was also fixed to match its own documented usage, since the code had been checking for mode 0 instead</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Changed: Treasure Queue Drop Rate, Plus a GM Heads-Up</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>The chance a GM-staged <code className="text-amber-300">@queue</code> item drops from a dying monster is now 10% (down from 20%), and every online GM now gets a <code className="text-amber-300">*HONK*</code> notice naming the player, the monster, and the item whenever one actually drops</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">New: Admin Logs &mdash; Mark a Player Report Done</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>The admin panel&rsquo;s Logs page can now mark a Player Report as done, so resolved reports drop out of the default view instead of piling up next to ones that still need attention &mdash; a filter switches between Unresolved (default), Resolved, and All</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Fixed: Necromancy Backfire Hurt Living Casters</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Fumbling Turn Undead I/II or Destroy Undead I/II/III used to backfire and damage the caster even though these spells are only supposed to affect the undead in the first place &mdash; a living caster&rsquo;s own fumble now just fizzles harmlessly, the same way the spell already fizzles against a living target</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Fixed: Disguised GMs Outed by Their Own Teleports</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li><code className="text-amber-300">@go</code>, <code className="text-amber-300">@goplr</code>, and <code className="text-amber-300">@answer</code> used to announce a GM&rsquo;s real name arriving/vanishing even while disguised &mdash; they now show the disguise (or wolf/mist/slime form) like every other movement in the game already does</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Fixed: Smelting and Mining Small Bugs</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li><code className="text-amber-300">SMELT</code> only ever matched ore by its bare name &mdash; <code className="text-amber-300">smelt tin ore</code> or <code className="text-amber-300">smelt 2 ore</code> failed unless you dropped every adjective and ordinal and just typed <code className="text-amber-300">smelt ore</code>; adjectives and ordinals now work like they do everywhere else</li>
+                  <li>Mining kept letting you swing away at zero fatigue instead of telling you to rest</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2 className="text-amber-400 text-lg font-bold mb-1">v12.2.0 &mdash; September 4, 2026</h2>
+            <p className="text-gray-400 mb-3">GMs can now stage specific items to drop from monster kills. <code className="text-amber-300">@queue</code> and <code className="text-amber-300">@unqueue</code>, previously no-ops, now manage a real FIFO of items that can drop from any dying monster, and <code className="text-amber-300">@give</code> can target a monster in the room instead of only a player, silently loading it up to drop when it dies.</p>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">New: @queue / @unqueue &mdash; a Real Treasure Drop Queue</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li><code className="text-amber-300">@queue</code> by itself lists the treasure drop queue top to bottom; <code className="text-amber-300">@queue &lt;item&gt;</code> (with ordinal/adjective matching) pulls an item from the GM&rsquo;s inventory, or failing that the ground, onto the bottom of the queue &mdash; <code className="text-amber-300">@queue top &lt;item&gt;</code> puts it on top instead</li>
+                  <li>Any monster that dies now has a chance to drop the item at the front of the queue, independent of its own treasure level &mdash; on a hit, that item is removed from the queue and appears among its remains</li>
+                  <li><code className="text-amber-300">@unqueue &lt;position&gt;</code> pulls a specific queued item back into the GM&rsquo;s inventory by the position shown in <code className="text-amber-300">@queue</code>&rsquo;s listing; <code className="text-amber-300">@unqueue all</code> empties the whole queue back into the GM&rsquo;s inventory</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">New: @give Can Target a Monster</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li><code className="text-amber-300">@give &lt;item&gt; to &lt;monster&gt;</code> (e.g. <code className="text-amber-300">@give steel dagger to goblin</code>) silently loads an item from the GM&rsquo;s inventory into a monster in the room, instead of only working on players &mdash; the item drops onto the ground when that monster dies</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2 className="text-amber-400 text-lg font-bold mb-1">v12.1.0 &mdash; September 3, 2026</h2>
+            <p className="text-gray-400 mb-3">Weaponsmiths can now size up a weapon just by looking at it: EXAMINE reveals its non-magical crafting bonus, magical enchantment bonus, and Weapon Clash hardness rating to anyone with Weaponsmithing skill. Also fixed: the Keep&rsquo;s Skull House was spawning monsters far too quickly.</p>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">New: Weaponsmiths Can Appraise a Weapon&rsquo;s True Bonuses</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Any character with Weaponsmithing skill now sees extra detail when they <code className="text-amber-300">EXAMINE</code> a weapon &mdash; its non-magical bonus, magical bonus, and hardness rating (the same figures that decide how well it fights and how likely it is to break in a Weapon Clash) &mdash; previously invisible to inspection no matter how skilled the smith</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Fixed: Skull House Spawning Monsters Too Quickly</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>The lords, rakshashas, and inseviax haunting the Keep&rsquo;s Skull House had a combined spawn chance of 110% per check &mdash; on average, more than one new monster was arriving every time the area was checked for spawns. Rescaled to a combined 44%, bringing its pace in line with the rest of the Keep grounds</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2 className="text-amber-400 text-lg font-bold mb-1">v12.0.0 &mdash; September 1, 2026</h2>
+            <p className="text-gray-400 mb-3">A major addition: craftable shields and armor. Five shield shapes in wood or metal, a full head-to-toe armor progression across four slots in metal, leather, and cloth, and a new <code className="text-amber-300">REINFORCE</code> command that lets a weaponsmith add metal plating to a shield a Wood Lore crafter already built &mdash; two different players can each do their part on the same item. Combat damage reduction now depends on which body part your armor actually covers, instead of any armor you wore reducing all damage everywhere. A real bug in crafting difficulty that affected every piece of armor in the game, not just the new ones, is fixed along the way.</p>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">New: Shields (5 Shapes, Wood or Metal)</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Buckler, round, large round, kite, and tower shields, each craftable as a wood shield through Wood Lore at a fletcher&rsquo;s workshop, or as a full-metal shield through Weaponsmithing at a forge &mdash; the same <code className="text-amber-300">CRAFT</code> then <code className="text-amber-300">WORK &lt;metal&gt;</code> (heat, hammer, quench, buff, finish) cycle every other forged item already uses, not a shortcut</li>
+                  <li>A new off-hand parrying weapon, the main-gauche, doubles as both a real weapon and a shield &mdash; its defense bonus scales with your Two-Weapon Style skill</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">New Command: REINFORCE &mdash; Two-Crafter Shields</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li><code className="text-amber-300">REINFORCE &lt;shield&gt; WITH &lt;metal&gt;</code>, usable at a forge with Weaponsmithing skill, adds metal plating to an existing wood shield &mdash; upgrading it in place rather than replacing it, so a Wood Lore crafter and a Weaponsmith can each contribute to the same shield</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">New: Armor (Head, Torso, Hands, and Feet)</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>A full metal armor progression: great helm, basinet, barbute, kettle hat, skull cap, diadem, and circlet for the head; full plate, brigandine, scale mail, and chain mail for the torso; matching gauntlets and boots for each, all craftable through Weaponsmithing</li>
+                  <li>A parallel leather and cloth progression &mdash; leather helmet and cap, boiled leather, layered hide, cloth gambeson, supple leather, and matching gloves and boots &mdash; craftable through Dyeing/Weaving instead</li>
+                  <li>Thigh guards, a new leg armor piece alongside the game&rsquo;s existing shoulder guards</li>
+                  <li>All four armor slots can be worn together, and alongside a shield, stacking their protection</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Changed: Damage Reduction Now Depends on Where You&rsquo;re Hit</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Previously, any armor you wore reduced damage from a hit anywhere on your body &mdash; a helmet was quietly reducing damage to your legs too. Now only armor that actually covers the body part struck reduces that hit: a helmet protects your head, gauntlets protect your hands, and your torso piece (which covers the body, back, arms, and legs as one combined piece, per how it&rsquo;s actually built) protects everywhere else, with boots and thigh guards adding extra protection to your legs and shoulder guards adding extra protection to your back</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Fixed: Crafting Skill Requirements for Armor</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>The skill level needed to craft any piece of armor was being calculated from the item&rsquo;s weight, which was never actually correct &mdash; every armor item in the game, including ones that existed long before this update, has always carried its real required skill level in a separate field with no relationship to weight. Crafting requirements for armor across the game now use the correct value instead of a guess</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2 className="text-amber-400 text-lg font-bold mb-1">v11.37.0 &mdash; August 29, 2026</h2>
+            <p className="text-gray-400 mb-3">Gem sale prices have been reconstructed from real 1996 session data and are now locked in per gem with a bit of natural variation, instead of being recalculated from scratch every time. Also: Highlanders can mold any ungraded gem now (not just chipped/cracked ones), a botched mold properly devalues the gem, DYE recognizes adjectives and ordinals like every other item command, and a stealthed player reconnecting no longer announces their return.</p>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">New: Gem Sale Values Reconstructed &amp; Locked In</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Per-gem sale prices are rebuilt from roughly 50 actual &ldquo;sell &lt;gem&gt;&rdquo; transactions found across several 1996 session captures, where a plain diamond sold for 156 gold. The placeholder prices in place before this were squeezed into a narrow 40&ndash;800 copper range that badly undervalued precious stones &mdash; diamond and emerald in particular are now roughly 30&ndash;85 times their old value, with common stones like agate and citrine adjusted more modestly</li>
+                  <li>A gem&rsquo;s sale value is now rolled once, when it&rsquo;s created, and locked in from then on, instead of being recalculated fresh every time it&rsquo;s appraised or sold &mdash; a diamond found today will still be worth the same amount whenever you eventually sell it</li>
+                  <li>Two gems of the same type, quality, and size no longer sell for identical amounts &mdash; each gem&rsquo;s price now includes its own small random variance, matching how the same plain gem sold for visibly different prices from one sale to the next in the original captures</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Fixed: MOLD Limited to Chipped/Cracked Gems, and Not Devaluing a Botched Gem</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>Highlanders using <code className="text-amber-300">MOLD</code> can now work any gem that isn&rsquo;t already polished or damaged &mdash; plain gems and ones already flawless or perfect can be worked now too, not just chipped or cracked ones as before</li>
+                  <li>A botched mold attempt that leaves a gem &ldquo;damaged&rdquo; now actually halves its sale value as intended &mdash; previously the gem was marked damaged but kept selling for its full, undamaged price</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Fixed: DYE Couldn&rsquo;t Match Adjectives or Ordinals</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li><code className="text-amber-300">DYE &lt;item&gt; WITH &lt;dye&gt;</code> only ever matched a bare noun, so a foraged dye reagent like &ldquo;a wart stem&rdquo; couldn&rsquo;t be referenced by its adjective &mdash; <code className="text-amber-300">dye cotton with wart stem</code> failed, and only <code className="text-amber-300">dye cotton with stem</code> worked. Both the item being dyed and the dye reagent now support adjectives and ordinals (&ldquo;second&rdquo;, &ldquo;2&rdquo;, etc.), matching how every other item-targeting command in the game already works</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-green-400 font-bold mb-1">Fixed: Hidden/Invisible Players Announcing Their Return on Reconnect</h3>
+                <ul className="text-gray-300 space-y-1 ml-4 list-disc">
+                  <li>A player who logs back in while Hidden, under the Invisibility or Phantom Form spells, or GM-invisible no longer broadcasts &ldquo;X arrives.&rdquo; to the room or &ldquo;** X has just entered the Realms&rdquo; globally &mdash; reconnecting only checked the GM invisibility/hidden flags before, not stealth or those spells</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
             <h2 className="text-amber-400 text-lg font-bold mb-1">v11.36.0 &mdash; August 28, 2026</h2>
             <p className="text-gray-400 mb-3">A new invasive spell, Truename, is implemented for the first time. Also two real fixes: a melee critical hit that&rsquo;s supposed to stun or knock down a monster wasn&rsquo;t actually disabling it, and group-following now handles separation and incapacitated followers consistently across every way the group can travel.</p>
 

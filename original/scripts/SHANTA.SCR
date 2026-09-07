@@ -504,9 +504,9 @@ IFITEM -1 OPEN
       ECHO PLAYER You climb into the coffin and shut the lid.
       ECHO OTHERS %N climbs into %h coffin and shuts the lid.
       CLOSE -1
+      EQUAL ITEMVAL5 RNUM
       MOVE 801
       POSITION LAY
-      EQUAL ITEMVAL5 RNUM
     ENDIF
   ENDIF
 ENDIF
@@ -2100,8 +2100,8 @@ IFVERB GO -1
   ECHO PLAYER You unzip the bedroll, crawl inside and snuggle down then zip it up.
   ECHO OTHERS %N unzips %h bedroll and crawls inside, zipping it up.
   CLOSE -1
-  MOVE 3814
   EQUAL shantexit5 RNUM
+  MOVE 3814
 ENDIF
 ENDIF
 ;

@@ -583,6 +583,56 @@ func (e *GameEngine) doDisband(player *Player) *CommandResult {
 	}
 }
 
+// groupMates returns every other online player currently in player's group — the
+// leader and its other followers if player is a follower, or all of player's own
+// followers if player is the leader — excluding player itself. Returns nil if player
+// isn't in a group. Used by group-wide effects like Mass Protection (spell 130, see
+// massProtectionGroupBonus in combat.go).
+func (e *GameEngine) groupMates(player *Player) []*Player {
+	if e.sessions == nil {
+		return nil
+	}
+	var otherNames []string
+	if player.IsGroupLeader {
+		if len(player.GroupMembers) == 0 {
+			return nil
+		}
+		otherNames = player.GroupMembers
+	} else if player.Following != "" {
+		leaderName := player.Following
+		var leader *Player
+		for _, p := range e.sessions.OnlinePlayers() {
+			if p.FirstName == leaderName {
+				leader = p
+				break
+			}
+		}
+		if leader == nil {
+			return nil
+		}
+		otherNames = append([]string{leaderName}, leader.GroupMembers...)
+		for i, n := range otherNames {
+			if n == player.FirstName {
+				otherNames = append(otherNames[:i], otherNames[i+1:]...)
+				break
+			}
+		}
+	} else {
+		return nil
+	}
+
+	var mates []*Player
+	for _, name := range otherNames {
+		for _, p := range e.sessions.OnlinePlayers() {
+			if p.FirstName == name {
+				mates = append(mates, p)
+				break
+			}
+		}
+	}
+	return mates
+}
+
 // doSplit divides a currency amount evenly among all group members.
 // The player paying deducts their share for each other member; remainder stays with them.
 func (e *GameEngine) doSplit(ctx context.Context, player *Player, args []string) *CommandResult {

@@ -60,10 +60,24 @@ type ScriptContext struct {
 	// multi-stage conversation — rather than only at the room's top level.
 	sayText string
 
+	// firedSayPatterns records the normalized pattern (see matchesSayText) of every
+	// IFSAY block that has already fired during this RunSayScripts walk. Scripts
+	// commonly define several IFSAY blocks for the same phrase to tolerate different
+	// trailing punctuation or a misspelling (e.g. ISLAND.SCR's volcano sacrifice ritual:
+	// "...sacrifice!", "...sacrifice", "...sacrifice.", plus a "sacrafice" typo, each
+	// with its own copy of the response) — but matchesSayText trims trailing punctuation
+	// from both sides, so "sacrifice!"/"sacrifice"/"sacrifice." all normalize to the same
+	// pattern and, without this guard, a single utterance fires all three copies of the
+	// response instead of one. Only blocks whose normalized pattern is identical are
+	// deduplicated; two genuinely different phrases that both happen to match (via the
+	// Contains fallback) still both fire.
+	firedSayPatterns map[string]bool
+
 	KillPlayer        bool // KILL PLAYER: set when script kills the player
 	NeedsSave         bool // set by ROUTINE and similar actions that modify player state
 	routineChargePaid bool // true after first charge decrement this interaction (prevents double-spend across script phases)
 	preverbOnly       bool // set by RunPreverbScripts; causes execBlock to skip IFVERB blocks
+	verbOnly          bool // set by runNestedItemVerbScripts; causes execBlock to skip IFPREVERB blocks (mirror of preverbOnly)
 
 	// moveGroupFired is set by doMoveGroup so that subsequent ECHO PLAYER/OTHERS in the same
 	// script block are suppressed — the group has conceptually already left the source room.
@@ -114,6 +128,13 @@ func (e *GameEngine) RunSayScripts(player *Player, room *gameworld.Room, text st
 	return sc
 }
 
+// sayPattern normalizes an IFSAY block's raw arg into the form it's matched against:
+// underscores become spaces, uppercased, trailing punctuation trimmed.
+func sayPattern(arg string) string {
+	pattern := strings.ToUpper(strings.ReplaceAll(arg, "_", " "))
+	return strings.TrimRight(pattern, ".?!")
+}
+
 // matchesSayText reports whether sc.sayText matches an IFSAY block's pattern.
 // IFSAY args use underscores for spaces; trailing punctuation is trimmed so
 // "computer, identify" matches the pattern "COMPUTER,_IDENTIFY."
@@ -121,8 +142,7 @@ func (sc *ScriptContext) matchesSayText(args []string) bool {
 	if sc.sayText == "" || len(args) < 1 {
 		return false
 	}
-	pattern := strings.ToUpper(strings.ReplaceAll(args[0], "_", " "))
-	pattern = strings.TrimRight(pattern, ".?!")
+	pattern := sayPattern(args[0])
 	return sc.sayText == pattern || strings.Contains(sc.sayText, pattern)
 }
 
@@ -219,6 +239,15 @@ func verbsMatch(a, b string) bool {
 // def.Scripts, so a script like item 1669's "IFVAR ... IFVERB EXAMINE -1 ... ENDIF"
 // relies on this walk to fire correctly (and only for that verb). Used for items
 // that set values based on adjective checks, e.g., thesnia leaf sets ITEMVAL3=403.
+//
+// Deliberately scoped to IFVAR only — NOT IFITEM/IFNOITEM. Those wrappers are
+// already reached by RunPreverbScripts (which includes them in its own item-level
+// switch), and ~60 real scripts nest an IFPREVERB (not IFVERB) directly inside an
+// IFITEM/IFNOITEM — e.g. SHANTA.SCR's own PUSH/PULL/TURN/THUMP siblings right next
+// to the bedroll's GO block below. Since preverbOnly only skips IFVERB, not
+// IFPREVERB, having this walk also enter IFITEM/IFNOITEM would double-fire every
+// one of those. See runNestedGoVerbScripts for the narrower, verb-scoped fix that
+// covers IFVERB nested under IFITEM/IFNOITEM instead (item 1290's bedroll).
 func (e *GameEngine) RunItemScripts(player *Player, room *gameworld.Room, verb string, ri *gameworld.RoomItem, def *gameworld.ItemDef) *ScriptContext {
 	sc := &ScriptContext{
 		Player:     player,
@@ -231,6 +260,34 @@ func (e *GameEngine) RunItemScripts(player *Player, room *gameworld.Room, verb s
 	}
 	for _, block := range def.Scripts {
 		if block.Type == "IFVAR" {
+			sc.execBlock(block)
+		}
+	}
+	return sc
+}
+
+// runNestedItemVerbScripts walks an item's top-level IFITEM/IFNOITEM blocks and
+// executes any nested IFVERB/IFVERB2 block matching verb — the counterpart to
+// RunItemScripts' IFVAR-nesting support, but specifically for IFVERB nested inside
+// an item-state gate (e.g. item 1290's bedroll: "IFITEM -1 OPEN ... IFVERB GO -1
+// ... ENDIF", see SHANTA.SCR). Uses verbOnly (the mirror of RunPreverbScripts'
+// preverbOnly) so a nested IFPREVERB is skipped here — RunPreverbScripts already
+// fires those correctly on its own separate walk, and firing them again here
+// would double them, exactly the risk that keeps this logic out of the shared
+// RunItemScripts (see its doc comment).
+func (e *GameEngine) runNestedItemVerbScripts(player *Player, room *gameworld.Room, verb string, ri *gameworld.RoomItem, def *gameworld.ItemDef) *ScriptContext {
+	sc := &ScriptContext{
+		Player:     player,
+		Room:       room,
+		Engine:     e,
+		ItemRef:    ri,
+		ItemDef:    def,
+		activeVerb: strings.ToUpper(verb),
+		activeRef:  fmt.Sprintf("%d", ri.Ref),
+		verbOnly:   true,
+	}
+	for _, block := range def.Scripts {
+		if block.Type == "IFITEM" || block.Type == "IFNOITEM" {
 			sc.execBlock(block)
 		}
 	}
@@ -354,6 +411,11 @@ func (sc *ScriptContext) execBlock(block gameworld.ScriptBlock) {
 		if sc.preverbOnly && (block.Type == "IFVERB" || block.Type == "IFVERB2") {
 			return
 		}
+		// Mirror of the above for runNestedItemVerbScripts: skip IFPREVERB blocks,
+		// since RunPreverbScripts already fires those on its own separate walk.
+		if sc.verbOnly && (block.Type == "IFPREVERB" || block.Type == "IFPREVERB2") {
+			return
+		}
 		// These blocks only make sense within a verb-triggered context (activeVerb set by
 		// RunPreverbScripts/RunVerbScripts/RunMonsterPreverbScript/RunRoomVerbScripts/
 		// RunItemScripts). Non-verb walks like RunSayScripts/RunEntryScripts can still
@@ -406,6 +468,14 @@ func (sc *ScriptContext) execBlock(block gameworld.ScriptBlock) {
 
 	case "IFSAY":
 		if sc.matchesSayText(block.Args) {
+			pattern := sayPattern(block.Args[0])
+			if sc.firedSayPatterns[pattern] {
+				return
+			}
+			if sc.firedSayPatterns == nil {
+				sc.firedSayPatterns = make(map[string]bool)
+			}
+			sc.firedSayPatterns[pattern] = true
 			sc.execChildren(block)
 		}
 
@@ -586,6 +656,8 @@ func (sc *ScriptContext) execAction(action gameworld.ScriptAction) {
 		sc.doSetItemVal(action.Args)
 	case "SETITEMADJ":
 		sc.doSetItemAdj(action.Args)
+	case "EXTEND":
+		sc.doExtend(action.Args)
 	case "APPLYROLL":
 		sc.doApplyRoll()
 	case "REMOVEITEM":
@@ -653,9 +725,14 @@ func (sc *ScriptContext) execAction(action gameworld.ScriptAction) {
 	case "SKILLCHECK":
 		sc.doSkillCheck(action.Args)
 	case "APPEAR":
+		// Sets the player's custom appearance line (same slot as the player-facing
+		// APPEARANCE command / GM @linex), shown to others on EXAMINE — not a room
+		// broadcast. Scripts already ECHO the moment-of-change message separately;
+		// APPEAR records the resulting persistent visual state (e.g. "pants are
+		// down around your ankles") until the script sets it again.
 		if len(action.Args) >= 1 {
 			text := sc.expandScriptText(strings.Join(action.Args, " "))
-			sc.RoomMsgs = append(sc.RoomMsgs, text)
+			sc.Player.Appearance = text
 		}
 	}
 }
@@ -1022,6 +1099,37 @@ func (sc *ScriptContext) doSetItemVal(args []string) {
 			case 5:
 				sc.Room.Items[i].Val5 = val
 			}
+			itemCopy := sc.Room.Items[i]
+			sc.Engine.notifyRoomChange(RoomChange{
+				RoomNumber: sc.Room.Number,
+				Type:       "item_update",
+				ItemRef:    ref,
+				Item:       &itemCopy,
+			})
+			return
+		}
+	}
+}
+
+// doExtend handles the runtime EXTEND ref <text...> action — sets a room item's
+// Extend (the descriptive suffix shown after its name, e.g. "a window in the
+// ground (with a large hole broken in it)"). Distinct from the static top-level
+// EXTEND directive parsed at room-load time (see the room parser's "EXTEND" case);
+// this one runs inside a conditional block (typically IFPREVERB BREAK) to update
+// the item's look after something happens to it — see MALL2.SCR rooms with a
+// breakable door/window for an example.
+func (sc *ScriptContext) doExtend(args []string) {
+	if len(args) < 2 || sc.Room == nil {
+		return
+	}
+	ref, err := strconv.Atoi(args[0])
+	if err != nil {
+		return
+	}
+	text := strings.Join(args[1:], " ")
+	for i := range sc.Room.Items {
+		if sc.Room.Items[i].Ref == ref {
+			sc.Room.Items[i].Extend = text
 			itemCopy := sc.Room.Items[i]
 			sc.Engine.notifyRoomChange(RoomChange{
 				RoomNumber: sc.Room.Number,
@@ -2734,15 +2842,24 @@ func (sc *ScriptContext) expandScriptText(text string) string {
 	text = strings.ReplaceAll(text, "%m", "")
 	// Newline
 	text = strings.ReplaceAll(text, "%c", "\n")
-	// Gender-based pronouns (canonical from manual)
+	// Gender-based pronouns (canonical from manual). Uppercase variants (%H/%S/%I)
+	// are the same pronouns capitalized for sentence-initial use, e.g. item 905's
+	// "APPEAR %H pants cling snugly to %h fanny." (ITEM2.SCR) — previously left as
+	// a literal "%H" in the text since only the lowercase forms were replaced.
 	if sc.Player.Gender == 0 {
 		text = strings.ReplaceAll(text, "%h", "his")
 		text = strings.ReplaceAll(text, "%s", "he")
 		text = strings.ReplaceAll(text, "%i", "him")
+		text = strings.ReplaceAll(text, "%H", "His")
+		text = strings.ReplaceAll(text, "%S", "He")
+		text = strings.ReplaceAll(text, "%I", "Him")
 	} else {
 		text = strings.ReplaceAll(text, "%h", "her")
 		text = strings.ReplaceAll(text, "%s", "she")
 		text = strings.ReplaceAll(text, "%i", "her")
+		text = strings.ReplaceAll(text, "%H", "Her")
+		text = strings.ReplaceAll(text, "%S", "She")
+		text = strings.ReplaceAll(text, "%I", "Her")
 	}
 	// Legacy aliases
 	text = strings.ReplaceAll(text, "%e", func() string { if sc.Player.Gender == 0 { return "he" }; return "she" }())

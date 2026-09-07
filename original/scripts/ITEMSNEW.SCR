@@ -1,0 +1,775 @@
+; ITEMSNEW.SCR — Stage 1 of the new armor/shield/substance crafting framework
+; (source: "LoFP Crafting_Armor_Shields_Substances.xlsx", designer notes 2026-08-29).
+;
+; First pass (items 9100-9110) covered SHIELDS, as a proof of the pattern.
+; Second pass (9111-9144) covers the Metal Armors and Leather & Cloth Armors
+; sheets: head/torso/hands/feet pieces. Third pass (9145) is a single Thigh
+; Guards item, the Misc. Items sheet's Shoulder Guards' structural twin (see
+; below). Stage 1 (items), Stage 2 (combat.go per-body-part DR), and Stage 3
+; (doCraft skill routing, incl. the PARAMETER2 skill-level values below) are
+; all done as of this pass. Only the REINFORCE command (two-crafter combo
+; items) and breakage remain as deliberate follow-ons.
+;
+; Design: each shield SHAPE reuses the existing NOUN 182 "shield" (buckler and
+; main-gauche keep their own existing single-word nouns, 37 and 317) plus a new
+; ItemDef-level ADJECTIVE/ADJECTIVE2 (see gameworld.ItemDef.Adjective, mirrors
+; MonsterDef.Adjective/FormatMonsterName) so it displays as "round shield" /
+; "large round shield" rather than needing an invented hyphenated noun.
+; ADJECTIVE is a FIXED part of the archetype's identity, distinct from the
+; three per-instance Adj1-3 slots (crafted-in material, dye, encrusted gems,
+; applied later via WORK/REINFORCE/ENCRUST) — it's what CRAFTABLE items need in
+; place of the adjective a room ITEM placement or a StoreItem entry would
+; otherwise supply for a purchased/placed instance.
+;
+; Each shape (except main-gauche) gets TWO archetypes sharing noun+adjective: a
+; WOOD tier (Wood Lore/fletcher) and a HARDMETAL tier (Weaponsmithing/forge).
+; They don't collide despite sharing a display name because doCraft already
+; gates on the room's workshop modifier before skill — whichever workshop
+; you're standing in determines which same-named archetype you actually reach
+; (see getItemNounName in look.go, which composes ADJECTIVE/ADJECTIVE2 into
+; the noun for every command that targets an item by name — used directly by
+; doCraft's listing/matching in crafting.go). The spreadsheet's third
+; "metal-reinforced" tier is intentionally NOT a third archetype — it's a
+; future REINFORCE <shield> WITH <metal> command upgrading the wood tier's
+; instance in place (same idiom as ENCRUST/INLAY in crafting.go's
+; doGemAdorn), so it doesn't need its own item number.
+;
+; No material adjective (wooden/steel/iron/...) is baked into any archetype —
+; that's chosen at craft time via WORK <material>, same as metal weapons today.
+;
+; PARAMETER2 is the crafting skill-level requirement for every ARMOR/SHIELD
+; item below (see the comment in doCraft, crafting.go) — PARAMETER1 on these
+; is already taken by the DR%/DefBonus stat, so PARAMETER2 carries the level
+; instead, matching every pre-existing CRAFTABLE ARMOR item in the original
+; 1990s data (all of which already have an explicit PARAMETER2 unrelated to
+; Weight). No item below is CRAFTABLE with a level of 0 — every one requires
+; at least level 1.
+;
+; Level curve (revised 2026-09-01 after the user caught the first pass
+; clustering everything at 1-11): checked the real distribution of every
+; pre-existing CRAFTABLE item's skill level — Dyeing/Weaving spans 1-40 (91
+; items), Weaponsmithing/Wood weapons span 1-45 (36 items), Wood Lore
+; non-weapon items span 1-30. The first pass only used 1-11, badly
+; undershooting the game's actual scale, so a level-16 weaver blew past every
+; new item instantly. Rebuilt using the spreadsheet's own DR%/DefBonus as the
+; complexity driver instead of Weight (Weight was never the right proxy — see
+; the Stage 3 PARAMETER2 discovery note in the project memory), scaled so the
+; heaviest pieces (Full Plate, Tower Shield) land in the low-20s alongside
+; comparable high-end weapons/robes, and a torso piece costs more than an
+; accessory piece (gauntlets/boots/cap) at the same DR% — more material, more
+; construction. The buckler wood tier stays at the user's explicit level 2
+; anchor; everything else (including the wood kite shield, previously 5) was
+; rescaled to keep proper relative spacing above and below that anchor. Still
+; expect further tuning — this is a considered pass, not a final one.
+;
+; NOUNDEF/ADJDEF must stay at true top level (before any INUMBER block) — the
+; parser's item sub-loop doesn't recognize them as block terminators. round
+; (265), large (178), and tower (1011) already exist from the original 1990s
+; data; only "kite" is new.
+ADJDEF 9100 kite
+;
+; Second-pass (armor) additions. Nearly every word needed already existed in
+; the original 1990s data (helm, basinet, cap, hat, skull, plate, mail, scale,
+; chain, boots, gloves, gauntlets, leather, hide, boiled, supple, cloth,
+; diadem, circlet) — these four are the only genuinely new ones. "brigandine"
+; needs both forms: a NOUN (the torso piece stands alone, e.g. "a brigandine")
+; and an ADJECTIVE (for "brigandine gauntlets"/"brigandine boots"), same as
+; "mail"/"scale"/"chain" already exist as both in the original data.
+NOUNDEF 9101 barbute
+NOUNDEF 9102 headdress
+NOUNDEF 9103 gambeson
+NOUNDEF 9104 brigandine
+ADJDEF 9105 kettle
+ADJDEF 9106 layered
+ADJDEF 9107 brigandine
+;
+; Buckler, wood tier — smallest shield, Wood Lore/fletcher crafted. No shape
+; adjective needed; "buckler" already names the shape.
+INUMBER 9100
+NAME 37
+SHIELD
+VOLUME 2
+WEIGHT 2
+ARTICLE A
+CRAFTABLE
+SUBSTANCE WOOD
+PARAMETER1 5
+PARAMETER2 2
+;
+; Buckler, full metal — Weaponsmithing/forge crafted, no wood prerequisite.
+INUMBER 9101
+NAME 37
+SHIELD
+VOLUME 2
+WEIGHT 8
+ARTICLE A
+CRAFTABLE
+SUBSTANCE HARDMETAL
+PARAMETER1 5
+PARAMETER2 4
+;
+; Round shield, wood tier.
+INUMBER 9102
+NAME 182
+SHIELD
+ADJECTIVE 265
+VOLUME 5
+WEIGHT 5
+ARTICLE A
+CRAFTABLE
+SUBSTANCE WOOD
+PARAMETER1 10
+PARAMETER2 4
+;
+; Round shield, full metal.
+INUMBER 9103
+NAME 182
+SHIELD
+ADJECTIVE 265
+VOLUME 5
+WEIGHT 20
+ARTICLE A
+CRAFTABLE
+SUBSTANCE HARDMETAL
+PARAMETER1 10
+PARAMETER2 8
+;
+; Large Round shield, wood tier.
+INUMBER 9104
+NAME 182
+SHIELD
+ADJECTIVE 178
+ADJECTIVE2 265
+VOLUME 8
+WEIGHT 10
+ARTICLE A
+CRAFTABLE
+SUBSTANCE WOOD
+PARAMETER1 15
+PARAMETER2 6
+;
+; Large Round shield, full metal.
+INUMBER 9105
+NAME 182
+SHIELD
+ADJECTIVE 178
+ADJECTIVE2 265
+VOLUME 8
+WEIGHT 25
+ARTICLE A
+CRAFTABLE
+SUBSTANCE HARDMETAL
+PARAMETER1 15
+PARAMETER2 12
+;
+; Kite shield, wood tier.
+INUMBER 9106
+NAME 182
+SHIELD
+ADJECTIVE 9100
+VOLUME 8
+WEIGHT 15
+ARTICLE A
+CRAFTABLE
+SUBSTANCE WOOD
+PARAMETER1 20
+PARAMETER2 8
+;
+; Kite shield, full metal.
+INUMBER 9107
+NAME 182
+SHIELD
+ADJECTIVE 9100
+VOLUME 8
+WEIGHT 30
+ARTICLE A
+CRAFTABLE
+SUBSTANCE HARDMETAL
+PARAMETER1 20
+PARAMETER2 16
+;
+; Tower shield, wood tier — largest shield, Wood Lore/fletcher crafted.
+INUMBER 9108
+NAME 182
+SHIELD
+ADJECTIVE 1011
+VOLUME 12
+WEIGHT 20
+ARTICLE A
+CRAFTABLE
+SUBSTANCE WOOD
+PARAMETER1 30
+PARAMETER2 12
+;
+; Tower shield, full metal — largest shield, Weaponsmithing/forge crafted.
+INUMBER 9109
+NAME 182
+SHIELD
+ADJECTIVE 1011
+VOLUME 12
+WEIGHT 35
+ARTICLE A
+CRAFTABLE
+SUBSTANCE HARDMETAL
+PARAMETER1 30
+PARAMETER2 22
+;
+; Main-gauche — off-hand parrying dagger. Metal only, Weaponsmithing/forge
+; crafted. Real weapon type (not SHIELD) so it flows through the existing
+; Two-Weapon wield/attack path unmodified; SHIELDGRIP flags it for a future
+; Stage 2 special case in shieldDefenseBonus/armorEnchantBonus, which
+; computes its DefBonus dynamically as max(3, Two-Weapon skill level) rather
+; than reading PARAMETER1 — so PARAMETER1 is free to serve its normal
+; isWeapon() role here: the crafting skill level (weapons use PARAMETER1 for
+; this, not PARAMETER2 — see the comment in doCraft). 10 is comparable to a
+; metal round/large-round shield's tier — off-hand precision smithing, not
+; entry-level but not the top of the scale either.
+INUMBER 9110
+NAME 317
+PUNCTURE_WEAPON
+SHIELDGRIP
+VOLUME 2
+WEIGHT 2
+ARTICLE A
+CRAFTABLE
+SUBSTANCE HARDMETAL
+PARAMETER1 10
+;
+; ===========================================================================
+; Metal Armors sheet — head (WORN_HEAD), torso (WORN_ARMOR), hands
+; (WORN_HANDS), feet (WORN_FEET2). All four slots are already independent in
+; doWear (capacity 1 each, no cross-slot conflict logic), so a full
+; helm+cuirass+gauntlets+boots set can already be worn simultaneously with no
+; engine change. PARAMETER1 is the DR% (same convention as existing armor,
+; e.g. illithium armor INUMBER 306 PARAMETER1 75); PARAMETER2 is the
+; Weaponsmithing skill level doCraft actually reads for ARMOR (see the header
+; note above). Accessory pieces (gauntlets/boots) are set noticeably lower
+; than the torso piece at the same DR% tier — less material, less
+; construction — even though the stat itself is identical.
+;
+; Great Helm — full head coverage, heaviest.
+INUMBER 9111
+NAME 107
+ARMOR
+WORN_HEAD
+ADJECTIVE 457
+VOLUME 8
+WEIGHT 8
+ARTICLE A
+CRAFTABLE
+SUBSTANCE HARDMETAL
+PARAMETER1 50
+PARAMETER2 20
+;
+; Basinet.
+INUMBER 9112
+NAME 17
+ARMOR
+WORN_HEAD
+VOLUME 6
+WEIGHT 6
+ARTICLE A
+CRAFTABLE
+SUBSTANCE HARDMETAL
+PARAMETER1 40
+PARAMETER2 16
+;
+; Barbute.
+INUMBER 9113
+NAME 9101
+ARMOR
+WORN_HEAD
+VOLUME 4
+WEIGHT 4
+ARTICLE A
+CRAFTABLE
+SUBSTANCE HARDMETAL
+PARAMETER1 35
+PARAMETER2 14
+;
+; Kettle Hat.
+INUMBER 9114
+NAME 269
+ARMOR
+WORN_HEAD
+ADJECTIVE 9105
+VOLUME 2
+WEIGHT 2
+ARTICLE A
+CRAFTABLE
+SUBSTANCE HARDMETAL
+PARAMETER1 30
+PARAMETER2 12
+;
+; Headdress — spreadsheet notes this was "special crafted or found on
+; creatures/monsters" rather than a normal smith product, so it's defined but
+; deliberately left off CRAFTABLE for now; easy to add once that's settled.
+INUMBER 9115
+NAME 9102
+ARMOR
+WORN_HEAD
+VOLUME 3
+WEIGHT 3
+ARTICLE A
+SUBSTANCE HARDMETAL
+PARAMETER1 5
+PARAMETER2 2
+;
+; Skull Cap — caster item, minimal head protection.
+INUMBER 9116
+NAME 40
+ARMOR
+WORN_HEAD
+ADJECTIVE 714
+VOLUME 2
+WEIGHT 2
+ARTICLE A
+CRAFTABLE
+SUBSTANCE HARDMETAL
+PARAMETER1 5
+PARAMETER2 2
+;
+; Diadem — spreadsheet asks "Jeweler made?"; left on Weaponsmithing/HARDMETAL
+; for consistency with the rest of this sheet pending that decision.
+INUMBER 9117
+NAME 652
+ARMOR
+WORN_HEAD
+VOLUME 2
+WEIGHT 2
+ARTICLE A
+CRAFTABLE
+SUBSTANCE HARDMETAL
+PARAMETER1 3
+PARAMETER2 2
+;
+; Circlet — same "Jeweler made?" note as Diadem.
+INUMBER 9118
+NAME 307
+ARMOR
+WORN_HEAD
+VOLUME 1
+WEIGHT 1
+ARTICLE A
+CRAFTABLE
+SUBSTANCE HARDMETAL
+PARAMETER1 1
+PARAMETER2 1
+;
+; Full Plate (Plate armor) — torso, covers torso/arms/legs as one piece.
+INUMBER 9119
+NAME 634
+ARMOR
+WORN_ARMOR
+ADJECTIVE 673
+VOLUME 22
+WEIGHT 25
+ARTICLE A
+CRAFTABLE
+SUBSTANCE HARDMETAL
+PARAMETER1 50
+PARAMETER2 22
+;
+; Brigandine (Plate mail) — torso.
+INUMBER 9120
+NAME 9104
+ARMOR
+WORN_ARMOR
+VOLUME 18
+WEIGHT 20
+ARTICLE A
+CRAFTABLE
+SUBSTANCE HARDMETAL
+PARAMETER1 40
+PARAMETER2 18
+;
+; Scale Mail (Heavy mail) — torso.
+INUMBER 9121
+NAME 130
+ARMOR
+WORN_ARMOR
+ADJECTIVE 630
+VOLUME 14
+WEIGHT 15
+ARTICLE A
+CRAFTABLE
+SUBSTANCE HARDMETAL
+PARAMETER1 35
+PARAMETER2 15
+;
+; Chain Mail (Light mail) — torso.
+INUMBER 9122
+NAME 130
+ARMOR
+WORN_ARMOR
+ADJECTIVE 506
+VOLUME 11
+WEIGHT 12
+ARTICLE A
+CRAFTABLE
+SUBSTANCE HARDMETAL
+PARAMETER1 30
+PARAMETER2 12
+;
+; Plate Gauntlets — hands. -20 to fine manipulation skills per MANUAL.DOC
+; (lockpicking, leather/cloth crafting, alchemy) is a Stage 2 combat/skills
+; concern, not modeled on the item itself yet.
+INUMBER 9123
+NAME 319
+ARMOR
+WORN_HANDS
+ADJECTIVE 237
+VOLUME 5
+WEIGHT 5
+ARTICLE SOME
+CRAFTABLE
+SUBSTANCE HARDMETAL
+PARAMETER1 50
+PARAMETER2 10
+;
+; Brigandine Gauntlets — hands.
+INUMBER 9124
+NAME 319
+ARMOR
+WORN_HANDS
+ADJECTIVE 9107
+VOLUME 4
+WEIGHT 4
+ARTICLE SOME
+CRAFTABLE
+SUBSTANCE HARDMETAL
+PARAMETER1 40
+PARAMETER2 8
+;
+; Scale Mail Gauntlets — hands.
+INUMBER 9125
+NAME 319
+ARMOR
+WORN_HANDS
+ADJECTIVE 630
+ADJECTIVE2 631
+VOLUME 3
+WEIGHT 3
+ARTICLE SOME
+CRAFTABLE
+SUBSTANCE HARDMETAL
+PARAMETER1 35
+PARAMETER2 7
+;
+; Chain Mail Gauntlets — hands.
+INUMBER 9126
+NAME 319
+ARMOR
+WORN_HANDS
+ADJECTIVE 506
+ADJECTIVE2 631
+VOLUME 3
+WEIGHT 3
+ARTICLE SOME
+CRAFTABLE
+SUBSTANCE HARDMETAL
+PARAMETER1 30
+PARAMETER2 6
+;
+; Plate Boots — feet.
+INUMBER 9127
+NAME 28
+ARMOR
+WORN_FEET2
+ADJECTIVE 237
+VOLUME 6
+WEIGHT 6
+ARTICLE SOME
+CRAFTABLE
+SUBSTANCE HARDMETAL
+PARAMETER1 50
+PARAMETER2 10
+;
+; Brigandine Boots — feet.
+INUMBER 9128
+NAME 28
+ARMOR
+WORN_FEET2
+ADJECTIVE 9107
+VOLUME 5
+WEIGHT 5
+ARTICLE SOME
+CRAFTABLE
+SUBSTANCE HARDMETAL
+PARAMETER1 40
+PARAMETER2 8
+;
+; Scale Mail Boots — feet.
+INUMBER 9129
+NAME 28
+ARMOR
+WORN_FEET2
+ADJECTIVE 630
+ADJECTIVE2 631
+VOLUME 4
+WEIGHT 4
+ARTICLE SOME
+CRAFTABLE
+SUBSTANCE HARDMETAL
+PARAMETER1 35
+PARAMETER2 7
+;
+; Chain Mail Boots — feet.
+INUMBER 9130
+NAME 28
+ARMOR
+WORN_FEET2
+ADJECTIVE 506
+ADJECTIVE2 631
+VOLUME 3
+WEIGHT 3
+ARTICLE SOME
+CRAFTABLE
+SUBSTANCE HARDMETAL
+PARAMETER1 30
+PARAMETER2 6
+;
+; ===========================================================================
+; Leather & Cloth Armors sheet. Substance HIDE is a NEW substance value (the
+; designer's Substances sheet formalizes it as "leather items/armor pieces").
+; doCraft routes HIDE to Dyeing/Weaving (skill 15) via its own branch, ahead
+; of the generic ARMOR branch, using PARAMETER2 for the skill level just like
+; the metal pieces above (CLOTH-substance items below also use PARAMETER2,
+; via the pre-existing CLOTH branch). Dyeing/Weaving has the widest confirmed
+; real range of any craft skill in this game (1-40 across 91 pre-existing
+; items), so these lean into that scale rather than staying timid.
+;
+; Leather Helmet — head, full coverage.
+INUMBER 9131
+NAME 644
+ARMOR
+WORN_HEAD
+ADJECTIVE 180
+VOLUME 3
+WEIGHT 3
+ARTICLE A
+CRAFTABLE
+SUBSTANCE HIDE
+PARAMETER1 20
+PARAMETER2 8
+;
+; Leather Cap — head, partial coverage.
+INUMBER 9132
+NAME 40
+ARMOR
+WORN_HEAD
+ADJECTIVE 180
+VOLUME 1
+WEIGHT 1
+ARTICLE A
+CRAFTABLE
+SUBSTANCE HIDE
+PARAMETER1 10
+PARAMETER2 4
+;
+; Boiled Leather (armor) — torso, more caster-friendly than metal armors.
+INUMBER 9133
+NAME 1356
+ARMOR
+WORN_ARMOR
+ADJECTIVE 541
+VOLUME 14
+WEIGHT 15
+ARTICLE SOME
+CRAFTABLE
+SUBSTANCE HIDE
+PARAMETER1 20
+PARAMETER2 12
+;
+; Layered Hide — torso, more caster-friendly than metal armors.
+INUMBER 9134
+NAME 453
+ARMOR
+WORN_ARMOR
+ADJECTIVE 9106
+VOLUME 11
+WEIGHT 12
+ARTICLE SOME
+CRAFTABLE
+SUBSTANCE HIDE
+PARAMETER1 15
+PARAMETER2 9
+;
+; Cloth Gambeson — torso, very caster-friendly; can stand alone as armor.
+INUMBER 9135
+NAME 9103
+ARMOR
+WORN_ARMOR
+ADJECTIVE 57
+VOLUME 7
+WEIGHT 8
+ARTICLE A
+CRAFTABLE
+SUBSTANCE CLOTH
+PARAMETER1 10
+PARAMETER2 6
+;
+; Supple Leather (armor) — torso, very caster-friendly.
+INUMBER 9136
+NAME 1356
+ARMOR
+WORN_ARMOR
+ADJECTIVE 636
+VOLUME 4
+WEIGHT 4
+ARTICLE SOME
+CRAFTABLE
+SUBSTANCE HIDE
+PARAMETER1 5
+PARAMETER2 3
+;
+; Boiled Leather Gauntlets — hands.
+INUMBER 9137
+NAME 319
+ARMOR
+WORN_HANDS
+ADJECTIVE 541
+ADJECTIVE2 180
+VOLUME 3
+WEIGHT 3
+ARTICLE SOME
+CRAFTABLE
+SUBSTANCE HIDE
+PARAMETER1 20
+PARAMETER2 6
+;
+; Layered Hide Gloves — hands.
+INUMBER 9138
+NAME 306
+ARMOR
+WORN_HANDS
+ADJECTIVE 9106
+ADJECTIVE2 410
+VOLUME 2
+WEIGHT 2
+ARTICLE SOME
+CRAFTABLE
+SUBSTANCE HIDE
+PARAMETER1 15
+PARAMETER2 5
+;
+; Cloth Gloves — hands, very caster-friendly.
+INUMBER 9139
+NAME 306
+ARMOR
+WORN_HANDS
+ADJECTIVE 57
+VOLUME 1
+WEIGHT 1
+ARTICLE SOME
+CRAFTABLE
+SUBSTANCE CLOTH
+PARAMETER1 10
+PARAMETER2 3
+;
+; Supple Leather Gloves — hands, very caster-friendly.
+INUMBER 9140
+NAME 306
+ARMOR
+WORN_HANDS
+ADJECTIVE 636
+ADJECTIVE2 180
+VOLUME 1
+WEIGHT 1
+ARTICLE SOME
+CRAFTABLE
+SUBSTANCE HIDE
+PARAMETER1 5
+PARAMETER2 2
+;
+; Boiled Leather Boots — feet.
+INUMBER 9141
+NAME 28
+ARMOR
+WORN_FEET2
+ADJECTIVE 541
+ADJECTIVE2 180
+VOLUME 4
+WEIGHT 4
+ARTICLE SOME
+CRAFTABLE
+SUBSTANCE HIDE
+PARAMETER1 20
+PARAMETER2 6
+;
+; Layered Hide Boots — feet.
+INUMBER 9142
+NAME 28
+ARMOR
+WORN_FEET2
+ADJECTIVE 9106
+ADJECTIVE2 410
+VOLUME 3
+WEIGHT 3
+ARTICLE SOME
+CRAFTABLE
+SUBSTANCE HIDE
+PARAMETER1 15
+PARAMETER2 5
+;
+; Cloth Boots — feet, very caster-friendly.
+INUMBER 9143
+NAME 28
+ARMOR
+WORN_FEET2
+ADJECTIVE 57
+VOLUME 2
+WEIGHT 2
+ARTICLE SOME
+CRAFTABLE
+SUBSTANCE CLOTH
+PARAMETER1 10
+PARAMETER2 3
+;
+; Supple Leather Boots — feet, very caster-friendly.
+INUMBER 9144
+NAME 28
+ARMOR
+WORN_FEET2
+ADJECTIVE 636
+ADJECTIVE2 180
+VOLUME 2
+WEIGHT 2
+ARTICLE SOME
+CRAFTABLE
+SUBSTANCE HIDE
+PARAMETER1 5
+PARAMETER2 2
+;
+; ===========================================================================
+; Misc. Items sheet. Robe and Bracers already exist as real Type ARMOR items
+; in the original 1990s data (multiple robe archetypes across ITEM1/ITEM2/
+; ITEMARM.SCR on WORN_BODY; bracers on WORN_WRIST in CHASSO.SCR/ITEM2.SCR) —
+; nothing to add there. Shoulder Guards also already exists: INUMBER 560 in
+; ITEM3.SCR (NAME 322 "guards", WORN_BACK, PARAMETER1 10), which force-sets
+; ITEMADJ3=551 ("shoulder") on WEAR via script so it always displays as
+; "shoulder guards" — that's the old-engine equivalent of what ADJECTIVE now
+; does declaratively. There's a second ITEM3.SCR "guards" archetype, INUMBER
+; 561 (WORN_DON, PARAMETER1 3, no adjective-forcing script, and dropped as a
+; monster skin via SKINITEM 980 5 561 0 0 in MONSTERS.SCR) that looks like an
+; unfinished/abandoned thigh guards, but per the user it's being left alone
+; in case it has an undiscovered original purpose. So Thigh Guards below is a
+; brand-new archetype, NOT a fix to 561 — item 560's structural twin for legs
+; rather than shoulders, sharing its "guards" noun (322) and flat 10% DR (no
+; leather/metal material tiers, matching how 560 itself has none), but
+; CRAFTABLE since unlike 560 it's meant to enter the new crafting framework.
+;
+; Thigh Guards — legs, companion piece to the existing Shoulder Guards (560).
+INUMBER 9145
+NAME 322
+ARMOR
+WORN_TRUNK2
+ADJECTIVE 555
+VOLUME 6
+WEIGHT 10
+ARTICLE SOME
+PLURAL
+CRAFTABLE
+SUBSTANCE HARDMETAL
+PARAMETER1 10
+PARAMETER2 6

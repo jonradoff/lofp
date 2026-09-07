@@ -227,17 +227,27 @@ func (e *GameEngine) weaponHardness(wielded *InventoryItem, weaponDef *gameworld
 	if weaponDef == nil {
 		return 0
 	}
-	hardness := weaponDef.Weight*3 + weaponDef.Parameter1*2
 	if wielded == nil {
-		return hardness
+		return weaponDef.Weight*3 + weaponDef.Parameter1*2
 	}
-	for _, adjID := range []int{wielded.Adj1, wielded.Adj2, wielded.Adj3} {
+	return e.weaponHardnessFor(weaponDef, wielded.Adj1, wielded.Adj2, wielded.Adj3, wielded.HardnessMod)
+}
+
+// weaponHardnessFor is the adjective/instance-agnostic core of weaponHardness,
+// usable for both a wielded InventoryItem and a RoomItem/InventoryItem lying
+// around that's never been wielded (e.g. for a Weaponsmithing EXAMINE appraisal).
+func (e *GameEngine) weaponHardnessFor(weaponDef *gameworld.ItemDef, adj1, adj2, adj3, hardnessMod int) int {
+	if weaponDef == nil {
+		return 0
+	}
+	hardness := weaponDef.Weight*3 + weaponDef.Parameter1*2
+	for _, adjID := range []int{adj1, adj2, adj3} {
 		if adjID == 0 {
 			continue
 		}
 		hardness += e.breakMods[adjID]
 	}
-	hardness += wielded.HardnessMod
+	hardness += hardnessMod
 	return hardness
 }
 
@@ -480,23 +490,71 @@ func armorEnchantBonus(player *Player, items map[int]*gameworld.ItemDef) int {
 	}
 	if player.OffHand != nil {
 		def := items[player.OffHand.Archetype]
-		if def != nil && def.Type == "SHIELD" {
+		if def != nil && (def.Type == "SHIELD" || containsFlag(def.Flags, "SHIELDGRIP")) {
 			bonus += player.OffHand.Sharpness + player.OffHand.Val2
 		}
 	}
 	return bonus
 }
 
-// shieldDefenseBonus returns the base defense bonus from a wielded shield's Parameter1.
+// shieldDefenseBonus returns the base defense bonus from a wielded shield's Parameter1,
+// or — for a SHIELDGRIP off-hand weapon like the main-gauche (ITEMSNEW.SCR 9110) — the
+// greater of 3 or the player's Two Weapons skill level, per the designer's spreadsheet
+// ("Whichever is greater: 3 or Two-Weapon style skill level"). SHIELDGRIP items are real
+// weapon types (not SHIELD), so this doesn't just read Parameter1 like a normal shield.
 func shieldDefenseBonus(player *Player, items map[int]*gameworld.ItemDef) int {
 	if player.OffHand == nil {
 		return 0
 	}
 	def := items[player.OffHand.Archetype]
-	if def == nil || def.Type != "SHIELD" {
+	if def == nil {
 		return 0
 	}
-	return def.Parameter1
+	if def.Type == "SHIELD" {
+		return def.Parameter1
+	}
+	if containsFlag(def.Flags, "SHIELDGRIP") {
+		bonus := player.Skills[1] // Two Weapons
+		if bonus < 3 {
+			bonus = 3
+		}
+		return bonus
+	}
+	return 0
+}
+
+// hasActiveTimedDefenseBuff reports whether p currently carries an unexpired
+// TimedDefenseBuff for the given spell.
+func hasActiveTimedDefenseBuff(p *Player, spellID int) bool {
+	now := time.Now()
+	for _, b := range p.TimedDefenseBuffs {
+		if b.SpellID == spellID && now.Before(b.Expiry) {
+			return true
+		}
+	}
+	return false
+}
+
+// massProtectionGroupBonus shares Mass Protection's (spell 130) +25 defense with the
+// whole group: if some other member of player's group currently carries an active
+// Mass Protection buff, player gets the same +25 without needing (or being able to
+// stack) a copy of their own. The caster's own copy is already counted via the flat
+// += spell.DefBonus applyTimedDefenseBuff does on cast, so a player who already has
+// their own active buff never gets a second +25 from a group-mate's — checked live
+// against current group membership and buff expiry on every call, so leaving the
+// group (either the beneficiary's or the original caster's) drops the bonus
+// immediately with no separate cleanup needed.
+func (e *GameEngine) massProtectionGroupBonus(player *Player) int {
+	const massProtectionSpellID = 130
+	if hasActiveTimedDefenseBuff(player, massProtectionSpellID) {
+		return 0
+	}
+	for _, mate := range e.groupMates(player) {
+		if hasActiveTimedDefenseBuff(mate, massProtectionSpellID) {
+			return 25
+		}
+	}
+	return 0
 }
 
 func playerDefenseRating(player *Player) int {
@@ -530,11 +588,49 @@ func playerDefenseRating(player *Player) int {
 	return rating
 }
 
-func playerArmorPercent(player *Player, items map[int]*gameworld.ItemDef) int {
+// armorSlotsForBodyPart returns which WornSlot(s) protect a given rolled hit location.
+// humanLocationWeights (wounds.go, what rollBodyPart actually draws from for players) has
+// a genuine, separate "right hand"/"left hand" location distinct from arms — so gauntlets
+// (WORN_HANDS) protect hand hits exclusively, no stacking with the torso piece. There is
+// no separate foot location, though (legs are the lowest human extremity), so boots
+// (WORN_FEET2, plus the new Thigh Guards' WORN_TRUNK2 — ITEMSNEW.SCR 9145) still stack
+// with the torso piece on leg hits — the torso piece explicitly covers torso+arms+legs as
+// one combined piece per the armor framework's design (a cuirass has sleeves/greaves, not
+// just a breastplate), and leg hits have nothing more specific than that to fall back on
+// the way hand hits now do. WORN_BACK (Shoulder Guards, ITEM3.SCR 560, pre-dates this
+// framework) stacks onto "back" specifically, the one human location the torso piece alone
+// previously left otherwise identical to "body".
+func armorSlotsForBodyPart(part string) []string {
+	switch part {
+	case "head":
+		return []string{"WORN_HEAD"}
+	case "right hand", "left hand":
+		return []string{"WORN_HANDS"}
+	case "right leg", "left leg":
+		return []string{"WORN_ARMOR", "WORN_FEET2", "WORN_TRUNK2"}
+	case "back":
+		return []string{"WORN_ARMOR", "WORN_BACK"}
+	default: // "body", "right arm", "left arm"
+		return []string{"WORN_ARMOR"}
+	}
+}
+
+// armorDRForBodyPart returns the damage-reduction percentage from the player's worn
+// armor that actually covers the given hit location — replacing the old flat
+// playerArmorPercent, which summed every worn ARMOR item regardless of which body part
+// was hit (so a helmet used to reduce leg damage too). Multiple pieces covering the same
+// location (e.g. a torso piece's sleeves plus separate gauntlets on an arm hit) stack
+// additively, same as the old flat sum did for everything; still capped at 85% and
+// still floored by Drakin's natural armor.
+func armorDRForBodyPart(player *Player, items map[int]*gameworld.ItemDef, part string) int {
+	slots := armorSlotsForBodyPart(part)
 	total := 0
 	for _, worn := range player.Worn {
 		def := items[worn.Archetype]
-		if def != nil && def.Type == "ARMOR" {
+		if def == nil || def.Type != "ARMOR" {
+			continue
+		}
+		if containsString(slots, def.WornSlot) {
 			total += def.Parameter1
 		}
 	}
@@ -1665,7 +1761,7 @@ func (e *GameEngine) monsterAttackPlayer(inst *MonsterInstance, def *gameworld.M
 
 	// Weather modifier for monsters too
 	wMod := e.weatherMod(inst.RoomNumber)
-	defRating := playerDefenseRating(player) + armorEnchantBonus(player, e.items) + shieldDefenseBonus(player, e.items)
+	defRating := playerDefenseRating(player) + armorEnchantBonus(player, e.items) + shieldDefenseBonus(player, e.items) + e.massProtectionGroupBonus(player)
 	// Multi-attacker penalty: -5 per 2 additional attackers beyond the first
 	if e.monsterMgr != nil {
 		attackerCount := 0
@@ -1697,13 +1793,13 @@ func (e *GameEngine) monsterAttackPlayer(inst *MonsterInstance, def *gameworld.M
 		}
 
 		dmg := monsterDamage(def)
-		armorPct := playerArmorPercent(player, e.items)
+		part, locMult := rollBodyPart("HUMAN", 0)
+		armorPct := armorDRForBodyPart(player, e.items, part)
 		dmg = applyArmor(dmg, armorPct)
 		if dmg <= 0 {
 			dmg = 1
 		}
 
-		part, locMult := rollBodyPart("HUMAN", 0)
 		dmg = dmg * locMult / 100
 		if dmg <= 0 {
 			dmg = 1
@@ -1855,7 +1951,9 @@ func monsterDodgeChance(target *Player) int {
 // flavor text, so a monster-cast spell shouldn't reduce the player's damage by it either
 // ("Spell attacks should work like any normal spell casting").
 func (e *GameEngine) applyMonsterElementalDamageToPlayer(player *Player, dmg int, dmgType string, applyLocationMult bool) (finalDmg int, part string, dtype string, rawBP int) {
-	armorPct := playerArmorPercent(player, e.items)
+	var locMult int
+	part, locMult = rollBodyPart("HUMAN", 0)
+	armorPct := armorDRForBodyPart(player, e.items, part)
 	dmg = applyArmor(dmg, armorPct)
 	dmg = applyDrakinElementalVulnerability(player, dmgType, dmg)
 
@@ -1876,8 +1974,6 @@ func (e *GameEngine) applyMonsterElementalDamageToPlayer(player *Player, dmg int
 		dmg /= 2
 	}
 
-	var locMult int
-	part, locMult = rollBodyPart("HUMAN", 0)
 	if applyLocationMult {
 		dmg = dmg * locMult / 100
 	}
@@ -2710,6 +2806,28 @@ func (e *GameEngine) handleMonsterDeath(recipients []*Player, inst *MonsterInsta
 		}
 	}
 
+	// GM-staged queued treasure (@queue/@unqueue) — independent of the monster's own
+	// TREASURE level, since a GM may want even a throwaway monster to carry a
+	// specific staged item for an event or quest.
+	if !def.Discorporate {
+		if msg, droppedItemName := e.rollQueuedTreasureDrop(killer.RoomNumber); msg != "" {
+			if e.localRoomBroadcast != nil {
+				e.localRoomBroadcast(killer.RoomNumber, []string{msg})
+			}
+			if e.gmBroadcast != nil {
+				monsterName := FormatMonsterName(def, e.monAdjs)
+				monsterPhrase := articleFor(monsterName, def.Unique) + monsterName
+				itemPhrase := articleFor(droppedItemName, false) + droppedItemName
+				e.gmBroadcast([]string{fmt.Sprintf("*HONK* %s just killed %s and got %s.", killer.FirstName, monsterPhrase, itemPhrase)})
+			}
+		}
+	}
+
+	// Items a GM silently placed into this monster's carried items (@give ... to <monster>)
+	if !def.Discorporate {
+		e.dropMonsterCarriedItems(killer.RoomNumber, inst)
+	}
+
 	for _, p := range recipients {
 		xp := sharedXP
 		// Scale XP slightly by player level (diminishing returns for grinding weak mobs)
@@ -2781,6 +2899,103 @@ func (e *GameEngine) handleMonsterDeath(recipients []*Player, inst *MonsterInsta
 		if e.sendToPlayer != nil {
 			e.sendToPlayer(inst.SummonerName, []string{deathMsg, fmt.Sprintf("[Stunned: %d sec]", stunSecs)})
 		}
+	}
+}
+
+// queuedTreasureDropChance is the percentage chance, per monster death (while the
+// GM-staged treasure queue is non-empty), that the front item is dispensed. The
+// original DOS-era mechanic for this queue isn't documented in the surviving GM
+// manual, so this chance — and the fact that it's independent of the monster's own
+// TREASURE level — is a judgment call matching the rest of the treasure system's
+// feel; tune freely.
+const queuedTreasureDropChance = 10
+
+// rollQueuedTreasureDrop checks the GM-staged treasure queue (see @queue/@unqueue
+// in gm_commands.go) and, on a successful roll, pops the item at the front (top)
+// of the queue and drops it into roomNum. Returns the room message to show and the
+// dropped item's display name, or ("", "") if nothing dropped.
+func (e *GameEngine) rollQueuedTreasureDrop(roomNum int) (dropMsg, itemName string) {
+	e.treasureQueueMu.Lock()
+	if len(e.treasureQueue) == 0 || rand.Intn(100) >= queuedTreasureDropChance {
+		e.treasureQueueMu.Unlock()
+		return "", ""
+	}
+	item := e.treasureQueue[0]
+	e.treasureQueue = e.treasureQueue[1:]
+	e.treasureQueueMu.Unlock()
+
+	room := e.rooms[roomNum]
+	if room == nil {
+		return "", ""
+	}
+	itemDef := e.items[item.Archetype]
+	if itemDef == nil {
+		return "", ""
+	}
+	ri := gameworld.RoomItem{
+		Ref:       nextRoomItemRef(room),
+		Archetype: item.Archetype,
+		Adj1:      item.Adj1, Adj2: item.Adj2, Adj3: item.Adj3,
+		Val1: item.Val1, Val2: item.Val2, Val3: item.Val3, Val4: item.Val4, Val5: item.Val5,
+		Sharpness:   item.Sharpness,
+		HardnessMod: item.HardnessMod,
+		ItemBits:    item.ItemBits,
+		State:       item.State,
+		Extend:      item.Tail,
+	}
+	if isContainerDef(itemDef) && len(item.Contents) > 0 {
+		e.roomContainerSet(roomNum, ri.Ref, item.Contents)
+	}
+	room.Items = append(room.Items, ri)
+	itemName = e.formatItemName(itemDef, item.Adj1, item.Adj2, item.Adj3, item.Tail)
+	return fmt.Sprintf("You see %s lies among the remains.", itemName), itemName
+}
+
+// dropMonsterCarriedItems drops everything a GM silently staged into inst's carried
+// items (via "@give <item> to <monster>", see gmGiveToMonster in gm_commands.go)
+// onto the ground when it dies, mirroring the monster's own weapon drop above.
+func (e *GameEngine) dropMonsterCarriedItems(roomNum int, inst *MonsterInstance) {
+	if len(inst.CarriedItems) == 0 {
+		return
+	}
+	room := e.rooms[roomNum]
+	if room == nil {
+		return
+	}
+	var msgs []string
+	for _, ii := range inst.CarriedItems {
+		itemDef := e.items[ii.Archetype]
+		if itemDef == nil {
+			continue
+		}
+		ri := gameworld.RoomItem{
+			Ref:       nextRoomItemRef(room),
+			Archetype: ii.Archetype,
+			Adj1:      ii.Adj1, Adj2: ii.Adj2, Adj3: ii.Adj3,
+			Val1: ii.Val1, Val2: ii.Val2, Val3: ii.Val3, Val4: ii.Val4, Val5: ii.Val5,
+			Sharpness:   ii.Sharpness,
+			HardnessMod: ii.HardnessMod,
+			ItemBits:    ii.ItemBits,
+			State:       ii.State,
+			Extend:      ii.Tail,
+		}
+		if isContainerDef(itemDef) && len(ii.Contents) > 0 {
+			e.roomContainerSet(roomNum, ri.Ref, ii.Contents)
+		}
+		room.Items = append(room.Items, ri)
+		name := e.formatItemName(itemDef, ii.Adj1, ii.Adj2, ii.Adj3, ii.Tail)
+		msgs = append(msgs, fmt.Sprintf("You see %s lies among the remains.", name))
+	}
+	inst.CarriedItems = nil
+	if e.monsterMgr != nil {
+		e.monsterMgr.mu.Lock()
+		if idx := e.monsterMgr.indexOfID(inst.ID); idx >= 0 {
+			e.monsterMgr.instances[idx].CarriedItems = nil
+		}
+		e.monsterMgr.mu.Unlock()
+	}
+	if len(msgs) > 0 && e.localRoomBroadcast != nil {
+		e.localRoomBroadcast(roomNum, msgs)
 	}
 }
 

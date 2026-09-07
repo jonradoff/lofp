@@ -268,6 +268,44 @@ func (e *GameEngine) doItemInteraction(ctx context.Context, player *Player, verb
 	return &CommandResult{Messages: []string{"You don't see that here."}}
 }
 
+// doBreak handles the BREAK verb. Per LEGENDS.DOC, "BREAK <object> with <object>"
+// is meant to destroy an item using a stronger item — a whole strength-comparison
+// mechanic that doesn't exist yet. What already exists in the world data are
+// scripted environmental reactions to BREAK (IFPREVERB BREAK <ref>) — e.g. the
+// breakable window/door in MALL2.SCR that opens a hole through once broken —
+// which this wires up to the normal item-interaction pipeline so those scripts
+// actually fire. Breaking an object with no such script still gets the "coming
+// soon" message instead of silently claiming to break it.
+func (e *GameEngine) doBreak(ctx context.Context, player *Player, args []string) *CommandResult {
+	if len(args) == 0 {
+		return &CommandResult{Messages: []string{"Break what?"}}
+	}
+	// Strip a trailing "with <tool>" clause so the target name matches the object
+	// being broken, not the (currently unused) tool doing the breaking.
+	target := args
+	for i, a := range args {
+		if strings.EqualFold(a, "with") {
+			target = args[:i]
+			break
+		}
+	}
+	if len(target) == 0 {
+		return &CommandResult{Messages: []string{"Break what?"}}
+	}
+	result := e.doItemInteraction(ctx, player, "BREAK", target)
+	if result == nil || len(result.Messages) == 0 {
+		return result
+	}
+	msg := result.Messages[0]
+	if msg == "You don't see that here." {
+		return result
+	}
+	if strings.HasPrefix(msg, "You break ") && strings.HasSuffix(msg, "Nothing happens.") {
+		return &CommandResult{Messages: []string{"[Object destruction coming soon.]"}}
+	}
+	return result
+}
+
 func (e *GameEngine) doGet(ctx context.Context, player *Player, verb string, args []string) *CommandResult {
 	if len(args) == 0 {
 		return &CommandResult{Messages: []string{"Get what?"}}
@@ -791,7 +829,7 @@ func (e *GameEngine) doStatus(player *Player) *CommandResult {
 	// Attack/Defense modifiers
 	weaponDef := e.currentWeaponDef(player)
 	atkRating := playerAttackRating(player, weaponDef)
-	defRating := playerDefenseRating(player) + armorEnchantBonus(player, e.items) + shieldDefenseBonus(player, e.items)
+	defRating := playerDefenseRating(player) + armorEnchantBonus(player, e.items) + shieldDefenseBonus(player, e.items) + e.massProtectionGroupBonus(player)
 	stanceLabel := stanceNames[player.Stance]
 
 	msgs = append(msgs,
@@ -873,6 +911,7 @@ func (e *GameEngine) doWield(ctx context.Context, player *Player, args []string)
 	target := strings.ToLower(strings.Join(args, " "))
 	target, ordSkip := parseOrdinal(target)
 	skip := ordSkip
+	room := e.rooms[player.RoomNumber]
 	for i, ii := range player.Inventory {
 		itemDef := e.items[ii.Archetype]
 		if itemDef == nil {
@@ -915,6 +954,23 @@ func (e *GameEngine) doWield(ctx context.Context, player *Player, args []string)
 		}
 
 		if !isWeapon(itemDef.Type) {
+			// Not mechanically wieldable — but give the item's own IFPREVERB WIELD
+			// script (e.g. item 1014's doll: "You brandish the doll like a shield.")
+			// a chance to produce a flavor reaction instead of the generic rejection.
+			// Scoped to this fallback only — a real weapon/shield's own WIELD script
+			// (many exist, e.g. a faction-restricted weapon that zaps the wrong
+			// wielder) is untouched and keeps using the normal mechanical wield path
+			// exclusively, same as before this fix.
+			if room != nil {
+				tempRI := gameworld.RoomItem{Ref: -1, Archetype: ii.Archetype,
+					Adj1: ii.Adj1, Adj2: ii.Adj2, Adj3: ii.Adj3,
+					Val1: ii.Val1, Val2: ii.Val2, Val3: ii.Val3, Val4: ii.Val4, Val5: ii.Val5,
+					ItemBits: ii.ItemBits, State: ii.State, Extend: ii.Tail}
+				sc := e.RunPreverbScripts(player, room, "WIELD", &tempRI, itemDef)
+				if sc.Blocked {
+					return &CommandResult{Messages: sc.Messages, RoomBroadcast: sc.RoomMsgs, GMBroadcast: sc.GMMsgs}
+				}
+			}
 			return &CommandResult{Messages: []string{"You can't wield that."}}
 		}
 
@@ -1853,13 +1909,33 @@ func (e *GameEngine) doGive(ctx context.Context, player *Player, args []string) 
 		fullName := e.formatItemName(itemDef, ii.Adj1, ii.Adj2, ii.Adj3, ii.Tail)
 		target.Inventory = append(target.Inventory, ii)
 		player.Inventory = append(player.Inventory[:i], player.Inventory[i+1:]...)
+
+		msgs := []string{fmt.Sprintf("You give %s to %s.", fullName, target.DisplayName())}
+		// Physically handing someone an item can't be done from hiding, so it breaks
+		// Hidden the same way attacking does — but NOT other concealment (Invisible,
+		// Phantom Form, GM @hide/@invis), which is magical/administrative and persists
+		// through physical contact. A giver still concealed after that gets an
+		// anonymized name instead of the room/recipient being told nothing at all
+		// (ConcealedBroadcastOK opts this out of dispatchCommandResult's default
+		// blanket suppression for concealed actors).
+		if player.Hidden {
+			player.Hidden = false
+			msgs = append([]string{"You reveal yourself!"}, msgs...)
+		}
+		giverName, giverNameCap := player.DisplayName(), player.DisplayNameCap()
+		if player.IsConcealed() {
+			giverName, giverNameCap = "something", "Something"
+		}
+
 		e.SavePlayer(ctx, player)
 		e.SavePlayer(ctx, target)
 		return &CommandResult{
-			Messages:      []string{fmt.Sprintf("You give %s to %s.", fullName, target.DisplayName())},
-			RoomBroadcast: []string{fmt.Sprintf("%s gives %s to %s.", player.DisplayNameCap(), fullName, target.DisplayName())},
-			TargetName:    target.FirstName,
-			TargetMsg:     []string{fmt.Sprintf("%s gives you %s.", player.DisplayName(), fullName)},
+			Messages:             msgs,
+			RoomBroadcast:        []string{fmt.Sprintf("%s gives %s to %s.", giverNameCap, fullName, target.DisplayName())},
+			ConcealedBroadcastOK: true,
+			TargetName:           target.FirstName,
+			TargetMsg:            []string{fmt.Sprintf("%s gives you %s.", giverName, fullName)},
+			PlayerState:          player,
 		}
 	}
 	return &CommandResult{Messages: []string{"You don't have that."}}
@@ -2251,7 +2327,7 @@ func (e *GameEngine) doSell(ctx context.Context, player *Player, args []string) 
 				continue
 			}
 			displayName := e.formatItemName(itemDef, ii.Adj1, ii.Adj2, ii.Adj3, ii.Tail)
-			sellValue := e.computeSellValue(itemDef, ii)
+			sellValue := e.computeSellValue(itemDef, &player.Inventory[i])
 			player.Inventory = append(player.Inventory[:i], player.Inventory[i+1:]...)
 			// Add coins
 			player.Gold += sellValue / 100
@@ -2269,56 +2345,108 @@ func (e *GameEngine) doSell(ctx context.Context, player *Player, args []string) 
 }
 
 // gemArchetypeSellBase maps the canonical gem item archetypes to their base copper
-// sell value. Archetypes 99-121 (Agate through Topaz) are exactly the range the
-// Wrecked Ship offering bowl (HAVEN.SCR room 2639: "IFVAR ARCHNUM => 99" / "=< 121")
-// accepts as a valid gem, confirming this is the game's own definition of "gem" — not
-// an inference from name or substance. Archetype 112 ("Stone") is the shared carrier
-// for the quartz/crystal adjective forms, priced the same as loose crystal/quartz.
-// 122 (Tourmaline) sits one past the bowl's range but is still a real treasure gem
-// elsewhere, so it's included here too.
+// sell value (computeSellValue pays out half of this on sale — see below). Archetypes
+// 99-121 (Agate through Topaz) are exactly the range the Wrecked Ship offering bowl
+// (HAVEN.SCR room 2639: "IFVAR ARCHNUM => 99" / "=< 121") accepts as a valid gem,
+// confirming this is the game's own definition of "gem" — not an inference from name
+// or substance. Archetype 112 ("Stone") is the shared carrier for the quartz/crystal
+// adjective forms, priced the same as loose crystal/quartz. 122 (Tourmaline) sits one
+// past the bowl's range but is still a real treasure gem elsewhere, so it's included
+// here too.
+//
+// These values were reconstructed from actual "sell <gem>" transactions in 1996
+// session captures (original/csanburn/band0709.txt, bog.txt, chan0409.txt,
+// ranlong.txt) — the original engine source that computed them is lost, so there's
+// no formula to recover, only the observed outputs. Per-sale prices in the captures
+// vary by roughly ±20-30% even for the same plain gem (e.g. plain carnelian sold for
+// 403, 335, and 325 copper in different sales), implying the original had some random
+// variance baked into the merchant's offer — so these bases are calibrated to the
+// average of comparable-quality sales (base = 2x the observed sell price, backed out
+// through the quality/size multiplier below when the sample wasn't a plain-adjective
+// sale), not an exact reproduction. The previous values here were placeholders on a
+// compressed 40-800 scale; the captures show the real spread was much wider — a plain
+// diamond alone sold for 156 gold (15600 copper), 19x the old top-of-scale value.
+// Agate, Amethyst, Bloodstone, Carnelian, Citrine, Diamond, Emerald, Jasper,
+// Moonstone, Obsidian, Pearl, Sapphire, Topaz, and Tourmaline are calibrated directly
+// from capture data; Alexandrite, Aquamarine, Coral, Garnet, Jacinth, Onyx, Opal,
+// Ruby, Sardonyx, and Stone have no capture sales at all and are interpolated into the
+// tier their real-world rarity suggests — treat those ten as rough placeholders pending
+// more capture evidence.
 var gemArchetypeSellBase = map[int]int{
-	99:  50,  // Agate
-	100: 250, // Alexandrite
-	101: 120, // Amethyst
-	102: 150, // Aquamarine
-	103: 90,  // Bloodstone
-	104: 50,  // Carnelian
-	105: 80,  // Citrine
-	106: 90,  // Coral
-	107: 800, // Diamond
-	108: 300, // Emerald
-	109: 100, // Garnet
-	110: 600, // Jacinth
-	111: 50,  // Jasper
-	112: 40,  // Stone (quartz/crystal adjective carrier)
-	113: 90,  // Moonstone
-	114: 90,  // Obsidian
-	115: 200, // Onyx
-	116: 400, // Opal
-	117: 200, // Pearl
-	118: 500, // Ruby
-	119: 300, // Sapphire
-	120: 200, // Sardonyx
-	121: 100, // Topaz
-	122: 180, // Tourmaline
+	99:  145,   // Agate — plain sales avg 72c → base 145 (data)
+	100: 6500,  // Alexandrite — no data; placed in the precious tier (real alexandrite often outvalues emerald)
+	101: 285,   // Amethyst — plain sales avg 142c → base 285 (data)
+	102: 600,   // Aquamarine — no data; moderate tier (pale beryl, cheaper cousin of emerald)
+	103: 570,   // Bloodstone — plain sales avg 286c → base 570 (data)
+	104: 600,   // Carnelian — blended from plain/flawless/huge/chipped samples (354-705c) → base 600 (data)
+	105: 120,   // Citrine — plain sale 60c → base 120 (data)
+	106: 300,   // Coral — no data; low-moderate tier
+	107: 31200, // Diamond — plain sale 15600c (156 gold) → base 31200 (data)
+	108: 25714, // Emerald — plain sale 12857c (128g 5s 7c) → base 25714 (data)
+	109: 600,   // Garnet — no data; moderate tier alongside bloodstone/carnelian
+	110: 3900,  // Jacinth — no data; precious tier (zircon-like)
+	111: 350,   // Jasper — blended from large/flawless/chipped samples (220-643c) → base 350 (data)
+	112: 150,   // Stone (quartz/crystal adjective carrier) — no data; common tier alongside agate/jasper
+	113: 720,   // Moonstone — plain sales avg 359c → base 720 (data)
+	114: 120,   // Obsidian — blended from tiny/large samples (92-137c) → base 120 (data)
+	115: 1200,  // Onyx — no data; mid-precious tier
+	116: 2400,  // Opal — no data; precious tier
+	117: 3230,  // Pearl — plain sale 1614c → base 3230 (data)
+	118: 7000,  // Ruby — no data; precious tier, slightly above sapphire
+	119: 6350,  // Sapphire — large (no quality adj) sale 4767c, size mult 1.5 → base 6350 (data)
+	120: 1200,  // Sardonyx — no data; same tier as onyx (its close relative)
+	121: 1380,  // Topaz — chipped sale 414c, quality mult 0.6 → base 1380 (data)
+	122: 1000,  // Tourmaline — tiny sale 254c, size mult 0.5 → base 1000 (data)
 }
 
-// computeSellValue returns the copper sell price for an item.
-// Gems are valued by archetype × quality multiplier (Val2/100).
-func (e *GameEngine) computeSellValue(itemDef *gameworld.ItemDef, ii InventoryItem) int {
+// gemValueVariance returns a random multiplier in [0.85, 1.15] applied when a gem's
+// value is first rolled, so two gems of the same archetype/quality/size don't sell for
+// identical prices — matching the captures, where the same plain gem sold for visibly
+// different amounts from one sale to the next (e.g. plain carnelian: 403, 335, 325
+// copper). Applied once at roll time and then locked into the gem's Val1, not
+// re-rolled on every appraisal or sale.
+func gemValueVariance() float64 {
+	return 0.85 + rand.Float64()*0.30
+}
+
+// computeGemValue rolls the full (pre-halving) copper value for a gem archetype at a
+// given quality/size multiplier (qualMult — see gemQualities/gemSizes in containers.go),
+// including the random per-gem variance above. Callers are expected to persist the
+// result (into the item's Val1) so the value is locked in rather than re-rolled.
+func (e *GameEngine) computeGemValue(archetype int, qualMult float64) int {
+	base, ok := gemArchetypeSellBase[archetype]
+	if !ok {
+		return 0
+	}
+	value := int(float64(base) * qualMult * gemValueVariance())
+	if value < 1 {
+		value = 1
+	}
+	return value
+}
+
+// computeSellValue returns the copper sell price for an item, halving its locked
+// full value (Val1). Gems normally have Val1 locked in at creation time (see
+// randomGemDrop and doMold) so repeated appraisals/sales of the same gem always
+// agree; a gem that somehow reached inventory without one (e.g. placed directly by
+// an original script) has its value rolled here on first use and written back into
+// *ii so it stays locked from then on.
+func (e *GameEngine) computeSellValue(itemDef *gameworld.ItemDef, ii *InventoryItem) int {
 	// Gem pricing is gated on the archetype number itself (see gemArchetypeSellBase),
 	// not on substance/REAGENT — several real gem archetypes (sapphire, diamond,
 	// garnet, sardonyx, agate, coral, topaz) are SUBSTANCE BRITTLE but were never
 	// tagged REAGENT in the original scripts, an inconsistency in the source data.
 	// Gating on REAGENT silently dropped those into the generic Val1/weight fallback
 	// below, which is near-zero for undropped gems (Val1 unset) — the reported bug.
-	if base, ok := gemArchetypeSellBase[itemDef.Number]; ok {
-		qualMult := 1.0
-		if ii.Val2 > 0 {
-			qualMult = float64(ii.Val2) / 100.0
+	if _, ok := gemArchetypeSellBase[itemDef.Number]; ok {
+		if ii.Val1 <= 0 {
+			qualMult := 1.0
+			if ii.Val2 > 0 {
+				qualMult = float64(ii.Val2) / 100.0
+			}
+			ii.Val1 = e.computeGemValue(itemDef.Number, qualMult)
 		}
-		gemValue := int(float64(base) * qualMult)
-		sellValue := gemValue / 2
+		sellValue := ii.Val1 / 2
 		if sellValue < 1 {
 			sellValue = 1
 		}
@@ -2335,7 +2463,7 @@ func (e *GameEngine) computeSellValue(itemDef *gameworld.ItemDef, ii InventoryIt
 	return sellValue
 }
 
-func (e *GameEngine) doAppraise(player *Player, args []string) *CommandResult {
+func (e *GameEngine) doAppraise(ctx context.Context, player *Player, args []string) *CommandResult {
 	if len(args) == 0 {
 		return &CommandResult{Messages: []string{"Appraise what?"}}
 	}
@@ -2375,7 +2503,8 @@ func (e *GameEngine) doAppraise(player *Player, args []string) *CommandResult {
 	if !canBuy {
 		return &CommandResult{Messages: []string{"There is no merchant here to appraise your items."}}
 	}
-	for _, ii := range player.Inventory {
+	for i := range player.Inventory {
+		ii := player.Inventory[i]
 		itemDef := e.items[ii.Archetype]
 		if itemDef == nil {
 			continue
@@ -2387,7 +2516,11 @@ func (e *GameEngine) doAppraise(player *Player, args []string) *CommandResult {
 				continue
 			}
 			displayName := e.formatItemName(itemDef, ii.Adj1, ii.Adj2, ii.Adj3, ii.Tail)
-			sellValue := e.computeSellValue(itemDef, ii)
+			hadValue := ii.Val1 > 0
+			sellValue := e.computeSellValue(itemDef, &player.Inventory[i])
+			if !hadValue && player.Inventory[i].Val1 > 0 {
+				e.SavePlayer(ctx, player) // lock in a freshly-rolled gem value
+			}
 			return &CommandResult{Messages: []string{
 				fmt.Sprintf("The merchant examines %s carefully.", displayName),
 				fmt.Sprintf("\"I'd give you %s for that.\"", formatPrice(sellValue)),
@@ -3633,6 +3766,43 @@ func (e *GameEngine) doDisarm(ctx context.Context, player *Player, args []string
 
 // ---- TURN command (book page-turning) ----
 
+// roomTurnScriptExists reports whether the room itself scripts a TURN on this specific
+// item ref (or via the "-1" catch-all). doTurnPage's generic "turn page" convenience
+// treats ANY item with Val2 > 0 as a book with that many pages — but Val2 is a generic
+// per-item value field reused for unrelated purposes elsewhere (e.g. ISLAND.SCR's
+// volcano-vent crank uses Val2 as an unlock flag, not a page count). Without this check,
+// TURNing such an item is silently swallowed as "You carefully turn the page" before the
+// room's own IFPREVERB/IFVERB TURN script ever gets a chance to run.
+func roomTurnScriptExists(room *gameworld.Room, ref int) bool {
+	if room == nil {
+		return false
+	}
+	refStr := strconv.Itoa(ref)
+	for _, b := range room.Scripts {
+		if (b.Type == "IFPREVERB" || b.Type == "IFVERB") && len(b.Args) >= 2 &&
+			strings.ToUpper(b.Args[0]) == "TURN" && (b.Args[1] == refStr || b.Args[1] == "-1") {
+			return true
+		}
+	}
+	return false
+}
+
+// itemTurnScriptExists is the inventory-item counterpart of roomTurnScriptExists: a
+// carried item can only script a bare "TURN -1" on its own archetype definition, since
+// it has no room-scoped ref.
+func itemTurnScriptExists(itemDef *gameworld.ItemDef) bool {
+	if itemDef == nil {
+		return false
+	}
+	for _, b := range itemDef.Scripts {
+		if (b.Type == "IFPREVERB" || b.Type == "IFVERB") && len(b.Args) >= 2 &&
+			strings.ToUpper(b.Args[0]) == "TURN" && b.Args[1] == "-1" {
+			return true
+		}
+	}
+	return false
+}
+
 func (e *GameEngine) doTurnPage(ctx context.Context, player *Player, args []string) *CommandResult {
 	if len(args) == 0 {
 		return nil // fall through to item interaction ("Turn what?")
@@ -3671,6 +3841,11 @@ func (e *GameEngine) doTurnPage(ctx context.Context, player *Player, args []stri
 			// Check if it's a book (has Val2 = total pages > 0)
 			if ri.Val2 <= 0 {
 				return nil // not a book, fall through to normal item interaction
+			}
+			// The room scripts its own TURN handling for this item — defer to that
+			// instead of assuming Val2 is a page count (see roomTurnScriptExists).
+			if roomTurnScriptExists(room, ri.Ref) {
+				return nil
 			}
 			// Increment page, wrap around
 			currentPage := ri.Val1
@@ -3711,6 +3886,9 @@ func (e *GameEngine) doTurnPage(ctx context.Context, player *Player, args []stri
 		}
 		if ii.Val2 <= 0 {
 			return nil // not a book, fall through
+		}
+		if itemTurnScriptExists(itemDef) {
+			return nil
 		}
 		currentPage := ii.Val1
 		totalPages := ii.Val2

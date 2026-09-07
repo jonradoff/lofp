@@ -1083,6 +1083,8 @@ func (e *GameEngine) doCastSpell(ctx context.Context, player *Player, args []str
 			result = e.castSummonSpectralWarrior(player)
 		case 400: // Detect Magic
 			result = e.castDetectMagic(player, args)
+		case 404: // Aura Sense
+			result = e.castAuraSense(player, args)
 		case 228: // Identify
 			result = e.castIdentifySpell(player, args)
 		case 305: // Breath of Life
@@ -1163,6 +1165,15 @@ func (e *GameEngine) doCastSpell(ctx context.Context, player *Player, args []str
 func (e *GameEngine) castSpellBackfire(ctx context.Context, player *Player, spell *SpellDef) *CommandResult {
 	switch spell.Effect {
 	case "damage":
+		// Turn Undead I/II and Destroy Undead I/II/III only harm the undead (see
+		// isUndeadOnlySpell) — a non-undead caster is just as immune to their own
+		// backfire as any other living target would be to the spell itself.
+		if isUndeadOnlySpell(spell.ID) && !player.Undead {
+			return &CommandResult{
+				Messages:      []string{"The magic twists out of your control, but since you aren't undead, it has no effect on you!"},
+				RoomBroadcast: []string{fmt.Sprintf("Magic flares wildly around %s but fizzles harmlessly.", player.DisplayName())},
+			}
+		}
 		dmg := rand.Intn(spell.DmgMax-spell.DmgMin+1) + spell.DmgMin
 		dmg += masteryDamageBonus(spellMasteryLevel(player, spell), player)
 		if dmg <= 0 {
@@ -1896,6 +1907,14 @@ func (e *GameEngine) castHealSpell(ctx context.Context, player *Player, spell *S
 		return e.castBodyRestorationOnUndead(ctx, player, target, spell, targetName, amount)
 	}
 
+	// Body Restoration on a living target calls upon the forces of life — nudges the
+	// caster's alignment toward good, same ±1 step as a monster kill (combat.go), with
+	// the caster-only flavor line confirmed from original session captures (csanburn/*.txt).
+	isBodyRestoration := spell.ID == 316 || spell.ID == 317 || spell.ID == 318
+	if isBodyRestoration {
+		player.Alignment++
+	}
+
 	// Regeneration (343) heals once immediately, then again every minute for 5 more minutes.
 	if spell.ID == 343 {
 		target.RegenerationAmount = amount
@@ -1936,6 +1955,9 @@ func (e *GameEngine) castHealSpell(ctx context.Context, player *Player, spell *S
 		if wakeMsg != "" {
 			msgs = append(msgs, wakeMsg)
 		}
+		if isBodyRestoration {
+			msgs = append(msgs, "You sense the pleasure of the gods as you call upon the forces of life.")
+		}
 		return &CommandResult{
 			Messages:      msgs,
 			RoomBroadcast: []string{fmt.Sprintf("%s gestures and casts %s.", player.DisplayName(), spell.Name)},
@@ -1946,8 +1968,12 @@ func (e *GameEngine) castHealSpell(ctx context.Context, player *Player, spell *S
 	if wakeMsg != "" {
 		targetMsgs = append(targetMsgs, wakeMsg)
 	}
+	casterMsgs := []string{fmt.Sprintf("You gesture and cast %s on %s, healing %d body points.", spell.Name, targetName, amount)}
+	if isBodyRestoration {
+		casterMsgs = append(casterMsgs, "You sense the pleasure of the gods as you call upon the forces of life.")
+	}
 	return &CommandResult{
-		Messages:      []string{fmt.Sprintf("You gesture and cast %s on %s, healing %d body points.", spell.Name, targetName, amount)},
+		Messages:      casterMsgs,
 		RoomBroadcast: []string{fmt.Sprintf("%s gestures and casts %s on %s.", player.DisplayName(), spell.Name, targetName)},
 		TargetName:    target.FirstName,
 		TargetMsg:     targetMsgs,
@@ -2094,11 +2120,16 @@ func (e *GameEngine) castBreathOfLife(ctx context.Context, player *Player, args 
 	}
 	e.SavePlayer(ctx, target)
 
+	// Breath of Life calls upon the forces of life just as Body Restoration does, but
+	// pulling someone back from death is the far greater act — a +2 step, not the usual +1.
+	player.Alignment += 2
+
 	return &CommandResult{
 		Messages: []string{
 			fmt.Sprintf("You kneel down and lay your hands upon %s's body.", target.FirstName),
 			"You feel like the conduit for an overwhelming force as you complete the spell.",
 			fmt.Sprintf("A few seconds later, %s rises from death!", target.FirstName),
+			"You sense the pleasure of the gods as you call upon the forces of life.",
 		},
 		RoomBroadcast: []string{
 			fmt.Sprintf("%s kneels down and lays hands upon %s's body.", player.FirstName, target.FirstName),
@@ -5855,6 +5886,43 @@ func (e *GameEngine) castDetectMagic(player *Player, args []string) *CommandResu
 	return &CommandResult{
 		Messages:      []string{msg},
 		RoomBroadcast: []string{fmt.Sprintf("%s gestures at %s, which %s.", player.DisplayName(), itemName, glow)},
+	}
+}
+
+// castAuraSense handles spell 404 — Aura Sense. Reveals the target's alignment as a
+// color, using the same band boundaries documented in MANUAL.DOC's ALIGN variable
+// entry (also used by @edpl/alignmentColorBand): White (50+), Soft Yellow (10-49),
+// Green (1-9), Blue (-5-0), Deep Purple (-99--6), Pure Darkness (-100). Confirmed
+// against session captures (csanburn/badge.txt, ranlong.txt) — "You envision a
+// blue/green aura around <name>." — and in-character commentary in wolf0706.txt
+// ("Blue is neutral I think" / "you don't have to do a whole lot of good to get a
+// green aura") matching that same ordering.
+func (e *GameEngine) castAuraSense(player *Player, args []string) *CommandResult {
+	target := player
+	targetName := "yourself"
+	if len(args) > 0 {
+		t := strings.ToLower(strings.Join(args, " "))
+		if t != "me" && t != "myself" && t != "self" {
+			found := e.findPlayerInRoom(player, t)
+			if found == nil {
+				return &CommandResult{Messages: []string{"You don't see that here."}, TargetNotFound: true}
+			}
+			target = found
+			targetName = found.FirstName
+		}
+	}
+
+	color := strings.ToLower(alignmentColorBand(target.Alignment))
+
+	if target == player {
+		return &CommandResult{
+			Messages:      []string{fmt.Sprintf("You envision a %s aura around yourself.", color)},
+			RoomBroadcast: []string{fmt.Sprintf("%s gestures.", player.DisplayName())},
+		}
+	}
+	return &CommandResult{
+		Messages:      []string{fmt.Sprintf("You envision a %s aura around %s.", color, targetName)},
+		RoomBroadcast: []string{fmt.Sprintf("%s gestures at %s.", player.DisplayName(), targetName)},
 	}
 }
 

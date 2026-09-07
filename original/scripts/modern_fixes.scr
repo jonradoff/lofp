@@ -8,6 +8,23 @@
 NOUNDEF 9001 charm
 ADJDEF 9001 reroll
 ;
+; Org 14 (Cult of Dahkahn) had two conflicting ORGDEF registrations:
+;   - INDOOR.SCR:  ORGDEF 14 INVITE TEMPLE 429 Cult_of_Dahkahn  (room 429 doesn't exist anywhere)
+;   - EDDIE3.SCR:  ORGDEF 14 INVITE TEMPLE 65  Cult_of_Dahkahn  (room 65 is "Temple of Shin-jah,
+;                  Top Platform" — a different deity's altar, not Dahkahn's)
+; Since EDDIE3.SCR loads after INDOOR.SCR and OrgDefs are last-write-wins (keyed by
+; org number in engine.go), room 65 was the one actually in effect — so members saw
+; a Shin-jah room with no Dahkahn framing when sent to their temple, and (more
+; importantly) autoTrainOrgRank's "player.RoomNumber == def.TrainingRoom" check never
+; matched real Dahkahn training, since the room that actually carries the
+; "---------------Dahkahn training---------------" TRAINING lines (skills 6, 7, 10,
+; 12, 14, 23, 26, 27, 28, 29, 30, 32) is room 76, "Dark Cathedral, Chancel" — the room
+; with Dahkahn's statue and sacrificial altar, several rooms away from 65. Training
+; itself still worked in room 76 (room.TrainingSkills isn't org-gated), but members
+; training there could never advance their Cult of Dahkahn rank. Repointing TEMPLE to
+; 76, the room the training data actually lives in.
+ORGDEF 14 INVITE TEMPLE 76 Cult_of_Dahkahn
+;
 ; Nobody could figure out how to get out of the Rare Weapon Exchange! Changed the door to a normal type
 ; that you can use GO on (the push door function still works though).
 ;
@@ -225,4 +242,393 @@ TEX1 A large wolf perks its ears up.
 TEX2 A large wolf stalks around the area.
 TEX3 A large wolf bares its teeth and snarls.
 TEX4 A large wolf sniffs at the air.
+;
+; ISLAND.SCR rooms 2751/2752 (the underwater pools): two bugs.
+;
+; 1) "GO SURFACE" always failed. Item ref 8 (arch 1597) is the "surface" item
+;    the player's GO target actually resolves to, but the surfacing script
+;    checked IFPREVERB GO 9 — ref 9 is arch 693 ("ucantsee"), an unrelated
+;    hidden placeholder item with no matchable name.
+;
+; 2) The "you can't hold your breath" auto-surface only worked sporadically
+;    (in practice, for whichever player happened to SAY something in the
+;    room). The original script raised FLAG1 from many different triggers
+;    (SEARCH/WIELD/UNWIELD/PICK/TOUCH/CONCENTRATE/ATTACK/CAST) but checked
+;    "IFVAR FLAG1 > 2" as a bare top-level block — the engine only evaluates
+;    bare top-level room IFVAR blocks when a player speaks (RunSayScripts);
+;    there's no equivalent generic sweep after ordinary commands. So the
+;    check was effectively dead except via the room's own IFSAY/ELSE speech
+;    handler. Fixed by moving the FLAG1>2 check inline, right after each
+;    ADD FLAG1 — each of those triggers already fires reliably through its
+;    own verb-specific script runner (RunPreverbScripts/RunRoomVerbScripts),
+;    so the check now runs (per-player — FLAG1 is a player field) every time
+;    any player's own count crosses the threshold, regardless of other
+;    players in the room or of that player ever speaking.
+;
+; Redefining the rooms whole since the parser replaces same-numbered rooms
+; entirely rather than patching individual lines.
+;
+NUMBER 2751
+REGION 11
+NAME Pool
+CALL 33
+ITEM 9 693
+*DESCRIPTION_START
+Though from above the pool looked dark, some magic allows it to be illuminated to those in the water. The water fills a huge circular chamber with a door in the eastern wall. By going back to the surface, you'll be able to leave the pool.
+*DESCRIPTION_END
+LIMITED_MOVEMENT
+MONSTER_GROUP 63
+UNDERSEA
+FIXED_LIGHT
+ITEM 0 66 CLOSED LOCKED VAL1=60 VAL2=2752 VAL3=3001
+ITEM 8 1597
+IFVERB SEARCH -1
+	ADD FLAG1 1
+	IFVAR FLAG1 > 2
+		IFVAR RAC < 7
+			ECHO PLAYER You can't hold your breath any longer and swim up out of the pool.
+			ECHO OTHERS With a stream of bubbles, %N swims to the surface of the pool and gets out.
+			AFFECT 2750
+				ECHO ALL Out of breath, %N emerges from the pool.
+			EQUAL ROUNDTIME 20
+			AFFECT 2751
+				MOVE 2750
+		ENDIF
+	ENDIF
+	IFVAR SHOOOTER ! TIM
+		RANDOM DUMMY1 1 100 0
+		ADD DUMMY1 PER
+		IFVAR DUMMY1 > 200
+			EQUAL SHOOOTER TIM
+			NEWITEM 4 1918 ADJ1=1381
+			ECHO PLAYER After a careful search, You find some kraken roe.
+			ECHO OTHERS %N found something!
+		ENDIF
+	ENDIF
+ENDIF
+IFVERB CLOSE 0
+	ECHO ALL You hear the click of a lock closing.
+	LOCK 0
+ENDIF
+IFPREVERB TRANSFORM -1
+	CLEARVERB
+	ECHO PLAYER You are unable to transform in the agitated water.
+ENDIF
+IFSAY LSJDJWEDYHGKJHDSYEW
+	ECHO PLAYER Oh my!
+ELSE
+	IFVAR RAC < 7
+		ECHO PLAYER You open your mouth to speak but lose all your air and have to swim out of the pool.
+		ECHO OTHERS With a stream of bubbles, %N swims to the surface of the pool and gets out.
+		AFFECT 2751
+			ECHO ALL Out of breath, %N emerges from the pool.
+		EQUAL ROUNDTIME 20
+		AFFECT 2751
+			MOVE 2750
+	ENDIF
+ENDIF
+IFPREVERB WIELD -1
+	ADD FLAG1 1
+	IFVAR FLAG1 > 2
+		IFVAR RAC < 7
+			ECHO PLAYER You can't hold your breath any longer and swim up out of the pool.
+			ECHO OTHERS With a stream of bubbles, %N swims to the surface of the pool and gets out.
+			AFFECT 2750
+				ECHO ALL Out of breath, %N emerges from the pool.
+			EQUAL ROUNDTIME 20
+			AFFECT 2751
+				MOVE 2750
+		ENDIF
+	ENDIF
+ENDIF
+IFPREVERB UNWIELD -1
+	ADD FLAG1 1
+	IFVAR FLAG1 > 2
+		IFVAR RAC < 7
+			ECHO PLAYER You can't hold your breath any longer and swim up out of the pool.
+			ECHO OTHERS With a stream of bubbles, %N swims to the surface of the pool and gets out.
+			AFFECT 2750
+				ECHO ALL Out of breath, %N emerges from the pool.
+			EQUAL ROUNDTIME 20
+			AFFECT 2751
+				MOVE 2750
+		ENDIF
+	ENDIF
+ENDIF
+IFPREVERB PICK 0
+	ADD FLAG1 2
+	IFVAR FLAG1 > 2
+		IFVAR RAC < 7
+			ECHO PLAYER You can't hold your breath any longer and swim up out of the pool.
+			ECHO OTHERS With a stream of bubbles, %N swims to the surface of the pool and gets out.
+			AFFECT 2750
+				ECHO ALL Out of breath, %N emerges from the pool.
+			EQUAL ROUNDTIME 20
+			AFFECT 2751
+				MOVE 2750
+		ENDIF
+	ENDIF
+ENDIF
+IFTOUCH -1
+	ADD FLAG1 1
+	IFVAR FLAG1 > 2
+		IFVAR RAC < 7
+			ECHO PLAYER You can't hold your breath any longer and swim up out of the pool.
+			ECHO OTHERS With a stream of bubbles, %N swims to the surface of the pool and gets out.
+			AFFECT 2750
+				ECHO ALL Out of breath, %N emerges from the pool.
+			EQUAL ROUNDTIME 20
+			AFFECT 2751
+				MOVE 2750
+		ENDIF
+	ENDIF
+ENDIF
+IFPREVERB CONCENTRATE -1
+	ADD FLAG1 2
+	IFVAR FLAG1 > 2
+		IFVAR RAC < 7
+			ECHO PLAYER You can't hold your breath any longer and swim up out of the pool.
+			ECHO OTHERS With a stream of bubbles, %N swims to the surface of the pool and gets out.
+			AFFECT 2750
+				ECHO ALL Out of breath, %N emerges from the pool.
+			EQUAL ROUNDTIME 20
+			AFFECT 2751
+				MOVE 2750
+		ENDIF
+	ENDIF
+ENDIF
+IFPREVERB ATTACK -1
+	ADD FLAG1 2
+	IFVAR FLAG1 > 2
+		IFVAR RAC < 7
+			ECHO PLAYER You can't hold your breath any longer and swim up out of the pool.
+			ECHO OTHERS With a stream of bubbles, %N swims to the surface of the pool and gets out.
+			AFFECT 2750
+				ECHO ALL Out of breath, %N emerges from the pool.
+			EQUAL ROUNDTIME 20
+			AFFECT 2751
+				MOVE 2750
+		ENDIF
+	ENDIF
+ENDIF
+IFPREVERB CAST -1
+	ADD FLAG1 2
+	IFVAR FLAG1 > 2
+		IFVAR RAC < 7
+			ECHO PLAYER You can't hold your breath any longer and swim up out of the pool.
+			ECHO OTHERS With a stream of bubbles, %N swims to the surface of the pool and gets out.
+			AFFECT 2750
+				ECHO ALL Out of breath, %N emerges from the pool.
+			EQUAL ROUNDTIME 20
+			AFFECT 2751
+				MOVE 2750
+		ENDIF
+	ENDIF
+ENDIF
+IFPREVERB GO 8
+	ECHO PLAYER You can't hold your breath any longer and swim up out of the pool.
+	ECHO OTHERS With a stream of bubbles, %N swims to the surface of the pool and gets out.
+	AFFECT 2750
+		ECHO ALL Out of breath, %N emerges from the pool.
+	EQUAL ROUNDTIME 20
+	AFFECT 2751
+	MOVE 2750
+	CLEARVERB
+ENDIF
+;
+NUMBER 2752
+REGION 11
+NAME Pool
+CALL 33
+ITEM 9 693
+*DESCRIPTION_START
+Though from above the pool looked dark, some magic allows it to be illuminated to those in the water. The water fills a huge circular chamber with a door in the western wall. Going back to the surface, you'll be able to leave the pool.
+*DESCRIPTION_END
+MONSTER_GROUP 63
+LIMITED_MOVEMENT
+FIXED_LIGHT
+UNDERSEA
+ITEM 0 66 CLOSED LOCKED VAL1=60 VAL2=2751 VAL3=3001
+IFVERB SEARCH -1
+	ADD FLAG1 1
+	IFVAR FLAG1 > 2
+		IFVAR RAC < 7
+			ECHO PLAYER You can't hold your breath any longer and swim up out of the pool.
+			ECHO OTHERS With a stream of bubbles, %N swims to the surface of the pool and gets out.
+			AFFECT 2753
+				ECHO ALL Out of breath, %N emerges from the pool.
+			EQUAL ROUNDTIME 20
+			AFFECT 2752
+				MOVE 2753
+		ENDIF
+	ENDIF
+	IFVAR SHOOOTER ! TIM
+		RANDOM DUMMY1 1 100 0
+		ADD DUMMY1 PER
+		IFVAR DUMMY1 > 200
+			EQUAL SHOOOTER TIM
+			NEWITEM 4 1918 ADJ1=1381
+			ECHO PLAYER After a careful search, You find some kraken roe.
+			ECHO OTHERS %N found something!
+		ENDIF
+	ENDIF
+ENDIF
+IFVERB CLOSE 0
+	ECHO ALL You hear the click of a lock closing.
+	LOCK 0
+ENDIF
+ITEM 8 1597
+IFPREVERB TRANSFORM -1
+	CLEARVERB
+	ECHO PLAYER You are unable to transform in the agitated water.
+ENDIF
+IFSAY LSJDJWEDYHGKJHDSYEW
+	ECHO PLAYER Oh my!
+ELSE
+	IFVAR RAC < 7
+		ECHO PLAYER You open your mouth to speak but lose all your air and have to swim out of the pool.
+		ECHO OTHERS With a stream of bubbles, %N swims to the surface of the pool and gets out.
+		AFFECT 2753
+			ECHO ALL Out of breath, %N emerges from the pool.
+		EQUAL ROUNDTIME 20
+		AFFECT 2752
+			MOVE 2753
+	ENDIF
+ENDIF
+IFPREVERB WIELD -1
+	ADD FLAG1 1
+	IFVAR FLAG1 > 2
+		IFVAR RAC < 7
+			ECHO PLAYER You can't hold your breath any longer and swim up out of the pool.
+			ECHO OTHERS With a stream of bubbles, %N swims to the surface of the pool and gets out.
+			AFFECT 2753
+				ECHO ALL Out of breath, %N emerges from the pool.
+			EQUAL ROUNDTIME 20
+			AFFECT 2752
+				MOVE 2753
+		ENDIF
+	ENDIF
+ENDIF
+IFPREVERB UNWIELD -1
+	ADD FLAG1 1
+	IFVAR FLAG1 > 2
+		IFVAR RAC < 7
+			ECHO PLAYER You can't hold your breath any longer and swim up out of the pool.
+			ECHO OTHERS With a stream of bubbles, %N swims to the surface of the pool and gets out.
+			AFFECT 2753
+				ECHO ALL Out of breath, %N emerges from the pool.
+			EQUAL ROUNDTIME 20
+			AFFECT 2752
+				MOVE 2753
+		ENDIF
+	ENDIF
+ENDIF
+IFPREVERB PICK 0
+	ADD FLAG1 3
+	IFVAR FLAG1 > 2
+		IFVAR RAC < 7
+			ECHO PLAYER You can't hold your breath any longer and swim up out of the pool.
+			ECHO OTHERS With a stream of bubbles, %N swims to the surface of the pool and gets out.
+			AFFECT 2753
+				ECHO ALL Out of breath, %N emerges from the pool.
+			EQUAL ROUNDTIME 20
+			AFFECT 2752
+				MOVE 2753
+		ENDIF
+	ENDIF
+ENDIF
+IFTOUCH -1
+	ADD FLAG1 1
+	IFVAR FLAG1 > 2
+		IFVAR RAC < 7
+			ECHO PLAYER You can't hold your breath any longer and swim up out of the pool.
+			ECHO OTHERS With a stream of bubbles, %N swims to the surface of the pool and gets out.
+			AFFECT 2753
+				ECHO ALL Out of breath, %N emerges from the pool.
+			EQUAL ROUNDTIME 20
+			AFFECT 2752
+				MOVE 2753
+		ENDIF
+	ENDIF
+ENDIF
+IFPREVERB ATTACK -1
+	ADD FLAG1 2
+	IFVAR FLAG1 > 2
+		IFVAR RAC < 7
+			ECHO PLAYER You can't hold your breath any longer and swim up out of the pool.
+			ECHO OTHERS With a stream of bubbles, %N swims to the surface of the pool and gets out.
+			AFFECT 2753
+				ECHO ALL Out of breath, %N emerges from the pool.
+			EQUAL ROUNDTIME 20
+			AFFECT 2752
+				MOVE 2753
+		ENDIF
+	ENDIF
+ENDIF
+IFPREVERB PSI -1
+	ADD FLAG1 2
+	IFVAR FLAG1 > 2
+		IFVAR RAC < 7
+			ECHO PLAYER You can't hold your breath any longer and swim up out of the pool.
+			ECHO OTHERS With a stream of bubbles, %N swims to the surface of the pool and gets out.
+			AFFECT 2753
+				ECHO ALL Out of breath, %N emerges from the pool.
+			EQUAL ROUNDTIME 20
+			AFFECT 2752
+				MOVE 2753
+		ENDIF
+	ENDIF
+ENDIF
+IFPREVERB PROJECT -1
+	ADD FLAG1 2
+	IFVAR FLAG1 > 2
+		IFVAR RAC < 7
+			ECHO PLAYER You can't hold your breath any longer and swim up out of the pool.
+			ECHO OTHERS With a stream of bubbles, %N swims to the surface of the pool and gets out.
+			AFFECT 2753
+				ECHO ALL Out of breath, %N emerges from the pool.
+			EQUAL ROUNDTIME 20
+			AFFECT 2752
+				MOVE 2753
+		ENDIF
+	ENDIF
+ENDIF
+IFPREVERB BACKSTAB -1
+	ADD FLAG1 2
+	IFVAR FLAG1 > 2
+		IFVAR RAC < 7
+			ECHO PLAYER You can't hold your breath any longer and swim up out of the pool.
+			ECHO OTHERS With a stream of bubbles, %N swims to the surface of the pool and gets out.
+			AFFECT 2753
+				ECHO ALL Out of breath, %N emerges from the pool.
+			EQUAL ROUNDTIME 20
+			AFFECT 2752
+				MOVE 2753
+		ENDIF
+	ENDIF
+ENDIF
+IFPREVERB CAST -1
+	ADD FLAG1 2
+	IFVAR FLAG1 > 2
+		IFVAR RAC < 7
+			ECHO PLAYER You can't hold your breath any longer and swim up out of the pool.
+			ECHO OTHERS With a stream of bubbles, %N swims to the surface of the pool and gets out.
+			AFFECT 2753
+				ECHO ALL Out of breath, %N emerges from the pool.
+			EQUAL ROUNDTIME 20
+			AFFECT 2752
+				MOVE 2753
+		ENDIF
+	ENDIF
+ENDIF
+IFPREVERB GO 8
+	ECHO PLAYER You can't hold your breath any longer and swim up out of the pool.
+	ECHO OTHERS With a stream of bubbles, %N swims to the surface of the pool and gets out.
+	AFFECT 2753
+		ECHO ALL Out of breath, %N emerges from the pool.
+		EQUAL ROUNDTIME 20
+	AFFECT 2752
+	MOVE 2753
+	CLEARVERB
+ENDIF
 ;

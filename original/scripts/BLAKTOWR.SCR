@@ -1,7 +1,16 @@
-MLIST 118 207 40 5
-MLIST 118 208 30 5
-MLIST 118 209 20 3
-MLIST 118 210 20 3
+; Room 3855's spawn checks run on the shared global cooldown (~20-30s, see
+; spawnCheckCooldown/respawnNearPlayers in monsters.go) every monster group in
+; the game uses — that timer was already slowed once for a different room's
+; over-spawning bug and reverted for nerfing every other area's respawn rate,
+; so it's staying untouched. These four probabilities used to sum to 110%
+; (i.e. more than one monster expected per check), so two players clearing one
+; arrival in ~40-60s (2-3 checks) would see roughly three more spawn in behind
+; them. Rescaled down to ~41% combined (~1 expected monster per 2-3 checks,
+; matching one kill cycle) 2026-09-02 per user report; caps left at 5/5/3/3.
+MLIST 118 207 15 5
+MLIST 118 208 10 5
+MLIST 118 209 8 3
+MLIST 118 210 8 3
 ;
 NUMBER 3850
 NAME Swamp, clearing

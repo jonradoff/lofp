@@ -23,10 +23,19 @@ MLIST 49 266 1 1
 ;
 ; UnderKeep
 ;
-MLIST 81 241 35 2
-MLIST 81 242 25 2
-MLIST 81 243 25 2
-MLIST 81 244 20 2
+; Shared by 9 rooms (KEEP.SCR: 1042, 3947, 3991-3999) via each room's own
+; MONSTERGROUP 81, each spawn-checked independently on the shared global
+; cooldown (same spawnCheckCooldown/respawnNearPlayers timer every monster
+; group in the game uses — see the Black Tower fix in BLAKTOWR.SCR for why
+; that timer itself stays untouched). These four probabilities used to sum to
+; 105% (i.e. more than one monster expected per check in every one of those
+; rooms), producing the same "kill one, three more show up" over-spawning
+; reported for Black Tower. Rescaled down to ~42% combined 2026-09-02 per user
+; report; caps left at 2/2/2/2.
+MLIST 81 241 14 2
+MLIST 81 242 10 2
+MLIST 81 243 10 2
+MLIST 81 244 8 2
 ;
 ;************MONSTERS.SCR  17 FEB 93
 ;

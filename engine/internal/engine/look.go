@@ -522,6 +522,9 @@ func (e *GameEngine) examineCarriedItem(player *Player, room *gameworld.Room, ii
 		}
 	}
 	roomMsgs := append(append([]string{}, sc0.RoomMsgs...), sc.RoomMsgs...)
+	if lines := e.weaponsmithAppraisalLines(player, itemDef, ii.Sharpness, ii.Val2, ii.Adj1, ii.Adj2, ii.Adj3, ii.HardnessMod); len(lines) > 0 {
+		msgs = append(msgs, lines...)
+	}
 	return &CommandResult{Messages: msgs, RoomBroadcast: roomMsgs}
 }
 
@@ -1088,21 +1091,48 @@ func (e *GameEngine) formatItemNameNoArticle(def *gameworld.ItemDef, adj1, adj2,
 
 func (e *GameEngine) formatItemName(def *gameworld.ItemDef, adj1, adj2, adj3 int, tail ...string) string {
 	var parts []string
-	if adj1 > 0 {
+	// Skip an instance adjective that would visibly repeat a word already in the
+	// archetype's own name — either its fixed Adjective/Adjective2 (added below via
+	// getItemNounName) or its noun itself. E.g. crafting a "leather helmet"
+	// (ADJECTIVE 180 "leather") out of plain "leather" material writes that same
+	// adjective ID into the instance's Adj3 (see buildWeaveCraftAdjs — it always pins
+	// the material's category there, since at least one room script reads ITEMADJ3 to
+	// tell cotton from wool, so that write can't just be skipped upstream); crafting
+	// "boiled leather" (noun "leather", ADJECTIVE "boiled") the same way would
+	// otherwise read "a leather boiled leather" — same redundancy, different word
+	// pair. This only changes the displayed name; the instance field itself is
+	// untouched, so anything reading it directly still sees the real value.
+	bareNoun := e.nouns[def.NameID]
+	isArchetypeAdj := func(id int) bool {
+		if id <= 0 {
+			return false
+		}
+		if id == def.Adjective || id == def.Adjective2 {
+			return true
+		}
+		if name, ok := e.adjectives[id]; ok && bareNoun != "" && strings.EqualFold(name, bareNoun) {
+			return true
+		}
+		return false
+	}
+	if adj1 > 0 && !isArchetypeAdj(adj1) {
 		if name, ok := e.adjectives[adj1]; ok {
 			parts = append(parts, name)
 		}
 	}
-	if adj2 > 0 {
+	if adj2 > 0 && !isArchetypeAdj(adj2) {
 		if name, ok := e.adjectives[adj2]; ok {
 			parts = append(parts, name)
 		}
 	}
-	if adj3 > 0 {
+	if adj3 > 0 && !isArchetypeAdj(adj3) {
 		if name, ok := e.adjectives[adj3]; ok {
 			parts = append(parts, name)
 		}
 	}
+	// getItemNounName already folds in this archetype's fixed Adjective/
+	// Adjective2 (e.g. "round" on a round shield), so it lands after any
+	// instance adjectives (crafted-in material, dye, encrusted gems) here.
 	nounName := e.getItemNounName(def)
 	parts = append(parts, nounName)
 
@@ -1131,11 +1161,36 @@ func (e *GameEngine) formatItemName(def *gameworld.ItemDef, adj1, adj2, adj3 int
 	return strings.ToLower(article) + " " + name
 }
 
+// getItemNounName returns this archetype's displayed name: its noun, prefixed
+// by its fixed Adjective/Adjective2 if it has any (see ItemDef.Adjective) —
+// e.g. "shield" for a plain archetype, but "tower shield" or "large round
+// shield" for one with a baked-in shape adjective. This is the noun nearly
+// every command in the engine matches player input against (see
+// matchesTarget's callers), so centralizing the archetype adjective here
+// rather than at each call site is what lets "TAP tower shield" work
+// everywhere a bare noun match already did, with no per-command changes.
+// Every pre-existing item has Adjective == 0, so this is a no-op for them.
 func (e *GameEngine) getItemNounName(def *gameworld.ItemDef) string {
+	noun := fmt.Sprintf("item#%d", def.Number)
 	if name, ok := e.nouns[def.NameID]; ok {
-		return name
+		noun = name
 	}
-	return fmt.Sprintf("item#%d", def.Number)
+	var parts []string
+	if def.Adjective > 0 {
+		if name := e.getAdjName(def.Adjective); name != "" {
+			parts = append(parts, strings.ToLower(name))
+		}
+	}
+	if def.Adjective2 > 0 {
+		if name := e.getAdjName(def.Adjective2); name != "" {
+			parts = append(parts, strings.ToLower(name))
+		}
+	}
+	if len(parts) == 0 {
+		return noun
+	}
+	parts = append(parts, noun)
+	return strings.Join(parts, " ")
 }
 
 // adjByName returns the adjective ID for a given name (case-insensitive), or 0 if not found.
@@ -1196,6 +1251,10 @@ func (e *GameEngine) examineRoomItem(player *Player, room *gameworld.Room, def *
 		if len(segs) > 0 {
 			e.scheduleScriptSegments(player, segs)
 		}
+	}
+
+	if lines := e.weaponsmithAppraisalLines(player, def, ri.Sharpness, ri.Val2, ri.Adj1, ri.Adj2, ri.Adj3, ri.HardnessMod); len(lines) > 0 {
+		result.Messages = append(result.Messages, lines...)
 	}
 
 	return result
@@ -1410,4 +1469,18 @@ func isWeapon(itemType string) bool {
 		return true
 	}
 	return false
+}
+
+// weaponsmithAppraisalLines returns extra EXAMINE lines revealing a weapon's
+// non-magical bonus (Sharpness), magical bonus (Val2), and Weapon Clash
+// hardness rating (weaponHardnessFor) — visible only to a player with
+// Weaponsmithing skill (8), matching the manual's description of weaponsmiths
+// as the ones who judge a weapon's material make-up and craftsmanship. Returns
+// nil for non-weapons or a player with no Weaponsmithing training.
+func (e *GameEngine) weaponsmithAppraisalLines(player *Player, def *gameworld.ItemDef, sharpness, val2, adj1, adj2, adj3, hardnessMod int) []string {
+	if player == nil || def == nil || !isWeapon(def.Type) || player.Skills[8] < 1 {
+		return nil
+	}
+	hardness := e.weaponHardnessFor(def, adj1, adj2, adj3, hardnessMod)
+	return []string{fmt.Sprintf("Your Weaponsmithing expertise reveals: non-magical bonus %+d, magical bonus %+d, hardness rating %d.", sharpness, val2, hardness)}
 }

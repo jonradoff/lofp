@@ -547,77 +547,141 @@ func (e *GameEngine) doGo(ctx context.Context, player *Player, args []string) *C
 		// would report the destination instead of the room being left.
 		originalRoom := player.RoomNumber
 		riCopy := ri
-		sc := e.RunPreverbScripts(player, room, "GO", &riCopy, itemDef)
-		sc2 := e.RunVerbScripts(player, room, "GO", &riCopy, itemDef)
-		// PLREVENT/CONTPLREVENT-deferred actions must be scheduled, or everything
-		// after the delay is lost — regardless of which branch below is taken.
-		for _, segs := range [][]ScriptSegment{sc.DeferredSegments, sc2.DeferredSegments} {
-			if len(segs) > 0 {
-				e.scheduleScriptSegments(player, segs)
-			}
+		return e.runGoItemScripts(ctx, player, room, &riCopy, itemDef, originalRoom)
+	}
+
+	// Not on the floor — check inventory, worn, wielded, and off-hand items. Some
+	// portable items script their own "enter" behavior on GO rather than being a
+	// PORTAL-type item (e.g. item 1290's bedroll: "IFVERB GO -1" unzips it, crawls
+	// inside, and MOVEs the player to a pocket room) — without this, "GO bedroll"
+	// always fell through to "You don't see that here." since only room.Items was
+	// ever checked. Portal-type items are never carried, so there's no isPortal
+	// branch here like the room-item loop above.
+	allPlayerItems := make([]InventoryItem, 0, len(player.Inventory)+len(player.Worn)+2)
+	allPlayerItems = append(allPlayerItems, player.Inventory...)
+	allPlayerItems = append(allPlayerItems, player.Worn...)
+	if player.Wielded != nil {
+		allPlayerItems = append(allPlayerItems, *player.Wielded)
+	}
+	if player.OffHand != nil {
+		allPlayerItems = append(allPlayerItems, *player.OffHand)
+	}
+	for _, ii := range allPlayerItems {
+		itemDef := e.items[ii.Archetype]
+		if itemDef == nil {
+			continue
 		}
-		result := &CommandResult{}
-		result.Messages = append(result.Messages, sc.Messages...)
-		result.Messages = append(result.Messages, sc2.Messages...)
-		result.RoomBroadcast = append(result.RoomBroadcast, sc.RoomMsgs...)
-		result.RoomBroadcast = append(result.RoomBroadcast, sc2.RoomMsgs...)
-		result.GMBroadcast = append(result.GMBroadcast, sc.GMMsgs...)
-		result.GMBroadcast = append(result.GMBroadcast, sc2.GMMsgs...)
-		if sc.NeedsSave || sc2.NeedsSave {
-			e.SavePlayer(ctx, player)
+		name := e.getItemNounName(itemDef)
+		if !matchesTarget(name, target, e.getAdjName(ii.Adj1), e.getAdjName(ii.Adj2), e.getAdjName(ii.Adj3)) {
+			continue
 		}
-		moveTo := sc.MoveTo
-		if sc2.MoveTo > 0 {
-			moveTo = sc2.MoveTo
+		if skip > 0 {
+			skip--
+			continue
 		}
-		blocked := (sc.Blocked || sc2.Blocked)
-		moveGroupTo := sc.MoveGroupTo
-		if sc2.MoveGroupTo > 0 {
-			moveGroupTo = sc2.MoveGroupTo
+		originalRoom := player.RoomNumber
+		tempRI := gameworld.RoomItem{Ref: -1, Archetype: ii.Archetype,
+			Adj1: ii.Adj1, Adj2: ii.Adj2, Adj3: ii.Adj3,
+			Val1: ii.Val1, Val2: ii.Val2, Val3: ii.Val3, Val4: ii.Val4, Val5: ii.Val5,
+			ItemBits: ii.ItemBits, State: ii.State, Extend: ii.Tail}
+		return e.runGoItemScripts(ctx, player, room, &tempRI, itemDef, originalRoom)
+	}
+
+	return &CommandResult{Messages: []string{"You don't see that here."}}
+}
+
+// runGoItemScripts runs a targeted (non-portal) item's IFPREVERB/IFVERB GO scripts
+// — ri may be a real room item or a temporary Ref=-1 stand-in for an inventory/
+// worn/wielded/off-hand item — and turns the result into a CommandResult, handling
+// MOVE/MOVEGROUP/CLEARVERB the same way regardless of where the item was found.
+func (e *GameEngine) runGoItemScripts(ctx context.Context, player *Player, room *gameworld.Room, ri *gameworld.RoomItem, itemDef *gameworld.ItemDef, originalRoom int) *CommandResult {
+	// runNestedItemVerbScripts is the only walk that reaches an IFVERB nested
+	// inside a top-level IFITEM/IFNOITEM wrapper (e.g. item 1290's bedroll:
+	// "IFITEM -1 OPEN ... IFVERB GO -1 ... ENDIF", see SHANTA.SCR) — RunPreverbScripts
+	// finds the same wrapper but its preverb-mode guard skips re-firing the nested
+	// IFVERB, and RunVerbScripts never descends into wrappers at all. See its doc
+	// comment for why this isn't just folded into the shared RunItemScripts.
+	sc0 := e.runNestedItemVerbScripts(player, room, "GO", ri, itemDef)
+	sc := e.RunPreverbScripts(player, room, "GO", ri, itemDef)
+	sc2 := e.RunVerbScripts(player, room, "GO", ri, itemDef)
+	// PLREVENT/CONTPLREVENT-deferred actions must be scheduled, or everything
+	// after the delay is lost — regardless of which branch below is taken.
+	for _, segs := range [][]ScriptSegment{sc0.DeferredSegments, sc.DeferredSegments, sc2.DeferredSegments} {
+		if len(segs) > 0 {
+			e.scheduleScriptSegments(player, segs)
 		}
-		if moveGroupTo > 0 {
-			e.moveGroupToRoom(ctx, player.RoomNumber, moveGroupTo)
-			return result
+	}
+	result := &CommandResult{}
+	result.Messages = append(result.Messages, sc0.Messages...)
+	result.Messages = append(result.Messages, sc.Messages...)
+	result.Messages = append(result.Messages, sc2.Messages...)
+	result.RoomBroadcast = append(result.RoomBroadcast, sc0.RoomMsgs...)
+	result.RoomBroadcast = append(result.RoomBroadcast, sc.RoomMsgs...)
+	result.RoomBroadcast = append(result.RoomBroadcast, sc2.RoomMsgs...)
+	result.GMBroadcast = append(result.GMBroadcast, sc0.GMMsgs...)
+	result.GMBroadcast = append(result.GMBroadcast, sc.GMMsgs...)
+	result.GMBroadcast = append(result.GMBroadcast, sc2.GMMsgs...)
+	if sc0.NeedsSave || sc.NeedsSave || sc2.NeedsSave {
+		e.SavePlayer(ctx, player)
+	}
+	moveTo := sc0.MoveTo
+	if sc.MoveTo > 0 {
+		moveTo = sc.MoveTo
+	}
+	if sc2.MoveTo > 0 {
+		moveTo = sc2.MoveTo
+	}
+	blocked := (sc0.Blocked || sc.Blocked || sc2.Blocked)
+	moveGroupTo := sc0.MoveGroupTo
+	if sc.MoveGroupTo > 0 {
+		moveGroupTo = sc.MoveGroupTo
+	}
+	if sc2.MoveGroupTo > 0 {
+		moveGroupTo = sc2.MoveGroupTo
+	}
+	if moveGroupTo > 0 {
+		e.moveGroupToRoom(ctx, player.RoomNumber, moveGroupTo)
+		return result
+	}
+	if blocked && moveTo == 0 {
+		// CLEARVERB without MOVE or MOVEGROUP — block the normal action (deferred
+		// segments were already scheduled above, regardless of branch).
+		roundTimeSet := sc0.RoundTimeSet
+		if sc.RoundTimeSet > 0 {
+			roundTimeSet = sc.RoundTimeSet
 		}
-		if blocked && moveTo == 0 {
-			// CLEARVERB without MOVE or MOVEGROUP — block the normal action (deferred
-			// segments were already scheduled above, regardless of branch).
-			roundTimeSet := sc.RoundTimeSet
-			if sc2.RoundTimeSet > 0 {
-				roundTimeSet = sc2.RoundTimeSet
-			}
-			if roundTimeSet > 0 && !messagesHaveRoundTime(result.Messages) {
-				result.Messages = append(result.Messages, fmt.Sprintf("[Round: %d sec]", roundTimeSet))
-			}
-			if len(result.Messages) == 0 {
-				result.Messages = []string{"You can't go that way."}
-			}
-			return result
+		if sc2.RoundTimeSet > 0 {
+			roundTimeSet = sc2.RoundTimeSet
 		}
-		if moveTo > 0 {
-			dest := e.rooms[moveTo]
-			if dest != nil {
-				player.RoomNumber = moveTo
-				e.SavePlayer(ctx, player)
-				lookResult := e.doLook(player)
-				result.Messages = append(result.Messages, lookResult.Messages...)
-				result.RoomName = lookResult.RoomName
-				result.RoomDesc = lookResult.RoomDesc
-				result.Exits = lookResult.Exits
-				result.Items = lookResult.Items
-				result.OldRoom = originalRoom
-				result.OldRoomMsg = []string{fmt.Sprintf("%s leaves.", player.DisplayNameCap())}
-				result.RoomBroadcast = append(result.RoomBroadcast, fmt.Sprintf("%s arrives.", player.DisplayNameCap()))
-				e.applyEntryScripts(ctx, player, dest, result)
-			}
+		if roundTimeSet > 0 && !messagesHaveRoundTime(result.Messages) {
+			result.Messages = append(result.Messages, fmt.Sprintf("[Round: %d sec]", roundTimeSet))
 		}
 		if len(result.Messages) == 0 {
 			result.Messages = []string{"You can't go that way."}
 		}
 		return result
 	}
-
-	return &CommandResult{Messages: []string{"You don't see that here."}}
+	if moveTo > 0 {
+		dest := e.rooms[moveTo]
+		if dest != nil {
+			player.RoomNumber = moveTo
+			e.SavePlayer(ctx, player)
+			lookResult := e.doLook(player)
+			result.Messages = append(result.Messages, lookResult.Messages...)
+			result.RoomName = lookResult.RoomName
+			result.RoomDesc = lookResult.RoomDesc
+			result.Exits = lookResult.Exits
+			result.Items = lookResult.Items
+			result.OldRoom = originalRoom
+			result.OldRoomMsg = []string{fmt.Sprintf("%s leaves.", player.DisplayNameCap())}
+			result.RoomBroadcast = append(result.RoomBroadcast, fmt.Sprintf("%s arrives.", player.DisplayNameCap()))
+			e.applyEntryScripts(ctx, player, dest, result)
+		}
+	}
+	if len(result.Messages) == 0 {
+		result.Messages = []string{"You can't go that way."}
+	}
+	return result
 }
 
 func (e *GameEngine) doGoPortal(ctx context.Context, player *Player, room *gameworld.Room, ri *gameworld.RoomItem, itemDef *gameworld.ItemDef) *CommandResult {

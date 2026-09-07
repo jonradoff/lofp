@@ -117,6 +117,11 @@ type LocalRoomBroadcastExcludeFunc func(roomNumber int, excludeName string, mess
 // PlayerMessageFunc sends messages to a specific player by name (used by background tasks).
 type PlayerMessageFunc func(playerName string, messages []string)
 
+// GMBroadcastFunc sends messages to every currently online GM (used by background
+// tasks — e.g. reporting a GM-staged treasure queue drop — that have no
+// CommandResult of their own to attach a GMBroadcast to).
+type GMBroadcastFunc func(messages []string)
+
 // GameEngine holds the loaded game world and processes commands.
 type GameEngine struct {
 	db                        *mongo.Database
@@ -136,6 +141,7 @@ type GameEngine struct {
 	localRoomBroadcast        LocalRoomBroadcastFunc
 	localRoomBroadcastExclude LocalRoomBroadcastExcludeFunc
 	sendToPlayer              PlayerMessageFunc
+	gmBroadcast               GMBroadcastFunc
 	monsterMgr                *monsterManager
 	RegionWeather             map[int]int                        // region -> weather state
 	monsterLists              []gameworld.MonsterList            // base + current season MLISTs
@@ -161,6 +167,13 @@ type GameEngine struct {
 	roomContainerContents map[string][]InventoryItem
 	watchMu               sync.RWMutex
 	watching              map[string]int // playerFirstName → roomNum their familiar is watching (0 = not watching)
+	// treasureQueue is the GM-managed FIFO of staged items (see @queue/@unqueue in
+	// gm_commands.go) that can drop from any dying monster — see
+	// rollQueuedTreasureDrop in combat.go. Transient like roomContainerContents
+	// above (cleared on restart, not hub-synced); fine under the current
+	// single-machine deployment (see CLAUDE.md's multi-machine coordination notes).
+	treasureQueue   []InventoryItem
+	treasureQueueMu sync.Mutex
 }
 
 // SetSessionProvider sets the session provider (called by API layer after init).
@@ -205,6 +218,9 @@ func (e *GameEngine) SetLocalRoomBroadcastExclude(fn LocalRoomBroadcastExcludeFu
 
 // setWatching registers or clears a player's familiar watch on a room.
 // roomNum == 0 clears the watch. Safe to call from any goroutine.
+// Also used by @monitor (see gmMonitor in gm_commands.go) — a GM and a familiar's
+// COMMAND WATCH WILL share the same one-room-per-player slot, so setting one
+// replaces the other.
 func (e *GameEngine) setWatching(playerName string, roomNum int) {
 	e.watchMu.Lock()
 	if e.watching == nil {
@@ -218,9 +234,21 @@ func (e *GameEngine) setWatching(playerName string, roomNum int) {
 	e.watchMu.Unlock()
 }
 
+// getWatching returns the room number playerName is currently watching, or 0 if none.
+func (e *GameEngine) getWatching(playerName string) int {
+	e.watchMu.RLock()
+	defer e.watchMu.RUnlock()
+	return e.watching[playerName]
+}
+
 // SetSendToPlayer sets the function for sending targeted messages from background tasks.
 func (e *GameEngine) SetSendToPlayer(fn PlayerMessageFunc) {
 	e.sendToPlayer = fn
+}
+
+// SetGMBroadcast sets the function for notifying every online GM from background tasks.
+func (e *GameEngine) SetGMBroadcast(fn GMBroadcastFunc) {
+	e.gmBroadcast = fn
 }
 
 // GetBanner returns the current login banner (empty if none).
@@ -465,6 +493,14 @@ type CommandResult struct {
 	RoomBroadcast []string `json:"-"`
 	OldRoom       int      `json:"-"`
 	OldRoomMsg    []string `json:"-"`
+	// ConcealedBroadcastOK: by default, dispatchCommandResult (api.go) suppresses
+	// RoomBroadcast/OldRoomMsg entirely for a concealed actor (Hidden/Invisible/
+	// PhantomForm/GM @hide/@invis) — the safe default for commands that never
+	// anonymize their own text. A command that has ALREADY built an
+	// appropriately-anonymized RoomBroadcast for a still-concealed actor (e.g. GIVE's
+	// "Something gives a sword to Bob." for an invisible giver) sets this true so
+	// that text is sent as-is instead of being swallowed by the blanket suppression.
+	ConcealedBroadcastOK bool `json:"-"`
 	// Whisper: targeted message to a specific player (only they see the content).
 	WhisperTarget string `json:"-"`
 	WhisperMsg    string `json:"-"`
@@ -1331,7 +1367,7 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 		}
 		return e.doSell(ctx, player, args)
 	case "APPRAISE":
-		return e.doAppraise(player, args)
+		return e.doAppraise(ctx, player, args)
 	case "DRINK", "SIP":
 		return e.doDrink(ctx, player, args)
 	case "LIGHT":
@@ -1372,6 +1408,8 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 		return e.doRepair(ctx, player, args)
 	case "ENCRUST":
 		return e.doEncrust(ctx, player, args)
+	case "REINFORCE":
+		return e.doReinforce(ctx, player, args)
 	case "INLAY":
 		return e.doInlay(ctx, player, args)
 	case "INSET":
@@ -1480,7 +1518,7 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 		e.SavePlayer(ctx, player)
 		return &CommandResult{Messages: []string{"Prompt indicators off."}}
 	case "VERSION", "NEWS", "NOTES":
-		return &CommandResult{Messages: []string{"Legends of Future Past v11.36.0"}}
+		return &CommandResult{Messages: []string{"Legends of Future Past v12.4.0"}}
 	case "CREDITS":
 		return &CommandResult{Messages: []string{
 			"",
@@ -1771,7 +1809,7 @@ func (e *GameEngine) ProcessCommand(ctx context.Context, player *Player, input s
 	case "TEND":
 		return e.doTend(ctx, player, args)
 	case "BREAK":
-		return &CommandResult{Messages: []string{"[Object destruction coming soon.]"}} // TODO: destroy item with another item
+		return e.doBreak(ctx, player, args)
 	case "ASSIST":
 		room := e.rooms[player.RoomNumber]
 		roomName := "unknown"

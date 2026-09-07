@@ -771,6 +771,14 @@ func (p *fileParser) parseItem(fields []string) {
 			if len(fields) >= 2 {
 				item.Substance = strings.ToUpper(fields[1])
 			}
+		case "ADJECTIVE":
+			if len(fields) >= 2 {
+				item.Adjective, _ = strconv.Atoi(fields[1])
+			}
+		case "ADJECTIVE2":
+			if len(fields) >= 2 {
+				item.Adjective2, _ = strconv.Atoi(fields[1])
+			}
 		case "*DESCRIPTION_START":
 			// Item-level examine description
 			desc := p.readDescription()
@@ -799,7 +807,7 @@ func (p *fileParser) parseItem(fields []string) {
 		// Flags
 		case "CRAFTABLE", "DYEABLE", "ENCRUSTABLE", "DYE", "FLIPABLE",
 			"HIDDEN", "LATCHABLE", "LIGHTABLE", "LOCKABLE", "OPENABLE",
-			"REAGENT", "SKIN", "TURNABLE", "SEALED", "MATERIAL2":
+			"REAGENT", "SKIN", "TURNABLE", "SEALED", "MATERIAL2", "SHIELDGRIP":
 			item.Flags = append(item.Flags, cmd)
 		case "IFVERB", "IFPREVERB", "IFVERB2", "IFPREVERB2",
 			"IFITEM", "IFTOUCH", "IFVAR", "IFNOITEM",
