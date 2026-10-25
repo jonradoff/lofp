@@ -263,6 +263,7 @@ FIXED_LIGHT
 *DESCRIPTION_START
 This room is the heart of the guild of Rakes. A huge round mohagany table fills the room, surrounded by twelve comfortable looking leather padded chairs. Each of the four walls of this room is painted with the symbol of one of the gods; Amilor to the north, Rorin to the south, Shemri to the east and Ordanin to the west. Set into each wall is a titanium door. The four doors lead to the offices of the four officials of the guild. There is also an arch, leading to the training area of the Rakes, from which you can hear many excited grunts and cries.
 *DESCRIPTION_END
+EXIT O 322
 ITEM 0 91  ADJ1=163  ADJ2=355
 ITEM 1 86
 ITEM 2 60  VAL2=324

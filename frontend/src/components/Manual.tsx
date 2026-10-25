@@ -1364,6 +1364,7 @@ Obvious exits: north, south, east.
               <CommandEntry cmd="RECALL" desc="Use sagecraft for additional area/object knowledge." />
               <CommandEntry cmd="REMOVE <object>" desc="Take off something you are wearing." />
               <CommandEntry cmd="REPAIR <item>" desc="Fix damaged items. Weaponsmithing needed for weapons." />
+              <CommandEntry cmd="REROLL STATS" desc="Reroll your character's stats while still level 1." />
               <CommandEntry cmd="RETREAT" desc="Back off from melee engagement." />
               <CommandEntry cmd="SEARCH <corpse>" desc="Remove items from a corpse." />
               <CommandEntry cmd="SELFTRAIN <skill#>" desc="Train yourself at +1 build point cost." />
