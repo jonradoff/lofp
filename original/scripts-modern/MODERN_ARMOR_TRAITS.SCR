@@ -1,0 +1,1161 @@
+
+TRAITDEF GENERIC_TALISMAN
+    IFPREVERB EXAMINE -1
+        CLEARVERB
+        ECHO PLAYER A heavy talisman marked with strange symbols, its worn surface seeming to catch the light in ways it shouldn't.
+    ENDIF
+
+    IFVERB WEAR -1
+        ECHO PLAYER As you settle %a around your neck, a faint shimmer passes across your skin.
+        ECHO OTHERS As %N settles %a around %h neck, a faint shimmer passes across %s skin.
+    ENDIF
+
+    IFVERB REMOVE -1
+        ECHO PLAYER As you remove %a, the faint sense of protection surrounding you recedes.
+        ECHO OTHERS %N removes %a, and a faint shimmer around %m fades.
+    ENDIF
+
+    IFPREVERB PULL -1
+        CLEARVERB
+        ECHO PLAYER You tug sharply on %a. A brilliant shell of light snaps into existence around you, then vanishes with a crackle.
+        ECHO OTHERS %N tugs sharply on %a. A brilliant shell of light flashes around %m, then abruptly vanishes.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF GENERIC_TROUSERS
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A practical pair of trousers, cut for comfort and everyday wear.
+    ENDIF
+
+    IFVERB WEAR -1
+        ECHO PLAYER You pull on %a and settle them comfortably around your waist.
+        ECHO OTHERS %N pulls on %a and settles them around %h waist.
+    ENDIF
+
+    IFVERB REMOVE -1
+        ECHO PLAYER You slip out of %a.
+        ECHO OTHERS %N slips out of %a.
+    ENDIF
+
+    IFPREVERB PULL -1
+        CLEARVERB
+        ECHO PLAYER You hitch up %a.
+        ECHO OTHERS %N hitches up %a.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF GENERIC_SPURS
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A pair of riding spurs, made to strap securely around the heels of a sturdy pair of boots.
+    ENDIF
+
+    IFVERB WEAR -1
+        ECHO PLAYER You fasten %a around your heels and give them an experimental jingle.
+        ECHO OTHERS %N fastens %a around %h heels with a faint metallic jingle.
+    ENDIF
+
+    IFVERB REMOVE -1
+        ECHO PLAYER You unfasten %a and slip them from your heels.
+        ECHO OTHERS %N unfastens %a and slips them from %h heels.
+    ENDIF
+
+    IFPREVERB SHAKE -1
+        CLEARVERB
+        ECHO PLAYER You give your heels a quick shake, setting %a jingling brightly.
+        ECHO OTHERS %N gives %h heels a quick shake, setting %a jingling brightly.
+    ENDIF
+
+    IFPREVERB RUB -1
+        CLEARVERB
+        ECHO PLAYER You rub a little grime from %a and give them a quick polish.
+        ECHO OTHERS %N gives %a a quick polish.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF GENERIC_MUKLUKS
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A pair of soft, insulated boots made for keeping feet warm in bitterly cold weather.
+    ENDIF
+
+    IFVERB WEAR -1
+        ECHO PLAYER You pull on %a and settle your feet snugly inside.
+        ECHO OTHERS %N pulls on %a and settles %h feet snugly inside.
+    ENDIF
+
+    IFVERB REMOVE -1
+        ECHO PLAYER You pull off %a and set them aside.
+        ECHO OTHERS %N pulls off %a and sets them aside.
+    ENDIF
+
+    IFPREVERB RUB -1
+        IFITEM WORN -1
+            CLEARVERB
+            ECHO PLAYER You rub your mukluks together. Your feet feel a little warmer.
+            ECHO OTHERS %N rubs %h mukluks together.
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+TRAITDEF GENERIC_CLOAK
+    IFVERB WEAR -1
+        ECHO PLAYER You settle %a around your shoulders.
+        ECHO OTHERS %N settles %a around %h shoulders.
+    ENDIF
+
+    IFVERB REMOVE -1
+        ECHO PLAYER You slip %a from your shoulders.
+        ECHO OTHERS %N slips %a from %h shoulders.
+    ENDIF
+
+    IFPREVERB WAVE -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO PLAYER You ruffle the cloak.
+            ECHO OTHERS %N ruffles %a.
+        ENDIF
+    ENDIF
+
+    IFPREVERB PULL -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO PLAYER You pull your cloak more tightly about your body.
+            ECHO OTHERS %N pulls %a more tightly around %h body.
+        ENDIF
+    ENDIF
+
+    IFPREVERB TURN -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO PLAYER You turn around, your cloak swirling dramatically.
+            ECHO OTHERS %N turns around, %a flaring behind %i as %s does.
+        ENDIF
+    ENDIF
+
+    IFPREVERB RUB -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO PLAYER You rummage around underneath your cloak.
+            ECHO OTHERS %N rummages around under %a, looking for something.
+            IFITEM -1 CLOSED
+                OPEN -1
+            ENDIF
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+TRAITDEF GENERIC_BOOTS
+    IFVERB WEAR -1
+        ECHO PLAYER You pull on %a and settle your feet firmly inside.
+        ECHO OTHERS %N pulls on %a and settles %h feet firmly inside.
+    ENDIF
+
+    IFVERB REMOVE -1
+        ECHO PLAYER You pull off %a and set them aside.
+        ECHO OTHERS %N pulls off %a and sets them aside.
+    ENDIF
+
+    IFPREVERB STOMP -1
+        CLEARVERB
+        ECHO PLAYER You stamp one boot firmly against the ground.
+        ECHO OTHERS %N stamps one of %h boots firmly against the ground.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF GENERIC_HAT
+    IFVERB WEAR -1
+        ECHO PLAYER You place %a on your head and adjust it comfortably.
+        ECHO OTHERS %N places %a on %h head and adjusts it.
+    ENDIF
+
+    IFVERB REMOVE -1
+        ECHO PLAYER You lift %a from your head.
+        ECHO OTHERS %N lifts %a from %h head.
+    ENDIF
+
+    IFPREVERB PUSH -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO OTHERS %N tips %h hat politely.
+            ECHO PLAYER You tip your hat politely.
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+TRAITDEF GENERIC_SCARF
+    IFVERB WEAR -1
+        ECHO PLAYER You wrap %a comfortably around your neck.
+        ECHO OTHERS %N wraps %a comfortably around %h neck.
+    ENDIF
+
+    IFVERB REMOVE -1
+        ECHO PLAYER You unwind %a from around your neck.
+        ECHO OTHERS %N unwinds %a from around %h neck.
+    ENDIF
+
+    IFPREVERB PULL -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO PLAYER You tug %a a little tighter around your neck.
+            ECHO OTHERS %N tugs %a a little tighter around %h neck.
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+TRAITDEF GENERIC_HOOD
+    IFVERB WEAR -1
+        ECHO PLAYER You draw %a over your head, letting its folds shadow your features.
+        ECHO OTHERS %N draws %a over %h head, leaving %h features partly hidden in shadow.
+    ENDIF
+
+    IFVERB REMOVE -1
+        ECHO PLAYER You push back %a, revealing your face once more.
+        ECHO OTHERS %N pushes back %a, revealing %h face once more.
+    ENDIF
+
+    IFPREVERB PULL -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO PLAYER You pull %a a little lower, retreating further into its shadows.
+            ECHO OTHERS %N pulls %a lower, retreating further into its shadows.
+        ENDIF
+    ENDIF
+
+    IFPREVERB PUSH -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO PLAYER You push back the hood on %a.
+            ECHO OTHERS %N pushes back the hood on %a.
+        ENDIF
+    ENDIF
+
+    IFPREVERB GAZE -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO PLAYER You gaze out from under the hood of %a.
+            ECHO OTHERS %N gazes out from under the hood of %a.
+        ENDIF
+    ENDIF
+
+    IFPREVERB GESTURE -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO PLAYER You strike a pose, showing off %a.
+            ECHO OTHERS %N strikes a pose, showing off %a.
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+TRAITDEF GENERIC_TEDDY
+    IFVERB WEAR -1
+        ECHO PLAYER You slip into %a and smooth the fabric into place.
+        ECHO OTHERS %N slips into %a and smooths the fabric into place.
+    ENDIF
+
+    IFVERB REMOVE -1
+        ECHO PLAYER You slip out of %a.
+        ECHO OTHERS %N slips out of %a.
+    ENDIF
+
+    IFPREVERB PULL -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO PLAYER You tug %a into a more comfortable fit.
+            ECHO OTHERS %N adjusts %a into a more comfortable fit.
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+TRAITDEF GENERIC_ARMOR
+    IFVERB WEAR -1
+        ECHO PLAYER You put on %a and settle it securely into place.
+        ECHO OTHERS %N puts on %a and settles it securely into place.
+    ENDIF
+
+    IFVERB REMOVE -1
+        ECHO PLAYER You remove %a and set it aside.
+        ECHO OTHERS %N removes %a and sets it aside.
+    ENDIF
+
+    IFPREVERB PULL -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO PLAYER You tug at %a, adjusting its fit.
+            ECHO OTHERS %N adjusts the fit of %a.
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+TRAITDEF GENERIC_HELMET
+    IFVERB WEAR -1
+        ECHO PLAYER You fit %a securely over your head.
+        ECHO OTHERS %N fits %a securely over %h head.
+    ENDIF
+
+    IFVERB REMOVE -1
+        ECHO PLAYER You lift %a from your head.
+        ECHO OTHERS %N lifts %a from %h head.
+    ENDIF
+
+    IFPREVERB PULL -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO PLAYER You adjust %a, settling it more securely on your head.
+            ECHO OTHERS %N adjusts %a, settling it more securely on %h head.
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+TRAITDEF GENERIC_CAP
+
+    IFPREVERB FLIP -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO PLAYER Not until you take it off your head.
+        ELSE
+            CLEARVERB
+            ECHO PLAYER You toss your cap high in the air, then catch it.
+            ECHO OTHERS %N tosses %h cap into the air...
+            ECHO OTHERS %N catches %h cap before it can hit the ground.
+        ENDIF
+    ENDIF
+
+    IFPREVERB PUSH -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO PLAYER You tip your cap.
+            ECHO OTHERS %N tips %h cap.
+        ENDIF
+    ENDIF
+
+    IFPREVERB TURN -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO PLAYER You adjust %a into a rakish angle.
+            ECHO OTHERS %N adjusts %a on %h head into a rakish angle.
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+TRAITDEF GENERIC_CAPE
+   IFPREVERB WAVE -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO PLAYER You strike a dramatic pose, your cape flapping behind you in the wind.
+            ECHO OTHERS %N strikes a dramatic pose, %h cape flapping behind %i in the wind.
+        ENDIF
+    ENDIF
+
+    IFVERB WEAR -1
+        ECHO PLAYER You drape %a over your shoulders and settle it into place.
+        ECHO OTHERS %N drapes %a over %h shoulders and settles it into place.
+    ENDIF
+
+    IFVERB REMOVE -1
+        ECHO PLAYER You sweep %a from your shoulders.
+        ECHO OTHERS %N sweeps %a from %h shoulders.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF GENERIC_SCABBARD
+    IFVERB WEAR -1
+        ECHO PLAYER You fasten %a securely at your belt.
+        ECHO OTHERS %N fastens %a securely at %h belt.
+    ENDIF
+
+    IFVERB REMOVE -1
+        ECHO PLAYER You unfasten %a from your belt.
+        ECHO OTHERS %N unfastens %a from %h belt.
+    ENDIF
+
+    IFPREVERB PULL -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO PLAYER You adjust %a at your side.
+            ECHO OTHERS %N adjusts %a at %h side.
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+TRAITDEF GENERIC_BELT
+    IFVERB WEAR -1
+        ECHO PLAYER You fasten %a securely around your waist.
+        ECHO OTHERS %N fastens %a securely around %h waist.
+    ENDIF
+
+    IFVERB REMOVE -1
+        ECHO PLAYER You unfasten %a and slip it from around your waist.
+        ECHO OTHERS %N unfastens %a and slips it from around %h waist.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF GENERIC_ROBE
+    IFVERB WEAR -1
+        ECHO PLAYER You slip into %a and settle its folds around you.
+        ECHO OTHERS %N slips into %a and settles its folds into place.
+    ENDIF
+
+    IFVERB REMOVE -1
+        ECHO PLAYER You slip out of %a and gather it up.
+        ECHO OTHERS %N slips out of %a and gathers it up.
+    ENDIF
+
+    IFPREVERB PULL -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO PLAYER You straighten %a and smooth its folds.
+            ECHO OTHERS %N straightens %a and smooths its folds.
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+TRAITDEF GENERIC_BRACERS
+    IFVERB WEAR -1
+        ECHO PLAYER You fasten %a securely around your wrists.
+        ECHO OTHERS %N fastens %a securely around %h wrists.
+    ENDIF
+
+    IFVERB REMOVE -1
+        ECHO PLAYER You unfasten %a and slip them from your wrists.
+        ECHO OTHERS %N unfastens %a and slips them from %h wrists.
+    ENDIF
+
+    IFPREVERB TURN -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO PLAYER You adjust %a slightly on your forearms.
+            ECHO OTHERS %N adjusts %a slightly on %h forearms.
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+TRAITDEF GENERIC_RING
+    IFVERB WEAR -1
+        ECHO PLAYER You slip %a onto your finger.
+        ECHO OTHERS %N slips %a onto one of %h fingers.
+    ENDIF
+
+    IFVERB REMOVE -1
+        ECHO PLAYER You slip %a from your finger.
+        ECHO OTHERS %N slips %a from one of %h fingers.
+    ENDIF
+
+    IFPREVERB TURN -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO PLAYER You idly turn %a around your finger.
+            ECHO OTHERS %N idly turns %a around one of %h fingers.
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+TRAITDEF GENERIC_SASH
+    IFVERB WEAR -1
+        ECHO PLAYER You wrap %a around yourself and tie it securely into place.
+        ECHO OTHERS %N wraps %a around %mself and ties it securely into place.
+    ENDIF
+
+    IFVERB REMOVE -1
+        ECHO PLAYER You untie %a and slip it off.
+        ECHO OTHERS %N unties %a and slips it off.
+    ENDIF
+
+    IFPREVERB PULL -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO PLAYER You tug %a snugly into place.
+            ECHO OTHERS %N adjusts %a slightly.
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+TRAITDEF GENERIC_TORC
+    IFVERB WEAR -1
+        ECHO PLAYER You settle %a around your neck.
+        ECHO OTHERS %N settles %a around %h neck.
+    ENDIF
+
+    IFVERB REMOVE -1
+        ECHO PLAYER You lift %a from around your neck.
+        ECHO OTHERS %N lifts %a from around %h neck.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF GENERIC_VEST
+
+    IFVERB WEAR -1
+        ECHO PLAYER You slip into %a and smooth it neatly into place.
+        ECHO OTHERS %N slips into %a and smooths it neatly into place.
+    ENDIF
+
+    IFVERB REMOVE -1
+        ECHO PLAYER You shrug out of %a and gather it up.
+        ECHO OTHERS %N shrugs out of %a and gathers it up.
+    ENDIF
+
+    IFPREVERB PULL -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO PLAYER You hook your thumbs under the vest and give it a tug, showing it off proudly.
+            ECHO OTHERS %N hooks %h thumbs under %a and tugs it forward, showing it off.
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+TRAITDEF GENERIC_HEADDRESS
+    IFVERB WEAR -1
+        ECHO PLAYER You settle %a carefully upon your head and adjust it into place.
+        ECHO OTHERS %N settles %a carefully upon %h head and adjusts it into place.
+    ENDIF
+
+    IFVERB REMOVE -1
+        ECHO PLAYER You carefully lift %a from your head.
+        ECHO OTHERS %N carefully lifts %a from %h head.
+    ENDIF
+
+    IFPREVERB TURN -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO PLAYER You make a small adjustment to %a, setting it just so.
+            ECHO OTHERS %N carefully adjusts %a.
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+TRAITDEF GENERIC_TRENCHCOAT
+    IFVERB WEAR -1
+        ECHO PLAYER You shrug into %a and settle its long folds around you.
+        ECHO OTHERS %N shrugs into %a and settles its long folds around %mself.
+    ENDIF
+
+    IFVERB REMOVE -1
+        ECHO PLAYER You shrug out of %a and gather it over one arm.
+        ECHO OTHERS %N shrugs out of %a and gathers it over one arm.
+    ENDIF
+
+    IFPREVERB TURN -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO PLAYER You turn sharply, sending the tails of %a swirling around you.
+            ECHO OTHERS %N turns sharply, sending the tails of %a swirling around %i.
+        ENDIF
+    ENDIF
+
+    IFPREVERB PULL -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO PLAYER You pull %a closed around you and adopt a suitably mysterious expression.
+            ECHO OTHERS %N pulls %a closed around %mself and looks distinctly mysterious.
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+TRAITDEF GENERIC_WIG
+    IFVERB WEAR -1
+        ECHO PLAYER You settle %a onto your head and carefully arrange it.
+        ECHO OTHERS %N settles %a onto %h head and carefully arranges it.
+    ENDIF
+
+    IFVERB REMOVE -1
+        ECHO PLAYER You lift %a from your head, revealing what lies beneath.
+        ECHO OTHERS %N lifts %a from %h head, revealing what lies beneath.
+    ENDIF
+
+    IFPREVERB PULL -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO PLAYER You tug %a back into place and hope no one noticed.
+            ECHO OTHERS %N gives %a a suspicious little adjustment.
+        ENDIF
+    ENDIF
+
+    IFPREVERB FLIP -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO PLAYER You give %a a magnificent toss.
+            ECHO OTHERS %N tosses %h wig with magnificent confidence.
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+TRAITDEF GENERIC_LONGJOHNS
+    IFVERB WEAR -1
+        ECHO PLAYER You pull on %a and tug them comfortably into place.
+        ECHO OTHERS %N pulls on %a and settles them into place.
+    ENDIF
+
+    IFVERB REMOVE -1
+        ECHO PLAYER You peel off %a and gather them up.
+        ECHO OTHERS %N pulls off %a and gathers them up.
+    ENDIF
+
+    IFPREVERB PULL -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO PLAYER You give your longjohns a discreet tug and settle them back into place.
+            ECHO OTHERS %N makes a suspicious adjustment somewhere beneath %h clothing.
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+TRAITDEF GENERIC_VISOR
+    IFVERB WEAR -1
+        ECHO PLAYER You settle %a into place across your face.
+        ECHO OTHERS %N settles %a into place across %h face.
+    ENDIF
+
+    IFVERB REMOVE -1
+        ECHO PLAYER You lift %a away from your face.
+        ECHO OTHERS %N lifts %a away from %h face.
+    ENDIF
+
+    IFPREVERB PULL -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO PLAYER You adjust %a slightly, settling it more comfortably across your eyes.
+            ECHO OTHERS %N adjusts %a slightly across %h eyes.
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+TRAITDEF GENERIC_KILT
+    IFVERB WEAR -1
+        ECHO PLAYER You wrap %a around your waist and settle its folds into place.
+        ECHO OTHERS %N wraps %a around %h waist and settles its folds into place.
+    ENDIF
+
+    IFVERB REMOVE -1
+        ECHO PLAYER You unfasten %a and gather up its folds.
+        ECHO OTHERS %N unfastens %a and gathers up its folds.
+    ENDIF
+    IFPREVERB TAP -1
+        CLEARVERB
+        ECHO ALL The haunting sound of bagpipes wells up from nowhere.
+    ENDIF
+    IFPREVERB FLIP -1
+        CLEARVERB
+        ECHO PLAYER You flip up your loincloth, flashing everyone!
+        ECHO OTHERS %N flips up %h loincloth, flashing you!
+    ENDIF
+ENDTRAIT
+
+TRAITDEF GENERIC_LOINCLOTH
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A simple cloth loincloth, wrapped around the waist and offering only the most basic protection.
+    ENDIF
+
+    IFVERB WEAR -1
+        ECHO PLAYER You wrap %a securely around your waist.
+        ECHO OTHERS %N wraps %a securely around %h waist.
+    ENDIF
+
+    IFVERB REMOVE -1
+        ECHO PLAYER You unwrap %a and gather it up.
+        ECHO OTHERS %N unwraps %a and gathers it up.
+    ENDIF
+
+    IFPREVERB FLIP -1
+        CLEARVERB
+        ECHO PLAYER You flip up your loincloth, flashing everyone!
+        ECHO OTHERS %N flips up %h loincloth, flashing you!
+    ENDIF
+ENDTRAIT
+
+TRAITDEF GENERIC_JACKET
+    IFVERB WEAR -1
+        ECHO PLAYER You slip your arms into %a and settle it comfortably into place.
+        ECHO OTHERS %N slips into %a and settles it comfortably into place.
+    ENDIF
+
+    IFVERB REMOVE -1
+        ECHO PLAYER You shrug out of %a and gather it up.
+        ECHO OTHERS %N shrugs out of %a and gathers it up.
+    ENDIF
+
+    IFPREVERB PULL -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO PLAYER You tug %a straight and smooth out a few wrinkles.
+            ECHO OTHERS %N straightens %a and smooths out a few wrinkles.
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+TRAITDEF GENERIC_TABARD
+    IFVERB WEAR -1
+        ECHO PLAYER You slip %a over your head and settle it neatly into place.
+        ECHO OTHERS %N slips %a over %h head and settles it neatly into place.
+    ENDIF
+
+    IFVERB REMOVE -1
+        ECHO PLAYER You pull %a over your head and gather it up.
+        ECHO OTHERS %N pulls %a over %h head and gathers it up.
+    ENDIF
+
+    IFPREVERB PULL -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO PLAYER You tug %a straight and smooth it down.
+            ECHO OTHERS %N straightens %a and smooths it down.
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+TRAITDEF GENERIC_GAUNTLETS
+    IFVERB WEAR -1
+        ECHO PLAYER You slip your hands into %a and fasten them securely.
+        ECHO OTHERS %N slips %h hands into %a and fastens them securely.
+    ENDIF
+
+    IFVERB REMOVE -1
+        ECHO PLAYER You loosen %a and pull them from your hands.
+        ECHO OTHERS %N loosens %a and pulls them from %h hands.
+    ENDIF
+
+    IFPREVERB PULL -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO OTHERS %N pulls on the straps of %a, tightening them.
+            ECHO PLAYER You tug on the gauntlets' straps, tightening them for a better fit.
+        ENDIF
+    ENDIF
+
+    IFPREVERB PUSH -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO OTHERS %N undoes the buckles on %a.
+            ECHO PLAYER You undo the buckles on the gauntlets.
+        ENDIF
+    ENDIF
+
+    IFPREVERB TURN -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO OTHERS %N clasps %h gauntleted hands.
+            ECHO PLAYER You clasp your gauntleted hands.
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+TRAITDEF GENERIC_SHOULDER_GUARDS
+    IFVERB WEAR -1
+        ECHO PLAYER You settle %a across your shoulders and fasten the straps securely.
+        ECHO OTHERS %N settles %a across %h shoulders and fastens the straps securely.
+    ENDIF
+
+    IFVERB REMOVE -1
+        ECHO PLAYER You loosen the straps and lift %a from your shoulders.
+        ECHO OTHERS %N loosens the straps and lifts %a from %h shoulders.
+    ENDIF
+
+    IFPREVERB PULL -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO OTHERS %N tightens the straps on %a.
+            ECHO PLAYER You tighten the straps on your shoulder guards.
+        ENDIF
+    ENDIF
+
+    IFPREVERB PUSH -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO OTHERS %N loosens the straps on %a.
+            ECHO PLAYER You loosen the straps on your shoulder guards.
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+TRAITDEF GENERIC_DEEPLANDER_ARMOR
+    IFVERB WEAR -1
+        ECHO PLAYER You wrestle your way into %a. Deeplanders apparently consider comfort a character flaw.
+        ECHO OTHERS %N wrestles %mself into %a with considerable effort.
+    ENDIF
+
+    IFVERB REMOVE -1
+        ECHO PLAYER You haul yourself out of %a, silently questioning Deeplander ideas about comfort.
+        ECHO OTHERS %N hauls %mself out of %a with an expression of considerable relief.
+    ENDIF
+
+    IFPREVERB PULL -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO PLAYER You tug at %a. It remains stubbornly uncomfortable, presumably by design.
+            ECHO OTHERS %N tugs at %a, which appears entirely indifferent to %h discomfort.
+        ENDIF
+    ENDIF
+
+    IFPREVERB RUB -1
+        CLEARVERB
+        ECHO PLAYER You rub at %a. Somewhere, a Deeplander dwarf would probably tell you to stop fussing with it.
+        ECHO OTHERS %N rubs at %a, accomplishing very little.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF GENERIC_POUCH
+    IFVERB WEAR -1
+        ECHO PLAYER You fasten %a securely around your waist.
+        ECHO OTHERS %N fastens %a securely around %h waist.
+    ENDIF
+
+    IFVERB REMOVE -1
+        ECHO PLAYER You unfasten %a and slip it from around your waist.
+        ECHO OTHERS %N unfastens %a and slips it from around %h waist.
+    ENDIF
+
+    IFPREVERB PULL -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO PLAYER You tug %a around to a more convenient position.
+            ECHO OTHERS %N adjusts %a around %h waist.
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+TRAITDEF GENERIC_POUCH
+    IFVERB WEAR -1
+        ECHO PLAYER You fasten %a securely into place.
+        ECHO OTHERS %N fastens %a securely into place.
+    ENDIF
+
+    IFVERB REMOVE -1
+        ECHO PLAYER You unfasten %a and set it aside.
+        ECHO OTHERS %N unfastens %a and sets it aside.
+    ENDIF
+
+    IFPREVERB PULL -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO PLAYER You tug %a around to a more convenient position.
+            ECHO OTHERS %N adjusts %a into a more convenient position.
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+TRAITDEF GENERIC_PENTAGRAM
+    IFVERB WEAR -1
+        ECHO PLAYER You place %a upon yourself and settle it into place.
+        ECHO OTHERS %N places %a upon %mself and settles it into place.
+    ENDIF
+
+    IFVERB REMOVE -1
+        ECHO PLAYER You remove %a and tuck it away.
+        ECHO OTHERS %N removes %a and tucks it away.
+    ENDIF
+
+    IFPREVERB RUB -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO PLAYER You run your fingers thoughtfully over %a.
+            ECHO OTHERS %N runs %h fingers thoughtfully over %a.
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+TRAITDEF GENERIC_HORTHAK
+    IFVERB WEAR -1
+        ECHO PLAYER You fasten %a securely at your belt.
+        ECHO OTHERS %N fastens %a securely at %h belt.
+    ENDIF
+
+    IFVERB REMOVE -1
+        ECHO PLAYER You unfasten %a from your belt and set it aside.
+        ECHO OTHERS %N unfastens %a from %h belt and sets it aside.
+    ENDIF
+
+    IFPREVERB PULL -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO PLAYER You tug %a around to a more convenient position at your belt.
+            ECHO OTHERS %N adjusts %a at %h belt.
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+TRAITDEF GENERIC_TURBAN
+    IFVERB WEAR -1
+        ECHO PLAYER You wrap %a carefully around your head and settle it into place.
+        ECHO OTHERS %N wraps %a carefully around %h head and settles it into place.
+    ENDIF
+
+    IFVERB REMOVE -1
+        ECHO PLAYER You unwind %a from around your head.
+        ECHO OTHERS %N unwinds %a from around %h head.
+    ENDIF
+
+    IFPREVERB PULL -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO PLAYER You tug at %a, tightening one of its folds.
+            ECHO OTHERS %N adjusts one of the folds of %a.
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+TRAITDEF GENERIC_PIN
+    IFVERB WEAR -1
+        ECHO PLAYER You fasten %a neatly into place.
+        ECHO OTHERS %N fastens %a neatly into place.
+    ENDIF
+
+    IFVERB REMOVE -1
+        ECHO PLAYER You unfasten %a and put it away.
+        ECHO OTHERS %N unfastens %a and puts it away.
+    ENDIF
+
+    IFPREVERB TURN -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO PLAYER You straighten %a, adjusting it slightly.
+            ECHO OTHERS %N makes a small adjustment to %a.
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+TRAITDEF GENERIC_MASK
+    IFVERB WEAR -1
+        ECHO PLAYER You fit %a over your face and secure it into place.
+        ECHO OTHERS %N fits %a over %h face, concealing %h features.
+    ENDIF
+
+    IFVERB REMOVE -1
+        ECHO PLAYER You remove %a, revealing your face once more.
+        ECHO OTHERS %N removes %a, revealing %h face once more.
+    ENDIF
+
+    IFPREVERB TURN -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO PLAYER You adjust %a slightly against your face.
+            ECHO OTHERS %N makes a small adjustment to %a.
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+TRAITDEF GENERIC_APRON
+    IFVERB WEAR -1
+        ECHO PLAYER You slip %a over your front and secure it comfortably into place.
+        ECHO OTHERS %N slips into %a and secures it comfortably into place.
+    ENDIF
+
+    IFVERB REMOVE -1
+        ECHO PLAYER You loosen %a and pull it away from your body.
+        ECHO OTHERS %N loosens %a and pulls it away.
+    ENDIF
+
+    IFPREVERB PULL -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO PLAYER You tug at %a, tightening it securely around you.
+            ECHO OTHERS %N tugs at %a, tightening it securely into place.
+        ENDIF
+    ENDIF
+
+    IFPREVERB RUB -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO PLAYER You brush a bit of grime from the front of %a.
+            ECHO OTHERS %N brushes a bit of grime from %a.
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+TRAITDEF GENERIC_ILLITHIUM_ARMOR
+    IFVERB WEAR -1
+        ECHO PLAYER You slip into %a, the metallic mesh flowing around your body with surprising ease.
+        ECHO OTHERS %N slips into %a, its fine metallic mesh settling closely around %h form.
+    ENDIF
+
+    IFVERB REMOVE -1
+        ECHO PLAYER You peel %a away from your body, its fine mesh loosening as you remove it.
+        ECHO OTHERS %N removes %a, its metallic weave relaxing as it comes free.
+    ENDIF
+
+    IFPREVERB PULL -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO PLAYER You tug gently at the illithium mesh, settling it more evenly around you.
+            ECHO OTHERS %N adjusts the fine mesh of %a.
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+TRAITDEF GENERIC_PUMPKIN
+    IFVERB WEAR -1
+        ECHO PLAYER You lower %a over your head and peer out through its triangular eyes.
+        ECHO OTHERS %N lowers %a over %h head, assuming a rather alarming grin.
+    ENDIF
+
+    IFVERB REMOVE -1
+        ECHO PLAYER You lift %a from your head and can see properly again.
+        ECHO OTHERS %N lifts %a from %h head, revealing %h face.
+    ENDIF
+
+    IFPREVERB TURN -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO PLAYER You turn %a slightly, trying to line the eye holes up with your eyes.
+            ECHO OTHERS %N twists %a around slightly on %h head.
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+TRAITDEF GENERIC_HOODED_GARMENT
+    IFPREVERB PULL -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO PLAYER You pull the hood of %a more tightly around your head.
+            ECHO OTHERS %N pulls the hood of %a more tightly around %h head.
+        ENDIF
+    ENDIF
+
+    IFPREVERB RUB -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO PLAYER You rummage around under %a, looking in various pouches and pockets.
+            ECHO OTHERS %N rummages around under %a, looking in various pouches and pockets.
+        ENDIF
+    ENDIF
+
+    IFPREVERB TURN -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO PLAYER You turn %a sideways on your body.
+            ECHO OTHERS %N turns %a sideways on %h body.
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+TRAITDEF GENERIC_GI
+    IFVERB WEAR -1
+        ECHO PLAYER You slip into %a and settle its folds comfortably around you.
+        ECHO OTHERS %N slips into %a and settles it comfortably into place.
+    ENDIF
+
+    IFVERB REMOVE -1
+        ECHO PLAYER You loosen %a and slip out of it.
+        ECHO OTHERS %N loosens %a and slips out of it.
+    ENDIF
+
+    IFPREVERB PULL -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO PLAYER You tug %a straight and adjust its fit.
+            ECHO OTHERS %N adjusts the fit of %a.
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+TRAITDEF GENERIC_CODPIECE
+    IFVERB WEAR -1
+        ECHO PLAYER You slip into %a and adjust it just so.
+        ECHO OTHERS %N slips into %a and adjusts it just so.
+    ENDIF
+
+    IFVERB REMOVE -1
+        ECHO PLAYER You slip out of %a.
+        ECHO OTHERS %N slips out of %a.
+    ENDIF
+
+    IFPREVERB LEAN -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO PLAYER You strike a pose.
+            ECHO OTHERS %N strikes a pose.
+        ENDIF
+    ENDIF
+
+    IFPREVERB GET -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO PLAYER You grab your crotch.
+            ECHO OTHERS %N grabs %h crotch.
+        ENDIF
+    ENDIF
+
+    IFPREVERB WAVE -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO PLAYER You make an obscene gesture.
+            ECHO OTHERS %N makes an obscene gesture.
+        ENDIF
+    ENDIF
+
+    IFPREVERB PUSH -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO PLAYER You wiggle your bottom.
+            ECHO OTHERS %N wiggles %h bottom.
+        ENDIF
+    ENDIF
+
+    IFPREVERB PLAY -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO PLAYER You gently stroke yourself.
+            ECHO OTHERS %N gently strokes %iself.
+        ENDIF
+    ENDIF
+
+    IFPREVERB PULL -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO PLAYER You move your hips from side to side.
+            ECHO OTHERS %N moves %h hips from side to side.
+        ENDIF
+    ENDIF
+
+    IFPREVERB TURN -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO PLAYER You pirouette.
+            ECHO OTHERS %N pirouettes.
+        ENDIF
+    ENDIF
+
+    IFPREVERB FLIP -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO PLAYER You sashay about.
+            ECHO OTHERS %N sashays about.
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+TRAITDEF GENERIC_BERET
+    IFVERB WEAR -1
+        ECHO PLAYER You settle %a comfortably upon your head.
+        ECHO OTHERS %N settles %a comfortably upon %h head.
+    ENDIF
+
+    IFVERB REMOVE -1
+        ECHO PLAYER You lift %a from your head.
+        ECHO OTHERS %N lifts %a from %h head.
+    ENDIF
+
+    IFPREVERB PULL -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO PLAYER You give a little tug on %a, making it rest slightly askance on your head.
+            ECHO OTHERS %N moves %h beret so that it sits slightly askance on %h head. Quite romantic looking, eh?
+        ELSE
+            CLEARVERB
+            ECHO PLAYER What's the point? You aren't wearing it.
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+TRAITDEF BONDED_RING
+    IFPREVERB READ -1
+        CLEARVERB
+        ECHO PLAYER An inscription reads, "Mine. Yours. Ours. Us."
+    ENDIF
+
+    IFVERB RECALL -1
+        IFVAR INTNUM3 = 78
+            ECHO PLAYER You remember the overwhelming wave of love washing over you as the truths were spoken, the sense of completeness that it gave you... and the bond is forged in you all over again.
+        ENDIF
+
+        IFVAR INTNUM3 = 21
+            ECHO PLAYER In the farthest reaches of your mind, you recall giving this ring to Camorra.
+        ENDIF
+    ENDIF
+ENDTRAIT

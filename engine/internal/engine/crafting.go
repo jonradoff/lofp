@@ -3,17 +3,70 @@ package engine
 import (
 	"context"
 	"fmt"
+	"math"
 	"math/rand"
 	"sort"
+	"strconv"
 	"strings"
 	"time"
 
 	"github.com/metavert-io/lofp/internal/gameworld"
 )
 
-// ---- MINING ----
+type mineOreDef struct {
+	Archetype int
+	Adj       int
+	Grade     string
+	Value     int
+	Rarity    int
+}
 
+var mineOreTable = []mineOreDef{
+	// Grade C
+	{1369, 893, "C", 600, 0}, // graphite
+	{1369, 68, "C", 1000, 0}, // copper
+	{1369, 744, "C", 200, 0}, // tin
+	{1369, 383, "C", 800, 1}, // diamontine
+
+	// Grade B
+	{1369, 68, "B", 1200, 0},  // copper
+	{1369, 292, "B", 4000, 0}, // silver
+	{1369, 328, "B", 2000, 0}, // titanium
+	{1369, 109, "B", 5000, 5}, // elkyri
+	{1369, 918, "B", 800, 2},  // bekk-ite
+	{1369, 893, "B", 1000, 0}, // graphite
+	{1369, 109, "B", 7000, 8}, // elkyri
+	{1369, 256, "B", 5000, 8}, // randar
+
+	// Grade A
+	{1369, 147, "A", 800, 0},    // gold
+	{1369, 292, "A", 800, 0},    // silver
+	{1369, 563, "A", 1000, 0},   // platinum
+	{1369, 109, "A", 10000, 15}, // elkyri
+	{1369, 256, "A", 7500, 15},  // randar
+	{1369, 918, "A", 1000, 5},   // bekk-ite
+	{1369, 1130, "A", 1600, 10}, // albescent
+	{1369, 643, "A", 1600, 10},  // shadowsteel
+
+	// Special iron ore archetype
+	{1371, 169, "C", 400, 0}, // iron
+}
+
+// ---- MINING ----
+/*
 func (e *GameEngine) doMineReal(ctx context.Context, player *Player) *CommandResult {
+
+	if player.RoundTimeExpiry.After(time.Now()) {
+		remaining := int(time.Until(player.RoundTimeExpiry).Seconds()) + 1
+
+		return &CommandResult{
+			Messages: []string{
+				fmt.Sprintf("[Wait %d seconds...]", remaining),
+			},
+			PlayerState: player,
+		}
+	}
+
 	room := e.rooms[player.RoomNumber]
 	if room == nil {
 		return &CommandResult{Messages: []string{"You can't mine here."}}
@@ -62,8 +115,12 @@ func (e *GameEngine) doMineReal(ctx context.Context, player *Player) *CommandRes
 		return &CommandResult{Messages: []string{"You have no training in Mining."}}
 	}
 
+	// A legitimate mining attempt takes 10 seconds,
+	// whether or not useful ore is found.
+	player.RoundTimeExpiry = time.Now().Add(10 * time.Second)
+
 	// Success chance: base 30% + mining*5 + STR/10
-	chance := 30 + miningSkill*5 + player.Strength/10
+	chance := 30 + miningSkill*5 + player.EffectiveStat(StatStrength)/10
 	if chance > 90 {
 		chance = 90
 	}
@@ -76,7 +133,10 @@ func (e *GameEngine) doMineReal(ctx context.Context, player *Player) *CommandRes
 	if rand.Intn(100) >= chance {
 		e.SavePlayer(ctx, player)
 		return &CommandResult{
-			Messages:      []string{"You swing at the rock face but find nothing useful."},
+			Messages: []string{
+				"You swing at the rock face but find nothing useful.",
+				"[Round: 10 sec]",
+			},
 			RoomBroadcast: []string{fmt.Sprintf("%s swings a mining tool at the rock.", player.FirstName)},
 		}
 	}
@@ -138,8 +198,12 @@ func (e *GameEngine) doMineReal(ctx context.Context, player *Player) *CommandRes
 			}
 		}
 	}
+
 	if oreDef == nil {
-		return &CommandResult{Messages: []string{"You chip away at the rock but find nothing."}}
+		return &CommandResult{Messages: []string{
+			"You chip away at the rock but find nothing.",
+			"[Round: 10 sec]",
+		}, PlayerState: player}
 	}
 
 	// Purity based on grade: A=50-100, B=30-70, C=10-40
@@ -159,6 +223,10 @@ func (e *GameEngine) doMineReal(ctx context.Context, player *Player) *CommandRes
 		Val3:      purity,
 	}
 	player.Inventory = append(player.Inventory, ore)
+
+	// Successful mining earns experience.
+	xpMsgs := e.awardExperience(player, 50)
+
 	e.SavePlayer(ctx, player)
 
 	qualityDesc := "poor"
@@ -170,12 +238,559 @@ func (e *GameEngine) doMineReal(ctx context.Context, player *Player) *CommandRes
 		qualityDesc = "fair"
 	}
 
-	displayName := e.formatItemName(oreDef, ore.Adj1, ore.Adj2, ore.Adj3)
-	return &CommandResult{
-		Messages:      []string{fmt.Sprintf("You chip away at the rock and extract some %s looking %s!", qualityDesc, displayName)},
-		RoomBroadcast: []string{fmt.Sprintf("%s mines some ore from the rock.", player.FirstName)},
-		PlayerState:   player,
+	displayName := e.formatItemName(
+		oreDef,
+		ore.Adj1,
+		ore.Adj2,
+		ore.Adj3,
+	)
+
+	messages := []string{
+		fmt.Sprintf(
+			"You chip away at the rock and extract some %s looking %s!",
+			qualityDesc,
+			displayName,
+		),
 	}
+
+	messages = append(messages, xpMsgs...)
+
+	messages = append(
+		messages,
+		"[Round: 10 sec]",
+	)
+
+	return &CommandResult{
+		Messages: messages,
+		RoomBroadcast: []string{
+			fmt.Sprintf(
+				"%s mines some ore from the rock.",
+				player.FirstName,
+			),
+		},
+		PlayerState: player,
+	}
+}
+*/
+
+func (e *GameEngine) doMineReal(ctx context.Context, player *Player) *CommandResult {
+
+	if player.RoundTimeExpiry.After(time.Now()) {
+		remaining := int(time.Until(player.RoundTimeExpiry).Seconds()) + 1
+
+		return &CommandResult{
+			Messages: []string{
+				fmt.Sprintf("[Wait %d seconds...]", remaining),
+			},
+			PlayerState: player,
+		}
+	}
+
+	room := e.rooms[player.RoomNumber]
+	if room == nil {
+		return &CommandResult{
+			Messages: []string{"You can't mine here."},
+		}
+	}
+
+	// ------------------------------------------------------------
+	// DETERMINE MINE GRADE
+	//
+	// MINEA can produce A, B, or C.
+	// MINEB can produce B or C.
+	// MINEC can produce C only.
+	// ------------------------------------------------------------
+
+	mineGrade := ""
+
+	if containsModifier(room.Modifiers, "MINEA") {
+		mineGrade = "A"
+	} else if containsModifier(room.Modifiers, "MINEB") {
+		mineGrade = "B"
+	} else if containsModifier(room.Modifiers, "MINEC") {
+		mineGrade = "C"
+	}
+
+	if mineGrade == "" {
+		return &CommandResult{
+			Messages: []string{"There is nothing to mine here."},
+		}
+	}
+
+	// ------------------------------------------------------------
+	// CHECK FOR MINING TOOL
+	// ------------------------------------------------------------
+
+	isMiningTool := func(def *gameworld.ItemDef) bool {
+		if def == nil {
+			return false
+		}
+
+		noun := strings.ToLower(e.nouns[def.NameID])
+
+		return noun == "pickaxe" ||
+			noun == "pick-axe" ||
+			noun == "hammer" ||
+			noun == "shovel" ||
+			def.Type == "MINETOOL"
+	}
+
+	hasTool := false
+
+	if player.Wielded != nil {
+		if isMiningTool(e.items[player.Wielded.Archetype]) {
+			hasTool = true
+		}
+	}
+
+	if !hasTool {
+		for _, ii := range player.Inventory {
+			if isMiningTool(e.items[ii.Archetype]) {
+				hasTool = true
+				break
+			}
+		}
+	}
+
+	if !hasTool {
+		return &CommandResult{
+			Messages: []string{
+				"You need a mining tool (pickaxe, hammer, or shovel) to mine.",
+			},
+		}
+	}
+
+	// ------------------------------------------------------------
+	// MINING SKILL
+	// ------------------------------------------------------------
+
+	miningSkill := player.Skills[35]
+
+	if miningSkill < 1 {
+		return &CommandResult{
+			Messages: []string{
+				"You have no training in Mining.",
+			},
+		}
+	}
+
+	// Every legitimate mining attempt takes 10 seconds.
+	player.RoundTimeExpiry = time.Now().Add(10 * time.Second)
+
+	// Success chance is kept in its own helper so combat,
+	// fatigue, tools, room difficulty, etc. can be added later.
+	chance := e.miningSuccessChance(player)
+
+	// Mining is tiring.
+	player.Fatigue -= 2
+	if player.Fatigue < 0 {
+		player.Fatigue = 0
+	}
+
+	// ------------------------------------------------------------
+	// MINING SUCCESS CHECK
+	// ------------------------------------------------------------
+
+	if rand.Intn(100) >= chance {
+		e.SavePlayer(ctx, player)
+
+		return &CommandResult{
+			Messages: []string{
+				"You swing at the rock face but find nothing useful.",
+				"[Round: 10 sec]",
+			},
+			RoomBroadcast: []string{
+				fmt.Sprintf(
+					"%s swings a mining tool at the rock.",
+					player.FirstName,
+				),
+			},
+			PlayerState: player,
+		}
+	}
+
+	// ------------------------------------------------------------
+	// SELECT A/B/C GRADE
+	//
+	// rollMineGrade() currently contains:
+	//
+	// MINEA: A 3%, B 22%, C 75%
+	// MINEB: B 20%, C 80%
+	// MINEC: C 100%
+	//
+	// Keeping this separate makes those numbers easy to tune.
+	// ------------------------------------------------------------
+
+	selectedGrade := rollMineGrade(mineGrade)
+
+	// ------------------------------------------------------------
+	// BUILD THE MINEDEF POOL
+	//
+	// Only MINEDEF entries belonging to the selected grade are
+	// eligible.
+	//
+	// Within that grade, copper value is used as reverse rarity:
+	//
+	//     weight = 1 / sqrt(value)
+	//
+	// High-value results are therefore less common.
+	//
+	// Duplicate MINEDEF entries remain separate entries.
+	// ------------------------------------------------------------
+
+	type mineChoice struct {
+		def    gameworld.MineDef
+		weight float64
+	}
+
+	var choices []mineChoice
+	totalWeight := 0.0
+
+	for _, md := range e.mineDefs {
+
+		if !strings.EqualFold(md.Grade, selectedGrade) {
+			continue
+		}
+
+		value := md.Value
+		if value <= 0 {
+			value = 1
+		}
+
+		weight := 1.0 / math.Sqrt(float64(value))
+
+		choices = append(
+			choices,
+			mineChoice{
+				def:    md,
+				weight: weight,
+			},
+		)
+
+		totalWeight += weight
+	}
+
+	if len(choices) == 0 || totalWeight <= 0 {
+		e.SavePlayer(ctx, player)
+
+		return &CommandResult{
+			Messages: []string{
+				"You chip away at the rock but find nothing useful.",
+				"[Round: 10 sec]",
+			},
+			PlayerState: player,
+		}
+	}
+
+	// ------------------------------------------------------------
+	// SELECT A MINEDEF
+	// ------------------------------------------------------------
+
+	pick := rand.Float64() * totalWeight
+
+	chosen := choices[len(choices)-1].def
+
+	for _, choice := range choices {
+		pick -= choice.weight
+
+		if pick <= 0 {
+			chosen = choice.def
+			break
+		}
+	}
+
+	itemDef := e.items[chosen.ItemNum]
+
+	if itemDef == nil {
+		e.SavePlayer(ctx, player)
+
+		return &CommandResult{
+			Messages: []string{
+				"You chip away at the rock but find nothing useful.",
+				"[Round: 10 sec]",
+			},
+			PlayerState: player,
+		}
+	}
+
+	// ------------------------------------------------------------
+	// CREATE THE MINED ITEM
+	//
+	// ORE:
+	//   Adj1 = MINEDEF adjective
+	//   Val2 = MINEDEF Val2
+	//   Val3 = purity
+	//
+	// GEM:
+	//   createGemFromMineDef() handles:
+	//   - size
+	//   - quality
+	//   - adjusted value
+	//   - MINEDEF variant adjective
+	// ------------------------------------------------------------
+
+	var minedItem InventoryItem
+	purity := 0
+
+	if itemDef.Type == "ORE" {
+
+		// Ore Val3 is purity.
+		//
+		// Legacy documentation defines this as the percentage
+		// chance of successfully refining useful metal from it.
+		//
+		// We have not found the original purity-generation formula,
+		// so this is currently a 1-100 roll.
+		purity = rand.Intn(100) + 1
+
+		minedItem = InventoryItem{
+			Archetype: chosen.ItemNum,
+			Val2:      chosen.Val2,
+			Val3:      purity,
+		}
+
+		if chosen.AdjNum > 0 {
+			minedItem.Adj1 = chosen.AdjNum
+		}
+
+	} else {
+
+		// Non-ORE MINEDEF entries are gems.
+		// Use the exact same size/quality/value system used
+		// elsewhere for generated gems.
+		minedItem = e.createGemFromMineDef(chosen)
+	}
+
+	// ------------------------------------------------------------
+	// GIVE ITEM TO PLAYER
+	// ------------------------------------------------------------
+
+	player.Inventory = append(
+		player.Inventory,
+		minedItem,
+	)
+
+	// Successful mining earns experience.
+	xpMsgs := e.awardExperience(player, 50)
+
+	e.SavePlayer(ctx, player)
+
+	// ------------------------------------------------------------
+	// BUILD DISPLAY NAME
+	// ------------------------------------------------------------
+
+	displayName := e.formatItemName(
+		itemDef,
+		minedItem.Adj1,
+		minedItem.Adj2,
+		minedItem.Adj3,
+	)
+
+	var findMessage string
+
+	if itemDef.Type == "ORE" {
+
+		// Ore gets a human-readable purity description.
+		qualityDesc := "poor"
+
+		switch {
+		case purity > 70:
+			qualityDesc = "excellent"
+
+		case purity > 50:
+			qualityDesc = "good"
+
+		case purity > 30:
+			qualityDesc = "fair"
+		}
+
+		findMessage = fmt.Sprintf(
+			"You chip away at the rock and extract %s of %s quality!",
+			displayName,
+			qualityDesc,
+		)
+
+	} else {
+
+		// Gem size and quality are already part of its adjectives,
+		// e.g.:
+		//
+		// a large chipped onyx
+		// a tiny flawless alexandrite
+		// a huge faceted aquamarine
+		findMessage = fmt.Sprintf(
+			"You chip away at the rock and extract %s!",
+			displayName,
+		)
+	}
+
+	// ------------------------------------------------------------
+	// RESULT
+	// ------------------------------------------------------------
+
+	messages := []string{
+		findMessage,
+	}
+
+	messages = append(
+		messages,
+		xpMsgs...,
+	)
+
+	messages = append(
+		messages,
+		"[Round: 10 sec]",
+	)
+
+	return &CommandResult{
+		Messages: messages,
+
+		RoomBroadcast: []string{
+			fmt.Sprintf(
+				"%s mines something from the rock.",
+				player.FirstName,
+			),
+		},
+
+		PlayerState: player,
+	}
+}
+
+func (e *GameEngine) miningSuccessChance(player *Player) int {
+	if player == nil {
+		return 0
+	}
+
+	miningSkill := player.Skills[35]
+
+	// Current mining success formula.
+	chance := 30 +
+		miningSkill*5 +
+		player.EffectiveStat(StatStrength)/10
+
+	// Future modifiers go here.
+	//
+	// For example:
+	//
+	// if player.CombatTarget != nil {
+	//     chance -= 25
+	// }
+	//
+	// We can also add modifiers here later for:
+	// fatigue, tool quality, room difficulty, injuries, etc.
+
+	if chance < 5 {
+		chance = 5
+	}
+
+	if chance > 90 {
+		chance = 90
+	}
+
+	return chance
+}
+
+func rollMineGrade(mineGrade string) string {
+	roll := rand.Intn(100) + 1
+
+	switch mineGrade {
+
+	case "A":
+		// MINEA
+		//
+		// A:  3%
+		// B: 22%
+		// C: 75%
+		switch {
+		case roll <= 3:
+			return "A"
+
+		case roll <= 25:
+			return "B"
+
+		default:
+			return "C"
+		}
+
+	case "B":
+		// MINEB
+		//
+		// B: 20%
+		// C: 80%
+		if roll <= 20 {
+			return "B"
+		}
+
+		return "C"
+
+	default:
+		// MINEC
+		//
+		// C: 100%
+		return "C"
+	}
+}
+
+func (e *GameEngine) createGemFromMineDef(md gameworld.MineDef) InventoryItem {
+	// Size:
+	// tiny 15%, small 20%, normal 35%, large 20%, huge 10%
+	sizeAdj := 0
+
+	switch roll := rand.Intn(100); {
+	case roll < 15:
+		sizeAdj = 327 // tiny
+	case roll < 35:
+		sizeAdj = 294 // small
+	case roll < 70:
+		// normal
+	case roll < 90:
+		sizeAdj = 178 // large
+	default:
+		sizeAdj = 163 // huge
+	}
+
+	// Quality:
+	// damaged 8%, chipped 12%, normal 45%, polished 15%,
+	// faceted 10%, brilliant 7%, flawless 3%
+	qualityAdj := 0
+
+	switch roll := rand.Intn(100); {
+	case roll < 8:
+		qualityAdj = 83 // damaged
+	case roll < 20:
+		qualityAdj = 53 // chipped
+	case roll < 65:
+		// normal
+	case roll < 80:
+		qualityAdj = 241 // polished
+	case roll < 90:
+		qualityAdj = 118 // faceted
+	case roll < 97:
+		qualityAdj = 37 // brilliant
+	default:
+		qualityAdj = 129 // flawless
+	}
+
+	adjustedValue := gemValue(
+		md.Value,
+		sizeAdj,
+		qualityAdj,
+	)
+
+	item := InventoryItem{
+		Archetype: md.ItemNum,
+		Val1:      adjustedValue,
+		Val2:      md.Val2,
+		Adj1:      sizeAdj,
+		Adj2:      qualityAdj,
+	}
+
+	// MINEDEF variant: fire, black, blue, star, etc.
+	if md.AdjNum > 0 {
+		item.Adj3 = md.AdjNum
+	}
+
+	return item
 }
 
 // ---- SMELTING ----
@@ -183,82 +798,222 @@ func (e *GameEngine) doMineReal(ctx context.Context, player *Player) *CommandRes
 func (e *GameEngine) doSmelt(ctx context.Context, player *Player, args []string) *CommandResult {
 	room := e.rooms[player.RoomNumber]
 	if room == nil || !containsModifier(room.Modifiers, "FORGE") {
-		return &CommandResult{Messages: []string{"You need to be at a forge to smelt ore."}}
+		return &CommandResult{
+			Messages: []string{"You need to be at a forge to smelt ore."},
+		}
+	}
+
+	// Respect existing roundtime.
+	if player.RoundTimeExpiry.After(time.Now()) {
+		remaining := int(time.Until(player.RoundTimeExpiry).Seconds()) + 1
+
+		return &CommandResult{
+			Messages: []string{
+				fmt.Sprintf("[Wait %d seconds...]", remaining),
+			},
+			PlayerState: player,
+		}
 	}
 
 	smithSkill := player.Skills[8]
 	if smithSkill < 1 {
-		return &CommandResult{Messages: []string{"You have no training in Weaponsmithing."}}
+		return &CommandResult{
+			Messages: []string{"You have no training in Weaponsmithing."},
+		}
 	}
 
-	// Find ore in inventory
+	// Support an optional ordinal at the end:
+	//   SMELT ORE
+	//   SMELT ORE 2
+	//   SMELT IRON ORE
+	//   SMELT COPPER ORE 2
+	ordinal := 1
+
+	if len(args) > 1 {
+		if n, err := strconv.Atoi(args[len(args)-1]); err == nil && n > 0 {
+			ordinal = n
+			args = args[:len(args)-1]
+		}
+	}
+
+	// No target means simply SMELT ORE.
 	target := "ore"
 	if len(args) > 0 {
 		target = strings.ToLower(strings.Join(args, " "))
 	}
 
-	for i, ii := range player.Inventory {
+	matchCount := 0
+
+	for i := range player.Inventory {
+		ii := &player.Inventory[i]
+
 		def := e.items[ii.Archetype]
 		if def == nil || def.Type != "ORE" {
 			continue
 		}
-		name := strings.ToLower(e.getItemNounName(def))
-		if !strings.HasPrefix(name, target) && target != "ore" {
+
+		nounName := strings.ToLower(e.getItemNounName(def))
+
+		fullName := strings.ToLower(
+			e.formatItemName(def, ii.Adj1, ii.Adj2, ii.Adj3),
+		)
+
+		// Strip articles/quantity words so:
+		// "copper ore" matches "some copper ore".
+		searchName := fullName
+		searchName = strings.TrimPrefix(searchName, "a ")
+		searchName = strings.TrimPrefix(searchName, "an ")
+		searchName = strings.TrimPrefix(searchName, "the ")
+		searchName = strings.TrimPrefix(searchName, "some ")
+
+		// Match either the basic noun ("ore") or the complete
+		// formatted name ("iron ore", "copper ore", etc.).
+		if !strings.HasPrefix(nounName, target) &&
+			!strings.HasPrefix(searchName, target) {
 			continue
 		}
 
-		// Purity check: VAL3 = percentage chance of successful refinement
+		matchCount++
+		if matchCount != ordinal {
+			continue
+		}
+
+		const rtSec = 10
+
+		// A real smelting attempt takes 10 seconds,
+		// whether it succeeds or fails.
+		player.RoundTimeExpiry = time.Now().Add(
+			time.Duration(rtSec) * time.Second,
+		)
+		player.RoundTime = rtSec
+
+		// VAL3 is ore purity and therefore the base chance
+		// of successfully refining this particular piece of ore.
 		purity := ii.Val3
 		if purity <= 0 {
 			purity = 30
 		}
 
-		// Remove ore
-		player.Inventory = append(player.Inventory[:i], player.Inventory[i+1:]...)
+		// Save the properties we need before removing the ore
+		// from inventory.
+		outputArch := def.Parameter2
+		adj1 := ii.Adj1
+		val2 := ii.Val2
 
-		// Roll against purity + skill bonus
+		if outputArch <= 0 {
+			outputArch = 1370 // generic metal fallback
+		}
+
+		// The ore is consumed whether smelting succeeds or fails.
+		player.Inventory = append(
+			player.Inventory[:i],
+			player.Inventory[i+1:]...,
+		)
+
+		// Purity + Weaponsmithing determine success.
 		smeltChance := purity + smithSkill*2
+
 		if smeltChance > 95 {
 			smeltChance = 95
 		}
 
 		if rand.Intn(100) >= smeltChance {
 			e.SavePlayer(ctx, player)
+
 			return &CommandResult{
-				Messages:      []string{"You heat the ore in the forge, but it crumbles to useless slag."},
-				RoomBroadcast: []string{fmt.Sprintf("%s works at the forge.", player.FirstName)},
-				PlayerState:   player,
+				Messages: []string{
+					"You heat the ore in the forge, but it crumbles to useless slag.",
+					fmt.Sprintf("[Round: %d sec]", rtSec),
+				},
+				RoomBroadcast: []string{
+					fmt.Sprintf(
+						"%s works at the forge.",
+						player.FirstName,
+					),
+				},
+				PlayerState: player,
 			}
 		}
 
-		// Success: create material item
-		outputArch := def.Parameter2
-		if outputArch <= 0 {
-			outputArch = 1370 // default to generic metal
-		}
+		// Successful refinement.
 		outputDef := e.items[outputArch]
 		if outputDef == nil {
 			e.SavePlayer(ctx, player)
-			return &CommandResult{Messages: []string{"The ore refines but produces nothing useful."}}
+
+			return &CommandResult{
+				Messages: []string{
+					"The ore refines but produces nothing useful.",
+					fmt.Sprintf("[Round: %d sec]", rtSec),
+				},
+				PlayerState: player,
+			}
 		}
 
 		material := InventoryItem{
 			Archetype: outputArch,
-			Adj1:      ii.Adj1, // preserve metal type (iron, copper, etc.)
-			Val2:      ii.Val2, // transfer material properties
+			Adj1:      adj1, // preserve metal type
+			Val2:      val2, // preserve material properties
 		}
-		player.Inventory = append(player.Inventory, material)
+
+		player.Inventory = append(
+			player.Inventory,
+			material,
+		)
+
+		// Successful smelting earns experience.
+		xpMsgs := e.awardExperience(player, 50)
+
 		e.SavePlayer(ctx, player)
 
-		matName := e.formatItemName(outputDef, material.Adj1, material.Adj2, material.Adj3)
+		matName := e.formatItemName(
+			outputDef,
+			material.Adj1,
+			material.Adj2,
+			material.Adj3,
+		)
+
+		// formatItemName already supplies "some" where appropriate.
+		messages := []string{
+			fmt.Sprintf(
+				"You smelt the ore in the forge and produce %s!",
+				matName,
+			),
+		}
+
+		messages = append(messages, xpMsgs...)
+
+		messages = append(
+			messages,
+			fmt.Sprintf("[Round: %d sec]", rtSec),
+		)
+
 		return &CommandResult{
-			Messages:      []string{fmt.Sprintf("You smelt the ore in the forge and produce some %s!", matName)},
-			RoomBroadcast: []string{fmt.Sprintf("%s works at the forge, smelting ore.", player.FirstName)},
-			PlayerState:   player,
+			Messages: messages,
+			RoomBroadcast: []string{
+				fmt.Sprintf(
+					"%s works at the forge, smelting ore.",
+					player.FirstName,
+				),
+			},
+			PlayerState: player,
 		}
 	}
 
-	return &CommandResult{Messages: []string{"You don't have any ore to smelt."}}
+	// We found matching ore, but not the requested occurrence.
+	if matchCount > 0 {
+		return &CommandResult{
+			Messages: []string{
+				fmt.Sprintf(
+					"You don't have that many matching pieces of ore. (Found %d)",
+					matchCount,
+				),
+			},
+		}
+	}
+
+	return &CommandResult{
+		Messages: []string{"You don't have that ore to smelt."},
+	}
 }
 
 // ---- CRAFTING (FORGE/CRAFT) ----
@@ -460,7 +1215,7 @@ func (e *GameEngine) doWork(ctx context.Context, player *Player, args []string) 
 
 	// Check roundtime
 	if player.RoundTimeExpiry.After(time.Now()) {
-		remaining := player.RoundTimeExpiry.Sub(time.Now()).Seconds()
+		remaining := time.Until(player.RoundTimeExpiry).Seconds()
 		return &CommandResult{Messages: []string{fmt.Sprintf("You are still working... %.0f seconds remaining.", remaining+0.5)}}
 	}
 
@@ -478,35 +1233,34 @@ func (e *GameEngine) doWork(ctx context.Context, player *Player, args []string) 
 		// Find matching material in inventory
 		materialIdx := -1
 		materialAdj := 0
+
+		// Search inventory for the material
 		for j, ii := range player.Inventory {
 			mDef := e.items[ii.Archetype]
 			if mDef == nil {
 				continue
 			}
-			if mDef.Type == "MATERIAL" || mDef.Type == "MATERIAL2" {
-				if mDef.Parameter2 == 8 || mDef.Parameter2 == 0 { // weaponsmithing material
-					mName := strings.ToLower(e.getItemNounName(mDef))
-					// Check both definition adjective and instance adjective
-					defAdj := ""
-					if mDef.Parameter1 > 0 {
-						defAdj = strings.ToLower(e.getAdjName(mDef.Parameter1))
-					}
-					instAdj := strings.ToLower(e.getAdjName(ii.Adj1))
-					if strings.Contains(mName, metal) || strings.Contains(defAdj, metal) ||
-						strings.Contains(instAdj, metal) || strings.HasPrefix(metal, defAdj) ||
-						strings.HasPrefix(metal, instAdj) {
-						materialIdx = j
-						if ii.Adj1 > 0 {
-							materialAdj = ii.Adj1 // prefer instance adjective
-						} else if mDef.Parameter1 > 0 {
-							materialAdj = mDef.Parameter1
-						}
-						break
-					}
+
+			// Check if it's a material for Weaponsmithing (Skill 8)
+			if (mDef.Type == "MATERIAL" || mDef.Type == "MATERIAL2" || mDef.Type == "MISC") && (mDef.Parameter2 == 8 || mDef.Parameter2 == 0) {
+
+				// Get the names for comparison
+				mNoun := strings.ToLower(e.getItemNounName(mDef)) // e.g., "metal"
+				instAdj := strings.ToLower(e.getAdjName(ii.Adj1)) // e.g., "copper"
+
+				// FLEXIBLE MATCHING:
+				// Check if the user's input matches the adjective, the noun, or the combined name
+				fullItemName := instAdj + " " + mNoun // e.g., "copper metal"
+
+				if metal == instAdj || metal == mNoun || metal == fullItemName ||
+					strings.Contains(fullItemName, metal) {
+
+					materialIdx = j
+					materialAdj = ii.Adj1
+					break
 				}
 			}
 		}
-
 		if materialIdx < 0 {
 			// Also accept the metal name directly as a known metal type
 			knownMetals := []string{"copper", "iron", "brass", "bronze", "steel", "truesteel", "randar", "elkyri"}
@@ -556,7 +1310,6 @@ func (e *GameEngine) doWork(ctx context.Context, player *Player, args []string) 
 			RoomBroadcast: []string{fmt.Sprintf("%s works diligently at the forge.", player.FirstName)},
 			PlayerState:   player,
 		}
-
 	case 2: // Heated → Hammer
 		player.CraftingStep = 3
 		player.RoundTimeExpiry = time.Now().Add(15 * time.Second)
@@ -720,11 +1473,13 @@ func (e *GameEngine) doRepair(ctx context.Context, player *Player, args []string
 
 	// Check roundtime
 	if player.RoundTimeExpiry.After(time.Now()) {
-		remaining := player.RoundTimeExpiry.Sub(time.Now()).Seconds()
+		remaining := time.Until(player.RoundTimeExpiry).Seconds()
 		return &CommandResult{Messages: []string{fmt.Sprintf("You are still working... %.0f seconds remaining.", remaining+0.5)}}
 	}
 
 	target := strings.ToLower(strings.Join(args, " "))
+	target, ordSkip := parseOrdinal(target)
+	skip := ordSkip
 
 	// Find the weapon in inventory with DAMAGED state
 	for i, ii := range player.Inventory {
@@ -732,16 +1487,25 @@ func (e *GameEngine) doRepair(ctx context.Context, player *Player, args []string
 		if def == nil {
 			continue
 		}
+
 		if !isWeapon(def.Type) {
 			continue
 		}
+
 		name := strings.ToLower(e.getItemNounName(def))
 		if !strings.HasPrefix(name, target) {
 			continue
 		}
 
+		if skip > 0 {
+			skip--
+			continue
+		}
+
 		if ii.State != "DAMAGED" {
-			return &CommandResult{Messages: []string{"That doesn't need repair."}}
+			return &CommandResult{
+				Messages: []string{"That doesn't need repair."},
+			}
 		}
 
 		// Skill check: base 40% + smithSkill*5
@@ -759,7 +1523,14 @@ func (e *GameEngine) doRepair(ctx context.Context, player *Player, args []string
 		if roll > chance {
 			e.SavePlayer(ctx, player)
 			return &CommandResult{
-				Messages:      []string{fmt.Sprintf("[Success: %d%%, Roll %d] You are unable to repair the weapon.", chance, roll)},
+				Messages: []string{
+					fmt.Sprintf(
+						"[Success: %d%%, Roll %d] You are unable to repair the weapon.",
+						chance,
+						roll,
+					),
+					fmt.Sprintf("[Round: %d sec]", player.RoundTime),
+				},
 				RoomBroadcast: []string{fmt.Sprintf("%s works at the forge, trying to repair a weapon.", player.FirstName)},
 				PlayerState:   player,
 			}
@@ -767,12 +1538,32 @@ func (e *GameEngine) doRepair(ctx context.Context, player *Player, args []string
 
 		// Success: remove DAMAGED state
 		player.Inventory[i].State = ""
+
+		xpMsgs := e.awardExperience(player, 50)
+
 		e.SavePlayer(ctx, player)
 
+		messages := []string{
+			fmt.Sprintf(
+				"[Success: %d%%, Roll %d] You carefully repair your %s.",
+				chance,
+				roll,
+				itemName,
+			),
+			fmt.Sprintf("[Round: %d sec]", player.RoundTime),
+		}
+
+		messages = append(messages, xpMsgs...)
+
 		return &CommandResult{
-			Messages:      []string{fmt.Sprintf("[Success: %d%%, Roll %d] You carefully repair your %s.", chance, roll, itemName)},
-			RoomBroadcast: []string{fmt.Sprintf("%s works at the forge, repairing a weapon.", player.FirstName)},
-			PlayerState:   player,
+			Messages: messages,
+			RoomBroadcast: []string{
+				fmt.Sprintf(
+					"%s works at the forge, repairing a weapon.",
+					player.FirstName,
+				),
+			},
+			PlayerState: player,
 		}
 	}
 
@@ -780,73 +1571,206 @@ func (e *GameEngine) doRepair(ctx context.Context, player *Player, args []string
 }
 
 // ---- FORAGING ----
-
 func (e *GameEngine) doForageReal(ctx context.Context, player *Player) *CommandResult {
+
+	// Check existing roundtime.
+	if time.Now().Before(player.RoundTimeExpiry) {
+		remaining := time.Until(player.RoundTimeExpiry).Seconds()
+
+		return &CommandResult{
+			Messages: []string{
+				fmt.Sprintf("[Wait %.0f seconds...]", remaining),
+			},
+		}
+	}
+
 	room := e.rooms[player.RoomNumber]
 	if room == nil {
-		return &CommandResult{Messages: []string{"You can't forage here."}}
+		return &CommandResult{
+			Messages: []string{"You can't forage here."},
+		}
 	}
 
 	terrain := room.Terrain
-	switch terrain {
-	case "FOREST", "MOUNTAIN", "PLAIN", "SWAMP", "JUNGLE":
-		// OK
-	default:
-		return &CommandResult{Messages: []string{"There is nothing to forage here."}}
-	}
 
-	// Check for forage definitions matching this terrain
+	// Find FORAGEDEF entries matching this terrain.
 	var candidates []gameworld.ForageDef
+
 	for _, fd := range e.forageDefs {
 		if strings.EqualFold(fd.Terrain, terrain) {
 			candidates = append(candidates, fd)
 		}
 	}
 
-	// If no ForageDefs loaded, use generic fallback
+	// No forage table for this terrain.
 	if len(candidates) == 0 {
-		return e.doForageFallback(ctx, player, terrain)
-	}
-
-	// Weighted random selection
-	totalRatio := 0
-	for _, fd := range candidates {
-		totalRatio += fd.Ratio
-	}
-	if totalRatio <= 0 {
-		return e.doForageFallback(ctx, player, terrain)
-	}
-
-	roll := rand.Intn(totalRatio)
-	cumulative := 0
-	for _, fd := range candidates {
-		cumulative += fd.Ratio
-		if roll < cumulative {
-			itemDef := e.items[fd.ItemNum]
-			if itemDef == nil {
-				continue
-			}
-			item := InventoryItem{
-				Archetype: fd.ItemNum,
-				Val2:      fd.Val2,
-				Val5:      fd.Val5,
-			}
-			if fd.AdjNum > 0 {
-				item.Adj1 = fd.AdjNum
-			}
-			player.Inventory = append(player.Inventory, item)
-			e.SavePlayer(ctx, player)
-
-			itemName := e.formatItemName(itemDef, item.Adj1, 0, 0)
-			return &CommandResult{
-				Messages:      []string{fmt.Sprintf("You search the area and find some %s!", itemName)},
-				RoomBroadcast: []string{fmt.Sprintf("%s forages in the area.", player.FirstName)},
-				PlayerState:   player,
-			}
+		return &CommandResult{
+			Messages: []string{"There is nothing to forage here."},
 		}
 	}
 
-	return &CommandResult{Messages: []string{"You search but find nothing useful."}}
+	// Foraging requires Woodlore (skill 18).
+	woodlore := player.Skills[18]
+
+	if woodlore <= 0 {
+		return &CommandResult{
+			Messages: []string{
+				"You lack the woodlore necessary to forage effectively.",
+			},
+		}
+	}
+
+	// Every valid forage attempt takes 20 seconds.
+	rtSec := 20
+	player.RoundTimeExpiry = time.Now().Add(
+		time.Duration(rtSec) * time.Second,
+	)
+
+	// LOFP-style skill check:
+	// 25% base + 5% per Woodlore rank.
+	chance := 25 + woodlore*5
+
+	if chance > 95 {
+		chance = 95
+	}
+
+	forageRoll := rand.Intn(100) + 1
+
+	// Failed forage attempt.
+	if forageRoll > chance {
+		e.SavePlayer(ctx, player)
+
+		return &CommandResult{
+			Messages: []string{
+				"You search the area but find nothing useful.",
+				fmt.Sprintf("[Round: %d sec]", rtSec),
+			},
+			RoomBroadcast: []string{
+				fmt.Sprintf(
+					"%s forages in the area.",
+					player.FirstName,
+				),
+			},
+			PlayerState: player,
+		}
+	}
+
+	// Successful forage attempt.
+	// Ratio determines the relative probability of which
+	// forageable item is found.
+	totalRatio := 0
+
+	for _, fd := range candidates {
+		if fd.Ratio > 0 {
+			totalRatio += fd.Ratio
+		}
+	}
+
+	// Invalid/empty forage table.
+	if totalRatio <= 0 {
+		e.SavePlayer(ctx, player)
+
+		return &CommandResult{
+			Messages: []string{
+				"You search the area but find nothing useful.",
+				fmt.Sprintf("[Round: %d sec]", rtSec),
+			},
+			RoomBroadcast: []string{
+				fmt.Sprintf(
+					"%s forages in the area.",
+					player.FirstName,
+				),
+			},
+			PlayerState: player,
+		}
+	}
+
+	// Weighted random selection from the FORAGEDEF table.
+	roll := rand.Intn(totalRatio)
+	cumulative := 0
+
+	for _, fd := range candidates {
+		if fd.Ratio <= 0 {
+			continue
+		}
+
+		cumulative += fd.Ratio
+
+		if roll >= cumulative {
+			continue
+		}
+
+		itemDef := e.items[fd.ItemNum]
+		if itemDef == nil {
+			continue
+		}
+
+		item := InventoryItem{
+			Archetype: fd.ItemNum,
+			Val2:      fd.Val2,
+			Val5:      fd.Val5,
+		}
+
+		if fd.AdjNum > 0 {
+			item.Adj1 = fd.AdjNum
+		}
+
+		player.Inventory = append(player.Inventory, item)
+
+		// Successful forage earns experience.
+		xpMsgs := e.awardExperience(player, 100)
+
+		e.SavePlayer(ctx, player)
+
+		itemName := e.formatItemName(
+			itemDef,
+			item.Adj1,
+			item.Adj2,
+			item.Adj3,
+		)
+
+		messages := []string{
+			fmt.Sprintf(
+				"You search the area and find %s!",
+				itemName,
+			),
+		}
+
+		messages = append(messages, xpMsgs...)
+
+		messages = append(
+			messages,
+			fmt.Sprintf("[Round: %d sec]", rtSec),
+		)
+
+		return &CommandResult{
+			Messages: messages,
+			RoomBroadcast: []string{
+				fmt.Sprintf(
+					"%s forages in the area.",
+					player.FirstName,
+				),
+			},
+			PlayerState: player,
+		}
+	}
+
+	// Bad item reference or otherwise unusable forage entry.
+	e.SavePlayer(ctx, player)
+
+	return &CommandResult{
+		Messages: []string{
+			"You search the area but find nothing useful.",
+			fmt.Sprintf("[Round: %d sec]", rtSec),
+		},
+		RoomBroadcast: []string{
+			fmt.Sprintf(
+				"%s forages in the area.",
+				player.FirstName,
+			),
+		},
+		PlayerState: player,
+	}
 }
 
 // doForageFallback provides generic foraging when no ForageDefs are loaded.
@@ -906,6 +1830,84 @@ func (e *GameEngine) doForageFallback(ctx context.Context, player *Player, terra
 		RoomBroadcast: []string{fmt.Sprintf("%s forages in the area.", player.FirstName)},
 		PlayerState:   player,
 	}
+}
+
+func (e *GameEngine) resolveReagentType(item *InventoryItem) int {
+	if item == nil {
+		return 0
+	}
+
+	// An explicit value on this particular item always wins.
+	// This handles normally foraged, skinned, and scripted reagents.
+	if item.Val5 > 0 {
+		return item.Val5
+	}
+
+	matchesForage := func(fd gameworld.ForageDef) bool {
+		if fd.ItemNum != item.Archetype || fd.Val5 <= 0 {
+			return false
+		}
+
+		if fd.AdjNum <= 0 {
+			return true
+		}
+
+		return item.Adj1 == fd.AdjNum ||
+			item.Adj2 == fd.AdjNum ||
+			item.Adj3 == fd.AdjNum
+	}
+
+	// Check permanent/base forage definitions.
+	for _, fd := range e.baseForageDefs {
+		if matchesForage(fd) {
+			item.Val5 = fd.Val5
+			return item.Val5
+		}
+	}
+
+	// Check every seasonal forage definition.
+	for _, defs := range e.seasonalForageDefs {
+		for _, fd := range defs {
+			if matchesForage(fd) {
+				item.Val5 = fd.Val5
+				return item.Val5
+			}
+		}
+	}
+
+	// No FORAGEDEF matched. Check monster SKINITEM definitions.
+	// This handles shop-bought creature components such as newt eyes:
+	// STOREITEM gives us the archetype/adjective but not Val5.
+	for _, mon := range e.monsters {
+		if mon == nil || mon.SkinAdj <= 0 {
+			continue
+		}
+
+		// The shop item's adjective must identify the same creature skin.
+		if item.Adj1 != mon.SkinAdj &&
+			item.Adj2 != mon.SkinAdj &&
+			item.Adj3 != mon.SkinAdj {
+			continue
+		}
+
+		for _, sd := range mon.SkinItems {
+			if sd.Archetype == item.Archetype && sd.Val5 > 0 {
+				item.Val5 = sd.Val5
+				return item.Val5
+			}
+		}
+	}
+
+	// Legacy store-only reagent: newt eye.
+	// The alchemy guide classifies newt eyes as Mild Magic,
+	// corresponding to reagent type 9 (Miscellaneous, common).
+	if item.Archetype == 520 &&
+		(item.Adj1 == 1105 || item.Adj2 == 1105 || item.Adj3 == 1105) {
+		item.Val5 = 9
+		return item.Val5
+	}
+
+	return 0
 }
 
 // ---- DYEING ----
@@ -984,29 +1986,88 @@ func (e *GameEngine) doDye(ctx context.Context, player *Player, args []string) *
 
 // ---- ANALYZE (ore purity) ----
 
-func (e *GameEngine) doAnalyze(ctx context.Context, player *Player, args []string) *CommandResult {
+func (e *GameEngine) doAnalyze(ctx context.Context, player *Player, args []string, oreSpell bool) *CommandResult {
 	if len(args) == 0 {
 		return &CommandResult{Messages: []string{"Analyze what?"}}
 	}
-	target := strings.ToLower(strings.Join(args, " "))
 
-	for _, ii := range player.Inventory {
+	// Support an optional ordinal at the end:
+	//   ANALYZE LEG
+	//   ANALYZE LEG 2
+	//   ANALYZE SPIDER LEG
+	//   ANALYZE ARACHEN LEG
+	ordinal := 1
+
+	if len(args) > 1 {
+		if n, err := strconv.Atoi(args[len(args)-1]); err == nil && n > 0 {
+			ordinal = n
+			args = args[:len(args)-1]
+		}
+	}
+
+	if len(args) == 0 {
+		return &CommandResult{Messages: []string{"Analyze what?"}}
+	}
+
+	target := strings.ToLower(strings.Join(args, " "))
+	matchCount := 0
+
+	for i := range player.Inventory {
+		ii := &player.Inventory[i]
+
 		def := e.items[ii.Archetype]
 		if def == nil {
 			continue
 		}
-		name := strings.ToLower(e.getItemNounName(def))
-		if !strings.HasPrefix(name, target) {
+
+		nounName := strings.ToLower(e.getItemNounName(def))
+
+		fullName := strings.ToLower(
+			e.formatItemName(def, ii.Adj1, ii.Adj2, ii.Adj3),
+		)
+
+		// Strip the article from the formatted name so:
+		// "spider leg" matches "a spider leg"
+		searchName := fullName
+		searchName = strings.TrimPrefix(searchName, "a ")
+		searchName = strings.TrimPrefix(searchName, "an ")
+		searchName = strings.TrimPrefix(searchName, "the ")
+		searchName = strings.TrimPrefix(searchName, "some ")
+
+		// Match either the noun ("leg") or the compound item name
+		// ("spider leg", "arachen leg", etc.).
+		if !strings.HasPrefix(nounName, target) &&
+			!strings.HasPrefix(searchName, target) {
 			continue
 		}
 
-		if def.Type == "ORE" {
-			miningSkill := player.Skills[35]
-			if miningSkill < 3 {
-				return &CommandResult{Messages: []string{"You don't have enough mining skill to analyze this ore. (Need Mining 3+)"}}
+		matchCount++
+		if matchCount != ordinal {
+			continue
+		}
+
+		if oreSpell && def.Type != "ORE" {
+			return &CommandResult{
+				Messages: []string{"That is not ore."},
 			}
+		}
+
+		if def.Type == "ORE" {
+			if !oreSpell {
+				miningSkill := player.Skills[35]
+
+				if miningSkill < 3 {
+					return &CommandResult{
+						Messages: []string{
+							"You don't have enough mining skill to analyze this ore. (Need Mining 3+)",
+						},
+					}
+				}
+			}
+
 			purity := ii.Val3
 			desc := "poor"
+
 			if purity > 80 {
 				desc = "nearly solid metal"
 			} else if purity > 60 {
@@ -1016,27 +2077,77 @@ func (e *GameEngine) doAnalyze(ctx context.Context, player *Player, args []strin
 			} else if purity > 20 {
 				desc = "fair"
 			}
-			return &CommandResult{Messages: []string{fmt.Sprintf("You examine the ore carefully. It appears to be of %s quality. (Purity: %d%%)", desc, purity)}}
+
+			return &CommandResult{
+				Messages: []string{
+					fmt.Sprintf(
+						"You examine the ore carefully. It appears to be of %s quality. (Purity: %d%%)",
+						desc,
+						purity,
+					),
+				},
+			}
+		}
+
+		alchemyRank := player.Skills[31] // whatever your actual skill lookup is
+
+		if alchemyRank <= 0 {
+			return &CommandResult{
+				Messages: []string{
+					"You lack the alchemical knowledge needed to analyze that.",
+				},
+			}
 		}
 
 		// Reagent analysis for alchemy
 		if containsFlag(def.Flags, "REAGENT") {
 			reagentTypes := map[int]string{
-				1: "Power (mild)", 2: "Power (strong)", 3: "Power (very strong)",
-				4: "Health", 5: "Harm", 6: "Body", 7: "Resist",
-				8: "Enhancement", 9: "Misc (common)", 10: "Misc (uncommon)",
-				11: "Misc (rare)", 12: "Mind", 13: "Protection",
+				1:  "Power 1",
+				2:  "Power 2",
+				3:  "Power 3",
+				4:  "Health",
+				5:  "Harm",
+				6:  "Body",
+				7:  "Resist",
+				8:  "Enhancement",
+				9:  "Miscellaneous, common",
+				10: "Miscellaneous, uncommon",
+				11: "Miscellaneous, rare",
+				12: "Mind",
+				13: "Protect",
 			}
-			rType := ii.Val5
+
+			// Val5 isn't always stored, so resolve it from FORAGEDEF if necessary.
+			rType := e.resolveReagentType(ii)
+
 			typeName := reagentTypes[rType]
 			if typeName == "" {
 				typeName = "unknown"
 			}
-			itemName := e.formatItemName(def, ii.Adj1, ii.Adj2, ii.Adj3)
-			return &CommandResult{Messages: []string{fmt.Sprintf("You analyze %s. Alchemical properties: %s.", itemName, typeName)}}
+
+			itemName := e.formatItemName(
+				def,
+				ii.Adj1,
+				ii.Adj2,
+				ii.Adj3,
+			)
+
+			return &CommandResult{
+				Messages: []string{
+					fmt.Sprintf(
+						"You analyze %s. Alchemical properties: %s.",
+						itemName,
+						typeName,
+					),
+				},
+			}
 		}
 
-		return &CommandResult{Messages: []string{"You can't determine anything special about that."}}
+		return &CommandResult{
+			Messages: []string{
+				"You can't determine anything special about that.",
+			},
+		}
 	}
 
 	return &CommandResult{Messages: []string{"You don't have that."}}
@@ -1093,189 +2204,332 @@ var alchemyRecipes = []alchemyRecipe{
 
 // Reagent type letters mapped to val5 values
 var reagentLetters = map[int]string{
-	6: "A", 4: "B", 0: "C", 13: "D", 12: "E", 5: "F",
-	8: "G", 9: "H", 10: "I", 11: "J",
+	6:  "A",
+	4:  "B",
+	7:  "C", // Resist
+	13: "D",
+	12: "E",
+	5:  "F",
+	8:  "G",
+	9:  "H",
+	10: "I",
+	11: "J",
 }
+
 var catalystFromVal5 = map[int]int{1: 1, 2: 2, 3: 3}
 
 func (e *GameEngine) doBrew(ctx context.Context, player *Player, args []string) *CommandResult {
 	if player.Skills[31] < 1 {
 		return &CommandResult{Messages: []string{"You have no training in Alchemy."}}
 	}
+
 	if len(args) == 0 {
-		// List known recipes
 		var msgs []string
 		msgs = append(msgs, "=== Alchemy Recipes (by level) ===")
+
 		for _, r := range alchemyRecipes {
 			if r.level <= player.Skills[31] {
-				msgs = append(msgs, fmt.Sprintf("  Level %2d: %s (%s)", r.level, r.name, r.color))
+				msgs = append(
+					msgs,
+					fmt.Sprintf("  Level %2d: %s (%s)", r.level, r.name, r.color),
+				)
 			}
 		}
+
 		if len(msgs) == 1 {
 			msgs = append(msgs, "  You don't know any recipes at your current level.")
 		}
+
 		return &CommandResult{Messages: msgs}
 	}
 
 	// BREW <reagent> IN <container>
 	raw := strings.ToLower(strings.Join(args, " "))
 	reagentTarget, containerTarget := parseInClause(raw)
+
 	if containerTarget == "" {
-		return &CommandResult{Messages: []string{"Brew in what? Usage: BREW <reagent> IN <flask/vial>"}}
+		return &CommandResult{
+			Messages: []string{"Brew in what? Usage: BREW <reagent> IN <flask/vial>"},
+		}
 	}
 
-	// Find the reagent
+	// Find the reagent.
 	reagentIdx := -1
-	var reagentItem *InventoryItem
-	for i, ii := range player.Inventory {
+
+	for i := range player.Inventory {
+		ii := &player.Inventory[i]
 		def := e.items[ii.Archetype]
 		if def == nil {
 			continue
 		}
+
 		if !containsFlag(def.Flags, "REAGENT") {
 			continue
 		}
+
 		name := strings.ToLower(e.getItemNounName(def))
-		if strings.HasPrefix(name, reagentTarget) || strings.Contains(name, reagentTarget) {
+
+		if strings.HasPrefix(name, reagentTarget) ||
+			strings.Contains(name, reagentTarget) {
 			reagentIdx = i
-			reagentItem = &player.Inventory[i]
 			break
 		}
 	}
-	if reagentIdx < 0 || reagentItem == nil {
-		return &CommandResult{Messages: []string{"You don't have that reagent."}}
+
+	if reagentIdx < 0 {
+		return &CommandResult{
+			Messages: []string{"You don't have that reagent."},
+		}
 	}
 
-	// Find the container (flask, vial, bottle)
+	// Resolve the reagent type before doing anything with the inventory.
+	reagentItem := &player.Inventory[reagentIdx]
+	reagentVal5 := e.resolveReagentType(reagentItem)
+
+	if reagentVal5 <= 0 {
+		return &CommandResult{
+			Messages: []string{"That ingredient has no known alchemical properties."},
+		}
+	}
+
+	reagentDef := e.items[reagentItem.Archetype]
+	reagentName := "the reagent"
+
+	if reagentDef != nil {
+		reagentName = e.getItemNounName(reagentDef)
+	}
+
+	// Find the container.
 	containerIdx := -1
-	for i, ii := range player.Inventory {
+
+	for i := range player.Inventory {
+		if i == reagentIdx {
+			continue
+		}
+
+		ii := &player.Inventory[i]
 		def := e.items[ii.Archetype]
 		if def == nil {
 			continue
 		}
+
 		name := strings.ToLower(e.getItemNounName(def))
+
 		if def.Type == "LIQCONTAINER" || def.Container == "IN" {
-			if strings.HasPrefix(name, containerTarget) || strings.Contains(name, containerTarget) {
+			if strings.HasPrefix(name, containerTarget) ||
+				strings.Contains(name, containerTarget) {
 				containerIdx = i
 				break
 			}
 		}
 	}
+
 	if containerIdx < 0 {
-		return &CommandResult{Messages: []string{"You don't have a suitable container. You need a flask, vial, or bottle."}}
-	}
-
-	// Add reagent to the brew (track via container's Val fields)
-	// Val3 = accumulated recipe code character, Val5 = number of ingredients added
-	container := &player.Inventory[containerIdx]
-	reagentType := reagentLetters[reagentItem.Val5]
-	if reagentType == "" {
-		reagentType = "H" // default to mild magic
-	}
-
-	// Consume reagent
-	player.Inventory = append(player.Inventory[:reagentIdx], player.Inventory[reagentIdx+1:]...)
-	// Fix index if container was after reagent
-	if containerIdx > reagentIdx {
-		containerIdx--
-	}
-	container = &player.Inventory[containerIdx]
-
-	// Track ingredients in container's Val fields
-	ingredients := container.Val5
-	container.Val5 = ingredients + 1
-
-	// Store reagent type codes: Val4 encodes up to 3 ingredient types
-	// Simple encoding: multiply previous by 100 and add new
-	container.Val4 = container.Val4*100 + reagentItem.Val5
-
-	reagentDef := e.items[reagentItem.Archetype]
-	reagentName := "the reagent"
-	if reagentDef != nil {
-		reagentName = e.getItemNounName(reagentDef)
-	}
-
-	if container.Val5 < 3 {
-		e.SavePlayer(ctx, player)
 		return &CommandResult{
-			Messages:      []string{fmt.Sprintf("You add %s to the brew. (%d/3 ingredients)", reagentName, container.Val5)},
-			RoomBroadcast: []string{fmt.Sprintf("%s adds an ingredient to a bubbling brew.", player.FirstName)},
-			PlayerState:   player,
+			Messages: []string{
+				"You don't have a suitable container. You need a flask, vial, or bottle.",
+			},
 		}
 	}
 
-	// 3 ingredients added — attempt to brew!
-	// Decode the three ingredients
+	// Consume the reagent.
+	player.Inventory = append(
+		player.Inventory[:reagentIdx],
+		player.Inventory[reagentIdx+1:]...,
+	)
+
+	// Removing the reagent may shift the container index.
+	if containerIdx > reagentIdx {
+		containerIdx--
+	}
+
+	container := &player.Inventory[containerIdx]
+
+	// Val5 = number of ingredients currently in the brew.
+	container.Val5++
+
+	// Val4 stores the reagent Val5 values.
+	// Each reagent occupies two decimal digits.
+	container.Val4 = container.Val4*100 + reagentVal5
+
+	// We don't have a complete potion yet.
+	if container.Val5 < 3 {
+		e.SavePlayer(ctx, player)
+
+		return &CommandResult{
+			Messages: []string{
+				fmt.Sprintf(
+					"You add %s to the brew. (%d/3 ingredients)",
+					reagentName,
+					container.Val5,
+				),
+			},
+			RoomBroadcast: []string{
+				fmt.Sprintf(
+					"%s adds an ingredient to a bubbling brew.",
+					player.FirstName,
+				),
+			},
+			PlayerState: player,
+		}
+	}
+
+	// Three ingredients have been added.
 	code3 := container.Val4 % 100
 	code2 := (container.Val4 / 100) % 100
 	code1 := (container.Val4 / 10000) % 100
 
-	letter1 := reagentLetters[code1]
-	letter2 := reagentLetters[code2]
-	letter3 := reagentLetters[code3]
+	codes := []int{code1, code2, code3}
 
-	// Determine catalyst level from first ingredient
-	catLevel := catalystFromVal5[code1]
-	if catLevel == 0 {
-		catLevel = 1
+	// Find exactly one catalyst and exactly two normal reagents.
+	catLevel := 0
+	var reagentCodes []int
+
+	for _, code := range codes {
+		if catalyst := catalystFromVal5[code]; catalyst > 0 {
+			// More than one catalyst is invalid.
+			if catLevel != 0 {
+				container.Val4 = 0
+				container.Val5 = 0
+
+				e.SavePlayer(ctx, player)
+
+				return &CommandResult{
+					Messages: []string{
+						"A foul odor rises from the brew. The combination produces nothing useful.",
+					},
+					RoomBroadcast: []string{
+						fmt.Sprintf("%s's brew emits a foul odor.", player.FirstName),
+					},
+					PlayerState: player,
+				}
+			}
+
+			catLevel = catalyst
+			continue
+		}
+
+		// Must be a recognized non-catalyst reagent.
+		if _, ok := reagentLetters[code]; ok {
+			reagentCodes = append(reagentCodes, code)
+		}
 	}
 
-	// Try to match a recipe
+	// A valid potion requires:
+	//   1 catalyst
+	//   2 reagent categories
+	if catLevel == 0 || len(reagentCodes) != 2 {
+		container.Val4 = 0
+		container.Val5 = 0
+
+		e.SavePlayer(ctx, player)
+
+		return &CommandResult{
+			Messages: []string{
+				"A foul odor rises from the brew. The combination produces nothing useful.",
+			},
+			RoomBroadcast: []string{
+				fmt.Sprintf("%s's brew emits a foul odor.", player.FirstName),
+			},
+			PlayerState: player,
+		}
+	}
+
+	reagent1 := reagentLetters[reagentCodes[0]]
+	reagent2 := reagentLetters[reagentCodes[1]]
+
+	// Find the recipe.
 	for _, recipe := range alchemyRecipes {
 		if recipe.catalyst != catLevel {
 			continue
 		}
-		// Check if ingredients match (order doesn't matter for reagent1/reagent2)
-		match := false
-		if (letter2 == recipe.reagent1 && letter3 == recipe.reagent2) ||
-			(letter2 == recipe.reagent2 && letter3 == recipe.reagent1) ||
-			(letter1 == recipe.reagent1 && letter3 == recipe.reagent2) ||
-			(letter1 == recipe.reagent2 && letter3 == recipe.reagent1) {
-			match = true
-		}
-		_ = letter1 // catalyst is consumed too
-		if !match {
+
+		// Reagent order does not matter.
+		if !((reagent1 == recipe.reagent1 && reagent2 == recipe.reagent2) ||
+			(reagent1 == recipe.reagent2 && reagent2 == recipe.reagent1)) {
 			continue
 		}
 
-		// Check alchemy skill
+		// Valid recipe, but the player's Alchemy skill is too low.
 		if player.Skills[31] < recipe.level {
 			container.Val4 = 0
 			container.Val5 = 0
+
 			e.SavePlayer(ctx, player)
+
 			return &CommandResult{
 				Messages: []string{
 					"The brew bubbles violently! It's a valid recipe, but beyond your current skill.",
-					fmt.Sprintf("(Requires Alchemy level %d, you have %d)", recipe.level, player.Skills[31]),
+					fmt.Sprintf(
+						"(Requires Alchemy level %d, you have %d)",
+						recipe.level,
+						player.Skills[31],
+					),
 				},
 				PlayerState: player,
 			}
 		}
 
-		// Success! Create potion
-		container.Val3 = recipe.spellID // spell stored in container
+		// Success.
+		container.Val3 = recipe.spellID
+		// Potions normally contain 2-5 sips, limited by container capacity.
+		maxSips := 5
+
+		if containerDef := e.items[container.Archetype]; containerDef != nil &&
+			containerDef.Interior > 0 &&
+			containerDef.Interior < maxSips {
+			maxSips = containerDef.Interior
+		}
+
+		minSips := 2
+		if maxSips < minSips {
+			minSips = maxSips
+		}
+
+		container.Val2 = minSips
+		if maxSips > minSips {
+			container.Val2 += rand.Intn(maxSips - minSips + 1)
+		}
+
+		// Clear the temporary brewing state.
 		container.Val4 = 0
 		container.Val5 = 0
-		container.Val2 = 2 + rand.Intn(4) // 2-5 sips
+
 		e.SavePlayer(ctx, player)
 
 		return &CommandResult{
 			Messages: []string{
-				fmt.Sprintf("The brew shimmers magically! You have created a %s potion! (%s, %d sips)", recipe.name, recipe.color, container.Val2),
+				fmt.Sprintf(
+					"The brew shimmers magically! You have created a %s potion! (%s, %d sips)",
+					recipe.name,
+					recipe.color,
+					container.Val2,
+				),
 			},
-			RoomBroadcast: []string{fmt.Sprintf("%s completes a potion that shimmers with magical energy!", player.FirstName)},
-			PlayerState:   player,
+			RoomBroadcast: []string{
+				fmt.Sprintf(
+					"%s completes a potion that shimmers with magical energy!",
+					player.FirstName,
+				),
+			},
+			PlayerState: player,
 		}
 	}
 
-	// No match — failed recipe
+	// Three legitimate ingredients, but they don't form a known recipe.
 	container.Val4 = 0
 	container.Val5 = 0
+
 	e.SavePlayer(ctx, player)
+
 	return &CommandResult{
-		Messages:      []string{"A foul odor rises from the brew. The combination produces nothing useful."},
-		RoomBroadcast: []string{fmt.Sprintf("%s's brew emits a foul odor.", player.FirstName)},
-		PlayerState:   player,
+		Messages: []string{
+			"A foul odor rises from the brew. The combination produces nothing useful.",
+		},
+		RoomBroadcast: []string{
+			fmt.Sprintf("%s's brew emits a foul odor.", player.FirstName),
+		},
+		PlayerState: player,
 	}
 }
 

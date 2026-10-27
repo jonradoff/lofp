@@ -3166,11 +3166,6 @@ IFVERB LEAN 0
 	ECHO ALL %N is trying to look daring.
 ENDIF
 IFVERB JUMP -1
-	IFVAR FLAG1 = 0
-		ECHO PLAYER Do you really want to jump to your death.
-		ECHO OTHERS %N looks as if %s wants to jump.
-		EQUAL FLAG1 1
-	ENDIF
 	IFVAR FLAG1 = 1
 		ECHO PLAYER You jump off!
 		ECHO OTHERS %N jumps off!
@@ -3181,6 +3176,11 @@ IFVERB JUMP -1
 		POSITION LAY
 		DAMAGE CRUSH WHATANASS %N hits the ground with a thaud.
 		AFFECT 612
+	ENDIF
+	IFVAR FLAG1 = 0
+		ECHO PLAYER Do you really want to jump to your death.
+		ECHO OTHERS %N looks as if %s wants to jump.
+		EQUAL FLAG1 1
 	ENDIF
 ENDIF
 ;
@@ -3234,21 +3234,21 @@ IFVERB CLIMB 0
 	CLEARVERB
 ENDIF
 IFVERB JUMP -1
-	IFVAR FLAG1 = 0
-                ECHO PLAYER Do you really want to jump to your death?
-		ECHO OTHERS %N looks as if %s wants to jump.
-		EQUAL FLAG1 1
-	ENDIF
 	IFVAR FLAG1 = 1
 		ECHO PLAYER You jump off!
 		ECHO OTHERS %N jumps off!
 		MOVE 602
 		AFFECT 602
-                RANDOM WHATANASS2 1 6 10
+        RANDOM WHATANASS2 1 6 10
 		MULT WHATANASS2 5
 		POSITION LAY
 		DAMAGE CRUSH WHATANASS2 %N hits the ground with a thaud.
 		AFFECT 613
+	ENDIF
+	IFVAR FLAG1 = 0
+        ECHO PLAYER Do you really want to jump to your death?
+		ECHO OTHERS %N looks as if %s wants to jump.
+		EQUAL FLAG1 1
 	ENDIF
 ENDIF
 ;
@@ -3470,11 +3470,6 @@ IFVERB LISTEN -1
 	ENDIF
 ENDIF
 IFVERB JUMP -1
-	IFVAR FLAG1 = 0
-		ECHO PLAYER Do you really want to jump to your death.
-		ECHO OTHERS %N looks as if %s wants to jump.
-		EQUAL FLAG1 1
-	ENDIF
 	IFVAR FLAG1 = 1
 		ECHO PLAYER You jump off!
 		ECHO OTHERS %N jumps off!
@@ -3485,6 +3480,11 @@ IFVERB JUMP -1
 		POSITION LAY
 		DAMAGE CRUSH WHATANASS3 %N hits the ground with a thud.
 		AFFECT 621
+	ENDIF
+	IFVAR FLAG1 = 0
+		ECHO PLAYER Do you really want to jump to your death.
+		ECHO OTHERS %N looks as if %s wants to jump.
+		EQUAL FLAG1 1
 	ENDIF
 ENDIF
 ;
@@ -3525,11 +3525,6 @@ IFENTRY
 	ENDIF
 ENDIF
 IFVERB JUMP -1
-	IFVAR FLAG1 = 0
-		ECHO PLAYER Do you really want to jump to your death.
-		ECHO OTHERS %N looks as if %s wants to jump.
-		EQUAL FLAG1 1
-	ENDIF
 	IFVAR FLAG1 = 1
 		ECHO PLAYER You jump off!
 		ECHO OTHERS %N jumps off!
@@ -3540,6 +3535,11 @@ IFVERB JUMP -1
 		POSITION LAY
 		DAMAGE CRUSH WHATANASS4 %N hits the ground with a thud.
 		AFFECT 622
+	ENDIF
+	IFVAR FLAG1 = 0
+		ECHO PLAYER Do you really want to jump to your death.
+		ECHO OTHERS %N looks as if %s wants to jump.
+		EQUAL FLAG1 1
 	ENDIF
 ENDIF
 ITEM 0 449 ADJ1=492 VAL2=623
@@ -5960,8 +5960,8 @@ FORAGEDEF	FOREST	1671	-1	8	0	0
 FORAGEDEF	FOREST	1528	387	 7	0	0
 FORAGEDEF	FOREST	1553	400	5	0	0
 FORAGEDEF	FOREST	1674	-1	4	0	0
-FORAGEDEF FOREST 1985 347 1 37 0
-FORAGEDEF FOREST 1985 -1 7 0 0
+FORAGEDEF 	FOREST 	1985 347 1 37 0
+FORAGEDEF 	FOREST 	1985 -1 7 0 0
 FORAGEDEF	MOUNTAIN	1511	126	10	0	0
 FORAGEDEF	MOUNTAIN	433	-1	10	0	0
 FORAGEDEF	MOUNTAIN	1531	296	10	0	0
@@ -5973,9 +5973,9 @@ FORAGEDEF	PLAIN	433	-1	10	0	0
 FORAGEDEF	PLAIN	1526	572	10	0	0
 FORAGEDEF	PLAIN	1375	-1	8	0	0
 FORAGEDEF	PLAIN	1513	1134	7	0	0
-FORAGEDEF       PLAIN   416     178     7       0       0
+FORAGEDEF   PLAIN   416     178     7   0   0
 FORAGEDEF	PLAIN	1527	754	5	0	0
-FORAGEDEF	PLAIN	494	542	1	0	1
+FORAGEDEF	PLAIN	494		542	1	0	1
 FORAGEDEF	SWAMP	1027	-1	10	0	0
 FORAGEDEF	SWAMP	1654	556	10	0	0
 FORAGEDEF	SWAMP	1529	181	10	0	0
