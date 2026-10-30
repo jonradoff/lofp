@@ -836,6 +836,8 @@ DEEPCAVE
 DARKNESS
 CHANNEL 3773
 
+ITEM 1 1508
+
 IFPREVERB CAST -1
   CLEARVERB
   ECHO PLAYER The walls around you seem to absorb the spell's power and sap away your mana.

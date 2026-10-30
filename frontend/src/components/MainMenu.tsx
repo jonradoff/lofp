@@ -437,15 +437,22 @@ export default function MainMenu({ onNewCharacter, onSelectCharacter, onVersionN
               </div>
             ) : null}
 
-            {/* New character button — only when backend is available and email verified */}
-            {!loading && backendUp && user?.account?.emailVerified !== false && (
-              <button
-                onClick={onNewCharacter}
-                className="w-full py-4 bg-[#111] border-2 border-dashed border-[#444] hover:border-amber-600 rounded-lg text-gray-400 hover:text-amber-400 font-mono text-lg transition-colors cursor-pointer"
-              >
-                + Create New Character
-              </button>
-            )}
+          {/* New character button — max 3 characters */}
+          {!loading && backendUp && user?.account?.emailVerified !== false && (
+            <button
+              onClick={onNewCharacter}
+              disabled={players.length >= 3}
+              className={`w-full py-4 bg-[#111] border-2 border-dashed rounded-lg font-mono text-lg transition-colors ${
+                players.length >= 3
+                  ? 'border-[#333] text-gray-600 cursor-not-allowed'
+                  : 'border-[#444] hover:border-amber-600 text-gray-400 hover:text-amber-400 cursor-pointer'
+              }`}
+            >
+              {players.length >= 3
+                ? 'Character Limit Reached (3/3)'
+                : `+ Create New Character (${players.length}/3)`}
+            </button>
+          )}
 
             {players.length === 0 && !loading && backendUp && (
               <p className="text-gray-600 font-mono text-xs text-center mt-4">

@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"math/rand"
 	"regexp"
+	"sort"
 	"strconv"
 	"strings"
 
@@ -24,12 +25,16 @@ func (e *GameEngine) processGMCommand(ctx context.Context, player *Player, verb 
 		return e.gmAddItem(ctx, player, args)
 	case "@DELETE":
 		return e.gmDelete(ctx, player, args)
+	case "@DROPPABLES":
+		return e.gmDroppables(ctx, player, args)
 	case "@RDATA":
 		return e.gmRData(player, args)
 	case "@HEAL":
 		return e.gmHeal(ctx, player, args)
 	case "@KILL":
 		return e.gmKill(ctx, player, args)
+	case "@FORAGE":
+		return e.gmForage(ctx, player, args)
 	case "@EXP":
 		return e.gmExp(ctx, player, args)
 	case "@GM":
@@ -56,7 +61,7 @@ func (e *GameEngine) processGMCommand(ctx context.Context, player *Player, verb 
 		player.Hidden = true
 		e.SavePlayer(ctx, player)
 		return &CommandResult{Messages: []string{"You fade from sight."}}
-	case "@VIS":
+	case "@VIS", "@VISIBLE":
 		if !player.GMInvis {
 			return &CommandResult{Messages: []string{"You are already visible."}}
 		}
@@ -89,9 +94,11 @@ func (e *GameEngine) processGMCommand(ctx context.Context, player *Player, verb 
 	case "@SPAWN":
 		return e.gmSpawn(player, args)
 	case "@ACTIVATE":
-		return &CommandResult{Messages: []string{"Monster activated."}}
+		return e.gmActivate(player, args)
+	case "@FORAGEDEFS":
+		return e.gmForageDefs(player, args)
 	case "@SEDATE":
-		return &CommandResult{Messages: []string{"Monster sedated."}}
+		return e.gmSedate(player, args)
 	case "@ZAP":
 		return e.gmZap(player, args)
 	case "@MLIST":
@@ -169,7 +176,7 @@ func (e *GameEngine) processGMCommand(ctx context.Context, player *Player, verb 
 	case "@OLDCOMP":
 		return &CommandResult{Messages: []string{"Script compilation is not available in this version."}}
 	case "@EDITEM":
-		return &CommandResult{Messages: []string{"Item editor not yet implemented."}}
+		return e.doEditItem(ctx, player, args)
 	case "@EDN":
 		return &CommandResult{Messages: []string{"Item editor not yet implemented."}}
 	case "@GET":
@@ -279,6 +286,7 @@ func (e *GameEngine) gmGo(ctx context.Context, player *Player, args []string) *C
 		return &CommandResult{Messages: []string{fmt.Sprintf("Room %d does not exist.", num)}}
 	}
 	oldRoom := player.RoomNumber
+	player.ResetRoomVars()
 	player.RoomNumber = num
 	e.SavePlayer(ctx, player)
 	result := e.doLook(player)
@@ -320,6 +328,310 @@ func (e *GameEngine) gmAddItem(ctx context.Context, player *Player, args []strin
 	room.Items = append(room.Items, ri)
 	name := e.getItemNounName(itemDef)
 	return &CommandResult{Messages: []string{fmt.Sprintf("Added %s (archetype %d) to the room.", name, arch)}}
+}
+
+func (e *GameEngine) gmDroppables(ctx context.Context, player *Player, args []string) *CommandResult {
+	room := e.rooms[player.RoomNumber]
+	if room == nil {
+		return &CommandResult{
+			Messages: []string{"Room not found."},
+		}
+	}
+
+	// Monsters are assigned to rooms through the room's MONSTER_GROUP.
+	// MLIST.Room contains the monster group ID, not the actual room number.
+	groupID := room.MonsterGroup
+
+	if groupID == 0 {
+		return &CommandResult{
+			Messages: []string{
+				fmt.Sprintf(
+					"Room %d [%s] has no monster group.",
+					player.RoomNumber,
+					room.Name,
+				),
+			},
+		}
+	}
+
+	// Find every treasure level that can occur from monsters
+	// belonging to this room's monster group.
+	treasureLevels := make(map[int]bool)
+	var monsterLines []string
+
+	for _, ml := range e.monsterLists {
+		if ml.Room != groupID {
+			continue
+		}
+
+		def := e.monsters[ml.MonsterID]
+		if def == nil {
+			continue
+		}
+
+		// handleMonsterDeath only generates treasure when Treasure > 0
+		// and the monster does not discorporate.
+		if def.Treasure <= 0 || def.Discorporate {
+			continue
+		}
+
+		treasureLevels[def.Treasure] = true
+
+		monsterLines = append(
+			monsterLines,
+			fmt.Sprintf(
+				"  %s [%d] treasure=%d",
+				FormatMonsterName(def, e.monAdjs),
+				def.Number,
+				def.Treasure,
+			),
+		)
+	}
+
+	if len(treasureLevels) == 0 {
+		return &CommandResult{
+			Messages: []string{
+				fmt.Sprintf(
+					"No treasure-dropping monsters are configured for room %d [%s] (monster group %d).",
+					player.RoomNumber,
+					room.Name,
+					groupID,
+				),
+			},
+		}
+	}
+
+	// Sort treasure levels so output is consistent.
+	levels := make([]int, 0, len(treasureLevels))
+	for level := range treasureLevels {
+		levels = append(levels, level)
+	}
+	sort.Ints(levels)
+
+	sort.Strings(monsterLines)
+
+	var messages []string
+
+	messages = append(
+		messages,
+		fmt.Sprintf(
+			"=== Droppables: Room %d [%s] ===",
+			player.RoomNumber,
+			room.Name,
+		),
+		fmt.Sprintf("Monster Group: %d", groupID),
+		"Monsters:",
+	)
+
+	messages = append(messages, monsterLines...)
+
+	// ----------------------------------------------------
+	// COMBINED DROP POOL
+	//
+	// A room may contain monsters with several treasure levels.
+	// For @droppables, show the combined pool once using the
+	// highest treasure level available in the room.
+	// ----------------------------------------------------
+
+	minTreasure := levels[0]
+	maxTreasure := levels[len(levels)-1]
+
+	if minTreasure == maxTreasure {
+		messages = append(
+			messages,
+			"",
+			fmt.Sprintf("Treasure Level: %d", maxTreasure),
+		)
+	} else {
+		messages = append(
+			messages,
+			"",
+			fmt.Sprintf(
+				"Treasure Levels: %d-%d",
+				minTreasure,
+				maxTreasure,
+			),
+		)
+	}
+
+	// ----------------------------------------------------
+	// ARMOR
+	// ----------------------------------------------------
+
+	maxAC := maxTreasure
+	if maxAC > 50 {
+		maxAC = 50
+	}
+
+	var armorNums []int
+	var tooHighArmorNums []int
+
+	for num, def := range e.items {
+		if def == nil {
+			continue
+		}
+
+		if def.Type != "ARMOR" {
+			continue
+		}
+
+		if !def.Droppable {
+			continue
+		}
+
+		if def.Weight >= 1000 {
+			continue
+		}
+
+		// Parameter1 is armor value.
+		// Missing Parameter1 is 0 and is valid mundane armor.
+		if def.Parameter1 > maxAC {
+			tooHighArmorNums = append(tooHighArmorNums, num)
+			continue
+		}
+
+		armorNums = append(armorNums, num)
+	}
+
+	sort.Ints(armorNums)
+	sort.Ints(tooHighArmorNums)
+
+	messages = append(
+		messages,
+		"",
+		"Armor:",
+	)
+
+	if len(armorNums) == 0 {
+		messages = append(messages, "  None")
+	} else {
+		for _, num := range armorNums {
+			def := e.items[num]
+			name := e.getItemNounName(def)
+
+			messages = append(
+				messages,
+				fmt.Sprintf(
+					"  %4d  %-24s AC=%d",
+					num,
+					name,
+					def.Parameter1,
+				),
+			)
+		}
+	}
+
+	// ----------------------------------------------------
+	// ARMOR ABOVE THIS ROOM'S TREASURE LEVEL
+	// ----------------------------------------------------
+
+	messages = append(
+		messages,
+		"",
+		fmt.Sprintf(
+			"Droppable armor above Treasure %d:",
+			maxTreasure,
+		),
+	)
+
+	if len(tooHighArmorNums) == 0 {
+		messages = append(messages, "  None")
+	} else {
+		for _, num := range tooHighArmorNums {
+			def := e.items[num]
+			name := e.getItemNounName(def)
+
+			messages = append(
+				messages,
+				fmt.Sprintf(
+					"  %4d  %-24s AC=%d  [needs Treasure %d]",
+					num,
+					name,
+					def.Parameter1,
+					def.Parameter1,
+				),
+			)
+		}
+	}
+
+	// ----------------------------------------------------
+	// WEAPONS
+	// ----------------------------------------------------
+
+	maxDmg := maxTreasure / 2
+	if maxDmg < 3 {
+		maxDmg = 3
+	}
+	if maxDmg > 30 {
+		maxDmg = 30
+	}
+
+	var weaponNums []int
+
+	for num, def := range e.items {
+		if def == nil {
+			continue
+		}
+
+		if !isWeapon(def.Type) {
+			continue
+		}
+
+		if !def.Droppable {
+			continue
+		}
+
+		if def.Parameter1 <= 0 || def.Parameter1 > maxDmg {
+			continue
+		}
+
+		if def.Weight >= 1000 {
+			continue
+		}
+
+		weaponNums = append(weaponNums, num)
+	}
+
+	sort.Ints(weaponNums)
+
+	messages = append(
+		messages,
+		"",
+		"Weapons:",
+	)
+
+	if len(weaponNums) == 0 {
+		messages = append(messages, "  None")
+	} else {
+		for _, num := range weaponNums {
+			def := e.items[num]
+			name := e.getItemNounName(def)
+
+			messages = append(
+				messages,
+				fmt.Sprintf(
+					"  %4d  %-24s Damage=%d",
+					num,
+					name,
+					def.Parameter1,
+				),
+			)
+		}
+	}
+
+	messages = append(
+		messages,
+		"",
+		fmt.Sprintf(
+			"Eligible: %d armor, %d weapons",
+			len(armorNums),
+			len(weaponNums),
+		),
+	)
+
+	return &CommandResult{
+		Messages: messages,
+	}
 }
 
 func (e *GameEngine) gmDelete(ctx context.Context, player *Player, args []string) *CommandResult {
@@ -424,6 +736,82 @@ func (e *GameEngine) gmKill(ctx context.Context, player *Player, args []string) 
 	return &CommandResult{Messages: []string{fmt.Sprintf("%s has been slain.", target.FullName())}}
 }
 
+func (e *GameEngine) gmForage(ctx context.Context, player *Player, args []string) *CommandResult {
+	room := e.rooms[player.RoomNumber]
+	if room == nil {
+		return &CommandResult{
+			Messages: []string{"Room not found."},
+		}
+	}
+
+	terrain := strings.ToUpper(room.Terrain)
+
+	seasonal := e.seasonalForageDefs[e.currentSeason]
+
+	var messages []string
+
+	messages = append(messages,
+		fmt.Sprintf(
+			"Forage: room %d | terrain=%s | season=%s",
+			room.Number,
+			terrain,
+			SeasonName(),
+		),
+	)
+
+	messages = append(messages,
+		fmt.Sprintf(
+			"Base=%d | Seasonal=%d | Active=%d",
+			len(e.baseForageDefs),
+			len(seasonal),
+			len(e.forageDefs),
+		),
+	)
+
+	count := 0
+
+	for _, def := range e.forageDefs {
+		if strings.ToUpper(def.Terrain) != terrain {
+			continue
+		}
+
+		count++
+
+		source := "BASE"
+
+		for _, sdef := range seasonal {
+			if sdef == def {
+				source = "SEASONAL"
+				break
+			}
+		}
+		name := e.forageDisplayName(def)
+
+		messages = append(messages,
+			fmt.Sprintf(
+				"%s %s [item=%d adj=%d ratio=%d val2=%d val5=%d]",
+				source,
+				name,
+				def.ItemNum,
+				def.AdjNum,
+				def.Ratio,
+				def.Val2,
+				def.Val5,
+			),
+		)
+
+	}
+
+	if count == 0 {
+		messages = append(messages, "Nothing is forageable here.")
+	} else {
+		messages = append(messages,
+			fmt.Sprintf("%d forage definitions for this terrain.", count),
+		)
+	}
+
+	return &CommandResult{Messages: messages}
+}
 func (e *GameEngine) gmExp(ctx context.Context, player *Player, args []string) *CommandResult {
 	if len(args) < 2 {
 		return &CommandResult{Messages: []string{"Usage: @exp <name> <points>"}}
@@ -562,7 +950,7 @@ func (e *GameEngine) gmGenMon(player *Player, args []string) *CommandResult {
 		return &CommandResult{Messages: []string{fmt.Sprintf("Monster %d does not exist.", num)}}
 	}
 	name := FormatMonsterName(mon, e.monAdjs)
-	e.monsterMgr.SpawnOne(num, player.RoomNumber, mon.Body)
+	e.monsterMgr.SpawnOne(num, player.RoomNumber, mon.Body, mon.Mana)
 	e.monsterMgr.SetSedated(e.monsterMgr.lastSpawnedID(), true)
 	e.Events.Publish("monster", fmt.Sprintf("GM %s generated %s (sedated) in room %d", player.FirstName, name, player.RoomNumber))
 	return &CommandResult{Messages: []string{fmt.Sprintf("Generated %s (sedated) in room %d.", name, player.RoomNumber)}}
@@ -581,7 +969,7 @@ func (e *GameEngine) gmSpawn(player *Player, args []string) *CommandResult {
 		return &CommandResult{Messages: []string{fmt.Sprintf("Monster %d does not exist.", num)}}
 	}
 	name := FormatMonsterName(mon, e.monAdjs)
-	e.monsterMgr.SpawnOne(num, player.RoomNumber, mon.Body)
+	e.monsterMgr.SpawnOne(num, player.RoomNumber, mon.Body, mon.Mana)
 	e.Events.Publish("monster", fmt.Sprintf("GM %s spawned %s (active) in room %d", player.FirstName, name, player.RoomNumber))
 	// Broadcast the monster's arrival to the room
 	genText := mon.TextOverrides["TEXG"]
@@ -1032,16 +1420,49 @@ func (e *GameEngine) gmMList() *CommandResult {
 		msgs = append(msgs, fmt.Sprintf("  Monster lists loaded: %d entries", len(e.monsterLists)))
 		if len(e.monsterLists) > 0 {
 			for i, ml := range e.monsterLists {
-				if i >= 10 { break }
+				if i >= 10 {
+					break
+				}
 				def := e.monsters[ml.MonsterID]
 				defName := "???"
-				if def != nil { defName = def.Name }
+				if def != nil {
+					defName = def.Name
+				}
 				msgs = append(msgs, fmt.Sprintf("  MLIST: room %d, monster %d (%s), prob %d%%, max %d", ml.Room, ml.MonsterID, defName, ml.Probability, ml.MaxCount))
 			}
 		}
 	}
 
 	return &CommandResult{Messages: msgs}
+}
+
+func (e *GameEngine) forageDisplayName(def gameworld.ForageDef) string {
+	itemName := fmt.Sprintf("item#%d", def.ItemNum)
+
+	var nounID int
+	foundItem := false
+
+	for _, item := range e.items {
+		if item.Number == def.ItemNum {
+			nounID = item.NameID
+			foundItem = true
+			break
+		}
+	}
+
+	if foundItem {
+		if noun, ok := e.nouns[nounID]; ok {
+			itemName = noun
+		}
+	}
+
+	if def.AdjNum >= 0 {
+		if adj, ok := e.adjectives[def.AdjNum]; ok {
+			itemName = adj + " " + itemName
+		}
+	}
+
+	return itemName
 }
 
 func (e *GameEngine) gmFind(args []string) *CommandResult {
@@ -1355,6 +1776,7 @@ func (e *GameEngine) gmGoPlr(ctx context.Context, player *Player, args []string)
 		return &CommandResult{Messages: []string{err.Error()}}
 	}
 	oldRoom := player.RoomNumber
+	player.ResetRoomVars()
 	player.RoomNumber = target.RoomNumber
 	e.SavePlayer(ctx, player)
 	result := e.doLook(player)
@@ -1380,6 +1802,7 @@ func (e *GameEngine) gmAnswer(ctx context.Context, player *Player) *CommandResul
 		return &CommandResult{Messages: []string{"No pending assist requests."}}
 	}
 	oldRoom := player.RoomNumber
+	player.ResetRoomVars()
 	player.RoomNumber = e.lastAssistRoom
 	e.SavePlayer(ctx, player)
 	result := e.doLook(player)
@@ -1537,13 +1960,54 @@ func (e *GameEngine) gmEds(ctx context.Context, args []string) *CommandResult {
 
 func (e *GameEngine) gmGrantSp(ctx context.Context, args []string) *CommandResult {
 	if len(args) < 2 {
-		return &CommandResult{Messages: []string{"Usage: @grantsp <name> <spell>"}}
+		return &CommandResult{
+			Messages: []string{"Usage: @grantsp <name> <spell>"},
+		}
 	}
+
 	target, err := e.resolvePlayerArg(ctx, args)
 	if err != nil {
-		return &CommandResult{Messages: []string{err.Error()}}
+		return &CommandResult{
+			Messages: []string{err.Error()},
+		}
 	}
-	return &CommandResult{Messages: []string{fmt.Sprintf("Granted spell %s to %s.", args[1], target.FullName())}}
+
+	spellID, err := strconv.Atoi(args[1])
+	if err != nil {
+		return &CommandResult{
+			Messages: []string{"Spell must be a spell number."},
+		}
+	}
+
+	spell := FindSpellByID(spellID)
+	if spell == nil {
+		return &CommandResult{
+			Messages: []string{
+				fmt.Sprintf("Spell %d does not exist.", spellID),
+			},
+		}
+	}
+
+	if target.KnownSpells == nil {
+		target.KnownSpells = make(map[int]bool)
+	}
+
+	target.KnownSpells[spellID] = true
+
+	if e.db != nil {
+		e.SavePlayer(ctx, target)
+	}
+
+	return &CommandResult{
+		Messages: []string{
+			fmt.Sprintf(
+				"Granted %s (%d) to %s.",
+				spell.Name,
+				spell.ID,
+				target.FullName(),
+			),
+		},
+	}
 }
 
 func (e *GameEngine) gmPsi(ctx context.Context, args []string) *CommandResult {
@@ -1575,6 +2039,132 @@ func (e *GameEngine) gmExclude(args []string, rawInput string) *CommandResult {
 	}
 	text := extractRawArgs(rawInput, 2)
 	return &CommandResult{Messages: []string{fmt.Sprintf("[Room echo, excluding %s] %s", args[0], text)}}
+}
+
+func (e *GameEngine) doEditItem(ctx context.Context, player *Player, args []string) *CommandResult {
+
+	if len(args) == 0 {
+		return &CommandResult{
+			Messages: []string{
+				"Usage: @EDITEM <item> [VAL1|VAL2|VAL3|VAL4|VAL5 <value>]",
+			},
+		}
+	}
+
+	// --------------------------------------------------------
+	// EDIT VALUE
+	// --------------------------------------------------------
+
+	editField := ""
+	editValue := 0
+	targetArgs := args
+
+	if len(args) >= 3 {
+		field := strings.ToUpper(args[len(args)-2])
+
+		switch field {
+		case "VAL1", "VAL2", "VAL3", "VAL4", "VAL5":
+			value, err := strconv.Atoi(args[len(args)-1])
+			if err != nil {
+				return &CommandResult{
+					Messages: []string{"Value must be a number."},
+				}
+			}
+
+			editField = field
+			editValue = value
+			targetArgs = args[:len(args)-2]
+		}
+	}
+
+	target := strings.ToLower(strings.Join(targetArgs, " "))
+
+	// --------------------------------------------------------
+	// FIND INVENTORY ITEM
+	// --------------------------------------------------------
+
+	for i := range player.Inventory {
+		ii := &player.Inventory[i]
+
+		def := e.items[ii.Archetype]
+		if def == nil {
+			continue
+		}
+
+		name := strings.ToLower(e.getItemNounName(def))
+
+		if !strings.HasPrefix(name, target) &&
+			!strings.Contains(name, target) {
+			continue
+		}
+
+		// ----------------------------------------------------
+		// EDIT
+		// ----------------------------------------------------
+
+		if editField != "" {
+			switch editField {
+			case "VAL1":
+				ii.Val1 = editValue
+			case "VAL2":
+				ii.Val2 = editValue
+			case "VAL3":
+				ii.Val3 = editValue
+			case "VAL4":
+				ii.Val4 = editValue
+			case "VAL5":
+				ii.Val5 = editValue
+			}
+
+			e.SavePlayer(ctx, player)
+		}
+
+		// ----------------------------------------------------
+		// DISPLAY
+		// ----------------------------------------------------
+
+		displayName := e.formatItemName(
+			def,
+			ii.Adj1,
+			ii.Adj2,
+			ii.Adj3,
+		)
+
+		msgs := []string{
+			fmt.Sprintf("=== %s ===", displayName),
+			fmt.Sprintf("Archetype: %d", ii.Archetype),
+			fmt.Sprintf(
+				"Adj1: %d  Adj2: %d  Adj3: %d",
+				ii.Adj1,
+				ii.Adj2,
+				ii.Adj3,
+			),
+			fmt.Sprintf(
+				"Val1: %d  Val2: %d  Val3: %d  Val4: %d  Val5: %d",
+				ii.Val1,
+				ii.Val2,
+				ii.Val3,
+				ii.Val4,
+				ii.Val5,
+			),
+		}
+
+		if editField != "" {
+			msgs = append(
+				msgs,
+				fmt.Sprintf("%s set to %d.", editField, editValue),
+			)
+		}
+
+		return &CommandResult{
+			Messages:    msgs,
+			PlayerState: player,
+		}
+	}
+
+	return &CommandResult{
+		Messages: []string{"You don't have that item."},
+	}
 }
 
 func (e *GameEngine) gmGet(ctx context.Context, player *Player, args []string) *CommandResult {
@@ -1709,4 +2299,126 @@ func resolveGMVerb(input string) string {
 		return match
 	}
 	return input
+}
+func (e *GameEngine) gmSedate(player *Player, args []string) *CommandResult {
+	if len(args) == 0 {
+		return &CommandResult{Messages: []string{"Sedate which monster?"}}
+	}
+
+	target := strings.ToLower(strings.Join(args, " "))
+
+	e.monsterMgr.mu.Lock()
+	defer e.monsterMgr.mu.Unlock()
+
+	for i := range e.monsterMgr.instances {
+		inst := &e.monsterMgr.instances[i]
+
+		if !inst.Alive || inst.RoomNumber != player.RoomNumber {
+			continue
+		}
+
+		def := e.monsters[inst.DefNumber]
+		if def == nil {
+			continue
+		}
+
+		name := FormatMonsterName(def, e.monAdjs)
+
+		if strings.Contains(strings.ToLower(name), target) {
+			inst.Sedated = true
+
+			return &CommandResult{
+				Messages: []string{
+					fmt.Sprintf("%s sedated.", name),
+				},
+			}
+		}
+	}
+
+	return &CommandResult{Messages: []string{"Monster not found."}}
+}
+
+func (e *GameEngine) gmForageDefs(player *Player, args []string) *CommandResult {
+	var msgs []string
+
+	msgs = append(msgs,
+		fmt.Sprintf("Base forage defs: %d", len(e.baseForageDefs)),
+		fmt.Sprintf("Active forage defs: %d", len(e.forageDefs)),
+		fmt.Sprintf("Current season: %s", e.currentSeason),
+		"",
+	)
+
+	// Group active definitions by terrain.
+	byTerrain := make(map[string][]gameworld.ForageDef)
+	var terrains []string
+
+	for _, fd := range e.forageDefs {
+		if _, exists := byTerrain[fd.Terrain]; !exists {
+			terrains = append(terrains, fd.Terrain)
+		}
+		byTerrain[fd.Terrain] = append(byTerrain[fd.Terrain], fd)
+	}
+
+	sort.Strings(terrains)
+
+	for _, terrain := range terrains {
+		defs := byTerrain[terrain]
+
+		msgs = append(msgs,
+			fmt.Sprintf("=== %s (%d) ===", terrain, len(defs)),
+		)
+
+		for _, fd := range defs {
+			msgs = append(msgs, fmt.Sprintf(
+				"item=%d adj=%d ratio=%d val2=%d val5=%d",
+				fd.ItemNum,
+				fd.AdjNum,
+				fd.Ratio,
+				fd.Val2,
+				fd.Val5,
+			))
+		}
+
+		msgs = append(msgs, "")
+	}
+
+	return &CommandResult{Messages: msgs}
+}
+
+func (e *GameEngine) gmActivate(player *Player, args []string) *CommandResult {
+	if len(args) == 0 {
+		return &CommandResult{Messages: []string{"Activate which monster?"}}
+	}
+
+	target := strings.ToLower(strings.Join(args, " "))
+
+	e.monsterMgr.mu.Lock()
+	defer e.monsterMgr.mu.Unlock()
+
+	for i := range e.monsterMgr.instances {
+		inst := &e.monsterMgr.instances[i]
+
+		if !inst.Alive || inst.RoomNumber != player.RoomNumber {
+			continue
+		}
+
+		def := e.monsters[inst.DefNumber]
+		if def == nil {
+			continue
+		}
+
+		name := FormatMonsterName(def, e.monAdjs)
+
+		if strings.Contains(strings.ToLower(name), target) {
+			inst.Sedated = false
+
+			return &CommandResult{
+				Messages: []string{
+					fmt.Sprintf("%s activated.", name),
+				},
+			}
+		}
+	}
+
+	return &CommandResult{Messages: []string{"Monster not found."}}
 }

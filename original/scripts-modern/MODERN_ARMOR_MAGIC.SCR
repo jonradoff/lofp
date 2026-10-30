@@ -1,0 +1,720 @@
+TRAITDEF POWER_1
+    POWER 1
+ENDTRAIT
+
+TRAITDEF POWER_2
+    POWER 2
+ENDTRAIT
+
+TRAITDEF POWER_3
+    POWER 3
+ENDTRAIT
+
+TRAITDEF POWER_4
+    POWER 4
+ENDTRAIT
+
+TRAITDEF POWER_5
+    POWER 5
+ENDTRAIT
+
+TRAITDEF RUB_COLD_SHIELD
+    POWER 2
+
+    IFPREVERB RUB -1
+        IFITEM WORN -1
+            CLEARVERB
+            ECHO PLAYER You rub your mukluks together.
+            ECHO OTHERS %N rubs %h mukluks together.
+            IFVAR ITEMVAL3 > 0
+                SPELL 508
+                SUB ITEMVAL3 1
+                IFVAR ITEMVAL3 = 0
+                    ECHO PLAYER You sense the power of the mukluks is used up now.
+                ENDIF
+            ELSE
+                ECHO PLAYER Your feet seem warmer now.
+            ENDIF
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+TRAITDEF HELL_ACCESS_BOOTS
+    POWER 5
+
+    IFTOUCH -1
+        IFITEM -1 WORN
+            EQUAL INTNUM4 1
+        ELSE
+            EQUAL INTNUM4 0
+        ENDIF
+    ENDIF
+
+    IFVERB WEAR -1
+        IFITEM -1 WORN
+            EQUAL INTNUM4 1
+        ENDIF
+    ENDIF
+
+    IFPREVERB REMOVE -1
+        IFITEM -1 WORN
+            EQUAL INTNUM4 0
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+TRAITDEF CLOAK_OF_DISGUISE
+    IFVAR ITEMVAL5 = 666
+        IFPREVERB WEAR -1
+            TEMPNAME Spaedron
+            ECHO PLAYER You feel the phantasmal mantle of Spaedron the Sorcerer descend upon you... but for how long?
+        ENDIF
+    ENDIF
+
+    IFVAR ITEMVAL5 = 777
+        IFPREVERB PULL -1
+            CLEARVERB
+            ECHO PLAYER ** You are now, "Marktos".
+            TEMPNAME Marktos
+        ENDIF
+
+        IFPREVERB PUSH -1
+            CLEARVERB
+            ECHO PLAYER ** You are now, "Derlon".
+            TEMPNAME Derlon
+        ENDIF
+
+        IFPREVERB TURN -1
+            CLEARVERB
+            ECHO PLAYER ** You are now, "Freddo".
+            TEMPNAME Freddo
+        ENDIF
+
+        IFPREVERB TAP -1
+            CLEARVERB
+            ECHO PLAYER ** You are now, "Argo".
+            TEMPNAME Argo
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+TRAITDEF HELM_OF_LIGHT
+    POWER 3
+    IFPREVERB LIGHT -1
+        CLEARVERB
+        ECHO PLAYER You flip the tiny switch on your electric miner's helmet. The bulb sputters to life.
+        ECHO OTHERS %N fiddles with something near %h head. Suddenly, the light on %h helm begins to glow.
+    ENDIF
+
+    IFPREVERB UNLIGHT -1
+        CLEARVERB
+        ECHO PLAYER You switch off the light on your helm.
+        ECHO OTHERS %N switches off the light on %h helm.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF HELM_OF_VISION
+    POWER 2
+    IFPREVERB TAP -1
+        CLEARVERB
+        ECHO OTHERS The lens on %N's helm glows red for a moment.
+        ECHO PLAYER You hear a dry voice intone, "Vision enhancement initiated."
+        SPELL 520 40
+    ENDIF
+ENDTRAIT
+
+TRAITDEF HELM_OF_TELEPATHY
+    POWER 2
+    IFPREVERB CONCENTRATE -1
+        CLEARVERB
+        ECHO OTHERS Some circuits on %N's helm light up briefly.
+        ECHO PLAYER You hear a dry voice intone, "Telepathic enhancement initiated."
+        SPELL 403 40
+    ENDIF
+ENDTRAIT
+
+TRAITDEF MAELSTROM
+    POWER 10
+    IFPREVERB TAP -1
+        IFITEM WORN -1
+            CLEARVERB
+            ECHO PLAYER You tap the toes of your moccasins together.
+            ECHO OTHERS %N taps the toes of %h moccasins together.
+            IFVAR ITEMVAL3 > 0
+                SPELL 219 100
+                SUB ITEMVAL3 1
+                IFVAR ITEMVAL3 = 0
+                    ECHO PLAYER You sense the power of the moccasins is used up now.
+                ENDIF
+            ENDIF
+        ENDIF
+    ENDIF
+
+    IFPREVERB PUSH -1
+        IFITEM WORN -1
+            CLEARVERB
+            IFVAR ITEMVAL1 ! TIM
+                IFVAR TERRAIN < 12
+                    ECHO PLAYER You stomp your feet. You hear a mighty crack as the moccasins of thunder cause the earth to shake! A storm boils over the area.
+                    ECHO OTHERS %N stomps. You hear a mighty CRACK! The earth shakes violently. A crevice opens up in the ground and a storm erupts out of it!
+                    SPELL 138 30
+                    EQUAL ROUNDTIME 2
+                    EQUAL ITEMVAL1 TIM
+                    POSITION STAND
+                    NEWITEM 9 427
+                ELSE
+                    ECHO PLAYER Nothing happens.
+                ENDIF
+            ENDIF
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+TRAITDEF DRUIDIC_POWER
+    POWER 3
+    IFPREVERB PULL -1
+        CLEARVERB
+        ECHO PLAYER You pull your belt. The earth grants you a spell. The power of earthspike enters your mind.
+        ECHO OTHERS %N pulls %h belt.
+        EQUAL SPELLNUM 523
+    ENDIF
+
+    IFPREVERB TAP -1
+        CLEARVERB
+        IFVAR SKILL17 < 7
+            ECHO PLAYER You tap your belt.
+            ECHO OTHERS %N taps %h belt.
+        ENDIF
+        IFVAR SKILL17 > 6
+            ECHO PLAYER You tap your belt. The earth grants you a spell. The power of earthwave enters your mind.
+            ECHO OTHERS %N taps %h belt.
+            EQUAL SPELLNUM 524
+        ENDIF
+    ENDIF
+
+    IFPREVERB CONCENTRATE -1
+        CLEARVERB
+        IFVAR SKILL17 < 13
+            ECHO PLAYER You concentrate intently on the belt.
+            ECHO OTHERS %N concentrates intently on the belt.
+        ENDIF
+        IFVAR SKILL17 > 12
+            IFVAR ITEMVAL5 ! TIM
+                ECHO PLAYER You focus your thoughts on the belt. The earth rewards you with a servant.
+                ECHO OTHERS %N concentrates intently on the belt.
+                SPELL 123 30
+                EQUAL ITEMVAL5 TIM
+            ENDIF
+        ENDIF
+    ENDIF
+
+    IFPREVERB RUB -1
+        CLEARVERB
+        IFVAR SKILL17 < 19
+            ECHO PLAYER You rub your belt.
+            ECHO OTHERS %N rubs %h belt.
+        ENDIF
+        IFVAR SKILL17 > 18
+            IFVAR ITEMVAL3 ! TIM
+                ECHO PLAYER You rub your belt. Suddenly, the earth grants you the strength of the mountains.
+                ECHO OTHERS %N rubs %h belt.
+                SPELL 209 30
+                EQUAL ITEMVAL3 TIM
+            ENDIF
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+TRAITDEF DISINTEGRATING_SLIPPERS
+    POWER 1
+    IFVERB WEAR -1
+        IFITEM -1 WORN
+            ECHO PLAYER As you put the slippers on your feet, you feel a slight tingle as they mold around your toes. Somehow you know that they are forever yours, no one else shall ever wear them.
+        ENDIF
+    ENDIF
+
+    IFVERB REMOVE -1
+        ECHO PLAYER As you remove the slippers they begin to disintegrate in front of your eyes!
+        ECHO OTHERS As %N removes the slippers, they disintegrate away into nothingness.
+        REMOVEITEM -1
+    ENDIF
+ENDTRAIT
+
+TRAITDEF DEFENSIVE_TORC
+    IFPREVERB RUB -1
+        CLEARVERB
+        IFVAR ITEMVAL5 > 0
+            RANDOM DUMMY1 1 50 0
+            IFVAR DUMMY1 ! 1
+                SPELL 210 30
+                SUB ITEMVAL5 1
+            ELSE
+                ECHO PLAYER Something goes wrong with the torc's spell matrix! Your surroundings fade away...
+                ECHO OTHERS %N fades away.
+                MOVE 1365
+                AFFECT 1365
+                SHOWROOM 1365
+                POSITION LAY
+                APPEAR You reek of bat guano.
+                ECHO OTHERS %N fades in and lands with a splat!
+            ENDIF
+        ELSE
+            ECHO PLAYER Nothing observable happens.
+        ENDIF
+    ENDIF
+
+    IFPREVERB CONCENTRATE -1
+        CLEARVERB
+        IFVAR ITEMVAL5 > 0
+            RANDOM DUMMY1 1 50 0
+            IFVAR DUMMY1 ! 1
+                SPELL 230 30
+                SUB ITEMVAL5 1
+            ELSE
+                ECHO PLAYER Something goes wrong with the torc's spell matrix! Your surroundings fade away...
+                ECHO OTHERS %N fades away.
+                MOVE 1365
+                AFFECT 1365
+                SHOWROOM 1365
+                POSITION LAY
+                APPEAR You reek of bat guano.
+                ECHO OTHERS %N fades in and lands with a splat!
+            ENDIF
+        ELSE
+            ECHO PLAYER Nothing observable happens.
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+TRAITDEF NECROMANTIC_DIADEM
+    POWER 50
+    IFPREVERB CONCENTRATE -1
+        CLEARVERB
+        IFVAR PATDIADEM = 0
+            ECHO PLAYER You focus your mind onto the diadem. Your mind says, "Teshandifarzg, come and do my bidding." A Spectral Lord appears before you and bows.
+            ECHO OTHERS Suddenly, a Spectral Lord appears and bows to %N.
+            EQUAL RITUALVAL2 185
+            SPELL 2 30
+            ADD PATDIADEM 1
+        ELSE
+            ECHO PLAYER You focus on the diadem, but you can tell your controlling powers are tapped for today.
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EVIL_CIRCLET
+    IFTOUCH -1
+        IFVAR ALIGN > -1
+            ECHO OTHERS %N reaches for the black elkyri circlet,\
+                but suddenly goes stiff and collapses, dead.
+            ECHO PLAYER As you reach for the circlet, you feel\
+                any unholy, diametrically opposed force within it rise up and smite\
+                you down!
+            KILL PLAYER
+            CLEARVERB
+        ENDIF
+    ENDIF
+
+    IFPREVERB WEAR -1
+        IFITEM -1 WORN
+            ECHO PLAYER You are already wearing it.
+            CLEARVERB
+        ELSE
+            ECHO PLAYER An indeterminate dark force in the\
+            circlet grabs hold of you as you place it upon your head. You\
+            struggle against it for a moment, but it embraces you. After a\
+            moment, you relax, feeling the power course through your being.
+        ENDIF
+    ENDIF
+
+    IFPREVERB REMOVE -1
+        IFITEM -1 WORN
+            ECHO PLAYER You can't seem to remove it.
+            ECHO OTHERS %N struggles to remove the black elkyri\
+                circlet, but fails.
+            CLEARVERB
+        ENDIF
+    ENDIF
+
+    IFVERB WEAR -1
+        ECHO OTHERS %N seems to struggle with some unseen force, but\
+                then relaxes. A look of dark ecstasy passes over %h face.
+    ENDIF
+
+    IFVERB CONCENTRATE -1
+        IFITEM -1 WORN
+            IFVAR ITEMVAL5 ! TIM
+                SPELL 138 10
+                EQUAL ITEMVAL5 TIM
+                EQUAL OLDROOM RNUM
+
+                IFSEEK 202
+                    IFITEM -1 WORN
+                        RANDOM DUMMY1 1 3 0
+
+                        IFVAR DUMMY1 = 1
+                            ECHO PLAYER You feel a moment\
+                            of unease as you sense the closeness of the black circlet's wielder.
+                        ENDIF
+
+                        IFVAR DUMMY1 = 2
+                            IFVAR DUMMY1 = 2
+                                ECHO PLAYER You have a vision...
+                                SHOWROOM OLDROOM
+                            ENDIF
+                        ENDIF
+
+                        IFVAR DUMMY1 = 3
+                            ECHO PLAYER A voice whispers\
+                                in your mind, "Beware, my friend. Someone has invoked the power of\
+                                the black circlet!"
+                        ENDIF
+                    ENDIF
+                ENDIF
+            ELSE
+                SPELL 313 10
+                ECHO PLAYER A voice whispers in your mind, "\
+                    Be too greedy with my power, and I shall punish you, mortal."
+            ENDIF
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+TRAITDEF GOOD_CIRCLET
+    IFTOUCH -1
+        IFVAR ALIGN < 0
+            ECHO OTHERS %N reaches for the white elkyri circlet, but suddenly goes stiff and collapses, dead.
+            ECHO PLAYER As you reach for the circlet, you feel a diametrically opposed force within it rise up and smite you down!
+            KILL PLAYER
+            POSITION LAY
+            CLEARVERB
+        ENDIF
+    ENDIF
+
+    IFPREVERB WEAR -1
+        IFITEM -1 WORN
+            ECHO PLAYER You are already wearing it.
+            CLEARVERB
+        ELSE
+            ECHO PLAYER An indeterminate force in the circlet grabs hold of you as you place it upon your head. You struggle against it for a moment, but it embraces you. After a moment, you relax, feeling the power course through your being.
+        ENDIF
+    ENDIF
+
+    IFPREVERB REMOVE -1
+        IFITEM -1 WORN
+            ECHO PLAYER You can't seem to remove it.
+            ECHO OTHERS %N struggles to remove the white elkyri circlet, but fails.
+            CLEARVERB
+        ENDIF
+    ENDIF
+
+    IFVERB WEAR -1
+        ECHO OTHERS %N seems to struggle with some unseen force, but then relaxes.
+    ENDIF
+
+    IFVERB CONCENTRATE -1
+        IFITEM -1 WORN
+            IFVAR GOODCIR ! TIM
+                SPELL 133 10
+                EQUAL GOODCIR TIM
+                EQUAL OLDROOM RNUM
+
+                IFSEEK 201
+                    IFITEM WORN -1
+                        RANDOM DUMMY1 1 3 0
+
+                        IFVAR DUMMY1 = 1
+                            ECHO PLAYER You feel a moment of unease as you sense the closeness of the white circlet's wielder.
+                        ENDIF
+
+                        IFVAR DUMMY1 = 2
+                            ECHO PLAYER You have a vision...
+                            SHOWROOM OLDROOM
+                        ENDIF
+
+                        IFVAR DUMMY1 = 3
+                            ECHO PLAYER A voice rasps in your mind, "'Ware! Someone has invoked the power of the white circlet!"
+                        ENDIF
+                    ENDIF
+                ENDIF
+            ELSE
+                ECHO PLAYER A voice whispers in your mind, "My power is limited at this time. Be patient and true."
+            ENDIF
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+TRAITDEF SEALED_ARMOR
+    IFPREVERB REMOVE -1
+        ECHO PLAYER The armor has sealed itself to your skin.
+        ECHO OTHERS %N can't seem to remove %h armor.
+        CLEARVERB
+    ENDIF
+
+    IFSEEK 22
+        IFITEM -1 WORN
+            IFVERB CONCENTRATE -1
+                SPELL 113
+            ENDIF
+        ENDIF
+    ENDIF
+
+    IFPREVERB RUB -1
+        IFVAR ITEMVAL5 ! TIM
+            ECHO PLAYER As you polish the armor it glows a soft white.
+            ECHO OTHERS %A glows with a soft white light as %N polishes it.
+            SPELL 102 50
+            EQUAL ITEMVAL5 TIM
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+TRAITDEF ILLITHIUM_FRAYING
+    IFVAR ITEMVAL2 > 15
+        IFPREVERB WEAR -1
+            RANDOM DUMMY1 1 3 0
+
+            IFVAR ITEMBIT0 = 1
+                EQUAL DUMMY1 0
+            ENDIF
+
+            IFVAR DUMMY1 = 1
+                ECHO PLAYER The mesh of illithium frays slightly.
+                SUB ITEMVAL2 1
+            ENDIF
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+TRAITDEF CLAW_GROWTH
+    POWER 2
+    IFPREVERB RUB -1
+        CLEARVERB
+        ECHO PLAYER You cross your hands over your chest, clench your fists, then throw your hands out in front of you. The spirit of the tiger flows into your hands.
+        ECHO OTHERS %N crosses %h hands over %h chest, then gestures outwardly.
+        SPELL 518 40
+    ENDIF
+ENDTRAIT
+
+TRAITDEF KRONOS_HELMET
+    VARIABLE tokronos
+    VARIABLE tokronos1
+
+    IFPREVERB RUB -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ADD tokronos 1
+            IFVAR tokronos < 11
+                ECHO PLAYER You hear a slight buzzing sound and then a shimmering field flows from the helm to cover your entire body.
+                ECHO OTHERS One of the intricate designs on the helmet glows and pulses for a moment, then a shimmering field covers %N.
+                SPELL 105 20
+            ENDIF
+            IFVAR tokronos => 11
+                ECHO PLAYER You sense that the helmet is recharging.
+                ECHO OTHERS %N rubs %h helmet.
+            ENDIF
+        ENDIF
+    ENDIF
+
+    IFPREVERB TAP -1
+        CLEARVERB
+        IFITEM -1 WORN
+            ADD tokronos 1
+            IFVAR tokronos = 1
+                ECHO PLAYER You feel a slight tickling sensation at the back of your mind, as if someone, or something, was trying to make contact...
+                ECHO OTHERS %N fidgets nervously and scans the area.
+            ENDIF
+            IFVAR tokronos = 2
+                ECHO PLAYER The tickling sensation grows stronger and you faintly hear a buzzing sound interspersed with the words, "We are...zzzzzz....through.....zzzzzz....temporal....zzzzz...connection imminent."
+                ECHO OTHERS %N shakes %h head as if trying to clear it of something...
+            ENDIF
+            IFVAR tokronos = 3
+                ECHO PLAYER A clear voice begins to speak in your mind, yet you sense that the voice is coming from far away, "Contact has been established with target. Greetings, I speak to you from the year 2674. We are the creators of the device which you now wear, the KRONOS helmet. Know that it is a powerful sensing device that detects the emanations left by the passage of time. In many instances the emanations are strong enough for the helmet to act upon, to transport the viewer back to the time to observe history. The places where such emanations are strongest are usually the places where something historically significant has occurred. Use this power well...you hold the only prototype of this device."
+                ECHO OTHERS One of the intricate golden designs upon %N's helmet glows strongly as %N's eyes roll back and %h body becomes rigid.
+                EQUAL tokronos 0
+            ENDIF
+        ENDIF
+    ENDIF
+
+    IFPREVERB CONCENTRATE -1
+        CLEARVERB
+        IFVAR RNUM = 3940
+            DISBAND
+            ECHO PLAYER You feel a slight shifting sensation, then, in the blink of an eye, you are somewhere different...
+            ECHO OTHERS %N's helmet glows strongly, each of the golden lines emanating a gleaming golden hue...the brilliance makes you blink and when you finally look up, you catch a glimpse of %N disappearing through a gap in space...
+            MOVE 2695
+        ENDIF
+        IFVAR RNUM = 293
+            DISBAND
+            ECHO PLAYER You feel a slight shifting sensation, then, in the blink of an eye, you are somewhere different...
+            ECHO OTHERS %N's helmet glows strongly, each of the golden lines emanating a gleaming golden hue...the brilliance makes you blink and when you finally look up, you catch a glimpse of %N disappearing through a gap in space...
+            MOVE 2696
+        ENDIF
+        IFVAR RNUM = 201
+            DISBAND
+            ECHO PLAYER You feel a slight shifting sensation, then, in the blink of an eye, you are somewhere different...
+            ECHO OTHERS %N's helmet glows strongly, each of the golden lines emanating a gleaming golden hue...the brilliance makes you blink and when you finally look up, you catch a glimpse of %N disappearing through a gap in space...
+            MOVE 2697
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+TRAITDEF SASSREATE_ROBE
+
+    IFVERB CONCENTRATE -1
+        IFITEM -1 WORN
+            IFVAR INTNUM47 = 1
+                ECHO PLAYER A gentle voice speaks within your mind, "I am of the clan Sass'reate, Kvaahn Cho'Nya."
+            ENDIF
+
+            IFVAR INTNUM47 = 2
+                ECHO PLAYER A gentle voice speaks within your mind, "I am of the clan Sass'reate, Kvaahn Cho'Nya."
+                ECHO PLAYER The voice continues, "In my time I was known as one of the mighty amongst my clan."
+            ENDIF
+
+            IFVAR INTNUM47 = 3
+                ECHO PLAYER A gentle voice speaks within your mind, "I am of the clan Sass'reate, Kvaahn Cho'Nya."
+                ECHO PLAYER The voice continues, "In my time I was known as one of the mighty amongst my clan."
+                ECHO PLAYER The voice intones, "My house is Edroha, honor it well. Master of both within my clan, neither art closed to me. Name me, Kih'tha'nohg, for such did the revered ancestors call me on the night of my birthing. It means, Walker amongst the Lights."
+            ENDIF
+
+            IFVAR INTNUM47 = 4
+                ECHO PLAYER A gentle voice speaks within your mind, "I am of the clan Sass'reate, Kvaahn Cho'Nya."
+                ECHO PLAYER The voice continues, "In my time I was known as one of the mighty amongst my clan."
+                ECHO PLAYER The voice intones, "My house is Edroha, honor it well. Master of both within my clan, neither art closed to me. Name me, Kih'tha'nohg, for such did the revered ancestors call me on the night of my birthing. It means, Walker amongst the Lights."
+                ECHO PLAYER The voice continues, "Bearer and Creator of the Mind Sai was I. Many Jupaaskri fell before my might, curse them and all their foul spawn."
+            ENDIF
+
+            IFVAR INTNUM47 = 5
+                ECHO PLAYER A gentle voice speaks within your mind, "I am of the clan Sass'reate, Kvaahn Cho'Nya."
+                ECHO PLAYER The voice continues, "In my time I was known as one of the mighty amongst my clan."
+                ECHO PLAYER The voice intones, "My house is Edroha, honor it well. Master of both within my clan, neither art closed to me. Name me, Kih'tha'nohg, for such did the revered ancestors call me on the night of my birthing. It means, Walker amongst the Lights."
+                ECHO PLAYER The voice continues, "Bearer and Creator of the Mind Sai was I. Many Jupaaskri fell before my might, curse them and all their foul spawn."
+                ECHO PLAYER The voice continues, "My name struck fear within Jupaaskri souls, deep into their warrens I went, using the power of Pi'tho'norksa to stay their poisons."
+            ENDIF
+
+            IFVAR INTNUM47 = 6
+                ECHO PLAYER A gentle voice speaks within your mind, "I am of the clan Sass'reate, Kvaahn Cho'Nya."
+                ECHO PLAYER The voice continues, "In my time I was known as one of the mighty amongst my clan."
+                ECHO PLAYER The voice intones, "My house is Edroha, honor it well. Master of both within my clan, neither art closed to me. Name me, Kih'tha'nohg, for such did the revered ancestors call me on the night of my birthing. It means, Walker amongst the Lights."
+                ECHO PLAYER The voice continues, "Bearer and Creator of the Mind Sai was I. Many Jupaaskri fell before my might, curse them and all their foul spawn."
+                ECHO PLAYER The voice continues, "My name struck fear within Jupaaskri souls, deep into their warrens I went, using the power of Pi'tho'norksa to stay their poisons."
+                ECHO PLAYER The voice continues, "Pi'tho'norksa, the Essence of the Stars, inhaled before my ancestors, with their blessings. A magical mixture whose secret died with me. Without it, journey into the Jupaaskri home will make all drakin fall."
+            ENDIF
+        ENDIF
+    ENDIF
+
+
+    IFPREVERB RUB -1
+        IFITEM -1 WORN
+            CLEARVERB
+
+            IFVAR INTNUM47 = 1
+                ECHO PLAYER A gentle voice speaks within your mind, "The robe I am, and the robe is me. Mysteries to unlock for its wearer. Part by part, thread by thread, discover the past and find the future."
+                ECHO PLAYER The voice continues, "Unravel the first, listen to my clue...In the ruined ground, thrusting towards to the sky, all the races to be found."
+            ENDIF
+
+            IFVAR INTNUM47 = 2
+                ECHO PLAYER A gentle voice speaks within your mind, "The robe I am, and the robe is me. Mysteries to unlock for its wearer. Part by part, thread by thread, discover the past and find the future."
+                ECHO PLAYER The voice speaks softly within your mind, "On to the second, now is the time to be reckoned....The four wolves snarl from the corners, even their great hunger dwarfed by the cruelty of the darkness."
+            ENDIF
+
+            IFVAR INTNUM47 = 3
+                ECHO PLAYER A gentle voice speaks within your mind, "The robe I am, and the robe is me. Mysteries to unlock for its wearer. Part by part, thread by thread, discover the past and find the future."
+                ECHO PLAYER The voice continues, "This task is three in number, listen closely lest you blunder.....Humming fills your ears, Heat nearly more than you can bear, From the tree that is not a tree."
+            ENDIF
+
+            IFVAR INTNUM47 = 4
+                ECHO PLAYER A gentle voice speaks within your mind, "The robe I am, and the robe is me. Mysteries to unlock for its wearer. Part by part, thread by thread, discover the past and find the future."
+                ECHO PLAYER The voice fills your mind, "Three doors unlocked, the fourth has now beckoned.....Jaws of stone threaten, a reddish light flowing from teeth that are not together."
+            ENDIF
+
+            IFVAR INTNUM47 = 5
+                ECHO PLAYER A gentle voice speaks within your mind, "The robe I am, and the robe is me. Mysteries to unlock for its wearer. Part by part, thread by thread, discover the past and find the future."
+                ECHO PLAYER The voice nearly roars in your mind, "The star almost completed, let this fifth clue not be repeated...The water splits the cavern of one who called it home so long ago, only tools remain, no more use due to time's abuse"
+            ENDIF
+        ENDIF
+    ENDIF
+
+
+    IFPREVERB PULL -1
+        IFITEM -1 WORN
+            CLEARVERB
+
+            IFVAR INTNUM47 = 1
+                IFVAR RNUM = 506
+                    ECHO PLAYER As you pull at the robe you hear a relieved sigh within your mind and then you see a silvery thread float to the ground from the cloak. The voice speaks, "Only the first unravelled, more to come, patience will see us through."
+                    ECHO OTHERS %N gently pulls at %h robe and you see a single silver thread fall to the ground.
+                    NEWITEM 9 1970 ADJ1=292
+                    EQUAL INTNUM47 2
+                ENDIF
+            ENDIF
+
+            IFVAR INTNUM47 = 2
+                IFVAR RNUM = 1332
+                    ECHO PLAYER As you pull at the robe you hear a relieved sigh within your mind and then you see a silvery thread float to the ground from the cloak. The voice speaks, "Only the first unravelled, more to come, patience will see us through."
+                    ECHO OTHERS %N gently pulls at %h robe and you see a single silver thread fall to the ground.
+                    NEWITEM 9 1970 ADJ1=292
+                    EQUAL INTNUM47 3
+                ENDIF
+            ENDIF
+
+            IFVAR INTNUM47 = 3
+                IFVAR RNUM = 1156
+                    ECHO PLAYER As you pull at the robe you hear a relieved sigh within your mind and then you see a silvery thread float to the ground from the cloak. The voice speaks, "Only the first unravelled, more to come, patience will see us through."
+                    ECHO OTHERS %N gently pulls at %h robe and you see a single silver thread fall to the ground.
+                    NEWITEM 9 1970 ADJ1=292
+                    EQUAL INTNUM47 4
+                ENDIF
+            ENDIF
+
+            IFVAR INTNUM47 = 4
+                IFVAR RNUM = 959
+                    ECHO PLAYER As you pull at the robe you hear a relieved sigh within your mind and then you see a silvery thread float to the ground from the cloak. The voice speaks, "Only the first unravelled, more to come, patience will see us through."
+                    ECHO OTHERS %N gently pulls at %h robe and you see a single silver thread fall to the ground.
+                    NEWITEM 9 1970 ADJ1=292
+                    EQUAL INTNUM47 5
+                ENDIF
+            ENDIF
+
+            IFVAR INTNUM47 = 5
+                IFVAR RNUM = 725
+                    ECHO PLAYER As you pull at the robe you hear a relieved sigh within your mind and then you see a silvery thread float to the ground from the cloak. The voice speaks, "Only the first unravelled, more to come, patience will see us through."
+                    ECHO OTHERS %N gently pulls at %h robe and you see a single silver thread fall to the ground.
+                    NEWITEM 9 1970 ADJ1=292
+                    EQUAL INTNUM47 6
+                ENDIF
+            ENDIF
+
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+TRAITDEF REISTHFAERS_ARMOR
+
+    IFPREVERB CONCENTRATE -1
+        IFITEM -1 WORN
+            CLEARVERB
+
+            IFVAR ITEMVAL1 ! TIM
+                ECHO PLAYER You concentrate on the symbol within your armor. Moments later you feel a strange trickling sensation, akin to blood running down your chest. It then occurs to you that your bleeding has stopped.
+                ECHO OTHERS %N seems to have entered a state of supreme concentration as %s stares down at %h armor.
+                SPELL 342 50
+                EQUAL ITEMVAL1 TIM
+            ELSE
+                ECHO PLAYER The power of the armor, and the blood which flows through it cannot aid you at the moment.
+            ENDIF
+
+        ELSE
+            CLEARVERB
+            ECHO PLAYER You must be wearing the armor to invoke its powers.
+        ENDIF
+    ENDIF
+
+    IFPREVERB RUB -1
+        CLEARVERB
+        ECHO PLAYER You gaze down at your armor almost lovingly, and begin to steadily polish it.
+        ECHO OTHERS %N gazes down at %h armor with almost a loving care, and begins to slowly polish it.
+    ENDIF
+
+ENDTRAIT

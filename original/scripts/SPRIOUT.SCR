@@ -3166,11 +3166,6 @@ IFVERB LEAN 0
 	ECHO ALL %N is trying to look daring.
 ENDIF
 IFVERB JUMP -1
-	IFVAR FLAG1 = 0
-		ECHO PLAYER Do you really want to jump to your death.
-		ECHO OTHERS %N looks as if %s wants to jump.
-		EQUAL FLAG1 1
-	ENDIF
 	IFVAR FLAG1 = 1
 		ECHO PLAYER You jump off!
 		ECHO OTHERS %N jumps off!
@@ -3181,6 +3176,11 @@ IFVERB JUMP -1
 		POSITION LAY
 		DAMAGE CRUSH WHATANASS %N hits the ground with a thaud.
 		AFFECT 612
+	ENDIF
+	IFVAR FLAG1 = 0
+		ECHO PLAYER Do you really want to jump to your death.
+		ECHO OTHERS %N looks as if %s wants to jump.
+		EQUAL FLAG1 1
 	ENDIF
 ENDIF
 ;
@@ -3234,21 +3234,21 @@ IFVERB CLIMB 0
 	CLEARVERB
 ENDIF
 IFVERB JUMP -1
-	IFVAR FLAG1 = 0
-                ECHO PLAYER Do you really want to jump to your death?
-		ECHO OTHERS %N looks as if %s wants to jump.
-		EQUAL FLAG1 1
-	ENDIF
 	IFVAR FLAG1 = 1
 		ECHO PLAYER You jump off!
 		ECHO OTHERS %N jumps off!
 		MOVE 602
 		AFFECT 602
-                RANDOM WHATANASS2 1 6 10
+        RANDOM WHATANASS2 1 6 10
 		MULT WHATANASS2 5
 		POSITION LAY
 		DAMAGE CRUSH WHATANASS2 %N hits the ground with a thaud.
 		AFFECT 613
+	ENDIF
+	IFVAR FLAG1 = 0
+        ECHO PLAYER Do you really want to jump to your death?
+		ECHO OTHERS %N looks as if %s wants to jump.
+		EQUAL FLAG1 1
 	ENDIF
 ENDIF
 ;
@@ -3425,16 +3425,36 @@ EXIT ABOVE 2112
 ;
 NUMBER 621
 NAME Teeth of Shartan, ledge
-ITEM 9 693
 CALL 33
+ITEM 9 693
 *DESCRIPTION_START
-About two thirds of the way up the mountain, the ladder continues to offer the main support as it scales the face of the rock. The wind moans strangely as whistles in and out of the ladder rungs.
+As you near the mid-point of the ladder an unusual sight is revealed.
+A large cavernous room has been carved into the cliff wall itself. The
+Southern side wall of the room faces the ladder and is completely
+exposed. A small railing offers an easy climb into the room. A
+sliding glass window protects patrons from the harsher elements when
+needed. It is currently open. The room is pock marked with tables
+and chairs and a large shape looms far within the darkened room. A
+curious sign rests above you in a carved niche.
 *DESCRIPTION_END
 MOUNTAIN
 DAY_LIGHT
 EXIT ABOVE 2112
 ITEM 0 449 ADJ1=492
 ITEM 1 449 ADJ1=493
+ITEM 2 1112
+ITEM 3 72 ADJ1=178 VAL2=3715
+
+IFPREVERB EXAMINE 2
+  CLEARVERB
+  ECHO PLAYER A skeleton stands above you in a niche carved into the rock face.
+  ECHO PLAYER He endlessly pounds on a large steel block with a sledgehammer,
+  ECHO PLAYER sending a reverberant 'CLANG' through the countryside. A coarsely
+  ECHO PLAYER painted yellow sign blurts out the following message in red:%c
+  ECHO PLAYER                   THE ANVIL:
+  ECHO PLAYER             Come In And Get Hammered!
+ENDIF
+
 IFVERB GO 0
 	ECHO PLAYER You'll have to climb that.
 	CLEARVERB
@@ -3463,19 +3483,15 @@ IFVERB CLIMB 1
 ENDIF
 IFVERB LISTEN -1
 	IFVAR RAC ! 7
-		ECHO PLAYER The strange cries of the wind send chills up your spine, when you pause to really hear them.
+		ECHO PLAYER The strange cries of the wind send chills up your spine, when you pause.
 	ENDIF
 	IFVAR RAC = 7
 		ECHO PLAYER You notice the wind causes the ladder to vibrate, thus creating sound.
 	ENDIF
 ENDIF
 IFVERB JUMP -1
-	IFVAR FLAG1 = 0
-		ECHO PLAYER Do you really want to jump to your death.
-		ECHO OTHERS %N looks as if %s wants to jump.
-		EQUAL FLAG1 1
-	ENDIF
-	IFVAR FLAG1 = 1
+
+IFVAR FLAG1 = 1
 		ECHO PLAYER You jump off!
 		ECHO OTHERS %N jumps off!
 		MOVE 620
@@ -3483,9 +3499,16 @@ IFVERB JUMP -1
 		RANDOM WHATANASS3 1 6 0
 		MULT WHATANASS3 5
 		POSITION LAY
-		DAMAGE CRUSH WHATANASS3 %N hits the ground with a thud.
+		DAMAGEPLR CRUSH WHATANASS3 %N hits the ground with a thud.
 		AFFECT 621
 	ENDIF
+
+	IFVAR FLAG1 = 0
+		ECHO PLAYER Do you really want to jump to your death.
+		ECHO OTHERS %N looks as if %s wants to jump.
+		EQUAL FLAG1 1
+	ENDIF
+	
 ENDIF
 ;
 ;
@@ -3525,11 +3548,6 @@ IFENTRY
 	ENDIF
 ENDIF
 IFVERB JUMP -1
-	IFVAR FLAG1 = 0
-		ECHO PLAYER Do you really want to jump to your death.
-		ECHO OTHERS %N looks as if %s wants to jump.
-		EQUAL FLAG1 1
-	ENDIF
 	IFVAR FLAG1 = 1
 		ECHO PLAYER You jump off!
 		ECHO OTHERS %N jumps off!
@@ -3540,6 +3558,11 @@ IFVERB JUMP -1
 		POSITION LAY
 		DAMAGE CRUSH WHATANASS4 %N hits the ground with a thud.
 		AFFECT 622
+	ENDIF
+	IFVAR FLAG1 = 0
+		ECHO PLAYER Do you really want to jump to your death.
+		ECHO OTHERS %N looks as if %s wants to jump.
+		EQUAL FLAG1 1
 	ENDIF
 ENDIF
 ITEM 0 449 ADJ1=492 VAL2=623
@@ -5948,7 +5971,7 @@ MLIST 108 119 20 5
 MLIST 114 65 20 5
 MLIST 114 100 20 5
 ;
-;               Terrain item#   adj     freq    val2    val5
+; Terrain   	     item#   adj freq    val2    val5
 FORAGEDEF	FOREST	1442	196	10	0	13
 FORAGEDEF	FOREST	1373	-1	10	0	13
 FORAGEDEF	FOREST	1555	406	10	0	0
@@ -5960,8 +5983,8 @@ FORAGEDEF	FOREST	1671	-1	8	0	0
 FORAGEDEF	FOREST	1528	387	 7	0	0
 FORAGEDEF	FOREST	1553	400	5	0	0
 FORAGEDEF	FOREST	1674	-1	4	0	0
-FORAGEDEF FOREST 1985 347 1 37 0
-FORAGEDEF FOREST 1985 -1 7 0 0
+FORAGEDEF 	FOREST	 1985 	347 1 37 0
+FORAGEDEF 	FOREST	 1985 	-1 7 0 0
 FORAGEDEF	MOUNTAIN	1511	126	10	0	0
 FORAGEDEF	MOUNTAIN	433	-1	10	0	0
 FORAGEDEF	MOUNTAIN	1531	296	10	0	0
@@ -5973,7 +5996,7 @@ FORAGEDEF	PLAIN	433	-1	10	0	0
 FORAGEDEF	PLAIN	1526	572	10	0	0
 FORAGEDEF	PLAIN	1375	-1	8	0	0
 FORAGEDEF	PLAIN	1513	1134	7	0	0
-FORAGEDEF       PLAIN   416     178     7       0       0
+FORAGEDEF   PLAIN   416     178     7   0   0
 FORAGEDEF	PLAIN	1527	754	5	0	0
 FORAGEDEF	PLAIN	494	542	1	0	1
 FORAGEDEF	SWAMP	1027	-1	10	0	0
@@ -5981,3 +6004,15 @@ FORAGEDEF	SWAMP	1654	556	10	0	0
 FORAGEDEF	SWAMP	1529	181	10	0	0
 FORAGEDEF	SWAMP	433	-1	10	0	0
 FORAGEDEF	SWAMP	1053	522	5	0	0
+
+; Babich blossoms — Health
+FORAGEDEF PLAIN 275 531 10 0 4
+FORAGEDEF FOREST 275 531 10 0 4
+
+; Nuur/Muur crystal — Body
+FORAGEDEF MOUNTAIN 1502 1103 10 0 6
+
+; Garlic — Resist / Negation
+FORAGEDEF PLAIN 1501 -1 8 0 7
+FORAGEDEF FOREST 1501 -1 8 0 7
+FORAGEDEF SWAMP 1501 -1 8 0 7

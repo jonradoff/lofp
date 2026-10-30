@@ -15,90 +15,90 @@ type emoteEntry struct {
 }
 
 var emoteTable = map[string]emoteEntry{
-	"SMILE":     {Self: "You smile.", Room: "%N smiles.", SelfTarget: "You smile at %T.", RoomTarget: "%N smiles at %T."},
-	"BOW":       {Self: "You bow.", Room: "%N bows.", SelfTarget: "You bow to %T.", RoomTarget: "%N bows to %T."},
-	"CURTSEY":   {Self: "You curtsey.", Room: "%N curtseys.", SelfTarget: "You curtsey to %T.", RoomTarget: "%N curtseys to %T."},
-	"CURTSY":    {Self: "You curtsy.", Room: "%N curtsies.", SelfTarget: "You curtsy to %T.", RoomTarget: "%N curtsies to %T."},
-	"WAVE":      {Self: "You wave.", Room: "%N waves.", SelfTarget: "You wave to %T.", RoomTarget: "%N waves to %T."},
-	"NOD":       {Self: "You nod.", Room: "%N nods.", SelfTarget: "You nod to %T.", RoomTarget: "%N nods to %T."},
-	"LAUGH":     {Self: "You laugh.", Room: "%N laughs.", SelfTarget: "You laugh at %T.", RoomTarget: "%N laughs at %T."},
-	"CHUCKLE":   {Self: "You chuckle.", Room: "%N chuckles.", SelfTarget: "You chuckle at %T.", RoomTarget: "%N chuckles at %T."},
-	"GRIN":      {Self: "You grin.", Room: "%N grins.", SelfTarget: "You grin at %T.", RoomTarget: "%N grins at %T."},
-	"FROWN":     {Self: "You frown.", Room: "%N frowns.", SelfTarget: "You frown at %T.", RoomTarget: "%N frowns at %T."},
-	"SIGH":      {Self: "You sigh.", Room: "%N sighs.", SelfTarget: "You sigh at %T.", RoomTarget: "%N sighs at %T."},
-	"SHRUG":     {Self: "You shrug.", Room: "%N shrugs.", SelfTarget: "You shrug at %T.", RoomTarget: "%N shrugs at %T."},
-	"WINK":      {Self: "You wink.", Room: "%N winks.", SelfTarget: "You wink at %T.", RoomTarget: "%N winks at %T."},
-	"CRY":       {Self: "You cry.", Room: "%N cries.", SelfTarget: "You cry on %T's shoulder.", RoomTarget: "%N cries on %T's shoulder."},
-	"DANCE":     {Self: "You dance.", Room: "%N dances.", SelfTarget: "You dance with %T.", RoomTarget: "%N dances with %T."},
-	"HUG":       {Self: "You hug yourself.", Room: "%N hugs themselves.", SelfTarget: "You hug %T.", RoomTarget: "%N hugs %T."},
-	"KISS":      {Self: "You blow a kiss.", Room: "%N blows a kiss.", SelfTarget: "You kiss %T.", RoomTarget: "%N kisses %T."},
-	"POKE":      {Self: "You poke yourself.", Room: "%N pokes themselves.", SelfTarget: "You poke %T.", RoomTarget: "%N pokes %T."},
-	"TICKLE":    {Self: "You tickle yourself.", Room: "%N tickles themselves.", SelfTarget: "You tickle %T.", RoomTarget: "%N tickles %T."},
-	"SLAP":      {Self: "You slap yourself.", Room: "%N slaps themselves.", SelfTarget: "You slap %T.", RoomTarget: "%N slaps %T."},
-	"HOWL":      {Self: "You howl.", Room: "%N howls.", SelfTarget: "You howl at %T.", RoomTarget: "%N howls at %T."},
-	"SING":      {Self: "You sing.", Room: "%N sings.", SelfTarget: "You sing to %T.", RoomTarget: "%N sings to %T."},
-	"PACE":      {Self: "You pace back and forth.", Room: "%N paces back and forth."},
-	"FIDGET":    {Self: "You fidget.", Room: "%N fidgets."},
-	"SHIVER":    {Self: "You shiver.", Room: "%N shivers."},
-	"SNORT":     {Self: "You snort.", Room: "%N snorts.", SelfTarget: "You snort at %T.", RoomTarget: "%N snorts at %T."},
-	"GROAN":     {Self: "You groan.", Room: "%N groans."},
-	"MUMBLE":    {Self: "You mumble something.", Room: "%N mumbles something."},
-	"BABBLE":    {Self: "You babble.", Room: "%N babbles."},
-	"BEAM":      {Self: "You beam.", Room: "%N beams.", SelfTarget: "You beam at %T.", RoomTarget: "%N beams at %T."},
-	"SWOON":     {Self: "You swoon.", Room: "%N swoons."},
-	"TOAST":     {Self: "You raise your glass in a toast.", Room: "%N raises a toast.", SelfTarget: "You raise a toast to %T.", RoomTarget: "%N raises a toast to %T."},
-	"SHUDDER":   {Self: "You shudder.", Room: "%N shudders."},
-	"POINT":     {Self: "You point.", Room: "%N points.", SelfTarget: "You point at %T.", RoomTarget: "%N points at %T."},
-	"KICK":      {Self: "You kick at the ground.", Room: "%N kicks at the ground.", SelfTarget: "You kick %T.", RoomTarget: "%N kicks %T."},
-	"KNOCK":     {Self: "You knock.", Room: "%N knocks.", SelfTarget: "You knock on %T.", RoomTarget: "%N knocks on %T."},
-	"TOUCH":     {Self: "You touch yourself.", Room: "%N touches themselves.", SelfTarget: "You touch %T.", RoomTarget: "%N touches %T."},
-	"RUB":       {Self: "You rub your hands together.", Room: "%N rubs %P hands together.", SelfTarget: "You rub %T.", RoomTarget: "%N rubs %T."},
-	"PET":       {Self: "You pet yourself.", Room: "%N pets themselves.", SelfTarget: "You pet %T.", RoomTarget: "%N pets %T."},
-	"PUNCH":     {Self: "You punch the air.", Room: "%N punches the air.", SelfTarget: "You punch %T.", RoomTarget: "%N punches %T."},
-	"SPIT":      {Self: "You spit.", Room: "%N spits.", SelfTarget: "You spit at %T.", RoomTarget: "%N spits at %T."},
-	"GAZE":      {Self: "You gaze about.", Room: "%N gazes about.", SelfTarget: "You gaze at %T.", RoomTarget: "%N gazes at %T."},
-	"GLARE":     {Self: "You glare.", Room: "%N glares.", SelfTarget: "You glare at %T.", RoomTarget: "%N glares at %T."},
-	"SCOWL":     {Self: "You scowl.", Room: "%N scowls.", SelfTarget: "You scowl at %T.", RoomTarget: "%N scowls at %T."},
-	"COMFORT":   {Self: "You comfort yourself.", Room: "%N comforts themselves.", SelfTarget: "You comfort %T.", RoomTarget: "%N comforts %T."},
-	"RECITE":    {Self: "You recite.", Room: "%N recites."},
-	"YAWN":      {Self: "You yawn.", Room: "%N yawns.", SelfTarget: "You yawn at %T.", RoomTarget: "%N yawns at %T."},
-	"BLINK":     {Self: "You blink.", Room: "%N blinks.", SelfTarget: "You blink at %T.", RoomTarget: "%N blinks at %T."},
-	"BLUSH":     {Self: "You blush.", Room: "%N blushes."},
-	"CRINGE":    {Self: "You cringe.", Room: "%N cringes."},
-	"CUDDLE":    {Self: "You cuddle up.", Room: "%N cuddles up.", SelfTarget: "You cuddle up to %T.", RoomTarget: "%N cuddles up to %T."},
-	"COUGH":     {Self: "You cough.", Room: "%N coughs."},
-	"FURROW":    {Self: "You furrow your brow.", Room: "%N furrows %P brow."},
-	"GASP":      {Self: "You gasp.", Room: "%N gasps."},
-	"GIGGLE":    {Self: "You giggle.", Room: "%N giggles.", SelfTarget: "You giggle at %T.", RoomTarget: "%N giggles at %T."},
-	"GRIMACE":   {Self: "You grimace.", Room: "%N grimaces."},
-	"GROWL":     {Self: "You growl.", Room: "%N growls.", SelfTarget: "You growl at %T.", RoomTarget: "%N growls at %T."},
-	"GULP":      {Self: "You gulp.", Room: "%N gulps."},
-	"JUMP":      {Self: "You jump up and down.", Room: "%N jumps up and down."},
-	"LEAN":      {Self: "You lean back.", Room: "%N leans back.", SelfTarget: "You lean on %T.", RoomTarget: "%N leans on %T."},
-	"NUZZLE":    {Self: "You nuzzle.", Room: "%N nuzzles.", SelfTarget: "You nuzzle %T affectionately.", RoomTarget: "%N nuzzles %T affectionately."},
-	"PANT":      {Self: "You pant.", Room: "%N pants."},
-	"PONDER":    {Self: "You ponder for a moment.", Room: "%N ponders."},
-	"POUT":      {Self: "You pout.", Room: "%N pouts."},
-	"ROLL":      {Self: "You roll your eyes.", Room: "%N rolls %P eyes.", SelfTarget: "You roll your eyes at %T.", RoomTarget: "%N rolls %P eyes at %T."},
-	"SCREAM":    {Self: "You scream!", Room: "%N screams!"},
-	"SMIRK":     {Self: "You smirk.", Room: "%N smirks.", SelfTarget: "You smirk at %T.", RoomTarget: "%N smirks at %T."},
-	"SNICKER":   {Self: "You snicker.", Room: "%N snickers."},
-	"SALUTE":    {Self: "You salute.", Room: "%N salutes.", SelfTarget: "You salute %T.", RoomTarget: "%N salutes %T."},
-	"STRETCH":   {Self: "You stretch your arms lazily.", Room: "%N stretches %P arms lazily."},
-	"TAP":       {Self: "You tap your foot.", Room: "%N taps %P foot.", SelfTarget: "You tap %T on the shoulder.", RoomTarget: "%N taps %T on the shoulder."},
-	"TWIRL":     {Self: "You twirl around.", Room: "%N twirls around."},
-	"WINCE":     {Self: "You wince.", Room: "%N winces."},
-	"WHISTLE":   {Self: "You whistle innocently.", Room: "%N whistles innocently."},
-	"MUTTER":    {Self: "You mutter something under your breath.", Room: "%N mutters something you can't quite make out."},
-	"CARESS":    {Self: "You caress yourself.", Room: "%N caresses themselves.", SelfTarget: "You caress %T.", RoomTarget: "%N caresses %T."},
-	"NUDGE":     {Self: "You nudge.", Room: "%N nudges.", SelfTarget: "You nudge %T.", RoomTarget: "%N nudges %T."},
-	"ARCH":      {Self: "You arch an eyebrow.", Room: "%N arches %P eyebrow.", SelfTarget: "You arch an eyebrow at %T.", RoomTarget: "%N arches %P eyebrow at %T."},
-	"RAISE":     {Self: "You raise an eyebrow.", Room: "%N raises an eyebrow.", SelfTarget: "You raise an eyebrow towards %T.", RoomTarget: "%N raises an eyebrow towards %T."},
-	"HEAD":      {Self: "You shake your head.", Room: "%N shakes %P head back and forth.", SelfTarget: "You shake your head at %T.", RoomTarget: "%N shakes %P head at %T."},
-	"SCRATCH":   {Self: "You scratch your head.", Room: "%N scratches %P head."},
-	"CLAP":      {Self: "You clap.", Room: "%N claps.", SelfTarget: "You clap for %T.", RoomTarget: "%N claps for %T."},
-	"SNIFF":     {Self: "You sniff.", Room: "%N sniffs.", SelfTarget: "You sniff %T.", RoomTarget: "%N sniffs %T."},
-	"LISTEN":    {Self: "You listen carefully.", Room: "%N listens carefully.", SelfTarget: "You listen carefully to %T.", RoomTarget: "%N listens carefully to %T."},
+	"SMILE":   {Self: "You smile.", Room: "%N smiles.", SelfTarget: "You smile at %T.", RoomTarget: "%N smiles at %T."},
+	"BOW":     {Self: "You bow.", Room: "%N bows.", SelfTarget: "You bow to %T.", RoomTarget: "%N bows to %T."},
+	"CURTSEY": {Self: "You curtsey.", Room: "%N curtseys.", SelfTarget: "You curtsey to %T.", RoomTarget: "%N curtseys to %T."},
+	"CURTSY":  {Self: "You curtsy.", Room: "%N curtsies.", SelfTarget: "You curtsy to %T.", RoomTarget: "%N curtsies to %T."},
+	"WAVE":    {Self: "You wave.", Room: "%N waves.", SelfTarget: "You wave to %T.", RoomTarget: "%N waves to %T."},
+	"NOD":     {Self: "You nod.", Room: "%N nods.", SelfTarget: "You nod to %T.", RoomTarget: "%N nods to %T."},
+	"LAUGH":   {Self: "You laugh.", Room: "%N laughs.", SelfTarget: "You laugh at %T.", RoomTarget: "%N laughs at %T."},
+	"CHUCKLE": {Self: "You chuckle.", Room: "%N chuckles.", SelfTarget: "You chuckle at %T.", RoomTarget: "%N chuckles at %T."},
+	"GRIN":    {Self: "You grin.", Room: "%N grins.", SelfTarget: "You grin at %T.", RoomTarget: "%N grins at %T."},
+	"FROWN":   {Self: "You frown.", Room: "%N frowns.", SelfTarget: "You frown at %T.", RoomTarget: "%N frowns at %T."},
+	"SIGH":    {Self: "You sigh.", Room: "%N sighs.", SelfTarget: "You sigh at %T.", RoomTarget: "%N sighs at %T."},
+	"SHRUG":   {Self: "You shrug.", Room: "%N shrugs.", SelfTarget: "You shrug at %T.", RoomTarget: "%N shrugs at %T."},
+	"WINK":    {Self: "You wink.", Room: "%N winks.", SelfTarget: "You wink at %T.", RoomTarget: "%N winks at %T."},
+	"CRY":     {Self: "You cry.", Room: "%N cries.", SelfTarget: "You cry on %T's shoulder.", RoomTarget: "%N cries on %T's shoulder."},
+	"DANCE":   {Self: "You dance.", Room: "%N dances.", SelfTarget: "You dance with %T.", RoomTarget: "%N dances with %T."},
+	"HUG":     {Self: "You hug yourself.", Room: "%N hugs themselves.", SelfTarget: "You hug %T.", RoomTarget: "%N hugs %T."},
+	"KISS":    {Self: "You blow a kiss.", Room: "%N blows a kiss.", SelfTarget: "You kiss %T.", RoomTarget: "%N kisses %T."},
+	"POKE":    {Self: "You poke yourself.", Room: "%N pokes themselves.", SelfTarget: "You poke %T.", RoomTarget: "%N pokes %T."},
+	"TICKLE":  {Self: "You tickle yourself.", Room: "%N tickles themselves.", SelfTarget: "You tickle %T.", RoomTarget: "%N tickles %T."},
+	"SLAP":    {Self: "You slap yourself.", Room: "%N slaps themselves.", SelfTarget: "You slap %T.", RoomTarget: "%N slaps %T."},
+	"HOWL":    {Self: "You howl.", Room: "%N howls.", SelfTarget: "You howl at %T.", RoomTarget: "%N howls at %T."},
+	"SING":    {Self: "You sing.", Room: "%N sings.", SelfTarget: "You sing to %T.", RoomTarget: "%N sings to %T."},
+	"PACE":    {Self: "You pace back and forth.", Room: "%N paces back and forth."},
+	"FIDGET":  {Self: "You fidget.", Room: "%N fidgets."},
+	"SHIVER":  {Self: "You shiver.", Room: "%N shivers."},
+	"SNORT":   {Self: "You snort.", Room: "%N snorts.", SelfTarget: "You snort at %T.", RoomTarget: "%N snorts at %T."},
+	"GROAN":   {Self: "You groan.", Room: "%N groans."},
+	"MUMBLE":  {Self: "You mumble something.", Room: "%N mumbles something."},
+	"BABBLE":  {Self: "You babble.", Room: "%N babbles."},
+	"BEAM":    {Self: "You beam.", Room: "%N beams.", SelfTarget: "You beam at %T.", RoomTarget: "%N beams at %T."},
+	"SWOON":   {Self: "You swoon.", Room: "%N swoons."},
+	"TOAST":   {Self: "You raise your glass in a toast.", Room: "%N raises a toast.", SelfTarget: "You raise a toast to %T.", RoomTarget: "%N raises a toast to %T."},
+	"SHUDDER": {Self: "You shudder.", Room: "%N shudders."},
+	"POINT":   {Self: "You point.", Room: "%N points.", SelfTarget: "You point at %T.", RoomTarget: "%N points at %T."},
+	"KICK":    {Self: "You kick at the ground.", Room: "%N kicks at the ground.", SelfTarget: "You kick %T.", RoomTarget: "%N kicks %T."},
+	"KNOCK":   {Self: "You knock.", Room: "%N knocks.", SelfTarget: "You knock on %T.", RoomTarget: "%N knocks on %T."},
+	"TOUCH":   {Self: "You touch yourself.", Room: "%N touches themselves.", SelfTarget: "You touch %T.", RoomTarget: "%N touches %T."},
+	"RUB":     {Self: "You rub your hands together.", Room: "%N rubs %P hands together.", SelfTarget: "You rub %T.", RoomTarget: "%N rubs %T."},
+	"PET":     {Self: "You pet yourself.", Room: "%N pets themselves.", SelfTarget: "You pet %T.", RoomTarget: "%N pets %T."},
+	"PUNCH":   {Self: "You punch the air.", Room: "%N punches the air.", SelfTarget: "You punch %T.", RoomTarget: "%N punches %T."},
+	"SPIT":    {Self: "You spit.", Room: "%N spits.", SelfTarget: "You spit at %T.", RoomTarget: "%N spits at %T."},
+	"GAZE":    {Self: "You gaze about.", Room: "%N gazes about.", SelfTarget: "You gaze at %T.", RoomTarget: "%N gazes at %T."},
+	"GLARE":   {Self: "You glare.", Room: "%N glares.", SelfTarget: "You glare at %T.", RoomTarget: "%N glares at %T."},
+	"SCOWL":   {Self: "You scowl.", Room: "%N scowls.", SelfTarget: "You scowl at %T.", RoomTarget: "%N scowls at %T."},
+	"COMFORT": {Self: "You comfort yourself.", Room: "%N comforts themselves.", SelfTarget: "You comfort %T.", RoomTarget: "%N comforts %T."},
+	"RECITE":  {Self: "You recite.", Room: "%N recites."},
+	"YAWN":    {Self: "You yawn.", Room: "%N yawns.", SelfTarget: "You yawn at %T.", RoomTarget: "%N yawns at %T."},
+	"BLINK":   {Self: "You blink.", Room: "%N blinks.", SelfTarget: "You blink at %T.", RoomTarget: "%N blinks at %T."},
+	"BLUSH":   {Self: "You blush.", Room: "%N blushes."},
+	"CRINGE":  {Self: "You cringe.", Room: "%N cringes."},
+	"CUDDLE":  {Self: "You cuddle up.", Room: "%N cuddles up.", SelfTarget: "You cuddle up to %T.", RoomTarget: "%N cuddles up to %T."},
+	"COUGH":   {Self: "You cough.", Room: "%N coughs."},
+	"FURROW":  {Self: "You furrow your brow.", Room: "%N furrows %P brow."},
+	"GASP":    {Self: "You gasp.", Room: "%N gasps."},
+	"GIGGLE":  {Self: "You giggle.", Room: "%N giggles.", SelfTarget: "You giggle at %T.", RoomTarget: "%N giggles at %T."},
+	"GRIMACE": {Self: "You grimace.", Room: "%N grimaces."},
+	"GROWL":   {Self: "You growl.", Room: "%N growls.", SelfTarget: "You growl at %T.", RoomTarget: "%N growls at %T."},
+	"GULP":    {Self: "You gulp.", Room: "%N gulps."},
+	"JUMP":    {Self: "You jump up and down.", Room: "%N jumps up and down."},
+	"LEAN":    {Self: "You lean back.", Room: "%N leans back.", SelfTarget: "You lean on %T.", RoomTarget: "%N leans on %T."},
+	"NUZZLE":  {Self: "You nuzzle.", Room: "%N nuzzles.", SelfTarget: "You nuzzle %T affectionately.", RoomTarget: "%N nuzzles %T affectionately."},
+	"PANT":    {Self: "You pant.", Room: "%N pants."},
+	"PONDER":  {Self: "You ponder for a moment.", Room: "%N ponders."},
+	"POUT":    {Self: "You pout.", Room: "%N pouts."},
+	"ROLL":    {Self: "You roll your eyes.", Room: "%N rolls %P eyes.", SelfTarget: "You roll your eyes at %T.", RoomTarget: "%N rolls %P eyes at %T."},
+	"SCREAM":  {Self: "You scream!", Room: "%N screams!"},
+	"SMIRK":   {Self: "You smirk.", Room: "%N smirks.", SelfTarget: "You smirk at %T.", RoomTarget: "%N smirks at %T."},
+	"SNICKER": {Self: "You snicker.", Room: "%N snickers."},
+	"SALUTE":  {Self: "You salute.", Room: "%N salutes.", SelfTarget: "You salute %T.", RoomTarget: "%N salutes %T."},
+	"STRETCH": {Self: "You stretch your arms lazily.", Room: "%N stretches %P arms lazily."},
+	"TAP":     {Self: "You tap your foot.", Room: "%N taps %P foot.", SelfTarget: "You tap %T on the shoulder.", RoomTarget: "%N taps %T on the shoulder."},
+	"TWIRL":   {Self: "You twirl around.", Room: "%N twirls around."},
+	"WINCE":   {Self: "You wince.", Room: "%N winces."},
+	"WHISTLE": {Self: "You whistle innocently.", Room: "%N whistles innocently."},
+	"MUTTER":  {Self: "You mutter something under your breath.", Room: "%N mutters something you can't quite make out."},
+	"CARESS":  {Self: "You caress yourself.", Room: "%N caresses themselves.", SelfTarget: "You caress %T.", RoomTarget: "%N caresses %T."},
+	"NUDGE":   {Self: "You nudge.", Room: "%N nudges.", SelfTarget: "You nudge %T.", RoomTarget: "%N nudges %T."},
+	"ARCH":    {Self: "You arch an eyebrow.", Room: "%N arches %P eyebrow.", SelfTarget: "You arch an eyebrow at %T.", RoomTarget: "%N arches %P eyebrow at %T."},
+	"RAISE":   {Self: "You raise an eyebrow.", Room: "%N raises an eyebrow.", SelfTarget: "You raise an eyebrow towards %T.", RoomTarget: "%N raises an eyebrow towards %T."},
+	"HEAD":    {Self: "You shake your head.", Room: "%N shakes %P head back and forth.", SelfTarget: "You shake your head at %T.", RoomTarget: "%N shakes %P head at %T."},
+	"SCRATCH": {Self: "You scratch your head.", Room: "%N scratches %P head."},
+	"CLAP":    {Self: "You clap.", Room: "%N claps.", SelfTarget: "You clap for %T.", RoomTarget: "%N claps for %T."},
+	"SNIFF":   {Self: "You sniff.", Room: "%N sniffs.", SelfTarget: "You sniff %T.", RoomTarget: "%N sniffs %T."},
+	"LISTEN":  {Self: "You listen carefully.", Room: "%N listens carefully.", SelfTarget: "You listen carefully to %T.", RoomTarget: "%N listens carefully to %T."},
 
 	// Additional emotes from alphabetical list
 	"LICK":      {Self: "You lick your lips.", Room: "%N licks %P lips.", SelfTarget: "You kiss %T passionately.", RoomTarget: "%N kisses %T passionately."},
@@ -139,21 +139,21 @@ var emoteTable = map[string]emoteEntry{
 // selfOverrides maps verb+target to special self-targeted messages.
 // Key format: "VERB:me" for self-targeting overrides.
 var selfOverrides = map[string][2]string{
-	"SPIT:me":   {"You drool all over yourself.", "%N drools all over themselves."},
-	"LICK:me":   {"You lick your lips.", "%N licks %P lips."},
-	"LAUGH:me":  {"You laugh at yourself.", "%N laughs at themselves."},
-	"KICK:me":   {"You kick yourself.", "%N kicks themselves."},
-	"THUMP:me":  {"You thump yourself on the head.", "%N thumps themselves on the head."},
+	"SPIT:me":  {"You drool all over yourself.", "%N drools all over themselves."},
+	"LICK:me":  {"You lick your lips.", "%N licks %P lips."},
+	"LAUGH:me": {"You laugh at yourself.", "%N laughs at themselves."},
+	"KICK:me":  {"You kick yourself.", "%N kicks themselves."},
+	"THUMP:me": {"You thump yourself on the head.", "%N thumps themselves on the head."},
 }
 
 // raceEmotes are emotes only available to specific races. Key = "RACE:VERB".
 var raceEmotes = map[string]emoteEntry{
 	// Drakin
-	"6:FLICK":   {Self: "You flick your forked tongue.", Room: "%N flicks %P forked tongue."},
-	"6:BARE":    {Self: "You bare your teeth menacingly.", Room: "%N bares %P teeth menacingly."},
-	"6:SPREAD":  {Self: "You spread your wings wide.", Room: "%N spreads %P wings wide."},
-	"6:FOLD":    {Self: "You fold your wings against your body.", Room: "%N folds %P wings."},
-	"6:SWISH":   {Self: "You swish your tail.", Room: "%N swishes %P tail."},
+	"6:FLICK":  {Self: "You flick your forked tongue.", Room: "%N flicks %P forked tongue."},
+	"6:BARE":   {Self: "You bare your teeth menacingly.", Room: "%N bares %P teeth menacingly."},
+	"6:SPREAD": {Self: "You spread your wings wide.", Room: "%N spreads %P wings wide."},
+	"6:FOLD":   {Self: "You fold your wings against your body.", Room: "%N folds %P wings."},
+	"6:SWISH":  {Self: "You swish your tail.", Room: "%N swishes %P tail."},
 	// Aelfen
 	"2:RUBEARS": {Self: "You rub the points of your ears.", Room: "%N rubs the points of %P ears."},
 	// Highlander
@@ -170,29 +170,29 @@ var raceEmotes = map[string]emoteEntry{
 // additionalSelfEmotes — emotes with no target that aren't in the main table.
 // These are triggered by specific verbs with no arguments.
 var additionalSelfEmotes = map[string][2]string{
-	"FUME":     {"You fume.", "%N fumes."},
-	"SQUINT":   {"You squint your eyes.", "%N squints %P eyes."},
-	"HUM":      {"You hum softly to yourself.", "%N hums softly."},
-	"SNIFFLE":  {"You sniffle.", "%N sniffles."},
-	"SLOUCH":   {"You slouch.", "%N slouches."},
-	"SNORE":    {"You snore loudly.", "%N snores loudly."},
-	"SNEEZE":   {"You sneeze.", "%N sneezes."},
-	"STARE":    {"You stare off into space.", "%N stares off into space."},
-	"PUCKER":   {"You pucker your lips.", "%N puckers %P lips."},
-	"CRACK":    {"You crack your knuckles.", "%N cracks %P knuckles."},
-	"BITE":     {"You bite your lower lip.", "%N bites %P lower lip."},
-	"BOUNCE":   {"You bounce up and down.", "%N bounces up and down."},
-	"STRIKE":   {"You strike a heroic pose.", "%N strikes a heroic pose."},
-	"CLUTCH":   {"You clutch your head.", "%N clutches %P head."},
-	"WIPE":     {"You wipe your brow.", "%N wipes %P brow."},
-	"GRIT":     {"You grit your teeth.", "%N grits %P teeth."},
-	"TOSS":     {"You toss your hands up in the air.", "%N tosses %P hands up in the air."},
+	"FUME":      {"You fume.", "%N fumes."},
+	"SQUINT":    {"You squint your eyes.", "%N squints %P eyes."},
+	"HUM":       {"You hum softly to yourself.", "%N hums softly."},
+	"SNIFFLE":   {"You sniffle.", "%N sniffles."},
+	"SLOUCH":    {"You slouch.", "%N slouches."},
+	"SNORE":     {"You snore loudly.", "%N snores loudly."},
+	"SNEEZE":    {"You sneeze.", "%N sneezes."},
+	"STARE":     {"You stare off into space.", "%N stares off into space."},
+	"PUCKER":    {"You pucker your lips.", "%N puckers %P lips."},
+	"CRACK":     {"You crack your knuckles.", "%N cracks %P knuckles."},
+	"BITE":      {"You bite your lower lip.", "%N bites %P lower lip."},
+	"BOUNCE":    {"You bounce up and down.", "%N bounces up and down."},
+	"STRIKE":    {"You strike a heroic pose.", "%N strikes a heroic pose."},
+	"CLUTCH":    {"You clutch your head.", "%N clutches %P head."},
+	"WIPE":      {"You wipe your brow.", "%N wipes %P brow."},
+	"GRIT":      {"You grit your teeth.", "%N grits %P teeth."},
+	"TOSS":      {"You toss your hands up in the air.", "%N tosses %P hands up in the air."},
 	"ATTENTION": {"You stand at attention.", "%N stands at attention."},
-	"TONGUE":   {"You stick your tongue out.", "%N sticks %P tongue out."},
-	"WRINKLE":  {"You wrinkle your nose.", "%N wrinkles %P nose."},
-	"PUFF":     {"You puff out your cheeks.", "%N puffs out %P cheeks."},
-	"DIZZY":    {"You feel dizzy.", "%N looks dizzy."},
-	"BAT":      {"You bat your eyelashes.", "%N bats %P eyelashes."},
+	"TONGUE":    {"You stick your tongue out.", "%N sticks %P tongue out."},
+	"WRINKLE":   {"You wrinkle your nose.", "%N wrinkles %P nose."},
+	"PUFF":      {"You puff out your cheeks.", "%N puffs out %P cheeks."},
+	"DIZZY":     {"You feel dizzy.", "%N looks dizzy."},
+	"BAT":       {"You bat your eyelashes.", "%N bats %P eyelashes."},
 }
 
 // kissBodyParts defines the body parts that can be kissed and whether they require submit.
@@ -223,7 +223,11 @@ func expandEmote(template string, actor *Player, targetName string) string {
 			var replacement string
 			switch result[i+1] {
 			case 'N':
-				replacement = actor.FirstName
+				if actor.WolfForm {
+					replacement = "a wolf"
+				} else {
+					replacement = actor.FirstName
+				}
 			case 'P':
 				replacement = actor.Possessive()
 			case 'O':
@@ -307,7 +311,8 @@ func (e *GameEngine) processEmote(player *Player, verb string, args []string) *C
 			// Try to resolve as a player in the room
 			found := e.findPlayerInRoom(player, targetName)
 			if found != nil {
-				displayTarget := found.FirstName
+				//displayTarget := found.FirstName
+				displayTarget := e.playerDisplayName(found)
 				selfMsg := expandEmote(entry.SelfTarget, player, displayTarget)
 				roomMsg := expandEmote(entry.RoomTarget, player, displayTarget)
 				targetMsg := expandEmote(entry.RoomTarget, player, "you")
@@ -426,8 +431,8 @@ func (e *GameEngine) processKiss(player *Player, args []string) *CommandResult {
 		return &CommandResult{Messages: []string{fmt.Sprintf("You don't see '%s' here.", targetName)}}
 	}
 
-	displayTarget := found.FirstName
-
+	//displayTarget := found.FirstName
+	displayTarget := e.playerDisplayName(found)
 	if bodyPart != "" {
 		bp := kissBodyParts[bodyPart]
 		if bp.requiresSubmit && !found.Submitting {
@@ -470,7 +475,7 @@ func (e *GameEngine) processLick(player *Player, args []string) *CommandResult {
 	targetName := strings.ToLower(strings.Join(args, " "))
 	found := e.findPlayerInRoom(player, targetName)
 	if found != nil {
-		displayTarget := found.FirstName
+		displayTarget := e.playerDisplayName(found)
 		if found.Submitting {
 			selfMsg := fmt.Sprintf("You lick %s all over their body.", displayTarget)
 			roomMsg := fmt.Sprintf("%s licks %s all over their body.", player.FirstName, displayTarget)
