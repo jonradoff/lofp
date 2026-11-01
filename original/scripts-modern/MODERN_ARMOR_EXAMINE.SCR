@@ -1,0 +1,427 @@
+TRAITDEF EXAMINE_PONCHO
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A simple cloth poncho, loose-fitting and draped over the shoulders with plenty of room beneath it.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_HAT
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A simple cloth hat, comfortably shaped and practical for everyday wear.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_KIMONO
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A traditional cloth kimono with wide sleeves and a loose, flowing cut.
+    ENDIF
+     IFPREVERB PUSH -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO PLAYER You slide your hands together in your sleeves.
+            ECHO OTHERS %N slides %h hands together in the sleeves of %a.
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_SCARF
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A length of soft cloth made to wrap comfortably around the neck.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_HOOD
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A simple cloth hood, cut to cover the head and shelter the face.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_TEDDY
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A close-fitting cloth teddy, light and soft with a simple, fitted cut.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_PLATE_ARMOR
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A formidable suit of full plate armor, fashioned from heavy metal plates to protect nearly the entire body.
+    ENDIF
+
+    IFPREVERB RUB -1
+        IFITEM -1 WORN
+            CLEARVERB
+            ECHO PLAYER You look over the front of your armor and polish out a few dirty spots.%c[Round: 3 sec]
+            ECHO OTHERS %N peers down the front of %a and polishes out a few dirty spots.
+            EQUAL ROUNDTIME 3
+        ELSE
+            CLEARVERB
+            ECHO PLAYER You carefully polish the armor, searching for and removing every last bit of dirt.%c[Round: 10 sec]
+            ECHO OTHERS %N painstakingly polishes %a.
+            EQUAL ROUNDTIME 10
+        ENDIF
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_LEATHER_ARMOR
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A suit of sturdy leather armor, light and flexible while offering modest protection against attack.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_BASINET
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A sturdy metal basinet, shaped to protect the head while leaving the wearer enough freedom to see and move.
+    ENDIF
+
+    IFVERB THUMP -1
+        ECHO ALL The basinet rings like an old, out-of-tune bell.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_BOOTS
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A sturdy pair of cloth boots, made for everyday travel and comfortable wear.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_CAP
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A light cloth cap, simple and comfortable, with just enough shape to wear at a jaunty angle.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_CAPE
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A flowing cloth cape, made to hang from the shoulders and sweep dramatically behind the wearer.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_CASSOCK
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A long, close-fitting cloth robe, plainly cut and reaching nearly to the ankles.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_HELMET
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A sturdy metal helm, built to protect the head without overly restricting sight or movement.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_HIPBOOTS
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A tall pair of sturdy cloth boots, rising well up the legs for extra protection from mud and rough ground.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_CHAIN_MAIL
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A flexible shirt of interlocking metal rings, offering solid protection without the weight and rigidity of plate armor.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_DOUBLE_CHAIN_MAIL
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A heavy suit of mail made from overlapping layers of interlocking metal rings, sacrificing weight and mobility for greater protection.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_PLATE_MAIL
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A heavy suit of mail reinforced with solid metal plates, offering greater protection than chain while remaining less cumbersome than full plate.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_MOCCASINS
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A pair of soft cloth moccasins, light and flexible, made to fit closely around the feet.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_SCABBARD
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A sturdy scabbard made to hang from the belt and hold a weapon securely at the wearer's side.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_SURCOAT
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A loose cloth surcoat, cut to hang over the body and drape comfortably over other clothing or armor.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_TIARA
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A delicate stone tiara, shaped to rest lightly upon the brow and fashioned to hold decorative settings.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_BELT
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A sturdy cloth belt, made to wrap securely around the waist.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_ROBE
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A loose-fitting robe, cut to drape comfortably around the body in long, flowing folds.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_BRACERS
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A pair of sturdy metal bracers, shaped to protect the wrists and forearms without restricting movement.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_JERKIN
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A close-fitting cloth jerkin, light and practical, worn snugly over the torso.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_NEGLIGEE
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A light, delicate negligee of soft fabric, loosely cut and intended more for comfort than protection.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_RING
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A small ring fashioned to fit comfortably around a finger.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_SASH
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A length of cloth made to wrap neatly around the body and tie securely into place.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_SLIPPERS
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A soft pair of cloth slippers, light and comfortable on the feet.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_FURS
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A warm bundle of heavy furs, fashioned to wrap around the torso and keep out the cold.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_CIRCLET
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A slender circlet fashioned to rest lightly around the brow, its surface suitable for decorative settings.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_TORC
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A rigid neck ring fashioned to rest around the throat, solidly made and slightly weighty.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_VEST
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A practical cloth vest, cut to fit comfortably over the torso with room beneath it for carrying a few small belongings.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_HEADDRESS
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER An ornate metal headdress, shaped to rest securely upon the head while offering a modest measure of protection.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_DIADEM
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A slender, indestructible diadem fashioned to rest across the brow, its surface unnaturally smooth and cold.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_RENCHCOAT
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A long cloth trenchcoat with a deep interior and enough room in its folds to conceal a surprising amount of gear.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_WIG
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A carefully arranged cloth wig, fashioned to sit convincingly atop the head and conceal whatever lies beneath.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_AELFEN_MAIL
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A finely wrought suit of Aelfen mail, impossibly resilient and lighter in the hand than its protection would suggest.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_LONGJOHNS
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A warm pair of cloth longjohns, made to fit snugly beneath heavier clothing and armor.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_VISOR
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A lightweight visor designed to be worn across the face, offering little protection but keeping the eyes partially shielded.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_KILT
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A traditional cloth kilt, pleated and wrapped securely around the waist.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_LOINCLOTH
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A simple cloth loincloth, wrapped around the waist and offering only the most basic protection.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF GENERIC_JACKET
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A sturdy cloth jacket, comfortably cut and made for everyday wear.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_TABARD
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A simple cloth tabard, cut to hang loosely over the body and suitable for displaying colors or insignia.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_GAUNTLETS
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A sturdy pair of protective gauntlets, fitted with straps and buckles to secure them firmly around the hands.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_SHOULDER_GUARDS
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A heavy pair of shoulder guards fitted with straps to secure them across the upper back and shoulders.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_DEEPLANDER_ARMOR
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A massive suit of Deeplander armor, fashioned from heavy metal in the uncompromising style of the Deeplander dwarves.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_POUCH
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A sturdy soft-metal pouch, made to be worn around the waist and capable of holding far more than its size would suggest.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_ANKLET
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A simple anklet, fashioned to rest comfortably around the ankle.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_PENTAGRAM
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A small pentagram fashioned to be worn upon the body, its five-pointed design carefully formed.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_HORTHAK
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A sturdy horthak worn at the belt, compact in appearance but possessing an astonishing amount of storage within.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_TURBAN
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A long length of cloth carefully wrapped into a turban and worn securely around the head.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_PIN
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A small decorative pin, fashioned to be worn upon clothing.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_MASK
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A heavy metal mask, fashioned to cover the face and conceal the wearer's features.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_APRON
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A sturdy cloth apron, made to protect the wearer while providing plenty of room for tools and other small necessities.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_ILLITHIUM_ARMOR
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A supple suit of illithium armor, woven from an unusually fine metallic mesh that flexes almost like cloth while offering exceptional protection.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_PUMPKIN
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER The pumpkin has been forged from solid steel, then painted a garish shade of orange. Triangular eyes and teeth grace its grinning, unintelligent face.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_HOODED_GARMENT
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A protective hooded garment with numerous pouches and pockets tucked beneath its folds.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_GI
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A sturdy cloth gi, cut loosely to allow freedom of movement and reinforced for the rigors of combat.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_CODPIECE
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A rather conspicuous codpiece, fashioned with considerably more confidence than restraint.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_KRONOS_HELMET
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER Made from a strange material that looks like a silvery metal, yet is not, the helm is free of any scratches or dents. The helm slopes up from either side to meet at the top and flare up a bit. A visor, with eyeslits and breathing holes, swings out and in from the right side. Nearly indiscernible across the entire breadth of the helm are tiny lines of gold that form intricate patterns as they swirl together.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_SASSREATE_ROBE
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER Thin silvery threads have been intricately hand-woven together to form this full-length robe. Intricate designs of Drakin artistry have been sewn into the robe with meticulous care so that they appear to shimmer with each movement of the wearer. Sewn onto the back of the robe are the words, "Duea'Ktrang Ntigoth" and "Sass'reate."
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_BERET
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER A soft cloth beret, light and comfortable, with just enough structure to sit at a rakish angle.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_BONDED_RING
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER The diamonds and moonstones offset each other, bright white and cool grey. The band is a conglomerate of silver and veins of old iron, bound around a core of unbreakable alzyron.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_REISTHFAERS_ARMOR
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER This armor has been carefully constructed from overlapping plates of just about every kind of metal imaginable. The most remarkable thing is the way the colors of the metal blend into one another, with subtle changes in hue.
+        ECHO PLAYER Every single plate also seems to hold a faint reddish hue, as if it has absorbed a dye of some kind. The final grace of the armor is the intricate carving of a blind man's face, staring out from the center of the plates, beckoning.
+    ENDIF
+ENDTRAIT
+
+TRAITDEF EXAMINE_CLOAK
+    IFPREVERB EXAMINE -1
+        ECHO PLAYER You examine %a. It is a simple cloak, cut to drape comfortably over the shoulders and fall loosely around the body.
+    ENDIF
+ENDTRAIT

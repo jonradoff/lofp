@@ -3177,11 +3177,6 @@ IFVERB LEAN 0
 	ECHO ALL %N is trying to look daring.
 ENDIF
 IFVERB JUMP -1
-	IFVAR FLAG1 = 0
-		ECHO PLAYER Do you really want to jump to your death.
-		ECHO OTHERS %N looks as if %s wants to jump.
-		EQUAL FLAG1 1
-	ENDIF
 	IFVAR FLAG1 = 1
 		ECHO PLAYER You jump off!
 		ECHO OTHERS %N jumps off!
@@ -3192,6 +3187,11 @@ IFVERB JUMP -1
 		POSITION LAY
 		DAMAGE CRUSH WHATANASS %N hits the ground with a thaud.
 		AFFECT 612
+	ENDIF
+	IFVAR FLAG1 = 0
+		ECHO PLAYER Do you really want to jump to your death.
+		ECHO OTHERS %N looks as if %s wants to jump.
+		EQUAL FLAG1 1
 	ENDIF
 ENDIF
 ;
@@ -3246,11 +3246,6 @@ IFVERB CLIMB 0
 	CLEARVERB
 ENDIF
 IFVERB JUMP -1
-	IFVAR FLAG1 = 0
-                ECHO PLAYER Do you really want to jump to your death?
-		ECHO OTHERS %N looks as if %s wants to jump.
-		EQUAL FLAG1 1
-	ENDIF
 	IFVAR FLAG1 = 1
 		ECHO PLAYER You jump off!
 		ECHO OTHERS %N jumps off!
@@ -3259,8 +3254,13 @@ IFVERB JUMP -1
 		RANDOM WHATANASS2 1 6 0
 		MULT WHATANASS2 5
 		POSITION LAY
-                DAMAGE CRUSH WHATANASS2 %N hits the ground with a thud.
+        DAMAGE CRUSH WHATANASS2 %N hits the ground with a thud.
 		AFFECT 613
+	ENDIF
+	IFVAR FLAG1 = 0
+        ECHO PLAYER Do you really want to jump to your death?
+		ECHO OTHERS %N looks as if %s wants to jump.
+		EQUAL FLAG1 1
 	ENDIF
 ENDIF
 IFVERB NOD -1
@@ -3434,72 +3434,7 @@ ENDIF
 EXIT E 640
 EXIT ABOVE 2112
 ;
-NUMBER 621
-NAME Teeth of Shartan, ledge
-ITEM 9 693
-CALL 33
-*DESCRIPTION_START
-About two thirds of the way up the mountain, the ladder continues to offer the main support as it scales the face of the rock. The wind moans strangely as whistles in and out of the ladder rungs.
-*DESCRIPTION_END
-ITEM 8 1567
-MOUNTAIN
-DAY_LIGHT
-EXIT ABOVE 2112
-ITEM 0 449 ADJ1=492
-ITEM 1 449 ADJ1=493
-IFVERB GO 0
-	ECHO PLAYER You'll have to climb that.
-	CLEARVERB
-ENDIF
-IFVERB GO 1
-	ECHO PLAYER You'll have to climb that.
-	CLEARVERB
-ENDIF
-IFVERB CLIMB 0
-	ECHO OTHERS %N climbs up the ladder.
-	ECHO PLAYER You climb up the ladder.
-	MOVE 622
-	AFFECT 622
-	ECHO OTHERS %N clambers onto the tiny ledge from below.
-	AFFECT 621
-	CLEARVERB
-ENDIF
-IFVERB CLIMB 1
-	ECHO OTHERS %N climbs down the ladder.
-	ECHO PLAYER You climb down the ladder.
-	MOVE 620
-	AFFECT 620
-	ECHO OTHERS %N steps off the ladder onto the precipice.
-	AFFECT 621
-	CLEARVERB
-ENDIF
-IFVERB LISTEN -1
-	IFVAR RAC ! 7
-		ECHO PLAYER The strange cries of the wind send chills up your spine, when you pause to really hear them.
-	ENDIF
-	IFVAR RAC = 7
-		ECHO PLAYER You notice the wind causes the ladder to vibrate, thus creating sound.
-	ENDIF
-ENDIF
-IFVERB JUMP -1
-	IFVAR FLAG1 = 0
-		ECHO PLAYER Do you really want to jump to your death.
-		ECHO OTHERS %N looks as if %s wants to jump.
-		EQUAL FLAG1 1
-	ENDIF
-	IFVAR FLAG1 = 1
-		ECHO PLAYER You jump off!
-		ECHO OTHERS %N jumps off!
-		MOVE 620
-		AFFECT 620
-		RANDOM WHATANASS3 1 6 0
-		MULT WHATANASS3 5
-		POSITION LAY
-		DAMAGE CRUSH WHATANASS3 %N hits the ground with a thud.
-		AFFECT 621
-	ENDIF
-ENDIF
-;
+
 ;
 NUMBER 622
 NAME Teeth of Shartan, tiny ledge
@@ -3538,11 +3473,6 @@ IFENTRY
 	ENDIF
 ENDIF
 IFVERB JUMP -1
-	IFVAR FLAG1 = 0
-		ECHO PLAYER Do you really want to jump to your death.
-		ECHO OTHERS %N looks as if %s wants to jump.
-		EQUAL FLAG1 1
-	ENDIF
 	IFVAR FLAG1 = 1
 		ECHO PLAYER You jump off!
 		ECHO OTHERS %N jumps off!
@@ -3553,6 +3483,11 @@ IFVERB JUMP -1
 		POSITION LAY
 		DAMAGE CRUSH WHATANASS4 %N hits the ground with a thud.
 		AFFECT 622
+	ENDIF
+	IFVAR FLAG1 = 0
+		ECHO PLAYER Do you really want to jump to your death.
+		ECHO OTHERS %N looks as if %s wants to jump.
+		EQUAL FLAG1 1
 	ENDIF
 ENDIF
 ITEM 0 449 ADJ1=492 VAL2=623
@@ -5956,3 +5891,15 @@ FORAGEDEF	PLAIN	1375	-1	3	0	0
 FORAGEDEF	SWAMP	1027	-1	10	0	0
 FORAGEDEF	SWAMP	1529	181	10	0	0
 FORAGEDEF	SWAMP	433	-1	10	0	0
+
+; Babich blossoms — Health
+FORAGEDEF PLAIN 275 531 5 0 4
+FORAGEDEF FOREST 275 531 5 0 4
+
+; Nuur/Muur crystal — Body
+FORAGEDEF MOUNTAIN 1502 1103 15 0 6
+
+; Garlic — Resist / Negation
+FORAGEDEF PLAIN 1501 -1 5 0 7
+FORAGEDEF FOREST 1501 -1 5 0 7
+FORAGEDEF SWAMP 1501 -1 5 0 7

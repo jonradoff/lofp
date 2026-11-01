@@ -362,6 +362,10 @@ BUY_ARMOR
 CALL 33
 ITEM 9 693 ADJ1=10
 
+;ITEM 0 168 VAL3=403
+;ITEM 1 168 VAL3=407
+;ITEM 2 168 VAL3=506
+
 *DESCRIPTION_START
 The Armorer's Guild buys a surprising variety of old and damaged weapons from local adventurers and melts them down to make the new weaponry and armor on display. Would be owners may examine the manuscript on the table to see what new equipment can be afforded. Main Street continues west behind the stalls.
 *DESCRIPTION_END
@@ -557,6 +561,7 @@ EXIT NE 228
 EXIT W 230
 ITEM 0 213 VAL2=283
 ITEM 1 1416 ADJ1=355
+
 EXIT ABOVE 2152
 ;
 NUMBER 230
@@ -1643,7 +1648,7 @@ ITEM 9 693 ADJ1=10
 The homeless huddle around a metal can of burning trash. A lucky few with jackets hang back from the flames, proud of their greater solvency. At the top of a stairway, some ragged men of questionable intent engage in whispered conversation. Young children cling to their mothers; hiding behind dirty skirts offering only symbolic protection.
 *DESCRIPTION_END
 OUTDOOR_OTHER
-FIXED_LIGHT
+DAY_LIGHT
 EXIT SE 288
 EXIT SW 285
 EXIT N 283
@@ -1760,6 +1765,14 @@ EXIT SE 291
 EXIT SW 290
 EXIT ABOVE 2152
 ITEM 0 68 ADJ1=25 ADJ2=192 VAL2=2605
+IFVERB TOUCH 0
+  RANDOM DUMMY1 10
+  ADD DUMMY1 1
+  STRCVT 0 DUMMY1
+  ECHO PLAYER A bolt of lightning leaps from the black gate and strikes you for %0 damage!
+  ECHO OTHERS A bolt of lightning leaps from the black gate and strikes %N!
+  DAMAGEPLR ELECTRIC DUMMY1
+ENDIF
 ;
 NUMBER 290
 NAME Poor Quarter

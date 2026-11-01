@@ -33,24 +33,39 @@ func (s *sshConn) SendResult(result *engine.CommandResult) error {
 
 	var buf strings.Builder
 	if result.RoomName != "" {
-		buf.WriteString(ansiBoldCyan + result.RoomName + ansiReset + "\r\n")
+		buf.WriteString(ansiBoldCyan)
+		buf.WriteString(result.RoomName)
+		buf.WriteString(ansiReset)
+		buf.WriteString("\r\n")
+
 	}
 	if result.RoomDesc != "" {
-		buf.WriteString(wordWrap(result.RoomDesc, s.width) + "\r\n")
+		buf.WriteString(wordWrap(result.RoomDesc, s.width))
+		buf.WriteString("\r\n")
 	}
 	if len(result.Exits) > 0 {
-		buf.WriteString(ansiGreen + "Obvious exits: " + strings.Join(result.Exits, ", ") + ansiReset + "\r\n")
+		buf.WriteString(ansiGreen + "Obvious exits: ")
+		buf.WriteString(strings.Join(result.Exits, ", "))
+		buf.WriteString(ansiReset)
+		buf.WriteString("\r\n")
 	}
 	if len(result.Items) > 0 {
 		for _, item := range result.Items {
-			buf.WriteString(ansiYellow + item + ansiReset + "\r\n")
+			buf.WriteString(ansiYellow)
+			buf.WriteString(item)
+			buf.WriteString(ansiReset)
+			buf.WriteString("\r\n")
 		}
 	}
 	for _, msg := range result.Messages {
-		buf.WriteString(msg + "\r\n")
+		buf.WriteString(msg)
+		buf.WriteString("\r\n")
 	}
 	if result.Error != "" {
-		buf.WriteString(ansiRed + result.Error + ansiReset + "\r\n")
+		buf.WriteString(ansiRed)
+		buf.WriteString(result.Error)
+		buf.WriteString(ansiReset)
+		buf.WriteString("\r\n")
 	}
 	_, err := s.channel.Write([]byte(buf.String()))
 	return err
@@ -63,9 +78,13 @@ func (s *sshConn) SendBroadcast(messages []string) error {
 	var buf strings.Builder
 	for _, msg := range messages {
 		if strings.HasPrefix(msg, "**") {
-			buf.WriteString(ansiBoldWhite + msg + ansiReset + "\r\n")
+			buf.WriteString(ansiBoldWhite)
+			buf.WriteString(msg)
+			buf.WriteString(ansiReset)
+			buf.WriteString("\r\n")
 		} else {
-			buf.WriteString(msg + "\r\n")
+			buf.WriteString(msg)
+			buf.WriteString("\r\n")
 		}
 	}
 	_, err := s.channel.Write([]byte(buf.String()))
@@ -665,8 +684,8 @@ func (s *Server) sshCharacterSelect(sc *sshConn, ctx context.Context, account *a
 
 func (s *Server) sshCreateCharacter(sc *sshConn, ctx context.Context, accountID string) *engine.Player {
 	existing, _ := s.engine.ListPlayersByAccount(ctx, accountID)
-	if len(existing) >= 8 {
-		sc.writeLine(ansiRed + "You can have at most 8 characters." + ansiReset)
+	if len(existing) >= 3 {
+		sc.writeLine(ansiRed + "You can have at most 3 characters." + ansiReset)
 		return nil
 	}
 
@@ -766,6 +785,11 @@ func (s *Server) sshCommandLoop(ctx context.Context, session *Session, sc *sshCo
 		}
 
 		result := s.engine.ProcessCommand(ctx, session.Player, input)
+
+		// Expire timed effects
+		timerMessages := s.engine.UpdatePlayerTimers(session.Player)
+		result.Messages = append(result.Messages, timerMessages...)
+
 		result.PlayerState = session.Player
 		result.PromptIndicators = session.Player.PromptIndicators()
 		s.sendResult(session, result)

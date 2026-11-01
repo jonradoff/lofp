@@ -61,14 +61,19 @@ IFPREVERB SIT -1
   IFVAR ORG = 20
     CLEARVERB
     POSITION SIT
-    ECHO PLAYER The physician says "I'm sorry, you won't be getting any aid from us.  You've already given us too much business with your stupid war.
+    ECHO PLAYER The physician says "I'm sorry, you won't be getting any aid from us. You've already given us too much business with your stupid war."
+  ELSE
+    ECHO PLAYER A physician notices you settling down and begins tending to your injuries.
+  ENDIF
 ENDIF
-ENDIF
+
 IFPREVERB LAY -1
   IFVAR ORG = 20
     CLEARVERB
     POSITION LAY
-    ECHO PLAYER The physician says "I'm sorry, you won't be getting any aid from us.  You've already given us too much business with your stupid war.
+    ECHO PLAYER The physician says "I'm sorry, you won't be getting any aid from us. You've already given us too much business with your stupid war."
+  ELSE
+    ECHO PLAYER A physician kneels beside you and begins tending to your injuries.
   ENDIF
 ENDIF
 ;

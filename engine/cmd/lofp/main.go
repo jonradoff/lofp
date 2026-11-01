@@ -50,23 +50,26 @@ func main() {
 
 	// Convert to ParsedData
 	parsed := &gameworld.ParsedData{
-		Rooms:        result.Rooms,
-		Items:        result.Items,
-		Monsters:     result.Monsters,
-		Nouns:        result.Nouns,
-		Adjectives:   result.Adjectives,
-		MonsterAdjs:  result.MonsterAdjs,
-		Variables:    result.Variables,
-		Regions:      result.Regions,
+		Rooms:                result.Rooms,
+		Items:                result.Items,
+		Traits:               result.Traits,
+		Monsters:             result.Monsters,
+		Nouns:                result.Nouns,
+		Adjectives:           result.Adjectives,
+		MonsterAdjs:          result.MonsterAdjs,
+		Variables:            result.Variables,
+		Regions:              result.Regions,
 		MonsterLists:         result.MonsterLists,
 		SeasonalMonsterLists: result.SeasonalMonsterLists,
 		SeasonalRooms:        result.SeasonalRooms,
-		CEvents:      result.CEvents,
-		MoneyDefs:    result.MoneyDefs,
-		ForageDefs:   result.ForageDefs,
-		MineDefs:     result.MineDefs,
-		StartRoom:    result.StartRoom,
-		BumpRoom:     result.BumpRoom,
+		SeasonalForageDefs:   result.SeasonalForageDefs,
+		CEvents:              result.CEvents,
+		MoneyDefs:            result.MoneyDefs,
+		ForageDefs:           result.ForageDefs,
+		MineDefs:             result.MineDefs,
+		BreakMods:            result.BreakMods,
+		StartRoom:            result.StartRoom,
+		BumpRoom:             result.BumpRoom,
 	}
 
 	// Connect to MongoDB (optional — game works without it)
@@ -108,6 +111,8 @@ func main() {
 			Variables:   r.Variables,
 			CEvents:     r.CEvents,
 			ForageDefs:  r.ForageDefs,
+			MineDefs:    r.MineDefs,
+			BreakMods:   r.BreakMods,
 		}, nil
 	}
 
@@ -159,6 +164,7 @@ func main() {
 	ge.StartRegenCycle()
 	ge.StartCEventLoop()
 	ge.StartMonsterLoop()
+	ge.StartMonsterSpawnLoop()
 
 	// Start telnet server (for MUD clients)
 	if cfg.Server.TelnetPort > 0 {

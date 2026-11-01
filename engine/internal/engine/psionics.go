@@ -105,7 +105,9 @@ func (e *GameEngine) doPreparePsi(player *Player, args []string) *CommandResult 
 	if player.Dead {
 		return &CommandResult{Messages: []string{"You can't use psionics while dead."}}
 	}
-
+	if player.Unconscious {
+		return &CommandResult{Messages: []string{"You can't use psionics while unconscous."}}
+	}
 	// Check base psionic skill
 	if player.Skills[26] == 0 && !player.IsGM {
 		return &CommandResult{Messages: []string{"You have no training in Psionics."}}
@@ -157,7 +159,7 @@ func (e *GameEngine) doPreparePsi(player *Player, args []string) *CommandResult 
 		}
 		return &CommandResult{
 			Messages:      []string{fmt.Sprintf("You release your concentration on %s.", disc.Name)},
-			RoomBroadcast: []string{fmt.Sprintf("%s relaxes %s concentration.", player.FirstName, player.Possessive())},
+			RoomBroadcast: []string{fmt.Sprintf("%s relaxes %s concentration.", e.playerDisplayName(player), player.Possessive())},
 		}
 	}
 
@@ -205,7 +207,7 @@ func (e *GameEngine) doPreparePsi(player *Player, args []string) *CommandResult 
 		}
 		result := &CommandResult{
 			Messages:      []string{msg},
-			RoomBroadcast: []string{fmt.Sprintf("%s concentrates intently.", player.FirstName)},
+			RoomBroadcast: []string{fmt.Sprintf("%s concentrates intently.", e.playerDisplayName(player))},
 		}
 		if disc.RoundSec > 0 {
 			player.RoundTimeExpiry = time.Now().Add(time.Duration(disc.RoundSec) * time.Second)
@@ -222,7 +224,7 @@ func (e *GameEngine) doPreparePsi(player *Player, args []string) *CommandResult 
 
 	return &CommandResult{
 		Messages:      []string{fmt.Sprintf("You focus your mind on %s... (type PROJECT to release, or PROJECT <target>)", disc.Name)},
-		RoomBroadcast: []string{fmt.Sprintf("%s closes %s eyes in concentration.", player.FirstName, player.Possessive())},
+		RoomBroadcast: []string{fmt.Sprintf("%s closes %s eyes in concentration.", e.playerDisplayName(player), player.Possessive())},
 	}
 }
 
@@ -278,84 +280,223 @@ func (e *GameEngine) listPsiDisciplines(player *Player) *CommandResult {
 // doProjectPsi handles PROJECT [target].
 func (e *GameEngine) doProjectPsi(ctx context.Context, player *Player, args []string) *CommandResult {
 	if player.Dead {
-		return &CommandResult{Messages: []string{"You can't use psionics while dead."}}
+		return &CommandResult{
+			Messages: []string{"You can't use psionics while dead."},
+		}
 	}
+
+	if player.Unconscious {
+		return &CommandResult{
+			Messages: []string{"You can't use psionics while unconscous."},
+		}
+	}
+
 	if player.PreparedPsi == 0 {
-		return &CommandResult{Messages: []string{"You have no discipline prepared. Use PSI <discipline> first."}}
+		return &CommandResult{
+			Messages: []string{
+				"You have no discipline prepared. Use PSI <discipline> first.",
+			},
+		}
 	}
 
 	disc := FindPsiByID(player.PreparedPsi)
 	if disc == nil {
 		player.PreparedPsi = 0
-		return &CommandResult{Messages: []string{"Your focus dissipates."}}
+
+		return &CommandResult{
+			Messages: []string{"Your focus dissipates."},
+		}
 	}
 
 	if player.Psi < disc.PsiCost {
 		player.PreparedPsi = 0
-		return &CommandResult{Messages: []string{fmt.Sprintf("Not enough psi points! (%s requires %d, you have %d)", disc.Name, disc.PsiCost, player.Psi)}}
+
+		return &CommandResult{
+			Messages: []string{
+				fmt.Sprintf(
+					"Not enough psi points! (%s requires %d, you have %d)",
+					disc.Name,
+					disc.PsiCost,
+					player.Psi,
+				),
+			},
+		}
 	}
 
-	// Check roundtime
+	// Check roundtime.
 	if disc.RoundSec > 0 && player.RoundTimeExpiry.After(time.Now()) {
-		remaining := player.RoundTimeExpiry.Sub(time.Now()).Seconds()
-		return &CommandResult{Messages: []string{fmt.Sprintf("You are still focusing... %.0f seconds remaining.", remaining+0.5)}}
+		remaining := time.Until(player.RoundTimeExpiry).Seconds()
+
+		return &CommandResult{
+			Messages: []string{
+				fmt.Sprintf(
+					"You are still focusing... %.0f seconds remaining.",
+					remaining+0.5,
+				),
+			},
+		}
 	}
 
-	// Deduct psi — keep discipline prepared for re-use (psi retains last power)
+	// Once PROJECT is accepted as an action, invisibility is broken.
+	// This happens even if the projection subsequently fails.
+	var revealMsg string
+	if e.breakInvisibility(player) {
+		revealMsg = "You suddenly fade into view."
+	}
+
+	// Helper so both failed and successful projections preserve
+	// the invisibility reveal message.
+	withReveal := func(messages []string) []string {
+		if revealMsg == "" {
+			return messages
+		}
+
+		return append(
+			[]string{revealMsg},
+			messages...,
+		)
+	}
+
+	// Deduct psi — keep discipline prepared for re-use
+	// (psi retains last power).
 	player.Psi -= disc.PsiCost
 
-	// Skill check
+	// Skill check.
 	psiSkill := player.Skills[26]
 	schoolSkill := 0
+
 	if disc.School == "Mind over Matter" {
 		schoolSkill = player.Skills[28]
 	} else {
 		schoolSkill = player.Skills[27]
 	}
-	castChance := 50 + (psiSkill+schoolSkill)*3 + player.Willpower/5 - disc.Level*2
+
+	castChance := 50 +
+		(psiSkill+schoolSkill)*3 +
+		player.EffectiveStat(StatWillpower)/5 -
+		disc.Level*2
+
 	if castChance < 15 {
 		castChance = 15
 	}
+
 	if player.IsGM {
 		castChance = 100
 	}
+
 	if rand.Intn(100) >= castChance {
 		return &CommandResult{
-			Messages:      []string{fmt.Sprintf("You project %s but fail to focus the energy!", disc.Name)},
-			RoomBroadcast: []string{fmt.Sprintf("%s concentrates intensely but nothing happens.", player.FirstName)},
+			Messages: withReveal([]string{
+				fmt.Sprintf(
+					"You project %s but fail to focus the energy!",
+					disc.Name,
+				),
+			}),
+			RoomBroadcast: []string{
+				fmt.Sprintf(
+					"%s concentrates intensely but nothing happens.",
+					e.playerDisplayName(player),
+				),
+			},
 		}
 	}
 
 	result := &CommandResult{}
 
 	switch disc.Effect {
+
 	case "damage":
-		result = e.projectDamage(player, disc, args)
+		result = e.projectDamage(
+			player,
+			disc,
+			args,
+		)
+
 	case "defense":
 		player.DefenseBonus += disc.DefBonus
-		result.Messages = []string{fmt.Sprintf("You project %s! (+%d defense)", disc.Name, disc.DefBonus)}
-		result.RoomBroadcast = []string{fmt.Sprintf("%s concentrates and a shimmering barrier appears.", player.FirstName)}
+
+		result.Messages = []string{
+			fmt.Sprintf(
+				"You project %s! (+%d defense)",
+				disc.Name,
+				disc.DefBonus,
+			),
+		}
+
+		result.RoomBroadcast = []string{
+			fmt.Sprintf(
+				"%s concentrates and a shimmering barrier appears.",
+				e.playerDisplayName(player),
+			),
+		}
+
 	case "buff":
-		result = e.projectBuff(player, disc)
+		result = e.projectBuff(
+			player,
+			disc,
+		)
+
 	case "utility":
 		if disc.ID == 14 { // Immobilize
-			result = e.projectImmobilize(player, args)
+			result = e.projectImmobilize(
+				player,
+				args,
+			)
+
 		} else if disc.ID == 12 { // Teleportation
-			result = e.projectTeleport(ctx, player, args)
+			result = e.projectTeleport(
+				ctx,
+				player,
+				args,
+			)
+
 		} else if disc.ID == 8 { // Manipulate Lock
-			result = e.projectManipulateLock(player, args)
+			result = e.projectManipulateLock(
+				player,
+				args,
+			)
+
 		} else {
-			result.Messages = []string{fmt.Sprintf("You project %s.", disc.Name)}
-			result.RoomBroadcast = []string{fmt.Sprintf("%s concentrates intensely.", player.FirstName)}
+			result.Messages = []string{
+				fmt.Sprintf(
+					"You project %s.",
+					disc.Name,
+				),
+			}
+
+			result.RoomBroadcast = []string{
+				fmt.Sprintf(
+					"%s concentrates intensely.",
+					e.playerDisplayName(player),
+				),
+			}
 		}
+
 	default:
-		result.Messages = []string{fmt.Sprintf("You project %s.", disc.Name)}
-		result.RoomBroadcast = []string{fmt.Sprintf("%s concentrates intensely.", player.FirstName)}
+		result.Messages = []string{
+			fmt.Sprintf(
+				"You project %s.",
+				disc.Name,
+			),
+		}
+
+		result.RoomBroadcast = []string{
+			fmt.Sprintf(
+				"%s concentrates intensely.",
+				e.playerDisplayName(player),
+			),
+		}
 	}
 
+	// If projecting broke invisibility, show that first.
+	result.Messages = withReveal(result.Messages)
+
 	if disc.RoundSec > 0 {
-		player.RoundTimeExpiry = time.Now().Add(time.Duration(disc.RoundSec) * time.Second)
+		player.RoundTimeExpiry = time.Now().Add(
+			time.Duration(disc.RoundSec) * time.Second,
+		)
 	}
+
 	e.SavePlayer(ctx, player)
 
 	return result
@@ -374,7 +515,7 @@ func (e *GameEngine) projectImmobilize(player *Player, args []string) *CommandRe
 		name := FormatMonsterName(def, e.monAdjs)
 		return &CommandResult{
 			Messages:      []string{fmt.Sprintf("You project Immobilize at %s! Invisible force bands wrap around it, freezing it in place.", name)},
-			RoomBroadcast: []string{fmt.Sprintf("%s concentrates and %s freezes in place.", player.FirstName, name)},
+			RoomBroadcast: []string{fmt.Sprintf("%s concentrates and %s freezes in place.", e.playerDisplayName(player), name)},
 		}
 	}
 
@@ -383,8 +524,8 @@ func (e *GameEngine) projectImmobilize(player *Player, args []string) *CommandRe
 	if found != nil {
 		found.Immobilized = true
 		return &CommandResult{
-			Messages:      []string{fmt.Sprintf("You project Immobilize at %s! Invisible force bands wrap around them.", found.FirstName)},
-			RoomBroadcast: []string{fmt.Sprintf("%s concentrates and %s freezes in place.", player.FirstName, found.FirstName)},
+			Messages:      []string{fmt.Sprintf("You project Immobilize at %s! Invisible force bands wrap around them.", e.playerDisplayName(found))},
+			RoomBroadcast: []string{fmt.Sprintf("%s concentrates and %s freezes in place.", e.playerDisplayName(player), e.playerDisplayName(found))},
 			TargetName:    found.FirstName,
 			TargetMsg:     []string{"Invisible force bands wrap around you, making it impossible to move!"},
 		}
@@ -418,7 +559,7 @@ func (e *GameEngine) projectDamage(player *Player, disc *PsiDiscipline, args []s
 		// Try player target
 		found := e.findPlayerInRoom(player, targetName)
 		if found != nil {
-			return &CommandResult{Messages: []string{fmt.Sprintf("You can't project %s at %s. Psionic attacks against players are not yet implemented.", disc.Name, found.FirstName)}}
+			return &CommandResult{Messages: []string{fmt.Sprintf("You can't project %s at %s. Psionic attacks against players are not yet implemented.", disc.Name, e.playerDisplayName(found))}}
 		}
 		return &CommandResult{Messages: []string{fmt.Sprintf("You don't see '%s' here.", targetName)}}
 	}
@@ -434,7 +575,7 @@ func (e *GameEngine) projectDamage(player *Player, disc *PsiDiscipline, args []s
 	if resist > 0 && rand.Intn(100) < resist {
 		return &CommandResult{
 			Messages:      []string{fmt.Sprintf("You project %s at a %s, but it resists!", disc.Name, name)},
-			RoomBroadcast: []string{fmt.Sprintf("%s concentrates at a %s, but it resists!", player.FirstName, name)},
+			RoomBroadcast: []string{fmt.Sprintf("%s concentrates at a %s, but it resists!", e.playerDisplayName(player), name)},
 		}
 	}
 
@@ -449,28 +590,82 @@ func (e *GameEngine) projectDamage(player *Player, disc *PsiDiscipline, args []s
 	if dmg <= 0 {
 		return &CommandResult{
 			Messages:      []string{fmt.Sprintf("You project %s at a %s, but it seems unaffected!", disc.Name, name)},
-			RoomBroadcast: []string{fmt.Sprintf("%s concentrates at a %s!", player.FirstName, name)},
+			RoomBroadcast: []string{fmt.Sprintf("%s concentrates at a %s!", e.playerDisplayName(player), name)},
 		}
 	}
 
-	killed := e.damageMonster(inst.ID, dmg)
+	damageResult := e.damageMonster(player, inst.ID, dmg, false)
+	killed := damageResult.Killed
+
 	if killed {
 		deathText := def.TextOverrides["TEXD"]
 		deathMsg := fmt.Sprintf("A %s collapses, dead!", name)
+
 		if deathText != "" {
 			deathMsg = fmt.Sprintf("A %s %s", name, deathText)
 		}
+
 		e.handleMonsterDeath(player, inst, def)
 		player.CombatTarget = nil
 		player.Joined = false
+
+		messages := []string{
+			fmt.Sprintf(
+				"You project %s at a %s for %d damage!",
+				disc.Name,
+				name,
+				dmg,
+			),
+			deathMsg,
+		}
+
 		return &CommandResult{
-			Messages:      []string{fmt.Sprintf("You project %s at a %s for %d damage!", disc.Name, name, dmg), deathMsg},
-			RoomBroadcast: []string{fmt.Sprintf("%s focuses psychic energy at a %s!", player.FirstName, name), deathMsg},
+			Messages:      messages,
+			RoomBroadcast: []string{fmt.Sprintf("%s focuses psychic energy at a %s!", e.playerDisplayName(player), name), deathMsg},
 		}
 	}
+
+	messages := []string{
+		fmt.Sprintf(
+			"You project %s at a %s for %d damage!",
+			disc.Name,
+			name,
+			dmg,
+		),
+	}
+
+	if damageResult.BrokeCharm {
+		messages = append(
+			messages,
+			"The pain snaps it out of the charm.",
+		)
+	}
+
+	if damageResult.DisruptedSpell {
+		messages = append(
+			messages,
+			fmt.Sprintf("The %s's spell is disrupted!", name),
+		)
+	}
+
+	disruptedSpell := e.tryInterruptMonsterSpell(inst, def)
+
+	if disruptedSpell {
+		messages = append(
+			messages,
+			fmt.Sprintf("The %s's spell is disrupted!", name),
+		)
+	}
+
 	return &CommandResult{
-		Messages:      []string{fmt.Sprintf("You project %s at a %s for %d damage!", disc.Name, name, dmg)},
-		RoomBroadcast: []string{fmt.Sprintf("%s focuses psychic energy at a %s!", player.FirstName, name)},
+		Messages: messages,
+		RoomBroadcast: []string{
+			fmt.Sprintf(
+				"%s focuses psychic energy at a %s!",
+				e.playerDisplayName(player),
+				name,
+			),
+		},
 	}
 }
 
@@ -494,7 +689,7 @@ func (e *GameEngine) projectBuff(player *Player, disc *PsiDiscipline) *CommandRe
 	}
 	return &CommandResult{
 		Messages:      []string{msg},
-		RoomBroadcast: []string{fmt.Sprintf("%s concentrates intensely.", player.FirstName)},
+		RoomBroadcast: []string{fmt.Sprintf("%s concentrates intensely.", e.playerDisplayName(player))},
 	}
 }
 
@@ -518,19 +713,20 @@ func (e *GameEngine) projectTeleport(ctx context.Context, player *Player, args [
 		return &CommandResult{Messages: []string{"That mark leads to a room that no longer exists."}}
 	}
 	oldRoom := player.RoomNumber
+	player.ResetRoomVars()
 	player.RoomNumber = roomNum
 	e.SavePlayer(ctx, player)
 	lookResult := e.doLook(player)
 	result := &CommandResult{
 		Messages:      append([]string{"You project Teleportation! The world blurs around you..."}, lookResult.Messages...),
-		RoomBroadcast: []string{fmt.Sprintf("%s appears in a flash of psionic energy.", player.FirstName)},
+		RoomBroadcast: []string{fmt.Sprintf("%s appears in a flash of psionic energy.", e.playerDisplayName(player))},
 		RoomName:      lookResult.RoomName,
 		RoomDesc:      lookResult.RoomDesc,
 		Exits:         lookResult.Exits,
 		Items:         lookResult.Items,
 	}
 	result.OldRoom = oldRoom
-	result.OldRoomMsg = []string{fmt.Sprintf("%s vanishes in a flash of psionic energy!", player.FirstName)}
+	result.OldRoomMsg = []string{fmt.Sprintf("%s vanishes in a flash of psionic energy!", e.playerDisplayName(player))}
 	return result
 }
 
@@ -556,7 +752,7 @@ func (e *GameEngine) projectManipulateLock(player *Player, args []string) *Comma
 		}
 		// Skill check: psi skill + willpower vs lock difficulty
 		psiSkill := player.Skills[26] + player.Skills[28]
-		chance := 40 + psiSkill*3 + player.Willpower/5
+		chance := 40 + psiSkill*3 + player.EffectiveStat(StatWillpower)/5
 		if player.IsGM {
 			chance = 100
 		}
@@ -566,12 +762,12 @@ func (e *GameEngine) projectManipulateLock(player *Player, args []string) *Comma
 			e.notifyRoomChange(RoomChange{RoomNumber: player.RoomNumber, Type: "item_state", ItemRef: ri.Ref, NewState: "CLOSED"})
 			return &CommandResult{
 				Messages:      []string{fmt.Sprintf("You concentrate on %s... The lock clicks open!", displayName)},
-				RoomBroadcast: []string{fmt.Sprintf("%s stares intently at %s.", player.FirstName, displayName)},
+				RoomBroadcast: []string{fmt.Sprintf("%s stares intently at %s.", e.playerDisplayName(player), displayName)},
 			}
 		}
 		return &CommandResult{
 			Messages:      []string{fmt.Sprintf("You concentrate on %s but the lock resists your mental force.", displayName)},
-			RoomBroadcast: []string{fmt.Sprintf("%s stares intently at %s.", player.FirstName, displayName)},
+			RoomBroadcast: []string{fmt.Sprintf("%s stares intently at %s.", e.playerDisplayName(player), displayName)},
 		}
 	}
 	return &CommandResult{Messages: []string{"You don't see anything locked here."}}

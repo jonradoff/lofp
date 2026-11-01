@@ -375,6 +375,10 @@ BUY_ARMOR
 CALL 33
 ITEM 9 693 ADJ1=10
 
+;ITEM 0 168 VAL3=225
+;ITEM 1 168 VAL3=225
+;ITEM 2 168 VAL3=225
+
 *DESCRIPTION_START
 The Armorer's Guild buys a surprising variety of old and damaged weapons from local adventurers and melts them down to make the new weaponry and armor on display. Would be owners may examine the manuscript on the table to see what new equipment can be afforded. Main Street continues west behind the stalls.
 *DESCRIPTION_END
@@ -389,6 +393,9 @@ EXIT N 223
 EXIT W 254
 ITEM 0 396
 ITEM 1 202
+
+;ITEM 0 168 VAL3=301
+
 *DESCRIPTION_START ITEM ON 0
 There is a manuscript detailing the items for sale by the Armorers Guild here.
 *DESCRIPTION_END
@@ -1788,6 +1795,12 @@ EXIT SE 291
 EXIT SW 290
 EXIT ABOVE 2152
 ITEM 0 68 ADJ1=25 ADJ2=192 VAL2=2605
+IFTOUCH 0
+    ECHO OTHERS %N touches the black metal gate...
+    ECHO PLAYER You touch the black metal gate...
+    DAMAGE ELECTRIC 15 %N is struck by an arc of lightning from the gate!
+    CLEARVERB
+ENDIF
 ;
 NUMBER 290
 NAME Poor Quarter
